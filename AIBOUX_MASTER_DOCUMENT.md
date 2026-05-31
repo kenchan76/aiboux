@@ -53,9 +53,9 @@ Current active rules:
 
 ### 現在の確定状態
 
-- 最新remote HEAD: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab`。
-- 最新local HEAD: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab`。
-- 最新deploy対象commit: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab` をベースにした日本語マスター更新作業ツリー。最終commit hashは実行ログと最終報告で確定する。
+- 最新remote HEAD: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` を基準に、さらに本正本を厚くする更新を行う。
+- 最新local HEAD: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` を基準に、さらに本正本を厚くする更新を行う。
+- 最新deploy対象commit: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` をベースにした日本語マスター深化作業ツリー。最終commit hashは実行ログと最終報告で確定する。
 - Worker名: `aiboux`。
 - 最新Worker Version ID: 日本語m68公開URLではCloudflare Worker Version Metadataにより `__WORKER_VERSION_ID__` を実Worker Version IDへ置換する。実測値は `all_log/83_master_japanese_rewrite_and_public_reflection.md` に記録する。
 - Worker Version Timestamp: 日本語m68公開URLではCloudflare Worker Version Metadataにより `__WORKER_VERSION_TIMESTAMP__` を実timestampへ置換する。
@@ -65,6 +65,14 @@ Current active rules:
   - マスター: `https://mail.aiboux.com/g/m68`
   - ログ: `https://mail.aiboux.com/g/l68`
   - 画面: `https://mail.aiboux.com/g/d68`
+
+### 今回の結論
+
+AIBOUXでは、シリーズ全体のサービス紹介、各サービスのサービスサイト、テナント別の業務画面、Shopのストアフロント、Shopの管理画面をURL上で分離する。サブドメイン直下はサービスサイトに固定し、テナント固有画面は `/s/{tenantSlug}` 配下に置く。今回の仮tenantSlugは `aiboux` とする。
+
+Mailでは、旧 `mail.aiboux.com/` にあったテナント業務画面を `mail.aiboux.com/s/aiboux/` へ移し、`mail.aiboux.com/` はMailサービスサイトとして確定した。Shopでは、`shop.aiboux.com/` をストアフロント直URLに戻さず、Shopサービスサイトとして確定した。Shopストアフロントは `shop.aiboux.com/s/aiboux/`、Shop管理画面は `shop.aiboux.com/s/aiboux/admin` とする。
+
+この作業はURL設計と公開アセットの反映であり、既存の `tenant_id`、`shop_id`、`mailbox_id`、`user_id` を作り直す作業ではない。既存データの削除、破壊的migration、ID再採番は行わない。
 
 ### URL設計の正仕様
 
@@ -77,15 +85,15 @@ Current active rules:
 - `shop.aiboux.com/s/aiboux/` はShopストアフロント。
 - `shop.aiboux.com/s/aiboux/admin` はShop管理画面。
 
-### 移行判定表
+### 旧URLから新URLへの移行判定表
 
-| URL | 旧状態 | 新状態 | 判定 | 備考 |
+| URL | 旧状態 | 新状態 | 判定 | 移行理由 |
 |---|---|---|---|---|
-| `mail.aiboux.com/` | Mailテナント業務画面 | Mailサービスサイト | サービスサイト | 旧業務画面は `/s/aiboux/` へ |
-| `mail.aiboux.com/s/aiboux/` | なし/未配置 | 旧Mailテナント業務画面 | 業務/管理画面 | メールボックス、受信トレイ、管理者 |
-| `shop.aiboux.com/` | ストアフロント直URLにされていた | Shopサービスサイト | サービスサイト | 直下をストアフロントにしない |
-| `shop.aiboux.com/s/aiboux/` | なし/未配置 | Shopストアフロント | 顧客向けフロント | 独自ドメイン相当 |
-| `shop.aiboux.com/s/aiboux/admin` | なし/未配置 | Shop管理画面 | 管理画面 | 独自ドメインには置かない |
+| `mail.aiboux.com/` | Mailテナント業務画面 | Mailサービスサイト | サービスサイト | サブドメイン直下はサービス紹介サイトに統一するため |
+| `mail.aiboux.com/s/aiboux/` | 未配置 | 旧Mailテナント業務画面 | 業務/管理画面 | メールボックス、受信トレイ、管理者など業務UIだったため |
+| `shop.aiboux.com/` | ストアフロント直URLにされていた | Shopサービスサイト | サービスサイト | aibouxシリーズのサブドメイン直下はサービスサイトで固定するため |
+| `shop.aiboux.com/s/aiboux/` | 未配置 | Shopストアフロント | 顧客向けフロント | テナントstorefrontは `/s/{tenantSlug}/` に置くため |
+| `shop.aiboux.com/s/aiboux/admin` | 未配置 | Shop管理画面 | 管理画面 | shop管理画面は `/s/{tenantSlug}/admin` に置くため |
 
 ### 旧URLから新URLへの移行
 
@@ -99,9 +107,13 @@ Current active rules:
 
 Mailは、サブドメイン直下 `mail.aiboux.com/` がテナント業務画面になっていたため、サービスサイトとテナント業務画面の境界が曖昧だった。AIBOUX全体のURL設計では、サブドメイン直下はサービスサイト、テナント固有画面は `/s/{tenantSlug}` 配下に置く。したがって旧Mailテナント業務画面は `mail.aiboux.com/s/aiboux/` へ移し、`mail.aiboux.com/` はMailサービスサイトとして確定する。
 
+旧 `mail.aiboux.com/` は、メールボックス、受信トレイ、メール詳細、管理者向け操作を含むテナント業務画面として振る舞っていた。これはサービス紹介サイトではなく、特定テナントの業務UIである。後続作業でMailテナント画面を探す場合は、直下ではなく `mail.aiboux.com/s/aiboux/` を見る。
+
 ### Shopの移行理由
 
 Shopは、`shop.aiboux.com/` がストアフロント直URLとして扱われていたため、AIBOUX SHOPのサービスサイトと顧客向けストアフロントが混在していた。正仕様では `shop.aiboux.com/` はサービスサイト、`shop.aiboux.com/s/{tenantSlug}/` はストアフロント、`shop.aiboux.com/s/{tenantSlug}/admin` は管理画面である。したがって `shop.aiboux.com/` をストアフロント直URLへ戻してはいけない。
+
+`shop.aiboux.com/s/aiboux/` は顧客向けストアフロントである。商品一覧、商品詳細、カート、購入導線など顧客が見る画面はここに属する。`shop.aiboux.com/s/aiboux/admin` は管理画面である。商品管理、注文管理、在庫、設定など運営者が操作する画面はここに属する。
 
 ### 独自ドメイン方針
 
@@ -110,6 +122,25 @@ Shopは、`shop.aiboux.com/` がストアフロント直URLとして扱われて
 - 管理画面は必ず `shop.aiboux.com/s/{tenantSlug}/admin` に置く。
 - 独自ドメインは内部的に `shop.aiboux.com/s/{tenantSlug}/` 相当のストアフロントへ解決する。
 - 独自ドメインに管理画面、請求画面、tenant管理画面を混ぜない。
+
+この方針は、顧客に見せる公開店舗と、運営者が使う管理画面を混在させないために必要である。独自ドメイン側に `/admin` を置くと、SEO、認証、ブランド表示、顧客向け導線、管理者向け導線が混ざり、将来の権限事故やキャッシュ事故の原因になる。
+
+### データ移行方針
+
+- 今回の作業はURL設計、ルーティング、静的公開アセット、正本マスターの更新である。
+- D1の既存テナント、既存Shop、既存Mail box、既存ユーザーを削除しない。
+- URL移行のために既存データを作り直さない。
+- 破壊的migration、テーブルdrop、既存行delete、ID再採番は行わない。
+- 既存データの読み先を変える必要がある場合は、事前にdry-run inventory、差分レビュー、ユーザー承認を取る。
+
+### 既存ID保護方針
+
+- 既存 `tenant_id` を作り直さない。
+- 既存 `shop_id` を作り直さない。
+- 既存 `mailbox_id` を作り直さない。
+- 既存 `user_id` を作り直さない。
+- URLの見え方が変わっても、内部ID、D1行、R2オブジェクト、既存関連づけを勝手に再生成しない。
+- IDの作り直しが必要に見える場合は、実装せず `USER_ACTION_REQUIRED` として理由、対象ID、影響範囲、rollback不能性を明記して止める。
 
 ### 公開m68反映証跡
 
@@ -148,6 +179,21 @@ Shopは、`shop.aiboux.com/` がストアフロント直URLとして扱われて
 - Bark receipt policy は補助情報。
 - Worker Version ID actual value は必須証跡。
 - `npm run gate:aiboux` の最新結果は各実行ログに記録する。
+
+### 公開URL検証結果
+
+Codex/SSH側のcurl証跡を正とする。外部fetch経路で `/g/*` がCache missまたはfetch失敗になる場合があっても、それだけを理由に再修正ループしない。
+
+| URL | 期待状態 | 検証観点 |
+|---|---|---|
+| `https://mail.aiboux.com/` | Mailサービスサイト | HTTP 200、HTML、CSS asset 200 |
+| `https://mail.aiboux.com/s/aiboux/` | 旧Mailテナント業務画面 | HTTP 200、HTML、CSS asset 200 |
+| `https://shop.aiboux.com/` | Shopサービスサイト | HTTP 200、HTML、CSS asset 200 |
+| `https://shop.aiboux.com/s/aiboux/` | Shopストアフロント | HTTP 200、HTML、CSS asset 200 |
+| `https://shop.aiboux.com/s/aiboux/admin` | Shop管理画面 | HTTP 200、HTML、CSS asset 200 |
+| `https://mail.aiboux.com/g/m68` | 日本語正本マスター | HTTP 200、`text/markdown; charset=utf-8` |
+| `https://mail.aiboux.com/g/l68` | 実行ログ | HTTP 200、`text/markdown; charset=utf-8` |
+| `https://mail.aiboux.com/g/d68` | 画面証跡 | HTTP 200、`text/markdown; charset=utf-8` |
 
 ### Worker証跡
 
@@ -202,6 +248,8 @@ Classification Cは未承認。削除、移動、アーカイブ、reset、clean
 - `mail.aiboux.com/` をテナント直URLに戻すこと禁止。
 - `aiboux.com` をテナントURLにすること禁止。
 - 既存 `tenant_id` / `shop_id` / `mailbox_id` / `user_id` の作り直し禁止。
+- 既存D1データ、R2データ、tenant関連づけをURL移行名目で破壊しない。
+- 公開m68が旧本文または英語主体の本文のままなら完了報告禁止。
 
 ### 次タスク
 

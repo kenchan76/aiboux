@@ -1,0 +1,162 @@
+[
+  {
+    "id": "39454289-e9d0-40ba-893b-8a5340dadbf3",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "7370c67b-8641-4014-a18f-9fb44f18c6b4",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T13:42:23.380125Z"
+  },
+  {
+    "id": "dc4e771f-5b72-43ef-a157-aabf07f14638",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "bed8226d-f04d-4073-a96b-bf14fae02a15",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T13:57:05.521998Z"
+  },
+  {
+    "id": "754679ef-5de5-4ea2-a388-2da68aebca04",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "3b022d55-6e06-4b2c-9798-88989f52ffdc",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T13:59:53.649715Z"
+  },
+  {
+    "id": "a74554b1-9f6a-4942-b6bd-2e80bf5a4ede",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "01eee47f-2987-454c-87d4-ad7439e7e96a",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T14:04:39.333125Z"
+  },
+  {
+    "id": "7f7e06f8-ce29-4f6b-a75c-94cff8b9d758",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "d3600614-d2e7-4c1e-aa91-f91fef3c15bf",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T14:19:23.243035Z"
+  },
+  {
+    "id": "ab13f87a-b776-4c94-9c25-6081db15f1af",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "f8867df3-aab9-439b-bf8d-634ada05191d",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T14:22:16.574248Z"
+  },
+  {
+    "id": "34d71362-1120-47f1-af26-8ebd5adb6c5a",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "e7b7d3a1-9224-4fd6-8009-698431b70f49",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T17:01:00.807761Z"
+  },
+  {
+    "id": "80b04f96-60c2-4a65-aa16-94a2f6cfc103",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "1ffdf544-8f27-488b-a281-60eae1c77e1b",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T17:24:44.408481Z"
+  },
+  {
+    "id": "7818a147-41b6-4d52-af06-facf4a551c3a",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "dd94cfa3-b5fa-40a7-8ab1-954b942136f3",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T17:28:43.153788Z"
+  },
+  {
+    "id": "ab9dfe13-0fab-4ef4-9055-c6481f49ca9a",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "kenchan.7648@gmail.com",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "d5e4f2de-0f98-4404-a7a1-05b2a1b00dd1",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-05-31T21:26:12.66743Z"
+  }
+]

@@ -2,7 +2,7 @@
 
 ## Task Name
 
-Rewrite Public Master M68 In Japanese And Verify Public Reflection
+Deepen Public Master M68 As Japanese Source Of Truth
 
 ## Status
 
@@ -17,28 +17,35 @@ DEPLOYED
 
 ## Current Confirmed State
 
-- Current `HEAD`: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab` before this Japanese rewrite task.
-- `origin/main`: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab` before this Japanese rewrite task.
+- Current `HEAD`: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` before this deepening task.
+- `origin/main`: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` before this deepening task.
 - Remote: `https://github.com/kenchan76/aiboux.git`.
 - Worker name: `aiboux`.
-- Latest deployed Worker Version ID for Japanese m68: `dd94cfa3-b5fa-40a7-8ab1-954b942136f3`.
-- Public `https://mail.aiboux.com/g/m68` returns the Japanese master body.
+- Latest pushed baseline before this deepening task: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c`.
+- Latest deployed Worker Version ID for deep Japanese m68: `d5e4f2de-0f98-4404-a7a1-05b2a1b00dd1`.
+- Public `https://mail.aiboux.com/g/m68` returns the deeper Japanese master body.
 - Public m68 HTTP status: `200`.
 - Public m68 content-type: `text/markdown; charset=utf-8`.
 - Public m68 cache-control: `no-store, max-age=0`.
-- Public/source normalized sha256: `9c230d89b720c5ea64230fcf03796929a8fee11e87fa367dc6c006264c2bd3d9`.
+- Public/source normalized sha256: `e860fe6616b70101ba936e3a481a1b1c1dd45e5f47991e389f74643225e96344`.
 - `npm run gate:aiboux`: `AIBOUX_GATE_PASS`.
 - GitHub repo is `https://github.com/kenchan76/aiboux.git`. ChatGPT-side connector Not Found must not be treated as repo absence; XSERVER/Codex git CLI is authoritative.
 
 ## User Instruction
 
-Rewrite `AIBOUX_MASTER_DOCUMENT.md` and public `public/g/m68.md` as a thick Japanese master. Deploy it and verify that public `https://mail.aiboux.com/g/m68` returns the Japanese master body with required sections and evidence.
+Deepen `AIBOUX_MASTER_DOCUMENT.md` and public `public/g/m68.md` as a thick Japanese master. Deploy it and verify that public `https://mail.aiboux.com/g/m68` returns the deeper Japanese master body with required sections, migration rationale, data/ID protection policy, and evidence.
 
 ## Required Public M68 Sections
 
 - `現在の確定状態`
+- `今回の結論`
 - `URL設計の正仕様`
-- `移行判定表`
+- `旧URLから新URLへの移行判定表`
+- `Mail移行の判断根拠`
+- `Shop移行の判断根拠`
+- `独自ドメイン方針`
+- `データ移行方針`
+- `既存ID保護方針`
 - `Bark通知方針`
 - `Worker証跡`
 - `dirty tree状態`
@@ -84,6 +91,6 @@ Rewrite `AIBOUX_MASTER_DOCUMENT.md` and public `public/g/m68.md` as a thick Japa
 
 ## Current Next State
 
-- Japanese public master m68 has been rebuilt, deployed, fetched, and mechanically verified.
+- Deeper Japanese public master m68 has been rebuilt, deployed, fetched, and mechanically verified.
 - Commit and normal push are pending for the documentation/evidence changes only.
 - Next task after this commit/push remains dirty tree cleanup approval and dry-run inventory.
