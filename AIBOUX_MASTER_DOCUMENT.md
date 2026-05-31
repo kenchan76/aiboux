@@ -47,6 +47,206 @@ Current active rules:
 - Implementation proof requires real Playwright screenshots and public URL verification.
 - Chat-only execution is prohibited; AIBOUX tasks must be reflected in Markdown instruction files under `ops/instructions/` before implementation.
 
+## Current Final State: Service URL Migration, Bark Policy, Worker Evidence, And Dirty Tree
+
+This section is the current authoritative completion state for the Service Subdomain Tenant URL Migration, Bark notification timing fix, Worker Version ID evidence, and dirty tree cleanup planning work completed around the pushed baseline `88a0577e78d4dd42fb88f6e99af202074ccaa254`.
+
+### Current Final State
+
+Confirmed state:
+
+- Service Subdomain Tenant URL Migration: deployed and accepted at the evidence level recorded by Codex/SSH checks.
+- Bark notification policy fix: completed.
+- Worker Version ID evidence: recorded.
+- `npm run gate:aiboux`: passed after Worker Version ID evidence was recorded.
+- Latest pushed baseline for the Bark policy and Worker evidence work: `88a0577e78d4dd42fb88f6e99af202074ccaa254`.
+- Remote repository: `https://github.com/kenchan76/aiboux.git`.
+- Actual Worker name: `aiboux`.
+- Actual Worker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`.
+- Local dirty tree cleanup plan commit: `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
+- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91` is a local-only cleanup-plan commit unless a later report states that it was pushed.
+- The dirty tree cleanup plan did not delete files, reset files, clean files, or revert source/config changes.
+
+The current URL Bundle is:
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+### URL Design Specification
+
+The current canonical URL design is:
+
+- `aiboux.com` is the AIBOUX series-wide service introduction site.
+- `*.aiboux.com` subdomain roots are service sites for each AIBOUX service.
+- Tenant business screens and storefronts live under `/s/{tenantSlug}`.
+- The current temporary tenant slug for this migration and verification work is `aiboux`.
+- `shop.aiboux.com/` is the AIBOUX SHOP service site.
+- `shop.aiboux.com/s/aiboux/` is the Shop storefront for the temporary `aiboux` tenant.
+- `shop.aiboux.com/s/aiboux/admin` is the Shop management screen.
+- `mail.aiboux.com/` is the AIBOUX Mail service site.
+- `mail.aiboux.com/s/aiboux/` is the former Mail tenant business screen moved under the tenant path.
+- A custom domain for a shop must resolve to storefront behavior equivalent to `shop.aiboux.com/s/{tenantSlug}/`.
+
+Do not regress these decisions:
+
+- Do not change `shop.aiboux.com/` back to a storefront direct URL.
+- Do not change `mail.aiboux.com/` back to a tenant direct URL.
+- Do not use `aiboux.com` as a tenant URL.
+- Do not recreate existing tenant, shop, mailbox, or user IDs as part of this URL design.
+
+### Migrated URL Verification
+
+The following URLs were verified by Codex/SSH-side checks and recorded as the primary evidence path for this work:
+
+- `https://mail.aiboux.com/`
+- `https://mail.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/`
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin`
+- `https://mail.aiboux.com/g/m68`
+- `https://mail.aiboux.com/g/l68`
+- `https://mail.aiboux.com/g/d68`
+
+Verification result:
+
+- All 8 URLs returned HTTP 200 in the Codex/SSH-side public URL recheck.
+- The HTML service and tenant screens referenced `_astro` CSS assets, and those CSS assets returned HTTP 200.
+- `/g/m68`, `/g/l68`, and `/g/d68` returned `text/markdown; charset=utf-8`.
+- No replacement characters or disallowed control characters were detected in the fetched response bodies.
+
+Evidence location:
+
+- Public URL recheck: `all_log/78_codex_public_url_recheck_after_push.md`.
+- Worker Version ID evidence: `all_log/79_worker_version_id_evidence_after_push.md`.
+- Dirty tree cleanup plan: `all_log/80_dirty_tree_cleanup_plan.md`.
+
+External web fetch paths may report `Cache miss` for some `/g/*` or sub-URL paths. Do not treat that alone as a reason to reopen the URL migration if the Codex/SSH-side public checks and Playwright evidence are present and current.
+
+### Bark Notification Policy
+
+Bark notification timing is fixed to URL Bundle only.
+
+The current policy is:
+
+- Bark may be sent only after the URL Bundle has already been output to stdout, `all_log`, or the final chat report.
+- If no URL Bundle exists, Bark must skip with `URL_BUNDLE_REQUIRED_BEFORE_BARK`.
+- Bark delivery and receipt confirmation are notification evidence only.
+- Bark receipt confirmation is not a completion gate.
+- Missing or unconfirmed `userReceiptConfirmed` must not downgrade a verified task to `USER_ACTION_REQUIRED`.
+- Bark body must include the Master URL, Log URL, Screen URL, Worker Version ID, and final status.
+- Bark must not replace primary completion evidence.
+
+Forbidden Bark timing:
+
+- work start;
+- watcher start or stop;
+- running state;
+- local build PASS;
+- deploy PASS;
+- Playwright PASS;
+- review OK/NG;
+- automatic fix completion;
+- intermediate errors;
+- waiting for Bark receipt confirmation.
+
+Bark secrets must never be printed or written to repository files, `all_log`, public URLs, screenshots, chat, `.env`, `.dev.vars`, or master documents.
+
+### Gate Separation Policy
+
+Gate behavior must remain separated by task scope:
+
+- `generic` and `service-url-routing` gates are separate from Core delivery-detail gates.
+- Service URL routing work must not be blocked by unrelated Core delivery-detail `/g` checks.
+- Core delivery-detail UI gates remain required for Core delivery-detail UI tasks.
+- Bark receipt policy is supplemental and must not be treated as a final completion blocker.
+- Worker Version ID actual value is required deployment evidence when the deployment gate is in scope.
+- AI reviewer output is advisory unless a task explicitly requires it; reviewer non-response is not approval.
+
+Latest known gate result:
+
+- `npm run gate:aiboux`: `AIBOUX_GATE_PASS` after Worker Version ID evidence was added.
+- The full master update task reran `npm run gate:aiboux` and recorded `AIBOUX_GATE_PASS` in `all_log/81_master_document_full_update.md`.
+
+### Worker Evidence
+
+Worker evidence recorded for this work:
+
+- Worker name: `aiboux`
+- Actual Worker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`
+- Evidence log: `all_log/79_worker_version_id_evidence_after_push.md`
+
+Source commands used for read-only evidence:
+
+```text
+npx wrangler versions list --name aiboux --json
+npx wrangler deployments list --name aiboux --json
+```
+
+Recorded deployment summary:
+
+- Deployment ID: `ab13f87a-b776-4c94-9c25-6081db15f1af`
+- Deployment `created_on`: `2026-05-31T14:22:16.574248Z`
+- Version percentage: `100`
+
+### Git History
+
+Relevant Git state:
+
+- `baaefcb7256161866d916db3b7cbe745f4546b29`: `fix: send Bark only after URL bundle output`.
+- `88a0577e78d4dd42fb88f6e99af202074ccaa254`: latest pushed commit after Worker Version ID evidence and gate pass.
+- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`: dirty tree cleanup plan commit, local-only unless a later report states it was pushed.
+- Remote: `https://github.com/kenchan76/aiboux.git`.
+- At the start of the full master update task, `origin/main` was `88a0577e78d4dd42fb88f6e99af202074ccaa254` and local `HEAD` was `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
+
+### Dirty Tree State
+
+Fresh dirty tree counts recorded by the cleanup plan:
+
+- `git status --short`: 344 lines.
+- `git status --short --untracked-files=all`: 1214 lines.
+- Untracked files: 1202.
+- Tracked source/config diffs: 12.
+
+Classification:
+
+- A: required for the next task. This includes app/source/config/test/gate/Cloudflare files such as `src/`, `db/`, `migrations/`, `scripts/`, `tests/`, `wrangler.toml`, `package.json`-related changes, and related runtime or verification files.
+- B: evidence to preserve. This includes `all_log/`, `output/`, `docs/`, `ops/`, screenshots, review packs, and test results that may be needed for audit or handoff.
+- C: deletion candidates requiring user approval. This includes `.vscode/starwind.code-snippets`, zero-byte marker files such as `AIBOUX`, `Mailサービスサイト`, `対応テナントの`, `旧`, `public/temp/imagegen/.gitkeep`, and generated `output/` or old `all_log/` items only after an explicit archive/delete decision.
+
+Classification C is not approved for deletion. Do not delete, move, archive, reset, clean, or revert any dirty tree item until the user gives an explicit cleanup decision.
+
+### Absolute Prohibitions For The Current State
+
+The following are prohibited unless the user explicitly approves the specific operation:
+
+- `git reset --hard`;
+- `git clean -fd`;
+- `git clean -fdx`;
+- `rm -rf`;
+- deleting untracked files;
+- reverting tracked source/config diffs;
+- changing source/config implementation outside the requested scope;
+- sending Bark before the URL Bundle has been output;
+- printing secrets, PATs, API keys, tokens, `.env`, `.dev.vars`, or Bark endpoint URLs containing secrets;
+- force pushing;
+- changing `shop.aiboux.com/` back to a storefront direct URL;
+- changing `mail.aiboux.com/` back to a tenant direct URL;
+- changing `aiboux.com` into a tenant URL.
+
+### Next Task
+
+The next task is dirty tree cleanup planning and approval, not destructive cleanup.
+
+Required next steps:
+
+- run a dry-run inventory of the dirty tree;
+- review the 12 tracked source/config diffs;
+- categorize the 1202 untracked files;
+- present deletion candidates as `USER_ACTION_REQUIRED`;
+- wait for explicit user approval before deletion, archival moves, reset, clean, or source-control restructuring;
+- never begin with `git clean`.
+
 Human approval remains required for:
 - `git push`;
 - destructive DB migration;
