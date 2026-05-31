@@ -47,210 +47,170 @@ Current active rules:
 - Implementation proof requires real Playwright screenshots and public URL verification.
 - Chat-only execution is prohibited; AIBOUX tasks must be reflected in Markdown instruction files under `ops/instructions/` before implementation.
 
-## Current Final State: Service URL Migration, Bark Policy, Worker Evidence, And Dirty Tree
+## 現在の確定状態: サービスURL移行、Bark方針、Worker証跡、dirty tree
 
-This section is the current authoritative completion state for the Service Subdomain Tenant URL Migration, Bark notification timing fix, Worker Version ID evidence, and dirty tree cleanup planning work completed around the pushed baseline `88a0577e78d4dd42fb88f6e99af202074ccaa254`.
+この節は、Service Subdomain Tenant URL Migration、Bark notification policy fix、Worker Version ID evidence、公開マスターURL `/g/m68`、dirty tree cleanup planning の現時点の正本です。
 
-### Current Final State
+### 現在の確定状態
 
-This section mirrors the public master artifact source `public/g/m68.md`. `AIBOUX_MASTER_DOCUMENT.md` remains the repository source of truth, and `/g/m68` is the user-visible master URL for this same state.
+- 最新remote HEAD: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab`。
+- 最新local HEAD: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab`。
+- 最新deploy対象commit: `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab` をベースにした日本語マスター更新作業ツリー。最終commit hashは実行ログと最終報告で確定する。
+- Worker名: `aiboux`。
+- 最新Worker Version ID: 日本語m68公開URLではCloudflare Worker Version Metadataにより `__WORKER_VERSION_ID__` を実Worker Version IDへ置換する。実測値は `all_log/83_master_japanese_rewrite_and_public_reflection.md` に記録する。
+- Worker Version Timestamp: 日本語m68公開URLではCloudflare Worker Version Metadataにより `__WORKER_VERSION_TIMESTAMP__` を実timestampへ置換する。
+- gate:aiboux: 日本語m68作業で `AIBOUX_GATE_PASS` を再確認済み。
+- 公開m68反映: `https://mail.aiboux.com/g/m68` が日本語正本本文を返すことを完了条件にする。
+- URL Bundle:
+  - マスター: `https://mail.aiboux.com/g/m68`
+  - ログ: `https://mail.aiboux.com/g/l68`
+  - 画面: `https://mail.aiboux.com/g/d68`
 
-Confirmed state:
+### URL設計の正仕様
 
-- Service Subdomain Tenant URL Migration: deployed and accepted at the evidence level recorded by Codex/SSH checks.
-- Bark notification policy fix: completed.
-- Worker Version ID evidence: recorded.
-- `npm run gate:aiboux`: passed after Worker Version ID evidence was recorded.
-- Latest pushed baseline for the Bark policy and Worker evidence work: `88a0577e78d4dd42fb88f6e99af202074ccaa254`.
-- Remote repository: `https://github.com/kenchan76/aiboux.git`.
-- Actual Worker name: `aiboux`.
-- Actual Worker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`.
-- Dirty tree cleanup plan commit: `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
-- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91` is now part of the pushed branch history because later commit `0ddedfd7dc54896939580b20997fbb0a01820914` was pushed.
-- Latest pushed master-document source update before the public m68 deployment task: `0ddedfd7dc54896939580b20997fbb0a01820914`.
-- The dirty tree cleanup plan did not delete files, reset files, clean files, or revert source/config changes.
+- `aiboux.com` はAIBOUXシリーズ全体のサービス紹介サイト。
+- `*.aiboux.com` のサブドメイン直下は各サービスのサービスサイト。
+- テナント別の業務画面、管理画面、ストアフロントは `/s/{tenantSlug}` 配下に置く。
+- 今回の仮tenantSlugは `aiboux`。
+- `mail.aiboux.com/` はMailサービスサイト。旧Mailテナント業務画面は `mail.aiboux.com/s/aiboux/` へ移行した。
+- `shop.aiboux.com/` はAIBOUX SHOPサービスサイト。ストアフロント直URLに戻してはいけない。
+- `shop.aiboux.com/s/aiboux/` はShopストアフロント。
+- `shop.aiboux.com/s/aiboux/admin` はShop管理画面。
 
-The current URL Bundle is:
+### 移行判定表
 
-- Master: `https://mail.aiboux.com/g/m68`
-- Log: `https://mail.aiboux.com/g/l68`
-- Screen: `https://mail.aiboux.com/g/d68`
+| URL | 旧状態 | 新状態 | 判定 | 備考 |
+|---|---|---|---|---|
+| `mail.aiboux.com/` | Mailテナント業務画面 | Mailサービスサイト | サービスサイト | 旧業務画面は `/s/aiboux/` へ |
+| `mail.aiboux.com/s/aiboux/` | なし/未配置 | 旧Mailテナント業務画面 | 業務/管理画面 | メールボックス、受信トレイ、管理者 |
+| `shop.aiboux.com/` | ストアフロント直URLにされていた | Shopサービスサイト | サービスサイト | 直下をストアフロントにしない |
+| `shop.aiboux.com/s/aiboux/` | なし/未配置 | Shopストアフロント | 顧客向けフロント | 独自ドメイン相当 |
+| `shop.aiboux.com/s/aiboux/admin` | なし/未配置 | Shop管理画面 | 管理画面 | 独自ドメインには置かない |
 
-### URL Design Specification
+### 旧URLから新URLへの移行
 
-The current canonical URL design is:
+- `mail.aiboux.com/` にあった旧Mailテナント業務画面は `mail.aiboux.com/s/aiboux/` へ移行済み。
+- `mail.aiboux.com/` は、AIBOUX Mailのサービス紹介、導線、サービス直下の入口として扱う。
+- `shop.aiboux.com/` は、ストアフロント直URLではなく、AIBOUX SHOPのサービスサイトとして扱う。
+- `shop.aiboux.com/s/aiboux/` は、今回の仮tenantSlug `aiboux` のShopストアフロントとして扱う。
+- `shop.aiboux.com/s/aiboux/admin` は、今回の仮tenantSlug `aiboux` のShop管理画面として扱う。
 
-- `aiboux.com` is the AIBOUX series-wide service introduction site.
-- `*.aiboux.com` subdomain roots are service sites for each AIBOUX service.
-- Tenant business screens and storefronts live under `/s/{tenantSlug}`.
-- The current temporary tenant slug for this migration and verification work is `aiboux`.
-- `shop.aiboux.com/` is the AIBOUX SHOP service site.
-- `shop.aiboux.com/s/aiboux/` is the Shop storefront for the temporary `aiboux` tenant.
-- `shop.aiboux.com/s/aiboux/admin` is the Shop management screen.
-- `mail.aiboux.com/` is the AIBOUX Mail service site.
-- `mail.aiboux.com/s/aiboux/` is the former Mail tenant business screen moved under the tenant path.
-- A custom domain for a shop must resolve to storefront behavior equivalent to `shop.aiboux.com/s/{tenantSlug}/`.
+### Mailの移行理由
 
-Do not regress these decisions:
+Mailは、サブドメイン直下 `mail.aiboux.com/` がテナント業務画面になっていたため、サービスサイトとテナント業務画面の境界が曖昧だった。AIBOUX全体のURL設計では、サブドメイン直下はサービスサイト、テナント固有画面は `/s/{tenantSlug}` 配下に置く。したがって旧Mailテナント業務画面は `mail.aiboux.com/s/aiboux/` へ移し、`mail.aiboux.com/` はMailサービスサイトとして確定する。
 
-- Do not change `shop.aiboux.com/` back to a storefront direct URL.
-- Do not change `mail.aiboux.com/` back to a tenant direct URL.
-- Do not use `aiboux.com` as a tenant URL.
-- Do not recreate existing tenant, shop, mailbox, or user IDs as part of this URL design.
+### Shopの移行理由
 
-### Migrated URL Verification
+Shopは、`shop.aiboux.com/` がストアフロント直URLとして扱われていたため、AIBOUX SHOPのサービスサイトと顧客向けストアフロントが混在していた。正仕様では `shop.aiboux.com/` はサービスサイト、`shop.aiboux.com/s/{tenantSlug}/` はストアフロント、`shop.aiboux.com/s/{tenantSlug}/admin` は管理画面である。したがって `shop.aiboux.com/` をストアフロント直URLへ戻してはいけない。
 
-The following URLs were verified by Codex/SSH-side checks and recorded as the primary evidence path for this work:
+### 独自ドメイン方針
 
-- `https://mail.aiboux.com/`
-- `https://mail.aiboux.com/s/aiboux/`
-- `https://shop.aiboux.com/`
-- `https://shop.aiboux.com/s/aiboux/`
-- `https://shop.aiboux.com/s/aiboux/admin`
-- `https://mail.aiboux.com/g/m68`
-- `https://mail.aiboux.com/g/l68`
-- `https://mail.aiboux.com/g/d68`
+- 独自ドメインはストアフロント専用。
+- 独自ドメインの `/admin` を管理画面にしない。
+- 管理画面は必ず `shop.aiboux.com/s/{tenantSlug}/admin` に置く。
+- 独自ドメインは内部的に `shop.aiboux.com/s/{tenantSlug}/` 相当のストアフロントへ解決する。
+- 独自ドメインに管理画面、請求画面、tenant管理画面を混ぜない。
 
-Verification result:
+### 公開m68反映証跡
 
-- All 8 URLs returned HTTP 200 in the Codex/SSH-side public URL recheck.
-- The HTML service and tenant screens referenced `_astro` CSS assets, and those CSS assets returned HTTP 200.
-- `/g/m68`, `/g/l68`, and `/g/d68` returned `text/markdown; charset=utf-8`.
-- No replacement characters or disallowed control characters were detected in the fetched response bodies.
+- 確認日時: 日本語m68デプロイ後に `all_log/83_master_japanese_rewrite_and_public_reflection.md` へ記録する。
+- curlコマンド: `curl -sS -L -D /tmp/m68-ja.headers https://mail.aiboux.com/g/m68 -o /tmp/m68-ja.body`。
+- HTTP status、content-type、cache-control、公開本文sha256、source sha256、一致/不一致、Worker Version IDは `all_log/83_master_japanese_rewrite_and_public_reflection.md` の実測値を正とする。
+- sha256は自己参照行とWorker実行時置換行を除外した正規化本文でも比較する。
 
-Evidence location:
+### Bark通知方針
 
-- Public URL recheck: `all_log/78_codex_public_url_recheck_after_push.md`.
-- Worker Version ID evidence: `all_log/79_worker_version_id_evidence_after_push.md`.
-- Dirty tree cleanup plan: `all_log/80_dirty_tree_cleanup_plan.md`.
+- BarkはURL Bundle出力後だけ送信可。
+- URL Bundleなしなら `URL_BUNDLE_REQUIRED_BEFORE_BARK` でskip。
+- Bark受領確認は完了ゲートではない。
+- `userReceiptConfirmed` 未確認で `USER_ACTION_REQUIRED` にしない。
+- Bark本文にはMaster URL、Log URL、Screen URL、Worker Version ID、最終状態を含める。
+- 作業開始、build PASS、deploy PASS、Playwright PASS、レビューOK/NG、途中エラーではBark送信禁止。
 
-External web fetch paths may report `Cache miss` for some `/g/*` or sub-URL paths. Do not treat that alone as a reason to reopen the URL migration if the Codex/SSH-side public checks and Playwright evidence are present and current.
+実装・検証対象:
 
-### Bark Notification Policy
+- `scripts/notify-bark.mjs`
+- `scripts/aiboux-gate-check.mjs`
+- `scripts/check-bark-policy.mjs`
+- `scripts/check-report-policy.mjs`
 
-Bark notification timing is fixed to URL Bundle only.
+検証観点:
 
-The current policy is:
+- URL BundleなしBark smokeはskip。
+- URL Bundle後Barkは1回のみ送信可。
+- `secretLogged=false` を維持。
+- `userReceiptConfirmed` はgateから除外。
 
-- Bark may be sent only after the URL Bundle has already been output to stdout, `all_log`, or the final chat report.
-- If no URL Bundle exists, Bark must skip with `URL_BUNDLE_REQUIRED_BEFORE_BARK`.
-- Bark delivery and receipt confirmation are notification evidence only.
-- Bark receipt confirmation is not a completion gate.
-- Missing or unconfirmed `userReceiptConfirmed` must not downgrade a verified task to `USER_ACTION_REQUIRED`.
-- Bark body must include the Master URL, Log URL, Screen URL, Worker Version ID, and final status.
-- Bark must not replace primary completion evidence.
+### Gate分離方針
 
-Forbidden Bark timing:
+- generic/service-url-routing gate と Core delivery-detail gate は分離する。
+- Service URL routing作業をCore delivery-detailの無関係な `/g` 判定で止めない。
+- Bark receipt policy は補助情報。
+- Worker Version ID actual value は必須証跡。
+- `npm run gate:aiboux` の最新結果は各実行ログに記録する。
 
-- work start;
-- watcher start or stop;
-- running state;
-- local build PASS;
-- deploy PASS;
-- Playwright PASS;
-- review OK/NG;
-- automatic fix completion;
-- intermediate errors;
-- waiting for Bark receipt confirmation.
+### Worker証跡
 
-Bark secrets must never be printed or written to repository files, `all_log`, public URLs, screenshots, chat, `.env`, `.dev.vars`, or master documents.
+- Worker name: `aiboux`。
+- 既存の実証済みWorker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`。
+- 直近の公開m68デプロイWorker Version ID: `e7b7d3a1-9224-4fd6-8009-698431b70f49`。
+- 日本語m68デプロイ後の最新Worker Version IDは `all_log/83_master_japanese_rewrite_and_public_reflection.md` へ記録する。
+- 証跡コマンド:
+  - `npx wrangler versions list --name aiboux --json`
+  - `npx wrangler deployments list --name aiboux --json`
 
-### Gate Separation Policy
+### Git履歴
 
-Gate behavior must remain separated by task scope:
+- `baaefcb7256161866d916db3b7cbe745f4546b29`: `fix: send Bark only after URL bundle output`。
+- `88a0577e78d4dd42fb88f6e99af202074ccaa254`: Worker Version ID証跡後のpush済みcommit。
+- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`: dirty tree cleanup plan commit。後続push済み履歴に含まれる。
+- `0ddedfd7dc54896939580b20997fbb0a01820914`: 英語版m68正本ソース更新commit。
+- `94d05b92b13be63d0334e2909ce00e2a6bd7f6ab`: 公開m68反映deploy証跡commit。
+- remote: `https://github.com/kenchan76/aiboux.git`。
+- GitHub repoは `https://github.com/kenchan76/aiboux.git` が正しい。ChatGPT側GitHubコネクタでNot Foundになる場合があっても、それは権限、スコープ、取得経路の問題であり、repo不存在ではない。
+- GitHub確認はXSERVER/Codex上のgit CLIを正とする。確認コマンドは `git remote -v`, `git fetch origin main`, `git rev-parse HEAD`, `git rev-parse origin/main`, `git log --oneline -5`。
 
-- `generic` and `service-url-routing` gates are separate from Core delivery-detail gates.
-- Service URL routing work must not be blocked by unrelated Core delivery-detail `/g` checks.
-- Core delivery-detail UI gates remain required for Core delivery-detail UI tasks.
-- Bark receipt policy is supplemental and must not be treated as a final completion blocker.
-- Worker Version ID actual value is required deployment evidence when the deployment gate is in scope.
-- AI reviewer output is advisory unless a task explicitly requires it; reviewer non-response is not approval.
+### dirty tree状態
 
-Latest known gate result:
+直近の確認値:
 
-- `npm run gate:aiboux`: `AIBOUX_GATE_PASS` after Worker Version ID evidence was added.
-- The full master update task reran `npm run gate:aiboux` and recorded `AIBOUX_GATE_PASS` in `all_log/81_master_document_full_update.md`.
+- `git status --short`: 345行。
+- `git status --short --untracked-files=all`: 1213行。
+- untracked files: 1201件。
+- tracked source/config diffs: 12件。
 
-### Worker Evidence
+分類:
 
-Worker evidence recorded for this work:
+- A: 次タスクに必要。app/source/config/test/gate/Cloudflare関連。
+- B: 証跡として残す。`all_log/`, `output/`, `docs/`, `ops/`, screenshots, review packs, test-results。
+- C: 削除候補だがユーザー承認待ち。`.vscode/starwind.code-snippets`, `AIBOUX`, `Mailサービスサイト`, `対応テナントの`, `旧`, `public/temp/imagegen/.gitkeep`, 古い `output/` と `all_log/` の一部。
 
-- Worker name: `aiboux`
-- Actual Worker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`
-- Evidence log: `all_log/79_worker_version_id_evidence_after_push.md`
-
-Source commands used for read-only evidence:
-
-```text
-npx wrangler versions list --name aiboux --json
-npx wrangler deployments list --name aiboux --json
-```
-
-Recorded deployment summary:
-
-- Deployment ID: `ab13f87a-b776-4c94-9c25-6081db15f1af`
-- Deployment `created_on`: `2026-05-31T14:22:16.574248Z`
-- Version percentage: `100`
-
-### Git History
-
-Relevant Git state:
-
-- `baaefcb7256161866d916db3b7cbe745f4546b29`: `fix: send Bark only after URL bundle output`.
-- `88a0577e78d4dd42fb88f6e99af202074ccaa254`: latest pushed commit after Worker Version ID evidence and gate pass.
-- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`: dirty tree cleanup plan commit, local-only unless a later report states it was pushed.
-- Remote: `https://github.com/kenchan76/aiboux.git`.
-- At the start of the full master update task, `origin/main` was `88a0577e78d4dd42fb88f6e99af202074ccaa254` and local `HEAD` was `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
-
-### Dirty Tree State
-
-Fresh dirty tree counts recorded by the cleanup plan:
-
-- `git status --short`: 344 lines.
-- `git status --short --untracked-files=all`: 1214 lines.
-- Untracked files: 1202.
-- Tracked source/config diffs: 12.
-
-Classification:
-
-- A: required for the next task. This includes app/source/config/test/gate/Cloudflare files such as `src/`, `db/`, `migrations/`, `scripts/`, `tests/`, `wrangler.toml`, `package.json`-related changes, and related runtime or verification files.
-- B: evidence to preserve. This includes `all_log/`, `output/`, `docs/`, `ops/`, screenshots, review packs, and test results that may be needed for audit or handoff.
-- C: deletion candidates requiring user approval. This includes `.vscode/starwind.code-snippets`, zero-byte marker files such as `AIBOUX`, `Mailサービスサイト`, `対応テナントの`, `旧`, `public/temp/imagegen/.gitkeep`, and generated `output/` or old `all_log/` items only after an explicit archive/delete decision.
-
-Classification C is not approved for deletion. Do not delete, move, archive, reset, clean, or revert any dirty tree item until the user gives an explicit cleanup decision.
-
-### Absolute Prohibitions For The Current State
+Classification Cは未承認。削除、移動、アーカイブ、reset、clean、revertをしてはいけない。
 
 ### 絶対禁止事項
 
-The following are prohibited unless the user explicitly approves the specific operation:
+- `git reset --hard` 禁止。
+- `git clean -fd` / `git clean -fdx` 禁止。
+- `rm -rf` 禁止。
+- 未追跡ファイル削除禁止。
+- tracked source/config diff の勝手なrevert禁止。
+- source/configの勝手な変更禁止。
+- Bark早期送信禁止。
+- secret/PAT/API key/token/`.env`/`.dev.vars` 表示禁止。
+- force push禁止。
+- `shop.aiboux.com/` をストアフロント直URLに戻すこと禁止。
+- `mail.aiboux.com/` をテナント直URLに戻すこと禁止。
+- `aiboux.com` をテナントURLにすること禁止。
+- 既存 `tenant_id` / `shop_id` / `mailbox_id` / `user_id` の作り直し禁止。
 
-- `git reset --hard`;
-- `git clean -fd`;
-- `git clean -fdx`;
-- `rm -rf`;
-- deleting untracked files;
-- reverting tracked source/config diffs;
-- changing source/config implementation outside the requested scope;
-- sending Bark before the URL Bundle has been output;
-- printing secrets, PATs, API keys, tokens, `.env`, `.dev.vars`, or Bark endpoint URLs containing secrets;
-- force pushing;
-- changing `shop.aiboux.com/` back to a storefront direct URL;
-- changing `mail.aiboux.com/` back to a tenant direct URL;
-- changing `aiboux.com` into a tenant URL.
+### 次タスク
 
-### Next Task
+- dirty treeのdry-run inventory。
+- tracked source/config diff 12件のレビュー。
+- untracked 1201件のカテゴリ集計。
+- 削除候補は `USER_ACTION_REQUIRED` でユーザー承認待ち。
+- いきなりcleanしない。
 
-The next task is dirty tree cleanup planning and approval, not destructive cleanup.
-
-Required next steps:
-
-- run a dry-run inventory of the dirty tree;
-- review the 12 tracked source/config diffs;
-- categorize the 1202 untracked files;
-- present deletion candidates as `USER_ACTION_REQUIRED`;
-- wait for explicit user approval before deletion, archival moves, reset, clean, or source-control restructuring;
-- never begin with `git clean`.
 
 Human approval remains required for:
 - `git push`;
