@@ -2,7 +2,7 @@
 
 ## Task Name
 
-Deepen Public Master M68 As Japanese Source Of Truth
+Replace M68 With Full Japanese No-Omission Service Master
 
 ## Status
 
@@ -10,60 +10,60 @@ DEPLOYED
 
 ## Source Of Truth
 
+- User instruction received on 2026-06-01.
 - `AIBOUX_MASTER_DOCUMENT.md`
 - `public/g/m68.md`
 - `ops/instructions/current.md`
-- `all_log/83_master_japanese_rewrite_and_public_reflection.md`
+- `all_log/84_master_no_omission_full_service_spec.md`
 
-## Current Confirmed State
+## Required Change
 
-- Current `HEAD`: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` before this deepening task.
-- `origin/main`: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c` before this deepening task.
-- Remote: `https://github.com/kenchan76/aiboux.git`.
-- Worker name: `aiboux`.
-- Latest pushed baseline before this deepening task: `d7f36ac98eb8b8523b7391ac73b784a1ed3f531c`.
-- Latest deployed Worker Version ID for deep Japanese m68: `d5e4f2de-0f98-4404-a7a1-05b2a1b00dd1`.
-- Public `https://mail.aiboux.com/g/m68` returns the deeper Japanese master body.
-- Public m68 HTTP status: `200`.
-- Public m68 content-type: `text/markdown; charset=utf-8`.
-- Public m68 cache-control: `no-store, max-age=0`.
-- Public/source normalized sha256: `e860fe6616b70101ba936e3a481a1b1c1dd45e5f47991e389f74643225e96344`.
-- `npm run gate:aiboux`: `AIBOUX_GATE_PASS`.
-- GitHub repo is `https://github.com/kenchan76/aiboux.git`. ChatGPT-side connector Not Found must not be treated as repo absence; XSERVER/Codex git CLI is authoritative.
+Replace `AIBOUX_MASTER_DOCUMENT.md` and `public/g/m68.md` with the full Japanese canonical master supplied by the user. Do not summarize or omit the sections for `rirekisho.aiboux.com`, `docs.aiboux.com`, Mall, File, Biz, Office, URL migration, Bark policy, Worker evidence, dirty tree state, prohibitions, or next tasks.
 
-## User Instruction
+## Worker Evidence
 
-Deepen `AIBOUX_MASTER_DOCUMENT.md` and public `public/g/m68.md` as a thick Japanese master. Deploy it and verify that public `https://mail.aiboux.com/g/m68` returns the deeper Japanese master body with required sections, migration rationale, data/ID protection policy, and evidence.
+Worker Version ID: 4a242156-127f-421f-aa57-e3c2c431a02e
 
-## Required Public M68 Sections
+## Bark Policy Gate Text
 
-- `現在の確定状態`
-- `今回の結論`
-- `URL設計の正仕様`
-- `旧URLから新URLへの移行判定表`
-- `Mail移行の判断根拠`
-- `Shop移行の判断根拠`
-- `独自ドメイン方針`
-- `データ移行方針`
-- `既存ID保護方針`
-- `Bark通知方針`
-- `Worker証跡`
-- `dirty tree状態`
-- `絶対禁止事項`
-- `次タスク`
+- Bark notification timing is fixed to URL Bundle only.
+- Bark may be sent only after the URL Bundle has already been output.
+- Bark delivery and receipt confirmation are notification evidence only.
+- Bark receipt confirmation is not a completion gate.
 
-## Required Public Reflection Evidence
+## Required Files
 
-- checked_at timestamp
-- curl command
-- HTTP status
-- content-type
-- cache-control
-- public m68 sha256
-- source `public/g/m68.md` sha256
-- source/public match or mismatch with reason
-- Worker Version ID after deploy
-- `npm run gate:aiboux` result
+- `AIBOUX_MASTER_DOCUMENT.md`
+- `public/g/m68.md`
+- `ops/instructions/current.md`
+- `all_log/84_master_no_omission_full_service_spec.md`
+
+## Required Verification
+
+- `npm run check:control-chars`
+- `npm run check:mojibake`
+- `npm run gate:aiboux`
+- `ESBUILD_WORKER_THREADS=0 npm run build`
+- `npx wrangler deploy`
+- public curl verification for `https://mail.aiboux.com/g/m68`
+- required keyword checks against public `/g/m68`
+
+## Required Commit
+
+If verification passes, commit only the required files:
+
+- `AIBOUX_MASTER_DOCUMENT.md`
+- `public/g/m68.md`
+- `ops/instructions/current.md`
+- `all_log/84_master_no_omission_full_service_spec.md`
+
+Commit message:
+
+`docs: expand master with full service specifications`
+
+Push command:
+
+`git push origin HEAD:refs/heads/main`
 
 ## Prohibited Actions
 
@@ -71,26 +71,18 @@ Deepen `AIBOUX_MASTER_DOCUMENT.md` and public `public/g/m68.md` as a thick Japan
 - Do not run `git clean -fd` or `git clean -fdx`.
 - Do not run `rm -rf`.
 - Do not delete untracked files.
-- Do not revert tracked source/config diffs.
-- Do not make unrelated source/config changes.
+- Do not revert unrelated tracked source/config diffs.
 - Do not send Bark.
 - Do not print secrets, PATs, API keys, tokens, `.env`, `.dev.vars`, or Bark endpoint URLs containing secrets.
 - Do not force push.
-- Do not change `shop.aiboux.com/` back to a storefront direct URL.
-- Do not change `mail.aiboux.com/` back to a tenant direct URL.
-- Do not change `aiboux.com` into a tenant URL.
-- Do not recreate existing `tenant_id`, `shop_id`, `mailbox_id`, or `user_id`.
-- Do not report completion while public `/g/m68` is old or English-centered.
-- Bark receipt confirmation is not a completion gate.
+- Do not change service URL routing behavior in this documentation-only task.
 
-## URL Bundle
+## Completion Conditions
 
-- Master: `https://mail.aiboux.com/g/m68`
-- Log: `https://mail.aiboux.com/g/l68`
-- Screen: `https://mail.aiboux.com/g/d68`
-
-## Current Next State
-
-- Deeper Japanese public master m68 has been rebuilt, deployed, fetched, and mechanically verified.
-- Commit and normal push are pending for the documentation/evidence changes only.
-- Next task after this commit/push remains dirty tree cleanup approval and dry-run inventory.
+- Public `https://mail.aiboux.com/g/m68` returns HTTP 200.
+- Public `/g/m68` content-type is `text/markdown; charset=utf-8`.
+- Public `/g/m68` is Japanese full-service master text, not a short URL-migration summary.
+- Public `/g/m68` includes all required service detailed sections, including 履歴書 and Docs.
+- `npm run gate:aiboux` returns `AIBOUX_GATE_PASS`.
+- Bark is not sent.
+- No reset, clean, force push, deletion, or secret exposure occurs.
