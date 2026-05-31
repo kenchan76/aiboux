@@ -2,35 +2,80 @@
 
 ## Task Name
 
-Full Master State Update For Service URL Migration And Bark Fix
+Deploy Updated Public Master M68
 
 ## Status
 
-CODE_READY
+DEPLOYED
 
 ## Source Of Truth
 
 - `AIBOUX_MASTER_DOCUMENT.md`
 - `public/g/m68.md`
 - `ops/instructions/current.md`
-- `all_log/81_master_document_full_update.md`
+- `all_log/82_m68_public_master_deploy_evidence.md`
 
 ## Current Confirmed State
 
-- Pushed baseline: `88a0577e78d4dd42fb88f6e99af202074ccaa254`.
+- Current `HEAD`: `0ddedfd7dc54896939580b20997fbb0a01820914` before this deployment task.
+- `origin/main`: `0ddedfd7dc54896939580b20997fbb0a01820914` before this deployment task.
 - Remote: `https://github.com/kenchan76/aiboux.git`.
-- Local cleanup-plan commit before this task: `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
-- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91` is local-only unless a later report states it was pushed.
 - Worker name: `aiboux`.
-- Worker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`.
-- `npm run gate:aiboux` passed after Worker Version ID evidence was recorded.
-- Dirty tree cleanup plan exists at `all_log/80_dirty_tree_cleanup_plan.md`.
-- Classification C deletion remains unapproved.
-- Full master update verification:
-  - `npm run check:control-chars`: PASS.
-  - `npm run check:mojibake`: PASS.
-  - `npm run gate:aiboux`: `AIBOUX_GATE_PASS`.
-- Public `/g/m68` curl before this commit/push still returned the previous deployed artifact; local source `public/g/m68.md` is updated and must be rechecked after push/deployment publication.
+- Previous Worker Version ID evidence: `f8867df3-aab9-439b-bf8d-634ada05191d`.
+- `public/g/m68.md` source was updated and pushed in `0ddedfd7dc54896939580b20997fbb0a01820914`.
+- Public `https://mail.aiboux.com/g/m68` still returned the old m68 body after GitHub push, so the prior report is not a complete public master update.
+- Deploy completed with Worker Version ID `e7b7d3a1-9224-4fd6-8009-698431b70f49`.
+- Public `https://mail.aiboux.com/g/m68` now returns the updated full master body.
+- Public m68 required phrase machine check passed.
+- 8 URL verification after deploy passed.
+
+## User Instruction
+
+Deploy the updated `public/g/m68.md` to Cloudflare so the public URL `https://mail.aiboux.com/g/m68` returns the new full master body. Completion requires public URL body verification, not just source update and GitHub push.
+
+## Required Commands
+
+1. Confirm Git state.
+2. Confirm `public/g/m68.md` contains required master keywords.
+3. Source `/home/pkkatsu/.aiboux-secrets/cloudflare.env` without printing its contents.
+4. Run:
+   - `npm run check:control-chars`
+   - `npm run check:mojibake`
+   - `npm run gate:aiboux`
+   - `ESBUILD_WORKER_THREADS=0 npm run build`
+   - `npx wrangler deploy`
+5. Record new Worker Version ID evidence with:
+   - `npx wrangler versions list --name aiboux --json`
+   - `npx wrangler deployments list --name aiboux --json`
+6. Verify public `https://mail.aiboux.com/g/m68` body contains required new master phrases.
+7. Verify `/g/l68`, `/g/d68`, and the 8 public URLs.
+8. Save evidence to `all_log/82_m68_public_master_deploy_evidence.md`.
+9. If only evidence and current instruction changed after deployment, commit with message `chore: deploy updated public master m68 evidence`.
+10. Push only by normal push: `git push origin HEAD:refs/heads/main`.
+
+## Required Public M68 Phrases
+
+- `AIBOUX_MASTER_DOCUMENT`
+- `Service Subdomain Tenant URL Migration`
+- `Bark notification policy`
+- `Worker Version ID`
+- `f8867df3-aab9-439b-bf8d-634ada05191d`
+- `dirty tree`
+- `URL Bundle`
+- `絶対禁止事項`
+
+## Prohibited Actions
+
+- Do not run `git reset --hard`.
+- Do not run `git clean -fd` or `git clean -fdx`.
+- Do not run `rm -rf`.
+- Do not force push.
+- Do not print secrets, PATs, API keys, tokens, `.env`, `.dev.vars`, or Bark endpoint URLs containing secrets.
+- Do not revert source/config diffs.
+- Do not delete Classification C files.
+- Do not send Bark before URL Bundle output.
+- Do not report completion while public `/g/m68` still returns the old body.
+- Bark receipt confirmation is not a completion gate.
 
 ## URL Bundle
 
@@ -38,62 +83,8 @@ CODE_READY
 - Log: `https://mail.aiboux.com/g/l68`
 - Screen: `https://mail.aiboux.com/g/d68`
 
-## User Instruction
-
-Update the authoritative master state, not implementation code. `AIBOUX_MASTER_DOCUMENT.md` and `/g/m68` must include the full current specification, completed state, remaining dirty tree state, prohibitions, and next task.
-
-## Required Updates
-
-1. Update `AIBOUX_MASTER_DOCUMENT.md`.
-2. Update the `/g/m68` source file: `public/g/m68.md`.
-3. Update `ops/instructions/current.md`.
-4. Create `all_log/81_master_document_full_update.md`.
-5. Run `npm run check:control-chars`.
-6. Run `npm run check:mojibake`.
-7. Run `npm run gate:aiboux`.
-8. If possible, curl `https://mail.aiboux.com/g/m68` and record whether the public body reflects the local source.
-9. If only the allowed documentation/artifact files changed, commit with message `docs: update master state for service URL migration`.
-10. Push only by normal push: `git push origin HEAD:refs/heads/main`.
-
-## Prohibited Actions
-
-- Do not edit `src/` implementation.
-- Do not edit `db/`.
-- Do not edit `migrations/`.
-- Do not edit `wrangler.toml`.
-- Do not edit `package.json`.
-- Do not edit `tests/`.
-- Do not edit secrets or Cloudflare settings.
-- Do not delete untracked files.
-- Do not revert tracked source/config diffs.
-- Do not run `git reset --hard`.
-- Do not run `git clean -fd` or `git clean -fdx`.
-- Do not run `rm -rf`.
-- Do not send Bark.
-- Do not print secrets, PATs, API keys, tokens, `.env`, `.dev.vars`, or Bark endpoint URLs containing secrets.
-- Do not force push.
-- Do not change `shop.aiboux.com/` back to a storefront direct URL.
-- Do not change `mail.aiboux.com/` back to a tenant direct URL.
-- Do not change `aiboux.com` into a tenant URL.
-- Bark receipt confirmation is not a completion gate.
-
-## Required Master Content
-
-The updated master and `/g/m68` must include:
-
-- current final state;
-- canonical URL design;
-- migrated URL verification results;
-- URL Bundle;
-- Bark notification policy;
-- gate separation policy;
-- Worker evidence;
-- Git history;
-- dirty tree state;
-- absolute prohibitions;
-- next task.
-
 ## Current Next State
 
-- Next task after this master update: dirty tree dry-run inventory and cleanup approval.
-- Any deletion remains `USER_ACTION_REQUIRED`.
+- Public `/g/m68` deployment and body verification completed.
+- Next task remains dirty tree dry-run inventory and cleanup approval.
+- Classification C deletion remains unapproved and must not be performed.

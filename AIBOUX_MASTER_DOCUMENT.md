@@ -53,6 +53,8 @@ This section is the current authoritative completion state for the Service Subdo
 
 ### Current Final State
 
+This section mirrors the public master artifact source `public/g/m68.md`. `AIBOUX_MASTER_DOCUMENT.md` remains the repository source of truth, and `/g/m68` is the user-visible master URL for this same state.
+
 Confirmed state:
 
 - Service Subdomain Tenant URL Migration: deployed and accepted at the evidence level recorded by Codex/SSH checks.
@@ -63,8 +65,9 @@ Confirmed state:
 - Remote repository: `https://github.com/kenchan76/aiboux.git`.
 - Actual Worker name: `aiboux`.
 - Actual Worker Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`.
-- Local dirty tree cleanup plan commit: `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
-- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91` is a local-only cleanup-plan commit unless a later report states that it was pushed.
+- Dirty tree cleanup plan commit: `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91`.
+- `d28c4f3ba8ecf01d8fb437424cdc64751dcedf91` is now part of the pushed branch history because later commit `0ddedfd7dc54896939580b20997fbb0a01820914` was pushed.
+- Latest pushed master-document source update before the public m68 deployment task: `0ddedfd7dc54896939580b20997fbb0a01820914`.
 - The dirty tree cleanup plan did not delete files, reset files, clean files, or revert source/config changes.
 
 The current URL Bundle is:
@@ -217,6 +220,8 @@ Classification:
 Classification C is not approved for deletion. Do not delete, move, archive, reset, clean, or revert any dirty tree item until the user gives an explicit cleanup decision.
 
 ### Absolute Prohibitions For The Current State
+
+### 絶対禁止事項
 
 The following are prohibited unless the user explicitly approves the specific operation:
 
