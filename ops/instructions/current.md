@@ -6,7 +6,7 @@ Publish Full Japanese Master With Core Document AI, Core UI v3, And Numbering Po
 
 ## Status
 
-DEPLOY_READY
+DEPLOYED
 
 ## Source Of Truth
 
@@ -17,6 +17,18 @@ DEPLOY_READY
 ## User Request
 
 The current public URL Bundle is still treated as an old or shallow master. Update `AIBOUX_MASTER_DOCUMENT.md` and `public/g/m68.md` into the full Japanese master and publish it.
+
+## Active Route Fix
+
+`/g/m68`、`/g/l68`、`/g/d68` は `public/g/*.md` を直接読むだけではなく、`src/pages/g/[id].ts` の `shortLogShares` と `src/lib/server/tempLogShares.ts` を経由する。
+
+今回の追加修正では、短縮URLの参照先を旧 `service-url-migration` 系IDから次へ差し替える。
+
+- `m68` -> `aiboux-full-japanese-master-20260601`
+- `l68` -> `aiboux-full-japanese-master-log-20260601`
+- `d68` -> `aiboux-full-japanese-master-screen-20260601`
+
+これにより、外部確認経路で旧英語主体マスターへ戻る経路を閉じる。
 
 ## Required Content
 
@@ -63,3 +75,5 @@ The current public URL Bundle is still treated as an old or shallow master. Upda
 - Worker Version ID before this task: `756a7286-5335-42d7-b54b-d5d320d8bb9f`
 - First deploy Worker Version ID: `f4c6f13a-371c-4af3-8f35-abcf4f13c8d2`
 - Final deploy Worker Version ID after updating `/g/l68` and `/g/d68`: `da35f9fc-7d67-4c9f-93c7-1231ee477f80`
+- Route fix deploy Worker Version ID: `7072f564-3d13-44e5-a6aa-ae3c77ae6f39`
+- Final deploy Worker Version ID after public log/screen artifact update: `024353f8-3ab0-431e-81d7-30d5d0a533d3`
