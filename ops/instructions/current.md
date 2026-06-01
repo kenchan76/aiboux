@@ -2,87 +2,64 @@
 
 ## Task Name
 
-Replace M68 With Full Japanese No-Omission Service Master
+Publish Full Japanese Master With Core Document AI, Core UI v3, And Numbering Policy
 
 ## Status
 
-DEPLOYED
+DEPLOY_READY
 
 ## Source Of Truth
 
-- User instruction received on 2026-06-01.
 - `AIBOUX_MASTER_DOCUMENT.md`
 - `public/g/m68.md`
 - `ops/instructions/current.md`
-- `all_log/84_master_no_omission_full_service_spec.md`
 
-## Required Change
+## User Request
 
-Replace `AIBOUX_MASTER_DOCUMENT.md` and `public/g/m68.md` with the full Japanese canonical master supplied by the user. Do not summarize or omit the sections for `rirekisho.aiboux.com`, `docs.aiboux.com`, Mall, File, Biz, Office, URL migration, Bark policy, Worker evidence, dirty tree state, prohibitions, or next tasks.
+The current public URL Bundle is still treated as an old or shallow master. Update `AIBOUX_MASTER_DOCUMENT.md` and `public/g/m68.md` into the full Japanese master and publish it.
 
-## Worker Evidence
+## Required Content
 
-Worker Version ID: 4a242156-127f-421f-aa57-e3c2c431a02e
+- 省略禁止ルール
+- AIBOUX全サービス詳細
+- Core書類管理AI構想
+- LINE / スマホ撮影 / PCアップロード取込
+- Gemini Flash本命方針
+- 高速ファイルプレビュー
+- 注文書 → 納品書 → 月末請求書フロー
+- Mail/LINEからの注文・見積・請求依頼変換
+- 商品/得意先/納品先/設定UI v3方針
+- 見積書・注文書・請求書・納品書の自動採番 N/E/I/O
+- 全画面スライド詳細・作成UI方針
+- rirekisho / docs / mall / file / biz / office の詳細
+- URL設計
+- Bark通知方針
+- Worker Version ID証跡
+- dirty tree状態
+- 絶対禁止事項
+- 次タスク
 
-## Bark Policy Gate Text
-
-- Bark notification timing is fixed to URL Bundle only.
-- Bark may be sent only after the URL Bundle has already been output.
-- Bark delivery and receipt confirmation are notification evidence only.
-- Bark receipt confirmation is not a completion gate.
-
-## Required Files
-
-- `AIBOUX_MASTER_DOCUMENT.md`
-- `public/g/m68.md`
-- `ops/instructions/current.md`
-- `all_log/84_master_no_omission_full_service_spec.md`
-
-## Required Verification
+## Required Commands
 
 - `npm run check:control-chars`
 - `npm run check:mojibake`
 - `npm run gate:aiboux`
 - `ESBUILD_WORKER_THREADS=0 npm run build`
 - `npx wrangler deploy`
-- public curl verification for `https://mail.aiboux.com/g/m68`
-- required keyword checks against public `/g/m68`
-
-## Required Commit
-
-If verification passes, commit only the required files:
-
-- `AIBOUX_MASTER_DOCUMENT.md`
-- `public/g/m68.md`
-- `ops/instructions/current.md`
-- `all_log/84_master_no_omission_full_service_spec.md`
-
-Commit message:
-
-`docs: expand master with full service specifications`
-
-Push command:
-
-`git push origin HEAD:refs/heads/main`
+- `curl -sS -L -D /tmp/m68.headers https://mail.aiboux.com/g/m68 -o /tmp/m68.body`
 
 ## Prohibited Actions
 
-- Do not run `git reset --hard`.
-- Do not run `git clean -fd` or `git clean -fdx`.
-- Do not run `rm -rf`.
-- Do not delete untracked files.
-- Do not revert unrelated tracked source/config diffs.
-- Do not send Bark.
-- Do not print secrets, PATs, API keys, tokens, `.env`, `.dev.vars`, or Bark endpoint URLs containing secrets.
-- Do not force push.
-- Do not change service URL routing behavior in this documentation-only task.
+- Bark送信禁止。
+- reset禁止。
+- clean禁止。
+- force push禁止。
+- 削除禁止。
+- secret/PAT/API key/token表示禁止。
 
-## Completion Conditions
+## Worker Version Evidence
 
-- Public `https://mail.aiboux.com/g/m68` returns HTTP 200.
-- Public `/g/m68` content-type is `text/markdown; charset=utf-8`.
-- Public `/g/m68` is Japanese full-service master text, not a short URL-migration summary.
-- Public `/g/m68` includes all required service detailed sections, including 履歴書 and Docs.
-- `npm run gate:aiboux` returns `AIBOUX_GATE_PASS`.
-- Bark is not sent.
-- No reset, clean, force push, deletion, or secret exposure occurs.
+- Deployment action in this task: deployed.
+- Worker Version ID before this task: `756a7286-5335-42d7-b54b-d5d320d8bb9f`
+- First deploy Worker Version ID: `f4c6f13a-371c-4af3-8f35-abcf4f13c8d2`
+- Final deploy Worker Version ID after updating `/g/l68` and `/g/d68`: `da35f9fc-7d67-4c9f-93c7-1231ee477f80`
