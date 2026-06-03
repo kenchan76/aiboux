@@ -1,0 +1,19 @@
+OK absent=2024/05
+OK absent=山田 太郎
+OK absent=#10085
+OK absent=#10084
+OK absent=#10083
+OK absent=#10082
+OK absent=#10081
+OK absent=TSH-001
+OK absent=BAG-001
+OK absent=BTL-500
+OK absent=PKR-002
+OK absent=CAP-001
+OK absent=¥2,340,000
+OK absent=245件
+OK absent=2.35%
+OK absent=¥9,551
+OK absent=28.7%
+OK absent=href="#"
+OK absent=shop.aboux.com
