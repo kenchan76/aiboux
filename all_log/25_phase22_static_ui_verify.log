@@ -1,0 +1,21 @@
+OK: #131921
+OK: #232F3E
+OK: #FFFFFF
+OK: #FFD814
+OK: #F7CA00
+OK: #FFA41C
+OK: #FA8900
+OK: #0F1111
+OK: #DDDDDD
+OK: #B12704
+OK: #007185
+OK: #C45500
+OK: border: 1px solid #DDDDDD
+OK: border-radius: 8px
+OK: market-primary-button
+OK: market-secondary-button
+OK: market-card
+OK: 購入へ進む
+OK: rounded-full absent
+OK: no heavy decorative shadow
+AIBOUX storefront UI static verification passed.

@@ -1,0 +1,63 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/starwind/table";
+import { dashboardRows } from "@/data/dashboard-demo";
+
+const statusVariant = {
+  "送信済み": "success",
+  "期限間近": "warning",
+  "変換済み": "info",
+  "保存中": "outline",
+} as const;
+---
+
+<Card size="sm" class="overflow-hidden border-neutral-200 shadow-sm">
+  <CardHeader class="border-b border-neutral-200 bg-neutral-50/70">
+    <div class="flex items-center justify-between gap-3">
+      <CardTitle class="text-base">Plus Lite履歴プレビュー</CardTitle>
+      <Button href="/file/dashboard" variant="outline" size="sm">詳しく見る</Button>
+    </div>
+  </CardHeader>
+  <CardContent class="p-0">
+    <div class="grid md:grid-cols-[150px_1fr]">
+      <nav class="hidden border-r border-neutral-200 bg-neutral-50 p-3 text-sm md:block">
+        {["送信履歴", "受信履歴", "変換履歴", "保存ファイル", "共有リンク"].map((item, index) => (
+          <div class={`rounded-md px-2 py-1.5 ${index === 0 ? "bg-white font-medium text-neutral-950 shadow-sm ring-1 ring-neutral-200" : "text-neutral-600"}`}>{item}</div>
+        ))}
+      </nav>
+      <div class="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>ファイル名</TableHead>
+              <TableHead>サイズ</TableHead>
+              <TableHead>種別</TableHead>
+              <TableHead>ステータス</TableHead>
+              <TableHead>操作</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {dashboardRows.map((row) => (
+              <TableRow>
+                <TableCell class="min-w-52 font-medium">{row.name}</TableCell>
+                <TableCell class=" text-xs">{row.size}</TableCell>
+                <TableCell>{row.type}</TableCell>
+                <TableCell><Badge variant={statusVariant[row.status]} size="sm" class="rounded-md">{row.status}</Badge></TableCell>
+                <TableCell><Button variant="ghost" size="sm">再共有</Button></TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  </CardContent>
+</Card>

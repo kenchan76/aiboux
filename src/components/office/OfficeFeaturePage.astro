@@ -1,0 +1,49 @@
+---
+import AdSenseSlot from "@/components/office/AdSenseSlot.astro";
+import OfficeMarketingLayout from "@/layouts/OfficeMarketingLayout.astro";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  eyebrow: string;
+  bullets: string[];
+  caution?: string;
+}
+
+const { title, description, canonicalPath, eyebrow, bullets, caution } = Astro.props;
+---
+
+<OfficeMarketingLayout title={`${title} | Aiboux Office`} description={description} canonicalPath={canonicalPath}>
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-11 sm:px-5 lg:grid-cols-[0.9fr_1.1fr] lg:px-6">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-amber-700">{eyebrow}</p>
+        <h1 class="mt-2 text-4xl font-semibold tracking-tight text-neutral-950">{title}</h1>
+        <p class="mt-3 text-base leading-7 text-neutral-600">{description}</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <Button href="/office/editor" variant="outline" size="md" class="border-yellow-400 bg-yellow-300 text-neutral-950 hover:bg-yellow-400 hover:text-neutral-950">ファイルを開く</Button>
+          <Button href="/office/security" variant="outline" size="md">安全性を見る</Button>
+        </div>
+      </div>
+      <Card size="sm" class="border-neutral-200 bg-neutral-50 shadow-none">
+        <CardContent>
+          <h2 class="text-sm font-semibold text-neutral-950">対応内容</h2>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2">
+            {bullets.map((item) => (
+              <div class="rounded border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-700">{item}</div>
+            ))}
+          </div>
+          {caution && <p class="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900">{caution}</p>}
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-5 lg:px-6">
+      <AdSenseSlot />
+    </div>
+  </section>
+</OfficeMarketingLayout>

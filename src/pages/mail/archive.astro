@@ -1,0 +1,9 @@
+---
+export const prerender = false;
+import MailLayout from "@/layouts/MailLayout.astro";
+import { MailClientShell } from "@/components/mail/MailClientShell";
+---
+
+<MailLayout title="AIBOUX Mail - アーカイブ">
+  <MailClientShell client:load initialMailbox="archive" />
+</MailLayout>

@@ -1,0 +1,20 @@
+---
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+---
+
+<Card size="sm" class="border-blue-200 bg-blue-50/30">
+  <CardContent class="grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
+    <div>
+      <div class="text-sm font-semibold text-neutral-950">AIBOUXシリーズ連携</div>
+      <p class="mt-1 text-sm leading-6 text-neutral-600">
+        Coreの帳票、Mailの添付、Shopの商品画像を、FILEの共有・変換履歴とつなげていく構成です。
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <Button href="https://mail.aiboux.com" variant="outline" size="sm">Mail</Button>
+      <Button href="https://shop.aiboux.com" variant="outline" size="sm">Shop</Button>
+      <Button href="/core" variant="outline" size="sm">Core</Button>
+    </div>
+  </CardContent>
+</Card>

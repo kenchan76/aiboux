@@ -1,0 +1,40 @@
+---
+import FaqAccordion from "@/components/file/FaqAccordion.astro";
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+import { fileFaqs } from "@/data/faq";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="ヘルプ"
+  description="ファイル転送、PDF、画像、バーコード、Plus Liteの使い方を確認できます。"
+>
+  <section class="mx-auto grid max-w-6xl gap-5 px-4 py-8 sm:px-5 lg:grid-cols-[280px_1fr] lg:px-6">
+    <aside class="space-y-3">
+      <Card size="sm" class="border-neutral-200">
+        <CardContent class="space-y-2">
+          <h2 class="text-sm font-semibold text-neutral-950">サポート窓口</h2>
+          <p class="text-sm leading-6 text-neutral-600">違反報告やセキュリティ連絡は専用ページから送信できます。</p>
+          <Button href="/file/abuse" variant="outline" size="sm" class="w-full">違反報告へ</Button>
+        </CardContent>
+      </Card>
+      <Card size="sm" class="border-neutral-200">
+        <CardContent>
+          <h2 class="text-sm font-semibold text-neutral-950">主要ページ</h2>
+          <div class="mt-2 grid gap-1 text-sm">
+            <a class="rounded-md px-2 py-1.5 text-neutral-600 hover:bg-neutral-100" href="/file/transfer">ファイル転送</a>
+            <a class="rounded-md px-2 py-1.5 text-neutral-600 hover:bg-neutral-100" href="/file/pdf">PDFツール</a>
+            <a class="rounded-md px-2 py-1.5 text-neutral-600 hover:bg-neutral-100" href="/file/image">画像ツール</a>
+            <a class="rounded-md px-2 py-1.5 text-neutral-600 hover:bg-neutral-100" href="/file/barcode">バーコード</a>
+          </div>
+        </CardContent>
+      </Card>
+    </aside>
+    <div id="faq">
+      <FaqAccordion faqs={fileFaqs} />
+    </div>
+  </section>
+</FileToolLayout>

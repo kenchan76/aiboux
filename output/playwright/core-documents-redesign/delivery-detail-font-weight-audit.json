@@ -1,0 +1,253 @@
+{
+  "verdict": "PASS",
+  "rules": {
+    "titlesCanBeBold": true,
+    "labelsCanBeBold": true,
+    "valuesMustBeNormal": true,
+    "productNamesMustBeNormal": true,
+    "amountValuesMustBeNormal": true
+  },
+  "violations": [],
+  "samples": [
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "基本情報",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "納品先",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "配送情報",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "明細一覧",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "備考・メモ",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "履歴",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品書番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品日",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "取引先",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "取引先担当者",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品先名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "部署名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "担当者名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "郵便番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "都道府県",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "市区町村",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "住所・建物名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "電話番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "配送業者",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "サービス種別",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "お問い合わせ番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品日",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "配送希望時間帯",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "コンクリートブロック / C種 100 x 190 x 390",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "モルタル混和剤 / AE減水剤 18L",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "鉄筋 / D10 SD295A 4m",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "養生テープ / 50mm x 25m 緑",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥74,300",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥58,000",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥25,500",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥21,000",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥178,800",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥17,880",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥196,680",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥17,880",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-document-number-value']",
+      "text": "N20260530-01",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-date-value']",
+      "text": "2026/05/30",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-customer-value']",
+      "text": "株式会社サンプル",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-contact-value']",
+      "text": "佐藤 一郎 様",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-destination-name-value']",
+      "text": "株式会社サンプル",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-destination-address-value']",
+      "text": "1-7-1 東京本社ビル 1F倉庫前",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-destination-phone-value']",
+      "text": "03-1234-5678",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-shipping-carrier-value']",
+      "text": "ヤマト運輸",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-shipping-service-value']",
+      "text": "宅急便",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-shipping-tracking-value']",
+      "text": "",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-detail-date-input']",
+      "text": "",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-detail-time-select']",
+      "text": "午前中（8:00-12:00）",
+      "fontWeight": 400
+    }
+  ]
+}

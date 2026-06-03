@@ -1,0 +1,33 @@
+---
+import LocalHistoryPromo from "@/components/office/LocalHistoryPromo.astro";
+import OfficeMarketingLayout from "@/layouts/OfficeMarketingLayout.astro";
+import { Card, CardContent } from "@/components/starwind/card";
+
+export const prerender = true;
+---
+
+<OfficeMarketingLayout
+  title="ローカル履歴 | Aiboux Office"
+  description="Aiboux Officeのローカル履歴と無料会員登録で扱う履歴メタデータについて説明します。"
+  canonicalPath="/office/history"
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-11 sm:px-5 lg:px-6">
+      <LocalHistoryPromo />
+      <div class="mt-5 grid gap-4 md:grid-cols-3">
+        {[
+          ["ゲスト", "IndexedDBで最近使ったファイル名、形式、日時を端末内に保存する設計です。"],
+          ["無料会員", "履歴メタデータ、保存形式、よく使う設定を同期できる導線を用意します。"],
+          ["ファイル本体", "原則サーバー送信しません。将来のクラウド保存はクライアント側暗号化を検討します。"],
+        ].map(([title, body]) => (
+          <Card size="sm" class="border-neutral-200 bg-white shadow-none">
+            <CardContent>
+              <h2 class="text-sm font-semibold text-neutral-950">{title}</h2>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</OfficeMarketingLayout>

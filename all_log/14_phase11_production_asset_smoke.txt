@@ -1,0 +1,13 @@
+== uploaded asset ==
+HTTP/2 200 
+date: Wed, 27 May 2026 23:20:00 GMT
+content-type: image/png
+cache-control: public, max-age=31536000, immutable
+etag: "e9dd2797018cad79186e03e8c5aec8dc"
+x-content-type-options: nosniff
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=iEJ1Fa9T8SzcmWCQPNA%2BIScpveOnkfWSL8xEcSgviSkmp%2FDyu0NLMwsfCs3cBQ7LK9lVKgXOG8h6gRjF%2FODZXmp%2B0PPA4nW24DBCu8e7ncbyC04tSMR26c7SNZRKGIlEaMA%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a028bf67af3dd52f-NRT
+alt-svc: h3=":443"; ma=86400
+

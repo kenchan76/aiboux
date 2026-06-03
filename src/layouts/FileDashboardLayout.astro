@@ -1,0 +1,37 @@
+---
+import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+import "../styles/starwind.css";
+import FileHeader from "@/components/file/FileHeader.astro";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { Toaster } from "@/components/starwind/toast";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "AIBOUX FILE Dashboard",
+  description = "AIBOUX FILE Plus Lite向けの送信履歴、受信履歴、変換履歴、共有リンク管理デモです。",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <NotoSansJpHead />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <FileHeader compact />
+    <slot />
+    <Toaster position="bottom-right" />
+      <GlobalAIAssistant client:load service="File" />
+  </body>
+</html>

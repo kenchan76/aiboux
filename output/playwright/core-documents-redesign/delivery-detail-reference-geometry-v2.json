@@ -1,0 +1,44 @@
+{
+  "reference": {
+    "sidebarWidth": 244,
+    "topSearchY": 13,
+    "titleRowY": 86,
+    "topCardsY": 135,
+    "topCardsHeight": 326,
+    "linesY": 477,
+    "memoHistoryY": 734,
+    "footerY": 885
+  },
+  "actual": {
+    "sidebarWidth": 244,
+    "topSearchY": 14,
+    "titleRowY": 88,
+    "topCardsY": 135,
+    "topCardsHeight": 320,
+    "linesY": 471,
+    "memoHistoryY": 728,
+    "footerY": 885,
+    "titleActionsRightEdge": 1647
+  },
+  "delta": {
+    "sidebarWidth": 0,
+    "topSearchY": 1,
+    "titleRowY": 2,
+    "topCardsY": 0,
+    "topCardsHeight": -6,
+    "linesY": -6,
+    "memoHistoryY": -6,
+    "footerY": 0
+  },
+  "thresholds": {
+    "sidebarWidth": 4,
+    "topSearchY": 6,
+    "titleRowY": 6,
+    "topCardsY": 8,
+    "topCardsHeight": 12,
+    "linesY": 8,
+    "memoHistoryY": 12,
+    "footerY": 8
+  },
+  "verdict": "PASS"
+}

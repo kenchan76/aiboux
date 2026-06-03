@@ -4160,3 +4160,81 @@ UI必須項目:
 - 帳票番号prefixのテナント別変更可否。
 - インポート済み帳票番号との衝突処理。
 - legacy番号の扱い。
+
+---
+
+## 31. Shop WIP公開とUI保護運用
+
+### 31.1 追加理由
+
+前回のShop production-tenant実装で、機能追加と同時に見た目、余白、導線、操作感を広範囲に変え、公開Shop UIを劣化させた。
+この失敗を再発させないため、deploy自体を止めて抱え込むのではなく、必ず戻せるcheckpointを作ってからWIP公開し、公開URLで目視確認しながら問題を潰す。
+完了報告だけはstrict check全PASSまで禁止する。
+
+### 31.2 保護対象
+
+次のパスはShop UI警告対象である。
+
+- `src/pages/shop`
+- `src/components/shop`
+- `src/data/shop-sample-data.ts`
+- `src/styles`
+- `src/assets`
+
+### 31.3 実装済み運用
+
+`scripts/check-shop-ui-protection.mjs` を追加した。
+このスクリプトは2モードを持つ。
+
+| mode | 役割 |
+| --- | --- |
+| `--mode=warn` | WIP deploy用。dirtyなShop UIを警告として出すがexit 0で止めない。 |
+| `--mode=strict` | 完了判定用。dirtyなShop UIが残る場合はexit 1で止める。 |
+
+次のnpm scriptは、WIP deploy前にwarn-onlyのShop UI警告を実行する。
+
+- `npm run deploy`
+- `npm run deploy:preview`
+- `npm run deploy:prod`
+- `npm run deploy:shop:wip`
+
+次のnpm scriptは、完了判定でstrict checkを実行する。
+
+- `npm run check:shop-ui-protection:strict`
+- `npm run verify:shop:final`
+
+### 31.4 checkpoint必須
+
+WIP deploy前には必ずcheckpointを作る。
+
+`scripts/create-shop-wip-checkpoint.mjs --commit` は次を保存する。
+
+- `git status --short`
+- `git rev-parse HEAD`
+- `git rev-parse origin/main`
+- `git diff`
+- `git diff --staged`
+- `git log --oneline -10`
+- WIP commit
+- `npx wrangler deployments list --name aiboux`
+
+保存先:
+
+- `all_log/checkpoints/`
+- `all_log/patches/`
+- `all_log/deploys/`
+
+### 31.5 現在の状態
+
+現在のローカルtreeではShop UI保護対象がdirtyである。
+そのため、`npm run check:shop-ui-protection` はWARNになる。
+WIP deployはcheckpoint作成後に可能である。
+完了判定では `npm run check:shop-ui-protection:strict` がNGになり、完了報告を止める。
+
+### 31.6 禁止事項
+
+- checkpointなしでWIP deployしない。
+- 戻し方を記録せずにdeployしない。
+- UI劣化をログだけで完了扱いしない。
+- strict check未通過でFINAL_ACCEPTEDにしない。
+- WIP_DEPLOYEDをFINAL_ACCEPTEDと書かない。

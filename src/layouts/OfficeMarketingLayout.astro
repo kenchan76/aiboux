@@ -1,0 +1,73 @@
+---
+import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+import "../styles/starwind.css";
+import OfficeFooter from "@/components/office/OfficeFooter.astro";
+import OfficeHeader from "@/components/office/OfficeHeader.astro";
+import FloatingAdSense from "@/components/office/FloatingAdSense.astro";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { Toaster } from "@/components/starwind/toast";
+import { officeSeo } from "@/data/office-content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title = officeSeo.title,
+  description = officeSeo.description,
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, officeSeo.site).toString();
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <NotoSansJpHead />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://office.aiboux.com/og-office.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <OfficeHeader />
+    <main>
+      <slot />
+    </main>
+    <OfficeFooter />
+    <FloatingAdSense />
+    <Toaster position="bottom-right" />
+    <script>
+      const setupOfficeDemoToasts = () => {
+        document.querySelectorAll<HTMLElement>("[data-office-toast]").forEach((button) => {
+          if (button.dataset.toastBound === "true") return;
+          button.dataset.toastBound = "true";
+          button.addEventListener("click", () => {
+            const manager = (window as any).__starwind__?.toast;
+            manager?.add({
+              title: button.dataset.toastTitle || "ブラウザ内で準備します",
+              description: button.dataset.toastDescription || "ファイル本体をサーバーへ送信せず、ローカル処理で開きます。",
+              variant: "info",
+              duration: 3600,
+            });
+          });
+        });
+      };
+
+      setupOfficeDemoToasts();
+      document.addEventListener("astro:after-swap", setupOfficeDemoToasts);
+    </script>
+      <GlobalAIAssistant client:load service="Office" />
+  </body>
+</html>

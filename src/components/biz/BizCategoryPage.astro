@@ -1,0 +1,22 @@
+---
+import { bizCategories, bizTemplates } from "@/data/biz-content";
+import BizMarketingLayout from "@/layouts/BizMarketingLayout.astro";
+import TemplateGrid from "./TemplateGrid.astro";
+
+interface Props {
+  categorySlug: string;
+}
+
+const { categorySlug } = Astro.props;
+const category = bizCategories.find((item) => item.slug === categorySlug);
+const templates = bizTemplates.filter((item) => item.category === categorySlug);
+const title = category ? `${category.title}テンプレート` : "テンプレート一覧";
+---
+
+<BizMarketingLayout
+  title={`${title} | AIBOUX BIZ`}
+  description={`${title}をWebエディタで編集し、PDFやWord形式で出力できるAIBOUX BIZのカテゴリページです。`}
+  canonicalPath={`/biz/templates/${categorySlug}`}
+>
+  <TemplateGrid templates={templates.length > 0 ? templates : bizTemplates} title={title} description={category?.description ?? "必要な文書をすばやく探せます。"} />
+</BizMarketingLayout>

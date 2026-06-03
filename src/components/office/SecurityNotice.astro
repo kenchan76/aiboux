@@ -1,0 +1,30 @@
+---
+import { Card, CardContent } from "@/components/starwind/card";
+---
+
+<Card size="sm" class="border-neutral-200 bg-white shadow-none">
+  <CardContent>
+    <div class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">Security</p>
+        <h2 class="mt-2 text-2xl font-semibold tracking-tight text-neutral-950">ファイルはブラウザ内だけで処理され、サーバーに送信されません。</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">
+          広告表示やページ表示に必要な通信は発生しますが、開いたファイル本体は原則としてサーバーに送信されません。編集したファイルはお使いの端末に保存されます。
+        </p>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {[
+          ["サーバー通信なし", "アップロード不要。ファイル本体は端末内で扱います。"],
+          ["ローカル処理", "File API、ArrayBuffer、Blob downloadで完結します。"],
+          ["HTTPS / TLS", "ページ表示に必要な通信は暗号化されます。"],
+          ["マクロ実行禁止", "XLSMのマクロは安全のため実行しません。"],
+        ].map(([title, body]) => (
+          <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <p class="text-sm font-semibold text-neutral-950">{title}</p>
+            <p class="mt-1 text-xs leading-5 text-neutral-600">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </CardContent>
+</Card>

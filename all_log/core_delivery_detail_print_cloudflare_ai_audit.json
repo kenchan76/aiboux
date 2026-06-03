@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "status": 200,
+  "provider": "Cloudflare Workers AI via local OpenAI-compatible proxy",
+  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "raw": {
+    "verdict": "PASS",
+    "issues": [],
+    "evidence": []
+  }
+}

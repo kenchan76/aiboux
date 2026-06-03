@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "verdict": "BLOCKED",
+  "provider": "Cloudflare Workers AI via local OpenAI-compatible proxy",
+  "reason": "Cloudflare OAuth authentication is invalid, so the Cloudflare AI final audit cannot be rerun for the fixed build.",
+  "safeToComplete": false,
+  "knownLocalEvidence": {
+    "localPlaywright": "PASS",
+    "grok": "PASS",
+    "deliveryDetailScreenshot": "output/playwright/core-documents-redesign/delivery-detail-fixed.png",
+    "domAudit": "output/playwright/core-documents-redesign/delivery-detail-fixed-dom-audit.json",
+    "pdfDownload": "output/playwright/core-documents-redesign/delivery-note-download.pdf"
+  },
+  "requiredBeforePass": [
+    "Restore Cloudflare authentication without exposing secrets.",
+    "Rerun Cloudflare AI final audit.",
+    "Deploy the fixed build.",
+    "Run public Playwright against the deployed build.",
+    "Record the actual Worker Version ID.",
+    "Rerun Hermes and receive PASS."
+  ],
+  "secretLogged": false
+}

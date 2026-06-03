@@ -1,0 +1,60 @@
+---
+import AdSlot from "@/components/file/AdSlot.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
+import { Dropzone } from "@/components/starwind/dropzone";
+import { NativeSelect } from "@/components/starwind/native-select";
+---
+
+<div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:px-5 lg:grid-cols-[1fr_320px] lg:px-6">
+  <div class="space-y-4">
+    <Card size="sm" class="border-neutral-200">
+      <CardHeader>
+        <div class="flex items-center justify-between gap-3">
+          <CardTitle class="text-base">背景切り抜き</CardTitle>
+          <Badge variant="outline" size="sm" class="rounded-md border-blue-200 bg-blue-50 text-blue-700">商品写真</Badge>
+        </div>
+      </CardHeader>
+      <CardContent class="grid gap-4 lg:grid-cols-[360px_1fr]">
+        <div class="space-y-3">
+          <Dropzone id="background-image" name="image" accept="image/*" class="min-h-44 rounded-lg border-neutral-300 bg-white p-4 hover:border-blue-300 hover:bg-blue-50/30">
+            <div class="mx-auto flex max-w-xs flex-col items-center gap-2 text-center">
+              <div class="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold text-neutral-700">IMAGE</div>
+              <div class="text-sm font-medium text-neutral-950">商品写真をドロップ</div>
+              <div class="text-xs leading-5 text-neutral-500">PNG、JPG、WebPに対応するUIです。</div>
+            </div>
+          </Dropzone>
+          <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+            出力形式
+            <NativeSelect size="sm">
+              <option>透明PNG</option>
+              <option>白背景</option>
+              <option>WebP</option>
+            </NativeSelect>
+          </label>
+          <Button type="button" variant="primary" size="sm" class="w-full" data-demo-toast data-toast-title="背景切り抜きデモ" data-toast-description="画像処理API接続後、ここで切り抜き結果を生成します。">背景を切り抜く</Button>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div class="mb-2 text-xs font-semibold text-neutral-600">Before</div>
+            <div class="flex aspect-[4/3] items-center justify-center rounded-md border border-neutral-200 bg-white text-sm text-neutral-500">元画像プレビュー</div>
+          </div>
+          <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div class="mb-2 text-xs font-semibold text-neutral-600">After</div>
+            <div class="flex aspect-[4/3] items-center justify-center rounded-md border border-neutral-200 bg-white text-sm text-neutral-500">切り抜き結果</div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+  <aside class="space-y-4">
+    <AdSlot />
+    <Card size="sm" class="border-neutral-200">
+      <CardContent class="space-y-2">
+        <h2 class="text-sm font-semibold text-neutral-950">無料枠</h2>
+        <p class="text-sm leading-6 text-neutral-600">単品の背景透過、白背景化、WebP出力を同じ流れで扱います。</p>
+      </CardContent>
+    </Card>
+  </aside>
+</div>

@@ -1,0 +1,30 @@
+{
+  "title": "AIBOUX Core 見積書・注文書 納品書UI横展開",
+  "status": "CODE_READY",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "納品書の一覧・作成・詳細・編集のSheet/ウィンドウ構造を基準に、見積書と注文書へ横展開しました。",
+    "見積書と注文書は一覧を背景に保持したまま作成・詳細・編集を開き、URLは変わりません。",
+    "請求書専用ファイルは変更していません。Playwrightで /core/invoices の基本表示も確認しました。",
+    "デプロイ、push、Bark送信は行っていません。"
+  ],
+  "verification": [
+    "npm run check:control-chars: CONTROL_CHAR_CHECK_OK",
+    "npm run check:mojibake: MOJIBAKE_CHECK_OK files=277",
+    "npm run astro check: PASS, 0 errors, 34 hints",
+    "npx playwright test tests/core-document-delivery-parity.spec.ts: PASS, 4 passed",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS",
+    "npm run gate:aiboux: AIBOUX_GATE_PASS"
+  ],
+  "notes": [
+    "npm run gate:design は stale public preview URL の curl exit=6 で BLOCKED。今回のタスクでは新規public preview/deployを行っていません。",
+    "スクリーンショットは output/playwright/core-document-delivery-parity/ に保存済みです。",
+    "現行Worker Version ID証跡: 756a7286-5335-42d7-b54b-d5d320d8bb9f。今回のUI変更をデプロイしたという意味ではありません。"
+  ],
+  "bark": {
+    "notification": "not sent",
+    "reason": "This task explicitly prohibited Bark. Bark is not a completion gate for CODE_READY."
+  }
+}

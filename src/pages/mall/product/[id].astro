@@ -1,0 +1,264 @@
+---
+import { env } from "cloudflare:workers";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import "@/styles/global.css";
+
+export const prerender = false;
+
+type MallProductRow = {
+  id: string;
+  tenant_id: string;
+  tenant_slug: string;
+  tenant_name: string;
+  store_name: string | null;
+  contact_email: string | null;
+  display_name: string;
+  description: string;
+  seo_title: string;
+  seo_description: string;
+  sale_price: number;
+  tax_rate: number;
+  image_r2_keys: string | null;
+  ai_alt_texts_json: string | null;
+  google_category_id: string | null;
+  category_name: string | null;
+  jan_code: string | null;
+  stock_quantity: number | null;
+  core_status: string | null;
+  updated_at: number;
+};
+
+const productId = String(Astro.params.id ?? "").trim();
+const product = productId
+  ? await env.DB.prepare(
+      `
+      SELECT
+        sp.id,
+        sp.tenant_id,
+        t.slug AS tenant_slug,
+        t.name AS tenant_name,
+        ss.store_name,
+        ss.contact_email,
+        sp.display_name,
+        sp.description,
+        sp.seo_title,
+        sp.seo_description,
+        sp.sale_price,
+        sp.tax_rate,
+        sp.image_r2_keys,
+        sp.ai_alt_texts_json,
+        sp.google_category_id,
+        sc.name AS category_name,
+        cp.jan_code,
+        cp.stock_quantity,
+        cp.status AS core_status,
+        sp.updated_at
+      FROM shop_products sp
+      INNER JOIN tenants t
+        ON t.id = sp.tenant_id
+       AND t.status = 'active'
+       AND t.is_active = 1
+      LEFT JOIN shop_settings ss
+        ON ss.tenant_id = sp.tenant_id
+       AND ss.deleted_at IS NULL
+      LEFT JOIN shop_categories sc
+        ON sc.tenant_id = sp.tenant_id
+       AND sc.id = sp.category_id
+       AND sc.deleted_at IS NULL
+      LEFT JOIN core_products cp
+        ON cp.tenant_id = sp.tenant_id
+       AND cp.id = sp.core_product_id
+       AND cp.deleted_at IS NULL
+      WHERE sp.id = ?
+        AND sp.publish_state = 'published'
+        AND sp.deleted_at IS NULL
+      LIMIT 1
+      `,
+    )
+      .bind(productId)
+      .first<MallProductRow>()
+  : null;
+
+if (!product) {
+  Astro.response.status = 404;
+}
+
+Astro.response.headers.set("Cache-Control", product ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
+
+const title = product ? `${product.seo_title || product.display_name} | AIBOUX Mall` : "商品が見つかりません | AIBOUX Mall";
+const description = product?.seo_description || product?.description || "AIBOUX Mallの商品ページです。";
+const imageKeys = parseStringArray(product?.image_r2_keys);
+const altTexts = parseStringArray(product?.ai_alt_texts_json);
+const images = imageKeys.map((key) => `/shop/api/assets/${key}`);
+const storeName = product?.store_name || product?.tenant_name || "AIBOUX Shop";
+const inStock = product ? product.core_status !== "paused" && Number(product.stock_quantity ?? 0) > 0 : false;
+const publicPath = product ? `/product/${encodeURIComponent(product.id)}` : Astro.url.pathname.replace(/^\/mall/, "") || "/";
+const canonicalUrl = new URL(publicPath, "https://mall.aiboux.com").toString();
+const mallRoot = Astro.url.hostname === "mall.aiboux.com" ? "" : "/mall";
+const jsonLd = product
+  ? JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.display_name,
+      description,
+      image: images.map((image) => new URL(image, "https://mall.aiboux.com").toString()),
+      sku: product.id,
+      ...(product.jan_code ? { gtin: product.jan_code } : {}),
+      ...(product.google_category_id ? { category: product.google_category_id } : {}),
+      brand: { "@type": "Brand", name: storeName },
+      offers: {
+        "@type": "Offer",
+        url: canonicalUrl,
+        priceCurrency: "JPY",
+        price: product.sale_price,
+        availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        itemCondition: "https://schema.org/NewCondition",
+        seller: { "@type": "Organization", name: storeName },
+      },
+    }).replace(/</g, "\\u003c")
+  : "";
+
+function parseStringArray(value: string | null | undefined): string[] {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
+function formatPrice(value: number | null | undefined): string {
+  return `¥${Math.max(0, Number(value ?? 0) || 0).toLocaleString("ja-JP")}`;
+}
+
+function taxIncludedNote(product: MallProductRow): string {
+  const taxRate = Number(product.tax_rate ?? 0.1);
+  return `税込 / 税率${Math.round(taxRate * 100)}%`;
+}
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {product ? <script is:inline type="application/ld+json" set:html={jsonLd} /> : null}
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <header class="border-b border-neutral-200 bg-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+        <a href={mallRoot || "/"} class="flex items-center gap-2">
+          <span class="text-xl font-bold tracking-tight">aiboux</span>
+          <span class="rounded border border-orange-200 bg-orange-50 px-1.5 py-0.5 text-[10px] font-bold text-orange-700">MALL</span>
+        </a>
+        <a href={mallRoot || "/"} class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-xs font-bold hover:bg-neutral-50">商品一覧へ</a>
+      </div>
+    </header>
+
+    {
+      product ? (
+        <main class="mx-auto grid max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)_300px]">
+          <section class="min-w-0">
+            <div class="rounded-md border border-neutral-200 bg-neutral-50 p-3">
+              {images[0] ? (
+                <img src={images[0]} alt={altTexts[0] || product.display_name} class="aspect-square w-full rounded-md border border-neutral-200 bg-white object-cover" />
+              ) : (
+                <div class="flex aspect-square w-full items-center justify-center rounded-md border border-dashed border-neutral-300 bg-white text-sm text-neutral-500">商品画像を準備中</div>
+              )}
+              {images.length > 1 ? (
+                <div class="mt-3 grid grid-cols-5 gap-2">
+                  {images.slice(1, 6).map((image, index) => (
+                    <img src={image} alt={altTexts[index + 1] || `${product.display_name} ${index + 2}`} class="aspect-square rounded-md border border-neutral-200 bg-white object-cover" />
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </section>
+
+          <section class="min-w-0">
+            <div class="text-xs font-bold text-neutral-500">{storeName}</div>
+            <h1 class="mt-2 text-2xl font-bold leading-tight tracking-tight text-neutral-950">{product.display_name}</h1>
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+              {product.category_name ? <span class="rounded bg-neutral-100 px-2 py-1 text-xs font-bold text-neutral-700">{product.category_name}</span> : null}
+              <span class={`rounded px-2 py-1 text-xs font-bold ${inStock ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-[#FF4D4D]"}`}>{inStock ? "在庫あり" : "在庫確認が必要"}</span>
+              {product.jan_code ? <span class="rounded bg-neutral-100 px-2 py-1 text-xs text-neutral-600">JAN {product.jan_code}</span> : null}
+            </div>
+            <div class="mt-5 border-y border-neutral-200 py-4">
+              <div class="text-[11px] font-bold text-[#FF4D4D]">販売価格</div>
+              <div class="mt-1 text-3xl font-bold text-neutral-950">{formatPrice(product.sale_price)}</div>
+              <div class="mt-1 text-xs text-neutral-500">{taxIncludedNote(product)}</div>
+            </div>
+            <div class="mt-5 whitespace-pre-line text-sm leading-7 text-neutral-700">{product.description || description}</div>
+            <dl class="mt-6 grid gap-2 rounded-md border border-neutral-200 bg-white p-3 text-sm">
+              <div class="flex justify-between gap-3">
+                <dt class="text-neutral-500">販売店</dt>
+                <dd class="text-right font-medium text-neutral-950">{storeName}</dd>
+              </div>
+              {product.google_category_id ? (
+                <div class="flex justify-between gap-3">
+                  <dt class="text-neutral-500">Googleカテゴリ</dt>
+                  <dd class="text-right text-neutral-700">{product.google_category_id}</dd>
+                </div>
+              ) : null}
+            </dl>
+          </section>
+
+          <aside id="purchase" class="h-fit rounded-md border border-orange-200 bg-orange-50 p-4 shadow-sm">
+            <div class="text-xs font-bold text-[#FF4D4D]">AIBOUX Mall購入</div>
+            <div class="mt-1 text-2xl font-bold text-neutral-950">{formatPrice(product.sale_price)}</div>
+            <div class="mt-1 text-xs text-neutral-600">{inStock ? "在庫確認済み。購入手続きへ進めます。" : "出店者の在庫確認後に購入できます。"}</div>
+            <div class="mt-4 grid gap-2">
+              <label class="text-xs font-bold text-neutral-700" for="quantity">数量</label>
+              <select id="quantity" class="h-10 rounded-md border border-orange-200 bg-white px-3 text-sm outline-none focus:border-[#FF9933]">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <button type="button" data-mall-purchase class="h-11 rounded-md bg-[#FF9933] px-4 text-sm font-bold text-white shadow-sm hover:bg-[#f08b22] disabled:cursor-not-allowed disabled:bg-neutral-300" disabled={!inStock}>
+                {inStock ? "購入手続きへ進む" : "在庫確認中"}
+              </button>
+              <button type="button" data-mall-favorite class="h-10 rounded-md border border-[#FFCC00] bg-white px-4 text-sm font-bold text-neutral-900 hover:bg-yellow-50">
+                お気に入りに追加
+              </button>
+              <p data-mall-action-status class="hidden rounded-md border border-orange-200 bg-white p-2 text-xs font-medium text-neutral-700"></p>
+            </div>
+            <p class="mt-3 rounded-md border border-orange-200 bg-white p-2 text-xs leading-5 text-neutral-600">
+              決済・配送はAIBOUX Shopの出店者設定に基づいて処理されます。外部送信や決済確定は人間承認と決済基盤の状態を確認して実行します。
+            </p>
+          </aside>
+        </main>
+      ) : (
+        <main class="mx-auto flex min-h-[70vh] max-w-xl flex-col justify-center px-4 py-8">
+          <p class="text-sm font-bold text-neutral-500">404</p>
+          <h1 class="mt-2 text-xl font-bold text-neutral-950">商品が見つかりません</h1>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">公開済みの商品だけをAIBOUX Mallに表示しています。</p>
+          <a href={mallRoot || "/"} class="mt-5 w-fit rounded-md bg-[#FF9933] px-4 py-2 text-sm font-bold text-white">Mallへ戻る</a>
+        </main>
+      )
+    }
+    <script is:inline>
+      const statusEl = document.querySelector("[data-mall-action-status]");
+      const purchaseButton = document.querySelector("[data-mall-purchase]");
+      const favoriteButton = document.querySelector("[data-mall-favorite]");
+      const showStatus = (message) => {
+        if (!statusEl) return;
+        statusEl.textContent = message;
+        statusEl.classList.remove("hidden");
+      };
+      purchaseButton?.addEventListener("click", () => {
+        showStatus("購入手続きMVPを確認しました。決済接続後、このボタンから安全なチェックアウトへ進みます。");
+      });
+      favoriteButton?.addEventListener("click", () => {
+        showStatus("お気に入り候補として確認しました。ログイン機能接続後に保存されます。");
+      });
+    </script>
+  </body>
+</html>

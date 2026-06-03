@@ -1,0 +1,772 @@
+{
+  "base": "http://127.0.0.1:8894",
+  "generatedAt": "2026-05-29T22:38:23.640Z",
+  "results": [
+    {
+      "key": "estimate",
+      "listEvidence": {
+        "route": "/core/estimates",
+        "headers": [
+          "書類番号",
+          "取引先",
+          "提出先",
+          "見積日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedHeadersPresent": true,
+        "forbiddenCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "kpiCount": 4,
+        "hasDropDownCreate": false
+      },
+      "createEvidence": {
+        "forbiddenCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "textareaValues": [
+          {
+            "label": "社外向け文面",
+            "value": "",
+            "placeholder": "見積条件、補足事項、社内共有事項など"
+          },
+          {
+            "label": "管理メモ",
+            "value": "",
+            "placeholder": "社内共有事項など"
+          }
+        ],
+        "saveButtonCount": 1,
+        "amountFooterCount": 1,
+        "basicInfoStateCount": 0,
+        "topCardBoxes": [
+          {
+            "width": 430,
+            "height": 173,
+            "heading": "基本情報"
+          },
+          {
+            "width": 784,
+            "height": 239,
+            "heading": "提出先"
+          },
+          {
+            "width": 506,
+            "height": 177,
+            "heading": "管理情報"
+          }
+        ],
+        "lineHeaderBoxes": [
+          {
+            "id": "line-header-drag",
+            "width": 24,
+            "text": ""
+          },
+          {
+            "id": "line-header-no",
+            "width": 32,
+            "text": "No."
+          },
+          {
+            "id": "line-header-product",
+            "width": 1057,
+            "text": "商品コード / 商品名 / 規格"
+          },
+          {
+            "id": "line-header-unit",
+            "width": 52,
+            "text": "単位"
+          },
+          {
+            "id": "line-header-pack",
+            "width": 52,
+            "text": "入数"
+          },
+          {
+            "id": "line-header-quantity",
+            "width": 52,
+            "text": "数量"
+          },
+          {
+            "id": "line-header-unit-price",
+            "width": 68,
+            "text": "単価"
+          },
+          {
+            "id": "line-header-amount",
+            "width": 96,
+            "text": "金額"
+          },
+          {
+            "id": "line-header-memo",
+            "width": 160,
+            "text": "備考"
+          },
+          {
+            "id": "line-header-actions",
+            "width": 48,
+            "text": "操作"
+          }
+        ]
+      }
+    },
+    {
+      "key": "order",
+      "listEvidence": {
+        "route": "/core/orders",
+        "headers": [
+          "書類番号",
+          "取引先",
+          "納入先",
+          "注文日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedHeadersPresent": true,
+        "forbiddenCounts": {
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "kpiCount": 4,
+        "hasDropDownCreate": false
+      },
+      "createEvidence": {
+        "forbiddenCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "textareaValues": [
+          {
+            "label": "社外向け文面",
+            "value": "",
+            "placeholder": "注文条件、納期確認、社内共有事項など"
+          },
+          {
+            "label": "管理メモ",
+            "value": "",
+            "placeholder": "社内共有事項など"
+          }
+        ],
+        "saveButtonCount": 1,
+        "amountFooterCount": 1,
+        "basicInfoStateCount": 0,
+        "topCardBoxes": [
+          {
+            "width": 430,
+            "height": 173,
+            "heading": "基本情報"
+          },
+          {
+            "width": 784,
+            "height": 239,
+            "heading": "納入先"
+          },
+          {
+            "width": 506,
+            "height": 177,
+            "heading": "注文情報"
+          }
+        ],
+        "lineHeaderBoxes": [
+          {
+            "id": "line-header-drag",
+            "width": 24,
+            "text": ""
+          },
+          {
+            "id": "line-header-no",
+            "width": 32,
+            "text": "No."
+          },
+          {
+            "id": "line-header-product",
+            "width": 1057,
+            "text": "商品コード / 商品名 / 規格"
+          },
+          {
+            "id": "line-header-unit",
+            "width": 52,
+            "text": "単位"
+          },
+          {
+            "id": "line-header-pack",
+            "width": 52,
+            "text": "入数"
+          },
+          {
+            "id": "line-header-quantity",
+            "width": 52,
+            "text": "数量"
+          },
+          {
+            "id": "line-header-unit-price",
+            "width": 68,
+            "text": "単価"
+          },
+          {
+            "id": "line-header-amount",
+            "width": 96,
+            "text": "金額"
+          },
+          {
+            "id": "line-header-memo",
+            "width": 160,
+            "text": "備考"
+          },
+          {
+            "id": "line-header-actions",
+            "width": 48,
+            "text": "操作"
+          }
+        ]
+      }
+    },
+    {
+      "key": "delivery",
+      "listEvidence": {
+        "route": "/core/deliveries",
+        "headers": [
+          "書類番号",
+          "取引先",
+          "納品先",
+          "納品日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedHeadersPresent": true,
+        "forbiddenCounts": {
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "kpiCount": 4,
+        "hasDropDownCreate": false
+      },
+      "createEvidence": {
+        "forbiddenCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "textareaValues": [
+          {
+            "label": "社外向け文面",
+            "value": "上記の通り納品いたしました。ご確認をお願いいたします。",
+            "placeholder": "上記の通り納品いたしました。ご確認をお願いいたします。"
+          },
+          {
+            "label": "納品時メモ",
+            "value": "搬入口は西側です。置き配不可。納品日指定あり。",
+            "placeholder": "納品時の注意事項など"
+          }
+        ],
+        "saveButtonCount": 1,
+        "amountFooterCount": 1,
+        "basicInfoStateCount": 0,
+        "topCardBoxes": [
+          {
+            "width": 430,
+            "height": 173,
+            "heading": "基本情報"
+          },
+          {
+            "width": 784,
+            "height": 239,
+            "heading": "納品先"
+          },
+          {
+            "width": 506,
+            "height": 243,
+            "heading": "配送情報"
+          }
+        ],
+        "lineHeaderBoxes": [
+          {
+            "id": "line-header-drag",
+            "width": 24,
+            "text": ""
+          },
+          {
+            "id": "line-header-no",
+            "width": 32,
+            "text": "No."
+          },
+          {
+            "id": "line-header-product",
+            "width": 1057,
+            "text": "商品コード / 商品名 / 規格"
+          },
+          {
+            "id": "line-header-unit",
+            "width": 52,
+            "text": "単位"
+          },
+          {
+            "id": "line-header-pack",
+            "width": 52,
+            "text": "入数"
+          },
+          {
+            "id": "line-header-quantity",
+            "width": 52,
+            "text": "数量"
+          },
+          {
+            "id": "line-header-unit-price",
+            "width": 68,
+            "text": "単価"
+          },
+          {
+            "id": "line-header-amount",
+            "width": 96,
+            "text": "金額"
+          },
+          {
+            "id": "line-header-memo",
+            "width": 160,
+            "text": "備考"
+          },
+          {
+            "id": "line-header-actions",
+            "width": 48,
+            "text": "操作"
+          }
+        ]
+      }
+    },
+    {
+      "key": "invoice",
+      "listEvidence": {
+        "route": "/core/invoices",
+        "headers": [
+          "書類番号",
+          "取引先",
+          "請求先",
+          "請求日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedHeadersPresent": true,
+        "forbiddenCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "kpiCount": 4,
+        "hasDropDownCreate": false
+      },
+      "createEvidence": {
+        "forbiddenCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "textareaValues": [
+          {
+            "label": "社外向け文面",
+            "value": "",
+            "placeholder": "振込案内、請求条件、社内共有事項など"
+          },
+          {
+            "label": "管理メモ",
+            "value": "",
+            "placeholder": "社内共有事項など"
+          }
+        ],
+        "saveButtonCount": 1,
+        "amountFooterCount": 1,
+        "basicInfoStateCount": 0,
+        "topCardBoxes": [
+          {
+            "width": 430,
+            "height": 173,
+            "heading": "基本情報"
+          },
+          {
+            "width": 784,
+            "height": 239,
+            "heading": "請求先"
+          },
+          {
+            "width": 506,
+            "height": 177,
+            "heading": "支払情報"
+          }
+        ],
+        "lineHeaderBoxes": [
+          {
+            "id": "line-header-drag",
+            "width": 24,
+            "text": ""
+          },
+          {
+            "id": "line-header-no",
+            "width": 32,
+            "text": "No."
+          },
+          {
+            "id": "line-header-product",
+            "width": 1057,
+            "text": "商品コード / 商品名 / 規格"
+          },
+          {
+            "id": "line-header-unit",
+            "width": 52,
+            "text": "単位"
+          },
+          {
+            "id": "line-header-pack",
+            "width": 52,
+            "text": "入数"
+          },
+          {
+            "id": "line-header-quantity",
+            "width": 52,
+            "text": "数量"
+          },
+          {
+            "id": "line-header-unit-price",
+            "width": 68,
+            "text": "単価"
+          },
+          {
+            "id": "line-header-amount",
+            "width": 96,
+            "text": "金額"
+          },
+          {
+            "id": "line-header-memo",
+            "width": 160,
+            "text": "備考"
+          },
+          {
+            "id": "line-header-actions",
+            "width": 48,
+            "text": "操作"
+          }
+        ]
+      }
+    },
+    {
+      "key": "payment",
+      "listEvidence": {
+        "route": "/core/payments",
+        "headers": [
+          "書類番号",
+          "取引先",
+          "対象請求書",
+          "入金日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedHeadersPresent": true,
+        "forbiddenCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "kpiCount": 4,
+        "hasDropDownCreate": false
+      },
+      "createEvidence": {
+        "forbiddenCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "textareaValues": [
+          {
+            "label": "社外向け文面",
+            "value": "",
+            "placeholder": "消込メモ、入金確認事項、社内共有事項など"
+          },
+          {
+            "label": "管理メモ",
+            "value": "",
+            "placeholder": "社内共有事項など"
+          }
+        ],
+        "saveButtonCount": 1,
+        "amountFooterCount": 1,
+        "basicInfoStateCount": 0,
+        "topCardBoxes": [
+          {
+            "width": 430,
+            "height": 173,
+            "heading": "基本情報"
+          },
+          {
+            "width": 784,
+            "height": 239,
+            "heading": "入金元"
+          },
+          {
+            "width": 506,
+            "height": 177,
+            "heading": "消込情報"
+          }
+        ],
+        "lineHeaderBoxes": [
+          {
+            "id": "line-header-drag",
+            "width": 24,
+            "text": ""
+          },
+          {
+            "id": "line-header-no",
+            "width": 32,
+            "text": "No."
+          },
+          {
+            "id": "line-header-product",
+            "width": 1057,
+            "text": "対象請求書 / 入金内容 / 備考"
+          },
+          {
+            "id": "line-header-unit",
+            "width": 52,
+            "text": "単位"
+          },
+          {
+            "id": "line-header-pack",
+            "width": 52,
+            "text": "入数"
+          },
+          {
+            "id": "line-header-quantity",
+            "width": 52,
+            "text": "数量"
+          },
+          {
+            "id": "line-header-unit-price",
+            "width": 68,
+            "text": "単価"
+          },
+          {
+            "id": "line-header-amount",
+            "width": 96,
+            "text": "金額"
+          },
+          {
+            "id": "line-header-memo",
+            "width": 160,
+            "text": "備考"
+          },
+          {
+            "id": "line-header-actions",
+            "width": 48,
+            "text": "操作"
+          }
+        ]
+      }
+    },
+    {
+      "key": "purchase-order",
+      "listEvidence": {
+        "route": "/core/purchase-orders",
+        "headers": [
+          "書類番号",
+          "仕入先",
+          "納入先",
+          "入荷予定日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedHeadersPresent": true,
+        "forbiddenCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "納品先": 0,
+          "納品日": 0,
+          "カスタマイズ": 0,
+          "Core /": 0
+        },
+        "kpiCount": 4,
+        "hasDropDownCreate": false
+      },
+      "createEvidence": {
+        "forbiddenCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "bodyForbiddenSubstringCounts": {
+          "配送備考": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0
+        },
+        "textareaValues": [
+          {
+            "label": "社外向け文面",
+            "value": "",
+            "placeholder": "発注条件、入荷予定、社内共有事項など"
+          },
+          {
+            "label": "管理メモ",
+            "value": "",
+            "placeholder": "社内共有事項など"
+          }
+        ],
+        "saveButtonCount": 1,
+        "amountFooterCount": 1,
+        "basicInfoStateCount": 0,
+        "topCardBoxes": [
+          {
+            "width": 430,
+            "height": 173,
+            "heading": "基本情報"
+          },
+          {
+            "width": 784,
+            "height": 239,
+            "heading": "納入先"
+          },
+          {
+            "width": 506,
+            "height": 177,
+            "heading": "発注情報"
+          }
+        ],
+        "lineHeaderBoxes": [
+          {
+            "id": "line-header-drag",
+            "width": 24,
+            "text": ""
+          },
+          {
+            "id": "line-header-no",
+            "width": 32,
+            "text": "No."
+          },
+          {
+            "id": "line-header-product",
+            "width": 1057,
+            "text": "商品コード / 商品名 / 規格"
+          },
+          {
+            "id": "line-header-unit",
+            "width": 52,
+            "text": "単位"
+          },
+          {
+            "id": "line-header-pack",
+            "width": 52,
+            "text": "入数"
+          },
+          {
+            "id": "line-header-quantity",
+            "width": 52,
+            "text": "数量"
+          },
+          {
+            "id": "line-header-unit-price",
+            "width": 68,
+            "text": "単価"
+          },
+          {
+            "id": "line-header-amount",
+            "width": 96,
+            "text": "金額"
+          },
+          {
+            "id": "line-header-memo",
+            "width": 160,
+            "text": "備考"
+          },
+          {
+            "id": "line-header-actions",
+            "width": 48,
+            "text": "操作"
+          }
+        ]
+      }
+    }
+  ]
+}

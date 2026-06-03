@@ -1,0 +1,14 @@
+---
+import OfficeFeaturePage from "@/components/office/OfficeFeaturePage.astro";
+
+export const prerender = true;
+---
+
+<OfficeFeaturePage
+  title="PowerPoint クイックビュー"
+  eyebrow="PPTX"
+  canonicalPath="/office/powerpoint"
+  description="PPTXファイルの構成、テキスト、スライド情報をブラウザで確認し、簡易生成・確認に進むための軽量ビューです。"
+  bullets={["PPTXアップロード", "ファイル情報表示", "テキスト抽出", "簡易スライド表示", "構成確認", "簡易生成導線"]}
+  caution="PowerPointファイルは現在、簡易表示・テキスト確認・簡易生成を中心に扱う前提です。"
+/>

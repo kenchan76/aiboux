@@ -1,0 +1,27 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Card, CardContent } from "@/components/starwind/card";
+import type { FileToolCategory } from "@/data/file-tools";
+
+interface Props {
+  categories: FileToolCategory[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+  {categories.map((category) => (
+    <a href={category.href} class="group block">
+      <Card size="sm" class="h-full border-neutral-200 transition group-hover:border-blue-200 group-hover:bg-blue-50/20">
+        <CardContent class="space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold text-neutral-950">{category.title}</h3>
+            <Badge variant="outline" size="sm" class="rounded-md border-neutral-200 px-1.5 py-0 text-[10px] text-neutral-600">{category.tools}</Badge>
+          </div>
+          <p class="text-xs leading-5 text-neutral-600">{category.description}</p>
+        </CardContent>
+      </Card>
+    </a>
+  ))}
+</div>

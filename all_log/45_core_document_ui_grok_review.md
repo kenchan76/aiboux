@@ -1,0 +1,10 @@
+**PASS**
+
+All 9 required PASS criteria are satisfied based on direct inspection of the copied source ([CoreShell.tsx](/tmp/grok-aiboux-review/core-documents-final/src/components/core/CoreShell.tsx), [DocumentEntryForm.tsx](/tmp/grok-aiboux-review/core-documents-final/src/components/core/forms/DocumentEntryForm.tsx), [coreDocumentUiConfig.ts](/tmp/grok-aiboux-review/core-documents-final/src/lib/coreDocumentUiConfig.ts), [CoreDataTable.tsx](/tmp/grok-aiboux-review/core-documents-final/src/components/core/CoreDataTable.tsx)), the embedded DOM audit evidence (exact header sets, kpiCount=4, toolbar counts, forbiddenCounts=0 for all six document types, topCardBoxes dimensions with varied compact heights + taller delivery third card, lineHeaderBoxes with product-dominant widths + 24px DnD + 160px memo, save/amount/line counts, basicInfoStateCount=0), and the test expectations.
+
+- Light/white dense thin-border treatment, kept sidebar + CORE badge, icon KPI cards (exactly 4), title-row toolbar (display period/status/owner/detail/CSV/bulk/create), and absence of description/breadcrumb/Core / /duplicate search/Customize/right list panel are implemented and verified in the DOM + code paths (documentViews skip CorePageHeader; detailRow replaces content rather than side panel; no search/Customize in toolbar).
+- Column sets match criteria 5 exactly per config + DOM (estimate: 書類番号/取引先/提出先/見積日/... no 納品先/日; invoice/payment no 納品先; purchase-order uses 仕入先/入荷予定日; etc.).
+- Create workspaces (full left Sheet, typeLocked for view-driven creates) have zero forbidden preview strings, no right preview/action area, compact varied-height top cards (basic ~443x173, destination wider ~755x239, third compact except delivery 305px shipping), dominant product column (minmax(560px,1fr) vs narrow 24/32/52/68/96/48), DnD grip + memo, and one-click (no aria-haspopup) purchase-order create.
+
+The provided DOM audit + code + tests align with the reference direction and produce the audited screenshots. No blockers.
+GROK_EXIT:0

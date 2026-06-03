@@ -1,0 +1,17 @@
+---
+import AdSlot from "@/components/file/AdSlot.astro";
+import PdfToolGrid from "@/components/tools/PdfToolGrid.astro";
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="PDFツール"
+  description="PDF結合、圧縮、分割、回転、ページ削除、画像変換を同じ業務トーンで扱えるツール一覧です。"
+>
+  <section class="mx-auto max-w-6xl px-4 py-8 sm:px-5 lg:px-6">
+    <PdfToolGrid />
+    <div class="mt-5"><AdSlot /></div>
+  </section>
+</FileToolLayout>

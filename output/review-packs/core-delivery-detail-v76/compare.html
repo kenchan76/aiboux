@@ -1,0 +1,640 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="cache-control" content="no-store"><title>c76 Delivery Detail Font Weight Review</title><style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;color:#111827;background:#fff;line-height:1.65}a{color:#2563eb}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{border:1px solid #ddd;border-radius:8px;padding:12px;background:#fff}img{max-width:100%;border:1px solid #ddd}table{border-collapse:collapse;width:100%;margin-top:16px;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:right}th:first-child,td:first-child{text-align:left}pre{white-space:pre-wrap;border:1px solid #ddd;border-radius:8px;padding:12px;background:#f9fafb}.pass{color:#047857;font-weight:700}.blocked{color:#b45309;font-weight:700}</style></head><body><h1>Delivery Detail Font Weight Rule v76</h1><p>DOM / Visual Verdict: <strong class="pass">PASS</strong></p><p>Independent Review Status: <strong class="blocked">BLOCKED_REVIEW if image reviewers cannot load artifacts</strong></p><p>c75は太字ルールを検査していなかったため不合格証跡です。c76ではFont Weight Differenceを判定に含めます。</p><div class="grid"><section class="panel"><h2>Reference</h2><img src="/reference-76.png" alt="Reference"></section><section class="panel"><h2>Actual 1672</h2><img src="/actual-76.png" alt="Actual 1672"></section></div><section class="panel"><h2>Diff Image</h2><img src="/diff-76.png" alt="Diff"></section><h2>Geometry Difference</h2><table><thead><tr><th>Metric</th><th>Reference</th><th>Actual</th><th>Delta</th><th>Threshold</th></tr></thead><tbody><tr><td>topCardsY</td><td>135</td><td>128</td><td>-7</td><td>16</td></tr>
+<tr><td>topCardsHeight</td><td>320</td><td>342</td><td>22</td><td>30</td></tr>
+<tr><td>linesY</td><td>471</td><td>478</td><td>7</td><td>24</td></tr>
+<tr><td>memoHistoryY</td><td>720</td><td>713</td><td>-7</td><td>32</td></tr>
+<tr><td>footerY</td><td>862</td><td>869</td><td>7</td><td>24</td></tr></tbody></table><h2>Text Difference</h2><pre>{
+  "missingExpectedTexts": [],
+  "forbiddenTextsFound": []
+}</pre><h2>Product Row Difference</h2><pre>{
+  "productNameSingleLine": true,
+  "productNameSecondLineFound": false,
+  "productNameCellHeight": 20,
+  "lineRowHeight": 33,
+  "productNameWhiteSpace": "nowrap"
+}</pre><h2>Font Weight Difference</h2><pre>{
+  "verdict": "PASS",
+  "allowedBold": [
+    "section titles",
+    "field labels",
+    "table headers"
+  ],
+  "forbiddenBold": [
+    "values",
+    "product names",
+    "amount values",
+    "memo/history body",
+    "footer amount values"
+  ],
+  "violations": [],
+  "samples": [
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "納品書詳細",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "基本情報",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "納品先",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "配送情報",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "明細一覧",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "備考・メモ",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-section-title']",
+      "text": "履歴",
+      "fontWeight": 600
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品書番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品日",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "取引先",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "取引先担当者",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品先名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "部署名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "担当者名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "郵便番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "都道府県",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "市区町村",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "住所・建物名",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "電話番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "配送業者",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "サービス種別",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "お問い合わせ番号",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "納品日",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "配送希望時間帯",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "小計",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "消費税 10%",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "消費税 8%",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "合計金額",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-detail-label']",
+      "text": "内消費税",
+      "fontWeight": 500
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "コンクリートブロック / C種 100 x 190 x 390",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "モルタル混和剤 / AE減水剤 18L",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "鉄筋 / D10 SD295A 4m",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-line-product-name']",
+      "text": "養生テープ / 50mm x 25m 緑",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥74,300",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥58,000",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥25,500",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥21,000",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥178,800",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥17,880",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥0",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥196,680",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-amount-value']",
+      "text": "￥17,880",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-document-number-value']",
+      "text": "N20260530-01",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-date-value']",
+      "text": "2026/05/30",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-customer-value']",
+      "text": "株式会社サンプル",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-basic-contact-value']",
+      "text": "佐藤 一郎 様",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-destination-name-value']",
+      "text": "株式会社サンプル",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-destination-address-value']",
+      "text": "1-7-1 東京本社ビル 1F倉庫前",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-destination-phone-value']",
+      "text": "03-1234-5678",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-shipping-carrier-value']",
+      "text": "ヤマト運輸",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-shipping-service-value']",
+      "text": "宅急便",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-shipping-tracking-value']",
+      "text": "",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-detail-date-input']",
+      "text": "",
+      "fontWeight": 400
+    },
+    {
+      "selector": "[data-testid='delivery-detail-time-select']",
+      "text": "午前中（8:00-12:00）",
+      "fontWeight": 400
+    }
+  ]
+}</pre><h2>Visual Blockers</h2><pre>[]</pre><h2>Reviewer Verdict</h2><pre>{
+  "verdict": "PASS",
+  "geometryPass": true,
+  "textPass": true,
+  "productRowPass": true,
+  "fontWeightPass": true,
+  "missingExpectedTexts": [],
+  "forbiddenTextsFound": [],
+  "visualBlockers": [],
+  "productRow": {
+    "productNameSingleLine": true,
+    "productNameSecondLineFound": false,
+    "productNameCellHeight": 20,
+    "lineRowHeight": 33,
+    "productNameWhiteSpace": "nowrap"
+  },
+  "fontWeight": {
+    "verdict": "PASS",
+    "rules": {
+      "titlesCanBeBold": true,
+      "labelsCanBeBold": true,
+      "valuesMustBeNormal": true,
+      "productNamesMustBeNormal": true,
+      "amountValuesMustBeNormal": true
+    },
+    "violations": [],
+    "samples": [
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "納品書詳細",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "基本情報",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "納品先",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "配送情報",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "明細一覧",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "備考・メモ",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "履歴",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品書番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品日",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "取引先",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "取引先担当者",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品先名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "部署名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "担当者名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "郵便番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "都道府県",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "市区町村",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "住所・建物名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "電話番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "配送業者",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "サービス種別",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "お問い合わせ番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品日",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "配送希望時間帯",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "小計",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "消費税 10%",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "消費税 8%",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "合計金額",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "内消費税",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "コンクリートブロック / C種 100 x 190 x 390",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "モルタル混和剤 / AE減水剤 18L",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "鉄筋 / D10 SD295A 4m",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "養生テープ / 50mm x 25m 緑",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥74,300",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥58,000",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥25,500",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥21,000",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥178,800",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥17,880",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥0",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥196,680",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥17,880",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-document-number-value']",
+        "text": "N20260530-01",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-date-value']",
+        "text": "2026/05/30",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-customer-value']",
+        "text": "株式会社サンプル",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-contact-value']",
+        "text": "佐藤 一郎 様",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-destination-name-value']",
+        "text": "株式会社サンプル",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-destination-address-value']",
+        "text": "1-7-1 東京本社ビル 1F倉庫前",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-destination-phone-value']",
+        "text": "03-1234-5678",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-shipping-carrier-value']",
+        "text": "ヤマト運輸",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-shipping-service-value']",
+        "text": "宅急便",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-shipping-tracking-value']",
+        "text": "",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-detail-date-input']",
+        "text": "",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-detail-time-select']",
+        "text": "午前中（8:00-12:00）",
+        "fontWeight": 400
+      }
+    ]
+  },
+  "geometry": {
+    "reference": {
+      "topCardsY": 135,
+      "topCardsHeight": 320,
+      "linesY": 471,
+      "memoHistoryY": 720,
+      "footerY": 862
+    },
+    "actual": {
+      "topCardsY": 128,
+      "topCardsHeight": 342,
+      "linesY": 478,
+      "memoHistoryY": 713,
+      "footerY": 869,
+      "titleActionsRightEdge": 1640
+    },
+    "delta": {
+      "topCardsY": -7,
+      "topCardsHeight": 22,
+      "linesY": 7,
+      "memoHistoryY": -7,
+      "footerY": 7
+    },
+    "thresholds": {
+      "topCardsY": 16,
+      "topCardsHeight": 30,
+      "linesY": 24,
+      "memoHistoryY": 32,
+      "footerY": 24
+    },
+    "verdict": "PASS"
+  },
+  "diffPass": true,
+  "diffRatio": 0.1270332385886947,
+  "diffThreshold": 0.6,
+  "textMismatch": {
+    "missingExpectedTexts": [],
+    "forbiddenTextsFound": []
+  },
+  "diffImage": "output/playwright/core-documents-redesign/delivery-detail-reference-diff-v5-1672.png"
+}</pre><h2>Blocked Prior Evidence</h2><p>m72/l72/d72/c72, m73/l73/d73/c73, m74/l74/d74/c74, and m75/l75/d75/c75 are invalid as completion evidence.</p></body></html>

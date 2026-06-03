@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Delivery Detail Reference / Actual Geometry v2</title>
+  <style>
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;color:#111827;background:#fff}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .panel{border:1px solid #ddd;border-radius:8px;padding:12px;background:#fff}
+    img{max-width:100%;border:1px solid #ddd}
+    table{border-collapse:collapse;width:100%;margin-top:16px;font-size:14px}
+    th,td{border:1px solid #ddd;padding:8px;text-align:right}
+    th:first-child,td:first-child{text-align:left}
+    pre{white-space:pre-wrap;border:1px solid #ddd;border-radius:8px;padding:12px;background:#f9fafb}
+  </style>
+</head>
+<body>
+  <h1>Reference / Actual Geometry v2</h1>
+  <div class="grid">
+    <section class="panel"><h2>Reference</h2><img src="../../reference/core-delivery-detail/reference.png" alt="Reference"></section>
+    <section class="panel"><h2>Actual 1672</h2><img src="delivery-detail-reference-match-v2-1672.png" alt="Actual"></section>
+  </div>
+  <h2>Geometry Difference</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Reference</th><th>Actual</th><th>Delta</th><th>Threshold</th></tr></thead>
+    <tbody>
+      <tr><td>topCardsY</td><td>135</td><td>135</td><td>0</td><td>16</td></tr>
+      <tr><td>topCardsHeight</td><td>326</td><td>320</td><td>-6</td><td>30</td></tr>
+      <tr><td>linesY</td><td>477</td><td>471</td><td>-6</td><td>24</td></tr>
+      <tr><td>memoHistoryY</td><td>734</td><td>728</td><td>-6</td><td>32</td></tr>
+      <tr><td>footerY</td><td>885</td><td>885</td><td>0</td><td>24</td></tr>
+    </tbody>
+  </table>
+  <h2>Verdict</h2>
+  <pre>{
+  "reference": {
+    "sidebarWidth": 244,
+    "topSearchY": 13,
+    "titleRowY": 86,
+    "topCardsY": 135,
+    "topCardsHeight": 326,
+    "linesY": 477,
+    "memoHistoryY": 734,
+    "footerY": 885
+  },
+  "actual": {
+    "sidebarWidth": 244,
+    "topSearchY": 14,
+    "titleRowY": 88,
+    "topCardsY": 135,
+    "topCardsHeight": 320,
+    "linesY": 471,
+    "memoHistoryY": 728,
+    "footerY": 885,
+    "titleActionsRightEdge": 1647
+  },
+  "delta": {
+    "sidebarWidth": 0,
+    "topSearchY": 1,
+    "titleRowY": 2,
+    "topCardsY": 0,
+    "topCardsHeight": -6,
+    "linesY": -6,
+    "memoHistoryY": -6,
+    "footerY": 0
+  },
+  "thresholds": {
+    "sidebarWidth": 4,
+    "topSearchY": 6,
+    "titleRowY": 6,
+    "topCardsY": 8,
+    "topCardsHeight": 12,
+    "linesY": 8,
+    "memoHistoryY": 12,
+    "footerY": 8
+  },
+  "verdict": "PASS"
+}</pre>
+</body>
+</html>

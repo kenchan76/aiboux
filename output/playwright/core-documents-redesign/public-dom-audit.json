@@ -1,0 +1,1024 @@
+{
+  "generatedAt": "2026-05-30T00:12:10.700Z",
+  "base": "https://core.aiboux.com",
+  "viewport": {
+    "width": 1980,
+    "height": 1080
+  },
+  "results": [
+    {
+      "target": {
+        "key": "estimate",
+        "route": "/core/estimates",
+        "title": "見積書",
+        "button": "見積書を作成",
+        "cols": [
+          "書類番号",
+          "取引先",
+          "提出先",
+          "見積日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "forbidden": [
+          "納品先",
+          "納品日"
+        ],
+        "sections": [
+          "提出先",
+          "管理情報"
+        ]
+      },
+      "url": "https://core.aiboux.com/core/estimates",
+      "list": {
+        "headers": [
+          "書類番号",
+          "取引先",
+          "提出先",
+          "見積日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedColumns": [
+          "書類番号",
+          "取引先",
+          "提出先",
+          "見積日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "kpiCount": 4,
+        "checkboxCount": 11,
+        "rowCount": 10,
+        "hasBulkPrep": true,
+        "hasSelectedCount": true,
+        "hasPeriodJa": true,
+        "listForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "forbiddenHeaderCounts": {
+          "納品先": 0,
+          "納品日": 0
+        }
+      },
+      "create": {
+        "essentials": {
+          "workspace": 1,
+          "saveButton": 1,
+          "amountFooter": 1,
+          "lineTable": 1,
+          "memoHeading": 1,
+          "deliveryMemo": 0,
+          "b2Csv": 0,
+          "hidenCsv": 0
+        },
+        "createForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "lineHeaderBoxes": [
+          {
+            "text": "",
+            "width": 24,
+            "height": 0
+          },
+          {
+            "text": "No.",
+            "width": 32,
+            "height": 16
+          },
+          {
+            "text": "商品コード / 商品名 / 規格",
+            "width": 1057,
+            "height": 16
+          },
+          {
+            "text": "単位",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "入数",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "数量",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "単価",
+            "width": 68,
+            "height": 16
+          },
+          {
+            "text": "金額",
+            "width": 96,
+            "height": 16
+          },
+          {
+            "text": "備考",
+            "width": 160,
+            "height": 16
+          },
+          {
+            "text": "操作",
+            "width": 48,
+            "height": 16
+          }
+        ],
+        "lineRowCount": 5,
+        "productTexts": [
+          "MAT-001 建築用材・プレカット / 12mm x 910 x 1820",
+          "MAT-002 構造用角材 / 105mm x 105mm x 3000",
+          "MAT-003 断熱材パネル / 910mm x 1820mm",
+          "MAT-004 防水シート / 1m x 50m",
+          "MAT-005 固定金具セット / 標準仕様"
+        ],
+        "hasSections": {
+          "提出先": true,
+          "管理情報": true
+        }
+      },
+      "edit": {
+        "editForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "hasDetailTitle": true
+      }
+    },
+    {
+      "target": {
+        "key": "order",
+        "route": "/core/orders",
+        "title": "注文書",
+        "button": "注文書を作成",
+        "cols": [
+          "書類番号",
+          "取引先",
+          "納入先",
+          "注文日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "forbidden": [],
+        "sections": [
+          "納入先",
+          "注文情報"
+        ]
+      },
+      "url": "https://core.aiboux.com/core/orders",
+      "list": {
+        "headers": [
+          "書類番号",
+          "取引先",
+          "納入先",
+          "注文日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedColumns": [
+          "書類番号",
+          "取引先",
+          "納入先",
+          "注文日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "kpiCount": 4,
+        "checkboxCount": 11,
+        "rowCount": 10,
+        "hasBulkPrep": true,
+        "hasSelectedCount": true,
+        "hasPeriodJa": true,
+        "listForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "forbiddenHeaderCounts": {}
+      },
+      "create": {
+        "essentials": {
+          "workspace": 1,
+          "saveButton": 1,
+          "amountFooter": 1,
+          "lineTable": 1,
+          "memoHeading": 1,
+          "deliveryMemo": 0,
+          "b2Csv": 0,
+          "hidenCsv": 0
+        },
+        "createForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "lineHeaderBoxes": [
+          {
+            "text": "",
+            "width": 24,
+            "height": 0
+          },
+          {
+            "text": "No.",
+            "width": 32,
+            "height": 16
+          },
+          {
+            "text": "商品コード / 商品名 / 規格",
+            "width": 1057,
+            "height": 16
+          },
+          {
+            "text": "単位",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "入数",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "数量",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "単価",
+            "width": 68,
+            "height": 16
+          },
+          {
+            "text": "金額",
+            "width": 96,
+            "height": 16
+          },
+          {
+            "text": "備考",
+            "width": 160,
+            "height": 16
+          },
+          {
+            "text": "操作",
+            "width": 48,
+            "height": 16
+          }
+        ],
+        "lineRowCount": 5,
+        "productTexts": [
+          "MAT-001 建築用材・プレカット / 12mm x 910 x 1820",
+          "MAT-002 構造用角材 / 105mm x 105mm x 3000",
+          "MAT-003 断熱材パネル / 910mm x 1820mm",
+          "MAT-004 防水シート / 1m x 50m",
+          "MAT-005 固定金具セット / 標準仕様"
+        ],
+        "hasSections": {
+          "納入先": true,
+          "注文情報": true
+        }
+      },
+      "edit": {
+        "editForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "hasDetailTitle": true
+      }
+    },
+    {
+      "target": {
+        "key": "delivery",
+        "route": "/core/deliveries",
+        "title": "納品書",
+        "button": "納品書を作成",
+        "cols": [
+          "書類番号",
+          "取引先",
+          "納品先",
+          "納品日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "forbidden": [],
+        "sections": [
+          "納品先",
+          "配送情報"
+        ]
+      },
+      "url": "https://core.aiboux.com/core/deliveries",
+      "list": {
+        "headers": [
+          "書類番号",
+          "取引先",
+          "納品先",
+          "納品日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedColumns": [
+          "書類番号",
+          "取引先",
+          "納品先",
+          "納品日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "kpiCount": 4,
+        "checkboxCount": 11,
+        "rowCount": 10,
+        "hasBulkPrep": true,
+        "hasSelectedCount": true,
+        "hasPeriodJa": true,
+        "listForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "forbiddenHeaderCounts": {}
+      },
+      "create": {
+        "essentials": {
+          "workspace": 1,
+          "saveButton": 1,
+          "amountFooter": 1,
+          "lineTable": 1,
+          "memoHeading": 1,
+          "deliveryMemo": 1,
+          "b2Csv": 1,
+          "hidenCsv": 1
+        },
+        "createForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "lineHeaderBoxes": [
+          {
+            "text": "",
+            "width": 24,
+            "height": 0
+          },
+          {
+            "text": "No.",
+            "width": 32,
+            "height": 16
+          },
+          {
+            "text": "商品コード / 商品名 / 規格",
+            "width": 1057,
+            "height": 16
+          },
+          {
+            "text": "単位",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "入数",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "数量",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "単価",
+            "width": 68,
+            "height": 16
+          },
+          {
+            "text": "金額",
+            "width": 96,
+            "height": 16
+          },
+          {
+            "text": "備考",
+            "width": 160,
+            "height": 16
+          },
+          {
+            "text": "操作",
+            "width": 48,
+            "height": 16
+          }
+        ],
+        "lineRowCount": 5,
+        "productTexts": [
+          "MAT-001 建築用材・プレカット / 12mm x 910 x 1820",
+          "MAT-002 構造用角材 / 105mm x 105mm x 3000",
+          "MAT-003 断熱材パネル / 910mm x 1820mm",
+          "MAT-004 防水シート / 1m x 50m",
+          "MAT-005 固定金具セット / 標準仕様"
+        ],
+        "hasSections": {
+          "納品先": true,
+          "配送情報": true
+        }
+      },
+      "edit": {
+        "editForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "hasDetailTitle": true
+      }
+    },
+    {
+      "target": {
+        "key": "invoice",
+        "route": "/core/invoices",
+        "title": "請求書",
+        "button": "請求書を作成",
+        "cols": [
+          "書類番号",
+          "取引先",
+          "請求先",
+          "請求日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "forbidden": [
+          "納品先",
+          "納品日"
+        ],
+        "sections": [
+          "請求先",
+          "支払情報"
+        ]
+      },
+      "url": "https://core.aiboux.com/core/invoices",
+      "list": {
+        "headers": [
+          "書類番号",
+          "取引先",
+          "請求先",
+          "請求日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedColumns": [
+          "書類番号",
+          "取引先",
+          "請求先",
+          "請求日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "kpiCount": 4,
+        "checkboxCount": 11,
+        "rowCount": 10,
+        "hasBulkPrep": true,
+        "hasSelectedCount": true,
+        "hasPeriodJa": true,
+        "listForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "forbiddenHeaderCounts": {
+          "納品先": 0,
+          "納品日": 0
+        }
+      },
+      "create": {
+        "essentials": {
+          "workspace": 1,
+          "saveButton": 1,
+          "amountFooter": 1,
+          "lineTable": 1,
+          "memoHeading": 1,
+          "deliveryMemo": 0,
+          "b2Csv": 0,
+          "hidenCsv": 0
+        },
+        "createForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "lineHeaderBoxes": [
+          {
+            "text": "",
+            "width": 24,
+            "height": 0
+          },
+          {
+            "text": "No.",
+            "width": 32,
+            "height": 16
+          },
+          {
+            "text": "商品コード / 商品名 / 規格",
+            "width": 1057,
+            "height": 16
+          },
+          {
+            "text": "単位",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "入数",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "数量",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "単価",
+            "width": 68,
+            "height": 16
+          },
+          {
+            "text": "金額",
+            "width": 96,
+            "height": 16
+          },
+          {
+            "text": "備考",
+            "width": 160,
+            "height": 16
+          },
+          {
+            "text": "操作",
+            "width": 48,
+            "height": 16
+          }
+        ],
+        "lineRowCount": 5,
+        "productTexts": [
+          "MAT-001 建築用材・プレカット / 12mm x 910 x 1820",
+          "MAT-002 構造用角材 / 105mm x 105mm x 3000",
+          "MAT-003 断熱材パネル / 910mm x 1820mm",
+          "MAT-004 防水シート / 1m x 50m",
+          "MAT-005 固定金具セット / 標準仕様"
+        ],
+        "hasSections": {
+          "請求先": true,
+          "支払情報": true
+        }
+      },
+      "edit": {
+        "editForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "hasDetailTitle": true
+      }
+    },
+    {
+      "target": {
+        "key": "payment",
+        "route": "/core/payments",
+        "title": "入金伝票",
+        "button": "入金を登録",
+        "cols": [
+          "書類番号",
+          "取引先",
+          "対象請求書",
+          "入金日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "forbidden": [
+          "納品先",
+          "納品日"
+        ],
+        "sections": [
+          "入金元",
+          "消込情報"
+        ]
+      },
+      "url": "https://core.aiboux.com/core/payments",
+      "list": {
+        "headers": [
+          "書類番号",
+          "取引先",
+          "対象請求書",
+          "入金日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedColumns": [
+          "書類番号",
+          "取引先",
+          "対象請求書",
+          "入金日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "kpiCount": 4,
+        "checkboxCount": 11,
+        "rowCount": 10,
+        "hasBulkPrep": true,
+        "hasSelectedCount": true,
+        "hasPeriodJa": true,
+        "listForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "forbiddenHeaderCounts": {
+          "納品先": 0,
+          "納品日": 0
+        }
+      },
+      "create": {
+        "essentials": {
+          "workspace": 1,
+          "saveButton": 1,
+          "amountFooter": 1,
+          "lineTable": 1,
+          "memoHeading": 1,
+          "deliveryMemo": 0,
+          "b2Csv": 0,
+          "hidenCsv": 0
+        },
+        "createForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "lineHeaderBoxes": [
+          {
+            "text": "",
+            "width": 24,
+            "height": 0
+          },
+          {
+            "text": "No.",
+            "width": 32,
+            "height": 16
+          },
+          {
+            "text": "対象請求書 / 入金内容 / 備考",
+            "width": 1057,
+            "height": 16
+          },
+          {
+            "text": "単位",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "入数",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "数量",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "単価",
+            "width": 68,
+            "height": 16
+          },
+          {
+            "text": "金額",
+            "width": 96,
+            "height": 16
+          },
+          {
+            "text": "備考",
+            "width": 160,
+            "height": 16
+          },
+          {
+            "text": "操作",
+            "width": 48,
+            "height": 16
+          }
+        ],
+        "lineRowCount": 5,
+        "productTexts": [
+          "MAT-001 建築用材・プレカット / 12mm x 910 x 1820",
+          "MAT-002 構造用角材 / 105mm x 105mm x 3000",
+          "MAT-003 断熱材パネル / 910mm x 1820mm",
+          "MAT-004 防水シート / 1m x 50m",
+          "MAT-005 固定金具セット / 標準仕様"
+        ],
+        "hasSections": {
+          "入金元": true,
+          "消込情報": true
+        }
+      },
+      "edit": {
+        "editForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "hasDetailTitle": true
+      }
+    },
+    {
+      "target": {
+        "key": "purchase-order",
+        "route": "/core/purchase-orders",
+        "title": "発注書",
+        "button": "発注書を作成",
+        "cols": [
+          "書類番号",
+          "仕入先",
+          "納入先",
+          "入荷予定日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "forbidden": [
+          "納品先",
+          "納品日"
+        ],
+        "sections": [
+          "納入先",
+          "発注情報"
+        ]
+      },
+      "url": "https://core.aiboux.com/core/purchase-orders",
+      "list": {
+        "headers": [
+          "書類番号",
+          "仕入先",
+          "納入先",
+          "入荷予定日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "expectedColumns": [
+          "書類番号",
+          "仕入先",
+          "納入先",
+          "入荷予定日",
+          "金額",
+          "担当",
+          "状態",
+          "アクション"
+        ],
+        "kpiCount": 4,
+        "checkboxCount": 11,
+        "rowCount": 10,
+        "hasBulkPrep": true,
+        "hasSelectedCount": true,
+        "hasPeriodJa": true,
+        "listForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "forbiddenHeaderCounts": {
+          "納品先": 0,
+          "納品日": 0
+        }
+      },
+      "create": {
+        "essentials": {
+          "workspace": 1,
+          "saveButton": 1,
+          "amountFooter": 1,
+          "lineTable": 1,
+          "memoHeading": 1,
+          "deliveryMemo": 0,
+          "b2Csv": 0,
+          "hidenCsv": 0
+        },
+        "createForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "lineHeaderBoxes": [
+          {
+            "text": "",
+            "width": 24,
+            "height": 0
+          },
+          {
+            "text": "No.",
+            "width": 32,
+            "height": 16
+          },
+          {
+            "text": "商品コード / 商品名 / 規格",
+            "width": 1057,
+            "height": 16
+          },
+          {
+            "text": "単位",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "入数",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "数量",
+            "width": 52,
+            "height": 16
+          },
+          {
+            "text": "単価",
+            "width": 68,
+            "height": 16
+          },
+          {
+            "text": "金額",
+            "width": 96,
+            "height": 16
+          },
+          {
+            "text": "備考",
+            "width": 160,
+            "height": 16
+          },
+          {
+            "text": "操作",
+            "width": 48,
+            "height": 16
+          }
+        ],
+        "lineRowCount": 5,
+        "productTexts": [
+          "MAT-001 建築用材・プレカット / 12mm x 910 x 1820",
+          "MAT-002 構造用角材 / 105mm x 105mm x 3000",
+          "MAT-003 断熱材パネル / 910mm x 1820mm",
+          "MAT-004 防水シート / 1m x 50m",
+          "MAT-005 固定金具セット / 標準仕様"
+        ],
+        "hasSections": {
+          "納入先": true,
+          "発注情報": true
+        }
+      },
+      "edit": {
+        "editForbiddenCounts": {
+          "配送備考": 0,
+          "カスタマイズ": 0,
+          "A4プレビュー": 0,
+          "ライブプレビュー": 0,
+          "印刷時の配置を確認できます": 0,
+          "Core /": 0,
+          "パンくず": 0,
+          "右側プレビュー": 0,
+          "右下アクション": 0
+        },
+        "hasDetailTitle": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+---
+import { bizPricingPlans } from "@/data/biz-content";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+---
+
+<div class="grid gap-4 lg:grid-cols-2">
+  {bizPricingPlans.map((plan) => (
+    <Card size="sm" class={`border-neutral-200 bg-white ${plan.highlighted ? "border-violet-300 ring-1 ring-violet-100" : ""}`}>
+      <CardContent>
+        <div class="mb-4 flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-semibold text-neutral-950">{plan.name}</h3>
+              {plan.highlighted && <Badge variant="outline" class="border-violet-200 bg-violet-50 text-violet-700">おすすめ</Badge>}
+            </div>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">{plan.description}</p>
+          </div>
+          <div class="whitespace-nowrap text-right">
+            <div class="text-3xl font-semibold text-violet-700">{plan.price}</div>
+            {plan.highlighted && <div class="text-xs text-neutral-500">税込</div>}
+          </div>
+        </div>
+        <div class="grid gap-2 text-sm text-neutral-700 sm:grid-cols-2">
+          {plan.features.map((feature) => <div class="flex gap-2"><span class="text-violet-700">✓</span><span>{feature}</span></div>)}
+          {plan.limitations.map((feature) => <div class="flex gap-2 text-neutral-500"><span>・</span><span>{feature}</span></div>)}
+        </div>
+        <Button href={plan.href} variant="outline" size="sm" class={`mt-5 w-full ${plan.highlighted ? "border-violet-700 bg-violet-700 text-white hover:bg-violet-800 hover:text-white" : ""}`}>
+          {plan.cta}
+        </Button>
+      </CardContent>
+    </Card>
+  ))}
+</div>

@@ -1,0 +1,13 @@
+---
+import TransferForm from "@/components/tools/TransferForm.astro";
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="ファイル転送"
+  description="メール送信と共有リンク作成を1画面で切り替えられる、大容量ファイル転送ページです。"
+>
+  <TransferForm />
+</FileToolLayout>

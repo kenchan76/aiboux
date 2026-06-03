@@ -1,0 +1,3 @@
+**PASS**
+
+The provided evidence summary demonstrates real click-driven behavior: the test performs an actual row click for N20260530-01 (verifying delivery-detail-workspace + 納品書詳細 heading), then a real 印刷 button click, followed by post-interaction assertions that the dialog (data-testid delivery-print-preview-dialog), "印刷プレビュー" text, specific iframe content (data-testid delivery-print-preview-frame with 納品書 + N20260530-01 + 合計金額), and all four control buttons appear. The matching screenshot further corroborates the rendered preview state. This exceeds button-existence checks and directly satisfies the "real click behavior" requirement.

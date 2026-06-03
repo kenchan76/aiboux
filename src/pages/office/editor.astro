@@ -1,0 +1,10 @@
+---
+import OfficeEditorShell from "@/components/office/editor/OfficeEditorShell";
+import OfficeEditorLayout from "@/layouts/OfficeEditorLayout.astro";
+
+export const prerender = true;
+---
+
+<OfficeEditorLayout>
+  <OfficeEditorShell client:load />
+</OfficeEditorLayout>

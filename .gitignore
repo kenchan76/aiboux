@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# Cloudflare local runtime state
+.wrangler/
+
 # dependencies
 node_modules/
 
@@ -12,10 +15,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+preview.*.log
+wrangler.preview.generated.json
 
 # environment variables
 .env
 .env.production
+.dev.vars
 
 # macOS-specific files
 .DS_Store

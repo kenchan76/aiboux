@@ -1,0 +1,74 @@
+---
+import DocumentPreview from "./DocumentPreview.astro";
+import ResumeMarketingLayout from "@/layouts/ResumeMarketingLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { featurePages } from "@/data/resume-content";
+
+type FeatureKey = keyof typeof featurePages;
+
+interface Props {
+  pageKey: FeatureKey;
+  canonicalPath: string;
+}
+
+const { pageKey, canonicalPath } = Astro.props;
+const page = featurePages[pageKey];
+const title = `AIBOUX 履歴書 | ${page.title}`;
+const description = page.lead;
+---
+
+<ResumeMarketingLayout title={title} description={description} canonicalPath={canonicalPath}>
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-5 lg:grid-cols-[0.95fr_1.05fr] lg:px-6 lg:py-12">
+      <div class="flex flex-col justify-center gap-5">
+        <div class="flex flex-wrap gap-2">
+          {page.highlights.map((item) => (
+            <Badge variant="outline" size="sm" class="rounded-md border-green-200 bg-green-50 text-green-700">{item}</Badge>
+          ))}
+        </div>
+        <div>
+          <h1 class="text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl">{page.title}</h1>
+          <p class="mt-4 max-w-2xl text-base leading-7 text-neutral-600">{page.lead}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href={page.ctaHref} variant="primary" size="md">{page.cta}</Button>
+          <Button href="/rirekisho/templates" variant="outline" size="md">テンプレートを見る</Button>
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <DocumentPreview title={page.title} />
+        <Card size="sm" class="border-neutral-200 bg-[#F8FAF8]">
+          <CardContent>
+            <h2 class="text-sm font-semibold text-neutral-950">この機能でできること</h2>
+            <div class="mt-4 space-y-3">
+              {page.sections.map(([heading, body]) => (
+                <div class="rounded-lg border border-neutral-200 bg-white p-3">
+                  <h3 class="text-sm font-semibold text-neutral-950">{heading}</h3>
+                  <p class="mt-1 text-sm leading-6 text-neutral-600">{body}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#F8FAF8]">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="grid gap-4 md:grid-cols-3">
+        {page.sections.map(([heading, body]) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <h2 class="text-sm font-semibold text-neutral-950">{heading}</h2>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</ResumeMarketingLayout>
+

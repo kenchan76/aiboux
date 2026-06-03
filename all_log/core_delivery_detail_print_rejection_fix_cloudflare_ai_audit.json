@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "status": 200,
+  "provider": "Cloudflare Workers AI via local OpenAI-compatible proxy",
+  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "raw": {
+    "id": "cfai-1780118542991",
+    "object": "chat.completion",
+    "created": 1780118542,
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": {
+            "verdict": "PASS",
+            "issues": []
+          }
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0
+    }
+  }
+}

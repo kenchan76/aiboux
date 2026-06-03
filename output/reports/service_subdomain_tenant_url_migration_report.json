@@ -1,0 +1,37 @@
+{
+  "title": "Service Subdomain Tenant URL Migration",
+  "status": "DEPLOYED",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "mail.aiboux.com root is now the Mail service site.",
+    "mail.aiboux.com/s/aiboux resolves to the existing Mail tenant inbox/work screen.",
+    "shop.aiboux.com root is now the AIBOUX SHOP service site.",
+    "shop.aiboux.com/s/aiboux resolves to the Shop storefront.",
+    "shop.aiboux.com/s/aiboux/admin resolves to the Shop admin screen.",
+    "Current Worker Version ID: f8867df3-aab9-439b-bf8d-634ada05191d"
+  ],
+  "verification": [
+    "npm run check:control-chars: PASS.",
+    "npm run check:mojibake: PASS.",
+    "npm run astro check: PASS, 0 errors, 0 warnings, 34 hints.",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS.",
+    "npx wrangler deploy: PASS.",
+    "Public curl verification for five acceptance URLs: PASS, HTTP 200, no Internal Error, no Cache miss.",
+    "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/service-url-routing-public.spec.ts --reporter=line: PASS, 20/20.",
+    "Persistent URL bundle /g/m68, /g/l68, /g/d68: PASS, HTTP 200, text/markdown UTF-8, no-store, Current Worker Version ID f8867df3-aab9-439b-bf8d-634ada05191d.",
+    "Final curl evidence saved to all_log/68_final_external_curl_acceptance.txt: PASS, 8/8 HTTP 200.",
+    "Final curl summary saved to all_log/72_final_external_curl_acceptance_summary.txt: PASS, no Cache miss or Internal Error detected."
+  ],
+  "notes": [
+    "The failed /g evidence URLs were reissued as persistent static artifacts under public/g/*.md and served at Worker entry before Astro routing.",
+    "Worker tail previously identified Astro v6 removal of locals.runtime.env for temporary /g handling; src/pages/g/[id].ts now imports env from cloudflare:workers.",
+    "Grok and Cloudflare AI reference reviews were not used as completion gates for this routing correction.",
+    "FINAL_ACCEPTED is not claimed."
+  ],
+  "bark": {
+    "notification": "progress notification delivered=true, skipped=false, secretLogged=false",
+    "reason": "DEPLOYED work-unit progress notification, not FINAL_ACCEPTED."
+  }
+}

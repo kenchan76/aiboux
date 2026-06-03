@@ -1,0 +1,66 @@
+---
+import DocumentPreview from "./DocumentPreview.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+---
+
+<div class="grid gap-4 lg:grid-cols-[220px_1fr]">
+  <div class="mx-auto w-full max-w-[230px] rounded-[2rem] border border-neutral-300 bg-neutral-950 p-2 shadow-sm">
+    <div class="rounded-[1.55rem] bg-white p-3">
+      <div class="mb-3 flex items-center justify-between text-xs text-neutral-500">
+        <span>←</span>
+        <span class="font-semibold text-neutral-900">履歴書作成</span>
+        <span>×</span>
+      </div>
+      <div class="mb-3 grid grid-cols-3 gap-1 text-[10px]">
+        <Badge variant="outline" size="sm" class="justify-center rounded-md border-green-200 bg-green-50 text-green-700">1 入力</Badge>
+        <Badge variant="outline" size="sm" class="justify-center rounded-md border-neutral-200 bg-neutral-50 text-neutral-500">2 確認</Badge>
+        <Badge variant="outline" size="sm" class="justify-center rounded-md border-neutral-200 bg-neutral-50 text-neutral-500">3 完成</Badge>
+      </div>
+      <div class="space-y-2">
+        {["氏名", "フリガナ", "生年月日", "電話番号"].map((label, index) => (
+          <label class="block text-xs font-medium text-neutral-700">
+            {label}
+            <div class="mt-1 rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1.5 text-xs text-neutral-600">
+              {index === 0 ? "相棒 太郎" : index === 1 ? "アイボウ タロウ" : index === 2 ? "平成8年4月2日" : "090-1234-5678"}
+            </div>
+          </label>
+        ))}
+      </div>
+      <div class="mt-3 grid grid-cols-4 gap-1 text-center text-[10px] text-neutral-500">
+        {["入力", "プレビュー", "保存", "メニュー"].map((item, index) => (
+          <div class={`rounded-md px-1 py-1.5 ${index === 0 ? "bg-green-50 text-green-700" : "bg-neutral-50"}`}>{item}</div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <DocumentPreview title="履歴書（JIS風）" compact />
+    <div class="rounded-lg border border-neutral-200 bg-white p-3 shadow-sm">
+      <div class="mb-2 text-xs font-medium text-neutral-600">証明写真プレビュー</div>
+      <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+        <div class="rounded-md border border-neutral-200 bg-neutral-50 p-2">
+          <div class="aspect-[3/4] rounded bg-gradient-to-b from-neutral-200 to-neutral-100">
+            <div class="mx-auto pt-5">
+              <div class="mx-auto size-9 rounded-full bg-neutral-700"></div>
+              <div class="mx-auto mt-2 h-12 w-16 rounded-t-xl bg-neutral-500"></div>
+            </div>
+          </div>
+          <p class="mt-1 text-center text-xs text-neutral-500">補正前</p>
+        </div>
+        <div class="text-green-700">→</div>
+        <div class="rounded-md border border-green-200 bg-green-50 p-2">
+          <div class="aspect-[3/4] rounded bg-gradient-to-b from-sky-100 to-white">
+            <div class="mx-auto pt-5">
+              <div class="mx-auto size-9 rounded-full bg-neutral-800"></div>
+              <div class="mx-auto mt-2 h-12 w-16 rounded-t-xl bg-blue-950"></div>
+            </div>
+          </div>
+          <p class="mt-1 text-center text-xs text-green-700">補正後</p>
+        </div>
+      </div>
+      <Button href="/rirekisho/photo" variant="primary" size="sm" class="mt-3 w-full">写真を整える</Button>
+    </div>
+  </div>
+</div>

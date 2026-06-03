@@ -1,0 +1,89 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect } from "@/components/starwind/native-select";
+import { Separator } from "@/components/starwind/separator";
+---
+
+<Card size="sm" class="border-violet-200 bg-white shadow-sm">
+  <CardContent class="p-0">
+    <div class="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <Button href="/biz/templates/simple-estimate" variant="outline" size="sm" class="h-8 border-neutral-200 px-2">‹</Button>
+        <div>
+          <div class="text-sm font-semibold text-neutral-950">見積書（シンプル）</div>
+          <div class="text-xs text-neutral-500">自動保存 12:45</div>
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <Button variant="outline" size="sm" class="h-8 border-violet-700 bg-violet-700 px-3 text-white hover:bg-violet-800 hover:text-white" data-biz-toast data-toast-title="ダウンロードデモ" data-toast-description="PDF / Word / Excel出力は正式版で接続されます。">ダウンロード</Button>
+        <Button variant="outline" size="sm" class="h-8" data-biz-toast data-toast-title="保存デモ" data-toast-description="保存機能はPlus Liteで利用できます。">保存</Button>
+      </div>
+    </div>
+    <div class="grid min-h-[420px] grid-cols-[128px_1fr_126px]">
+      <aside class="border-r border-neutral-200 bg-neutral-50 p-3">
+        <div class="mb-2 text-xs font-semibold text-neutral-950">差し替え項目</div>
+        {["会社名", "担当者名", "住所", "電話番号", "メール", "見積番号", "発行日", "有効期限", "合計金額"].map((item) => (
+          <label class="mb-2 block">
+            <span class="mb-1 block text-[11px] text-neutral-600">{item}</span>
+            <Input value={item === "会社名" ? "株式会社サンプル" : item === "合計金額" ? "1,234,567" : ""} class="h-7 text-xs" />
+          </label>
+        ))}
+      </aside>
+      <section class="bg-white p-5">
+        <div class="mx-auto max-w-[360px] border border-neutral-200 bg-white p-6 shadow-sm">
+          <div class="mb-6 text-center text-xl font-semibold tracking-[0.3em] text-neutral-950">御 見 積 書</div>
+          <div class="flex justify-between text-xs text-neutral-700">
+            <div>
+              <div class="border-b border-neutral-400 pb-1 font-semibold">株式会社サンプル 御中</div>
+              <p class="mt-3 text-neutral-600">下記の通りお見積申し上げます。</p>
+            </div>
+            <div class="space-y-1 text-right text-[11px] text-neutral-600">
+              <p>見積番号: 2026-000123</p>
+              <p>見積日: 2026年05月24日</p>
+              <p>有効期限: 2026年06月20日</p>
+            </div>
+          </div>
+          <div class="my-5 border-y border-neutral-300 py-3 text-center">
+            <span class="text-sm text-neutral-700">合計金額</span>
+            <span class="ml-3 text-xl font-semibold text-neutral-950">￥1,234,567</span>
+            <span class="text-xs text-neutral-500">（税込）</span>
+          </div>
+          <table class="w-full border-collapse text-xs">
+            <thead class="bg-neutral-50">
+              <tr><th class="border border-neutral-200 p-2">品名</th><th class="border border-neutral-200 p-2">数量</th><th class="border border-neutral-200 p-2">単価</th><th class="border border-neutral-200 p-2">金額</th></tr>
+            </thead>
+            <tbody>
+              {["サンプル商品A", "サンプル商品B", "サンプル商品C"].map((name, index) => (
+                <tr>
+                  <td class="border border-neutral-200 p-2">{name}</td>
+                  <td class="border border-neutral-200 p-2 text-right">{index === 0 ? 10 : index === 1 ? 5 : 3}</td>
+                  <td class="border border-neutral-200 p-2 text-right">{index === 0 ? "10,000" : index === 1 ? "220,000" : "330,000"}</td>
+                  <td class="border border-neutral-200 p-2 text-right">{index === 0 ? "100,000" : index === 1 ? "1,100,000" : "990,000"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <aside class="border-l border-neutral-200 bg-neutral-50 p-3">
+        <div class="mb-2 text-xs font-semibold text-neutral-950">プロパティ</div>
+        <label class="mb-2 block text-xs">
+          <span class="mb-1 block text-neutral-600">フォント</span>
+          <NativeSelect class="h-8 text-xs"><option>Noto Sans JP</option><option>Serif</option></NativeSelect>
+        </label>
+        <label class="mb-2 block text-xs">
+          <span class="mb-1 block text-neutral-600">サイズ</span>
+          <NativeSelect class="h-8 text-xs"><option>11</option><option>12</option><option>14</option></NativeSelect>
+        </label>
+        <Separator class="my-3" />
+        <div class="grid gap-2">
+          <Badge variant="outline" class="justify-center border-violet-200 bg-violet-50 text-violet-700">A4</Badge>
+          <Badge variant="outline" class="justify-center border-neutral-200 bg-white text-neutral-700">余白 標準</Badge>
+        </div>
+      </aside>
+    </div>
+  </CardContent>
+</Card>

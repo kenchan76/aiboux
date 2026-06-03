@@ -1,0 +1,33 @@
+{
+  "route": "/core/deliveries",
+  "viewport": {
+    "width": 1980,
+    "height": 1080
+  },
+  "detailVisible": true,
+  "previewVisibleAfterPrintClick": true,
+  "previewTitleVisible": true,
+  "previewFrameHeadingVisible": true,
+  "previewFrameDocumentNumberVisible": true,
+  "popupOpened": true,
+  "popupDocumentNumberVisible": true,
+  "downloadSuggestedFilename": "delivery-note-N20260530-01.pdf",
+  "forbiddenCounts": {
+    "配送状況": 0,
+    "通貨": 0,
+    "配送備考": 0,
+    "社外向け文面": 0,
+    "社内メモ": 0,
+    "納品時メモ": 0,
+    "A4プレビュー": 0,
+    "ライブプレビュー": 0
+  },
+  "buttons": {
+    "print": 1,
+    "pdf": 1,
+    "popup": 1,
+    "close": 1
+  },
+  "previewCountAfterClose": 0,
+  "previewVisibleAfterClose": false
+}

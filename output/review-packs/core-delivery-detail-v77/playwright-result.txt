@@ -1,0 +1,16 @@
+
+Running 4 tests using 2 workers
+
+
+
+
+
+
+
+
+
+[1A[2K[1/4] tests/core-delivery-detail-print.spec.ts:106:1 › delivery detail preview URL opens detail directly
+[1A[2K[2/4] tests/core-delivery-detail-reference.spec.ts:67:1 › delivery detail matches reference image structure
+[1A[2K[3/4] tests/core-delivery-detail-print.spec.ts:146:1 › 納品書詳細画面とフローティング印刷プレビューを確認できる
+[1A[2K[4/4] tests/core-delivery-detail-typography.spec.ts:42:1 › delivery detail typography contract
+[1A[2K  4 passed (18.8s)

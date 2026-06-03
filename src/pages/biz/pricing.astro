@@ -1,0 +1,14 @@
+---
+import BizPricingCards from "@/components/biz/BizPricingCards.astro";
+import BizMarketingLayout from "@/layouts/BizMarketingLayout.astro";
+
+export const prerender = true;
+---
+
+<BizMarketingLayout title="料金プラン | AIBOUX BIZ" canonicalPath="/biz/pricing">
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">料金プラン</h1>
+    <p class="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">無料で始めて、履歴保存と広告なしが必要になったら月500円のPlus Liteへ。</p>
+    <div class="mt-6"><BizPricingCards /></div>
+  </section>
+</BizMarketingLayout>

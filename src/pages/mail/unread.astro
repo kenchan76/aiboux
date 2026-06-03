@@ -1,0 +1,8 @@
+---
+import MailLayout from "@/layouts/MailLayout.astro";
+import { MailClientShell } from "@/components/mail/MailClientShell";
+---
+
+<MailLayout title="AIBOUX Mail - 未読メール">
+  <MailClientShell client:load initialMailbox="unread" />
+</MailLayout>

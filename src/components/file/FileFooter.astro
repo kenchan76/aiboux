@@ -1,0 +1,53 @@
+---
+const serviceLinks = [
+  ["ファイル転送", "/file/transfer"],
+  ["PDFツール", "/file/pdf"],
+  ["画像ツール", "/file/image"],
+  ["バーコードツール", "/file/barcode"],
+];
+
+const supportLinks = [
+  ["ヘルプセンター", "/file/help"],
+  ["よくあるご質問", "/file/help#faq"],
+  ["利用規約", "/file/terms"],
+  ["プライバシーポリシー", "/file/privacy"],
+  ["違反報告", "/file/abuse"],
+];
+---
+
+<footer class="border-t border-neutral-200 bg-neutral-50">
+  <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-5 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:px-6">
+    <div class="space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="text-xl font-semibold tracking-tight text-neutral-950">aiboux</span>
+        <span class="rounded-md border border-blue-200 bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700">FILE</span>
+      </div>
+      <p class="max-w-sm text-sm leading-6 text-neutral-600">
+        大容量ファイル転送、PDF、画像処理、バーコード作成をまとめて使えるビジネスファイルツールです。
+      </p>
+      <p class="text-xs text-neutral-500">© 2026 aiboux Inc. All rights reserved.</p>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold text-neutral-950">サービス</h2>
+      <ul class="mt-2 space-y-1.5 text-sm text-neutral-600">
+        {serviceLinks.map(([label, href]) => <li><a class="hover:text-neutral-950" href={href}>{label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold text-neutral-950">サポート</h2>
+      <ul class="mt-2 space-y-1.5 text-sm text-neutral-600">
+        {supportLinks.map(([label, href]) => <li><a class="hover:text-neutral-950" href={href}>{label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold text-neutral-950">関連サービス</h2>
+      <ul class="mt-2 space-y-1.5 text-sm text-neutral-600">
+        <li><a class="hover:text-neutral-950" href="https://mail.aiboux.com">aiboux MAIL</a></li>
+        <li><a class="hover:text-neutral-950" href="https://shop.aiboux.com">aiboux SHOP</a></li>
+        <li><a class="hover:text-neutral-950" href="https://mall.aiboux.com">aiboux MALL</a></li>
+        <li><a class="hover:text-neutral-950" href="/core">aiboux CORE</a></li>
+      </ul>
+      <div class="mt-4 text-xs text-neutral-500">言語: 日本語</div>
+    </div>
+  </div>
+</footer>

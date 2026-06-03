@@ -1,0 +1,49 @@
+---
+import ResumeEditorLayout from "@/layouts/ResumeEditorLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Input } from "@/components/starwind/input";
+import { Textarea } from "@/components/starwind/textarea";
+import { NativeSelect, NativeSelectOption } from "@/components/starwind/native-select";
+---
+
+<ResumeEditorLayout
+  title="AIBOUX 履歴書 | AI自己PR作成"
+  description="希望職種、経験、実績、強み、転職理由を入力し、200字・300字・400字の自己PRたたき台を作成します。"
+  canonicalPath="/rirekisho/self-pr"
+>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-8 sm:px-5 lg:grid-cols-[0.95fr_1.05fr] lg:px-6">
+      <div>
+        <Badge variant="outline" size="sm" class="mb-2 rounded-md border-green-200 bg-green-50 text-green-700">編集前提のたたき台</Badge>
+        <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">AI自己PR作成</h1>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">応募職種や経験に合わせて、履歴書・職務経歴書に使いやすい自己PR案を作ります。</p>
+        <Card size="sm" class="mt-4 border-neutral-200 bg-white">
+          <CardContent>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <label class="grid gap-1.5 text-sm font-medium text-neutral-700">希望職種<Input placeholder="例: Webコンテンツ編集" class="h-9 text-sm" /></label>
+              <label class="grid gap-1.5 text-sm font-medium text-neutral-700">文字数<NativeSelect size="sm" aria-label="文字数"><NativeSelectOption value="200">200字</NativeSelectOption><NativeSelectOption value="300">300字</NativeSelectOption><NativeSelectOption value="400">400字</NativeSelectOption></NativeSelect></label>
+              <label class="grid gap-1.5 text-sm font-medium text-neutral-700 sm:col-span-2">経験・実績<Textarea class="min-h-24 text-sm" placeholder="担当した業務、成果、工夫した点を入力" /></label>
+              <label class="grid gap-1.5 text-sm font-medium text-neutral-700 sm:col-span-2">強み<Textarea class="min-h-20 text-sm" placeholder="継続力、調整力、文章作成など" /></label>
+            </div>
+            <Button variant="primary" size="sm" class="mt-4 w-full" data-resume-toast data-toast-title="自己PR案を作成しました">自己PR案を作成</Button>
+          </CardContent>
+        </Card>
+      </div>
+      <Card size="sm" class="border-neutral-200 bg-[#F8FAF8]">
+        <CardContent>
+          <h2 class="text-sm font-semibold text-neutral-950">出力プレビュー</h2>
+          <div class="mt-4 rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-7 text-neutral-700">
+            私は、情報を整理し、読み手に伝わりやすい文章へまとめることを強みとしています。前職ではWebコンテンツの編集業務を担当し、原稿確認、表記統一、公開前チェックを継続して行いました。応募先でも、求人票で求められている文章作成力とPC操作力を活かし、正確で分かりやすい情報発信に貢献したいと考えています。
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" data-resume-toast data-toast-title="履歴書へ反映しました">履歴書へ反映</Button>
+            <Button variant="outline" size="sm" data-resume-toast data-toast-title="職務経歴書へ反映しました">職務経歴書へ反映</Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+</ResumeEditorLayout>
+

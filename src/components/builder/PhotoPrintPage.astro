@@ -1,0 +1,45 @@
+---
+import ResumeEditorLayout from "@/layouts/ResumeEditorLayout.astro";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { NativeSelect, NativeSelectOption } from "@/components/starwind/native-select";
+---
+
+<ResumeEditorLayout
+  title="AIBOUX 履歴書 | ネットプリント用写真レイアウト"
+  description="証明写真をL判またはA4に並べ、カット線つきのネットプリント用PDFを作成します。"
+  canonicalPath="/rirekisho/photo/print"
+>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-8 sm:px-5 lg:grid-cols-[360px_1fr] lg:px-6">
+      <Card size="sm" class="border-neutral-200 bg-white">
+        <CardContent>
+          <h1 class="text-2xl font-semibold tracking-tight text-neutral-950">ネットプリント用写真レイアウト</h1>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">L判またはA4に複数枚の証明写真を並べ、カット線付きPDFを作成します。</p>
+          <div class="mt-4 grid gap-3">
+            <label class="grid gap-1.5 text-sm font-medium text-neutral-700">用紙<NativeSelect size="sm"><NativeSelectOption value="l">L判</NativeSelectOption><NativeSelectOption value="a4">A4</NativeSelectOption></NativeSelect></label>
+            <label class="grid gap-1.5 text-sm font-medium text-neutral-700">写真サイズ<NativeSelect size="sm"><NativeSelectOption value="3x4">3x4 cm</NativeSelectOption><NativeSelectOption value="4x3">4x3 cm</NativeSelectOption></NativeSelect></label>
+            <label class="grid gap-1.5 text-sm font-medium text-neutral-700">枚数<NativeSelect size="sm"><NativeSelectOption value="4">4枚</NativeSelectOption><NativeSelectOption value="6">6枚</NativeSelectOption></NativeSelect></label>
+          </div>
+          <Button variant="primary" size="sm" class="mt-4 w-full" data-resume-toast data-toast-title="写真PDFを作成しました">PDFを作成</Button>
+        </CardContent>
+      </Card>
+      <Card size="sm" class="border-neutral-200 bg-[#F8FAF8]">
+        <CardContent>
+          <h2 class="text-sm font-semibold text-neutral-950">印刷プレビュー</h2>
+          <div class="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
+            <div class="mx-auto grid max-w-md grid-cols-2 gap-3 border border-dashed border-neutral-300 p-4">
+              {Array.from({ length: 6 }).map(() => (
+                <div class="aspect-[3/4] rounded-sm border border-dashed border-neutral-300 bg-gradient-to-b from-sky-100 to-white p-2">
+                  <div class="mx-auto mt-3 size-10 rounded-full bg-neutral-800"></div>
+                  <div class="mx-auto mt-2 h-14 w-16 rounded-t-xl bg-blue-950"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+</ResumeEditorLayout>
+

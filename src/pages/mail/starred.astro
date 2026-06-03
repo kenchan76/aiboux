@@ -1,0 +1,9 @@
+---
+export const prerender = false;
+import MailLayout from "@/layouts/MailLayout.astro";
+import { MailClientShell } from "@/components/mail/MailClientShell";
+---
+
+<MailLayout title="AIBOUX Mail - スター付き">
+  <MailClientShell client:load initialMailbox="starred" />
+</MailLayout>

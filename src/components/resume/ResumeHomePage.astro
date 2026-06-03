@@ -1,0 +1,274 @@
+---
+import DocumentPreview from "./DocumentPreview.astro";
+import PhoneResumeMock from "./PhoneResumeMock.astro";
+import ResumeMarketingLayout from "@/layouts/ResumeMarketingLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect, NativeSelectOption } from "@/components/starwind/native-select";
+import {
+  capabilityCards,
+  educationPreview,
+  guestBenefits,
+  heroBadges,
+  jobScanFields,
+  memberBenefits,
+  photoSteps,
+  relatedServices,
+  resumeFaqs,
+  shortcutCards,
+  templateCards,
+} from "@/data/resume-content";
+---
+
+<ResumeMarketingLayout
+  title="AIBOUX 履歴書 | スマホで履歴書・職務経歴書・退職届・送付状を作成"
+  description="AIBOUX 履歴書は、スマホで履歴書・職務経歴書・退職届・送付状・各種チェックリストを作成できる無料サービスです。求人票スクショ解析、AI自己PR、証明写真作成、スーツ合成にも対応します。"
+  canonicalPath="/rirekisho"
+>
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto grid max-w-6xl gap-7 px-4 py-10 sm:px-5 lg:px-6 lg:py-12 xl:grid-cols-[0.9fr_1.1fr]">
+      <div class="flex flex-col justify-center gap-5">
+        <div class="flex flex-wrap gap-2">
+          {heroBadges.map((label) => (
+            <Badge variant="outline" size="sm" class="rounded-md border-green-200 bg-green-50 text-green-700">{label}</Badge>
+          ))}
+        </div>
+        <div class="space-y-4">
+          <h1 class="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-neutral-950 sm:text-5xl">
+            履歴書も、職務経歴書も、スマホでそのまま作成。
+          </h1>
+          <p class="max-w-2xl text-base leading-7 text-neutral-600">
+            求人票のスクショ解析、AI自己PR、証明写真作成、スーツ合成まで。応募書類をスマホでまとめて作れる無料サービスです。
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/rirekisho/resume/new" variant="primary" size="md">無料で履歴書を作る</Button>
+          <Button href="/rirekisho/#features" variant="outline" size="md">機能を見る</Button>
+        </div>
+        <p class="text-sm leading-6 text-neutral-600">入力、写真、応募前チェックまでを一つの流れに。スマホだけで応募準備を前に進められます。</p>
+      </div>
+      <PhoneResumeMock />
+    </div>
+  </section>
+
+  <section id="features" class="border-b border-neutral-200 bg-[#F8FAF8]">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-5 lg:px-6">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {shortcutCards.map((card) => (
+          <a href={card.href} class="group rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-green-200 hover:bg-green-50/40">
+            <div class="mb-3 flex items-start gap-3">
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-green-200 bg-green-50 text-sm font-semibold text-green-700">{card.icon}</span>
+              <div>
+                <h2 class="text-sm font-semibold text-neutral-950">{card.title}</h2>
+                <p class="mt-1 text-sm leading-6 text-neutral-600">{card.description}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">できること（主要機能）</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">履歴書だけで終わらず、応募・退職・入社準備まで必要な書類とチェックをまとめます。</p>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {capabilityCards.map((item) => (
+          <a href={item.href} class="rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-green-200 hover:bg-green-50/40">
+            <div class="flex gap-3">
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-sm font-semibold text-neutral-700">{item.icon}</span>
+              <div>
+                <h3 class="text-sm font-semibold text-neutral-950">{item.title}</h3>
+                <p class="mt-1 text-sm leading-6 text-neutral-600">{item.description}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-[#F8FAF8]">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">人気テンプレート・書式例</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">応募書類、退職書類、チェックリストをすぐに使える形で整理しています。</p>
+        </div>
+        <Button href="/rirekisho/templates" variant="outline" size="sm" class="hidden sm:inline-flex">すべて見る</Button>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        {templateCards.map((template) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <DocumentPreview title={template.title} compact />
+              <div class="mt-3 flex items-center justify-between gap-2">
+                <h3 class="text-sm font-semibold text-neutral-950">{template.title}</h3>
+                <Badge variant="outline" size="sm" class="rounded-md border-green-200 bg-green-50 text-green-700">{template.badge}</Badge>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{template.description}</p>
+              <div class="mt-3 flex items-center justify-between text-xs text-neutral-500">
+                <span class="text-amber-600">★ {template.rating}</span>
+                <Button href={template.href} variant="outline" size="sm" class="h-8 border-green-200 text-green-700 hover:bg-green-50">使う</Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-4 px-4 py-12 sm:px-5 lg:grid-cols-3 lg:px-6">
+      <Card size="sm" class="border-neutral-200 bg-white">
+        <CardContent>
+          <h2 class="text-lg font-semibold tracking-tight text-neutral-950">生年月日から学歴を自動入力</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">平成・令和・西暦、早生まれに配慮し、小学校入学から高校卒業までの目安を生成します。</p>
+          <div class="mt-4 grid gap-3">
+            <label class="text-sm font-medium text-neutral-700">和暦</label>
+            <NativeSelect size="sm" aria-label="和暦">
+              <NativeSelectOption value="heisei">平成</NativeSelectOption>
+              <NativeSelectOption value="reiwa">令和</NativeSelectOption>
+              <NativeSelectOption value="western">西暦</NativeSelectOption>
+            </NativeSelect>
+            <label class="text-sm font-medium text-neutral-700">生年月日</label>
+            <Input type="date" value="1996-04-02" class="h-9 text-sm" />
+          </div>
+          <Button variant="primary" size="sm" class="mt-4 w-full" data-resume-toast data-toast-title="学歴を生成しました">学歴を自動生成</Button>
+        </CardContent>
+      </Card>
+      <Card size="sm" class="border-neutral-200 bg-white">
+        <CardContent>
+          <h3 class="text-sm font-semibold text-neutral-950">生成結果プレビュー</h3>
+          <div class="mt-4 space-y-2">
+            {educationPreview.map((item) => (
+              <div class="grid grid-cols-[54px_36px_1fr] items-center gap-2 text-sm">
+                <span class=" text-neutral-500">{item.year}</span>
+                <span class=" text-neutral-500">{item.month}</span>
+                <span class="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 text-neutral-700">{item.event}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+      <Card size="sm" class="border-neutral-200 bg-white">
+        <CardContent>
+          <h2 class="text-lg font-semibold tracking-tight text-neutral-950">求人票を見やすいデータに整理</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">スクショ、写真、PDFから会社名、職種、給与、勤務地、必須条件を整理します。</p>
+          <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+            {jobScanFields.map(([key, value]) => (
+              <div class="grid grid-cols-[80px_1fr] border-b border-neutral-200 last:border-b-0 text-sm">
+                <div class="bg-neutral-50 px-2 py-1.5 text-neutral-500">{key}</div>
+                <div class="px-2 py-1.5 text-neutral-800">{value}</div>
+              </div>
+            ))}
+          </div>
+          <Button href="/rirekisho/job-scan" variant="primary" size="sm" class="mt-4 w-full">求人票を解析する</Button>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-[#F8FAF8]">
+    <div class="mx-auto grid max-w-6xl gap-4 px-4 py-12 sm:px-5 lg:px-6 xl:grid-cols-[0.95fr_1.05fr]">
+      <Card size="sm" class="border-neutral-200 bg-white">
+        <CardContent>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">スマホ写真を、履歴書用に整える</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">顔切り抜き、背景調整、スーツ合成、ネットプリント用出力まで、写真まわりの作業をひとつにまとめます。</p>
+          <div class="mt-4 grid gap-2 sm:grid-cols-2">
+            {photoSteps.map((step) => (
+              <div class="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm font-medium text-green-800">{step}</div>
+            ))}
+          </div>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <Button href="/rirekisho/photo" variant="primary" size="md">写真を作る</Button>
+            <Button href="/rirekisho/photo/print" variant="outline" size="md">ネットプリント用PDF</Button>
+          </div>
+        </CardContent>
+      </Card>
+      <PhoneResumeMock />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5 text-center">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">全機能無料。会員登録で保存・再編集も。</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">初期版では有料課金を必須にせず、無料会員登録で応募準備を継続できます。</p>
+      </div>
+      <div class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+        <Card size="sm" class="border-neutral-200 bg-white">
+          <CardContent>
+            <h3 class="text-lg font-semibold text-neutral-950">ゲスト利用</h3>
+            <p class="mt-2 text-sm text-neutral-600">登録なしで一部機能を体験できます。</p>
+            <ul class="mt-4 space-y-2 text-sm text-neutral-700">
+              {guestBenefits.map((item) => <li class="flex gap-2"><span class="text-green-700">✓</span>{item}</li>)}
+            </ul>
+            <Button href="/rirekisho/resume/new" variant="outline" size="sm" class="mt-5 w-full">ゲストで始める</Button>
+          </CardContent>
+        </Card>
+        <Card size="sm" class="border-green-300 bg-green-50/40">
+          <CardContent>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 class="text-lg font-semibold text-neutral-950">無料会員登録（おすすめ）</h3>
+                <p class="mt-2 text-sm text-neutral-600">保存、再編集、再ダウンロード、求人票解析、写真機能まで無料で使えます。</p>
+              </div>
+              <Button href="/rirekisho/pricing" variant="primary" size="md">無料で会員登録する</Button>
+            </div>
+            <div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {memberBenefits.map((item) => <div class="rounded-md border border-green-200 bg-white px-3 py-2 text-sm text-neutral-700">✓ {item}</div>)}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-[#F8FAF8]">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-12 sm:px-5 lg:grid-cols-[320px_1fr] lg:px-6">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">よくある質問</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">無料利用、写真、求人票解析、個人情報の扱いについてまとめました。</p>
+      </div>
+      <div class="grid gap-3">
+        {resumeFaqs.map((faq, index) => (
+          <details class="group rounded-lg border border-neutral-200 bg-white p-4 open:border-green-200 open:bg-green-50/30" open={index === 0}>
+            <summary class="cursor-pointer list-none text-sm font-semibold text-neutral-950 marker:hidden">
+              <span class="inline-flex w-full items-center justify-between gap-3">
+                {faq.question}
+                <span class="text-neutral-400 transition group-open:rotate-45">+</span>
+              </span>
+            </summary>
+            <p class="mt-3 text-sm leading-6 text-neutral-600">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">関連サービス</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">応募書類の作成、保存、共有を AIBOUX シリーズで支えます。</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {relatedServices.map((service) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <h3 class="text-sm font-semibold text-neutral-950">{service.name}</h3>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{service.description}</p>
+              <Button href={service.href} variant="outline" size="sm" class="mt-4">詳しく見る</Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</ResumeMarketingLayout>

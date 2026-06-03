@@ -1,0 +1,81 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Input } from "@/components/starwind/input";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/starwind/sheet";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const navItems = [
+  { label: "特徴", href: "/biz/#features" },
+  { label: "テンプレート", href: "/biz/templates" },
+  { label: "料金プラン", href: "/biz/pricing" },
+  { label: "活用シーン", href: "/biz/#usecases" },
+  { label: "導入事例", href: "/biz/#reasons" },
+  { label: "ヘルプ", href: "/biz/help" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur-sm">
+  <div class={`mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 sm:px-5 lg:px-6 ${compact ? "h-12" : "h-14"}`}>
+    <a href="/biz" class="flex items-center gap-2 text-neutral-950" aria-label="AIBOUX BIZ トップへ">
+      <span class="text-xl font-semibold tracking-tight">aiboux</span>
+      <Badge variant="outline" size="sm" class="rounded-md border-violet-200 bg-violet-50 px-1.5 py-0 text-[10px] font-semibold text-violet-700">BIZ</Badge>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="主要メニュー">
+      {navItems.map((item) => (
+        <a href={item.href} class="rounded-md px-2.5 py-1.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-950">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-2 md:flex">
+      <div class="hidden xl:block">
+        <Input aria-label="テンプレート検索" placeholder="テンプレートを検索..." class="h-9 w-48 border-neutral-200 text-sm" />
+      </div>
+      <Button href="/biz/dashboard" variant="outline" size="sm">ログイン</Button>
+      <Button href="/biz/templates" variant="outline" size="sm" class="border-violet-700 bg-violet-700 text-white hover:bg-violet-800 hover:text-white">無料で始める</Button>
+    </div>
+
+    <div class="lg:hidden">
+      <Sheet>
+        <SheetTrigger>
+          <Button variant="outline" size="sm" aria-label="メニューを開く">
+            <span class="block h-0.5 w-4 bg-neutral-800"></span>
+            <span class="block h-0.5 w-4 bg-neutral-800"></span>
+            <span class="block h-0.5 w-4 bg-neutral-800"></span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right" class="w-[88vw] max-w-xs bg-white">
+          <SheetHeader>
+            <SheetTitle>aiboux BIZ</SheetTitle>
+            <SheetDescription>テンプレート検索、Webエディタ、履歴管理へのメニューです。</SheetDescription>
+          </SheetHeader>
+          <div class="mt-5 grid gap-1">
+            {navItems.map((item) => (
+              <a href={item.href} class="rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+                {item.label}
+              </a>
+            ))}
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-2">
+            <Button href="/biz/dashboard" variant="outline" size="sm">ログイン</Button>
+            <Button href="/biz/templates" variant="outline" size="sm" class="border-violet-700 bg-violet-700 text-white hover:bg-violet-800 hover:text-white">無料で始める</Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  </div>
+</header>

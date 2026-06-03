@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "provider": "cloudflare-workers-ai",
+  "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
+  "latencyMs": 2393,
+  "raw": {
+    "response": "{\"verdict\":\"PASS\",\"findings\":[]}",
+    "usage": {
+      "prompt_tokens": 6383,
+      "completion_tokens": 11,
+      "total_tokens": 6394,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  "text": "{\"verdict\":\"PASS\",\"findings\":[]}",
+  "auditKind": "dom",
+  "generatedAt": "2026-05-30T00:22:21.592Z"
+}

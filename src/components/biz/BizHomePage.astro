@@ -1,0 +1,186 @@
+---
+import AibouxSeriesCard from "@/components/biz/AibouxSeriesCard.astro";
+import BizAdSlot from "@/components/biz/BizAdSlot.astro";
+import BizDashboardPreview from "@/components/biz/BizDashboardPreview.astro";
+import BizFaqAccordion from "@/components/biz/BizFaqAccordion.astro";
+import BizPricingCards from "@/components/biz/BizPricingCards.astro";
+import HeroEditorPreview from "@/components/biz/HeroEditorPreview.astro";
+import PopularTemplateCard from "@/components/biz/PopularTemplateCard.astro";
+import RelatedServices from "@/components/biz/RelatedServices.astro";
+import TemplateCategoryCard from "@/components/biz/TemplateCategoryCard.astro";
+import BizMarketingLayout from "@/layouts/BizMarketingLayout.astro";
+import { bizCategories, bizFaqs, bizFeatureCards, bizTemplates, bizUseCases } from "@/data/biz-content";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+
+interface Props {
+  canonicalPath?: string;
+}
+
+const { canonicalPath = "/biz" } = Astro.props;
+const popularTemplates = bizTemplates.filter((template) => template.isPopular).slice(0, 8);
+---
+
+<BizMarketingLayout canonicalPath={canonicalPath}>
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-5 lg:grid-cols-[1fr_620px] lg:px-6">
+      <div class="flex flex-col justify-center gap-5">
+        <div class="flex flex-wrap gap-2">
+          {["会員登録不要", "無料でダウンロード", "Webエディタ搭載", "商用利用OK", "Plus Liteで履歴保存"].map((label) => (
+            <Badge variant="outline" size="sm" class="rounded-md border-violet-200 bg-violet-50 text-violet-700">{label}</Badge>
+          ))}
+        </div>
+        <div class="space-y-4">
+          <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl">
+            ビジネス文書も、テンプレートも、<span class="text-violet-700">作成・編集・管理</span>をひとつで。
+          </h1>
+          <p class="max-w-2xl text-base leading-7 text-neutral-600">
+            契約書・請求書・見積書・報告書から、企画書・提案書・各種書式まで。豊富なテンプレートを、Webエディタでそのまま編集してすぐにダウンロードできます。
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/biz/templates" variant="outline" size="md" class="border-violet-700 bg-violet-700 text-white hover:bg-violet-800 hover:text-white">無料でテンプレートを探す</Button>
+          <Button href="/biz/templates" variant="outline" size="md">テンプレートをカテゴリから探す</Button>
+        </div>
+        <AibouxSeriesCard />
+      </div>
+      <HeroEditorPreview />
+    </div>
+  </section>
+
+  <section id="features" class="border-b border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto grid max-w-6xl gap-3 px-4 py-7 sm:grid-cols-2 sm:px-5 lg:grid-cols-6 lg:px-6">
+      {bizFeatureCards.map((feature) => (
+        <Card size="sm" class="border-neutral-200 bg-white">
+          <CardContent class="p-4 text-center">
+            <div class="mx-auto mb-2 grid size-8 place-items-center rounded-md border border-violet-200 bg-violet-50 text-violet-700">□</div>
+            <h2 class="text-sm font-semibold text-neutral-950">{feature.title}</h2>
+            <p class="mt-1 text-xs leading-5 text-neutral-600">{feature.description}</p>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">テンプレートをカテゴリから探す</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">契約、請求、報告、人事、会計など、仕事の目的別に整理しています。</p>
+        </div>
+        <Button href="/biz/templates" variant="outline" size="sm" class="hidden border-violet-200 text-violet-700 hover:bg-violet-50 sm:inline-flex">すべてのカテゴリを見る</Button>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {bizCategories.map((category) => <TemplateCategoryCard category={category} />)}
+      </div>
+      <div class="mt-5">
+        <BizAdSlot />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">人気のテンプレート</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">見積書、請求書、契約書、議事録など、日常業務で使いやすい文書から始められます。</p>
+        </div>
+        <Button href="/biz/templates" variant="outline" size="sm" class="hidden sm:inline-flex">すべて見る</Button>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {popularTemplates.map((template) => <PopularTemplateCard template={template} />)}
+      </div>
+      <div class="mt-5">
+        <BizAdSlot label="テンプレート一覧下 広告枠" />
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">シンプルでわかりやすい料金プラン</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">無料で始めて、履歴保存と広告なしが必要になったらPlus Liteへ。</p>
+      </div>
+      <BizPricingCards />
+    </div>
+  </section>
+
+  <section id="usecases" class="border-y border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">こんなシーンで活用されています</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">個人利用から法人のバックオフィスまで、文書作成の初速を上げます。</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {bizUseCases.map((item) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <div class="mb-3 flex items-center justify-between">
+                <span class="grid size-10 place-items-center rounded-md bg-violet-50 text-violet-700">人</span>
+                <Badge variant="outline" class="border-neutral-200 bg-neutral-50 text-neutral-600">{item.label}</Badge>
+              </div>
+              <h3 class="text-sm font-semibold text-neutral-950">{item.title}</h3>
+              <p class="mt-1 text-sm leading-6 text-neutral-600">{item.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="reasons" class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:px-5 lg:grid-cols-[0.78fr_1.22fr] lg:px-6">
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">aiboux BIZが選ばれる理由</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">テンプレート配布だけで終わらず、編集、履歴、送付まで業務の流れで扱えます。</p>
+        </div>
+        <ul class="grid gap-2 text-sm text-neutral-700">
+          {["豊富なビジネス文書カテゴリ", "Webエディタでその場で編集", "履歴保存で何度でも再利用", "広告なしプランは月500円", "AIBOUX FILEで送付可能", "AIBOUX MAILでメール送信可能", "AIBOUX COREで帳票・取引先管理に接続予定"].map((item) => (
+            <li class="flex gap-2"><span class="text-violet-700">✓</span><span>{item}</span></li>
+          ))}
+        </ul>
+      </div>
+      <BizDashboardPreview />
+    </div>
+  </section>
+
+  <section id="faq" class="border-y border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-12 sm:px-5 lg:grid-cols-[320px_1fr] lg:px-6">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">よくある質問</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">無料利用、商用利用、保存、出力形式についてまとめています。</p>
+      </div>
+      <BizFaqAccordion faqs={bizFaqs} />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">aibouxの関連サービス</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">作った文書を送る、メールする、店舗業務に使うところまでつなげます。</p>
+      </div>
+      <RelatedServices />
+    </div>
+  </section>
+
+  <section class="border-t border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="rounded-xl border border-violet-200 bg-white p-6 text-center">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">今すぐ、ビジネス文書を作り始めよう</h2>
+        <p class="mx-auto mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
+          会員登録不要。見積書、契約書、報告書を選んで、Webエディタで編集してすぐに使えます。
+        </p>
+        <div class="mt-5 flex justify-center gap-3">
+          <Button href="/biz/templates" variant="outline" size="md" class="border-violet-700 bg-violet-700 text-white hover:bg-violet-800 hover:text-white">無料で始める</Button>
+          <Button href="/biz/editor" variant="outline" size="md">エディタを見る</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BizMarketingLayout>

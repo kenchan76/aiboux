@@ -1,0 +1,61 @@
+---
+import ResumeEditorLayout from "@/layouts/ResumeEditorLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Textarea } from "@/components/starwind/textarea";
+import { jobScanFields } from "@/data/resume-content";
+---
+
+<ResumeEditorLayout
+  title="AIBOUX 履歴書 | 求人票スクショ解析"
+  description="求人票のスクショ、写真、PDFをアップロードし、会社名、職種、給与、勤務地、必須条件を応募準備に使いやすく整理します。"
+  canonicalPath="/rirekisho/job-scan"
+>
+  <section class="bg-[#F8FAF8]">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-8 sm:px-5 lg:grid-cols-[0.9fr_1.1fr] lg:px-6">
+      <div class="space-y-4">
+        <div>
+          <Badge variant="outline" size="sm" class="mb-2 rounded-md border-green-200 bg-green-50 text-green-700">無料会員で保存</Badge>
+          <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">求人票スクショ解析</h1>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">スクショ、写真、PDFから求人情報を整理し、志望動機や自己PRの材料にします。</p>
+        </div>
+        <Card size="sm" class="border-neutral-200 bg-white">
+          <CardContent>
+            <div class="rounded-lg border border-dashed border-green-300 bg-green-50/60 p-6 text-center">
+              <div class="mx-auto flex size-12 items-center justify-center rounded-md border border-green-200 bg-white text-lg font-semibold text-green-700">＋</div>
+              <h2 class="mt-3 text-sm font-semibold text-neutral-950">求人票をアップロード</h2>
+              <p class="mt-1 text-sm leading-6 text-neutral-600">スクショ、写真、PDFを選択できます。スマホではカメラ・写真ライブラリから選べます。</p>
+              <Button variant="primary" size="sm" class="mt-4" data-resume-toast data-toast-title="求人票を読み込みました">ファイルを選択</Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      <Card size="sm" class="border-neutral-200 bg-white">
+        <CardContent>
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="text-sm font-semibold text-neutral-950">解析結果</h2>
+            <Badge variant="outline" size="sm" class="rounded-md border-green-200 bg-green-50 text-green-700">編集可能</Badge>
+          </div>
+          <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+            {jobScanFields.map(([key, value]) => (
+              <div class="grid grid-cols-[88px_1fr] border-b border-neutral-200 last:border-b-0 text-sm">
+                <div class="bg-neutral-50 px-2 py-1.5 text-neutral-500">{key}</div>
+                <div class="px-2 py-1.5 text-neutral-800">{value}</div>
+              </div>
+            ))}
+          </div>
+          <label class="mt-4 grid gap-1.5 text-sm font-medium text-neutral-700">
+            志望動機ヒント
+            <Textarea class="min-h-28 text-sm" value="応募先の編集業務では、文章作成とPC操作の経験を具体的な成果として示すと伝わりやすくなります。勤務地や勤務時間の条件も確認しておきましょう。" />
+          </label>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <Button href="/rirekisho/self-pr" variant="primary" size="sm">この求人向けに自己PRを作る</Button>
+            <Button variant="outline" size="sm" data-resume-toast data-toast-title="解析結果を保存しました">解析結果を保存</Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+</ResumeEditorLayout>
+

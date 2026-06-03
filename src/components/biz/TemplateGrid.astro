@@ -1,0 +1,49 @@
+---
+import type { BizTemplate } from "@/data/biz-content";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect } from "@/components/starwind/native-select";
+import PopularTemplateCard from "./PopularTemplateCard.astro";
+
+interface Props {
+  templates: BizTemplate[];
+  title?: string;
+  description?: string;
+}
+
+const { templates, title = "テンプレート一覧", description = "カテゴリ、形式、利用条件で絞り込んで、必要な文書をすばやく探せます。" } = Astro.props;
+---
+
+<section class="bg-white">
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-5 lg:px-6">
+    <div class="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">{title}</h1>
+        <p class="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">{description}</p>
+      </div>
+      <div class="grid gap-2 sm:grid-cols-3 lg:w-[560px]">
+        <Input placeholder="文書名・カテゴリで検索" class="h-9 text-sm" />
+        <NativeSelect class="h-9 text-sm">
+          <option>人気順</option>
+          <option>新着順</option>
+          <option>無料のみ</option>
+          <option>Plus Lite含む</option>
+        </NativeSelect>
+        <NativeSelect class="h-9 text-sm">
+          <option>すべての形式</option>
+          <option>PDF</option>
+          <option>Word</option>
+          <option>Excel</option>
+          <option>Webエディタ</option>
+        </NativeSelect>
+      </div>
+    </div>
+    <div class="mb-5 flex flex-wrap gap-2 text-xs">
+      {["契約書", "請求書", "見積書", "報告書", "人事・労務", "経理・会計", "商用利用OK", "Webエディタ"].map((item) => (
+        <span class="rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-neutral-700">{item}</span>
+      ))}
+    </div>
+    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {templates.map((template) => <PopularTemplateCard template={template} />)}
+    </div>
+  </div>
+</section>

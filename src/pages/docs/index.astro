@@ -1,0 +1,49 @@
+---
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import "../../styles/global.css";
+
+export const prerender = false;
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>AIBOUX Docs</title>
+    <meta
+      name="description"
+      content="AIBOUX全体の操作ガイドと仕様確認の入口です。現在は商品マスタ正本とShop/SKU連携ガイドを公開しています。"
+    />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <main class="mx-auto flex min-h-screen max-w-4xl flex-col justify-center px-4 py-10">
+      <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+        <div class="mb-4 flex items-center gap-2">
+          <span class="text-xl font-semibold tracking-tight">aiboux</span>
+          <span class="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs font-semibold">DOCS</span>
+        </div>
+        <h1 class="text-2xl font-semibold tracking-tight">AIBOUX Docs</h1>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">
+          AIBOUX全体の操作ガイドと仕様確認の入口です。まずはCoreの商品マスタ正本とShop/SKU連携ガイドを確認できます。
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <a
+            href="/docs/product-master"
+            class="inline-flex rounded-md bg-neutral-950 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+          >
+            商品マスタ正本ガイドを開く
+          </a>
+          <a
+            href="/core/products"
+            class="inline-flex rounded-md border border-neutral-200 px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50"
+          >
+            Core商品マスタへ
+          </a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

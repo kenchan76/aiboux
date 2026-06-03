@@ -1,0 +1,119 @@
+name = "aiboux"
+main = "./src/worker.ts"
+compatibility_date = "2026-05-23"
+workers_dev = true
+routes = [
+  { pattern = "core.aiboux.com", custom_domain = true },
+  { pattern = "mail.aiboux.com", custom_domain = true },
+  { pattern = "file.aiboux.com", custom_domain = true },
+  { pattern = "biz.aiboux.com", custom_domain = true },
+  { pattern = "office.aiboux.com", custom_domain = true },
+  { pattern = "rirekisho.aiboux.com", custom_domain = true },
+  { pattern = "docs.aiboux.com", custom_domain = true },
+  { pattern = "shop.aiboux.com", custom_domain = true },
+  { pattern = "mall.aiboux.com", custom_domain = true }
+]
+
+[triggers]
+crons = ["* * * * *", "*/15 * * * *", "17 18 * * *"]
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aiboux-b2b-db"
+database_id = "36b5f8f2-2205-4a5d-9a27-b0a30b201832"
+
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "aiboux-mail-assets"
+
+[[r2_buckets]]
+binding = "SHOP_STORAGE"
+bucket_name = "aiboux-shop-assets"
+
+[[send_email]]
+name = "EMAIL"
+
+[[queues.producers]]
+binding = "SHOP_FEED_SYNC_QUEUE"
+queue = "shop-feed-sync-queue"
+
+[[queues.consumers]]
+queue = "shop-feed-sync-queue"
+max_batch_size = 10
+max_batch_timeout = 5
+
+[ai]
+binding = "AI"
+remote = true
+
+[version_metadata]
+binding = "CF_VERSION_METADATA"
+
+[vars]
+AIBOUX_PUBLIC_URL = "https://mail.aiboux.com"
+DEFAULT_FROM_EMAIL = "noreply@aiboux.com"
+MAIL_RETENTION_FREE_DAYS = "7"
+MAIL_RETENTION_STANDARD_DAYS = "7"
+MAIL_RETENTION_PREMIUM_DAYS = "365"
+MAX_FREE_MAIL_ADDRESSES = "5"
+MAX_STANDARD_MAIL_ADDRESSES = "10"
+GEMINI_MODEL = "gemini-2.5-flash"
+WORKERS_AI_TEXT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8"
+RESEND_FROM_EMAIL = "AIBOUX Shop <info@aiboux.com>"
+
+[env.preview]
+name = "aiboux-preview"
+workers_dev = true
+
+[env.preview.assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "aiboux-b2b-db"
+database_id = "36b5f8f2-2205-4a5d-9a27-b0a30b201832"
+
+[[env.preview.r2_buckets]]
+binding = "STORAGE"
+bucket_name = "aiboux-mail-assets"
+
+[[env.preview.r2_buckets]]
+binding = "SHOP_STORAGE"
+bucket_name = "aiboux-shop-assets"
+
+[[env.preview.send_email]]
+name = "EMAIL"
+
+[[env.preview.queues.producers]]
+binding = "SHOP_FEED_SYNC_QUEUE"
+queue = "shop-feed-sync-queue"
+
+[[env.preview.queues.consumers]]
+queue = "shop-feed-sync-queue"
+max_batch_size = 10
+max_batch_timeout = 5
+
+[env.preview.ai]
+binding = "AI"
+remote = true
+
+[env.preview.version_metadata]
+binding = "CF_VERSION_METADATA"
+
+[env.preview.vars]
+AIBOUX_ENV = "preview"
+AIBOUX_PUBLIC_URL = "https://aiboux-preview.workers.dev"
+DEFAULT_FROM_EMAIL = "noreply@aiboux.com"
+MAIL_RETENTION_FREE_DAYS = "7"
+MAIL_RETENTION_STANDARD_DAYS = "7"
+MAIL_RETENTION_PREMIUM_DAYS = "365"
+MAX_FREE_MAIL_ADDRESSES = "5"
+MAX_STANDARD_MAIL_ADDRESSES = "10"
+GEMINI_MODEL = "gemini-2.5-flash"
+WORKERS_AI_TEXT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8"
+RESEND_FROM_EMAIL = "AIBOUX Shop <info@aiboux.com>"

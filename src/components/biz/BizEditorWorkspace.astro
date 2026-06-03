@@ -1,0 +1,87 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect } from "@/components/starwind/native-select";
+import { Separator } from "@/components/starwind/separator";
+import { Textarea } from "@/components/starwind/textarea";
+---
+
+<div class="mx-auto max-w-6xl px-4 py-6 sm:px-5 lg:px-6">
+  <div class="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight text-neutral-950">Webエディタ デモ</h1>
+      <p class="mt-1 text-sm text-neutral-600">差し替え項目を編集し、PDF / Word / Excel出力を想定した画面です。</p>
+    </div>
+    <div class="flex gap-2">
+      <Button variant="outline" size="sm" data-biz-toast data-toast-title="保存デモ" data-toast-description="保存と履歴はPlus Liteで利用できます。">保存</Button>
+      <Button variant="outline" size="sm" class="border-violet-700 bg-violet-700 text-white hover:bg-violet-800 hover:text-white" data-biz-toast data-toast-title="ダウンロードデモ" data-toast-description="正式版でPDF / Word / Excel出力に接続します。">ダウンロード</Button>
+    </div>
+  </div>
+  <Card size="sm" class="border-neutral-200 bg-white">
+    <CardContent class="p-0">
+      <div class="flex h-12 items-center gap-2 border-b border-neutral-200 px-3">
+        {["本文", "11", "B", "I", "U", "左揃え", "箇条書き", "リンク"].map((item) => (
+          <button class="rounded-md border border-neutral-200 px-2 py-1 text-xs text-neutral-700 hover:bg-neutral-50">{item}</button>
+        ))}
+        <Badge variant="outline" class="ml-auto border-violet-200 bg-violet-50 text-violet-700">Demo</Badge>
+      </div>
+      <div class="grid min-h-[620px] lg:grid-cols-[240px_1fr_230px]">
+        <aside class="border-r border-neutral-200 bg-neutral-50 p-4">
+          <h2 class="text-sm font-semibold text-neutral-950">編集項目</h2>
+          <div class="mt-3 grid gap-3">
+            {["会社名", "宛名", "担当者名", "住所", "電話番号", "メール", "日付", "金額", "件名"].map((item) => (
+              <label class="block">
+                <span class="mb-1 block text-xs font-medium text-neutral-600">{item}</span>
+                <Input class="h-8 text-sm" value={item === "会社名" ? "株式会社サンプル" : item === "金額" ? "1,234,567" : ""} />
+              </label>
+            ))}
+            <label class="block">
+              <span class="mb-1 block text-xs font-medium text-neutral-600">本文</span>
+              <Textarea class="min-h-24 text-sm">下記の通りお見積申し上げます。</Textarea>
+            </label>
+          </div>
+        </aside>
+        <section class="bg-white p-6">
+          <div class="mx-auto max-w-[620px] border border-neutral-200 bg-white p-8 shadow-sm">
+            <div class="mb-8 text-center text-2xl font-semibold tracking-[0.28em]">業 務 報 告 書</div>
+            <div class="mb-5 grid grid-cols-[100px_1fr] border border-neutral-200 text-sm">
+              {["部署", "担当者", "期間"].map((label, index) => (
+                <>
+                  <div class="border-b border-r border-neutral-200 bg-neutral-50 px-3 py-2 font-medium">{label}</div>
+                  <div class="border-b border-neutral-200 px-3 py-2">{index === 0 ? "営業部" : index === 1 ? "山田 太郎" : "2026年05月01日 〜 2026年05月31日"}</div>
+                </>
+              ))}
+            </div>
+            <h2 class="mb-2 text-base font-semibold">報告内容</h2>
+            <p class="mb-5 text-sm leading-7 text-neutral-700">当月度の営業活動状況、成果および今後の予定についてご報告いたします。</p>
+            <table class="w-full border-collapse text-sm">
+              <thead class="bg-neutral-50"><tr><th class="border border-neutral-200 p-2">項目</th><th class="border border-neutral-200 p-2">内容</th></tr></thead>
+              <tbody>
+                <tr><td class="border border-neutral-200 p-2">成果</td><td class="border border-neutral-200 p-2">新規商談 12件、成約 3件</td></tr>
+                <tr><td class="border border-neutral-200 p-2">課題</td><td class="border border-neutral-200 p-2">提案後フォローの標準化</td></tr>
+                <tr><td class="border border-neutral-200 p-2">次回予定</td><td class="border border-neutral-200 p-2">重点顧客向け資料の再整備</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <aside class="border-l border-neutral-200 bg-neutral-50 p-4">
+          <h2 class="text-sm font-semibold text-neutral-950">プロパティ</h2>
+          <div class="mt-3 grid gap-3">
+            <label class="block text-xs">
+              <span class="mb-1 block text-neutral-600">フォント</span>
+              <NativeSelect class="h-8"><option>Noto Sans JP</option><option>Serif</option></NativeSelect>
+            </label>
+            <label class="block text-xs">
+              <span class="mb-1 block text-neutral-600">ページサイズ</span>
+              <NativeSelect class="h-8"><option>A4</option><option>Letter</option></NativeSelect>
+            </label>
+            <Separator />
+            <Button variant="outline" size="sm" class="border-violet-200 text-violet-700 hover:bg-violet-50" data-biz-toast data-toast-title="画像挿入デモ" data-toast-description="正式版で画像アップロードに接続します。">画像を挿入</Button>
+          </div>
+        </aside>
+      </div>
+    </CardContent>
+  </Card>
+</div>

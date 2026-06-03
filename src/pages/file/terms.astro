@@ -1,0 +1,21 @@
+---
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="利用規約"
+  description="AIBOUX FILEの利用条件、禁止事項、保存期間、広告表示についての基本方針です。"
+>
+  <article class="mx-auto max-w-3xl px-4 py-8 text-sm leading-7 text-neutral-700 sm:px-5 lg:px-6">
+    <h2 class="text-lg font-semibold text-neutral-950">基本条件</h2>
+    <p class="mt-2">AIBOUX FILEは、ファイル転送、PDF、画像、バーコード作成を支援するビジネス向けファイルツールです。無料プランでは広告表示があり、Plus Liteでは広告なしと履歴管理を利用できます。</p>
+    <h2 class="mt-6 text-lg font-semibold text-neutral-950">禁止事項</h2>
+    <p class="mt-2">違法なファイル、権利侵害物、マルウェア、公序良俗に反するコンテンツの共有は禁止します。運営が必要と判断した場合、共有リンクの停止や削除を行います。</p>
+    <h2 class="mt-6 text-lg font-semibold text-neutral-950">保存期間</h2>
+    <p class="mt-2">保存期間は送信時に選択される設定に従います。期限後のファイルは削除対象となり、復元できない場合があります。</p>
+    <h2 class="mt-6 text-lg font-semibold text-neutral-950">広告表示</h2>
+    <p class="mt-2">広告は操作ボタンと誤認しない位置に、広告であることを明記して表示します。偽のダウンロードボタンは配置しません。</p>
+  </article>
+</FileToolLayout>

@@ -1,0 +1,29 @@
+---
+import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "AIBOUX SHOP" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta property="og:site_name" content="shop.aiboux.com" />
+    <link rel="icon" href="/brand/aiboux-logo.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <slot />
+      <GlobalAIAssistant client:load service="Shop" />
+  </body>
+</html>

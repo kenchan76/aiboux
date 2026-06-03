@@ -1,0 +1,17 @@
+---
+import ShopLayout from "../../layouts/ShopLayout.astro";
+import { ShopClientShell } from "../../components/shop/ShopClientShell";
+import type { ShopSection } from "../../data/shop-sample-data";
+
+interface Props {
+  section?: ShopSection;
+  title?: string;
+}
+
+const { section = "dashboard", title = "AIBOUX SHOP" } = Astro.props;
+export const prerender = false;
+---
+
+<ShopLayout title={title}>
+  <ShopClientShell initialSection={section} client:load />
+</ShopLayout>

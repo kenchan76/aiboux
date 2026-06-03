@@ -1,0 +1,10 @@
+---
+import BizEditorWorkspace from "@/components/biz/BizEditorWorkspace.astro";
+import BizMarketingLayout from "@/layouts/BizMarketingLayout.astro";
+
+export const prerender = true;
+---
+
+<BizMarketingLayout title="Webエディタ | AIBOUX BIZ" canonicalPath="/biz/editor" noindex>
+  <BizEditorWorkspace />
+</BizMarketingLayout>

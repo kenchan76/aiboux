@@ -1,0 +1,31 @@
+{
+  "visualSizes": [
+    {
+      "width": 1980,
+      "height": 1080,
+      "name": "1980"
+    },
+    {
+      "width": 1650,
+      "height": 900,
+      "name": "1650"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "1440"
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "name": "1366"
+    }
+  ],
+  "checks": {
+    "forbiddenLabelsAbsent": {
+      "shippingStatus": 0,
+      "currency": 0,
+      "deliveryMemoInShipping": 0
+    }
+  }
+}

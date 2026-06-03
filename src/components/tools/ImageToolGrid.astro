@@ -1,0 +1,17 @@
+---
+import ToolCard from "@/components/file/ToolCard.astro";
+import type { FileTool } from "@/data/file-tools";
+
+const imageTools: FileTool[] = [
+  { slug: "image-compress", category: "image", title: "画像圧縮", description: "写真の容量を軽くして転送やWeb掲載を速くします。", href: "/file/image" },
+  { slug: "image-resize", category: "image", title: "画像リサイズ", description: "商品画像、資料画像、サムネイルの寸法をそろえます。", href: "/file/image" },
+  { slug: "webp", category: "image", title: "WebP変換", description: "サイト表示に向いた軽量画像へ変換します。", href: "/file/image" },
+  { slug: "jpg-png", category: "image", title: "JPG/PNG変換", description: "用途に応じて画像形式を切り替えます。", href: "/file/image" },
+  { slug: "background-remover", category: "image", title: "背景透過", description: "商品写真を透明PNGや白背景に整えます。", href: "/file/image/background-remover", badge: "商品写真" },
+  { slug: "product-mode", category: "image", title: "商品写真モード", description: "EC、資料、商品台帳に使いやすい比率へ整えます。", href: "/file/image/background-remover" },
+];
+---
+
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {imageTools.map((tool) => <ToolCard tool={tool} />)}
+</div>

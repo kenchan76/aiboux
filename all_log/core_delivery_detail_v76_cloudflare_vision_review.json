@@ -1,0 +1,20 @@
+{
+  "loadedInstruction": false,
+  "loadedReferenceImage": false,
+  "loadedActualImage": false,
+  "checkedProductNameSingleLine": false,
+  "checkedReferenceMatch": false,
+  "checkedFontWeightRule": false,
+  "fontWeightVerdict": "NG",
+  "verdict": "BLOCKED_IMAGE_INPUT",
+  "fontWeightBlockers": [
+    "The available AIBOUX Cloudflare Workers AI integration is text-only via @cf/meta/llama-3.1-8b-instruct-fp8.",
+    "No image-capable Cloudflare AI review path was available in the current repo/runtime.",
+    "Because the reference and actual images were not loaded by Cloudflare AI, this cannot be treated as PASS."
+  ],
+  "blockers": [
+    "The available AIBOUX Cloudflare Workers AI integration is text-only via @cf/meta/llama-3.1-8b-instruct-fp8.",
+    "No image-capable Cloudflare AI review path was available in the current repo/runtime.",
+    "Because the reference and actual images were not loaded by Cloudflare AI, this cannot be treated as PASS."
+  ]
+}

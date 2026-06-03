@@ -1,0 +1,50 @@
+---
+import DashboardPreview from "@/components/file/DashboardPreview.astro";
+import FileDashboardLayout from "@/layouts/FileDashboardLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+
+export const prerender = true;
+---
+
+<FileDashboardLayout>
+  <div class="grid min-h-[calc(100vh-3rem)] bg-neutral-50 md:grid-cols-[220px_1fr]">
+    <aside class="hidden border-r border-neutral-200 bg-white p-3 md:block">
+      <div class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-500">Plus Lite</div>
+      <nav class="grid gap-1 text-sm">
+        {["送信履歴", "受信履歴", "変換履歴", "保存ファイル", "共有リンク", "設定"].map((item, index) => (
+          <a href="#" class={`rounded-md px-3 py-2 ${index === 0 ? "bg-neutral-100 font-semibold text-neutral-950" : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950"}`}>{item}</a>
+        ))}
+      </nav>
+    </aside>
+    <main class="p-4 sm:p-5">
+      <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-2xl font-semibold tracking-tight text-neutral-950">履歴ダッシュボード</h1>
+            <Badge variant="outline" size="sm" class="rounded-md border-blue-200 bg-blue-50 text-blue-700">Demo</Badge>
+          </div>
+          <p class="mt-1 text-sm text-neutral-600">送受信、変換、共有リンクをPlus Liteで管理する画面イメージです。</p>
+        </div>
+        <Button href="/file/pricing" variant="primary" size="sm">Plus Liteを見る</Button>
+      </div>
+      <div class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          ["保存容量", "12.4GB / 50GB"],
+          ["今月の送信", "38件"],
+          ["再共有", "11件"],
+          ["期限間近", "4件"],
+        ].map(([label, value]) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <div class="text-xs text-neutral-500">{label}</div>
+              <div class="mt-1 text-xl font-semibold text-neutral-950">{value}</div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <DashboardPreview />
+    </main>
+  </div>
+</FileDashboardLayout>

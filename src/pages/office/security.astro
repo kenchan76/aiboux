@@ -1,0 +1,33 @@
+---
+import SecurityNotice from "@/components/office/SecurityNotice.astro";
+import OfficeMarketingLayout from "@/layouts/OfficeMarketingLayout.astro";
+import { Card, CardContent } from "@/components/starwind/card";
+
+export const prerender = true;
+---
+
+<OfficeMarketingLayout
+  title="セキュリティ | Aiboux Office"
+  description="Aiboux Officeのサーバー送信なし、ブラウザ内処理、マクロ実行禁止、広告通信の扱いについて説明します。"
+  canonicalPath="/office/security"
+>
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-11 sm:px-5 lg:px-6">
+      <SecurityNotice />
+      <div class="mt-5 grid gap-4 md:grid-cols-3">
+        {[
+          ["ファイル本体", "File API、ArrayBuffer、Blob downloadにより端末内で扱います。"],
+          ["広告通信", "広告表示やページ表示に必要な通信は発生しますが、ファイル本体は読み取りません。"],
+          ["マクロ", "XLSMのマクロは実行せず、Office完全互換も謳いません。"],
+        ].map(([title, body]) => (
+          <Card size="sm" class="border-neutral-200 bg-white shadow-none">
+            <CardContent>
+              <h2 class="text-sm font-semibold text-neutral-950">{title}</h2>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</OfficeMarketingLayout>

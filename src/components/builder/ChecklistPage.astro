@@ -1,0 +1,51 @@
+---
+import ResumeEditorLayout from "@/layouts/ResumeEditorLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Checkbox } from "@/components/starwind/checkbox";
+import { checklistPages } from "@/data/resume-content";
+
+type ChecklistKey = keyof typeof checklistPages;
+
+interface Props {
+  pageKey: ChecklistKey;
+  canonicalPath: string;
+}
+
+const { pageKey, canonicalPath } = Astro.props;
+const page = checklistPages[pageKey];
+const groups = page.groups as Array<[string, string[]]>;
+---
+
+<ResumeEditorLayout title={`AIBOUX 履歴書 | ${page.title}`} description={page.description} canonicalPath={canonicalPath}>
+  <section class="bg-[#F8FAF8]">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-5 lg:px-6">
+      <div class="mb-5 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <Badge variant="outline" size="sm" class="mb-2 rounded-md border-green-200 bg-green-50 text-green-700">保存は無料会員</Badge>
+          <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">{page.title}</h1>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">{page.description}</p>
+        </div>
+        <Button variant="primary" size="sm" data-resume-toast data-toast-title="チェック状況を保存しました">チェック状況を保存</Button>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {groups.map(([groupName, items]) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <h2 class="text-sm font-semibold text-neutral-950">{groupName}</h2>
+              <div class="mt-4 space-y-3">
+                {items.map((item) => (
+                  <label class="flex items-start gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-700">
+                    <Checkbox />
+                    <span>{item}</span>
+                  </label>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</ResumeEditorLayout>

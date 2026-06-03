@@ -1,0 +1,18 @@
+---
+import ToolCard from "@/components/file/ToolCard.astro";
+import type { FileTool } from "@/data/file-tools";
+
+const pdfTools: FileTool[] = [
+  { slug: "pdf-merge", category: "pdf", title: "PDF結合", description: "複数PDFを順番に並べ替えて1つにまとめます。", href: "/file/pdf" },
+  { slug: "pdf-compress", category: "pdf", title: "PDF圧縮", description: "メール添付や共有リンク向けにPDF容量を軽くします。", href: "/file/pdf", badge: "人気" },
+  { slug: "pdf-split", category: "pdf", title: "PDF分割", description: "必要なページだけを切り出して新しいPDFにします。", href: "/file/pdf" },
+  { slug: "pdf-rotate", category: "pdf", title: "PDF回転", description: "横向きスキャンや逆さまのページを整えます。", href: "/file/pdf" },
+  { slug: "pdf-delete", category: "pdf", title: "ページ削除", description: "不要なページを削除して提出用PDFにします。", href: "/file/pdf" },
+  { slug: "image-to-pdf", category: "pdf", title: "画像からPDF", description: "撮影画像やスキャン画像をPDF化します。", href: "/file/pdf" },
+  { slug: "pdf-to-image", category: "pdf", title: "PDFから画像", description: "資料ページを画像として取り出します。", href: "/file/pdf" },
+];
+---
+
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {pdfTools.map((tool) => <ToolCard tool={tool} />)}
+</div>

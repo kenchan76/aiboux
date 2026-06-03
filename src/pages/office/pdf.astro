@@ -1,0 +1,14 @@
+---
+import OfficeFeaturePage from "@/components/office/OfficeFeaturePage.astro";
+
+export const prerender = true;
+---
+
+<OfficeFeaturePage
+  title="PDF直接編集"
+  eyebrow="PDF"
+  canonicalPath="/office/pdf"
+  description="日付、氏名、金額、会社名、署名、白塗り、ページ回転など、PDFの軽微修正をブラウザで行うための編集導線です。"
+  bullets={["Text Replace Mode", "Form Fill Mode", "Overlay Edit Mode", "署名追加", "ページ回転", "ページ削除"]}
+  caution="PDFは文書構造により編集結果が異なる場合があります。スキャンPDFや画像PDFは既存文字の直接編集対象外です。"
+/>

@@ -1,0 +1,1377 @@
+{
+  "verdict": "PASS",
+  "geometryPass": true,
+  "textPass": true,
+  "productRowPass": true,
+  "fontWeightPass": true,
+  "typographyPass": true,
+  "missingExpectedTexts": [],
+  "forbiddenTextsFound": [],
+  "visualBlockers": [],
+  "productRow": {
+    "productNameSingleLine": true,
+    "productNameSecondLineFound": false,
+    "productNameCellHeight": 20,
+    "lineRowHeight": 33,
+    "productNameWhiteSpace": "nowrap"
+  },
+  "fontWeight": {
+    "verdict": "PASS",
+    "rules": {
+      "titlesCanBeBold": true,
+      "labelsCanBeBold": true,
+      "valuesMustBeNormal": true,
+      "productNamesMustBeNormal": true,
+      "amountValuesMustBeNormal": true
+    },
+    "violations": [],
+    "samples": [
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "基本情報",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "納品先",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "配送情報",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "明細一覧",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "備考・メモ",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "履歴",
+        "fontWeight": 600
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品書番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品日",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "取引先",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "取引先担当者",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品先名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "部署名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "担当者名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "郵便番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "都道府県",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "市区町村",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "住所・建物名",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "電話番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "配送業者",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "サービス種別",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "お問い合わせ番号",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品日",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "配送希望時間帯",
+        "fontWeight": 500
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "コンクリートブロック / C種 100 x 190 x 390",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "モルタル混和剤 / AE減水剤 18L",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "鉄筋 / D10 SD295A 4m",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "養生テープ / 50mm x 25m 緑",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥74,300",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥58,000",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥25,500",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥21,000",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥178,800",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥17,880",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥0",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥196,680",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥17,880",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-document-number-value']",
+        "text": "N20260530-01",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-date-value']",
+        "text": "2026/05/30",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-customer-value']",
+        "text": "サンプル商事株式会社",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-basic-contact-value']",
+        "text": "佐藤 一郎 様",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-destination-name-value']",
+        "text": "株式会社サンプル",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-destination-address-value']",
+        "text": "1-7-1 東京本社ビル 1F倉庫前",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-destination-phone-value']",
+        "text": "03-1234-5678",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-shipping-carrier-value']",
+        "text": "ヤマト運輸",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-shipping-service-value']",
+        "text": "宅急便",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-shipping-tracking-value']",
+        "text": "",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-detail-date-input']",
+        "text": "",
+        "fontWeight": 400
+      },
+      {
+        "selector": "[data-testid='delivery-detail-time-select']",
+        "text": "午前中（8:00-12:00）",
+        "fontWeight": 400
+      }
+    ]
+  },
+  "typography": {
+    "verdict": "PASS",
+    "fontSize": "PASS",
+    "lineHeight": "PASS",
+    "fontColor": "PASS",
+    "fontWeight": "PASS",
+    "rules": {
+      "pageTitle": {
+        "fontSize": "20px",
+        "lineHeight": "28px",
+        "fontWeight": ">=600",
+        "color": "slate-900"
+      },
+      "sectionTitle": {
+        "fontSize": "15px",
+        "lineHeight": "22px",
+        "fontWeight": ">=600",
+        "color": "slate-900"
+      },
+      "label": {
+        "fontSize": "13px",
+        "lineHeight": "20px",
+        "fontWeight": "500-600",
+        "color": "slate-500"
+      },
+      "value": {
+        "fontSize": "13px",
+        "lineHeight": "20px",
+        "fontWeight": "<=400",
+        "color": [
+          "slate-700",
+          "blue-600"
+        ]
+      },
+      "tableHeader": {
+        "fontSize": "12px",
+        "lineHeight": "16px",
+        "fontWeight": "500-600",
+        "color": "slate-500"
+      },
+      "productName": {
+        "fontSize": "13px",
+        "lineHeight": "20px",
+        "fontWeight": "<=400",
+        "color": "slate-800",
+        "whiteSpace": "nowrap"
+      },
+      "footerTotal": {
+        "fontSize": "18px",
+        "lineHeight": "24px",
+        "fontWeight": "<=400",
+        "color": "blue-600"
+      }
+    },
+    "violations": [],
+    "samples": [
+      {
+        "selector": "[data-testid='delivery-page-title']",
+        "text": "納品書詳細",
+        "actual": {
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "shrink-0 tracking-tight text-[20px] leading-[28px] font-semibold text-slate-900"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "基本情報",
+        "actual": {
+          "fontSize": "15px",
+          "lineHeight": "22px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "text-[15px] leading-[22px] font-semibold text-slate-900"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "納品先",
+        "actual": {
+          "fontSize": "15px",
+          "lineHeight": "22px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "text-[15px] leading-[22px] font-semibold text-slate-900"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "配送情報",
+        "actual": {
+          "fontSize": "15px",
+          "lineHeight": "22px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "text-[15px] leading-[22px] font-semibold text-slate-900 flex items-center gap-2"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "明細一覧",
+        "actual": {
+          "fontSize": "15px",
+          "lineHeight": "22px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "text-[15px] leading-[22px] font-semibold text-slate-900"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "備考・メモ",
+        "actual": {
+          "fontSize": "15px",
+          "lineHeight": "22px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "text-[15px] leading-[22px] font-semibold text-slate-900"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-section-title']",
+        "text": "履歴",
+        "actual": {
+          "fontSize": "15px",
+          "lineHeight": "22px",
+          "fontWeight": 600,
+          "color": "oklch(0.208 0.042 265.755)",
+          "whiteSpace": "normal",
+          "className": "text-[15px] leading-[22px] font-semibold text-slate-900"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品書番号",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品日",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "取引先",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "取引先担当者",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品先名",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "部署名",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "担当者名",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "郵便番号",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "都道府県",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "市区町村",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "住所・建物名",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "電話番号",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "配送業者",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "サービス種別",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "お問い合わせ番号",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "納品日",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-label']",
+        "text": "配送希望時間帯",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[13px] leading-[20px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "N20260530-01",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "2026/05/30",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "サンプル商事株式会社",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.546 0.245 262.881)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "佐藤 一郎 様",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "株式会社サンプル",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "東京本社 仕入部門",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "佐藤 一郎 様",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "100-0014",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "東京都",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "千代田区永田町",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "1-7-1 東京本社ビル 1F倉庫前",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-detail-value']",
+        "text": "03-1234-5678",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": ""
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "N20260530-01",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "2026/05/30",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "サンプル商事株式会社",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.546 0.245 262.881)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 truncate text-right hover:underline text-[13px] leading-[20px] font-normal text-blue-600"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "佐藤 一郎 様",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "株式会社サンプル",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "東京本社 仕入部門",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "佐藤 一郎 様",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "100-0014",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "東京都",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "千代田区永田町",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "1-7-1 東京本社ビル 1F倉庫前",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "03-1234-5678",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 whitespace-nowrap text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "flex items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 h-8 w-full min-w-0 !text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "flex items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 h-8 w-full min-w-0 !text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "1234-5678-9012",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "w-full rounded-lg border border-input bg-transparent py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm h-8 min-w-0 flex-1 px-2 !text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "2026/05/29",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "rounded-lg border border-input py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm h-8 w-full min-w-0 bg-white px-2 !text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-typography-role='value']",
+        "text": "",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "nowrap",
+          "className": "flex items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 h-8 w-full min-w-0 !text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "No.",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "商品コード",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "商品名 / 規格",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "入数",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "数量",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "単価",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "税率",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "金額",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "備考",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-table-header-text']",
+        "text": "操作",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap border-b border-r border-neutral-200 px-[6px] py-[6px] last:border-r-0 text-[12px] leading-[16px] font-medium text-slate-500 sticky right-0 z-20 border-l bg-slate-50"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "コンクリートブロック / C種 100 x 190 x 390",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.279 0.041 260.031)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 truncate whitespace-nowrap text-[13px] leading-[20px] font-normal text-slate-800"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "モルタル混和剤 / AE減水剤 18L",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.279 0.041 260.031)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 truncate whitespace-nowrap text-[13px] leading-[20px] font-normal text-slate-800"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "鉄筋 / D10 SD295A 4m",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.279 0.041 260.031)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 truncate whitespace-nowrap text-[13px] leading-[20px] font-normal text-slate-800"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-line-product-name']",
+        "text": "養生テープ / 50mm x 25m 緑",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.279 0.041 260.031)",
+          "whiteSpace": "nowrap",
+          "className": "min-w-0 truncate whitespace-nowrap text-[13px] leading-[20px] font-normal text-slate-800"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-memo-body']",
+        "text": "内容のご確認をお願いいたします。\nご不明点がございましたら、担当者までご連絡ください。\nよろしくお願いいたします。",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "pre-wrap",
+          "className": "flex field-sizing-content w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-base transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm min-h-[72px] resize-none !text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-history-body']",
+        "text": "2026/05/30 10:15山田 太郎下書きを作成しました2026/05/30 09:40山田 太郎納品日を2026/05/29に変更しました2026/05/29 11:03山田 太郎配送情報を配送中に変更しました",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "group-data-[size=sm]/card:px-3 space-y-1.5 p-3 text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-label']",
+        "text": "小計",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-label']",
+        "text": "消費税 10%",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-label']",
+        "text": "消費税 8%",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-label']",
+        "text": "合計金額",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-label']",
+        "text": "内消費税",
+        "actual": {
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "fontWeight": 500,
+          "color": "oklch(0.554 0.046 257.417)",
+          "whiteSpace": "nowrap",
+          "className": "whitespace-nowrap text-[12px] leading-[16px] font-medium text-slate-500"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥74,300",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "border-r border-neutral-200 px-[6px] py-[2px] text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥58,000",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "border-r border-neutral-200 px-[6px] py-[2px] text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥25,500",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "border-r border-neutral-200 px-[6px] py-[2px] text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥21,000",
+        "actual": {
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "border-r border-neutral-200 px-[6px] py-[2px] text-right text-[13px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥178,800",
+        "actual": {
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "text-[14px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥17,880",
+        "actual": {
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "text-[14px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥0",
+        "actual": {
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "text-[14px] leading-[20px] font-normal text-slate-700"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥196,680",
+        "actual": {
+          "fontSize": "18px",
+          "lineHeight": "24px",
+          "fontWeight": 400,
+          "color": "oklch(0.546 0.245 262.881)",
+          "whiteSpace": "normal",
+          "className": "text-[18px] leading-[24px] font-normal text-blue-600"
+        }
+      },
+      {
+        "selector": "[data-testid='delivery-amount-value']",
+        "text": "￥17,880",
+        "actual": {
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "fontWeight": 400,
+          "color": "oklch(0.372 0.044 257.287)",
+          "whiteSpace": "normal",
+          "className": "text-[14px] leading-[20px] font-normal text-slate-700"
+        }
+      }
+    ]
+  },
+  "geometry": {
+    "reference": {
+      "topCardsY": 135,
+      "topCardsHeight": 320,
+      "linesY": 471,
+      "memoHistoryY": 720,
+      "footerY": 862
+    },
+    "actual": {
+      "topCardsY": 128,
+      "topCardsHeight": 342,
+      "linesY": 478,
+      "memoHistoryY": 715,
+      "footerY": 869,
+      "titleActionsRightEdge": 1640
+    },
+    "delta": {
+      "topCardsY": -7,
+      "topCardsHeight": 22,
+      "linesY": 7,
+      "memoHistoryY": -5,
+      "footerY": 7
+    },
+    "thresholds": {
+      "topCardsY": 16,
+      "topCardsHeight": 30,
+      "linesY": 24,
+      "memoHistoryY": 32,
+      "footerY": 24
+    },
+    "verdict": "PASS"
+  },
+  "diffPass": true,
+  "diffRatio": 0.12418517915889134,
+  "diffThreshold": 0.6,
+  "textMismatch": {
+    "missingExpectedTexts": [],
+    "forbiddenTextsFound": []
+  },
+  "diffImage": "output/playwright/core-documents-redesign/delivery-detail-reference-diff-v6-1672.png"
+}

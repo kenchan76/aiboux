@@ -1,0 +1,68 @@
+---
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import "../../styles/global.css";
+
+export const prerender = false;
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>AIBOUX Docs - 商品マスタ正本</title>
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <div class="mx-auto grid min-h-screen max-w-6xl grid-cols-1 gap-4 px-4 py-5 lg:grid-cols-[220px_1fr_220px]">
+      <aside class="hidden border-r border-neutral-200 pr-4 text-sm lg:block">
+        <div class="mb-4 text-lg font-semibold">aiboux Docs</div>
+        <nav class="space-y-1 text-neutral-600">
+          <a class="block rounded-md bg-neutral-100 px-2 py-1.5 text-neutral-950" href="/docs/product-master">商品マスタ正本</a>
+          <a class="block rounded-md px-2 py-1.5 hover:bg-neutral-50" href="/core/products">Core商品マスタ</a>
+          <a class="block rounded-md px-2 py-1.5 hover:bg-neutral-50" href="/shop/products/integration">Shop連携</a>
+        </nav>
+      </aside>
+      <main class="min-w-0">
+        <div class="mb-5 border-b border-neutral-200 pb-4">
+          <p class="text-xs font-medium text-neutral-500">Core / Shop / Mall / Mail / File / Docs</p>
+          <h1 class="mt-1 text-2xl font-semibold tracking-tight">商品マスタ正本とShop/SKU連携</h1>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">
+            AIBOUXではCoreの商品マスタを唯一の正本として扱い、Shopの販売用表現、Mall表示、Mailの文脈理解、Fileの仕様書管理、Docsの操作説明へ連携します。
+          </p>
+        </div>
+        <article class="space-y-5 text-sm leading-7">
+          <section>
+            <h2 class="mb-2 text-base font-semibold">1. 商品区分とお気に入り</h2>
+            <p>商品区分はカテゴリではなく業務上の管理区分です。自社商品、卸商品、EC専用商品などをテナントごとに作成し、ユーザー別またはテナント別の初期表示として保存できます。お気に入りリストは仮想商品区分として同じタブ列に表示されます。</p>
+          </section>
+          <section>
+            <h2 class="mb-2 text-base font-semibold">2. 得意先別卸価格</h2>
+            <p>標準価格に得意先の基本掛率を適用し、商品別の掛率上書きや例外価格がある場合はそちらを優先します。丸め処理は四捨五入、切上、切捨、10円単位の丸めを選択できます。</p>
+          </section>
+          <section>
+            <h2 class="mb-2 text-base font-semibold">3. 価格改定</h2>
+            <p>価格は適用開始日を持つ履歴として管理します。未来価格は承認待ちで保存され、得意先別卸価格プレビューで改定後の価格を事前確認できます。</p>
+          </section>
+          <section>
+            <h2 class="mb-2 text-base font-semibold">4. Shop/SKU/モール連携</h2>
+            <p>Core商品をShop親商品へ共有し、1個、2個セット、3個セット、ケース販売などのSKUバリエーションを作成します。Yahoo、楽天、Amazonの商品名や説明文はCore正本とは別に管理し、公開前に人間承認を必須にします。</p>
+          </section>
+          <section>
+            <h2 class="mb-2 text-base font-semibold">5. AI商品補完</h2>
+            <p>写真、JAN、仕様書、CSV、ExcelをAI Assistantへ渡すと、商品名候補、説明文、サイズ、重量、カテゴリ、検索キーワード、セット販売案を補完します。参照元と信頼度を記録し、不確実な項目は要確認として表示します。</p>
+          </section>
+        </article>
+      </main>
+      <aside class="hidden text-xs text-neutral-500 lg:block">
+        <div class="sticky top-5 space-y-2 rounded-lg border border-neutral-200 p-3">
+          <div class="font-semibold text-neutral-900">このガイドの導線</div>
+          <a class="block hover:text-neutral-950" href="/core/products">Core商品マスタを開く</a>
+          <a class="block hover:text-neutral-950" href="/shop/products/integration">Shop連携画面を開く</a>
+          <a class="block hover:text-neutral-950" href="/api/products?tenant_id=tenant_001">商品APIを確認</a>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

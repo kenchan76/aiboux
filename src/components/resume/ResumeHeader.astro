@@ -1,0 +1,66 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/starwind/sheet";
+import { resumeNavItems } from "@/data/resume-content";
+---
+
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur-sm">
+  <div class="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-5 lg:px-6">
+    <a href="/rirekisho" class="flex items-center gap-2 text-neutral-950" aria-label="AIBOUX 履歴書 トップへ">
+      <span class="text-xl font-semibold tracking-tight">aiboux</span>
+      <Badge variant="outline" size="sm" class="rounded-md border-green-200 bg-green-50 px-1.5 py-0 text-[10px] font-semibold text-green-700">履歴書</Badge>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="主要メニュー">
+      {resumeNavItems.map((item) => (
+        <a href={item.href} class="rounded-md px-2.5 py-1.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-950">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-2 md:flex">
+      <Button href="/rirekisho/dashboard" variant="outline" size="sm">ログイン</Button>
+      <Button href="/rirekisho/resume/new" variant="primary" size="sm">無料で始める</Button>
+    </div>
+
+    <div class="lg:hidden">
+      <Sheet>
+        <SheetTrigger>
+          <Button variant="outline" size="sm" aria-label="メニューを開く">
+            <span class="flex flex-col gap-1" aria-hidden="true">
+              <span class="block h-0.5 w-4 bg-neutral-800"></span>
+              <span class="block h-0.5 w-4 bg-neutral-800"></span>
+              <span class="block h-0.5 w-4 bg-neutral-800"></span>
+            </span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right" class="w-[88vw] max-w-xs bg-white">
+          <SheetHeader>
+            <SheetTitle>aiboux 履歴書</SheetTitle>
+            <SheetDescription>履歴書、職務経歴書、写真、求人解析のメニューです。</SheetDescription>
+          </SheetHeader>
+          <div class="mt-5 grid gap-1">
+            {resumeNavItems.map((item) => (
+              <a href={item.href} class="rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+                {item.label}
+              </a>
+            ))}
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-2">
+            <Button href="/rirekisho/dashboard" variant="outline" size="sm">ログイン</Button>
+            <Button href="/rirekisho/resume/new" variant="primary" size="sm">無料で始める</Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  </div>
+</header>

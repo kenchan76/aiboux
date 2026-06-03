@@ -1,0 +1,44 @@
+== short final log ==
+HTTP/2 200 
+date: Wed, 27 May 2026 23:19:47 GMT
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, max-age=0
+content-disposition: inline; filename="14_shop_phase11_external_infra_final_log.md"
+expires: Thu, 28 May 2026 23:17:17 GMT
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Qdu6xE6JrWQ6D32aaNJzt78LOwwui5OOMTAs2jskbSBZkNHjfSDkHo%2FyWCM6GtXeAMF9TRFKH0iaefzY1WeOnvmvwQTod3LTSi5O%2FVfDhwy4IisEsUvpEtuu5jvEw1YwUTo%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a028bf1939bc1ec9-NRT
+== short master doc ==
+HTTP/2 200 
+date: Wed, 27 May 2026 23:19:48 GMT
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, max-age=0
+content-disposition: inline; filename="AIBOUX_MASTER_DOCUMENT.md"
+expires: Thu, 28 May 2026 23:17:17 GMT
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=qEbi0mzSys1yWRClpwdAMIDSceOlnKTnTWzHFm0jDOI4xJ77XY4maSyywhtDnwOROnctgt7U9DpRByu8zFHPBSIB%2FnP6Fq5VAuuGOWK70Poz02GOIMXxdsoPkPy1lOqpN9k%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a028bf1d09547347-NRT
+== shop product page ==
+HTTP/2 200 
+date: Wed, 27 May 2026 23:19:48 GMT
+content-type: text/html
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=MBRZy3wQ5FgM4ZfGmAXbGK20BvO%2BySOcyXSxVyrFELw6BR7HhZfvvk5NIH57GWMYu4mTW7sa9%2BNxcDPRI49qpuiHQ1hS1A6s9bjoXUCYzH0m43GU6zQsgmAqp9Dyo5gDUWM%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a028bf1efc3a3326-NRT
+alt-svc: h3=":443"; ma=86400
+== shop settings page ==
+HTTP/2 200 
+date: Wed, 27 May 2026 23:19:48 GMT
+content-type: text/html
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=zSBAiv9VShbLbRqa02zcv8gYR6ymUMm648Mmwa8Pb0gRmoSC9bg%2BRn9U3dE8iZxtjp%2BBH5sv7FbNI2EcCayGaqKsPp0d9AYFuiqJbrcNMpT4TcrwCEiDDhds1kiQ4WYc1EY%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a028bf20baf0af81-NRT
+alt-svc: h3=":443"; ma=86400

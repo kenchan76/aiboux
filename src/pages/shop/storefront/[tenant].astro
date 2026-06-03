@@ -1,0 +1,59 @@
+---
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront";
+import { shopProducts } from "@/data/shop-sample-data";
+import "@/styles/global.css";
+
+export const prerender = false;
+
+const tenantParam = String(Astro.params.tenant ?? "").trim();
+const isKnownTenant = tenantParam === "aiboux";
+
+if (!isKnownTenant) {
+  Astro.response.status = 404;
+}
+
+Astro.response.headers.set("Cache-Control", isKnownTenant ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
+
+const storeName = "AIBOUX Store";
+const title = isKnownTenant ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
+const canonicalUrl = isKnownTenant
+  ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
+  : Astro.url.toString();
+
+const storefrontProducts = shopProducts.map((product) => ({
+  id: product.id,
+  image: product.image,
+  name: product.name,
+  price: product.price.toLocaleString("ja-JP"),
+  category: product.category,
+  inStock: product.stock > 0,
+  href: `/shop/products/${product.id}`,
+}));
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <meta name="description" content={`${storeName}の公開ストアです。`} />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body>
+    {
+      isKnownTenant ? (
+        <ShadcnStorefront storeName={storeName} products={storefrontProducts} />
+      ) : (
+        <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">
+          <p class="text-sm font-bold text-neutral-500">404</p>
+          <h1 class="mt-2 text-xl font-bold text-neutral-950">ストアが見つかりません</h1>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">公開中のストアだけを表示できます。</p>
+        </main>
+      )
+    }
+  </body>
+</html>

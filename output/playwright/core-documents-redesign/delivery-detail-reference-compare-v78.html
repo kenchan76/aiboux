@@ -1,0 +1,324 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="cache-control" content="no-store"><meta name="viewport" content="width=device-width,initial-scale=1"><title>c78 Delivery Detail Design Continue</title><style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:24px;color:#111827;background:#fff;line-height:1.65}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{border:1px solid #ddd;border-radius:8px;padding:12px;background:#fff;margin:16px 0}img{max-width:100%;border:1px solid #ddd}table{border-collapse:collapse;width:100%;margin-top:16px;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:right}th:first-child,td:first-child{text-align:left}pre{white-space:pre-wrap;border:1px solid #ddd;border-radius:8px;padding:12px;background:#f9fafb;overflow:auto}.pass{color:#047857;font-weight:700}.blocked{color:#b45309;font-weight:700}</style></head><body><h1>Delivery Detail Design Continue c78</h1><p>Preview Status: <strong class="pass">PREVIEW_READY_PENDING_USER</strong></p><p>Deploy Status: <strong class="blocked">DEPLOY_BLOCKED_AUTH</strong> - production deploy only is blocked. Design preview iteration continues.</p><div class="grid"><section class="panel"><h2>Reference</h2><img src="/reference-78.png" alt="Reference"></section><section class="panel"><h2>Actual 1672</h2><img src="/actual-78.png" alt="Actual"></section></div><section class="panel"><h2>Diff Image</h2><img src="/diff-78.png" alt="Diff"></section><h2>Geometry Difference</h2><table><thead><tr><th>Metric</th><th>Reference</th><th>Actual</th><th>Delta</th><th>Threshold</th></tr></thead><tbody></tbody></table><h2>Text Difference</h2><pre>{
+  &quot;missingExpectedTexts&quot;: [],
+  &quot;forbiddenTextsFound&quot;: []
+}</pre><h2>Product Row Difference</h2><pre>{
+  &quot;productNameSingleLine&quot;: true,
+  &quot;productNameSecondLineFound&quot;: false,
+  &quot;productNameCellHeight&quot;: 20,
+  &quot;lineRowHeight&quot;: 33,
+  &quot;productNameWhiteSpace&quot;: &quot;nowrap&quot;
+}</pre><h2>Font Weight Difference</h2><pre>{
+  &quot;verdict&quot;: &quot;PASS&quot;,
+  &quot;rules&quot;: {
+    &quot;titlesCanBeBold&quot;: true,
+    &quot;labelsCanBeBold&quot;: true,
+    &quot;valuesMustBeNormal&quot;: true,
+    &quot;productNamesMustBeNormal&quot;: true,
+    &quot;amountValuesMustBeNormal&quot;: true
+  },
+  &quot;violations&quot;: [],
+  &quot;samples&quot;: [
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-section-title&#39;]&quot;,
+      &quot;text&quot;: &quot;基本情報&quot;,
+      &quot;fontWeight&quot;: 600
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-section-title&#39;]&quot;,
+      &quot;text&quot;: &quot;納品先&quot;,
+      &quot;fontWeight&quot;: 600
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-section-title&#39;]&quot;,
+      &quot;text&quot;: &quot;配送情報&quot;,
+      &quot;fontWeight&quot;: 600
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-section-title&#39;]&quot;,
+      &quot;text&quot;: &quot;明細一覧&quot;,
+      &quot;fontWeight&quot;: 600
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-section-title&#39;]&quot;,
+      &quot;text&quot;: &quot;備考・メモ&quot;,
+      &quot;fontWeight&quot;: 600
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-section-title&#39;]&quot;,
+      &quot;text&quot;: &quot;履歴&quot;,
+      &quot;fontWeight&quot;: 600
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;納品書番号&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;納品日&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;取引先&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;取引先担当者&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;納品先名&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;部署名&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;担当者名&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;郵便番号&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;都道府県&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;市区町村&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;住所・建物名&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;電話番号&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;配送業者&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;サービス種別&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;お問い合わせ番号&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;納品日&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-label&#39;]&quot;,
+      &quot;text&quot;: &quot;配送希望時間帯&quot;,
+      &quot;fontWeight&quot;: 500
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-line-product-name&#39;]&quot;,
+      &quot;text&quot;: &quot;コンクリートブロック / C種 100 x 190 x 390&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-line-product-name&#39;]&quot;,
+      &quot;text&quot;: &quot;モルタル混和剤 / AE減水剤 18L&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-line-product-name&#39;]&quot;,
+      &quot;text&quot;: &quot;鉄筋 / D10 SD295A 4m&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-line-product-name&#39;]&quot;,
+      &quot;text&quot;: &quot;養生テープ / 50mm x 25m 緑&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥74,300&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥58,000&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥25,500&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥21,000&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥178,800&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥17,880&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥0&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥196,680&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-amount-value&#39;]&quot;,
+      &quot;text&quot;: &quot;￥17,880&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-basic-document-number-value&#39;]&quot;,
+      &quot;text&quot;: &quot;N20260530-01&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-basic-date-value&#39;]&quot;,
+      &quot;text&quot;: &quot;2026/05/30&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-basic-customer-value&#39;]&quot;,
+      &quot;text&quot;: &quot;サンプル商事株式会社&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-basic-contact-value&#39;]&quot;,
+      &quot;text&quot;: &quot;佐藤 一郎 様&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-destination-name-value&#39;]&quot;,
+      &quot;text&quot;: &quot;株式会社サンプル&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-destination-address-value&#39;]&quot;,
+      &quot;text&quot;: &quot;1-7-1 東京本社ビル 1F倉庫前&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-destination-phone-value&#39;]&quot;,
+      &quot;text&quot;: &quot;03-1234-5678&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-shipping-carrier-value&#39;]&quot;,
+      &quot;text&quot;: &quot;ヤマト運輸&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-shipping-service-value&#39;]&quot;,
+      &quot;text&quot;: &quot;宅急便&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-shipping-tracking-value&#39;]&quot;,
+      &quot;text&quot;: &quot;&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-date-input&#39;]&quot;,
+      &quot;text&quot;: &quot;&quot;,
+      &quot;fontWeight&quot;: 400
+    },
+    {
+      &quot;selector&quot;: &quot;[data-testid=&#39;delivery-detail-time-select&#39;]&quot;,
+      &quot;text&quot;: &quot;午前中（8:00-12:00）&quot;,
+      &quot;fontWeight&quot;: 400
+    }
+  ]
+}</pre><h2>Typography Difference</h2><pre>{
+  &quot;verdict&quot;: &quot;PASS&quot;,
+  &quot;fontSize&quot;: &quot;PASS&quot;,
+  &quot;lineHeight&quot;: &quot;PASS&quot;,
+  &quot;fontColor&quot;: &quot;PASS&quot;,
+  &quot;fontWeight&quot;: &quot;PASS&quot;,
+  &quot;productNameSingleLine&quot;: &quot;PASS&quot;,
+  &quot;rules&quot;: {
+    &quot;pageTitle&quot;: {
+      &quot;fontSize&quot;: &quot;20px&quot;,
+      &quot;lineHeight&quot;: &quot;28px&quot;,
+      &quot;fontWeight&quot;: &quot;&gt;=600&quot;,
+      &quot;color&quot;: &quot;slate-900&quot;
+    },
+    &quot;sectionTitle&quot;: {
+      &quot;fontSize&quot;: &quot;15px&quot;,
+      &quot;lineHeight&quot;: &quot;22px&quot;,
+      &quot;fontWeight&quot;: &quot;&gt;=600&quot;,
+      &quot;color&quot;: &quot;slate-900&quot;
+    },
+    &quot;label&quot;: {
+      &quot;fontSize&quot;: &quot;13px&quot;,
+      &quot;lineHeight&quot;: &quot;20px&quot;,
+      &quot;fontWeight&quot;: &quot;500-600&quot;,
+      &quot;color&quot;: &quot;slate-500&quot;
+    },
+    &quot;value&quot;: {
+      &quot;fontSize&quot;: &quot;13px&quot;,
+      &quot;lineHeight&quot;: &quot;20px&quot;,
+      &quot;fontWeight&quot;: &quot;&lt;=400&quot;,
+      &quot;color&quot;: [
+        &quot;slate-700&quot;,
+        &quot;blue-600&quot;
+      ]
+    },
+    &quot;tableHeader&quot;: {
+      &quot;fontSize&quot;: &quot;12px&quot;,
+      &quot;lineHeight&quot;: &quot;16px&quot;,
+      &quot;fontWeight&quot;: &quot;500-600&quot;,
+      &quot;color&quot;: &quot;slate-500&quot;
+    },
+    &quot;productName&quot;: {
+      &quot;fontSize&quot;: &quot;13px&quot;,
+      &quot;lineHeight&quot;: &quot;20px&quot;,
+      &quot;fontWeight&quot;: &quot;&lt;=400&quot;,
+      &quot;color&quot;: &quot;slate-800&quot;,
+      &quot;whiteSpace&quot;: &quot;nowrap&quot;
+    },
+    &quot;amountValues&quot;: {
+      &quot;fontWeight&quot;: &quot;&lt;=400&quot;
+    }
+  },
+  &quot;violations&quot;: []
+}</pre><h2>Deploy Status</h2><pre>{
+  &quot;status&quot;: &quot;DEPLOY_BLOCKED_AUTH&quot;,
+  &quot;reason&quot;: &quot;Wrangler authentication failed&quot;,
+  &quot;userApprovedDeploy&quot;: true,
+  &quot;blocksDesignFix&quot;: false
+}</pre><h2>Review Status</h2><pre>{
+  &quot;status&quot;: &quot;BLOCKED_REVIEW&quot;,
+  &quot;blocksPreview&quot;: false,
+  &quot;reason&quot;: &quot;Grok/Cloudflare image review remains unresolved; final acceptance only.&quot;
+}</pre></body></html>

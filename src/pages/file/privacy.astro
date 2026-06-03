@@ -1,0 +1,21 @@
+---
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="プライバシーポリシー"
+  description="AIBOUX FILEにおけるメールアドレス、共有リンク、履歴データ、問い合わせ情報の取り扱い方針です。"
+>
+  <article class="mx-auto max-w-3xl px-4 py-8 text-sm leading-7 text-neutral-700 sm:px-5 lg:px-6">
+    <h2 class="text-lg font-semibold text-neutral-950">取得する情報</h2>
+    <p class="mt-2">ファイル転送時の宛先、自分のメールアドレス、メッセージ、共有リンク設定、Plus Lite利用時の履歴情報を、サービス提供に必要な範囲で扱います。</p>
+    <h2 class="mt-6 text-lg font-semibold text-neutral-950">利用目的</h2>
+    <p class="mt-2">ファイル共有、通知、履歴管理、違反対応、セキュリティ保全、サービス改善のために利用します。</p>
+    <h2 class="mt-6 text-lg font-semibold text-neutral-950">第三者提供</h2>
+    <p class="mt-2">法令に基づく場合を除き、利用者の同意なく個人情報を第三者へ提供しません。広告配信を行う場合も、操作導線と広告表示を明確に分離します。</p>
+    <h2 class="mt-6 text-lg font-semibold text-neutral-950">削除と問い合わせ</h2>
+    <p class="mt-2">共有リンクや保存データの削除依頼、権利侵害の申告は違反報告ページから受け付けます。</p>
+  </article>
+</FileToolLayout>

@@ -1,0 +1,48 @@
+{
+  "verdict": "PASS",
+  "geometryPass": true,
+  "textPass": true,
+  "productRowPass": true,
+  "missingExpectedTexts": [],
+  "forbiddenTextsFound": [],
+  "visualBlockers": [],
+  "productRow": {
+    "productNameSingleLine": true,
+    "productNameSecondLineFound": false,
+    "productNameCellHeight": 20,
+    "lineRowHeight": 33,
+    "productNameWhiteSpace": "nowrap"
+  },
+  "geometry": {
+    "reference": {
+      "topCardsY": 135,
+      "topCardsHeight": 320,
+      "linesY": 471,
+      "memoHistoryY": 720,
+      "footerY": 862
+    },
+    "actual": {
+      "topCardsY": 128,
+      "topCardsHeight": 342,
+      "linesY": 478,
+      "memoHistoryY": 713,
+      "footerY": 869,
+      "titleActionsRightEdge": 1640
+    },
+    "delta": {
+      "topCardsY": -7,
+      "topCardsHeight": 22,
+      "linesY": 7,
+      "memoHistoryY": -7,
+      "footerY": 7
+    },
+    "thresholds": {
+      "topCardsY": 16,
+      "topCardsHeight": 30,
+      "linesY": 24,
+      "memoHistoryY": 32,
+      "footerY": 24
+    },
+    "verdict": "PASS"
+  }
+}

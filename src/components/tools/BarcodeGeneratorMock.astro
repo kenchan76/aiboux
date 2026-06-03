@@ -1,0 +1,73 @@
+---
+import AdSlot from "@/components/file/AdSlot.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect } from "@/components/starwind/native-select";
+---
+
+<div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:px-5 lg:grid-cols-[1fr_320px] lg:px-6">
+  <div class="space-y-4">
+    <Card size="sm" class="border-neutral-200">
+      <CardHeader>
+        <div class="flex items-center justify-between gap-3">
+          <CardTitle class="text-base">QR / JAN / ITF / Code128作成</CardTitle>
+          <Badge variant="outline" size="sm" class="rounded-md">業務ラベル</Badge>
+        </div>
+      </CardHeader>
+      <CardContent class="grid gap-4 lg:grid-cols-[360px_1fr]">
+        <div class="space-y-3">
+          <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+            コード種別
+            <NativeSelect size="sm">
+              <option>QRコード</option>
+              <option>JAN/EAN</option>
+              <option>ITF</option>
+              <option>Code128</option>
+            </NativeSelect>
+          </label>
+          <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+            入力値
+            <Input size="sm" placeholder="4900000000000 または https://..." />
+          </label>
+          <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+            出力形式
+            <NativeSelect size="sm">
+              <option>PNG</option>
+              <option>SVG</option>
+              <option>PDF</option>
+            </NativeSelect>
+          </label>
+          <Button type="button" variant="primary" size="sm" class="w-full" data-demo-toast data-toast-title="バーコード作成デモ" data-toast-description="生成エンジン接続後、PNG/SVG/PDFを出力します。">コードを作成する</Button>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div class="mb-3 flex items-center justify-between">
+            <div class="text-sm font-semibold text-neutral-950">出力プレビュー</div>
+            <Badge variant="outline" size="sm" class="rounded-md">PNG</Badge>
+          </div>
+          <div class="flex aspect-[5/3] items-center justify-center rounded-md border border-neutral-200 bg-white">
+            <div class="grid gap-1">
+              {Array.from({ length: 12 }).map((_, row) => (
+                <div class="flex gap-1">
+                  {Array.from({ length: 18 }).map((_, col) => (
+                    <span class={`block size-2 ${((row * 7 + col * 3) % 5) < 2 ? "bg-neutral-900" : "bg-neutral-100"}`}></span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+  <aside class="space-y-4">
+    <AdSlot />
+    <Card size="sm" class="border-blue-200 bg-blue-50/30">
+      <CardContent>
+        <h2 class="text-sm font-semibold text-neutral-950">CSV一括作成</h2>
+        <p class="mt-1 text-sm leading-6 text-neutral-600">Plus Liteでは商品マスタCSVからバーコードを一括生成する導線を想定しています。</p>
+      </CardContent>
+    </Card>
+  </aside>
+</div>

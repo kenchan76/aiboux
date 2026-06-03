@@ -1,0 +1,281 @@
+---
+import { env } from "cloudflare:workers";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import "@/styles/global.css";
+
+export const prerender = false;
+
+type MallProductRow = {
+  id: string;
+  tenant_id: string;
+  tenant_slug: string;
+  tenant_name: string;
+  store_name: string | null;
+  display_name: string;
+  description: string;
+  seo_description: string;
+  sale_price: number;
+  image_r2_keys: string | null;
+  ai_alt_texts_json: string | null;
+  google_category_id: string | null;
+  category_name: string | null;
+  stock_quantity: number | null;
+  core_status: string | null;
+  updated_at: number;
+};
+
+type FacetRow = {
+  label: string;
+  value: string;
+  count: number;
+};
+
+const q = String(Astro.url.searchParams.get("q") ?? "").trim().slice(0, 80);
+const category = String(Astro.url.searchParams.get("category") ?? "").trim().slice(0, 120);
+const maxPrice = normalizePositiveInt(Astro.url.searchParams.get("max"));
+const mallRoot = Astro.url.hostname === "mall.aiboux.com" ? "" : "/mall";
+const { sql, binds } = buildMallProductQuery({ q, category, maxPrice });
+const products = (await env.DB.prepare(sql).bind(...binds).all<MallProductRow>()).results ?? [];
+const facets = (await env.DB.prepare(
+  `
+  SELECT
+    COALESCE(sc.name, sp.google_category_id, 'その他') AS label,
+    COALESCE(sc.name, sp.google_category_id, 'other') AS value,
+    COUNT(*) AS count
+  FROM shop_products sp
+  INNER JOIN tenants t
+    ON t.id = sp.tenant_id
+   AND t.status = 'active'
+   AND t.is_active = 1
+  LEFT JOIN shop_categories sc
+    ON sc.tenant_id = sp.tenant_id
+   AND sc.id = sp.category_id
+   AND sc.deleted_at IS NULL
+  WHERE sp.publish_state = 'published'
+    AND sp.deleted_at IS NULL
+  GROUP BY label, value
+  ORDER BY count DESC, label ASC
+  LIMIT 12
+  `,
+).all<FacetRow>()).results ?? [];
+
+Astro.response.headers.set("Cache-Control", "public, max-age=30, s-maxage=180, stale-while-revalidate=60");
+
+function buildMallProductQuery(input: { q: string; category: string; maxPrice: number | null }): { sql: string; binds: unknown[] } {
+  const where = [
+    "sp.publish_state = 'published'",
+    "sp.deleted_at IS NULL",
+    "t.status = 'active'",
+    "t.is_active = 1",
+  ];
+  const binds: unknown[] = [];
+
+  if (input.q) {
+    where.push("(sp.display_name LIKE ? ESCAPE '\\' OR sp.description LIKE ? ESCAPE '\\' OR sp.seo_description LIKE ? ESCAPE '\\')");
+    const like = `%${input.q.replaceAll("\\", "\\\\").replaceAll("%", "\\%").replaceAll("_", "\\_")}%`;
+    binds.push(like, like, like);
+  }
+
+  if (input.category) {
+    where.push("(sc.name = ? OR sp.google_category_id = ?)");
+    binds.push(input.category, input.category);
+  }
+
+  if (input.maxPrice !== null) {
+    where.push("sp.sale_price <= ?");
+    binds.push(input.maxPrice);
+  }
+
+  return {
+    sql: `
+      SELECT
+        sp.id,
+        sp.tenant_id,
+        t.slug AS tenant_slug,
+        t.name AS tenant_name,
+        ss.store_name,
+        sp.display_name,
+        sp.description,
+        sp.seo_description,
+        sp.sale_price,
+        sp.image_r2_keys,
+        sp.ai_alt_texts_json,
+        sp.google_category_id,
+        sc.name AS category_name,
+        cp.stock_quantity,
+        cp.status AS core_status,
+        sp.updated_at
+      FROM shop_products sp
+      INNER JOIN tenants t
+        ON t.id = sp.tenant_id
+      LEFT JOIN shop_settings ss
+        ON ss.tenant_id = sp.tenant_id
+       AND ss.deleted_at IS NULL
+      LEFT JOIN shop_categories sc
+        ON sc.tenant_id = sp.tenant_id
+       AND sc.id = sp.category_id
+       AND sc.deleted_at IS NULL
+      LEFT JOIN core_products cp
+        ON cp.tenant_id = sp.tenant_id
+       AND cp.id = sp.core_product_id
+       AND cp.deleted_at IS NULL
+      WHERE ${where.join("\n        AND ")}
+      ORDER BY sp.updated_at DESC
+      LIMIT 36
+    `,
+    binds,
+  };
+}
+
+function normalizePositiveInt(value: string | null): number | null {
+  if (!value) return null;
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed > 0 ? Math.min(parsed, 99999999) : null;
+}
+
+function firstImageUrl(value: string | null): string {
+  const key = parseStringArray(value)[0];
+  return key ? `/shop/api/assets/${key}` : "";
+}
+
+function parseStringArray(value: string | null | undefined): string[] {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
+function formatPrice(value: number): string {
+  return `¥${Math.max(0, Number(value) || 0).toLocaleString("ja-JP")}`;
+}
+
+function productSummary(product: MallProductRow): string {
+  return (product.seo_description || product.description || "AIBOUX Mall掲載商品").replace(/\s+/g, " ").slice(0, 90);
+}
+
+function isInStock(product: MallProductRow): boolean {
+  return product.core_status !== "paused" && Number(product.stock_quantity ?? 0) > 0;
+}
+
+function productHref(id: string): string {
+  return `${mallRoot}/product/${encodeURIComponent(id)}`;
+}
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>AIBOUX Mall | 商品を探す</title>
+    <meta name="description" content="AIBOUX Mallの公開商品を検索できます。" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <header class="border-b border-neutral-200 bg-white">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between">
+        <a href="/mall" class="flex items-center gap-2">
+          <span class="text-xl font-bold tracking-tight">aiboux</span>
+          <span class="rounded border border-orange-200 bg-orange-50 px-1.5 py-0.5 text-[10px] font-bold text-orange-700">MALL</span>
+        </a>
+        <form action="/mall" method="get" class="flex min-w-0 flex-1 gap-2 md:max-w-2xl">
+          <input
+            name="q"
+            value={q}
+            placeholder="商品名・説明で検索"
+            class="h-10 min-w-0 flex-1 rounded-md border border-neutral-300 bg-white px-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+          />
+          {category ? <input type="hidden" name="category" value={category} /> : null}
+          {maxPrice ? <input type="hidden" name="max" value={String(maxPrice)} /> : null}
+          <button class="h-10 rounded-md bg-[#FF9933] px-5 text-sm font-bold text-white shadow-sm hover:bg-[#f08b22]">検索</button>
+        </form>
+      </div>
+    </header>
+
+    <main class="mx-auto grid max-w-7xl gap-5 px-4 py-5 lg:grid-cols-[220px_1fr]">
+      <aside class="h-fit rounded-md border border-neutral-200 bg-neutral-50 p-3">
+        <div class="text-sm font-bold text-neutral-950">絞り込み</div>
+        <div class="mt-3 border-t border-neutral-200 pt-3">
+          <div class="text-xs font-bold text-neutral-600">カテゴリ</div>
+          <div class="mt-2 grid gap-1">
+            <a href={`/mall${q ? `?q=${encodeURIComponent(q)}` : ""}`} class={`rounded px-2 py-1 text-xs ${category ? "text-neutral-600 hover:bg-white" : "bg-white font-bold text-neutral-950 shadow-sm"}`}>すべて</a>
+            {facets.map((facet) => (
+              <a
+                href={`/mall?${new URLSearchParams({ ...(q ? { q } : {}), category: facet.value }).toString()}`}
+                class={`flex items-center justify-between gap-2 rounded px-2 py-1 text-xs ${category === facet.value ? "bg-white font-bold text-neutral-950 shadow-sm" : "text-neutral-600 hover:bg-white"}`}
+              >
+                <span class="truncate">{facet.label}</span>
+                <span class="text-neutral-400">{facet.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+        <form action="/mall" method="get" class="mt-4 border-t border-neutral-200 pt-3">
+          <div class="text-xs font-bold text-neutral-600">価格上限</div>
+          {q ? <input type="hidden" name="q" value={q} /> : null}
+          {category ? <input type="hidden" name="category" value={category} /> : null}
+          <div class="mt-2 flex gap-2">
+            <input name="max" inputmode="numeric" value={maxPrice ?? ""} placeholder="例 5000" class="h-9 min-w-0 flex-1 rounded-md border border-neutral-300 px-2 text-xs outline-none focus:border-orange-400" />
+            <button class="h-9 rounded-md border border-neutral-300 bg-white px-3 text-xs font-bold hover:bg-neutral-100">適用</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="min-w-0">
+        <div class="mb-3 flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h1 class="text-lg font-bold tracking-tight">AIBOUX Mall</h1>
+            <p class="text-xs text-neutral-500">公開済み商品のみを表示しています。検索と絞り込みで商品を探せます。</p>
+          </div>
+          <div class="text-xs text-neutral-500">{products.length}件表示</div>
+        </div>
+
+        {products.length > 0 ? (
+          <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {products.map((product) => {
+              const image = firstImageUrl(product.image_r2_keys);
+              const stock = isInStock(product);
+              return (
+                <article class="group overflow-hidden rounded-md border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  <a href={productHref(product.id)} class="block">
+                    {image ? (
+                      <img src={image} alt={product.display_name} class="aspect-[4/3] w-full bg-neutral-50 object-cover" loading="lazy" />
+                    ) : (
+                      <div class="flex aspect-[4/3] w-full items-center justify-center bg-neutral-50 text-xs text-neutral-400">画像準備中</div>
+                    )}
+                  </a>
+                  <div class="grid gap-2 p-3">
+                    <div class="flex items-center justify-between gap-2 text-[11px] text-neutral-500">
+                      <span class="truncate">{product.store_name || product.tenant_name}</span>
+                      <span class={`rounded px-1.5 py-0.5 font-bold ${stock ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-[#FF4D4D]"}`}>{stock ? "在庫あり" : "在庫確認"}</span>
+                    </div>
+                    <a href={productHref(product.id)} class="line-clamp-2 min-h-10 text-sm font-bold leading-5 text-neutral-950 hover:text-orange-700">
+                      {product.display_name}
+                    </a>
+                    <p class="line-clamp-2 min-h-9 text-xs leading-5 text-neutral-600">{productSummary(product)}</p>
+                    <div class="flex items-end justify-between gap-3">
+                      <div>
+                        <div class="text-[11px] font-bold text-[#FF4D4D]">AIBOUX価格</div>
+                        <div class="text-xl font-bold text-neutral-950">{formatPrice(product.sale_price)}</div>
+                      </div>
+                      <a href={productHref(product.id)} class="rounded-md bg-[#FF9933] px-3 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#f08b22]">詳細を見る</a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="rounded-md border border-dashed border-neutral-300 bg-neutral-50 p-8 text-center">
+            <h2 class="text-base font-bold text-neutral-950">公開中の商品がありません</h2>
+            <p class="mt-2 text-sm text-neutral-600">検索条件を変えるか、出店者の商品公開後に再度確認してください。</p>
+          </div>
+        )}
+      </section>
+    </main>
+  </body>
+</html>

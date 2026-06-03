@@ -1,0 +1,28 @@
+---
+import { Card, CardContent } from "@/components/starwind/card";
+import { Badge } from "@/components/starwind/badge";
+
+const services = [
+  ["FILE", "ファイル転送・PDF・画像ツール", "https://file.aiboux.com", "border-blue-200 bg-blue-50 text-blue-700"],
+  ["MAIL", "安全・高速のビジネスメール", "https://mail.aiboux.com", "border-sky-200 bg-sky-50 text-sky-700"],
+  ["SHOP", "ネットショップ作成・運営", "https://shop.aiboux.com", "border-emerald-200 bg-emerald-50 text-emerald-700"],
+  ["CORE", "業務管理・帳票・在庫など", "/core", "border-violet-200 bg-violet-50 text-violet-700"],
+];
+---
+
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  {services.map(([name, description, href, className]) => (
+    <a href={href} class="group block">
+      <Card size="sm" class="h-full border-neutral-200 bg-white transition group-hover:border-violet-200">
+        <CardContent>
+          <div class="mb-3 flex items-center justify-between">
+            <span class="font-semibold text-neutral-950">aiboux</span>
+            <Badge variant="outline" class={className}>{name}</Badge>
+          </div>
+          <p class="min-h-10 text-sm leading-5 text-neutral-600">{description}</p>
+          <div class="mt-3 text-sm font-medium text-violet-700">詳しく見る →</div>
+        </CardContent>
+      </Card>
+    </a>
+  ))}
+</div>

@@ -1,0 +1,30 @@
+---
+import OfficeMarketingLayout from "@/layouts/OfficeMarketingLayout.astro";
+import { officeFaqs } from "@/data/office-content";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/starwind/accordion";
+
+export const prerender = true;
+---
+
+<OfficeMarketingLayout
+  title="ヘルプ | Aiboux Office"
+  description="Aiboux Officeの使い方、サーバー送信なしの仕組み、対応ファイル、広告表示、保存方法を案内します。"
+  canonicalPath="/office/help"
+>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-7xl gap-5 px-4 py-11 sm:px-5 lg:grid-cols-[320px_1fr] lg:px-6">
+      <div>
+        <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">ヘルプ</h1>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">ファイルを開く前に確認しておきたい項目をまとめました。</p>
+      </div>
+      <Accordion type="single" collapsible class="rounded-lg border border-neutral-200 bg-white">
+        {officeFaqs.map((faq, index) => (
+          <AccordionItem value={`help-${index}`}>
+            <AccordionTrigger class="px-4 text-sm font-semibold text-neutral-950">{faq.question}</AccordionTrigger>
+            <AccordionContent class="px-4 text-sm leading-6 text-neutral-600">{faq.answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  </section>
+</OfficeMarketingLayout>

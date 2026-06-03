@@ -1,0 +1,70 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/starwind/sheet";
+import { officeNavItems } from "@/data/office-content";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur-sm">
+  <div class={`mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-5 lg:px-6 ${compact ? "h-12" : "h-14"}`}>
+    <a href="/office" class="flex items-center gap-2 text-neutral-950" aria-label="Aiboux Office トップへ">
+      <span class="text-xl font-semibold tracking-tight">aiboux</span>
+      <Badge variant="outline" size="sm" class="rounded-md border-yellow-300 bg-yellow-300 px-1.5 py-0 text-[10px] font-bold text-neutral-950">OFFICE</Badge>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="主要メニュー">
+      {officeNavItems.map((item) => (
+        <a href={item.href} class="rounded-md px-2.5 py-1.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-950">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-2 md:flex">
+      <Button href="/office/history" variant="outline" size="sm">ログイン</Button>
+      <Button href="/office/editor" variant="outline" size="sm" class="border-yellow-400 bg-yellow-300 text-neutral-950 hover:bg-yellow-400 hover:text-neutral-950">無料で使う</Button>
+    </div>
+
+    <div class="lg:hidden">
+      <Sheet>
+        <SheetTrigger>
+          <Button variant="outline" size="sm" aria-label="メニューを開く">
+            <span class="block h-0.5 w-4 bg-neutral-800"></span>
+            <span class="block h-0.5 w-4 bg-neutral-800"></span>
+            <span class="block h-0.5 w-4 bg-neutral-800"></span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right" class="w-[88vw] max-w-xs bg-white">
+          <SheetHeader>
+            <SheetTitle>aiboux OFFICE</SheetTitle>
+            <SheetDescription>Office/PDF/CSVをブラウザ内で扱うミニマル編集メニューです。</SheetDescription>
+          </SheetHeader>
+          <div class="mt-5 grid gap-1">
+            {officeNavItems.map((item) => (
+              <a href={item.href} class="rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+                {item.label}
+              </a>
+            ))}
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-2">
+            <Button href="/office/history" variant="outline" size="sm">ログイン</Button>
+            <Button href="/office/editor" variant="outline" size="sm" class="border-yellow-400 bg-yellow-300 text-neutral-950 hover:bg-yellow-400 hover:text-neutral-950">無料で使う</Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  </div>
+</header>

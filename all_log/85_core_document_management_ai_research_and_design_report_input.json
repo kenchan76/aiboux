@@ -1,0 +1,31 @@
+{
+  "title": "AIBOUX Core 書類管理AI構想 マスター追記",
+  "status": "CODE_READY",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "AIBOUX_MASTER_DOCUMENT.md と public/g/m68.md に 28. AIBOUX Core 書類管理AI構想 を追記しました。",
+    "Gemini Flash第一採用、モデルID環境変数差し替え、人間レビュー必須、R2保存、Astro API Routes、4テーブル初期構成を正本化しました。",
+    "LINE、スマホ写真撮影、PCアップロード / AIワークスペースの3取り込み経路を固定しました。",
+    "invoice_received と invoice_issued_internal の分離、注文書から納品書、月末請求、仕訳候補までの業務フローを記録しました。",
+    "Bark、deploy、push、reset、clean、force push、secret表示は行っていません。"
+  ],
+  "verification": [
+    "npm run check:control-chars: CONTROL_CHAR_CHECK_OK",
+    "npm run check:mojibake: MOJIBAKE_CHECK_OK files=280",
+    "npm run astro check: PASS, 0 errors, 34 hints",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS",
+    "npm run gate:aiboux: AIBOUX_GATE_PASS",
+    "AIBOUX_MASTER_DOCUMENT.md と public/g/m68.md はローカルで同一"
+  ],
+  "notes": [
+    "今回の変更はローカル正本更新で、公開m68へのデプロイはしていません。",
+    "価格は2026-06-01時点の公式確認メモとして記録し、実装値として固定していません。",
+    "現行Worker Version ID証跡: 756a7286-5335-42d7-b54b-d5d320d8bb9f。今回のマスター変更をデプロイしたという意味ではありません。"
+  ],
+  "bark": {
+    "notification": "not sent",
+    "reason": "The user explicitly prohibited Bark for this master-spec task."
+  }
+}

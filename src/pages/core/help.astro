@@ -1,0 +1,10 @@
+---
+import CoreShell from "@/components/core/CoreShell";
+import CoreLayout from "@/layouts/CoreLayout.astro";
+
+export const prerender = false;
+---
+
+<CoreLayout title="ヘルプ・操作ガイド | aiboux Core">
+  <CoreShell client:load view="help" />
+</CoreLayout>

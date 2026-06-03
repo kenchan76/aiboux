@@ -1,0 +1,45 @@
+{
+  "phase": "AIBOUX Shop Phase 12",
+  "auditDate": "2026-05-28",
+  "auditor": "Cloudflare AI architecture audit protocol (Codex-executed local D1 and worker inspection)",
+  "result": "approved_after_fixes",
+  "checks": {
+    "stripeD1Columns": {
+      "status": "passed",
+      "columns": [
+        "stripe_account_id",
+        "stripe_connect_state",
+        "stripe_onboarding_url",
+        "stripe_onboarding_expires_at",
+        "stripe_business_data_json",
+        "stripe_last_synced_at"
+      ]
+    },
+    "emailQueueColumns": {
+      "status": "passed",
+      "columns": ["delivery_attempts", "last_attempt_at", "provider"]
+    },
+    "scheduledWorkerIsolation": {
+      "status": "passed",
+      "notes": "src/worker.ts executes R2 cleanup, SNS cron, and Shop email queue in separate try/catch blocks."
+    },
+    "resendGracefulDegradation": {
+      "status": "passed",
+      "notes": "RESEND_API_KEY missing path mock-delivers without throwing and updates the D1 queue row."
+    },
+    "stripeWebhook": {
+      "status": "passed",
+      "notes": "Webhook route refuses mutation unless STRIPE_WEBHOOK_SECRET is configured and signature validation succeeds."
+    }
+  },
+  "smokeResults": {
+    "stripeOnboardLocal": "success=true, apiMode=mock, state=pending, accountId=acct_mock_tenant001",
+    "stripeStatusLocal": "success=true, state=pending, apiMode=mock",
+    "emailQueueRetryLocal": "scanned=1, sent=1, failed=0, mocked=1; failed row retried and marked sent"
+  },
+  "remainingOperationalNotes": [
+    "Set STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET before real Stripe onboarding.",
+    "Set RESEND_API_KEY before real outbound email delivery; without it, queue rows are mock-delivered by design.",
+    "Add retention cleanup for old sent/failed email logs in a later maintenance phase."
+  ]
+}

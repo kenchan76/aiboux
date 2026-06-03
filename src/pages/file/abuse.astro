@@ -1,0 +1,46 @@
+---
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect } from "@/components/starwind/native-select";
+import { Textarea } from "@/components/starwind/textarea";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="違反報告"
+  description="不正利用、権利侵害、危険ファイル、迷惑共有の報告を受け付ける窓口です。"
+>
+  <section class="mx-auto max-w-3xl px-4 py-8 sm:px-5 lg:px-6">
+    <Card size="sm" class="border-neutral-200">
+      <CardContent class="space-y-4">
+        <div class="grid gap-3 sm:grid-cols-2">
+          <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+            報告種別
+            <NativeSelect size="sm">
+              <option>権利侵害</option>
+              <option>危険ファイル</option>
+              <option>迷惑共有</option>
+              <option>その他</option>
+            </NativeSelect>
+          </label>
+          <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+            連絡先メールアドレス
+            <Input type="email" size="sm" placeholder="you@example.com" />
+          </label>
+        </div>
+        <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+          対象URL
+          <Input size="sm" placeholder="https://file.aiboux.com/..." />
+        </label>
+        <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+          詳細
+          <Textarea rows="6" placeholder="確認してほしい内容、理由、関係する権利者情報などを入力してください。" />
+        </label>
+        <Button type="button" variant="primary" size="sm" data-demo-toast data-toast-title="報告受付デモ" data-toast-description="窓口API接続後、報告内容を送信します。">報告内容を送信する</Button>
+      </CardContent>
+    </Card>
+  </section>
+</FileToolLayout>

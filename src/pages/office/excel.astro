@@ -1,0 +1,14 @@
+---
+import OfficeFeaturePage from "@/components/office/OfficeFeaturePage.astro";
+
+export const prerender = true;
+---
+
+<OfficeFeaturePage
+  title="Excel / CSV エディタ"
+  eyebrow="Spreadsheet"
+  canonicalPath="/office/excel"
+  description="CSV、XLSX、XLSMをブラウザ内で開き、文字化け修正、セル値の軽微修正、検索、置換、ローカル保存へ進むためのOffice導線です。"
+  bullets={["CSV UTF-8 / BOM", "Shift_JIS文字化け修正", "セル値編集", "行列の追加・削除", "検索と置換", "XLSMマクロ実行なし"]}
+  caution="XLSMは読み込み対象ですが、マクロは安全のため実行しません。複雑なExcel機能の完全再現は対象外です。"
+/>

@@ -1,0 +1,43 @@
+---
+import { bizDashboardRows } from "@/data/biz-content";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/starwind/table";
+---
+
+<Card size="sm" class="border-neutral-200 bg-white">
+  <CardContent class="p-0">
+    <div class="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
+      <div>
+        <h2 class="text-sm font-semibold text-neutral-950">Plus Lite履歴プレビュー</h2>
+        <p class="mt-1 text-xs text-neutral-500">作成履歴、保存文書、再編集を一画面で管理。</p>
+      </div>
+      <Button href="/biz/dashboard" variant="outline" size="sm">詳しく見る</Button>
+    </div>
+    <div class="grid md:grid-cols-[160px_1fr]">
+      <aside class="border-r border-neutral-200 bg-neutral-50 p-3 text-sm">
+        {["作成履歴", "保存文書", "お気に入り", "フォルダ", "会社情報"].map((item, index) => (
+          <div class={`rounded-md px-3 py-2 ${index === 0 ? "bg-white font-semibold text-neutral-950 shadow-sm" : "text-neutral-600"}`}>{item}</div>
+        ))}
+      </aside>
+      <div class="overflow-x-auto p-3">
+        <Table>
+          <TableHeader>
+            <TableRow><TableHead>文書名</TableHead><TableHead>形式</TableHead><TableHead>状態</TableHead><TableHead>操作</TableHead></TableRow>
+          </TableHeader>
+          <TableBody>
+            {bizDashboardRows.map((row) => (
+              <TableRow>
+                <TableCell class="font-medium">{row.title}</TableCell>
+                <TableCell class="text-xs">{row.formats}</TableCell>
+                <TableCell><Badge variant="outline" class="border-violet-200 bg-violet-50 text-violet-700">{row.status}</Badge></TableCell>
+                <TableCell><a href="/biz/editor" class="font-medium text-violet-700">再編集</a></TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  </CardContent>
+</Card>

@@ -1,0 +1,23 @@
+---
+import BizMarketingLayout from "@/layouts/BizMarketingLayout.astro";
+export const prerender = true;
+---
+<BizMarketingLayout title="特定商取引法に基づく表記 | AIBOUX BIZ" canonicalPath="/biz/commercial">
+  <section class="mx-auto max-w-3xl px-4 py-12 sm:px-5 lg:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">特定商取引法に基づく表記</h1>
+    <dl class="mt-6 grid gap-3 text-sm">
+      {[
+        ["サービス名", "AIBOUX BIZ"],
+        ["販売価格", "Plus Lite 月額500円（税込）"],
+        ["提供内容", "テンプレート利用、Webエディタ、履歴保存、再ダウンロード機能"],
+        ["支払方法", "クレジットカード決済を予定"],
+        ["問い合わせ", "サービス内ヘルプより受付"],
+      ].map(([term, desc]) => (
+        <div class="grid grid-cols-[150px_1fr] rounded-lg border border-neutral-200 bg-white">
+          <dt class="border-r border-neutral-200 bg-neutral-50 px-3 py-2 font-medium text-neutral-700">{term}</dt>
+          <dd class="px-3 py-2 text-neutral-600">{desc}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+</BizMarketingLayout>

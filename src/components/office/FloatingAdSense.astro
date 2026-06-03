@@ -1,0 +1,50 @@
+<aside
+  id="office-floating-ad"
+  class="fixed bottom-4 right-4 z-40 hidden w-[min(340px,calc(100vw-2rem))] rounded-lg border border-neutral-200 bg-white p-3 shadow-sm"
+  aria-label="広告"
+>
+  <div class="flex items-start justify-between gap-3">
+    <span class="rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 text-[10px] font-semibold text-neutral-500">広告</span>
+    <button
+      id="office-floating-ad-close"
+      type="button"
+      class="rounded-md px-2 py-1 text-xs text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400"
+      aria-label="広告を閉じる"
+    >
+      閉じる
+    </button>
+  </div>
+  <div class="mt-2 rounded-md border border-dashed border-neutral-200 bg-neutral-50 p-3">
+    <p class="text-sm font-semibold text-neutral-900">Aiboux Officeは広告で支えられています</p>
+    <p class="mt-1 text-xs leading-5 text-neutral-600">
+      この枠は非モーダルです。保存やダウンロードを妨げず、ファイル内容も読み取りません。
+    </p>
+  </div>
+</aside>
+
+<script>
+  const key = "aiboux-office-floating-ad-seen-v1";
+  const setupFloatingOfficeAd = () => {
+    const ad = document.getElementById("office-floating-ad");
+    const close = document.getElementById("office-floating-ad-close");
+    if (!ad || !close) return;
+    if (sessionStorage.getItem(key) === "1") return;
+
+    close.addEventListener(
+      "click",
+      () => {
+        ad.classList.add("hidden");
+      },
+      { once: true },
+    );
+
+    window.setTimeout(() => {
+      if (sessionStorage.getItem(key) === "1") return;
+      sessionStorage.setItem(key, "1");
+      ad.classList.remove("hidden");
+    }, 30000);
+  };
+
+  setupFloatingOfficeAd();
+  document.addEventListener("astro:after-swap", setupFloatingOfficeAd);
+</script>

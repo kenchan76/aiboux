@@ -1,0 +1,13 @@
+---
+import BackgroundRemoverMock from "@/components/tools/BackgroundRemoverMock.astro";
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="背景切り抜き"
+  description="商品写真や資料画像を、透明PNG、白背景、WebPに整える背景切り抜きページです。"
+>
+  <BackgroundRemoverMock />
+</FileToolLayout>

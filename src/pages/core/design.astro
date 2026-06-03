@@ -1,0 +1,10 @@
+---
+import CoreLayout from "@/layouts/CoreLayout.astro";
+import CoreShell from "@/components/core/CoreShell";
+
+export const prerender = false;
+---
+
+<CoreLayout title="デザイン管理 | aiboux Core">
+  <CoreShell view="design" client:load />
+</CoreLayout>

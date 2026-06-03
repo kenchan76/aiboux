@@ -1,11 +1,38 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+export const prerender = false;
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import FileHomePage from "@/components/file/FileHomePage.astro";
+import BizHomePage from "@/components/biz/BizHomePage.astro";
+import OfficeHomePage from "@/components/office/OfficeHomePage.astro";
+import ResumeHomePage from "@/components/resume/ResumeHomePage.astro";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+
+const host = Astro.request.headers.get("host")?.toLowerCase().split(":")[0] ?? "";
+const isFileHost = host === "file.aiboux.com";
+const isBizHost = host === "biz.aiboux.com";
+const isOfficeHost = host === "office.aiboux.com";
+const isResumeHost = host === "rirekisho.aiboux.com";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+{
+  isFileHost ? (
+    <FileHomePage canonicalPath="/" />
+  ) : isBizHost ? (
+    <BizHomePage canonicalPath="/" />
+  ) : isOfficeHost ? (
+    <OfficeHomePage canonicalPath="/" />
+  ) : isResumeHost ? (
+    <ResumeHomePage />
+  ) : (
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <NotoSansJpHead />
+        <title>aiboux</title>
+        <meta name="robots" content="noindex" />
+      </head>
+      <body></body>
+    </html>
+  )
+}

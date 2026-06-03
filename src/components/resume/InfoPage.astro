@@ -1,0 +1,82 @@
+---
+import ResumeMarketingLayout from "@/layouts/ResumeMarketingLayout.astro";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/starwind/accordion";
+import { Card, CardContent } from "@/components/starwind/card";
+import { resumeFaqs } from "@/data/resume-content";
+
+interface Props {
+  kind: "help" | "terms" | "privacy" | "commercial";
+}
+
+const { kind } = Astro.props;
+const content = {
+  help: {
+    title: "ヘルプ",
+    description: "AIBOUX 履歴書の使い方、無料会員登録、保存、写真作成、求人票解析について確認できます。",
+    sections: [
+      ["はじめに", "履歴書作成から始める場合は、基本情報、学歴、職歴、資格、志望動機の順に入力します。保存や再編集には無料会員登録が必要です。"],
+      ["スマホでの使い方", "390px幅でも入力しやすいよう、フォームは縦積みとステップ式を基本にしています。写真はスマホのカメラまたは写真ライブラリから選択できます。"],
+      ["個人情報", "履歴書や職務経歴書は個人情報を含みます。保存、削除、利用目的はプライバシーポリシーで確認してください。"],
+    ],
+  },
+  terms: {
+    title: "利用規約",
+    description: "AIBOUX 履歴書の利用条件をまとめたページです。",
+    sections: [
+      ["利用範囲", "本サービスは、履歴書、職務経歴書、退職届、送付状、チェックリスト、証明写真作成を支援するためのサービスです。"],
+      ["禁止事項", "不正アクセス、第三者の個人情報の無断入力、広告導線の悪用、法令に反する利用は禁止します。"],
+      ["出力内容の確認", "応募書類の内容は利用者本人が確認し、必要に応じて修正してください。"],
+    ],
+  },
+  privacy: {
+    title: "プライバシーポリシー",
+    description: "履歴書・職務経歴書・証明写真など個人情報を扱うサービスとしての方針を示します。",
+    sections: [
+      ["扱う情報", "氏名、住所、連絡先、学歴、職歴、資格、志望動機、写真、求人票解析結果などを扱います。"],
+      ["利用目的", "応募書類の作成、保存、再編集、再ダウンロード、本人確認、サポート、メルマガ配信に利用します。"],
+      ["削除", "保存データは利用者が削除できる導線を用意する方針です。"],
+    ],
+  },
+  commercial: {
+    title: "特定商取引法に基づく表記",
+    description: "初期版では有料課金を必須にしませんが、将来の関連サービスや広告導線に備えて表示枠を用意しています。",
+    sections: [
+      ["販売価格", "初期版の AIBOUX 履歴書は原則無料です。有料機能を提供する場合は、事前に料金と条件を明示します。"],
+      ["役務の提供時期", "Web画面上で作成・編集・出力を行います。保存機能は無料会員登録後に利用できます。"],
+      ["問い合わせ", "問い合わせ導線はサービス公開時の運営情報に合わせて設定します。"],
+    ],
+  },
+}[kind];
+---
+
+<ResumeMarketingLayout title={`AIBOUX 履歴書 | ${content.title}`} description={content.description} canonicalPath={`/rirekisho/${kind}`}>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 py-10 sm:px-5 lg:px-6">
+      <h1 class="text-3xl font-semibold tracking-tight text-neutral-950">{content.title}</h1>
+      <p class="mt-2 text-sm leading-6 text-neutral-600">{content.description}</p>
+      <div class="mt-6 grid gap-4">
+        {content.sections.map(([title, body]) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <h2 class="text-sm font-semibold text-neutral-950">{title}</h2>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{body}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      {kind === "help" && (
+        <div class="mt-6">
+          <Accordion>
+            {resumeFaqs.map((faq, index) => (
+              <AccordionItem value={`faq-${index}`}>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                <AccordionContent>{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      )}
+    </div>
+  </section>
+</ResumeMarketingLayout>
+

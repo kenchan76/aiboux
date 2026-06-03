@@ -1,0 +1,38 @@
+
+ ⛅️ wrangler 4.94.0 (update available 4.95.0)
+─────────────────────────────────────────────
+Resource location: remote 
+
+🌀 Executing on remote database aiboux-b2b-db (36b5f8f2-2205-4a5d-9a27-b0a30b201832):
+🌀 To execute on your local development database, remove the --remote flag from your wrangler command.
+🚣 Executed 1 command in 0.21ms
+[
+  {
+    "results": [
+      {
+        "id": "shop_email_fa8105e1-c447-4f26-b5d9-2e45bf12b4c0",
+        "tenant_id": "tenant_001",
+        "delivery_status": "queued",
+        "error_message": "internal server error"
+      }
+    ],
+    "success": true,
+    "meta": {
+      "served_by": "v3-prod",
+      "served_by_region": "APAC",
+      "served_by_colo": "NRT",
+      "served_by_primary": true,
+      "timings": {
+        "sql_duration_ms": 0.2134
+      },
+      "duration": 0.2134,
+      "changes": 0,
+      "last_row_id": 1,
+      "changed_db": false,
+      "size_after": 978944,
+      "rows_read": 2,
+      "rows_written": 0,
+      "total_attempts": 1
+    }
+  }
+]

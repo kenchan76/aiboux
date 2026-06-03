@@ -1,0 +1,46 @@
+{
+  "viewport": {
+    "width": 1980,
+    "height": 1080
+  },
+  "forbiddenCounts": {
+    "配送備考": 0,
+    "社外向け文面": 0,
+    "社内メモ": 0,
+    "3件の明細行": 0,
+    "8%軽減": 0,
+    "単位（マスタ）": 0,
+    "入数（マスタ）": 0,
+    "単価（マスタ）": 0,
+    "A4プレビュー": 0,
+    "ライブプレビュー": 0
+  },
+  "lineMetrics": {
+    "drag": 20,
+    "no": 20,
+    "productCode": 116,
+    "productName": 1213,
+    "unit": 34,
+    "packQuantity": 42,
+    "quantity": 50,
+    "unitPrice": 64,
+    "taxRate": 44,
+    "amount": 92,
+    "actions": 40
+  },
+  "codeInput": {
+    "value": "4901234567890",
+    "clientWidth": 101,
+    "scrollWidth": 101,
+    "fits": true,
+    "fontSize": "10px"
+  },
+  "visibleValues": {
+    "unit0": "枚",
+    "taxRate0": "10%",
+    "lineSubtotal0": "￥12,000",
+    "documentTotal": "￥194,643"
+  },
+  "noteRows": 1,
+  "amountFooterVisible": true
+}

@@ -1,0 +1,24 @@
+---
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+---
+
+<Card size="sm" class="border-yellow-300 bg-yellow-50/70 shadow-none">
+  <CardContent>
+    <div class="grid gap-4 lg:grid-cols-[1fr_360px] lg:items-center">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-amber-700">Free account</p>
+        <h2 class="mt-2 text-2xl font-semibold tracking-tight text-neutral-950">無料会員登録で、編集履歴をもっと扱いやすく。</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-700">
+          ファイル本体は原則サーバーへ送信せず、履歴メタデータ、最近使った形式、よく使う保存設定を整理します。同じブラウザのローカル履歴がある場合は、再編集の入口として使えます。
+        </p>
+      </div>
+      <div class="grid gap-2">
+        {["編集履歴メタデータ保存", "ローカル履歴復元", "よく使う形式を保存", "AIBOUX FILE / BIZ連携"].map((item) => (
+          <div class="rounded border border-yellow-200 bg-white px-3 py-2 text-sm font-medium text-neutral-800">{item}</div>
+        ))}
+        <Button href="/office/history" variant="outline" size="sm" class="border-yellow-400 bg-yellow-300 text-neutral-950 hover:bg-yellow-400 hover:text-neutral-950">無料会員登録</Button>
+      </div>
+    </div>
+  </CardContent>
+</Card>

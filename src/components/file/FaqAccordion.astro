@@ -1,0 +1,24 @@
+---
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/starwind/accordion";
+import type { FileFaq } from "@/data/faq";
+
+interface Props {
+  faqs: FileFaq[];
+}
+
+const { faqs } = Astro.props;
+---
+
+<Accordion type="single" class="divide-y divide-neutral-200 rounded-lg border border-neutral-200 bg-white">
+  {faqs.map((faq, index) => (
+    <AccordionItem value={`faq-${index}`} class="px-4">
+      <AccordionTrigger class="py-3 text-left text-sm font-semibold text-neutral-950">{faq.question}</AccordionTrigger>
+      <AccordionContent class="text-sm leading-6 text-neutral-600">{faq.answer}</AccordionContent>
+    </AccordionItem>
+  ))}
+</Accordion>

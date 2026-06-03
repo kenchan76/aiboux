@@ -1,0 +1,109 @@
+---
+import { env } from "cloudflare:workers";
+import { DocumentPrintView, type PrintableDocument } from "@/components/core/documents/DocumentPrintView";
+import { resolveTenantFromRequest } from "@/lib/server/tenantContext";
+
+export const prerender = false;
+
+type DocumentRow = {
+  id: string;
+  type: "quote" | "delivery" | "invoice";
+  document_number: string;
+  customer_name: string;
+  issue_date: string;
+  subtotal_amount: number;
+  tax_amount: number;
+  total_amount: number;
+};
+
+type DocumentLineRow = {
+  id: string;
+  line_no: number;
+  product_name: string;
+  quantity: number;
+  unit_price: number;
+  line_total: number;
+};
+
+const lookupId = Astro.params.id ?? "";
+const autoPrint = Astro.url.searchParams.get("print") === "1";
+const tenant = await resolveTenantFromRequest(Astro.request);
+const row = await env.DB.prepare(
+  `
+  SELECT id, type, document_number, customer_name, issue_date, subtotal_amount, tax_amount, total_amount
+  FROM core_documents
+  WHERE tenant_id = ?
+    AND (id = ? OR document_number = ?)
+    AND deleted_at IS NULL
+  LIMIT 1
+  `,
+)
+  .bind(tenant.tenantId, lookupId, lookupId)
+  .first<DocumentRow>();
+
+if (!row) {
+  return new Response("帳票が見つかりません。", { status: 404 });
+}
+
+const lines = await env.DB.prepare(
+  `
+  SELECT id, line_no, product_name, quantity, unit_price, line_total
+  FROM core_document_lines
+  WHERE tenant_id = ?
+    AND document_id = ?
+    AND deleted_at IS NULL
+  ORDER BY line_no ASC
+  `,
+)
+  .bind(tenant.tenantId, row.id)
+  .all<DocumentLineRow>();
+
+const document: PrintableDocument = {
+  id: row.id,
+  type: row.type,
+  typeLabel: documentTypeLabel(row.type),
+  documentNumber: row.document_number,
+  customerName: row.customer_name,
+  issueDate: row.issue_date,
+  subtotalAmount: Number(row.subtotal_amount ?? 0),
+  taxAmount: Number(row.tax_amount ?? 0),
+  totalAmount: Number(row.total_amount ?? 0),
+  lines: (lines.results ?? []).map((line) => ({
+    id: line.id,
+    lineNo: Number(line.line_no),
+    productName: line.product_name,
+    quantity: Number(line.quantity),
+    unitPrice: Number(line.unit_price),
+    lineTotal: Number(line.line_total),
+  })),
+};
+
+function documentTypeLabel(type: DocumentRow["type"]) {
+  if (type === "delivery") return "納品書";
+  if (type === "invoice") return "請求書";
+  return "見積書";
+}
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{document.documentNumber} - {document.typeLabel}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <DocumentPrintView document={document} />
+    <script is:inline define:vars={{ autoPrint }}>
+      const printButton = document.getElementById("print-document-button");
+      printButton?.addEventListener("click", () => window.print());
+      if (autoPrint) {
+        window.addEventListener("load", () => window.setTimeout(() => window.print(), 250), { once: true });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+https://mail.aiboux.com/ code=200 title=AIBOUX Mail | サービスサイト cache_or_internal= old_marker= version_marker=
+https://mail.aiboux.com/s/aiboux/ code=200 title=AIBOUX Mail - 受信トレイ cache_or_internal= old_marker=1 version_marker=
+https://shop.aiboux.com/ code=200 title=AIBOUX SHOP | サービスサイト cache_or_internal= old_marker= version_marker=
+https://shop.aiboux.com/s/aiboux/ code=200 title=株式会社雪花 公式ストア | AIBOUX Storefront cache_or_internal= old_marker= version_marker=
+https://shop.aiboux.com/s/aiboux/admin code=200 title=AIBOUX SHOP Dashboard cache_or_internal= old_marker=1 version_marker=
+https://mail.aiboux.com/g/m68 code=200 title= cache_or_internal= old_marker= version_marker=f8867df3-aab9-439b-bf8d-634ada05191d
+https://mail.aiboux.com/g/l68 code=200 title= cache_or_internal= old_marker= version_marker=f8867df3-aab9-439b-bf8d-634ada05191d
+https://mail.aiboux.com/g/d68 code=200 title= cache_or_internal= old_marker= version_marker=f8867df3-aab9-439b-bf8d-634ada05191d

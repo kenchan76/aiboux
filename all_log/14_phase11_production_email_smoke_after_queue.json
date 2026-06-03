@@ -1,0 +1,1 @@
+{"success":true,"tenantId":"tenant_001","businessName":"AIBOUX Phase 11 Smoke","email":"info@aiboux.com","notification":{"attempted":true,"ok":true,"providerMessageId":"shop_email_fa8105e1-c447-4f26-b5d9-2e45bf12b4c0","fallbackQueued":true,"warning":"Email provider failed; notification queued in D1. internal server error"}}

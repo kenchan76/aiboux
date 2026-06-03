@@ -1,0 +1,15 @@
+---
+interface Props {
+  label?: string;
+}
+const { label = "AIBOUX広告 / 外部広告枠" } = Astro.props;
+---
+
+<aside class="rounded-lg border border-dashed border-neutral-300 bg-white p-4" aria-label="広告">
+  <div class="mb-2 flex items-center justify-between text-[11px] text-neutral-500">
+    <span class="rounded border border-neutral-200 px-1.5 py-0.5">広告</span>
+    <span>{label}</span>
+  </div>
+  <div class="text-sm font-semibold text-neutral-950">文書作成を、送付まで一気通貫に。</div>
+  <p class="mt-1 text-sm leading-6 text-neutral-600">AIBOUX FILEやMAILと連携して、作成した文書をすぐに安全共有できます。</p>
+</aside>

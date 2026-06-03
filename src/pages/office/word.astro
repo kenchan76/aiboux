@@ -1,0 +1,14 @@
+---
+import OfficeFeaturePage from "@/components/office/OfficeFeaturePage.astro";
+
+export const prerender = true;
+---
+
+<OfficeFeaturePage
+  title="Word クイック編集"
+  eyebrow="DOCX"
+  canonicalPath="/office/word"
+  description="DOCX文書をブラウザで確認し、本文・見出し・短い文章の修正とPDF出力へつなげるためのクイック編集画面です。"
+  bullets={["DOCX表示", "テキスト中心の編集", "見出し確認", "検索と置換", "HTML sanitize", "PDF出力導線"]}
+  caution="複雑な書式、脚注、ヘッダー/フッター、図表の完全再現は対象外です。"
+/>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="cache-control" content="no-store">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>c77 Delivery Detail Typography Review</title>
+<style>
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;color:#111827;background:#fff;line-height:1.65}
+a{color:#2563eb}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{border:1px solid #ddd;border-radius:8px;padding:12px;background:#fff;margin:16px 0}img{max-width:100%;border:1px solid #ddd}table{border-collapse:collapse;width:100%;margin-top:16px;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:right}th:first-child,td:first-child{text-align:left}pre{white-space:pre-wrap;border:1px solid #ddd;border-radius:8px;padding:12px;background:#f9fafb;overflow:auto}.pass{color:#047857;font-weight:700}.blocked{color:#b45309;font-weight:700}.ng{color:#b91c1c;font-weight:700}
+</style>
+</head>
+<body>
+<h1>Delivery Detail Typography Rule v77</h1>
+<p>DOM / Visual Verdict: <strong class="pass">PASS</strong></p>
+<p>Independent Review Status: <strong class="blocked">BLOCKED_REVIEW if Grok / Cloudflare AI cannot load instruction and images</strong></p>
+<p>c76はfont-weightだけの監査だったため不合格証跡です。c77ではTypography Differenceとしてfont-size / line-height / color / font-weightを判定に含めます。</p>
+<div class="grid">
+<section class="panel"><h2>Reference</h2><img src="/reference-77.png" alt="Reference"></section>
+<section class="panel"><h2>Actual 1672</h2><img src="/actual-77.png" alt="Actual 1672"></section>
+</div>
+<section class="panel"><h2>Diff Image</h2><img src="/diff-77.png" alt="Diff"></section>
+<h2>Geometry Difference</h2>
+<table><thead><tr><th>Metric</th><th>Reference</th><th>Actual</th><th>Delta</th><th>Threshold</th></tr></thead><tbody></tbody></table>
+<h2>Text Difference</h2><pre>{
+  &quot;missingExpectedTexts&quot;: [],
+  &quot;forbiddenTextsFound&quot;: []
+}</pre>
+<h2>Product Row Difference</h2><pre>{
+  &quot;productNameSingleLine&quot;: true,
+  &quot;productNameSecondLineFound&quot;: false,
+  &quot;productNameCellHeight&quot;: 20,
+  &quot;lineRowHeight&quot;: 33,
+  &quot;productNameWhiteSpace&quot;: &quot;nowrap&quot;
+}</pre>
+<h2>Font Weight Difference</h2><pre>{
+  &quot;verdict&quot;: &quot;PASS&quot;,
+  &quot;allowedBold&quot;: [
+    &quot;section titles&quot;,
+    &quot;field labels&quot;,
+    &quot;table headers&quot;
+  ],
+  &quot;forbiddenBold&quot;: [
+    &quot;values&quot;,
+    &quot;product names&quot;,
+    &quot;amount values&quot;,
+    &quot;memo/history body&quot;,
+    &quot;footer amount values&quot;
+  ],
+  &quot;violations&quot;: []
+}</pre>
+<h2>Typography Difference</h2><pre>{
+  &quot;verdict&quot;: &quot;PASS&quot;,
+  &quot;fontSize&quot;: &quot;PASS&quot;,
+  &quot;lineHeight&quot;: &quot;PASS&quot;,
+  &quot;fontColor&quot;: &quot;PASS&quot;,
+  &quot;fontWeight&quot;: &quot;PASS&quot;,
+  &quot;rules&quot;: {
+    &quot;pageTitle&quot;: {
+      &quot;fontSize&quot;: &quot;20px&quot;,
+      &quot;lineHeight&quot;: &quot;28px&quot;,
+      &quot;fontWeight&quot;: &quot;&gt;=600&quot;,
+      &quot;color&quot;: &quot;slate-900&quot;
+    },
+    &quot;sectionTitle&quot;: {
+      &quot;fontSize&quot;: &quot;15px&quot;,
+      &quot;lineHeight&quot;: &quot;22px&quot;,
+      &quot;fontWeight&quot;: &quot;&gt;=600&quot;,
+      &quot;color&quot;: &quot;slate-900&quot;
+    },
+    &quot;label&quot;: {
+      &quot;fontSize&quot;: &quot;13px&quot;,
+      &quot;lineHeight&quot;: &quot;20px&quot;,
+      &quot;fontWeight&quot;: &quot;500-600&quot;,
+      &quot;color&quot;: &quot;slate-500&quot;
+    },
+    &quot;value&quot;: {
+      &quot;fontSize&quot;: &quot;13px&quot;,
+      &quot;lineHeight&quot;: &quot;20px&quot;,
+      &quot;fontWeight&quot;: &quot;&lt;=400&quot;,
+      &quot;color&quot;: [
+        &quot;slate-700&quot;,
+        &quot;blue-600&quot;
+      ]
+    },
+    &quot;tableHeader&quot;: {
+      &quot;fontSize&quot;: &quot;12px&quot;,
+      &quot;lineHeight&quot;: &quot;16px&quot;,
+      &quot;fontWeight&quot;: &quot;500-600&quot;,
+      &quot;color&quot;: &quot;slate-500&quot;
+    },
+    &quot;productName&quot;: {
+      &quot;fontSize&quot;: &quot;13px&quot;,
+      &quot;lineHeight&quot;: &quot;20px&quot;,
+      &quot;fontWeight&quot;: &quot;&lt;=400&quot;,
+      &quot;color&quot;: &quot;slate-800&quot;,
+      &quot;whiteSpace&quot;: &quot;nowrap&quot;
+    },
+    &quot;amountValues&quot;: {
+      &quot;fontWeight&quot;: &quot;&lt;=400&quot;
+    }
+  },
+  &quot;violations&quot;: []
+}</pre>
+<h2>Reviewer Verdict</h2><pre>{
+  &quot;verdict&quot;: &quot;PASS&quot;,
+  &quot;geometryPass&quot;: true,
+  &quot;textPass&quot;: true,
+  &quot;productRowPass&quot;: true,
+  &quot;fontWeightPass&quot;: true,
+  &quot;typographyPass&quot;: true,
+  &quot;diffRatio&quot;: 0.12418517915889134,
+  &quot;textMismatch&quot;: {
+    &quot;missingExpectedTexts&quot;: [],
+    &quot;forbiddenTextsFound&quot;: []
+  },
+  &quot;productRow&quot;: {
+    &quot;productNameSingleLine&quot;: true,
+    &quot;productNameSecondLineFound&quot;: false,
+    &quot;productNameCellHeight&quot;: 20,
+    &quot;lineRowHeight&quot;: 33,
+    &quot;productNameWhiteSpace&quot;: &quot;nowrap&quot;
+  },
+  &quot;fontWeight&quot;: {
+    &quot;verdict&quot;: &quot;PASS&quot;,
+    &quot;allowedBold&quot;: [
+      &quot;section titles&quot;,
+      &quot;field labels&quot;,
+      &quot;table headers&quot;
+    ],
+    &quot;forbiddenBold&quot;: [
+      &quot;values&quot;,
+      &quot;product names&quot;,
+      &quot;amount values&quot;,
+      &quot;memo/history body&quot;,
+      &quot;footer amount values&quot;
+    ],
+    &quot;violations&quot;: []
+  },
+  &quot;typography&quot;: {
+    &quot;verdict&quot;: &quot;PASS&quot;,
+    &quot;fontSize&quot;: &quot;PASS&quot;,
+    &quot;lineHeight&quot;: &quot;PASS&quot;,
+    &quot;fontColor&quot;: &quot;PASS&quot;,
+    &quot;fontWeight&quot;: &quot;PASS&quot;,
+    &quot;rules&quot;: {
+      &quot;pageTitle&quot;: {
+        &quot;fontSize&quot;: &quot;20px&quot;,
+        &quot;lineHeight&quot;: &quot;28px&quot;,
+        &quot;fontWeight&quot;: &quot;&gt;=600&quot;,
+        &quot;color&quot;: &quot;slate-900&quot;
+      },
+      &quot;sectionTitle&quot;: {
+        &quot;fontSize&quot;: &quot;15px&quot;,
+        &quot;lineHeight&quot;: &quot;22px&quot;,
+        &quot;fontWeight&quot;: &quot;&gt;=600&quot;,
+        &quot;color&quot;: &quot;slate-900&quot;
+      },
+      &quot;label&quot;: {
+        &quot;fontSize&quot;: &quot;13px&quot;,
+        &quot;lineHeight&quot;: &quot;20px&quot;,
+        &quot;fontWeight&quot;: &quot;500-600&quot;,
+        &quot;color&quot;: &quot;slate-500&quot;
+      },
+      &quot;value&quot;: {
+        &quot;fontSize&quot;: &quot;13px&quot;,
+        &quot;lineHeight&quot;: &quot;20px&quot;,
+        &quot;fontWeight&quot;: &quot;&lt;=400&quot;,
+        &quot;color&quot;: [
+          &quot;slate-700&quot;,
+          &quot;blue-600&quot;
+        ]
+      },
+      &quot;tableHeader&quot;: {
+        &quot;fontSize&quot;: &quot;12px&quot;,
+        &quot;lineHeight&quot;: &quot;16px&quot;,
+        &quot;fontWeight&quot;: &quot;500-600&quot;,
+        &quot;color&quot;: &quot;slate-500&quot;
+      },
+      &quot;productName&quot;: {
+        &quot;fontSize&quot;: &quot;13px&quot;,
+        &quot;lineHeight&quot;: &quot;20px&quot;,
+        &quot;fontWeight&quot;: &quot;&lt;=400&quot;,
+        &quot;color&quot;: &quot;slate-800&quot;,
+        &quot;whiteSpace&quot;: &quot;nowrap&quot;
+      },
+      &quot;amountValues&quot;: {
+        &quot;fontWeight&quot;: &quot;&lt;=400&quot;
+      }
+    },
+    &quot;violations&quot;: []
+  },
+  &quot;visualBlockers&quot;: []
+}</pre>
+</body>
+</html>

@@ -1,0 +1,25 @@
+---
+import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+import FileMarketingLayout from "./FileMarketingLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+}
+
+const { title, description, eyebrow = "AIBOUX FILE Tools" } = Astro.props;
+---
+
+<FileMarketingLayout title={`${title} | AIBOUX FILE`} description={description}>
+  <section class="border-b border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 sm:px-5 lg:px-6">
+      <div class="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700">{eyebrow}</div>
+      <div class="max-w-3xl space-y-2">
+        <h1 class="text-3xl font-semibold tracking-tight text-neutral-950 sm:text-4xl">{title}</h1>
+        <p class="text-sm leading-6 text-neutral-600 sm:text-base">{description}</p>
+      </div>
+    </div>
+  </section>
+  <slot />
+</FileMarketingLayout>

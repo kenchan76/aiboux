@@ -1,0 +1,136 @@
+---
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
+import { Dropzone } from "@/components/starwind/dropzone";
+import { Input } from "@/components/starwind/input";
+import { NativeSelect } from "@/components/starwind/native-select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/starwind/tabs";
+import { Textarea } from "@/components/starwind/textarea";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<Card size="sm" class={`border-neutral-200 shadow-sm ${compact ? "w-full" : ""}`}>
+  <CardHeader class="gap-2">
+    <div class="flex items-center justify-between gap-3">
+      <CardTitle class="text-base">ファイルを送る</CardTitle>
+      <Badge variant="outline" size="sm" class="rounded-md border-emerald-200 bg-emerald-50 text-emerald-700">登録不要</Badge>
+    </div>
+  </CardHeader>
+  <CardContent>
+    <Tabs defaultValue="mail" class="space-y-4">
+      <TabsList class="grid w-full grid-cols-2 bg-neutral-100 p-1">
+        <TabsTrigger value="mail" class="text-sm">メールで送る</TabsTrigger>
+        <TabsTrigger value="link" class="text-sm">リンクを作成</TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="mail">
+        <form class="space-y-3" data-file-transfer-form>
+        <Dropzone id="file-transfer-mail" name="files" multiple class="min-h-36 rounded-lg border-neutral-300 bg-white p-4 hover:border-blue-300 hover:bg-blue-50/30">
+          <div class="mx-auto flex max-w-xs flex-col items-center gap-2 text-center">
+            <div class="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold text-neutral-700">DROP FILES</div>
+            <div class="text-sm font-medium text-neutral-950">ここにファイルをドラッグ＆ドロップ</div>
+            <div class="text-xs leading-5 text-neutral-500">またはクリックしてファイルを選択。最大5GB / 1ファイルまで。</div>
+          </div>
+        </Dropzone>
+        <div class="grid gap-2 sm:grid-cols-2">
+          <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+            宛先メールアドレス
+            <Input type="email" placeholder="client@example.com" size="sm" autocomplete="email" />
+          </label>
+          <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+            自分のメールアドレス
+            <Input type="email" placeholder="you@example.com" size="sm" autocomplete="email" />
+          </label>
+        </div>
+        <label class="block space-y-1.5 text-xs font-medium text-neutral-700">
+          メッセージ
+          <Textarea rows="3" placeholder="共有内容や確認事項を入力" class="min-h-20 text-sm" />
+        </label>
+        <details class="rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-sm">
+          <summary class="cursor-pointer font-medium text-neutral-800">詳細設定</summary>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2">
+            <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+              保存期間
+              <NativeSelect size="sm">
+                <option>7日</option>
+                <option>14日</option>
+                <option>30日</option>
+              </NativeSelect>
+            </label>
+            <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+              パスワード
+              <input type="text" name="username" autocomplete="username" value="file-transfer-mail" class="sr-only" tabindex="-1" aria-hidden="true" />
+              <Input type="password" placeholder="任意" size="sm" autocomplete="new-password" />
+            </label>
+          </div>
+        </details>
+        <Button type="button" variant="primary" size="sm" class="w-full" data-demo-toast data-toast-title="デモ送信" data-toast-description="API接続後、このフォームからファイル転送を実行します。">
+          ファイルを送信する
+        </Button>
+        </form>
+      </TabsContent>
+
+      <TabsContent value="link">
+        <form class="space-y-3" data-file-transfer-form>
+        <Dropzone id="file-transfer-link" name="files" multiple class="min-h-36 rounded-lg border-neutral-300 bg-white p-4 hover:border-blue-300 hover:bg-blue-50/30">
+          <div class="mx-auto flex max-w-xs flex-col items-center gap-2 text-center">
+            <div class="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold text-neutral-700">CREATE LINK</div>
+            <div class="text-sm font-medium text-neutral-950">共有リンクにしたいファイルを選択</div>
+            <div class="text-xs leading-5 text-neutral-500">期限とパスワードを付けた共有URLを作成します。</div>
+          </div>
+        </Dropzone>
+        <div class="grid gap-2 sm:grid-cols-2">
+          <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+            保存期間
+            <NativeSelect size="sm">
+              <option>7日</option>
+              <option>14日</option>
+              <option>30日</option>
+              <option>90日</option>
+            </NativeSelect>
+          </label>
+          <label class="space-y-1.5 text-xs font-medium text-neutral-700">
+            パスワード
+            <input type="text" name="username" autocomplete="username" value="file-transfer-link" class="sr-only" tabindex="-1" aria-hidden="true" />
+            <Input type="password" placeholder="任意" size="sm" autocomplete="new-password" />
+          </label>
+        </div>
+        <Button type="button" variant="primary" size="sm" class="w-full" data-demo-toast data-toast-title="リンク作成デモ" data-toast-description="API接続後、共有リンクを生成してコピーできます。">
+          リンクを作成する
+        </Button>
+        </form>
+      </TabsContent>
+    </Tabs>
+  </CardContent>
+</Card>
+
+<script>
+  const setupDemoToasts = () => {
+    document.querySelectorAll<HTMLElement>("[data-demo-toast]").forEach((button) => {
+      if (button.dataset.toastBound === "true") return;
+      button.dataset.toastBound = "true";
+      button.addEventListener("click", () => {
+        const manager = (window as any).__starwind__?.toast;
+        manager?.add({
+          title: button.dataset.toastTitle || "デモ",
+          description: button.dataset.toastDescription || "API接続後に実行されます。",
+          variant: "info",
+          duration: 3600,
+        });
+      });
+    });
+  };
+
+  setupDemoToasts();
+  document.addEventListener("astro:after-swap", setupDemoToasts);
+
+  document.querySelectorAll<HTMLFormElement>("[data-file-transfer-form]").forEach((form) => {
+    form.addEventListener("submit", (event) => event.preventDefault());
+  });
+</script>

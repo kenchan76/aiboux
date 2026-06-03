@@ -1,0 +1,162 @@
+---
+import AdSlot from "@/components/file/AdSlot.astro";
+import AibouxPromoCard from "@/components/file/AibouxPromoCard.astro";
+import DashboardPreview from "@/components/file/DashboardPreview.astro";
+import FaqAccordion from "@/components/file/FaqAccordion.astro";
+import HeroTransferCard from "@/components/file/HeroTransferCard.astro";
+import PricingCards from "@/components/file/PricingCards.astro";
+import ToolCard from "@/components/file/ToolCard.astro";
+import ToolCategoryStrip from "@/components/file/ToolCategoryStrip.astro";
+import UseCaseCard from "@/components/file/UseCaseCard.astro";
+import FileMarketingLayout from "@/layouts/FileMarketingLayout.astro";
+import { fileFaqs } from "@/data/faq";
+import { fileTools, selectionReasons, toolCategories, useCases } from "@/data/file-tools";
+import { filePricingPlans } from "@/data/pricing";
+import { Badge } from "@/components/starwind/badge";
+import { Button } from "@/components/starwind/button";
+import { Card, CardContent } from "@/components/starwind/card";
+
+interface Props {
+  canonicalPath?: string;
+}
+
+const { canonicalPath = "/file" } = Astro.props;
+---
+
+<FileMarketingLayout canonicalPath={canonicalPath}>
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-5 lg:grid-cols-[1fr_430px] lg:px-6 lg:py-14">
+      <div class="flex flex-col justify-center gap-5">
+        <div class="flex flex-wrap gap-2">
+          {["無料", "広告あり", "会員登録不要", "最大5GB", "Plus Lite 月500円"].map((label) => (
+            <Badge variant="outline" size="sm" class="rounded-md border-neutral-200 bg-neutral-50 text-neutral-700">{label}</Badge>
+          ))}
+        </div>
+        <div class="space-y-4">
+          <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl">
+            ファイル転送も、PDFも、画像処理も、ひとつで。
+          </h1>
+          <p class="max-w-2xl text-base leading-7 text-neutral-600">
+            大容量ファイルの送信、PDFの圧縮・結合、画像の圧縮・リサイズ、背景透過、QRコードやバーコード作成まで。AIBOUX FILEが、あなたの作業をまとめてサポートします。
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/file/transfer" variant="primary" size="md">無料で使い始める</Button>
+          <Button href="/file/tools" variant="outline" size="md">ツールを使ってみる</Button>
+        </div>
+        <AibouxPromoCard />
+      </div>
+      <HeroTransferCard />
+    </div>
+  </section>
+
+  <section id="features" class="border-b border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-5 lg:px-6">
+      <ToolCategoryStrip categories={toolCategories} />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">便利なツールをすべて無料で</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">送る、軽くする、整える、コード化する。毎日のファイル作業を一つの入口に集めました。</p>
+        </div>
+        <Button href="/file/tools" variant="outline" size="sm" class="hidden sm:inline-flex">すべて見る</Button>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {fileTools.map((tool) => <ToolCard tool={tool} />)}
+      </div>
+      <div class="mt-5">
+        <AdSlot />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">AIBOUX FILEが選ばれる理由</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">Filemailのような転送体験を起点に、PDF・画像・バーコードまで業務向けに整理しました。</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {selectionReasons.map((reason) => (
+          <Card size="sm" class="border-neutral-200 bg-white">
+            <CardContent>
+              <h3 class="text-sm font-semibold text-neutral-950">{reason.title}</h3>
+              <p class="mt-1 text-sm leading-6 text-neutral-600">{reason.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-6">
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">履歴・管理もすべておまかせ</h2>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">
+            送信したファイル、受信したファイル、変換したPDF、作成したバーコードを履歴として保存。Plus Liteなら、再ダウンロード、再共有、プレビュー、期限変更までワンクリックで可能です。
+          </p>
+        </div>
+        <ul class="grid gap-2 text-sm text-neutral-700 sm:grid-cols-2">
+          {["送信履歴", "受信履歴", "変換履歴", "保存ファイル", "共有リンク", "再DL", "再共有", "広告なし", "保存容量50GB"].map((item) => (
+            <li class="flex gap-2"><span class="text-blue-700">✓</span><span>{item}</span></li>
+          ))}
+        </ul>
+        <Button href="/file/dashboard" variant="outline" size="sm">履歴デモを見る</Button>
+      </div>
+      <DashboardPreview />
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">シンプルでわかりやすい料金プラン</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">無料で始めて、履歴管理と広告なしが必要になったら月500円のPlus Liteへ。</p>
+      </div>
+      <PricingCards plans={filePricingPlans} />
+    </div>
+  </section>
+
+  <section id="usecases" class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="mb-5">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">こんなシーンで活用されています</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">業務ファイルを送る人、受け取る人、加工する人の作業をまとめます。</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {useCases.map((item) => <UseCaseCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="border-y border-neutral-200 bg-neutral-50/70">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-12 sm:px-5 lg:grid-cols-[320px_1fr] lg:px-6">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">よくある質問</h2>
+        <p class="mt-2 text-sm leading-6 text-neutral-600">無料利用、保存期間、セキュリティ、Plus Liteについてまとめています。</p>
+      </div>
+      <FaqAccordion faqs={fileFaqs} />
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5 lg:px-6">
+      <div class="rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <h2 class="text-2xl font-semibold tracking-tight text-neutral-950">今すぐ、ファイル転送とツールをはじめよう</h2>
+        <p class="mx-auto mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
+          会員登録不要。無料で、すべてのツールをすぐに利用いただけます。AIBOUX FILEで、あなたの作業をもっとスマートに。
+        </p>
+        <div class="mt-5 flex justify-center gap-3">
+          <Button href="/file/transfer" variant="primary" size="md">無料で使い始める</Button>
+          <Button href="/file/tools" variant="outline" size="md">ツールを使ってみる</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</FileMarketingLayout>

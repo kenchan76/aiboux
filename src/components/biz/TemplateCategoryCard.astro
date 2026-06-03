@@ -1,0 +1,24 @@
+---
+import type { BizCategory } from "@/data/biz-content";
+import { Badge } from "@/components/starwind/badge";
+import { Card, CardContent } from "@/components/starwind/card";
+
+interface Props {
+  category: BizCategory;
+}
+const { category } = Astro.props;
+---
+
+<a href={category.href} class="group block">
+  <Card size="sm" class="h-full border-neutral-200 bg-white transition group-hover:border-violet-200">
+    <CardContent>
+      <div class="mb-3 flex items-center justify-between">
+        <span class="grid size-8 place-items-center rounded-md border border-violet-200 bg-violet-50 text-sm font-semibold text-violet-700">文</span>
+        <Badge variant="outline" size="sm" class="border-neutral-200 bg-neutral-50 text-neutral-600">{category.countLabel}</Badge>
+      </div>
+      <h3 class="text-sm font-semibold text-neutral-950">{category.title}</h3>
+      <p class="mt-1 min-h-10 text-sm leading-5 text-neutral-600">{category.description}</p>
+      <div class="mt-3 text-sm font-medium text-violet-700">見る →</div>
+    </CardContent>
+  </Card>
+</a>

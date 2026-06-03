@@ -1,0 +1,13 @@
+---
+import BarcodeGeneratorMock from "@/components/tools/BarcodeGeneratorMock.astro";
+import FileToolLayout from "@/layouts/FileToolLayout.astro";
+
+export const prerender = true;
+---
+
+<FileToolLayout
+  title="QR / JAN / ITF / Code128作成"
+  description="共有リンク、商品JAN、ケースITF、業務ラベル用Code128を作成するバーコードツールです。"
+>
+  <BarcodeGeneratorMock />
+</FileToolLayout>

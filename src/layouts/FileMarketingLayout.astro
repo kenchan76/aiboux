@@ -1,0 +1,70 @@
+---
+import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+import "../styles/starwind.css";
+import FileFooter from "@/components/file/FileFooter.astro";
+import FileHeader from "@/components/file/FileHeader.astro";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { Toaster } from "@/components/starwind/toast";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title = "AIBOUX FILE | ファイル転送・PDF・画像処理・バーコード作成",
+  description = "AIBOUX FILEは、大容量ファイル転送、PDF圧縮・結合、画像圧縮・背景透過、QRコード・バーコード作成をまとめて使える無料ビジネスファイルツールです。",
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, "https://file.aiboux.com").toString();
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <NotoSansJpHead />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://file.aiboux.com/og-file.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <FileHeader />
+    <main>
+      <slot />
+    </main>
+    <FileFooter />
+    <Toaster position="bottom-right" />
+    <script>
+      const setupFileDemoToasts = () => {
+        document.querySelectorAll<HTMLElement>("[data-demo-toast]").forEach((button) => {
+          if (button.dataset.toastBound === "true") return;
+          button.dataset.toastBound = "true";
+          button.addEventListener("click", () => {
+            const manager = (window as any).__starwind__?.toast;
+            manager?.add({
+              title: button.dataset.toastTitle || "デモ",
+              description: button.dataset.toastDescription || "API接続後に実行されます。",
+              variant: "info",
+              duration: 3600,
+            });
+          });
+        });
+      };
+
+      setupFileDemoToasts();
+      document.addEventListener("astro:after-swap", setupFileDemoToasts);
+    </script>
+      <GlobalAIAssistant client:load service="File" />
+  </body>
+</html>

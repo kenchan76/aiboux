@@ -1,0 +1,12 @@
+---
+import CoreShell from "@/components/core/CoreShell";
+import CoreLayout from "@/layouts/CoreLayout.astro";
+
+const previewMode = Astro.url.searchParams.get("preview");
+const previewDocument = Astro.url.searchParams.get("document") || undefined;
+const initialPreviewDocumentId = previewMode === "delivery-detail" ? previewDocument : undefined;
+---
+
+<CoreLayout title="aiboux Core - 納品書">
+  <CoreShell client:load view="deliveries" initialPreviewDocumentId={initialPreviewDocumentId} />
+</CoreLayout>

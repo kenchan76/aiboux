@@ -1,0 +1,77 @@
+---
+import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+import "../styles/starwind.css";
+import ResumeFooter from "@/components/resume/ResumeFooter.astro";
+import ResumeHeader from "@/components/resume/ResumeHeader.astro";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { Toaster } from "@/components/starwind/toast";
+import { resumeSite } from "@/data/resume-content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  robots?: string;
+}
+
+const {
+  title = resumeSite.title,
+  description = resumeSite.description,
+  canonicalPath = Astro.url.pathname,
+  robots = "index,follow",
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, resumeSite.baseUrl).toString();
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <NotoSansJpHead />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://rirekisho.aiboux.com/og-rirekisho.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body
+    class="min-h-screen bg-white text-neutral-950 antialiased"
+    style="--primary: var(--color-green-600); --primary-foreground: var(--color-white); --primary-accent: var(--color-green-700); --success: var(--color-emerald-200); --success-foreground: var(--color-emerald-950); --outline: var(--color-green-500);"
+  >
+    <ResumeHeader />
+    <main>
+      <slot />
+    </main>
+    <ResumeFooter />
+    <Toaster position="bottom-right" />
+    <script>
+      const setupResumeToasts = () => {
+        document.querySelectorAll<HTMLElement>("[data-resume-toast]").forEach((button) => {
+          if (button.dataset.toastBound === "true") return;
+          button.dataset.toastBound = "true";
+          button.addEventListener("click", () => {
+            const manager = (window as any).__starwind__?.toast;
+            manager?.add({
+              title: button.dataset.toastTitle || "入力内容を確認しました",
+              description: button.dataset.toastDescription || "画面内のプレビューへ反映できます。保存には無料会員登録が必要です。",
+              variant: "success",
+              duration: 3600,
+            });
+          });
+        });
+      };
+
+      setupResumeToasts();
+      document.addEventListener("astro:after-swap", setupResumeToasts);
+    </script>
+      <GlobalAIAssistant client:load service="Rirekisho" />
+  </body>
+</html>

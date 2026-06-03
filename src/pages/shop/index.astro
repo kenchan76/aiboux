@@ -1,0 +1,127 @@
+---
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import "@/styles/global.css";
+
+export const prerender = false;
+
+const tenantSlug = "aiboux";
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>AIBOUX SHOP | サービスサイト</title>
+    <meta name="description" content="AIBOUX SHOPは、ストアフロント、商品、在庫、注文、顧客、設定をテナント単位で扱うAIBOUXシリーズのショップサービスです。" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <header class="border-b border-neutral-200 bg-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3">
+        <a href="/" class="flex items-center gap-2" aria-label="AIBOUX SHOP">
+          <span class="text-xl font-semibold tracking-tight">aiboux</span>
+          <span class="rounded-md border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700">SHOP</span>
+        </a>
+        <nav class="hidden items-center gap-5 text-sm font-medium text-neutral-600 md:flex">
+          <a class="hover:text-neutral-950" href="#routing">URL設計</a>
+          <a class="hover:text-neutral-950" href="#operations">運用画面</a>
+          <a class="hover:text-neutral-950" href="https://docs.aiboux.com/">Docs</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <a class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100" href={`/s/${tenantSlug}/`}>
+            ストアを見る
+          </a>
+          <a class="rounded-md bg-emerald-700 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-800" href={`/s/${tenantSlug}/admin`}>
+            管理画面
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="border-b border-neutral-200 bg-neutral-50">
+        <div class="mx-auto grid max-w-7xl gap-8 px-5 py-10 lg:grid-cols-[1fr_500px] lg:items-center">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">AIBOUX Service Site</p>
+            <h1 class="mt-3 text-3xl font-semibold tracking-tight text-neutral-950 md:text-4xl">AIBOUX SHOP</h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-neutral-700">
+              ストアフロントと管理画面をテナントURLで分け、商品、在庫、注文、顧客、設定をAIBOUXの業務データと連携するショップサービスです。
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a class="rounded-md bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-800" href={`/s/${tenantSlug}/`}>
+                aiboux ストアフロント
+              </a>
+              <a class="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100" href={`/s/${tenantSlug}/admin`}>
+                aiboux 管理画面
+              </a>
+            </div>
+          </div>
+          <div class="rounded-md border border-neutral-200 bg-white">
+            <div class="border-b border-neutral-200 px-4 py-3 text-sm font-semibold">URL入口</div>
+            <dl class="divide-y divide-neutral-200 text-sm">
+              <div class="grid grid-cols-[140px_1fr] gap-4 px-4 py-3">
+                <dt class="font-medium text-neutral-500">サービスサイト</dt>
+                <dd class="text-neutral-900">shop.aiboux.com/</dd>
+              </div>
+              <div class="grid grid-cols-[140px_1fr] gap-4 px-4 py-3">
+                <dt class="font-medium text-neutral-500">ストア</dt>
+                <dd><a class="font-semibold text-emerald-700 hover:text-emerald-800" href={`/s/${tenantSlug}/`}>/s/{tenantSlug}/</a></dd>
+              </div>
+              <div class="grid grid-cols-[140px_1fr] gap-4 px-4 py-3">
+                <dt class="font-medium text-neutral-500">管理画面</dt>
+                <dd><a class="font-semibold text-emerald-700 hover:text-emerald-800" href={`/s/${tenantSlug}/admin`}>/s/{tenantSlug}/admin</a></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="routing" class="mx-auto max-w-7xl px-5 py-8">
+        <h2 class="text-lg font-semibold tracking-tight">URL設計</h2>
+        <div class="mt-4 overflow-hidden rounded-md border border-neutral-200">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-neutral-50 text-xs font-semibold text-neutral-500">
+              <tr>
+                <th class="px-4 py-3">URL</th>
+                <th class="px-4 py-3">役割</th>
+                <th class="px-4 py-3">画面種別</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="px-4 py-3 font-medium text-neutral-900">shop.aiboux.com/</td>
+                <td class="px-4 py-3 text-neutral-700">SHOPサービスサイト</td>
+                <td class="px-4 py-3 text-neutral-700">サービス入口</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium text-neutral-900">shop.aiboux.com/s/aiboux/</td>
+                <td class="px-4 py-3 text-neutral-700">公開ストア</td>
+                <td class="px-4 py-3 text-neutral-700">フロント</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium text-neutral-900">shop.aiboux.com/s/aiboux/admin</td>
+                <td class="px-4 py-3 text-neutral-700">店舗運用</td>
+                <td class="px-4 py-3 text-neutral-700">管理画面</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="operations" class="border-t border-neutral-200 bg-white">
+        <div class="mx-auto max-w-7xl px-5 py-8">
+          <h2 class="text-lg font-semibold tracking-tight">運用領域</h2>
+          <div class="mt-4 grid gap-3 md:grid-cols-3">
+            {["商品・在庫", "注文・顧客", "ストアフロント"].map((item) => (
+              <div class="rounded-md border border-neutral-200 bg-white p-4">
+                <div class="text-sm font-semibold text-neutral-950">{item}</div>
+                <p class="mt-2 text-xs leading-5 text-neutral-600">テナント単位のURLで管理画面と公開画面を分離します。</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+  </body>
+</html>

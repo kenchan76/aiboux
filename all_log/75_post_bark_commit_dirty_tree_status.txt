@@ -1,0 +1,1631 @@
+# Post Bark Commit Dirty Tree Status
+
+- Captured: 2026-05-31T23:56:42+09:00
+- Commit checked: baaefcb7256161866d916db3b7cbe745f4546b29
+- Commit message: fix: send Bark only after URL bundle output
+- Rule: do not reset or clean uncommitted files.
+
+## git status --short
+```text
+ M .gitignore
+ M astro.config.mjs
+ M package-lock.json
+ M package.json
+ M public/favicon.ico
+ M public/favicon.svg
+ D src/assets/astro.svg
+ D src/assets/background.svg
+ D src/components/Welcome.astro
+ D src/layouts/Layout.astro
+ M src/pages/index.astro
+ M tsconfig.json
+?? .agents/
+?? .vscode/starwind.code-snippets
+?? AGENTS.md
+?? AGENT_RULES.md
+?? AIBOUX
+?? DESIGN.md
+?? "Mail\343\202\265\343\203\274\343\203\223\343\202\271\343\202\265\343\202\244\343\203\210"
+?? PRODUCT.md
+?? all_log/10_shop_font_documents_final_log.md
+?? all_log/11_shop_phase8_enterprise_ux_final_log.md
+?? all_log/12_phase9_grok_final_review.md
+?? all_log/12_shop_beginner_ux_final_log.md
+?? all_log/13_phase10_cloudflare_ai_audit.json
+?? all_log/13_phase10_grok_review.md
+?? all_log/13_shop_phase10_tripartite_final_log.md
+?? all_log/14_phase11_cloudflare_ai_audit.json
+?? all_log/14_phase11_cron_smoke.txt
+?? all_log/14_phase11_document_email_smoke.json
+?? all_log/14_phase11_grok_review.md
+?? all_log/14_phase11_production_asset_smoke.txt
+?? all_log/14_phase11_production_email_smoke.json
+?? all_log/14_phase11_production_email_smoke_after_from_fix.json
+?? all_log/14_phase11_production_email_smoke_after_queue.json
+?? all_log/14_phase11_production_head_smoke.txt
+?? all_log/14_phase11_production_upload_smoke.json
+?? all_log/14_phase11_r2_upload_smoke.json
+?? all_log/14_phase11_remote_notification_queue_smoke.txt
+?? all_log/14_shop_phase11_external_infra_final_log.md
+?? all_log/15_phase12_cloudflare_ai_audit.json
+?? all_log/15_phase12_grok_final_review.md
+?? all_log/15_phase12_grok_review.md
+?? all_log/15_phase12_grok_review_retry.md
+?? all_log/15_shop_phase12_stripe_email_final_log.md
+?? all_log/16_phase13_cloudflare_ai_audit.json
+?? all_log/16_phase13_grok_final_review.md
+?? all_log/16_phase13_grok_review.md
+?? all_log/16_shop_phase13_production_ops_final_log.md
+?? all_log/17_phase14_cloudflare_ai_audit.json
+?? all_log/17_phase14_grok_final_review.md
+?? all_log/17_phase14_grok_review.md
+?? all_log/17_shop_phase14_seo_feed_final_log.md
+?? all_log/18_phase15_cloudflare_ai_audit.json
+?? all_log/18_phase15_grok_final_review.md
+?? all_log/18_phase15_grok_review.md
+?? all_log/18_shop_phase15_omnichannel_final_log.md
+?? all_log/19_phase16_cloudflare_ai_audit.json
+?? all_log/19_phase16_grok_final_review.md
+?? all_log/19_phase16_grok_review.md
+?? all_log/19_shop_phase16_settings_consolidation_final_log.md
+?? "all_log/1_MAIL_MOBILE_UI_\346\224\271\345\226\204_G.md"
+?? "all_log/1_MailUI\345\276\256\350\252\277\346\225\264_B.md"
+?? "all_log/1_Mail\346\251\237\350\203\275\346\224\271\345\226\204_A.md"
+?? "all_log/1_UI\343\203\220\343\203\251\343\203\263\343\202\271\350\252\277\346\225\264_E.md"
+?? "all_log/1_UI\343\203\252\343\203\231\343\203\263\343\202\270\343\203\255\343\202\260_C.md"
+?? "all_log/1_UI\346\224\271\345\226\204\343\203\255\343\202\260_A.md"
+?? "all_log/1_\343\203\211\343\202\255\343\203\245\343\203\241\343\203\263\343\203\210\347\265\261\345\220\210_G.md"
+?? "all_log/1_\343\203\226\343\203\251\343\203\263\343\203\211\343\202\253\343\203\251\343\203\274\351\201\251\347\224\250_D.md"
+?? "all_log/1_\343\203\252\343\202\271\343\203\210\346\223\215\344\275\234\346\224\271\345\226\204_F.md"
+?? "all_log/1_\345\256\237\350\241\214\343\203\255\343\202\260_A.md"
+?? all_log/20_phase17_cloudflare_ai_audit.json
+?? all_log/20_phase17_grok_final_review.md
+?? all_log/20_phase17_grok_review.md
+?? all_log/20_shop_phase17_layout_order_sns_final_log.md
+?? all_log/21_phase18_cloudflare_ai_admin_recheck.json
+?? all_log/21_phase18_cloudflare_ai_audit.json
+?? all_log/21_phase18_cloudflare_ai_audit.txt
+?? all_log/21_phase18_grok_minimal_review.md
+?? all_log/21_phase18_grok_ux_review.md
+?? all_log/21_phase18_static_audit.md
+?? all_log/21_shop_phase18_system_audit_final_log.md
+?? all_log/22_phase19_cloudflare_ai_audit.json
+?? all_log/22_phase19_grok_ux_review.md
+?? all_log/22_shop_phase19_mall_refund_final_log.md
+?? all_log/23_phase20_cloudflare_ai_audit.json
+?? all_log/23_phase20_grok_ux_review.md
+?? all_log/23_shop_phase20_storefront_builder_final_log.md
+?? all_log/24_phase21_cloudflare_ai_audit.json
+?? all_log/24_phase21_grok_chunked_review.md
+?? all_log/24_phase21_grok_header_review.md
+?? all_log/24_phase21_grok_product_card_review.md
+?? all_log/24_shop_phase21_marketplace_storefront_final_log.md
+?? all_log/25_phase22_cloudflare_ai_audit.json
+?? all_log/25_phase22_cloudflare_ai_recheck.json
+?? all_log/25_phase22_static_ui_verify.log
+?? all_log/25_shop_phase22_static_ui_enforcement_final_log.md
+?? all_log/26_shop_phase24_absolute_storefront_override_log.md
+?? all_log/27_phase25_cloudflare_ai_audit.json
+?? all_log/27_phase25_grok_ui_review.md
+?? all_log/27_shop_phase25_shadcn_storefront_log.md
+?? all_log/28_core_phase1_cloudflare_ai_audit.json
+?? all_log/28_core_phase1_grok_ui_review.md
+?? all_log/28_core_phase1_pim_inventory_hub_final_log.md
+?? all_log/29_core_phase2_cloudflare_ai_audit.json
+?? all_log/29_core_phase2_master_form_final_log.md
+?? all_log/29_core_phase2_ux_self_audit.md
+?? "all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_A_dash.md"
+?? "all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_B_dash.md"
+?? "all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_D_dash.md"
+?? "all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_E_dash.md"
+?? "all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_F_dash.md"
+?? "all_log/2_UI\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_A_dash.md"
+?? "all_log/2_UI\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_C_dash.md"
+?? all_log/2_shop_phase1_grok_review.md
+?? "all_log/2_\343\203\211\343\202\255\343\203\245\343\203\241\343\203\263\343\203\210\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_G_dash.md"
+?? "all_log/2_\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_A_dash.md"
+?? all_log/30_core_phase3_business_documents_final_log.md
+?? all_log/30_core_phase3_cloudflare_ai_audit.json
+?? all_log/30_core_phase3_grok_review.md
+?? all_log/31_core_phase3_5_document_form_ui_hotfix_log.md
+?? all_log/32_core_phase4_document_print_e2e_final_log.md
+?? all_log/33_core_phase5_ui_redesign_final_log.md
+?? all_log/34_aiboux_core_shop_ui_implementation_log.md
+?? all_log/35_core_full_ui_redesign_final_log.md
+?? all_log/36_core_delivery_detail_ui_final_log.md
+?? all_log/37_core_delivery_create_ui_rework_final_log.md
+?? all_log/38_core_delivery_workspace_density_final_log.md
+?? all_log/39_core_delivery_workspace_fullwidth_final_log.md
+?? "all_log/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G.md"
+?? "all_log/3_MAIL_MOBILE_UI_\346\234\200\347\265\202\345\256\214\344\272\206_G.md"
+?? "all_log/3_Mail\343\203\242\343\203\220\343\202\244\343\203\253UI\346\224\271\345\226\204\345\256\214\344\272\206\343\203\255\343\202\260_G2_dash.md"
+?? "all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_B2_dash.md"
+?? "all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_D2_dash.md"
+?? "all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_E2_dash.md"
+?? "all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_F2_dash.md"
+?? "all_log/3_Mail\346\234\200\347\265\202\345\256\214\344\272\206\343\203\255\343\202\260_A2_dash.md"
+?? "all_log/3_\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_A2_dash.md"
+?? "all_log/3_\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_C2_dash.md"
+?? "all_log/3_\346\234\200\347\265\202\345\256\214\344\272\206\343\203\255\343\202\260_A2_dash.md"
+?? all_log/40_core_delivery_vertical_spacing_final_log.md
+?? all_log/41_core_document_management_ui_unification_final_log.md
+?? all_log/42_core_document_management_rejection_fix_final_log.md
+?? all_log/43_core_document_workspace_unification_final_log.md
+?? all_log/44_core_document_ui_semantic_config_final_log.md
+?? all_log/45_core_document_ui_cloudflare_ai_review.json
+?? all_log/45_core_document_ui_grok_review.md
+?? all_log/45_core_document_ui_public_review_final_log.md
+?? all_log/46_core_document_ui_grok_cloudflare_final_log.md
+?? all_log/47_core_delivery_create_final_reference_match_log.md
+?? all_log/48_production_deployment_rule_update_final_log.md
+?? all_log/49_production_deployment_rule_contradiction_check_log.md
+?? all_log/4_shop_phase1_final_log.md
+?? all_log/50_hermes_agent_minimal_audit_setup_final_log.md
+?? all_log/50_hermes_provider_and_first_audit_log.md
+?? all_log/51_hermes_gated_completion_rule_log.md
+?? all_log/52_hermes_current_state_and_bark_notification_log.md
+?? all_log/53_core_delivery_detail_print_preview_final_log.md
+?? all_log/54_core_delivery_detail_print_rejection_fix_blocked_log.md
+?? all_log/55_codex_imagegen_url_policy_log.md
+?? all_log/55_core_delivery_detail_print_final_completed_log.md
+?? all_log/56_bark_required_notification_gate_blocked_log.md
+?? all_log/56_core_delivery_detail_print_bark_grok_blocked_log.md
+?? all_log/57_ai_review_non_response_policy_update_log.md
+?? all_log/58_core_delivery_detail_print_current_blocked_utf8_log.md
+?? all_log/5_shop_phase2_final_log.md
+?? all_log/60_core_delivery_detail_layout_fix_code_ready_log.md
+?? all_log/61_core_delivery_detail_design_fix_v2_code_ready_log.md
+?? all_log/62_core_delivery_detail_preview_css_recovery_code_ready_log.md
+?? all_log/63_core_delivery_detail_design_v3_code_ready_log.md
+?? all_log/64_core_delivery_detail_design_v4_visual_test_code_ready_log.md
+?? all_log/64_core_delivery_detail_final_reference_image_code_ready_log.md
+?? all_log/64_core_delivery_detail_reference_image_loaded_code_ready_log.md
+?? all_log/65_core_delivery_detail_design_v5_preview_ready_log.md
+?? all_log/65_core_delivery_detail_reference_geometry_fix_code_ready_log.md
+?? all_log/66_codex_execution_contract_update_preview_ready_log.md
+?? all_log/66_core_delivery_detail_reference_text_visual_fix_code_ready_log.md
+?? all_log/67_core_delivery_detail_product_name_single_line_code_ready_log.md
+?? all_log/67_design_skill_upgrade_preview_ready_log.md
+?? all_log/67_service_subdomain_tenant_url_migration_user_action_required_log.md
+?? all_log/68_core_delivery_detail_font_weight_rule_code_ready_log.md
+?? all_log/68_delivery_detail_direct_preview_fix_preview_ready_log.md
+?? all_log/68_final_external_curl_acceptance.txt
+?? all_log/68_service_subdomain_tenant_url_migration_deployed_log.md
+?? all_log/68_service_subdomain_tenant_url_migration_screen_artifact.md
+?? all_log/69_bark_final_only_contract_v2_preview_ready_log.md
+?? all_log/69_core_delivery_detail_direct_preview_final_preview_ready_log.md
+?? all_log/69_core_delivery_detail_typography_rule_code_ready_log.md
+?? all_log/69_service_subdomain_tenant_url_migration_external_fail_repair_log.md
+?? all_log/6_shop_product_registration_final_log.md
+?? all_log/70_core_delivery_detail_direct_preview_control_char_fix_log.md
+?? all_log/70_core_delivery_detail_typography_user_approved_deploy_log.md
+?? all_log/70_service_url_external_curl_evidence_2.md
+?? all_log/71_bark_progress_url_reissue_rule_correction_log.md
+?? all_log/71_core_delivery_detail_design_continue_after_deploy_block_log.md
+?? all_log/71_final_only_report_protocol_log.md
+?? all_log/71_service_url_external_curl_evidence_after_nostore.md
+?? all_log/72_core_delivery_detail_reference_text_geometry_c79_log.md
+?? all_log/72_final_external_curl_acceptance_summary.txt
+?? all_log/73_core_delivery_detail_auto_repair_loop_preview_ready_log.md
+?? all_log/73_service_url_final_acceptance_gate_status.md
+?? all_log/74_core_delivery_detail_deploy_blocked_auth_log.md
+?? all_log/75_post_bark_commit_dirty_tree_status.txt
+?? all_log/7_shop_navigation_settings_final_log.md
+?? all_log/8_shop_font_backend_final_log.md
+?? all_log/9_shop_core_ux_inventory_documents_final_log.md
+?? all_log/bark_required_auth_check.md
+?? all_log/core_delivery_create_final_cloudflare_ai_audit.json
+?? all_log/core_delivery_create_final_grok_review.md
+?? all_log/core_delivery_detail_print_bark_required_check.md
+?? all_log/core_delivery_detail_print_bark_secret_setup_blocked.md
+?? all_log/core_delivery_detail_print_cloudflare_ai_audit.json
+?? all_log/core_delivery_detail_print_final_cloudflare_ai_audit.json
+?? all_log/core_delivery_detail_print_final_hermes_audit.md
+?? all_log/core_delivery_detail_print_grok_01-preview.md
+?? all_log/core_delivery_detail_print_grok_02-popup.md
+?? all_log/core_delivery_detail_print_grok_03-pdf.md
+?? all_log/core_delivery_detail_print_grok_04-close-bark.md
+?? all_log/core_delivery_detail_print_grok_detail_fixed_review.md
+?? all_log/core_delivery_detail_print_grok_detail_ui_review.md
+?? all_log/core_delivery_detail_print_grok_final_review.md
+?? all_log/core_delivery_detail_print_grok_pdf_review.md
+?? all_log/core_delivery_detail_print_grok_preview_review.md
+?? all_log/core_delivery_detail_print_grok_review.md
+?? all_log/core_delivery_detail_print_grok_window_review.md
+?? all_log/core_delivery_detail_print_hermes_audit.md
+?? all_log/core_delivery_detail_print_re_gate_hermes_audit.md
+?? all_log/core_delivery_detail_print_rejection_fix_cloudflare_ai_audit.json
+?? all_log/core_delivery_detail_print_rejection_fix_grok_review.md
+?? all_log/core_delivery_detail_print_rejection_fix_hermes_audit.md
+?? all_log/core_delivery_detail_v75_cloudflare_vision_review.json
+?? all_log/core_delivery_detail_v75_grok_review.md
+?? all_log/core_delivery_detail_v76_cloudflare_vision_review.json
+?? all_log/core_delivery_detail_v76_grok_review.md
+?? all_log/core_delivery_detail_v77_cloudflare_vision_review.json
+?? all_log/core_delivery_detail_v77_grok_review.md
+?? all_log/core_documents_cloudflare_ai_dom_audit.json
+?? all_log/core_documents_cloudflare_ai_spec_audit.json
+?? all_log/core_documents_grok_create_review.md
+?? all_log/core_documents_grok_delivery_review.md
+?? all_log/core_documents_grok_line_table_review.md
+?? all_log/core_documents_grok_list_review.md
+?? all_log/internal/
+?? all_log/preview_playwright_result.md
+?? all_log/preview_style_result.md
+?? all_log/preview_url.txt
+?? components.json
+?? db/
+?? docs/
+?? migrations/
+?? ops/design/
+?? ops/improvements/
+?? ops/instructions/20260531_bark_progress_url_reissue_rule_fix.md
+?? ops/instructions/20260531_codex_execution_contract.md
+?? ops/instructions/20260531_codex_execution_contract_and_delivery_v5.md
+?? ops/instructions/20260531_codex_execution_contract_v2_bark_final_only.md
+?? ops/instructions/20260531_core_delivery_detail_design_continue_after_deploy_block.md
+?? ops/instructions/20260531_core_delivery_detail_design_v5.md
+?? ops/instructions/20260531_core_delivery_detail_direct_preview_v6.md
+?? ops/instructions/20260531_core_delivery_detail_direct_preview_v6_bark_final_only_fix.md
+?? ops/instructions/20260531_core_delivery_detail_font_weight_rule_v76.md
+?? ops/instructions/20260531_core_delivery_detail_product_name_single_line_v75.md
+?? ops/instructions/20260531_core_delivery_detail_reference_geometry_v5.md
+?? ops/instructions/20260531_core_delivery_detail_reference_image_match.md
+?? ops/instructions/20260531_core_delivery_detail_reference_text_geometry_c79.md
+?? ops/instructions/20260531_core_delivery_detail_reference_text_visual_v6.md
+?? ops/instructions/20260531_core_delivery_detail_typography_rule_v77.md
+?? ops/instructions/20260531_core_delivery_detail_typography_user_approved_deploy.md
+?? ops/instructions/20260531_delivery_detail_auto_repair_loop_rule.md
+?? ops/instructions/20260531_delivery_detail_deploy_blocked_auth.md
+?? ops/instructions/20260531_design_skill_upgrade.md
+?? ops/instructions/20260531_final_only_report_protocol.md
+?? ops/instructions/20260531_m69_direct_preview_control_char_final_fix.md
+?? ops/instructions/20260531_m70_url_bundle_control_char_root_fix.md
+?? ops/instructions/20260531_service_subdomain_tenant_slug_url_migration.md
+?? ops/instructions/20260531_short_url_and_bark_final_only_rule.md
+?? output/
+?? playwright.config.ts
+?? public/brand/
+?? public/g/
+?? public/temp/
+?? schema.sql
+?? scripts/aiboux-design-gate.mjs
+?? scripts/check-control-chars.mjs
+?? scripts/check-mojibake.mjs
+?? scripts/compare-reference-image.mjs
+?? scripts/prepare-preview-wrangler-config.mjs
+?? scripts/run-delivery-detail-design-loop.mjs
+?? scripts/setup-bark-secret.sh
+?? scripts/setup-cloudflare-secret.sh
+?? src/components/ai/
+?? src/components/biz/
+?? src/components/builder/
+?? src/components/common/
+?? src/components/core/
+?? src/components/dashboard/
+?? src/components/file/
+?? src/components/mail/
+?? src/components/office/
+?? src/components/resume/
+?? src/components/shop/
+?? src/components/starwind/
+?? src/components/tools/
+?? src/components/ui/
+?? src/data/
+?? src/env.d.ts
+?? src/hooks/
+?? src/layouts/BizDashboardLayout.astro
+?? src/layouts/BizMarketingLayout.astro
+?? src/layouts/CoreLayout.astro
+?? src/layouts/FileDashboardLayout.astro
+?? src/layouts/FileMarketingLayout.astro
+?? src/layouts/FileToolLayout.astro
+?? src/layouts/MailLayout.astro
+?? src/layouts/OfficeEditorLayout.astro
+?? src/layouts/OfficeMarketingLayout.astro
+?? src/layouts/ResumeEditorLayout.astro
+?? src/layouts/ResumeMarketingLayout.astro
+?? src/layouts/ShopLayout.astro
+?? src/lib/
+?? src/middleware.ts
+?? src/pages/api/
+?? src/pages/biz/
+?? src/pages/core/
+?? src/pages/docs/
+?? src/pages/file/
+?? src/pages/g/
+?? src/pages/mail/
+?? src/pages/mall/
+?? src/pages/office/
+?? src/pages/rirekisho/
+?? src/pages/shop/
+?? src/styles/
+?? src/worker.ts
+?? src/workers/
+?? starwind.config.json
+?? test-results/
+?? tests/
+?? tools/
+?? worker-configuration.d.ts
+?? wrangler.toml
+?? "\345\257\276\345\277\234\343\203\206\343\203\212\343\203\263\343\203\210\343\201\256"
+?? "\346\227\247"
+```
+
+## git diff --name-only
+```text
+.gitignore
+astro.config.mjs
+package-lock.json
+package.json
+public/favicon.ico
+public/favicon.svg
+src/assets/astro.svg
+src/assets/background.svg
+src/components/Welcome.astro
+src/layouts/Layout.astro
+src/pages/index.astro
+tsconfig.json
+```
+
+## git ls-files --others --exclude-standard
+```text
+.agents/skills/aiboux-design-review/SKILL.md
+.agents/skills/aiboux-imagegen/SKILL.md
+.agents/skills/aiboux-instruction-compliance/SKILL.md
+.vscode/starwind.code-snippets
+AGENTS.md
+AGENT_RULES.md
+AIBOUX
+DESIGN.md
+"Mail\343\202\265\343\203\274\343\203\223\343\202\271\343\202\265\343\202\244\343\203\210"
+PRODUCT.md
+all_log/10_shop_font_documents_final_log.md
+all_log/11_shop_phase8_enterprise_ux_final_log.md
+all_log/12_phase9_grok_final_review.md
+all_log/12_shop_beginner_ux_final_log.md
+all_log/13_phase10_cloudflare_ai_audit.json
+all_log/13_phase10_grok_review.md
+all_log/13_shop_phase10_tripartite_final_log.md
+all_log/14_phase11_cloudflare_ai_audit.json
+all_log/14_phase11_cron_smoke.txt
+all_log/14_phase11_document_email_smoke.json
+all_log/14_phase11_grok_review.md
+all_log/14_phase11_production_asset_smoke.txt
+all_log/14_phase11_production_email_smoke.json
+all_log/14_phase11_production_email_smoke_after_from_fix.json
+all_log/14_phase11_production_email_smoke_after_queue.json
+all_log/14_phase11_production_head_smoke.txt
+all_log/14_phase11_production_upload_smoke.json
+all_log/14_phase11_r2_upload_smoke.json
+all_log/14_phase11_remote_notification_queue_smoke.txt
+all_log/14_shop_phase11_external_infra_final_log.md
+all_log/15_phase12_cloudflare_ai_audit.json
+all_log/15_phase12_grok_final_review.md
+all_log/15_phase12_grok_review.md
+all_log/15_phase12_grok_review_retry.md
+all_log/15_shop_phase12_stripe_email_final_log.md
+all_log/16_phase13_cloudflare_ai_audit.json
+all_log/16_phase13_grok_final_review.md
+all_log/16_phase13_grok_review.md
+all_log/16_shop_phase13_production_ops_final_log.md
+all_log/17_phase14_cloudflare_ai_audit.json
+all_log/17_phase14_grok_final_review.md
+all_log/17_phase14_grok_review.md
+all_log/17_shop_phase14_seo_feed_final_log.md
+all_log/18_phase15_cloudflare_ai_audit.json
+all_log/18_phase15_grok_final_review.md
+all_log/18_phase15_grok_review.md
+all_log/18_shop_phase15_omnichannel_final_log.md
+all_log/19_phase16_cloudflare_ai_audit.json
+all_log/19_phase16_grok_final_review.md
+all_log/19_phase16_grok_review.md
+all_log/19_shop_phase16_settings_consolidation_final_log.md
+"all_log/1_MAIL_MOBILE_UI_\346\224\271\345\226\204_G.md"
+"all_log/1_MailUI\345\276\256\350\252\277\346\225\264_B.md"
+"all_log/1_Mail\346\251\237\350\203\275\346\224\271\345\226\204_A.md"
+"all_log/1_UI\343\203\220\343\203\251\343\203\263\343\202\271\350\252\277\346\225\264_E.md"
+"all_log/1_UI\343\203\252\343\203\231\343\203\263\343\202\270\343\203\255\343\202\260_C.md"
+"all_log/1_UI\346\224\271\345\226\204\343\203\255\343\202\260_A.md"
+"all_log/1_\343\203\211\343\202\255\343\203\245\343\203\241\343\203\263\343\203\210\347\265\261\345\220\210_G.md"
+"all_log/1_\343\203\226\343\203\251\343\203\263\343\203\211\343\202\253\343\203\251\343\203\274\351\201\251\347\224\250_D.md"
+"all_log/1_\343\203\252\343\202\271\343\203\210\346\223\215\344\275\234\346\224\271\345\226\204_F.md"
+"all_log/1_\345\256\237\350\241\214\343\203\255\343\202\260_A.md"
+all_log/20_phase17_cloudflare_ai_audit.json
+all_log/20_phase17_grok_final_review.md
+all_log/20_phase17_grok_review.md
+all_log/20_shop_phase17_layout_order_sns_final_log.md
+all_log/21_phase18_cloudflare_ai_admin_recheck.json
+all_log/21_phase18_cloudflare_ai_audit.json
+all_log/21_phase18_cloudflare_ai_audit.txt
+all_log/21_phase18_grok_minimal_review.md
+all_log/21_phase18_grok_ux_review.md
+all_log/21_phase18_static_audit.md
+all_log/21_shop_phase18_system_audit_final_log.md
+all_log/22_phase19_cloudflare_ai_audit.json
+all_log/22_phase19_grok_ux_review.md
+all_log/22_shop_phase19_mall_refund_final_log.md
+all_log/23_phase20_cloudflare_ai_audit.json
+all_log/23_phase20_grok_ux_review.md
+all_log/23_shop_phase20_storefront_builder_final_log.md
+all_log/24_phase21_cloudflare_ai_audit.json
+all_log/24_phase21_grok_chunked_review.md
+all_log/24_phase21_grok_header_review.md
+all_log/24_phase21_grok_product_card_review.md
+all_log/24_shop_phase21_marketplace_storefront_final_log.md
+all_log/25_phase22_cloudflare_ai_audit.json
+all_log/25_phase22_cloudflare_ai_recheck.json
+all_log/25_phase22_static_ui_verify.log
+all_log/25_shop_phase22_static_ui_enforcement_final_log.md
+all_log/26_shop_phase24_absolute_storefront_override_log.md
+all_log/27_phase25_cloudflare_ai_audit.json
+all_log/27_phase25_grok_ui_review.md
+all_log/27_shop_phase25_shadcn_storefront_log.md
+all_log/28_core_phase1_cloudflare_ai_audit.json
+all_log/28_core_phase1_grok_ui_review.md
+all_log/28_core_phase1_pim_inventory_hub_final_log.md
+all_log/29_core_phase2_cloudflare_ai_audit.json
+all_log/29_core_phase2_master_form_final_log.md
+all_log/29_core_phase2_ux_self_audit.md
+"all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_A_dash.md"
+"all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_B_dash.md"
+"all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_D_dash.md"
+"all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_E_dash.md"
+"all_log/2_Mail\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_F_dash.md"
+"all_log/2_UI\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_A_dash.md"
+"all_log/2_UI\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_C_dash.md"
+all_log/2_shop_phase1_grok_review.md
+"all_log/2_\343\203\211\343\202\255\343\203\245\343\203\241\343\203\263\343\203\210\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_G_dash.md"
+"all_log/2_\343\203\225\343\202\243\343\203\274\343\203\211\343\203\220\343\203\203\343\202\257_A_dash.md"
+all_log/30_core_phase3_business_documents_final_log.md
+all_log/30_core_phase3_cloudflare_ai_audit.json
+all_log/30_core_phase3_grok_review.md
+all_log/31_core_phase3_5_document_form_ui_hotfix_log.md
+all_log/32_core_phase4_document_print_e2e_final_log.md
+all_log/33_core_phase5_ui_redesign_final_log.md
+all_log/34_aiboux_core_shop_ui_implementation_log.md
+all_log/35_core_full_ui_redesign_final_log.md
+all_log/36_core_delivery_detail_ui_final_log.md
+all_log/37_core_delivery_create_ui_rework_final_log.md
+all_log/38_core_delivery_workspace_density_final_log.md
+all_log/39_core_delivery_workspace_fullwidth_final_log.md
+"all_log/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G.md"
+"all_log/3_MAIL_MOBILE_UI_\346\234\200\347\265\202\345\256\214\344\272\206_G.md"
+"all_log/3_Mail\343\203\242\343\203\220\343\202\244\343\203\253UI\346\224\271\345\226\204\345\256\214\344\272\206\343\203\255\343\202\260_G2_dash.md"
+"all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_B2_dash.md"
+"all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_D2_dash.md"
+"all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_E2_dash.md"
+"all_log/3_Mail\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_F2_dash.md"
+"all_log/3_Mail\346\234\200\347\265\202\345\256\214\344\272\206\343\203\255\343\202\260_A2_dash.md"
+"all_log/3_\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_A2_dash.md"
+"all_log/3_\346\234\200\347\265\202UI\345\256\214\344\272\206\343\203\255\343\202\260_C2_dash.md"
+"all_log/3_\346\234\200\347\265\202\345\256\214\344\272\206\343\203\255\343\202\260_A2_dash.md"
+all_log/40_core_delivery_vertical_spacing_final_log.md
+all_log/41_core_document_management_ui_unification_final_log.md
+all_log/42_core_document_management_rejection_fix_final_log.md
+all_log/43_core_document_workspace_unification_final_log.md
+all_log/44_core_document_ui_semantic_config_final_log.md
+all_log/45_core_document_ui_cloudflare_ai_review.json
+all_log/45_core_document_ui_grok_review.md
+all_log/45_core_document_ui_public_review_final_log.md
+all_log/46_core_document_ui_grok_cloudflare_final_log.md
+all_log/47_core_delivery_create_final_reference_match_log.md
+all_log/48_production_deployment_rule_update_final_log.md
+all_log/49_production_deployment_rule_contradiction_check_log.md
+all_log/4_shop_phase1_final_log.md
+all_log/50_hermes_agent_minimal_audit_setup_final_log.md
+all_log/50_hermes_provider_and_first_audit_log.md
+all_log/51_hermes_gated_completion_rule_log.md
+all_log/52_hermes_current_state_and_bark_notification_log.md
+all_log/53_core_delivery_detail_print_preview_final_log.md
+all_log/54_core_delivery_detail_print_rejection_fix_blocked_log.md
+all_log/55_codex_imagegen_url_policy_log.md
+all_log/55_core_delivery_detail_print_final_completed_log.md
+all_log/56_bark_required_notification_gate_blocked_log.md
+all_log/56_core_delivery_detail_print_bark_grok_blocked_log.md
+all_log/57_ai_review_non_response_policy_update_log.md
+all_log/58_core_delivery_detail_print_current_blocked_utf8_log.md
+all_log/5_shop_phase2_final_log.md
+all_log/60_core_delivery_detail_layout_fix_code_ready_log.md
+all_log/61_core_delivery_detail_design_fix_v2_code_ready_log.md
+all_log/62_core_delivery_detail_preview_css_recovery_code_ready_log.md
+all_log/63_core_delivery_detail_design_v3_code_ready_log.md
+all_log/64_core_delivery_detail_design_v4_visual_test_code_ready_log.md
+all_log/64_core_delivery_detail_final_reference_image_code_ready_log.md
+all_log/64_core_delivery_detail_reference_image_loaded_code_ready_log.md
+all_log/65_core_delivery_detail_design_v5_preview_ready_log.md
+all_log/65_core_delivery_detail_reference_geometry_fix_code_ready_log.md
+all_log/66_codex_execution_contract_update_preview_ready_log.md
+all_log/66_core_delivery_detail_reference_text_visual_fix_code_ready_log.md
+all_log/67_core_delivery_detail_product_name_single_line_code_ready_log.md
+all_log/67_design_skill_upgrade_preview_ready_log.md
+all_log/67_service_subdomain_tenant_url_migration_user_action_required_log.md
+all_log/68_core_delivery_detail_font_weight_rule_code_ready_log.md
+all_log/68_delivery_detail_direct_preview_fix_preview_ready_log.md
+all_log/68_final_external_curl_acceptance.txt
+all_log/68_service_subdomain_tenant_url_migration_deployed_log.md
+all_log/68_service_subdomain_tenant_url_migration_screen_artifact.md
+all_log/69_bark_final_only_contract_v2_preview_ready_log.md
+all_log/69_core_delivery_detail_direct_preview_final_preview_ready_log.md
+all_log/69_core_delivery_detail_typography_rule_code_ready_log.md
+all_log/69_service_subdomain_tenant_url_migration_external_fail_repair_log.md
+all_log/6_shop_product_registration_final_log.md
+all_log/70_core_delivery_detail_direct_preview_control_char_fix_log.md
+all_log/70_core_delivery_detail_typography_user_approved_deploy_log.md
+all_log/70_service_url_external_curl_evidence_2.md
+all_log/71_bark_progress_url_reissue_rule_correction_log.md
+all_log/71_core_delivery_detail_design_continue_after_deploy_block_log.md
+all_log/71_final_only_report_protocol_log.md
+all_log/71_service_url_external_curl_evidence_after_nostore.md
+all_log/72_core_delivery_detail_reference_text_geometry_c79_log.md
+all_log/72_final_external_curl_acceptance_summary.txt
+all_log/73_core_delivery_detail_auto_repair_loop_preview_ready_log.md
+all_log/73_service_url_final_acceptance_gate_status.md
+all_log/74_core_delivery_detail_deploy_blocked_auth_log.md
+all_log/75_post_bark_commit_dirty_tree_status.txt
+all_log/7_shop_navigation_settings_final_log.md
+all_log/8_shop_font_backend_final_log.md
+all_log/9_shop_core_ux_inventory_documents_final_log.md
+all_log/bark_required_auth_check.md
+all_log/core_delivery_create_final_cloudflare_ai_audit.json
+all_log/core_delivery_create_final_grok_review.md
+all_log/core_delivery_detail_print_bark_required_check.md
+all_log/core_delivery_detail_print_bark_secret_setup_blocked.md
+all_log/core_delivery_detail_print_cloudflare_ai_audit.json
+all_log/core_delivery_detail_print_final_cloudflare_ai_audit.json
+all_log/core_delivery_detail_print_final_hermes_audit.md
+all_log/core_delivery_detail_print_grok_01-preview.md
+all_log/core_delivery_detail_print_grok_02-popup.md
+all_log/core_delivery_detail_print_grok_03-pdf.md
+all_log/core_delivery_detail_print_grok_04-close-bark.md
+all_log/core_delivery_detail_print_grok_detail_fixed_review.md
+all_log/core_delivery_detail_print_grok_detail_ui_review.md
+all_log/core_delivery_detail_print_grok_final_review.md
+all_log/core_delivery_detail_print_grok_pdf_review.md
+all_log/core_delivery_detail_print_grok_preview_review.md
+all_log/core_delivery_detail_print_grok_review.md
+all_log/core_delivery_detail_print_grok_window_review.md
+all_log/core_delivery_detail_print_hermes_audit.md
+all_log/core_delivery_detail_print_re_gate_hermes_audit.md
+all_log/core_delivery_detail_print_rejection_fix_cloudflare_ai_audit.json
+all_log/core_delivery_detail_print_rejection_fix_grok_review.md
+all_log/core_delivery_detail_print_rejection_fix_hermes_audit.md
+all_log/core_delivery_detail_v75_cloudflare_vision_review.json
+all_log/core_delivery_detail_v75_grok_review.md
+all_log/core_delivery_detail_v76_cloudflare_vision_review.json
+all_log/core_delivery_detail_v76_grok_review.md
+all_log/core_delivery_detail_v77_cloudflare_vision_review.json
+all_log/core_delivery_detail_v77_grok_review.md
+all_log/core_documents_cloudflare_ai_dom_audit.json
+all_log/core_documents_cloudflare_ai_spec_audit.json
+all_log/core_documents_grok_create_review.md
+all_log/core_documents_grok_delivery_review.md
+all_log/core_documents_grok_line_table_review.md
+all_log/core_documents_grok_list_review.md
+all_log/internal/core_delivery_detail_design_loop_iterations.md
+all_log/preview_playwright_result.md
+all_log/preview_style_result.md
+all_log/preview_url.txt
+components.json
+db/add_social_auth.sql
+db/schema.sql
+db/seed_test.sql
+db/update_aiboux_ec.sql
+db/update_commercial_guards.sql
+db/update_line_tenant_mappings.sql
+db/update_line_webhook_support.sql
+db/update_mail_security.sql
+db/update_pricing_permissions.sql
+db/update_product_master_foundation.sql
+db/update_seed_support.sql
+db/update_shipping_support.sql
+db/update_stripe_subscription_events.sql
+docs/archive/2026-05-27-pre-master/AIBOUX_AI_ASSISTANT_SPEC.md
+docs/archive/2026-05-27-pre-master/AIBOUX_DATA_MODEL.md
+docs/archive/2026-05-27-pre-master/AIBOUX_DEVELOPMENT_HANDOFF.md
+docs/archive/2026-05-27-pre-master/AIBOUX_MASTER_SPEC.md
+docs/archive/2026-05-27-pre-master/AIBOUX_MCP_API_SPEC.md
+docs/archive/2026-05-27-pre-master/AIBOUX_MONETIZATION_MODEL.md
+docs/archive/2026-05-27-pre-master/AIBOUX_OFFICE_SPEC.md
+docs/archive/2026-05-27-pre-master/AIBOUX_PUBLIC_SITE_SPEC.md
+docs/archive/2026-05-27-pre-master/AIBOUX_REMOTE_DEV_WORKFLOW.md
+docs/archive/2026-05-27-pre-master/AIBOUX_RIREKISHO_SPEC.md
+docs/archive/2026-05-27-pre-master/AIBOUX_SERVICE_MAP.md
+docs/archive/2026-05-27-pre-master/AIBOUX_TECH_STACK.md
+docs/archive/2026-05-27-pre-master/AIBOUX_UI_DESIGN_SYSTEM.md
+docs/archive/2026-05-27-pre-master/AIBOUX_VOICE_AND_DEV_MONITOR_SPEC.md
+docs/archive/2026-05-27-pre-master/VPS_MIGRATION_SUCCESS.md
+docs/codex_briefs/core-delivery-detail-ui/assets/01_delivery_detail_reference.png
+docs/codex_briefs/core-full-ui-redesign/assets/01_core_dashboard_estimates_create.png
+docs/codex_briefs/core-full-ui-redesign/assets/02_core_orders_deliveries_invoices.png
+docs/codex_briefs/core-full-ui-redesign/assets/03_core_payments_purchase_orders_print_pdf.png
+docs/codex_briefs/core-full-ui-redesign/assets/04_core_inventory_history_alerts.png
+docs/codex_briefs/core-full-ui-redesign/assets/05_core_partners_products_users.png
+docs/codex_briefs/core-full-ui-redesign/assets/06_core_settings_design_help.png
+migrations/0001_shop_phase1.sql
+migrations/0002_shop_phase3.sql
+migrations/0003_shop_phase4.sql
+migrations/0004_shop_phase5.sql
+migrations/0005_shop_phase6.sql
+migrations/0006_shop_phase10_document_settings.sql
+migrations/0007_shop_phase11_notification_queue.sql
+migrations/0008_shop_phase12_stripe_email.sql
+migrations/0009_shop_phase13_email_log_cleanup.sql
+migrations/0010_shop_phase14_feed_sync_jobs.sql
+migrations/0011_shop_phase15_omnichannel_sync.sql
+migrations/0012_shop_phase17_operations_social.sql
+migrations/0013_shop_phase18_audit_fixes.sql
+migrations/0014_shop_phase19_refund_mall.sql
+migrations/0015_shop_phase19_mall_seed.sql
+migrations/0016_shop_phase19_mall_seed_cleanup.sql
+migrations/0017_shop_phase20_storefront_layouts.sql
+migrations/0018_core_phase1_pim_inventory_hub.sql
+migrations/0019_core_phase3_business_documents.sql
+ops/design/reviews/delivery-detail-design-v5-image-to-code.md
+ops/design/reviews/design_skill_availability_20260531.md
+ops/improvements/20260531_daily_improvement.md
+ops/instructions/20260531_bark_progress_url_reissue_rule_fix.md
+ops/instructions/20260531_codex_execution_contract.md
+ops/instructions/20260531_codex_execution_contract_and_delivery_v5.md
+ops/instructions/20260531_codex_execution_contract_v2_bark_final_only.md
+ops/instructions/20260531_core_delivery_detail_design_continue_after_deploy_block.md
+ops/instructions/20260531_core_delivery_detail_design_v5.md
+ops/instructions/20260531_core_delivery_detail_direct_preview_v6.md
+ops/instructions/20260531_core_delivery_detail_direct_preview_v6_bark_final_only_fix.md
+ops/instructions/20260531_core_delivery_detail_font_weight_rule_v76.md
+ops/instructions/20260531_core_delivery_detail_product_name_single_line_v75.md
+ops/instructions/20260531_core_delivery_detail_reference_geometry_v5.md
+ops/instructions/20260531_core_delivery_detail_reference_image_match.md
+ops/instructions/20260531_core_delivery_detail_reference_text_geometry_c79.md
+ops/instructions/20260531_core_delivery_detail_reference_text_visual_v6.md
+ops/instructions/20260531_core_delivery_detail_typography_rule_v77.md
+ops/instructions/20260531_core_delivery_detail_typography_user_approved_deploy.md
+ops/instructions/20260531_delivery_detail_auto_repair_loop_rule.md
+ops/instructions/20260531_delivery_detail_deploy_blocked_auth.md
+ops/instructions/20260531_design_skill_upgrade.md
+ops/instructions/20260531_final_only_report_protocol.md
+ops/instructions/20260531_m69_direct_preview_control_char_final_fix.md
+ops/instructions/20260531_m70_url_bundle_control_char_root_fix.md
+ops/instructions/20260531_service_subdomain_tenant_slug_url_migration.md
+ops/instructions/20260531_short_url_and_bark_final_only_rule.md
+output/imagegen/.gitkeep
+"output/playwright/1_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_desktop.png"
+"output/playwright/1_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_mobile.png"
+"output/playwright/1_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_tablet.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_desktop.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_latest_mobile.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_mobile-narrow.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_mobile.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_mobile_inbox.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\224\271\345\226\204_G_tablet.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\234\200\347\265\202\345\256\214\344\272\206_G_desktop.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\234\200\347\265\202\345\256\214\344\272\206_G_mobile-narrow.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\234\200\347\265\202\345\256\214\344\272\206_G_mobile.png"
+"output/playwright/3_MAIL_MOBILE_UI_\346\234\200\347\265\202\345\256\214\344\272\206_G_tablet.png"
+output/playwright/core-documents-redesign/delivery-create-final-dom-audit.json
+output/playwright/core-documents-redesign/delivery-create-final.png
+output/playwright/core-documents-redesign/delivery-create.png
+output/playwright/core-documents-redesign/delivery-detail-design-v3-1366.png
+output/playwright/core-documents-redesign/delivery-detail-design-v3-1980.png
+output/playwright/core-documents-redesign/delivery-detail-design-v3-public.png
+output/playwright/core-documents-redesign/delivery-detail-design-v4-1366.png
+output/playwright/core-documents-redesign/delivery-detail-design-v4-1650.png
+output/playwright/core-documents-redesign/delivery-detail-design-v4-1980.png
+output/playwright/core-documents-redesign/delivery-detail-design-v4-devtools-audit.json
+output/playwright/core-documents-redesign/delivery-detail-design-v4-public.png
+output/playwright/core-documents-redesign/delivery-detail-design-v5-1366.png
+output/playwright/core-documents-redesign/delivery-detail-design-v5-1440.png
+output/playwright/core-documents-redesign/delivery-detail-design-v5-1650.png
+output/playwright/core-documents-redesign/delivery-detail-design-v5-1980.png
+output/playwright/core-documents-redesign/delivery-detail-design-v5-devtools-audit.json
+output/playwright/core-documents-redesign/delivery-detail-design-v5-public.png
+output/playwright/core-documents-redesign/delivery-detail-direct-v6-1366.png
+output/playwright/core-documents-redesign/delivery-detail-direct-v6-1440.png
+output/playwright/core-documents-redesign/delivery-detail-direct-v6-1650.png
+output/playwright/core-documents-redesign/delivery-detail-direct-v6-1980.png
+output/playwright/core-documents-redesign/delivery-detail-fixed-1366.png
+output/playwright/core-documents-redesign/delivery-detail-fixed-dom-audit.json
+output/playwright/core-documents-redesign/delivery-detail-fixed-v2-1366.png
+output/playwright/core-documents-redesign/delivery-detail-fixed-v2.png
+output/playwright/core-documents-redesign/delivery-detail-fixed-v3-1366.png
+output/playwright/core-documents-redesign/delivery-detail-fixed-v3.png
+output/playwright/core-documents-redesign/delivery-detail-fixed.png
+output/playwright/core-documents-redesign/delivery-detail-font-weight-audit.json
+output/playwright/core-documents-redesign/delivery-detail-preview.png
+output/playwright/core-documents-redesign/delivery-detail-print-dom-audit.json
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v2.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v3.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v4.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v4.json
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v4.snapshot.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v5.json
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v6.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v6.json
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v78.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v79.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v79.json
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v82.html
+output/playwright/core-documents-redesign/delivery-detail-reference-compare-v82.json
+output/playwright/core-documents-redesign/delivery-detail-reference-compare.html
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-c80-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-c81-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-c82-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-v3-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-v4-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-v5-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-v6-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-v79-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-diff-v82-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-geometry-v2.json
+output/playwright/core-documents-redesign/delivery-detail-reference-match-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-1440.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v2-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v3-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v3-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v3-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v3-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v4-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v4-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v4-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v4-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v5-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v5-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v5-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v5-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v6-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v6-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v6-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v6-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v79-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v79-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v79-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v79-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v82-1366.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v82-1650.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v82-1672.png
+output/playwright/core-documents-redesign/delivery-detail-reference-match-v82-1980.png
+output/playwright/core-documents-redesign/delivery-detail-reference-visual-report-v3.json
+output/playwright/core-documents-redesign/delivery-detail-typography-audit-v78.json
+output/playwright/core-documents-redesign/delivery-detail-typography-audit.json
+output/playwright/core-documents-redesign/delivery-detail.png
+output/playwright/core-documents-redesign/delivery-edit.png
+output/playwright/core-documents-redesign/delivery-list.png
+output/playwright/core-documents-redesign/delivery-note-download.pdf
+output/playwright/core-documents-redesign/delivery-note-sample.pdf
+output/playwright/core-documents-redesign/delivery-print-preview-open-fixed.png
+output/playwright/core-documents-redesign/delivery-print-preview-open.png
+output/playwright/core-documents-redesign/delivery-print-preview.png
+output/playwright/core-documents-redesign/delivery-print-window-fixed.png
+output/playwright/core-documents-redesign/delivery-print-window.png
+output/playwright/core-documents-redesign/estimate-create.png
+output/playwright/core-documents-redesign/estimate-edit.png
+output/playwright/core-documents-redesign/estimate-list.png
+output/playwright/core-documents-redesign/invoice-create.png
+output/playwright/core-documents-redesign/invoice-edit.png
+output/playwright/core-documents-redesign/invoice-list.png
+output/playwright/core-documents-redesign/local-dom-audit.json
+output/playwright/core-documents-redesign/manual-delivery-create-check.png
+output/playwright/core-documents-redesign/order-create.png
+output/playwright/core-documents-redesign/order-edit.png
+output/playwright/core-documents-redesign/order-list.png
+output/playwright/core-documents-redesign/payment-create.png
+output/playwright/core-documents-redesign/payment-edit.png
+output/playwright/core-documents-redesign/payment-list.png
+output/playwright/core-documents-redesign/public-dom-audit.json
+output/playwright/core-documents-redesign/purchase-order-create.png
+output/playwright/core-documents-redesign/purchase-order-edit.png
+output/playwright/core-documents-redesign/purchase-order-list.png
+output/playwright/core-documents-redesign/reference-create.png
+output/playwright/core-documents-redesign/reference-delivery-create-final.png
+output/playwright/core-documents-redesign/reference-delivery-create-latest.png
+output/playwright/core-documents-redesign/reference-list.png
+output/playwright/core-ui-redesign/01_dashboard.png
+output/playwright/core-ui-redesign/02_estimates.png
+output/playwright/core-ui-redesign/03_estimate_create.png
+output/playwright/core-ui-redesign/04_orders.png
+output/playwright/core-ui-redesign/05_deliveries.png
+output/playwright/core-ui-redesign/06_invoices.png
+output/playwright/core-ui-redesign/07_payments.png
+output/playwright/core-ui-redesign/08_purchase_orders.png
+output/playwright/core-ui-redesign/09_print_pdf.png
+output/playwright/core-ui-redesign/10_inventory.png
+output/playwright/core-ui-redesign/11_inventory_history.png
+output/playwright/core-ui-redesign/12_inventory_alerts.png
+output/playwright/core-ui-redesign/13_partners.png
+output/playwright/core-ui-redesign/14_products.png
+output/playwright/core-ui-redesign/15_users.png
+output/playwright/core-ui-redesign/16_settings.png
+output/playwright/core-ui-redesign/17_design_management.png
+output/playwright/core-ui-redesign/18_help.png
+output/playwright/core-ui-redesign/19_delivery_detail.png
+output/playwright/core-ui-redesign/20_delivery_create_no_a4.png
+output/playwright/mail-mobile-ui-g-desktop.png
+output/playwright/mail-mobile-ui-g-mobile.png
+output/playwright/mail-mobile-ui-g-tablet.png
+output/playwright/mail-ui-desktop.png
+output/playwright/mail-ui-mobile.png
+output/playwright/mail-ui-tablet.png
+output/playwright/service-url-routing/mail-service-1366.png
+output/playwright/service-url-routing/mail-service-1440.png
+output/playwright/service-url-routing/mail-service-1650.png
+output/playwright/service-url-routing/mail-service-1980.png
+output/playwright/service-url-routing/mail-tenant-1366.png
+output/playwright/service-url-routing/mail-tenant-1440.png
+output/playwright/service-url-routing/mail-tenant-1650.png
+output/playwright/service-url-routing/mail-tenant-1980.png
+output/playwright/service-url-routing/shop-admin-1366.png
+output/playwright/service-url-routing/shop-admin-1440.png
+output/playwright/service-url-routing/shop-admin-1650.png
+output/playwright/service-url-routing/shop-admin-1980.png
+output/playwright/service-url-routing/shop-service-1366.png
+output/playwright/service-url-routing/shop-service-1440.png
+output/playwright/service-url-routing/shop-service-1650.png
+output/playwright/service-url-routing/shop-service-1980.png
+output/playwright/service-url-routing/shop-storefront-1366.png
+output/playwright/service-url-routing/shop-storefront-1440.png
+output/playwright/service-url-routing/shop-storefront-1650.png
+output/playwright/service-url-routing/shop-storefront-1980.png
+output/reference/core-delivery-detail-final-reference.png
+output/reference/core-delivery-detail/reference-text-contract.json
+output/reference/core-delivery-detail/reference.meta.json
+output/reference/core-delivery-detail/reference.png
+output/reports/service_subdomain_tenant_url_migration_report.json
+output/review-packs/core-delivery-detail-v75/actual-1366.png
+output/review-packs/core-delivery-detail-v75/actual-1650.png
+output/review-packs/core-delivery-detail-v75/actual-1672.png
+output/review-packs/core-delivery-detail-v75/actual-1980.png
+output/review-packs/core-delivery-detail-v75/changed-files.txt
+output/review-packs/core-delivery-detail-v75/compare.html
+output/review-packs/core-delivery-detail-v75/dom-audit.json
+output/review-packs/core-delivery-detail-v75/instruction.md
+output/review-packs/core-delivery-detail-v75/log.md
+output/review-packs/core-delivery-detail-v75/playwright-result.txt
+output/review-packs/core-delivery-detail-v75/reference.png
+output/review-packs/core-delivery-detail-v76/actual-1366.png
+output/review-packs/core-delivery-detail-v76/actual-1650.png
+output/review-packs/core-delivery-detail-v76/actual-1672.png
+output/review-packs/core-delivery-detail-v76/actual-1980.png
+output/review-packs/core-delivery-detail-v76/changed-files.txt
+output/review-packs/core-delivery-detail-v76/compare.html
+output/review-packs/core-delivery-detail-v76/dom-audit.json
+output/review-packs/core-delivery-detail-v76/font-weight-audit.json
+output/review-packs/core-delivery-detail-v76/instruction.md
+output/review-packs/core-delivery-detail-v76/log.md
+output/review-packs/core-delivery-detail-v76/playwright-result.txt
+output/review-packs/core-delivery-detail-v76/reference.png
+output/review-packs/core-delivery-detail-v77/actual-1366.png
+output/review-packs/core-delivery-detail-v77/actual-1650.png
+output/review-packs/core-delivery-detail-v77/actual-1672.png
+output/review-packs/core-delivery-detail-v77/actual-1980.png
+output/review-packs/core-delivery-detail-v77/changed-files.txt
+output/review-packs/core-delivery-detail-v77/cloudflare-vision-review.json
+output/review-packs/core-delivery-detail-v77/compare.html
+output/review-packs/core-delivery-detail-v77/dom-audit.json
+output/review-packs/core-delivery-detail-v77/font-weight-audit.json
+output/review-packs/core-delivery-detail-v77/grok-review.md
+output/review-packs/core-delivery-detail-v77/instruction.md
+output/review-packs/core-delivery-detail-v77/log.md
+output/review-packs/core-delivery-detail-v77/playwright-result.txt
+output/review-packs/core-delivery-detail-v77/reference.png
+output/review-packs/core-delivery-detail-v77/typography-audit.json
+playwright.config.ts
+public/brand/aiboux-logo.svg
+public/g/d68.md
+public/g/l68.md
+public/g/m68.md
+public/temp/imagegen/.gitkeep
+schema.sql
+scripts/aiboux-design-gate.mjs
+scripts/check-control-chars.mjs
+scripts/check-mojibake.mjs
+scripts/compare-reference-image.mjs
+scripts/prepare-preview-wrangler-config.mjs
+scripts/run-delivery-detail-design-loop.mjs
+scripts/setup-bark-secret.sh
+scripts/setup-cloudflare-secret.sh
+src/components/ai/AIAssistantPanel.tsx
+src/components/ai/GlobalAIAssistant.tsx
+src/components/ai/MailAIAssistantPanel.tsx
+src/components/ai/ShopAIAssistantPanel.tsx
+src/components/biz/AibouxSeriesCard.astro
+src/components/biz/BizAdSlot.astro
+src/components/biz/BizCategoryPage.astro
+src/components/biz/BizDashboardPreview.astro
+src/components/biz/BizEditorWorkspace.astro
+src/components/biz/BizFaqAccordion.astro
+src/components/biz/BizFooter.astro
+src/components/biz/BizHeader.astro
+src/components/biz/BizHomePage.astro
+src/components/biz/BizPricingCards.astro
+src/components/biz/HeroEditorPreview.astro
+src/components/biz/PopularTemplateCard.astro
+src/components/biz/RelatedServices.astro
+src/components/biz/TemplateCategoryCard.astro
+src/components/biz/TemplateGrid.astro
+src/components/builder/ChecklistPage.astro
+src/components/builder/JobScanPage.astro
+src/components/builder/PhotoPrintPage.astro
+src/components/builder/PhotoStudioPage.astro
+src/components/builder/ResumeBuilderPage.astro
+src/components/builder/SelfPrPage.astro
+src/components/common/NotoSansJpHead.astro
+src/components/core/CoreDataTable.tsx
+src/components/core/CoreDesignWorkspace.tsx
+src/components/core/CoreHelpWorkspace.tsx
+src/components/core/CoreKpiCard.tsx
+src/components/core/CorePageHeader.tsx
+src/components/core/CorePimHubDashboard.tsx
+src/components/core/CoreSettingsWorkspace.tsx
+src/components/core/CoreShell.tsx
+src/components/core/CoreSidebar.tsx
+src/components/core/CoreTopbar.tsx
+src/components/core/CustomerDeliveryMaster.tsx
+src/components/core/ProductMasterHub.tsx
+src/components/core/documents/DeliveryPrintPreview.tsx
+src/components/core/documents/DocumentPrintView.tsx
+src/components/core/documents/detail/deliveryDetailTypography.ts
+src/components/core/forms/DocumentEntryForm.tsx
+src/components/core/forms/ProductMasterForm.tsx
+src/components/dashboard/ResumeDashboardPage.astro
+src/components/file/AdSlot.astro
+src/components/file/AibouxPromoCard.astro
+src/components/file/DashboardPreview.astro
+src/components/file/FaqAccordion.astro
+src/components/file/FileFooter.astro
+src/components/file/FileHeader.astro
+src/components/file/FileHomePage.astro
+src/components/file/HeroTransferCard.astro
+src/components/file/PricingCards.astro
+src/components/file/ToolCard.astro
+src/components/file/ToolCategoryStrip.astro
+src/components/file/TransferTabs.astro
+src/components/file/UseCaseCard.astro
+src/components/mail/ComposeDialog.tsx
+src/components/mail/CopyableEmail.tsx
+src/components/mail/MailAttachmentCard.tsx
+src/components/mail/MailClientShell.tsx
+src/components/mail/MailList.tsx
+src/components/mail/MailListItem.tsx
+src/components/mail/MailSettingsPanel.tsx
+src/components/mail/MailSidebar.tsx
+src/components/mail/MailThreadHeader.tsx
+src/components/mail/MailThreadView.tsx
+src/components/mail/MailToolbar.tsx
+src/components/mail/MailTopbar.tsx
+src/components/mail/TemplateManager.tsx
+src/components/office/AdSenseSlot.astro
+src/components/office/FeatureCard.astro
+src/components/office/FloatingAdSense.astro
+src/components/office/LocalHistoryPromo.astro
+src/components/office/OfficeEditorPreview.astro
+src/components/office/OfficeFeaturePage.astro
+src/components/office/OfficeFooter.astro
+src/components/office/OfficeHeader.astro
+src/components/office/OfficeHomePage.astro
+src/components/office/SecurityNotice.astro
+src/components/office/SupportedFormats.astro
+src/components/office/editor/OfficeEditorShell.tsx
+src/components/resume/DocumentPreview.astro
+src/components/resume/InfoPage.astro
+src/components/resume/PhoneResumeMock.astro
+src/components/resume/PricingPage.astro
+src/components/resume/ResumeFeaturePage.astro
+src/components/resume/ResumeFooter.astro
+src/components/resume/ResumeHeader.astro
+src/components/resume/ResumeHomePage.astro
+src/components/resume/TemplatesPage.astro
+src/components/shop/CollectionsTable.tsx
+src/components/shop/CustomersTable.tsx
+src/components/shop/DiscountsTable.tsx
+src/components/shop/InventoryTable.tsx
+src/components/shop/ProductEditor.tsx
+src/components/shop/ProductsTable.tsx
+src/components/shop/ShopAnalytics.tsx
+src/components/shop/ShopAppsPanel.tsx
+src/components/shop/ShopBestSellers.tsx
+src/components/shop/ShopClientShell.tsx
+src/components/shop/ShopContentPanel.tsx
+src/components/shop/ShopDashboard.tsx
+src/components/shop/ShopInventoryAlerts.tsx
+src/components/shop/ShopKpiCard.tsx
+src/components/shop/ShopOrderDetailPage.tsx
+src/components/shop/ShopProductIntegrationPanel.tsx
+src/components/shop/ShopRecentOrders.tsx
+src/components/shop/ShopSalesChart.tsx
+src/components/shop/ShopSettingsPanel.tsx
+src/components/shop/ShopSidebar.tsx
+src/components/shop/ShopTopbar.tsx
+src/components/shop/StatusBadges.tsx
+src/components/shop/StorefrontDesignBuilder.tsx
+src/components/shop/categories/ShopCategoryManager.tsx
+src/components/shop/onboarding/ShopOnboardingWizard.tsx
+src/components/shop/products/ShopProductWizard.tsx
+src/components/shop/storefront/ShadcnStorefront.tsx
+src/components/shop/storefront/ShopStorefrontHome.tsx
+src/components/starwind/accordion/Accordion.astro
+src/components/starwind/accordion/AccordionContent.astro
+src/components/starwind/accordion/AccordionItem.astro
+src/components/starwind/accordion/AccordionTrigger.astro
+src/components/starwind/accordion/index.ts
+src/components/starwind/accordion/variants.ts
+src/components/starwind/badge/Badge.astro
+src/components/starwind/badge/index.ts
+src/components/starwind/badge/variants.ts
+src/components/starwind/button/Button.astro
+src/components/starwind/button/index.ts
+src/components/starwind/button/variants.ts
+src/components/starwind/card/Card.astro
+src/components/starwind/card/CardAction.astro
+src/components/starwind/card/CardContent.astro
+src/components/starwind/card/CardDescription.astro
+src/components/starwind/card/CardFooter.astro
+src/components/starwind/card/CardHeader.astro
+src/components/starwind/card/CardTitle.astro
+src/components/starwind/card/index.ts
+src/components/starwind/card/variants.ts
+src/components/starwind/checkbox/Checkbox.astro
+src/components/starwind/checkbox/index.ts
+src/components/starwind/checkbox/variants.ts
+src/components/starwind/dialog/Dialog.astro
+src/components/starwind/dialog/DialogClose.astro
+src/components/starwind/dialog/DialogContent.astro
+src/components/starwind/dialog/DialogDescription.astro
+src/components/starwind/dialog/DialogFooter.astro
+src/components/starwind/dialog/DialogHeader.astro
+src/components/starwind/dialog/DialogTitle.astro
+src/components/starwind/dialog/DialogTrigger.astro
+src/components/starwind/dialog/index.ts
+src/components/starwind/dialog/variants.ts
+src/components/starwind/dropdown/Dropdown.astro
+src/components/starwind/dropdown/DropdownCheckboxItem.astro
+src/components/starwind/dropdown/DropdownContent.astro
+src/components/starwind/dropdown/DropdownGroup.astro
+src/components/starwind/dropdown/DropdownItem.astro
+src/components/starwind/dropdown/DropdownLabel.astro
+src/components/starwind/dropdown/DropdownSeparator.astro
+src/components/starwind/dropdown/DropdownShortcut.astro
+src/components/starwind/dropdown/DropdownSub.astro
+src/components/starwind/dropdown/DropdownSubContent.astro
+src/components/starwind/dropdown/DropdownSubTrigger.astro
+src/components/starwind/dropdown/DropdownTrigger.astro
+src/components/starwind/dropdown/index.ts
+src/components/starwind/dropdown/variants.ts
+src/components/starwind/dropzone/Dropzone.astro
+src/components/starwind/dropzone/DropzoneFilesList.astro
+src/components/starwind/dropzone/DropzoneLoadingIndicator.astro
+src/components/starwind/dropzone/DropzoneUploadIndicator.astro
+src/components/starwind/dropzone/index.ts
+src/components/starwind/dropzone/variants.ts
+src/components/starwind/input-group/InputGroup.astro
+src/components/starwind/input-group/InputGroupAddon.astro
+src/components/starwind/input-group/InputGroupButton.astro
+src/components/starwind/input-group/InputGroupInput.astro
+src/components/starwind/input-group/InputGroupText.astro
+src/components/starwind/input-group/InputGroupTextarea.astro
+src/components/starwind/input-group/index.ts
+src/components/starwind/input-group/variants.ts
+src/components/starwind/input/Input.astro
+src/components/starwind/input/index.ts
+src/components/starwind/input/variants.ts
+src/components/starwind/native-select/NativeSelect.astro
+src/components/starwind/native-select/NativeSelectOptGroup.astro
+src/components/starwind/native-select/NativeSelectOption.astro
+src/components/starwind/native-select/index.ts
+src/components/starwind/native-select/variants.ts
+src/components/starwind/popover/Popover.astro
+src/components/starwind/popover/PopoverContent.astro
+src/components/starwind/popover/PopoverDescription.astro
+src/components/starwind/popover/PopoverHeader.astro
+src/components/starwind/popover/PopoverTitle.astro
+src/components/starwind/popover/PopoverTrigger.astro
+src/components/starwind/popover/index.ts
+src/components/starwind/popover/variants.ts
+src/components/starwind/progress/Progress.astro
+src/components/starwind/progress/index.ts
+src/components/starwind/progress/variants.ts
+src/components/starwind/radio-group/RadioGroup.astro
+src/components/starwind/radio-group/RadioGroupItem.astro
+src/components/starwind/radio-group/RadioGroupTypes.ts
+src/components/starwind/radio-group/index.ts
+src/components/starwind/radio-group/variants.ts
+src/components/starwind/select/Select.astro
+src/components/starwind/select/SelectContent.astro
+src/components/starwind/select/SelectGroup.astro
+src/components/starwind/select/SelectItem.astro
+src/components/starwind/select/SelectLabel.astro
+src/components/starwind/select/SelectSearch.astro
+src/components/starwind/select/SelectSeparator.astro
+src/components/starwind/select/SelectTrigger.astro
+src/components/starwind/select/SelectTypes.ts
+src/components/starwind/select/SelectValue.astro
+src/components/starwind/select/index.ts
+src/components/starwind/select/variants.ts
+src/components/starwind/separator/Separator.astro
+src/components/starwind/separator/index.ts
+src/components/starwind/separator/variants.ts
+src/components/starwind/sheet/Sheet.astro
+src/components/starwind/sheet/SheetClose.astro
+src/components/starwind/sheet/SheetContent.astro
+src/components/starwind/sheet/SheetDescription.astro
+src/components/starwind/sheet/SheetFooter.astro
+src/components/starwind/sheet/SheetHeader.astro
+src/components/starwind/sheet/SheetTitle.astro
+src/components/starwind/sheet/SheetTrigger.astro
+src/components/starwind/sheet/index.ts
+src/components/starwind/sheet/variants.ts
+src/components/starwind/sidebar/Sidebar.astro
+src/components/starwind/sidebar/SidebarContent.astro
+src/components/starwind/sidebar/SidebarFooter.astro
+src/components/starwind/sidebar/SidebarGroup.astro
+src/components/starwind/sidebar/SidebarGroupContent.astro
+src/components/starwind/sidebar/SidebarGroupLabel.astro
+src/components/starwind/sidebar/SidebarHeader.astro
+src/components/starwind/sidebar/SidebarInput.astro
+src/components/starwind/sidebar/SidebarInset.astro
+src/components/starwind/sidebar/SidebarMenu.astro
+src/components/starwind/sidebar/SidebarMenuAction.astro
+src/components/starwind/sidebar/SidebarMenuBadge.astro
+src/components/starwind/sidebar/SidebarMenuButton.astro
+src/components/starwind/sidebar/SidebarMenuItem.astro
+src/components/starwind/sidebar/SidebarMenuSkeleton.astro
+src/components/starwind/sidebar/SidebarMenuSub.astro
+src/components/starwind/sidebar/SidebarMenuSubButton.astro
+src/components/starwind/sidebar/SidebarMenuSubItem.astro
+src/components/starwind/sidebar/SidebarProvider.astro
+src/components/starwind/sidebar/SidebarRail.astro
+src/components/starwind/sidebar/SidebarSeparator.astro
+src/components/starwind/sidebar/SidebarTrigger.astro
+src/components/starwind/sidebar/index.ts
+src/components/starwind/sidebar/variants.ts
+src/components/starwind/skeleton/Skeleton.astro
+src/components/starwind/skeleton/index.ts
+src/components/starwind/skeleton/variants.ts
+src/components/starwind/switch/Switch.astro
+src/components/starwind/switch/SwitchTypes.ts
+src/components/starwind/switch/index.ts
+src/components/starwind/switch/variants.ts
+src/components/starwind/table/Table.astro
+src/components/starwind/table/TableBody.astro
+src/components/starwind/table/TableCaption.astro
+src/components/starwind/table/TableCell.astro
+src/components/starwind/table/TableFoot.astro
+src/components/starwind/table/TableHead.astro
+src/components/starwind/table/TableHeader.astro
+src/components/starwind/table/TableRow.astro
+src/components/starwind/table/index.ts
+src/components/starwind/table/variants.ts
+src/components/starwind/tabs/Tabs.astro
+src/components/starwind/tabs/TabsContent.astro
+src/components/starwind/tabs/TabsList.astro
+src/components/starwind/tabs/TabsTrigger.astro
+src/components/starwind/tabs/index.ts
+src/components/starwind/tabs/variants.ts
+src/components/starwind/textarea/Textarea.astro
+src/components/starwind/textarea/index.ts
+src/components/starwind/textarea/variants.ts
+src/components/starwind/toast/ToastDescription.astro
+src/components/starwind/toast/ToastItem.astro
+src/components/starwind/toast/ToastTemplate.astro
+src/components/starwind/toast/ToastTitle.astro
+src/components/starwind/toast/Toaster.astro
+src/components/starwind/toast/index.ts
+src/components/starwind/toast/toast-manager.ts
+src/components/starwind/toast/variants.ts
+src/components/starwind/tooltip/Tooltip.astro
+src/components/starwind/tooltip/TooltipContent.astro
+src/components/starwind/tooltip/TooltipTrigger.astro
+src/components/starwind/tooltip/index.ts
+src/components/starwind/tooltip/variants.ts
+src/components/tools/BackgroundRemoverMock.astro
+src/components/tools/BarcodeGeneratorMock.astro
+src/components/tools/ImageToolGrid.astro
+src/components/tools/PdfToolGrid.astro
+src/components/tools/TransferForm.astro
+src/components/ui/alert-dialog.tsx
+src/components/ui/aspect-ratio.tsx
+src/components/ui/avatar.tsx
+src/components/ui/badge.tsx
+src/components/ui/button.tsx
+src/components/ui/calendar.tsx
+src/components/ui/card.tsx
+src/components/ui/chart.tsx
+src/components/ui/checkbox.tsx
+src/components/ui/collapsible.tsx
+src/components/ui/command.tsx
+src/components/ui/dialog.tsx
+src/components/ui/dropdown-menu.tsx
+src/components/ui/input-group.tsx
+src/components/ui/input.tsx
+src/components/ui/popover.tsx
+src/components/ui/progress.tsx
+src/components/ui/resizable.tsx
+src/components/ui/scroll-area.tsx
+src/components/ui/select.tsx
+src/components/ui/separator.tsx
+src/components/ui/sheet.tsx
+src/components/ui/sidebar.tsx
+src/components/ui/skeleton.tsx
+src/components/ui/sonner.tsx
+src/components/ui/table.tsx
+src/components/ui/tabs.tsx
+src/components/ui/textarea.tsx
+src/components/ui/tooltip.tsx
+src/data/biz-content.ts
+src/data/core-sample-data.ts
+src/data/dashboard-demo.ts
+src/data/faq.ts
+src/data/file-tools.ts
+src/data/mail-sample-data.ts
+src/data/office-content.ts
+src/data/pricing.ts
+src/data/product-master-data.ts
+src/data/resume-content.ts
+src/data/shop-sample-data.ts
+src/env.d.ts
+src/hooks/use-mobile.ts
+src/layouts/BizDashboardLayout.astro
+src/layouts/BizMarketingLayout.astro
+src/layouts/CoreLayout.astro
+src/layouts/FileDashboardLayout.astro
+src/layouts/FileMarketingLayout.astro
+src/layouts/FileToolLayout.astro
+src/layouts/MailLayout.astro
+src/layouts/OfficeEditorLayout.astro
+src/layouts/OfficeMarketingLayout.astro
+src/layouts/ResumeEditorLayout.astro
+src/layouts/ResumeMarketingLayout.astro
+src/layouts/ShopLayout.astro
+src/lib/ai/intent-router.ts
+src/lib/coreDocumentFormSchema.ts
+src/lib/coreDocumentUiConfig.ts
+src/lib/coreProductMasterFormSchema.ts
+src/lib/mail/ai.ts
+src/lib/mail/compressor.ts
+src/lib/mail/db.ts
+src/lib/mail/emailClient.ts
+src/lib/mail/ingress.ts
+src/lib/mail/notifier.ts
+src/lib/mail/plans.ts
+src/lib/mail/tenant.ts
+src/lib/mail/types.ts
+src/lib/office/csv-encoding.ts
+src/lib/office/dynamic-imports.ts
+src/lib/office/file-detect.ts
+src/lib/office/runtime/csv-runtime.ts
+src/lib/office/runtime/docx-runtime.ts
+src/lib/office/runtime/pdf-runtime.ts
+src/lib/office/runtime/pptx-runtime.ts
+src/lib/office/runtime/spreadsheet-runtime.ts
+src/lib/office/save-file.ts
+src/lib/server/cloudflareAi.ts
+src/lib/server/coreInventorySync.ts
+src/lib/server/csv.ts
+src/lib/server/gemini.ts
+src/lib/server/productMasterApi.ts
+src/lib/server/shippingCsv.ts
+src/lib/server/shopFeedSyncConsumer.ts
+src/lib/server/shopFeedSyncQueue.ts
+src/lib/server/shopImageSeo.ts
+src/lib/server/shopNotificationEmail.ts
+src/lib/server/shopProductCache.ts
+src/lib/server/shopStripeConnect.ts
+src/lib/server/ssoSession.ts
+src/lib/server/storageQuota.ts
+src/lib/server/tempImageShares.ts
+src/lib/server/tempLogShares.ts
+src/lib/server/tenantContext.ts
+src/lib/server/testStockConcurrency.ts
+src/lib/shopDocumentPrint.ts
+src/lib/shopStorefrontLayout.ts
+src/lib/utils.ts
+src/lib/utils/starwind/positioning.ts
+src/middleware.ts
+src/pages/api/ai/health.ts
+src/pages/api/ai/intent.ts
+src/pages/api/ai/listing-draft.ts
+src/pages/api/ai/product-enrichment.ts
+src/pages/api/customers/[id]/delivery-destinations.ts
+src/pages/api/customers/index.ts
+src/pages/api/delivery-destinations/index.ts
+src/pages/api/integration/events.ts
+src/pages/api/product-divisions/index.ts
+src/pages/api/products/[id].ts
+src/pages/api/products/[id]/price-schedules.ts
+src/pages/api/products/[id]/prices.ts
+src/pages/api/products/index.ts
+src/pages/api/shop/products/[id]/variants.ts
+src/pages/api/shop/products/index.ts
+src/pages/api/temp/final-log-a2.ts
+src/pages/api/temp/image/[id].ts
+src/pages/api/temp/log/[id].ts
+src/pages/api/v1/admin/timeline.ts
+src/pages/api/v1/ai/execute-voice-command.ts
+src/pages/api/v1/assets/upload.ts
+src/pages/api/v1/auth/callback/[provider].ts
+src/pages/api/v1/checkout/create-session.ts
+src/pages/api/v1/checkout/webhook-stripe.ts
+src/pages/api/v1/finance/auto-match.ts
+src/pages/api/v1/finance/export-journal.ts
+src/pages/api/v1/inventory/update-stock.ts
+src/pages/api/v1/line/webhook.ts
+src/pages/api/v1/migration/import-history.ts
+src/pages/api/v1/points/process.ts
+src/pages/api/v1/print/generate-labels.ts
+src/pages/api/v1/shipping/export-csv.ts
+src/pages/api/v1/shop/mall-sync/bulk.ts
+src/pages/api/v1/shop/order.ts
+src/pages/api/v1/stripe/webhook.ts
+src/pages/api/v1/test/simulate-stock.ts
+src/pages/biz/commercial.astro
+src/pages/biz/dashboard.astro
+src/pages/biz/editor.astro
+src/pages/biz/help.astro
+src/pages/biz/index.astro
+src/pages/biz/pricing.astro
+src/pages/biz/privacy.astro
+src/pages/biz/templates.astro
+src/pages/biz/templates/[slug].astro
+src/pages/biz/templates/accounting.astro
+src/pages/biz/templates/contracts.astro
+src/pages/biz/templates/estimates.astro
+src/pages/biz/templates/hr.astro
+src/pages/biz/templates/invoices.astro
+src/pages/biz/templates/proposals.astro
+src/pages/biz/templates/reports.astro
+src/pages/biz/terms.astro
+src/pages/core/api/documents/save.ts
+src/pages/core/api/inventory/sync.ts
+src/pages/core/api/masters/customers.ts
+src/pages/core/api/masters/products.ts
+src/pages/core/api/products/hub.ts
+src/pages/core/api/products/save.ts
+src/pages/core/deliveries.astro
+src/pages/core/design-management.astro
+src/pages/core/design.astro
+src/pages/core/documents/print/[id].astro
+src/pages/core/estimates.astro
+src/pages/core/help.astro
+src/pages/core/index.astro
+src/pages/core/inventory.astro
+src/pages/core/inventory/alerts.astro
+src/pages/core/inventory/history.astro
+src/pages/core/invoices.astro
+src/pages/core/invoices/new.astro
+src/pages/core/orders.astro
+src/pages/core/partners.astro
+src/pages/core/payments.astro
+src/pages/core/products.astro
+src/pages/core/purchase-orders.astro
+src/pages/core/settings.astro
+src/pages/core/settings/design.astro
+src/pages/core/users.astro
+src/pages/docs/index.astro
+src/pages/docs/product-master.astro
+src/pages/file/abuse.astro
+src/pages/file/api/download/[code].ts
+src/pages/file/api/upload.ts
+src/pages/file/barcode.astro
+src/pages/file/dashboard.astro
+src/pages/file/download/[code].astro
+src/pages/file/help.astro
+src/pages/file/image.astro
+src/pages/file/image/background-remover.astro
+src/pages/file/index.astro
+src/pages/file/pdf.astro
+src/pages/file/pricing.astro
+src/pages/file/privacy.astro
+src/pages/file/terms.astro
+src/pages/file/tools.astro
+src/pages/file/transfer.astro
+src/pages/g/[id].ts
+src/pages/mail/api/ai/classify.ts
+src/pages/mail/api/ai/voice-draft.ts
+src/pages/mail/api/assets/[id].ts
+src/pages/mail/api/assets/temp.ts
+src/pages/mail/api/blocks/remove.ts
+src/pages/mail/api/blocks/restore.ts
+src/pages/mail/api/health.ts
+src/pages/mail/api/receive.ts
+src/pages/mail/api/send.ts
+src/pages/mail/api/unsubscribe.ts
+src/pages/mail/archive.astro
+src/pages/mail/compose.astro
+src/pages/mail/drafts.astro
+src/pages/mail/inbox.astro
+src/pages/mail/index.astro
+src/pages/mail/messages/[id].astro
+src/pages/mail/sent.astro
+src/pages/mail/settings.astro
+src/pages/mail/settings/blocks.astro
+src/pages/mail/snoozed.astro
+src/pages/mail/spam.astro
+src/pages/mail/starred.astro
+src/pages/mail/templates.astro
+src/pages/mail/trash.astro
+src/pages/mail/unread.astro
+src/pages/mall/[category].astro
+src/pages/mall/index.astro
+src/pages/mall/product/[id].astro
+src/pages/office/csv.astro
+src/pages/office/disclaimer.astro
+src/pages/office/editor.astro
+src/pages/office/excel.astro
+src/pages/office/help.astro
+src/pages/office/history.astro
+src/pages/office/index.astro
+src/pages/office/pdf.astro
+src/pages/office/powerpoint.astro
+src/pages/office/privacy.astro
+src/pages/office/security.astro
+src/pages/office/terms.astro
+src/pages/office/word.astro
+src/pages/rirekisho/career.astro
+src/pages/rirekisho/career/new.astro
+src/pages/rirekisho/checklists/interview.astro
+src/pages/rirekisho/checklists/onboarding.astro
+src/pages/rirekisho/checklists/resignation.astro
+src/pages/rirekisho/commercial.astro
+src/pages/rirekisho/cover-letter.astro
+src/pages/rirekisho/dashboard.astro
+src/pages/rirekisho/help.astro
+src/pages/rirekisho/index.astro
+src/pages/rirekisho/job-scan.astro
+src/pages/rirekisho/photo.astro
+src/pages/rirekisho/photo/print.astro
+src/pages/rirekisho/pricing.astro
+src/pages/rirekisho/privacy.astro
+src/pages/rirekisho/resignation.astro
+src/pages/rirekisho/resume.astro
+src/pages/rirekisho/resume/new.astro
+src/pages/rirekisho/self-pr.astro
+src/pages/rirekisho/templates.astro
+src/pages/rirekisho/terms.astro
+src/pages/shop/[tenant].astro
+src/pages/shop/[tenant]/product/[id].astro
+src/pages/shop/_ShopPage.astro
+src/pages/shop/admin/dashboard.astro
+src/pages/shop/admin/orders/index.astro
+src/pages/shop/admin/orders/mark-shipped.ts
+src/pages/shop/analytics.astro
+src/pages/shop/api/assets/[...key].ts
+src/pages/shop/api/categories/google-suggest.ts
+src/pages/shop/api/categories/list.ts
+src/pages/shop/api/categories/save.ts
+src/pages/shop/api/feed-sync/status.ts
+src/pages/shop/api/inventory/update-stock.ts
+src/pages/shop/api/lookup/corporate.ts
+src/pages/shop/api/lookup/zipcode.ts
+src/pages/shop/api/notifications/email-logs.ts
+src/pages/shop/api/orders/cancel-refund.ts
+src/pages/shop/api/orders/update-shipping.ts
+src/pages/shop/api/products/ai-generate.ts
+src/pages/shop/api/products/process-image.ts
+src/pages/shop/api/products/save.ts
+src/pages/shop/api/settings/omnichannel.ts
+src/pages/shop/api/settings/onboarding.ts
+src/pages/shop/api/settings/profile.ts
+src/pages/shop/api/settings/social.ts
+src/pages/shop/api/social/approve.ts
+src/pages/shop/api/social/history.ts
+src/pages/shop/api/storefront/layout.ts
+src/pages/shop/api/stripe/onboard.ts
+src/pages/shop/api/stripe/status.ts
+src/pages/shop/api/stripe/webhook.ts
+src/pages/shop/api/upload.ts
+src/pages/shop/apps.astro
+src/pages/shop/categories.astro
+src/pages/shop/collections.astro
+src/pages/shop/collections/new.astro
+src/pages/shop/content.astro
+src/pages/shop/customers.astro
+src/pages/shop/customers/[id].astro
+src/pages/shop/dashboard.astro
+src/pages/shop/discounts.astro
+src/pages/shop/index.astro
+src/pages/shop/inventory.astro
+src/pages/shop/mall-sync.astro
+src/pages/shop/orders.astro
+src/pages/shop/orders/[id].astro
+src/pages/shop/products.astro
+src/pages/shop/products/[id].astro
+src/pages/shop/products/integration.astro
+src/pages/shop/products/new.astro
+src/pages/shop/settings.astro
+src/pages/shop/settings/design.astro
+src/pages/shop/storefront/[tenant].astro
+src/styles/global.css
+src/styles/starwind.css
+src/worker.ts
+src/workers/cron-cleanup.ts
+src/workers/shop-email-queue.ts
+src/workers/shop-social-cron.ts
+starwind.config.json
+test-results/.last-run.json
+tests/aiboux-core-shop-ui.spec.ts
+tests/core-delivery-detail-print.spec.ts
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-1366-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-1650-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-1980-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-reference-1366-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-reference-1440-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-reference-1650-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-reference-1980-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-v5-1366-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-v5-1440-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-v5-1650-linux.png
+tests/core-delivery-detail-print.spec.ts-snapshots/delivery-detail-v5-1980-linux.png
+tests/core-delivery-detail-reference.spec.ts
+tests/core-delivery-detail-typography.spec.ts
+tests/core-document-entry.spec.ts
+tests/core-full-ui-redesign.spec.ts
+tests/core-phase5-layout.spec.ts
+tests/core-preview-style.spec.ts
+tests/service-url-routing-public.spec.ts
+tools/codex-aiboux-mcp/server.mjs
+tools/grok_phase21_review.sh
+tools/verify_amazon_ui.sh
+worker-configuration.d.ts
+wrangler.toml
+"\345\257\276\345\277\234\343\203\206\343\203\212\343\203\263\343\203\210\343\201\256"
+"\346\227\247"
+```
+
+## Classification
+
+### 次タスク必要
+- Tracked app/config modifications: `.gitignore`, `astro.config.mjs`, `package-lock.json`, `package.json`, `public/favicon.*`, `src/pages/index.astro`, `tsconfig.json`.
+- Tracked deletions to review before any cleanup: `src/assets/astro.svg`, `src/assets/background.svg`, `src/components/Welcome.astro`, `src/layouts/Layout.astro`.
+- Application/source trees: `src/`, `db/`, `migrations/`, `schema.sql`, `wrangler.toml`, `worker-configuration.d.ts`, `components.json`, `starwind.config.json`, `playwright.config.ts`, `tests/`, `tools/`.
+- Product/spec/operation docs likely needed for future tasks: `AGENTS.md`, `AGENT_RULES.md`, `DESIGN.md`, `PRODUCT.md`, `docs/`, `ops/instructions/`, `ops/design/`, `ops/improvements/`.
+- Public runtime assets likely needed for service URL work: `public/brand/`, `public/g/`.
+
+### 証跡
+- Logs and audits: `all_log/` except the committed `all_log/74_bark_url_bundle_only_notification_gate_fix.md`.
+- Generated verification artifacts and review packs: `output/`.
+- Public temporary/evidence assets: `public/temp/`.
+- Playwright run artifacts: `test-results/`.
+
+### 不要一時ファイル
+- Candidate only, not deleted: `.vscode/starwind.code-snippets` if it is local editor convenience only.
+- Candidate only, not deleted: top-level ad hoc/legacy directories with unclear purpose, including `AIBOUX`, `Mailサービスサイト`, `対応テナントの`, and `旧`, pending human confirmation.
+- Candidate only, not deleted: any stale files under `test-results/` after their evidence is archived.
+
+## Push Attempt
+```text
+fatal: No configured push destination.
+Either specify the URL from the command-line or configure a remote repository using
+
+    git remote add <name> <url>
+
+and then push using the remote name
+
+    git push <name>
+
+```
+
+## Remote Setup And Push Retry 2026-06-01
+```text
+$ git remote -v
+origin	https://github.com/happydeers/aiboux.git (fetch)
+origin	https://github.com/happydeers/aiboux.git (push)
+
+$ git push -u origin HEAD
+fatal: could not read Username for 'https://github.com': No such device or address
+
+$ gh auth status || true
+gh: command not found
+
+$ ssh -o BatchMode=yes -T git@github.com
+git@github.com: Permission denied (publickey).
+```
+
+## Current Blocker
+
+- `origin` is configured as `https://github.com/happydeers/aiboux.git`.
+- HTTPS push cannot prompt for username/token in this environment.
+- `gh` is not installed.
+- SSH authentication is not configured for GitHub.
+- Dirty tree was not reset or cleaned.

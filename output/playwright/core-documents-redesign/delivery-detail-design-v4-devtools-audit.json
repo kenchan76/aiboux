@@ -1,0 +1,83 @@
+{
+  "url": "https://incentives-scale-uri-clocks.trycloudflare.com/core/deliveries",
+  "viewport": {
+    "width": 1650,
+    "height": 900
+  },
+  "stylesheets": 6,
+  "documentOverflow": 0,
+  "visibleRows": 5,
+  "bodyFont": "\"Noto Sans JP\", \"Yu Gothic UI\", \"Yu Gothic\", \"Hiragino Kaku Gothic ProN\", Meiryo, system-ui, sans-serif",
+  "toolbar": {
+    "selector": "[data-testid=\"delivery-detail-toolbar\"]",
+    "x": 248,
+    "y": 80,
+    "width": 1382,
+    "height": 32,
+    "display": "grid",
+    "gridTemplateColumns": "260px 1114px",
+    "flexWrap": "nowrap",
+    "overflow": "visible",
+    "position": "static"
+  },
+  "actions": {
+    "selector": "[data-testid=\"delivery-detail-actions\"]",
+    "x": 516,
+    "y": 80,
+    "width": 1114,
+    "height": 32,
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "flexWrap": "nowrap",
+    "overflow": "visible",
+    "position": "static"
+  },
+  "summaryStrip": {
+    "selector": "[data-testid=\"delivery-detail-summary-strip\"]",
+    "x": 248,
+    "y": 120,
+    "width": 1382,
+    "height": 142,
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "flexWrap": "nowrap",
+    "overflow": "hidden",
+    "position": "static"
+  },
+  "topGrid": {
+    "selector": "[data-testid=\"delivery-detail-top-grid\"]",
+    "x": 249,
+    "y": 121,
+    "width": 1380,
+    "height": 140,
+    "display": "grid",
+    "gridTemplateColumns": "280px 640px 460px",
+    "flexWrap": "nowrap",
+    "overflow": "visible",
+    "position": "static"
+  },
+  "linesCard": {
+    "selector": "[data-testid=\"delivery-detail-lines-card\"]",
+    "x": 248,
+    "y": 270,
+    "width": 1382,
+    "height": 279,
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "flexWrap": "nowrap",
+    "overflow": "hidden",
+    "position": "static"
+  },
+  "footer": {
+    "selector": "[data-testid=\"delivery-detail-footer\"]",
+    "x": 216,
+    "y": 836,
+    "width": 1434,
+    "height": 64,
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "flexWrap": "nowrap",
+    "overflow": "visible",
+    "position": "fixed"
+  }
+}

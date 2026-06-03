@@ -1,0 +1,198 @@
+===== https://mail.aiboux.com/ =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:28 GMT
+content-type: text/html
+cache-control: no-store, max-age=0
+x-aiboux-original-path: /
+x-aiboux-rewritten-path: /mail
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: f8867df3-aab9-439b-bf8d-634ada05191d
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=HCagMZqyF8YBZTtRCq%2B5bFyFrj1X8wLcCfV18b%2BFvLuSbN6uzLq7gUOUKZ2SuwS8ltl1FFf%2F6owBb7YW7sBMEb4T82wrwrl6%2FLcXoOqCYfYRV9bN8kAiFG4xqNjZoMZyxR8%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a1816cc4d480-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/58/wght/normal.woff2);unicode-range:U+2105,U+2109-210a,U+210f,U+2116,U+2121,U+2126-2127,U+212b,U+212e,U+2135,U+213b,U+2194-2199,U+21b8-21b9,U+21c4-21c6,U+21cb-21cc,U+21d0,U+21e6-21e9,U+21f5,U+2202-2203,U+2205-2206,U+2208-220b,U+220f,U+2211,U+2213,U+2215,U+221a,U+221d,U+2220,U+2223,U+2225-2226,U+2228,U+222a-222e,U+2234-2237,U+223d,U+2243,U+2245,U+2248,U+224c,U+2260,U+2262,U+2264-2265,U+226e-226f,U+2272-2273,U+2276-2277,U+2283-2287,U+228a-228b,U+2295-2299,U+22a0,U+22a5,U+22bf,U+22da-22db,U+22ef,U+2305-2307,U+2318,U+
+===== https://mail.aiboux.com/s/aiboux/ =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:28 GMT
+content-type: text/html
+cache-control: no-store, max-age=0
+x-aiboux-original-path: /s/aiboux/
+x-aiboux-rewritten-path: /mail/inbox
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: f8867df3-aab9-439b-bf8d-634ada05191d
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=KRSauFSZw86%2FWODwalmWSOQNoMSOMarg2UuNaHmuS1nSYjAMyHRSJm7%2B1htbcGn%2FLOtGHstrF1HCBstyESmZQdR3fZNk%2B056XQz4%2F4PbiuDTIMqR2IXszcZq7%2BEFMxv9pnM%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a18419704e57-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/70/wght/normal.woff2);unicode-range:U+266b,U+3006,U+5176,U+5197,U+51a8,U+51c6,U+52f2,U+5614,U+5875,U+5a2f,U+5b54,U+5ce0,U+5dba,U+5deb,U+5e63,U+5f59,U+5fcc,U+6068,U+6367,U+68b6,U+6a0b,U+6b64,U+6e15,U+6eba,U+7272,U+72a0,U+7947,U+7985,U+79e6,U+79e9,U+7a3d,U+7a9f,U+7aaf,U+7b95,U+7f60,U+7f9e,U+7fe0,U+8098,U+80ba,U+8106,U+82d4,U+831c,U+87f9,U+8a1f,U+8acf,U+90c1,U+920d,U+9756,U+fe43,U+ff94;font-display:swap;}@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/76/
+===== https://shop.aiboux.com/ =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:29 GMT
+content-type: text/html
+cache-control: no-store, max-age=0
+x-aiboux-original-path: /
+x-aiboux-rewritten-path: /shop
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: f8867df3-aab9-439b-bf8d-634ada05191d
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=KzQO4aoC27HhzjTY2ZjxD6T7AUVdhCKUkaiZ3AHdvaEdxJNbGnuAqP5jtQ7q886FhXXZdGiNsMamR7H3GmMsK3Oe%2B12UTXL9bElpkwqweWBPhfOGvEgBLyNmNKYFtbS6fXQ%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a1869f06cc19-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/29/wght/normal.woff2);unicode-range:U+736c,U+736e-7371,U+7375,U+7377-737c,U+7380-7381,U+7383,U+7385-7386,U+738a,U+738e,U+7390,U+7393-7398,U+739c,U+739e-73a0,U+73a2,U+73a5-73a6,U+73a8,U+73aa-73ab,U+73ad,U+73b3,U+73b5,U+73b7,U+73b9-73bd,U+73bf,U+73c5-73c6,U+73c9-73cc,U+73ce-73cf,U+73d2-73d3,U+73d6,U+73d9,U+73dd-73de,U+73e1,U+73e3-73e7,U+73e9-73ea,U+73ee,U+73f1,U+73f4-73f5,U+73f7-73fb,U+73fd,U+73ff-7401,U+7404-7405,U+7407,U+740a,U+7411,U+7413,U+741a-741b,U+7421,U+7424,U+7426,U+7428-7431,U+7433,U+7439-743a,U+743f-7441
+===== https://shop.aiboux.com/s/aiboux/ =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:29 GMT
+content-type: text/html
+cache-control: no-store, max-age=0
+x-aiboux-original-path: /s/aiboux/
+x-aiboux-rewritten-path: /shop/storefront/aiboux
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: f8867df3-aab9-439b-bf8d-634ada05191d
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=G38yuMMgmStuPViN%2FiAF6tBB87fFPDWYBtZ4QQaghTCdUn401KcE%2FARoeO9B0kqPwNOLmWwQ4u2fDyCxrqPxy81HB6nR8UJbIaqKvIa3veKtyWjt0UCijbftetQjGU%2BqgiU%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a1887916293d-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/107/wght/normal.woff2);unicode-range:U+23,U+3c,U+2192,U+4e45,U+4efb,U+4f50,U+4f8b,U+4fc2,U+5024,U+5150,U+5272,U+5370,U+53bb,U+542b,U+56db,U+56e3,U+57ce,U+5bc4,U+5bcc,U+5f71,U+60aa,U+6238,U+6280,U+629c,U+6539,U+66ff,U+670d,U+677e-677f,U+6839,U+69cb,U+6b4c,U+6bb5,U+6e96,U+6f14,U+72ec,U+7389,U+7814,U+79cb,U+79d1,U+79fb,U+7a0e,U+7d0d,U+85e4,U+8d64,U+9632,U+96e2,U+9805,U+99ac,U+ff1e;font-display:swap;}@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/34/wght/
+===== https://shop.aiboux.com/s/aiboux/admin =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:29 GMT
+content-type: text/html
+cache-control: no-store, max-age=0
+x-aiboux-original-path: /s/aiboux/admin
+x-aiboux-rewritten-path: /shop/dashboard
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: f8867df3-aab9-439b-bf8d-634ada05191d
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Pmd1MlJeHjKZhFZXoMxy6gSQZ67ywMlYW3mtHfkV3QYWhIqE0URpS5kzCpqScdDIuMTTNeIFXMpS98ER7H%2FyTUmNS1TdESA9qxHdegvjh7NiTW3kMVmQixrh7IAPKAXyF1A%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a18b0e65317f-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/57/wght/normal.woff2);unicode-range:U+24d1-24ff,U+2503-2513,U+2515-2516,U+2518-251b,U+251d-2522,U+2524-259f,U+25a2-25ab,U+25b1,U+25b7,U+25c0-25c1,U+25c9-25ca,U+25cc,U+25d0-25d3,U+25e2-25e3;font-display:swap;}@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.0.17/44/wght/normal.woff2);unicode-range:U+57b3,U+57b8,U+57bd,U+57c0,U+57c3,U+57c6-57c8,U+57cc,U+57cf,U+57d2-57d7,U+57dc-57de,U+57e0-57e1,U+57e3-57e4,U+57e6-57e7,U+57e9,U+57ed,U+57f0,U+57f4-57f6,U+57f8,U+5
+===== https://mail.aiboux.com/g/m68 =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:29 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 1194
+cache-control: no-store, max-age=0
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=TXBcYX0EhJioAIfDLXRkVcXEkMOXUAPBU1j4dtKhMRhEdg0LrmLYHIi0ihnehXE%2FgDVSZAc18zC%2FUvRWKwSMimHpm%2BCNL9AZvb1yxNQ%2FwJgJGdu%2B1bk2J7qGOZcxyWSfD%2FY%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a18c4a844881-NRT
+alt-svc: h3=":443"; ma=86400
+
+# AIBOUX Master Update Preview: Service Subdomain Tenant URL Migration
+
+## Status
+
+DEPLOYED
+
+## Persistent Artifact
+
+This file is a static artifact stored under `public/g/m68.md`. It is served through the Worker entry for `/g/m68` and does not depend on temporary in-memory route state.
+
+## Worker Version
+
+- Current Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`
+- Worker Version Tag: ``
+- Worker Version Timestamp: `2026-05-31T14:22:13.091117Z`
+
+## Master Update Summary
+
+- `aiboux.com/` is the AIBOUX series service introduction site.
+- `{service}.aiboux.com/` is each AIBOUX service site.
+- `{service}.aiboux.com/s/{tenant}/` is the tenant URL.
+- `shop.aiboux.com/s/{tenant}/` is the storefront.
+- `shop.aiboux.com/s/{tenant}/admin` is the shop admin screen.
+- The deployment tenant slug for 
+===== https://mail.aiboux.com/g/l68 =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:30 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 1236
+cache-control: no-store, max-age=0
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=M7Vn82qLdTI9VgPi9PJmSJwxPnGYtRtqGjLQDYTRws%2Fqwv8f7mhehhSIjJNOWJdV679sM06AjsyLUiv4RSaMiOx1cWsq5W0HY1N3r2o%2BUt565vwiUm3EiRp4h7pf0DONeB0%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a18ce8110a7c-NRT
+alt-svc: h3=":443"; ma=86400
+
+# Service Subdomain Tenant URL Migration Execution Log
+
+## Status
+
+DEPLOYED
+
+## Persistent Artifact
+
+This file is a static artifact stored under `public/g/l68.md`. It is served through the Worker entry for `/g/l68` and does not depend on temporary in-memory route state.
+
+## Worker Version
+
+- Current Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`
+- Worker Version Tag: ``
+- Worker Version Timestamp: `2026-05-31T14:22:13.091117Z`
+
+## Implemented Fixes
+
+- Enforced `mail.aiboux.com` and `shop.aiboux.com` host routing at the Worker entry before Astro request handling.
+- Kept Astro middleware routing as a secondary route layer.
+- Reissued `/g/m68`, `/g/l68`, and `/g/d68` as persistent static artifacts.
+- Kept Mail tenant work UI under `mail.aiboux.com/s/aiboux/`.
+- Kept Shop storefront under 
+===== https://mail.aiboux.com/g/d68 =====
+HTTP/2 200 
+date: Sun, 31 May 2026 14:22:30 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 888
+cache-control: no-store, max-age=0
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=GrVKfUwYPMdt5nkzE%2FLl3FQyZ3B7wgEb%2BfUz950FNUA301%2BFUhDYjBlenWhr%2Bch%2Fo%2Bv6j8ROW2Verz4AMo1ut4hEEcGfMei9x7rEFr7St%2B72p10rBTIE5OCJCOzEYQuGVF8%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a046a18e6ae84423-NRT
+alt-svc: h3=":443"; ma=86400
+
+# Service Subdomain Tenant URL Migration Screen Artifact
+
+## Status
+
+DEPLOYED
+
+## Persistent Artifact
+
+This file is a static artifact stored under `public/g/d68.md`. It is served through the Worker entry for `/g/d68` and does not depend on temporary in-memory route state.
+
+## Worker Version
+
+- Current Version ID: `f8867df3-aab9-439b-bf8d-634ada05191d`
+- Worker Version Tag: ``
+- Worker Version Timestamp: `2026-05-31T14:22:13.091117Z`
+
+## Screen Evidence
+
+Public Playwright screenshots are generated under:
+
+`output/playwright/service-url-routing/`
+
+## Covered Routes
+
+- `mail-service`: `https://mail.aiboux.com/`
+- `mail-tenant`: `https://mail.aiboux.com/s/aiboux/`
+- `shop-service`: `https://shop.aiboux.com/`
+- `shop-storefront`: `https://shop.aiboux.com/s/aiboux/`
+- `shop-admin`: `https://shop

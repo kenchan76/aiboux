@@ -1,0 +1,12 @@
+---
+import { Toaster } from "@/components/ui/sonner";
+import { ShopProductIntegrationPanel } from "@/components/shop/ShopProductIntegrationPanel";
+import ShopLayout from "@/layouts/ShopLayout.astro";
+
+export const prerender = false;
+---
+
+<ShopLayout title="AIBOUX SHOP Product Integration">
+  <ShopProductIntegrationPanel client:load />
+  <Toaster client:load richColors position="top-right" />
+</ShopLayout>

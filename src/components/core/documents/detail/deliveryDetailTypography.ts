@@ -1,0 +1,16 @@
+export const deliveryDetailTypography = {
+  pageTitle: "text-[20px] leading-[28px] font-semibold text-slate-900",
+  sectionTitle: "text-[15px] leading-[22px] font-semibold text-slate-900",
+  label: "text-[13px] leading-[20px] font-medium text-slate-500",
+  value: "text-[13px] leading-[20px] font-normal text-slate-700",
+  valueLink: "text-[13px] leading-[20px] font-normal text-blue-600",
+  inputText: "!text-[13px] leading-[20px] font-normal text-slate-700",
+  tableHeader: "text-[12px] leading-[16px] font-medium text-slate-500",
+  tableCell: "text-[13px] leading-[20px] font-normal text-slate-700",
+  productName: "text-[13px] leading-[20px] font-normal text-slate-800",
+  muted: "text-[12px] leading-[16px] font-normal text-slate-500",
+  button: "text-[13px] leading-[20px] font-medium",
+  footerLabel: "text-[12px] leading-[16px] font-medium text-slate-500",
+  footerValue: "text-[14px] leading-[20px] font-normal text-slate-700",
+  footerTotal: "text-[18px] leading-[24px] font-normal text-blue-600",
+} as const;
