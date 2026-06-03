@@ -1,0 +1,17 @@
+timestamp=20260603T232211Z
+commit_status=0
+head_after=3fea25cee2769c5e0f42d148f4596586bfb51972
+commit_stdout:
+[main 3fea25c] WIP shop aiboux tenant deploy checkpoint 20260603T232211Z
+ 13 files changed, 1477 insertions(+), 14 deletions(-)
+ create mode 100644 all_log/checkpoints/20260603T231907Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260603T232211Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260603T232211Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260603T232211Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260603T232211Z_status_before.txt
+ create mode 100644 all_log/deploys/20260603T231907Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt
+ create mode 100644 all_log/patches/20260603T232211Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260603T232211Z_before_deploy_staged.patch
+
+commit_stderr:

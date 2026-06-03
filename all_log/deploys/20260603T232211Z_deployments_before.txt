@@ -1,0 +1,92 @@
+
+ ⛅️ wrangler 4.94.0 (update available 4.97.0)
+─────────────────────────────────────────────
+Created:     2026-06-03T13:25:23.338Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) e6cafb22-bf3c-4866-8c7f-5fe95d395882
+                 Created:  2026-06-03T13:25:22.037Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T13:26:30.760Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) e4d53580-8a17-4de9-98f4-f64e4b1178e6
+                 Created:  2026-06-03T13:26:28.782Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:22:38.107Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 4891af52-bf80-48a1-a7c5-57505053985e
+                 Created:  2026-06-03T14:22:36.200Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:25:01.517Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 781b584c-7e5d-485e-9752-16ebe4ac85f5
+                 Created:  2026-06-03T14:24:59.874Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:28:32.968Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 6f9bca52-3b61-47ef-80dd-61c3b4022d0a
+                 Created:  2026-06-03T14:28:31.705Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:37:35.287Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) b9156463-a63c-4fc5-917c-f1a3ef53f235
+                 Created:  2026-06-03T14:37:34.067Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:45:51.664Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 51417201-5383-45b6-8393-a9c5c55611cf
+                 Created:  2026-06-03T14:45:50.069Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T15:27:36.317Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     Rollback before Shop production tenant completion after user request
+Version(s):  (100%) e4d53580-8a17-4de9-98f4-f64e4b1178e6
+                 Created:  2026-06-03T13:26:28.782Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:15:12.091Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 48abf844-f3e7-493f-9086-7a21a5a1c345
+                 Created:  2026-06-03T23:15:09.116Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:19:55.693Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 5fcb5a8e-4aef-42e9-a8a7-13b83462df7b
+                 Created:  2026-06-03T23:19:54.346Z
+                     Tag:  -
+                 Message:  -
