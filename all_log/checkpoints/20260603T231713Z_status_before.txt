@@ -1,0 +1,4 @@
+ M all_log/deploys/20260603T231417Z_deploy_shop_wip_command.txt
+?? all_log/92_shop_wip_deploy_public_reflection.md
+?? all_log/checkpoints/20260603T231418Z_wip_commit.txt
+?? all_log/deploys/20260603T231418Z_deployments_before.txt
