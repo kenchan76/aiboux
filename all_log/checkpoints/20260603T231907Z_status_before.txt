@@ -1,0 +1,6 @@
+ M all_log/92_shop_wip_deploy_public_reflection.md
+ M public/g/d68.md
+ M public/g/l68.md
+?? all_log/checkpoints/20260603T231713Z_wip_commit.txt
+?? all_log/deploys/20260603T231713Z_deployments_before.txt
+?? all_log/deploys/20260603T231907Z_deploy_shop_wip_log_publish_command.txt
