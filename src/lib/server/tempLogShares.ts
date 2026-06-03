@@ -75,8 +75,8 @@ import coreDeliveryDetailPrintCurrentBlockedUtf8Log from '../../../all_log/58_co
 import coreDeliveryDetailTypographyUserApprovedDeployLog from '../../../all_log/70_core_delivery_detail_typography_user_approved_deploy_log.md?raw';
 import serviceSubdomainTenantUrlMigrationDeployedLog from '../../../all_log/68_service_subdomain_tenant_url_migration_deployed_log.md?raw';
 import serviceSubdomainTenantUrlMigrationScreenArtifact from '../../../all_log/68_service_subdomain_tenant_url_migration_screen_artifact.md?raw';
-import coreMasterFullJapaneseSpecUpdateLog from '../../../all_log/85_core_master_full_japanese_spec_update.md?raw';
-import coreMasterFullJapaneseSpecScreenArtifact from '../../../all_log/85_core_master_full_japanese_spec_screen_artifact.md?raw';
+import publicGLog68 from '../../../public/g/l68.md?raw';
+import publicGScreen68 from '../../../public/g/d68.md?raw';
 
 export type TempLogShare = {
   id: string;
@@ -840,15 +840,15 @@ const tempLogShares: Record<string, TempLogShare> = {
     id: 'aiboux-full-japanese-master-log-20260601',
     token: 'l68-full-japanese-master-20260601',
     expiresAt: '2027-06-01T00:00:00Z',
-    filename: '85_core_master_full_japanese_spec_update.md',
-    content: coreMasterFullJapaneseSpecUpdateLog,
+    filename: 'l68.md',
+    content: publicGLog68,
   },
   'aiboux-full-japanese-master-screen-20260601': {
     id: 'aiboux-full-japanese-master-screen-20260601',
     token: 'd68-full-japanese-master-20260601',
     expiresAt: '2027-06-01T00:00:00Z',
-    filename: '85_core_master_full_japanese_spec_screen_artifact.md',
-    content: coreMasterFullJapaneseSpecScreenArtifact,
+    filename: 'd68.md',
+    content: publicGScreen68,
   },
 };
 
