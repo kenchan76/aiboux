@@ -55,7 +55,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (businessData.dataSource !== "shop_settings") {
       accountId = buildMockStripeAccountId(tenant.tenantId);
-      onboardingUrl = `${origin}/shop/settings?stripe=business_required&account=${encodeURIComponent(accountId)}`;
+      onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=business_required&account=${encodeURIComponent(accountId)}`;
       warning = "事業者情報が未設定のため、Stripe連携は開始していません。先に帳票・書類設定を保存してください。";
     } else if (stripeSecret) {
       mode = "stripe_api";
@@ -74,11 +74,11 @@ export const POST: APIRoute = async ({ request }) => {
         mode = "mock";
         warning = "Stripe API接続に失敗したため、モック連携として状態を保存しました。APIキーとStripe設定を確認してください。";
         accountId = buildMockStripeAccountId(tenant.tenantId);
-        onboardingUrl = `${origin}/shop/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
+        onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
       }
     } else {
       accountId = accountId || buildMockStripeAccountId(tenant.tenantId);
-      onboardingUrl = `${origin}/shop/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
+      onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
     }
 
     const state: StripeConnectState = "pending";
@@ -165,8 +165,8 @@ async function createStripeAccount(secret: string, tenantId: string, businessDat
 async function createStripeAccountLink(secret: string, accountId: string, origin: string): Promise<{ url: string; expiresAt: number }> {
   const body = new URLSearchParams();
   body.set("account", accountId);
-  body.set("refresh_url", `${origin}/shop/settings?stripe=refresh`);
-  body.set("return_url", `${origin}/shop/settings?stripe=return`);
+  body.set("refresh_url", `${origin}/s/aiboux/admin/settings?stripe=refresh`);
+  body.set("return_url", `${origin}/s/aiboux/admin/settings?stripe=return`);
   body.set("type", "account_onboarding");
 
   const response = await fetchWithTimeout("https://api.stripe.com/v1/account_links", {

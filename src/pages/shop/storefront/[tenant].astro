@@ -28,7 +28,7 @@ const storefrontProducts = shopProducts.map((product) => ({
   price: product.price.toLocaleString("ja-JP"),
   category: product.category,
   inStock: product.stock > 0,
-  href: `/shop/products/${product.id}`,
+  href: `/s/${encodeURIComponent(tenantParam)}/product/${product.id}`,
 }));
 ---
 

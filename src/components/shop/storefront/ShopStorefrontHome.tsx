@@ -77,9 +77,9 @@ export function ShopStorefrontHome() {
               検索
             </Button>
           </div>
-          <HeaderAction icon={<UserRound className="size-6" />} label="ログイン" sub="アカウントサービス" />
-          <HeaderAction icon={<PackageCheck className="size-6" />} label="注文履歴" sub="返品もこちら" />
-          <HeaderAction icon={<ShoppingCart className="size-7" />} label="カート" sub="0" strong />
+          <HeaderAction href="/s/aiboux/account" icon={<UserRound className="size-6" />} label="ログイン" sub="アカウントサービス" />
+          <HeaderAction href="/s/aiboux/account/orders" icon={<PackageCheck className="size-6" />} label="注文履歴" sub="返品もこちら" />
+          <HeaderAction href="/s/aiboux/cart" icon={<ShoppingCart className="size-7" />} label="カート" sub="0" strong />
         </div>
         <nav className="mx-auto flex max-w-[1980px] items-center gap-2 overflow-x-auto px-6">
           <a href="#categories" className="flex h-11 shrink-0 items-center gap-2 border border-b-0 border-neutral-200 bg-white px-4 text-sm font-semibold">
@@ -87,7 +87,7 @@ export function ShopStorefrontHome() {
             すべてのカテゴリ
           </a>
           {categories.map((category) => (
-            <a key={category} href={`#${category}`} className="shrink-0 px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-blue-700">
+            <a key={category} href="/s/aiboux/categories" className="shrink-0 px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-blue-700">
               {category}
             </a>
           ))}
@@ -182,9 +182,9 @@ function UtilityBar() {
   );
 }
 
-function HeaderAction({ icon, label, sub, strong }: { icon: React.ReactNode; label: string; sub: string; strong?: boolean }) {
+function HeaderAction({ href, icon, label, sub, strong }: { href: string; icon: React.ReactNode; label: string; sub: string; strong?: boolean }) {
   return (
-    <a href="#" className="flex shrink-0 items-center gap-2 text-sm">
+    <a href={href} className="flex shrink-0 items-center gap-2 text-sm">
       <span className="relative">{icon}{strong ? <Badge className="absolute -right-2 -top-2 size-5 justify-center rounded-full p-0 text-[10px]">0</Badge> : null}</span>
       <span><span className="block text-xs text-neutral-500">{label}</span><span className="block font-bold text-neutral-950">{sub}</span></span>
     </a>
@@ -231,8 +231,13 @@ function ProductRail({ title, products, ranking, sale }: { title: string; produc
     <section>
       <div className="mb-2 flex items-center justify-between">
         <h2 className="text-xl font-bold">{title}</h2>
-        <a href="#" className="text-xs font-semibold text-blue-700">もっと見る</a>
+        <a href="/s/aiboux/products" className="text-xs font-semibold text-blue-700">もっと見る</a>
       </div>
+      {products.length === 0 ? (
+        <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-4 py-10 text-center text-sm text-neutral-500">
+          公開商品はまだありません。管理画面で商品を公開するとここに表示されます。
+        </div>
+      ) : null}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
         {products.slice(0, 8).map((product, index) => <ProductCard key={`${title}-${product.id}`} product={product} rank={ranking ? index + 1 : undefined} sale={sale} />)}
       </div>
@@ -259,7 +264,7 @@ function ProductCard({ product, rank, sale }: { product: ShopProduct; rank?: num
 }
 
 function FeatureCard({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) {
-  return <Card id={id} className="shadow-none"><CardHeader className="flex flex-row items-center justify-between px-4 py-3"><CardTitle className="text-base">{title}</CardTitle><a href="#" className="text-xs font-semibold text-blue-700">もっと見る</a></CardHeader><CardContent className="px-4 pb-4">{children}</CardContent></Card>;
+  return <Card id={id} className="shadow-none"><CardHeader className="flex flex-row items-center justify-between px-4 py-3"><CardTitle className="text-base">{title}</CardTitle><a href="/s/aiboux/products" className="text-xs font-semibold text-blue-700">もっと見る</a></CardHeader><CardContent className="px-4 pb-4">{children}</CardContent></Card>;
 }
 
 function MiniList({ products }: { products: ShopProduct[] }) {

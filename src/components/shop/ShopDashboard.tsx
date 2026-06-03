@@ -89,14 +89,14 @@ export function ShopDashboard({ onSectionChange }: ShopDashboardProps) {
       <Card className="mb-3 border-neutral-200 bg-blue-50/40 shadow-sm">
         <CardContent className="grid gap-3 p-3 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <div className="text-sm font-semibold text-neutral-950">集客とSEOは自動で動いています</div>
+            <div className="text-sm font-semibold text-neutral-950">集客とSEOの設定状態</div>
             <p className="mt-1 text-xs leading-5 text-neutral-600">
-              商品を保存すると、画像最適化、Google/Bing向け同期、在庫状態の反映を裏側で進めます。難しい設定は「集客・SEO自動化」でON/OFFだけ確認できます。
+              商品データと連携設定が揃うと、画像最適化、Google/Bing向け同期、在庫状態の反映を確認できます。未設定の項目は「設定」から有効化します。
             </p>
             <div className="mt-3 grid gap-2 sm:grid-cols-3">
-              <AutomationStatus icon={Sparkles} label="AI画像最適化" />
-              <AutomationStatus icon={Search} label="Google/Bing同期" />
-              <AutomationStatus icon={Activity} label="在庫状態を自動反映" />
+              <AutomationStatus icon={Sparkles} label="AI画像最適化" active={shopProducts.length > 0} />
+              <AutomationStatus icon={Search} label="Google/Bing同期" active={productsSynced > 0 || productsSyncing > 0} />
+              <AutomationStatus icon={Activity} label="在庫状態を自動反映" active={inventoryItems.length > 0} />
             </div>
             <div className="mt-2 text-xs text-neutral-600">
               現在の自動送信: 同期中 {productsSyncing}件 / 送信済み {productsSynced}件
@@ -159,14 +159,16 @@ export function ShopDashboard({ onSectionChange }: ShopDashboardProps) {
   );
 }
 
-function AutomationStatus({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
+function AutomationStatus({ icon: Icon, label, active }: { icon: LucideIcon; label: string; active: boolean }) {
   return (
     <div className="flex items-center gap-2 rounded-md border border-blue-100 bg-white px-2.5 py-2 text-xs text-neutral-700">
-      <span className="flex size-6 items-center justify-center rounded-md bg-emerald-50 text-emerald-700">
+      <span className={`flex size-6 items-center justify-center rounded-md ${active ? "bg-emerald-50 text-emerald-700" : "bg-neutral-100 text-neutral-500"}`}>
         <Icon className="size-3.5" />
       </span>
       <span className="font-medium">{label}</span>
-      <span className="ml-auto rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">稼働中</span>
+      <span className={`ml-auto rounded-full px-2 py-0.5 text-[11px] font-medium ${active ? "bg-emerald-50 text-emerald-700" : "bg-neutral-100 text-neutral-600"}`}>
+        {active ? "稼働中" : "未設定"}
+      </span>
     </div>
   );
 }

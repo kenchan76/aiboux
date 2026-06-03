@@ -45,8 +45,8 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
         }
         setRemoteSync(next);
       })
-      .catch(() => {
-        // Product list remains usable with sample/local status when the status API is unavailable.
+        .catch(() => {
+        // Product list remains usable with local empty state when the status API is unavailable.
       })
       .finally(() => {
         if (!cancelled) setIsRefreshingSync(false);
@@ -97,6 +97,13 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
           </TableRow>
         </TableHeader>
         <TableBody>
+          {rows.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={compact ? 9 : 10} className="h-28 text-center text-sm text-neutral-500">
+                商品はまだ登録されていません。「商品を追加」から公開用の商品情報を作成します。
+              </TableCell>
+            </TableRow>
+          ) : null}
           {rows.map((product) => (
             <TableRow key={product.id} className="cursor-pointer" onClick={() => onSelectProduct?.(product)}>
               {!compact && (
@@ -154,7 +161,10 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
       </Table>
       {!compact && (
         <div className="border-t border-neutral-200 bg-neutral-50 p-2">
-          <Button size="sm" className="gap-2" onClick={() => { window.location.href = "/shop/products/new"; }}>
+          <Button size="sm" className="gap-2" onClick={() => {
+            window.history.pushState({ section: "product-new" }, "", "/s/aiboux/admin/products/new");
+            window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "product-new" } }));
+          }}>
             <Plus className="size-4" />
             商品を追加
           </Button>

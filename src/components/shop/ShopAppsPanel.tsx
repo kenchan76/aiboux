@@ -30,7 +30,7 @@ export function ShopAppsPanel() {
                 {integration.status === "接続済み" ? <CheckCircle2 className="size-4 text-emerald-600" /> : integration.status === "確認必要" ? <TriangleAlert className="size-4 text-amber-600" /> : <PlugZap className="size-4 text-neutral-500" />}
                 <span>{integration.description}</span>
               </div>
-              <Button variant="outline" size="sm" className="gap-2" onClick={() => { window.location.href = "/shop/settings"; }}>
+              <Button variant="outline" size="sm" className="gap-2" onClick={() => { window.history.pushState({ section: "settings" }, "", "/s/aiboux/admin/settings"); }}>
                 設定を開く
                 <ExternalLink className="size-4" />
               </Button>

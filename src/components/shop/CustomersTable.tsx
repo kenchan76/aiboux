@@ -45,6 +45,13 @@ export function CustomersTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
+              {customers.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="h-28 text-center text-sm text-neutral-500">
+                    顧客データはまだありません。購入が発生すると注文履歴と一緒に表示されます。
+                  </TableCell>
+                </TableRow>
+              ) : null}
               {customers.map((customer) => (
                 <TableRow key={customer.id} className="h-11">
                   <TableCell>

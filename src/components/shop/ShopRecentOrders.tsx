@@ -140,6 +140,13 @@ export function ShopRecentOrders({ orders = shopOrders, compact, onSelectOrder }
           </TableRow>
         </TableHeader>
         <TableBody>
+          {rows.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={compact ? 7 : 11} className="h-28 text-center text-sm text-neutral-500">
+                注文はまだありません。注文が入ると、支払い状態・発送状態・帳票操作がここに表示されます。
+              </TableCell>
+            </TableRow>
+          ) : null}
           {rows.map((order) => (
             <TableRow
               key={order.id}

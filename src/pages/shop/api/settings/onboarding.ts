@@ -89,7 +89,7 @@ export const POST: APIRoute = async ({ request }) => {
       tenantId: tenant.tenantId,
       storeName,
       mallSubdomain: subdomain,
-      dashboardPath: "/shop/dashboard",
+      dashboardPath: "/s/aiboux/admin",
     });
   } catch (error) {
     return productError(error);

@@ -23,6 +23,7 @@ import { ShopSidebar } from "@/components/shop/ShopSidebar";
 import { StorefrontDesignBuilder } from "@/components/shop/StorefrontDesignBuilder";
 import { ShopTopbar } from "@/components/shop/ShopTopbar";
 import {
+  createEmptyProduct,
   inventoryItems,
   shopOrders,
   shopProducts,
@@ -59,7 +60,7 @@ interface ShopClientShellProps {
 export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShellProps) {
   const [activeSection, setActiveSection] = React.useState<ShopSection>(initialSection);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [dateRange, setDateRange] = React.useState("2024/05/13 - 2024/05/19");
+  const [dateRange, setDateRange] = React.useState("今月");
   const [hasUnsavedInventory, setHasUnsavedInventory] = React.useState(false);
 
   const changeSection = React.useCallback((section: ShopSection) => {
@@ -289,9 +290,9 @@ function filterProducts(products: ShopProduct[], query: string) {
 }
 
 function getProductFromPath() {
-  if (typeof window === "undefined") return shopProducts[0];
+  if (typeof window === "undefined") return shopProducts[0] ?? createEmptyProduct();
   const productId = window.location.pathname.split("/").filter(Boolean).at(-1);
-  return shopProducts.find((product) => product.id === productId) ?? shopProducts[0];
+  return shopProducts.find((product) => product.id === productId) ?? shopProducts[0] ?? createEmptyProduct();
 }
 
 function getOrderFromPath() {

@@ -132,3 +132,51 @@ The task is not complete.
 The local Shop UI protection warns because protected Shop paths are dirty.
 This warning no longer blocks WIP deploy.
 Final acceptance remains blocked until strict check and all completion evidence pass.
+
+## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
+
+Status: WIP_FIXING
+
+This cycle starts after WIP deploy `5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8`.
+
+Cycle 01 goals:
+
+1. Remove visible fixed demo values from the public Shop admin dashboard.
+2. Stop production UI from showing fake sales, fake order counts, fake CVR, fake AOV, fake repeat rate, fake customers, fake order numbers, and fake sample SKUs as if they were real tenant data.
+3. Use honest empty states when real D1-backed values are unavailable.
+4. Repair Shop admin links to `/s/aiboux/admin/...` tenant routes.
+5. Repair storefront links to `/s/aiboux/...` tenant routes.
+6. Remove `href="#"`, `javascript:void(0)`, old `/shop/...` links, and `shop.aboux.com` from Shop production UI.
+7. Keep UI shape conservative and avoid broad redesign.
+8. WIP deploy is allowed after build passes; strict final check remains final-only.
+
+Cycle 01 fixed demo values to remove from production Shop UI:
+
+- `2024/05/13 - 2024/05/19`
+- `山田 太郎`
+- `¥2,340,000`
+- `245件`
+- `2.35%`
+- `¥9,551`
+- `28.7%`
+- `#10085`
+- `#10084`
+- `#10083`
+- `#10082`
+- `#10081`
+- `TSH-001-WHT`
+- `BAG-001-BLK`
+- `BTL-500-SLV`
+- `PKR-002-GRY`
+- `CAP-001-NVY`
+- `佐藤 花子`
+- `鈴木 一郎`
+- `田中 美咲`
+- `高橋 大輔`
+- `伊藤 優子`
+
+Cycle 01 evidence target:
+
+- `all_log/shop-ui/${TS}_shop_fix_01.md`
+- `all_log/shop-ui/${TS}_public_url_status_before_fix_01.txt`
+- `all_log/shop-ui/${TS}_public_url_status_after_fix_01.txt`

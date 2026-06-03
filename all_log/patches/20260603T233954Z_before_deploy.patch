@@ -1,0 +1,1813 @@
+diff --git a/all_log/92_shop_wip_deploy_public_reflection.md b/all_log/92_shop_wip_deploy_public_reflection.md
+index 4d863e2..18ed390 100644
+--- a/all_log/92_shop_wip_deploy_public_reflection.md
++++ b/all_log/92_shop_wip_deploy_public_reflection.md
+@@ -8,40 +8,40 @@ FINAL_ACCEPTED ではない。
+ 
+ ## Deploy Timestamp
+ 
+-- Latest checkpoint timestamp: `20260603T232211Z`
++- Latest checkpoint timestamp: `20260603T232600Z`
+ 
+ ## WIP Commit
+ 
+-- Latest WIP commit hash: `3fea25cee2769c5e0f42d148f4596586bfb51972`
+-- WIP commit evidence: `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
++- Latest WIP commit hash: `38e9566e4bfc7ec0fe63bd77438c9553650dc177`
++- WIP commit evidence: `all_log/checkpoints/20260603T232600Z_wip_commit.txt`
+ 
+ ## Worker
+ 
+-- Current Version ID: `ed81108e-549c-4f02-8f32-bd70fc3e4efe`
+-- Deploy output log: `all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt`
+-- Deployments-before log: `all_log/deploys/20260603T232211Z_deployments_before.txt`
++- Current Version ID: `5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8`
++- Deploy output log: `all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt`
++- Deployments-before log: `all_log/deploys/20260603T232600Z_deployments_before.txt`
+ 
+ ## Checkpoint Evidence
+ 
+-- `all_log/checkpoints/20260603T232211Z_status_before.txt`
+-- `all_log/checkpoints/20260603T232211Z_head_before.txt`
+-- `all_log/checkpoints/20260603T232211Z_origin_main_before.txt`
+-- `all_log/checkpoints/20260603T232211Z_log_before.txt`
+-- `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
+-- `all_log/patches/20260603T232211Z_before_deploy.patch`
+-- `all_log/patches/20260603T232211Z_before_deploy_staged.patch`
++- `all_log/checkpoints/20260603T232600Z_status_before.txt`
++- `all_log/checkpoints/20260603T232600Z_head_before.txt`
++- `all_log/checkpoints/20260603T232600Z_origin_main_before.txt`
++- `all_log/checkpoints/20260603T232600Z_log_before.txt`
++- `all_log/checkpoints/20260603T232600Z_wip_commit.txt`
++- `all_log/patches/20260603T232600Z_before_deploy.patch`
++- `all_log/patches/20260603T232600Z_before_deploy_staged.patch`
+ 
+ ## Public /g Verification
+ 
+ Verification output directory:
+ 
+-- `/tmp/aiboux-shop-wip-20260603T232211Z`
++- `/tmp/aiboux-shop-wip-20260603T232600Z`
+ 
+ | URL | HTTP | Content-Type | Local SHA256 | Remote SHA256 | Match |
+ | --- | --- | --- | --- | --- | --- |
+-| `https://mail.aiboux.com/g/m68` | 200 | `text/markdown; charset=utf-8` | `c15961469f0b44df0bcfdae02f3bc69072e4a8608c1a460ca51a12f62d917e72` | `c67c44fce776881b4ddffe51942ea98abdd3b957f7b1a1df838421f4145ba939` | no |
+-| `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `c0319e74cf59f99eded51156509f2c719c4aea4c3c14bdac66596add30187483` | `2ab82b664777aac8c179c70eb66d2ec3b1b959b1014718f344be5a0925f8d527` | no |
+-| `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `e9598f11b69485f967f72300fc3b81fb6e8e2c7c68e9219b6025ebe42e6e9e4a` | no |
++| `https://mail.aiboux.com/g/m68` | 200 | `text/markdown; charset=utf-8` | `c15961469f0b44df0bcfdae02f3bc69072e4a8608c1a460ca51a12f62d917e72` | `d5435a08fc8288b692fab6eeb58fdadaf128398009108caea075c3bcb08bd233` | no |
++| `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `cf9076a93dbc80081aa20a8d8348bf090a495d07017c4d4cdb0144fbedf3bf29` | `ea6e65ba686704842a84cfbb1507fecf8510e2f78f05213d982a8ab58c117f5e` | no |
++| `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `78796257da90b43c6893cde8ad2689b2aa909524a2cbec093be27d27686b54f2` | no |
+ 
+ The SHA mismatch is expected for files containing `__WORKER_VERSION_ID__`.
+ The `/g/*` route replaces that placeholder at runtime, so public body hashes differ from source markdown hashes while the content remains the intended WIP evidence document.
+@@ -50,9 +50,9 @@ The `/g/*` route replaces that placeholder at runtime, so public body hashes dif
+ 
+ | URL | HTTP | Worker Version ID | Title |
+ | --- | --- | --- | --- |
+-| `https://shop.aiboux.com/` | 200 | `ed81108e-549c-4f02-8f32-bd70fc3e4efe` | `AIBOUX SHOP | サービスサイト` |
+-| `https://shop.aiboux.com/s/aiboux/` | 200 | `ed81108e-549c-4f02-8f32-bd70fc3e4efe` | `AIBOUX Store | AIBOUX Storefront` |
+-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `ed81108e-549c-4f02-8f32-bd70fc3e4efe` | `AIBOUX SHOP Dashboard` |
++| `https://shop.aiboux.com/` | 200 | `5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8` | `AIBOUX SHOP | サービスサイト` |
++| `https://shop.aiboux.com/s/aiboux/` | 200 | `5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8` | `AIBOUX Store | AIBOUX Storefront` |
++| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8` | `AIBOUX SHOP Dashboard` |
+ 
+ ## Verification Commands
+ 
+@@ -62,12 +62,12 @@ npm run check:mojibake
+ npm run check:shop-ui-protection
+ ESBUILD_WORKER_THREADS=0 npm run build
+ npm run deploy:shop:wip
+-curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232211Z/m68.headers https://mail.aiboux.com/g/m68 -o /tmp/aiboux-shop-wip-20260603T232211Z/m68.body
+-curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232211Z/l68.headers https://mail.aiboux.com/g/l68 -o /tmp/aiboux-shop-wip-20260603T232211Z/l68.body
+-curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232211Z/d68.headers https://mail.aiboux.com/g/d68 -o /tmp/aiboux-shop-wip-20260603T232211Z/d68.body
+-curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232211Z/shoproot.headers https://shop.aiboux.com/ -o /tmp/aiboux-shop-wip-20260603T232211Z/shoproot.html
+-curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232211Z/storefront.headers https://shop.aiboux.com/s/aiboux/ -o /tmp/aiboux-shop-wip-20260603T232211Z/storefront.html
+-curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232211Z/admin.headers https://shop.aiboux.com/s/aiboux/admin -o /tmp/aiboux-shop-wip-20260603T232211Z/admin.html
++curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232600Z/m68.headers https://mail.aiboux.com/g/m68 -o /tmp/aiboux-shop-wip-20260603T232600Z/m68.body
++curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232600Z/l68.headers https://mail.aiboux.com/g/l68 -o /tmp/aiboux-shop-wip-20260603T232600Z/l68.body
++curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232600Z/d68.headers https://mail.aiboux.com/g/d68 -o /tmp/aiboux-shop-wip-20260603T232600Z/d68.body
++curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232600Z/shoproot.headers https://shop.aiboux.com/ -o /tmp/aiboux-shop-wip-20260603T232600Z/shoproot.html
++curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232600Z/storefront.headers https://shop.aiboux.com/s/aiboux/ -o /tmp/aiboux-shop-wip-20260603T232600Z/storefront.html
++curl -sS -L -D /tmp/aiboux-shop-wip-20260603T232600Z/admin.headers https://shop.aiboux.com/s/aiboux/admin -o /tmp/aiboux-shop-wip-20260603T232600Z/admin.html
+ ```
+ 
+ ## Known WIP Issues
+@@ -92,8 +92,8 @@ npx wrangler rollback --name aiboux
+ Git checkpoint redeploy:
+ 
+ ```bash
+-PREV=$(cat all_log/checkpoints/20260603T232211Z_head_before.txt)
+-git switch -c rollback-shop-wip-20260603T232211Z "$PREV"
++PREV=$(cat all_log/checkpoints/20260603T232600Z_head_before.txt)
++git switch -c rollback-shop-wip-20260603T232600Z "$PREV"
+ ESBUILD_WORKER_THREADS=0 npm run build
+ npx wrangler deploy
+ ```
+diff --git a/all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt b/all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt
+index 7d18c6d..3e022ca 100644
+--- a/all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt
++++ b/all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt
+@@ -6,3 +6,611 @@
+ > aiboux@0.0.1 shop:checkpoint
+ > node scripts/create-shop-wip-checkpoint.mjs --commit
+ 
++SHOP_WIP_CHECKPOINT_CREATED timestamp=20260603T232600Z
++statusBefore=all_log/checkpoints/20260603T232600Z_status_before.txt
++headBefore=all_log/checkpoints/20260603T232600Z_head_before.txt
++originMainBefore=all_log/checkpoints/20260603T232600Z_origin_main_before.txt
++diffBefore=all_log/patches/20260603T232600Z_before_deploy.patch
++diffStagedBefore=all_log/patches/20260603T232600Z_before_deploy_staged.patch
++logBefore=all_log/checkpoints/20260603T232600Z_log_before.txt
++wipCommit=all_log/checkpoints/20260603T232600Z_wip_commit.txt
++deploymentsBefore=all_log/deploys/20260603T232600Z_deployments_before.txt
++
++> aiboux@0.0.1 check:control-chars
++> node scripts/check-control-chars.mjs
++
++CONTROL_CHAR_CHECK_OK
++
++> aiboux@0.0.1 check:mojibake
++> node scripts/check-mojibake.mjs
++
++MOJIBAKE_CHECK_OK files=327
++
++> aiboux@0.0.1 build
++> astro build
++
++08:26:05 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
++08:26:06 [WARN] [vite] Default inspector port 9229 not available, using 9230 instead
++
++08:26:07 [vite]   ➜  Tunnel closed
++08:26:07 [types] Generated 1.98s
++08:26:07 [build] output: "server"
++08:26:07 [build] mode: "server"
++08:26:07 [build] directory: /home/pkkatsu/aiboux/dist/
++08:26:07 [build] adapter: @astrojs/cloudflare
++08:26:07 [build] Collecting build info...
++08:26:07 [build] ✓ Completed in 2.05s.
++08:26:07 [build] Building server entrypoints...
++08:26:15 [vite]   ➜  Tunnel closed
++08:26:16 [vite] ✓ built in 8.32s
++08:26:26 [vite]   ➜  Tunnel closed
++08:26:27 [vite] ✓ built in 11.26s
++08:26:33 [vite]   ➜  Tunnel closed
++08:26:34 [WARN] [vite] 
++(!) Some chunks are larger than 500 kB after minification. Consider:
++- Using dynamic import() to code-split the application
++- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
++- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
++08:26:34 [vite] ✓ built in 6.49s
++Default inspector port 9229 not available, using 9231 instead
++
++
++ prerendering static routes 
++08:26:35   ├─ /biz/commercial/index.html (+73ms) 
++08:26:35   ├─ /biz/dashboard/index.html (+44ms) 
++08:26:35   ├─ /biz/editor/index.html (+32ms) 
++08:26:35   ├─ /biz/help/index.html (+43ms) 
++08:26:35   ├─ /biz/pricing/index.html (+29ms) 
++08:26:35   ├─ /biz/privacy/index.html (+23ms) 
++08:26:35   ├─ /biz/templates/accounting/index.html (+86ms) 
++08:26:35   ├─ /biz/templates/contracts/index.html (+36ms) 
++08:26:35   ├─ /biz/templates/estimates/index.html (+129ms) 
++08:26:35   ├─ /biz/templates/hr/index.html (+27ms) 
++08:26:35   ├─ /biz/templates/invoices/index.html (+34ms) 
++08:26:35   ├─ /biz/templates/proposals/index.html (+43ms) 
++08:26:35   ├─ /biz/templates/reports/index.html (+27ms) 
++08:26:35   ├─ /biz/templates/simple-estimate/index.html (+31ms) 
++08:26:35   ├─ /biz/templates/invoice-qualified/index.html (+29ms) 
++08:26:35   ├─ /biz/templates/outsourcing-contract/index.html (+37ms) 
++08:26:35   ├─ /biz/templates/nda-basic/index.html (+35ms) 
++08:26:35   ├─ /biz/templates/employment-contract/index.html (+24ms) 
++08:26:35   ├─ /biz/templates/resignation-letter/index.html (+23ms) 
++08:26:35   ├─ /biz/templates/meeting-minutes/index.html (+27ms) 
++08:26:35   ├─ /biz/templates/business-report/index.html (+42ms) 
++08:26:35   ├─ /biz/templates/sales-proposal/index.html (+25ms) 
++08:26:35   ├─ /biz/templates/planning-sheet/index.html (+21ms) 
++08:26:35   ├─ /biz/templates/approval-request/index.html (+25ms) 
++08:26:35   ├─ /biz/templates/expense-report/index.html (+28ms) 
++08:26:36   ├─ /biz/templates/customer-list/index.html (+23ms) 
++08:26:36   ├─ /biz/templates/inventory-sheet/index.html (+29ms) 
++08:26:36   ├─ /biz/templates/purchase-order/index.html (+57ms) 
++08:26:36   ├─ /biz/templates/delivery-note/index.html (+24ms) 
++08:26:36   ├─ /biz/templates/receipt-basic/index.html (+30ms) 
++08:26:36   ├─ /biz/templates/index.html (+64ms) 
++08:26:36   ├─ /biz/terms/index.html (+25ms) 
++08:26:36   ├─ /biz/index.html (+72ms) 
++08:26:36   ├─ /file/abuse/index.html (+28ms) 
++08:26:36   ├─ /file/barcode/index.html (+71ms) 
++08:26:36   ├─ /file/dashboard/index.html (+31ms) 
++08:26:36   ├─ /file/help/index.html (+50ms) 
++08:26:36   ├─ /file/image/background-remover/index.html (+26ms) 
++08:26:36   ├─ /file/image/index.html (+32ms) 
++08:26:36   ├─ /file/pdf/index.html (+28ms) 
++08:26:36   ├─ /file/pricing/index.html (+31ms) 
++08:26:36   ├─ /file/privacy/index.html (+36ms) 
++08:26:36   ├─ /file/terms/index.html (+21ms) 
++08:26:36   ├─ /file/tools/index.html (+29ms) 
++08:26:36   ├─ /file/transfer/index.html (+28ms) 
++08:26:36   ├─ /file/index.html (+124ms) 
++08:26:36   ├─ /office/csv/index.html (+28ms) 
++08:26:36   ├─ /office/disclaimer/index.html (+27ms) 
++08:26:36   ├─ /office/editor/index.html (+43ms) 
++08:26:36   ├─ /office/excel/index.html (+22ms) 
++08:26:36   ├─ /office/help/index.html (+44ms) 
++08:26:37   ├─ /office/history/index.html (+64ms) 
++08:26:37   ├─ /office/pdf/index.html (+23ms) 
++08:26:37   ├─ /office/powerpoint/index.html (+54ms) 
++08:26:37   ├─ /office/privacy/index.html (+21ms) 
++08:26:37   ├─ /office/security/index.html (+22ms) 
++08:26:37   ├─ /office/terms/index.html (+21ms) 
++08:26:37   ├─ /office/word/index.html (+22ms) 
++08:26:37   ├─ /office/index.html (+46ms) 
++08:26:37   ├─ /rirekisho/career/new/index.html (+75ms) 
++08:26:37   ├─ /rirekisho/career/index.html (+25ms) 
++08:26:37   ├─ /rirekisho/checklists/interview/index.html (+28ms) 
++08:26:37   ├─ /rirekisho/checklists/onboarding/index.html (+38ms) 
++08:26:37   ├─ /rirekisho/checklists/resignation/index.html (+26ms) 
++08:26:37   ├─ /rirekisho/commercial/index.html (+22ms) 
++08:26:37   ├─ /rirekisho/cover-letter/index.html (+25ms) 
++08:26:37   ├─ /rirekisho/dashboard/index.html (+31ms) 
++08:26:37   ├─ /rirekisho/help/index.html (+30ms) 
++08:26:37   ├─ /rirekisho/job-scan/index.html (+27ms) 
++08:26:37   ├─ /rirekisho/photo/print/index.html (+53ms) 
++08:26:37   ├─ /rirekisho/photo/index.html (+81ms) 
++08:26:37   ├─ /rirekisho/pricing/index.html (+32ms) 
++08:26:37   ├─ /rirekisho/privacy/index.html (+36ms) 
++08:26:37   ├─ /rirekisho/resignation/index.html (+45ms) 
++08:26:37   ├─ /rirekisho/resume/new/index.html (+27ms) 
++08:26:37   ├─ /rirekisho/resume/index.html (+23ms) 
++08:26:37   ├─ /rirekisho/self-pr/index.html (+23ms) 
++08:26:37   ├─ /rirekisho/templates/index.html (+27ms) 
++08:26:37   ├─ /rirekisho/terms/index.html (+21ms) 
++08:26:38   ├─ /rirekisho/index.html (+48ms) 
++08:26:38 [vite]   ➜  Tunnel closed
++08:26:38 ✓ Completed in 3.94s.
++
++08:26:38 [build] Rearranging server assets...
++08:26:38 [build] ✓ Completed in 30.10s.
++08:26:38 [build] Server built in 32.17s
++08:26:38 [build] Complete!
++08:26:38 [vite]   ➜  Tunnel closed
++
++> aiboux@0.0.1 check:shop-ui-protection
++> node scripts/check-shop-ui-protection.mjs --mode=warn
++
++SHOP_UI_PROTECTION_OK mode=warn: protected Shop UI paths are clean
++
++ ⛅️ wrangler 4.94.0 (update available 4.97.0)
++─────────────────────────────────────────────
++Using redirected Wrangler configuration.
++ - Configuration being used: "dist/server/wrangler.json"
++ - Original user's configuration: "wrangler.toml"
++ - Deploy configuration file: ".wrangler/deploy/config.json"
++Attaching additional modules:
++┌───────────────────────────────────────────────────────────┬──────┬─────────────┐
++│ Name                                                      │ Type │ Size        │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/3________A2_dash_DlIBzgmM.mjs                      │ esm  │ 6.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/CoreLayout_BgtydltN.mjs                            │ esm  │ 418.61 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/GlobalAIAssistant_D3MipOCF.mjs                     │ esm  │ 16.51 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/MailClientShell_CCDEV-EN.mjs                       │ esm  │ 153.74 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/NotoSansJpHead_C___lhEr.mjs                        │ esm  │ 0.64 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ShopLayout_7vt-IKXL.mjs                            │ esm  │ 1.62 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_.._B-k_uipL.mjs                                   │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_ShopPage_BnwzHx4T.mjs                             │ esm  │ 1103.17 KiB │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_category__BkUXf6uB.mjs                            │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_code__BkBhC3qY.mjs                                │ esm  │ 1.89 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_code__xd_lJOni.mjs                                │ esm  │ 0.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__BKwTF3ts.mjs                                  │ esm  │ 11.91 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__BPWAC_dJ.mjs                                  │ esm  │ 1.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__C83FdDjP.mjs                                  │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__CD7C0Tee.mjs                                  │ esm  │ 1.12 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__Ctnydbpl.mjs                                  │ esm  │ 0.73 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DTB9d3dT.mjs                                  │ esm  │ 15.57 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DduhZOAI.mjs                                  │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DgNTd70S.mjs                                  │ esm  │ 0.94 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__dATseQVY.mjs                                  │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__qZ5QjgA4.mjs                                  │ esm  │ 6.03 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__xWwAyjNn.mjs                                  │ esm  │ 6.63 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_provider__BlAqJF7q.mjs                            │ esm  │ 15.34 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_tenant__DEX5SNLi.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_tenant__Djih8EQO.mjs                              │ esm  │ 10.36 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_virtual_astro_server-island-manifest_CFl7y3Qj.mjs │ esm  │ 0.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_virtual_astro_session-driver_Csu6PJY6.mjs         │ esm  │ 2.92 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ai-generate_ub8WP5gD.mjs                           │ esm  │ 2.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ai_xSspzK_x.mjs                                    │ esm  │ 4.85 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/alerts_BynPU_L3.mjs                                │ esm  │ 1.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/analytics_DZ7pT9VC.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/approve_BkRn10G1.mjs                               │ esm  │ 1.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/apps_B9sCLTV3.mjs                                  │ esm  │ 0.94 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/archive_9W8mGtzq.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/astro-component_B8klg-BD.mjs                       │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/auto-match_C3o8O33_.mjs                            │ esm  │ 9.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/blocks_D1WGoQ5r.mjs                                │ esm  │ 1.32 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/bulk_DnhcMYJ8.mjs                                  │ esm  │ 3.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/button_CLxlLWEa.mjs                                │ esm  │ 117.70 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/calendar_D8VK9_ZM.mjs                              │ esm  │ 172.67 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/cancel-refund_rwnYl8VN.mjs                         │ esm  │ 10.87 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/categories_vCojTkD6.mjs                            │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/classify_DnahBKUH.mjs                              │ esm  │ 1.91 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/cloudflareAi_B_H7T79O.mjs                          │ esm  │ 2.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coerce_QNKuR2o0.mjs                                │ esm  │ 0.37 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/collections_Dc8SW0pb.mjs                           │ esm  │ 0.83 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/compose_BgZMxHoq.mjs                               │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/content_HGqIVnV4.mjs                               │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreDocumentUiConfig_BCIncEfx.mjs                  │ esm  │ 10.00 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreInventorySync_BOu0Z_J6.mjs                     │ esm  │ 9.08 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreProductMasterFormSchema_CBw1RmDr.mjs           │ esm  │ 2.61 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/corporate_B7ny-Fpk.mjs                             │ esm  │ 1.42 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/create-session_CNRRwXU1.mjs                        │ esm  │ 7.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/csv_YLp-Gq_k.mjs                                   │ esm  │ 1.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/customers_B8CtO9O-.mjs                             │ esm  │ 1.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/customers_DTG7btIC.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/dashboard_BVLvzXfO.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/dashboard_C1H9UoqX.mjs                             │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/deliveries_BMzIW_cS.mjs                            │ esm  │ 1.58 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/delivery-destinations_UheTdaNb.mjs                 │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design-management_Bfsi-iZa.mjs                     │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_Bp26WvWR.mjs                                │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_OKNTNRyc.mjs                                │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_s3kvmUcr.mjs                                │ esm  │ 1.26 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/discounts_9OU-HA-Q.mjs                             │ esm  │ 0.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/drafts_BZRIVzlu.mjs                                │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/email-logs_BJsQNDDR.mjs                            │ esm  │ 1.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/estimates_D1gQhCl6.mjs                             │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/events_DIT0alIH.mjs                                │ esm  │ 1.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/execute-voice-command_CX48aUql.mjs                 │ esm  │ 11.08 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/export-csv_BGjIAXTc.mjs                            │ esm  │ 2.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/export-journal_jYp_kLhd.mjs                        │ esm  │ 5.49 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/final-log-a2_s14YeUO6.mjs                          │ esm  │ 1.42 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/gemini_DnGTbmBL.mjs                                │ esm  │ 5.04 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/generate-labels_eBYT945G.mjs                       │ esm  │ 3.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/google-suggest_jl3ghH1T.mjs                        │ esm  │ 1.78 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/health_DC9nq5p2.mjs                                │ esm  │ 2.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/health_UVxVufdf.mjs                                │ esm  │ 0.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/help_BZzEsKeV.mjs                                  │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/history_BJzs57En.mjs                               │ esm  │ 1.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/history_DFg5kKkb.mjs                               │ esm  │ 1.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/hub_BMzwk_fd.mjs                                   │ esm  │ 3.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/image-passthrough-endpoint_ClfiBHuW.mjs            │ esm  │ 73.57 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/import-history_CHB1kvB5.mjs                        │ esm  │ 8.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inbox_TnbudOhR.mjs                                 │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_-h05e_d6.mjs                                 │ esm  │ 6.31 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_3LssXO8D.mjs                                 │ esm  │ 5.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_C5gwRrEh.mjs                                 │ esm  │ 2.50 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CS7zwkrh.mjs                                 │ esm  │ 6.35 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CT8q8Wal.mjs                                 │ esm  │ 2.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_D3IefjMi.mjs                                 │ esm  │ 11.03 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DBZdG7mn.mjs                                 │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DWv2aJti.mjs                                 │ esm  │ 1.44 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DsdQ1PZT.mjs                                 │ esm  │ 2.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DsqROAau.mjs                                 │ esm  │ 245.99 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DyUVxBQZ.mjs                                 │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_E92DJXq2.mjs                                 │ esm  │ 2.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ingress_DwGVwBTL.mjs                               │ esm  │ 8.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/input_C_kf4uOe.mjs                                 │ esm  │ 3.31 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/integration_DBbPTMUN.mjs                           │ esm  │ 17.46 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/intent-router_CYlAwzf8.mjs                         │ esm  │ 5.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/intent_DSs2Wk24.mjs                                │ esm  │ 1.48 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inventory_CpO40HLj.mjs                             │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inventory_q5JzbRG3.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/invoices_DLB99TQt.mjs                              │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/jsx-runtime_Bo14_ato.mjs                           │ esm  │ 1.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/layout_DuiYUc_Z.mjs                                │ esm  │ 2.34 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/list_D1tCA_2p.mjs                                  │ esm  │ 1.43 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/listing-draft_P4loPPc0.mjs                         │ esm  │ 4.70 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/mall-sync_BCSwvLmA.mjs                             │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/mark-shipped_DOBNXZK0.mjs                          │ esm  │ 4.16 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_CDt-YKjp.mjs                                   │ esm  │ 0.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_Cz_FCupO.mjs                                   │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_aZ1cQhjN.mjs                                   │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/noop-entrypoint_DsBX4kaI.mjs                       │ esm  │ 0.10 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/noop_8uTLsy8Q.mjs                                  │ esm  │ 0.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/omnichannel_tgK9Syww.mjs                           │ esm  │ 3.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/onboard_BxHdJKPa.mjs                               │ esm  │ 6.58 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/onboarding_DIBFu6g-.mjs                            │ esm  │ 3.23 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/order_BuUuY4uN.mjs                                 │ esm  │ 4.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/orders_C2mtvXl8.mjs                                │ esm  │ 0.95 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/orders_D-3leAH6.mjs                                │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/params-and-props_TxpTdKXw.mjs                      │ esm  │ 234.82 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/partners_D3jJKE84.mjs                              │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/payments_DQfpRcEP.mjs                              │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/popover_2kJW54DE.mjs                               │ esm  │ 111.98 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/price-schedules_P9IzysFO.mjs                       │ esm  │ 2.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/prices_D3mBjdss.mjs                                │ esm  │ 2.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/process-image_Bj9o70mO.mjs                         │ esm  │ 1.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/process_Bymv5imz.mjs                               │ esm  │ 5.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-enrichment_IFaUHe8q.mjs                    │ esm  │ 7.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-master-data_B9vCsFVn.mjs                   │ esm  │ 13.33 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-master_Cn401Usc.mjs                        │ esm  │ 4.84 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/productMasterApi_TVTgBCqw.mjs                      │ esm  │ 3.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_DzLrqXgR.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_jO710BOn.mjs                              │ esm  │ 2.59 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_phk9umtA.mjs                              │ esm  │ 1.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/profile_mN87dBfp.mjs                               │ esm  │ 11.27 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/purchase-orders_BKYLK_KA.mjs                       │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/receive_KkKaOyhS.mjs                               │ esm  │ 1.86 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/remove_ygJ5nRBN.mjs                                │ esm  │ 1.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/restore_lLAF18nD.mjs                               │ esm  │ 1.95 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_BsBoaGhn.mjs                                  │ esm  │ 3.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_CU-6mUOl.mjs                                  │ esm  │ 18.04 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_Qa9Ne0WZ.mjs                                  │ esm  │ 9.61 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_vBEZQemn.mjs                                  │ esm  │ 12.33 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/select_DSkYcZaX.mjs                                │ esm  │ 137.18 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/send_By4N-sy_.mjs                                  │ esm  │ 7.07 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sent_DTqan2QH.mjs                                  │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/separator_BdrsAAdS.mjs                             │ esm  │ 2.62 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_9Oypuhhf.mjs                              │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_C8rxqFbZ.mjs                              │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_CskkZw05.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shippingCsv_C0vjzGuI.mjs                           │ esm  │ 2.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shop-sample-data_e1t2t-By.mjs                      │ esm  │ 13.54 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopNotificationEmail_CPG6A-aS.mjs                 │ esm  │ 1.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStorefrontLayout_Dcv7Lm8Q.mjs                  │ esm  │ 4.70 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStripeConnect_4pL_6CVT.mjs                     │ esm  │ 4.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sidebar_Djj2IQVN.mjs                               │ esm  │ 16.09 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/simulate-stock_N0bo-JRn.mjs                        │ esm  │ 1.38 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/skeleton_BPazZZz7.mjs                              │ esm  │ 2.18 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/snoozed_BlIYWvJZ.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/social_D0l7pgDv.mjs                                │ esm  │ 4.67 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sonner_Ccwc332U.mjs                                │ esm  │ 204.82 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/spam_qXlVCRda.mjs                                  │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ssoSession_yWa8ddq_.mjs                            │ esm  │ 4.52 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/starred_CFh0gJfK.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/status_DboRQbyD.mjs                                │ esm  │ 1.64 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/status_sfhQrheT.mjs                                │ esm  │ 3.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/storageQuota_CBN4KDRQ.mjs                          │ esm  │ 1.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/stripe.esm.worker_B6dUhoSD.mjs                     │ esm  │ 620.22 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sync_DWt80cYC.mjs                                  │ esm  │ 3.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/table_DDv60NPI.mjs                                 │ esm  │ 2.66 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tempImageShares_D9Pibe2K.mjs                       │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tempLogShares_B9tRehex.mjs                         │ esm  │ 565.18 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/temp_TECxt_t0.mjs                                  │ esm  │ 2.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/templates_srqk-8H1.mjs                             │ esm  │ 1.30 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tenantContext_BlOEaOuW.mjs                         │ esm  │ 3.06 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tenant_De_pbStJ.mjs                                │ esm  │ 1.49 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/testStockConcurrency_D07eitii.mjs                  │ esm  │ 4.92 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/timeline_DVf_jkC5.mjs                              │ esm  │ 4.89 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/trash_C0xX_jaf.mjs                                 │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/unread_DVJ2SSFr.mjs                                │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/unsubscribe_BTTWULzi.mjs                           │ esm  │ 1.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-shipping_BopG28-k.mjs                       │ esm  │ 3.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-stock_CN-dqGd8.mjs                          │ esm  │ 3.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-stock_G8eaNYZu.mjs                          │ esm  │ 2.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_DiZ3Yn0I.mjs                                │ esm  │ 3.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_DrznlYMK.mjs                                │ esm  │ 4.48 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_YvZgROpc.mjs                                │ esm  │ 8.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/users_D0CqCjGf.mjs                                 │ esm  │ 1.52 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/users_DdWbHPNu.mjs                                 │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/variants_BQUJmTD9.mjs                              │ esm  │ 2.86 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/voice-draft_D8SO4ZBB.mjs                           │ esm  │ 2.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook-stripe_RkDSSzcD.mjs                        │ esm  │ 5.16 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_C3yETFrH.mjs                               │ esm  │ 3.12 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_CoDgRPWE.mjs                               │ esm  │ 18.45 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_DvjeU3LI.mjs                               │ esm  │ 8.33 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/worker-entry_DtGHseVn.mjs                          │ esm  │ 1090.20 KiB │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/zipcode_Dj3E2mu5.mjs                               │ esm  │ 1.50 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ virtual_astro_middleware.mjs                              │ esm  │ 9.04 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ Total (201 modules)                                       │      │ 5925.55 KiB │
++└───────────────────────────────────────────────────────────┴──────┴─────────────┘
++🌀 Building list of assets...
++✨ Read 217 files from the assets directory /home/pkkatsu/aiboux/dist/client
++🌀 Starting asset upload...
++🌀 Found 1 new or modified static asset to upload. Proceeding with upload...
+++ /g/l68.md
++Uploaded 1 of 1 asset
++✨ Success! Uploaded 1 file (129 already uploaded) (0.70 sec)
++
++Total Upload: 5925.72 KiB / gzip: 1170.89 KiB
++Worker Startup Time: 13 ms
++Your Worker has access to the following bindings:
++Binding                                                                      Resource                     
++env.SESSION (inherited)                                                      KV Namespace                 
++env.EMAIL (unrestricted)                                                     Send Email                   
++env.SHOP_FEED_SYNC_QUEUE (shop-feed-sync-queue)                              Queue                        
++env.DB (aiboux-b2b-db)                                                       D1 Database                  
++env.STORAGE (aiboux-mail-assets)                                             R2 Bucket                    
++env.SHOP_STORAGE (aiboux-shop-assets)                                        R2 Bucket                    
++env.AI                                                                       AI                           
++env.ASSETS                                                                   Assets                       
++env.CF_VERSION_METADATA                                                      Worker Version Metadata      
++env.AIBOUX_PUBLIC_URL ("https://mail.aiboux.com")                            Environment Variable         
++env.DEFAULT_FROM_EMAIL ("noreply@aiboux.com")                                Environment Variable         
++env.MAIL_RETENTION_FREE_DAYS ("7")                                           Environment Variable         
++env.MAIL_RETENTION_STANDARD_DAYS ("7")                                       Environment Variable         
++env.MAIL_RETENTION_PREMIUM_DAYS ("365")                                      Environment Variable         
++env.MAX_FREE_MAIL_ADDRESSES ("5")                                            Environment Variable         
++env.MAX_STANDARD_MAIL_ADDRESSES ("10")                                       Environment Variable         
++env.GEMINI_MODEL ("gemini-2.5-flash")                                        Environment Variable         
++env.WORKERS_AI_TEXT_MODEL ("@cf/meta/llama-3.1-8b-instruct-fp8")             Environment Variable         
++env.RESEND_FROM_EMAIL ("AIBOUX Shop <info@aiboux.com>")                      Environment Variable         
++
++Uploaded aiboux (6.81 sec)
++Deployed aiboux triggers (1.77 sec)
++  https://aiboux.kenchan-7648.workers.dev
++  core.aiboux.com (custom domain)
++  mail.aiboux.com (custom domain)
++  file.aiboux.com (custom domain)
++  biz.aiboux.com (custom domain)
++  office.aiboux.com (custom domain)
++  rirekisho.aiboux.com (custom domain)
++  docs.aiboux.com (custom domain)
++  shop.aiboux.com (custom domain)
++  mall.aiboux.com (custom domain)
++  schedule: * * * * *
++  schedule: */15 * * * *
++  schedule: 17 18 * * *
++  Producer for shop-feed-sync-queue
++  Consumer for shop-feed-sync-queue
++Current Version ID: 5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index eb37830..f5548e5 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -132,3 +132,51 @@ The task is not complete.
+ The local Shop UI protection warns because protected Shop paths are dirty.
+ This warning no longer blocks WIP deploy.
+ Final acceptance remains blocked until strict check and all completion evidence pass.
++
++## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
++
++Status: WIP_FIXING
++
++This cycle starts after WIP deploy `5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8`.
++
++Cycle 01 goals:
++
++1. Remove visible fixed demo values from the public Shop admin dashboard.
++2. Stop production UI from showing fake sales, fake order counts, fake CVR, fake AOV, fake repeat rate, fake customers, fake order numbers, and fake sample SKUs as if they were real tenant data.
++3. Use honest empty states when real D1-backed values are unavailable.
++4. Repair Shop admin links to `/s/aiboux/admin/...` tenant routes.
++5. Repair storefront links to `/s/aiboux/...` tenant routes.
++6. Remove `href="#"`, `javascript:void(0)`, old `/shop/...` links, and `shop.aboux.com` from Shop production UI.
++7. Keep UI shape conservative and avoid broad redesign.
++8. WIP deploy is allowed after build passes; strict final check remains final-only.
++
++Cycle 01 fixed demo values to remove from production Shop UI:
++
++- `2024/05/13 - 2024/05/19`
++- `山田 太郎`
++- `¥2,340,000`
++- `245件`
++- `2.35%`
++- `¥9,551`
++- `28.7%`
++- `#10085`
++- `#10084`
++- `#10083`
++- `#10082`
++- `#10081`
++- `TSH-001-WHT`
++- `BAG-001-BLK`
++- `BTL-500-SLV`
++- `PKR-002-GRY`
++- `CAP-001-NVY`
++- `佐藤 花子`
++- `鈴木 一郎`
++- `田中 美咲`
++- `高橋 大輔`
++- `伊藤 優子`
++
++Cycle 01 evidence target:
++
++- `all_log/shop-ui/${TS}_shop_fix_01.md`
++- `all_log/shop-ui/${TS}_public_url_status_before_fix_01.txt`
++- `all_log/shop-ui/${TS}_public_url_status_after_fix_01.txt`
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 1d1010b..2ef0d29 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -80,6 +80,19 @@ The following public URLs are currently available for visual inspection after WI
+ 
+ - `all_log/92_shop_wip_deploy_public_reflection.md`
+ 
++## Shop Fix Cycle 01 Screen Targets
++
++Cycle timestamp: `20260603T233309Z`
++
++The next WIP public screen check must verify:
++
++- public admin no longer displays fake fixed values such as fixed sales, fixed order counts, fixed order numbers, fixed customer names, fixed SKUs, or fixed date ranges;
++- admin dashboard displays honest empty states where real data is unavailable;
++- storefront child routes return styled HTTP 200 pages;
++- storefront pages do not show fake checkout or fake payment completion UI;
++- Shop UI links stay under `/s/aiboux/` and `/s/aiboux/admin/`;
++- no `href="#"` remains in Shop public UI.
++
+ ## Safety
+ 
+ - This artifact is WIP.
+diff --git a/public/g/l68.md b/public/g/l68.md
+index 256b1aa..666bd3f 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -132,6 +132,39 @@ The `/g/*` route replaces that placeholder at runtime, so public body hashes dif
+ Not complete.
+ Current status is `WIP_DEPLOYED`, not `FINAL_ACCEPTED`.
+ 
++## Shop Fix Cycle 01
++
++Status: `WIP_READY_TO_DEPLOY`
++
++Cycle timestamp: `20260603T233309Z`
++
++Cycle 01 removes visible fake Shop admin values and repairs tenant routes without broad visual redesign.
++
++Implemented in this cycle:
++
++- Shop sample products, orders, customers, discounts, collections, inventory, and analytics arrays now resolve to production-safe empty arrays.
++- Fake KPI values are replaced with `0` or honest `未集計` states.
++- Visible fake admin account name is replaced with `ストア管理者`.
++- Default fixed date range is removed from Shop admin topbar.
++- Empty states were added for products, orders, inventory, customers, analytics, best sellers, inventory alerts, and content.
++- Shop admin links are normalized to `/s/aiboux/admin/...`.
++- Storefront links are normalized to `/s/aiboux/...`.
++- `src/pages/shop/[tenant]/[...path].astro` was added so storefront child routes can return HTTP 200.
++- Shop storefront `href="#"` links were removed.
++- Old `/shop/products`, `/shop/settings`, and `/shop/storefront` UI links were removed from Shop UI.
++
++Local verification before WIP deploy:
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run check:shop-ui-protection`: WARN mode, exit 0
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++
++Cycle 01 evidence:
++
++- `all_log/shop-ui/20260603T233309Z_shop_fix_01.md`
++- `all_log/shop-ui/20260603T233309Z_public_url_status_before_fix_01.txt`
++
+ The following remain required before FINAL_ACCEPTED:
+ 
+ - commit hash
+diff --git a/src/components/shop/CustomersTable.tsx b/src/components/shop/CustomersTable.tsx
+index 2e2131e..4276cf8 100644
+--- a/src/components/shop/CustomersTable.tsx
++++ b/src/components/shop/CustomersTable.tsx
+@@ -45,6 +45,13 @@ export function CustomersTable() {
+               </TableRow>
+             </TableHeader>
+             <TableBody>
++              {customers.length === 0 ? (
++                <TableRow>
++                  <TableCell colSpan={7} className="h-28 text-center text-sm text-neutral-500">
++                    顧客データはまだありません。購入が発生すると注文履歴と一緒に表示されます。
++                  </TableCell>
++                </TableRow>
++              ) : null}
+               {customers.map((customer) => (
+                 <TableRow key={customer.id} className="h-11">
+                   <TableCell>
+diff --git a/src/components/shop/InventoryTable.tsx b/src/components/shop/InventoryTable.tsx
+index d9af651..529d40e 100644
+--- a/src/components/shop/InventoryTable.tsx
++++ b/src/components/shop/InventoryTable.tsx
+@@ -121,6 +121,13 @@ export function InventoryTable({
+           </TableRow>
+         </TableHeader>
+         <TableBody>
++          {rows.length === 0 ? (
++            <TableRow>
++              <TableCell colSpan={compact ? 5 : 7} className="h-28 text-center text-sm text-neutral-500">
++                在庫データはまだありません。商品登録後にSKU別の在庫を管理できます。
++              </TableCell>
++            </TableRow>
++          ) : null}
+           {rows.map((item) => {
+             const draftValue = stockDrafts[item.productId] ?? item.stock;
+             const isChanged = draftValue !== (savedStocks[item.productId] ?? item.stock);
+diff --git a/src/components/shop/ProductEditor.tsx b/src/components/shop/ProductEditor.tsx
+index df309f9..e57dd7b 100644
+--- a/src/components/shop/ProductEditor.tsx
++++ b/src/components/shop/ProductEditor.tsx
+@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
+ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+ import { Textarea } from "@/components/ui/textarea";
+ import { cn } from "@/lib/utils";
+-import { formatYen, shopProducts, type ShopProduct } from "@/data/shop-sample-data";
++import { createEmptyProduct, formatYen, shopProducts, type ShopProduct } from "@/data/shop-sample-data";
+ 
+ type ProductImage = {
+   id: string;
+@@ -22,11 +22,13 @@ type ProductImage = {
+   key?: string;
+ };
+ 
+-export function ProductEditor({ product = shopProducts[0], mode = "edit" }: { product?: ShopProduct; mode?: "new" | "edit" }) {
++export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(), mode = "edit" }: { product?: ShopProduct; mode?: "new" | "edit" }) {
+   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+   const [images, setImages] = React.useState<ProductImage[]>(() => [
+-    { id: `${product.id}-main`, url: product.image, alt: product.name, isMain: true },
+-    { id: `${product.id}-detail-1`, url: product.image, alt: `${product.name} 詳細`, isMain: false },
++    ...(product.image ? [
++      { id: `${product.id}-main`, url: product.image, alt: product.name, isMain: true },
++      { id: `${product.id}-detail-1`, url: product.image, alt: `${product.name} 詳細`, isMain: false },
++    ] : []),
+   ]);
+   const [name, setName] = React.useState(mode === "new" ? "" : product.name);
+   const [description, setDescription] = React.useState("素材、サイズ、利用シーン、購入前に知りたい注意点を簡潔に入力します。");
+@@ -174,7 +176,7 @@ export function ProductEditor({ product = shopProducts[0], mode = "edit" }: { pr
+           <p className="mt-1 text-sm text-neutral-500">販売に必要な情報だけを、公開判断しやすい順番で管理します。</p>
+         </div>
+         <div className="flex items-center gap-2">
+-          <Button variant="outline" onClick={() => { window.location.href = "/shop/products/integration"; }}>
++          <Button variant="outline" onClick={() => { window.history.pushState({ section: "products" }, "", "/s/aiboux/admin/products"); }}>
+             商品マスタ連携
+           </Button>
+           <Button className="gap-2" onClick={saveProduct} disabled={isSaving}>
+@@ -208,7 +210,7 @@ export function ProductEditor({ product = shopProducts[0], mode = "edit" }: { pr
+               </Field>
+               <div className="grid gap-3 sm:grid-cols-3">
+                 <Field label="商品番号" help="店内で商品を探すための管理番号です。購入者には目立って表示しません。">
+-                  <Input value={sku} placeholder="例: TSH-001-WHT" onChange={(event) => { setSku(event.target.value); markDirty(); }} />
++                  <Input value={sku} placeholder="例: SKU-001" onChange={(event) => { setSku(event.target.value); markDirty(); }} />
+                 </Field>
+                 <Field label="カテゴリ" help="商品一覧や検索で使う店内カテゴリです。">
+                   <Select value={category} onValueChange={(value) => { setCategory(value); markDirty(); }}>
+diff --git a/src/components/shop/ProductsTable.tsx b/src/components/shop/ProductsTable.tsx
+index ae1610b..6e6b821 100644
+--- a/src/components/shop/ProductsTable.tsx
++++ b/src/components/shop/ProductsTable.tsx
+@@ -45,8 +45,8 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
+         }
+         setRemoteSync(next);
+       })
+-      .catch(() => {
+-        // Product list remains usable with sample/local status when the status API is unavailable.
++        .catch(() => {
++        // Product list remains usable with local empty state when the status API is unavailable.
+       })
+       .finally(() => {
+         if (!cancelled) setIsRefreshingSync(false);
+@@ -97,6 +97,13 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
+           </TableRow>
+         </TableHeader>
+         <TableBody>
++          {rows.length === 0 ? (
++            <TableRow>
++              <TableCell colSpan={compact ? 9 : 10} className="h-28 text-center text-sm text-neutral-500">
++                商品はまだ登録されていません。「商品を追加」から公開用の商品情報を作成します。
++              </TableCell>
++            </TableRow>
++          ) : null}
+           {rows.map((product) => (
+             <TableRow key={product.id} className="cursor-pointer" onClick={() => onSelectProduct?.(product)}>
+               {!compact && (
+@@ -154,7 +161,10 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
+       </Table>
+       {!compact && (
+         <div className="border-t border-neutral-200 bg-neutral-50 p-2">
+-          <Button size="sm" className="gap-2" onClick={() => { window.location.href = "/shop/products/new"; }}>
++          <Button size="sm" className="gap-2" onClick={() => {
++            window.history.pushState({ section: "product-new" }, "", "/s/aiboux/admin/products/new");
++            window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "product-new" } }));
++          }}>
+             <Plus className="size-4" />
+             商品を追加
+           </Button>
+diff --git a/src/components/shop/ShopAnalytics.tsx b/src/components/shop/ShopAnalytics.tsx
+index 609f1b3..fb9038c 100644
+--- a/src/components/shop/ShopAnalytics.tsx
++++ b/src/components/shop/ShopAnalytics.tsx
+@@ -32,16 +32,22 @@ export function ShopAnalytics() {
+               <CardTitle className="text-sm">売上と注文の推移</CardTitle>
+             </CardHeader>
+             <CardContent>
+-              <ChartContainer config={chartConfig} className="h-[320px] w-full">
+-                <AreaChart data={analyticsData} margin={{ left: 0, right: 12, top: 12, bottom: 0 }}>
+-                  <CartesianGrid vertical={false} />
+-                  <XAxis dataKey="date" tickLine={false} axisLine={false} />
+-                  <YAxis tickLine={false} axisLine={false} tickFormatter={(value) => `¥${Number(value) / 1000}K`} />
+-                  <ChartTooltip content={<ChartTooltipContent />} />
+-                  <Area dataKey="previous" type="monotone" stroke="var(--color-previous)" fill="var(--color-previous)" fillOpacity={0.08} />
+-                  <Area dataKey="sales" type="monotone" stroke="var(--color-sales)" fill="var(--color-sales)" fillOpacity={0.12} />
+-                </AreaChart>
+-              </ChartContainer>
++              {analyticsData.length === 0 ? (
++                <div className="flex h-[320px] items-center justify-center rounded-md border border-dashed border-neutral-200 bg-neutral-50 text-sm text-neutral-500">
++                  売上データはまだありません。注文確定後に推移を表示します。
++                </div>
++              ) : (
++                <ChartContainer config={chartConfig} className="h-[320px] w-full">
++                  <AreaChart data={analyticsData} margin={{ left: 0, right: 12, top: 12, bottom: 0 }}>
++                    <CartesianGrid vertical={false} />
++                    <XAxis dataKey="date" tickLine={false} axisLine={false} />
++                    <YAxis tickLine={false} axisLine={false} tickFormatter={(value) => `¥${Number(value) / 1000}K`} />
++                    <ChartTooltip content={<ChartTooltipContent />} />
++                    <Area dataKey="previous" type="monotone" stroke="var(--color-previous)" fill="var(--color-previous)" fillOpacity={0.08} />
++                    <Area dataKey="sales" type="monotone" stroke="var(--color-sales)" fill="var(--color-sales)" fillOpacity={0.12} />
++                  </AreaChart>
++                </ChartContainer>
++              )}
+             </CardContent>
+           </Card>
+           <Card className="shadow-sm">
+@@ -49,10 +55,10 @@ export function ShopAnalytics() {
+               <CardTitle className="text-sm">コンバージョン指標</CardTitle>
+             </CardHeader>
+             <CardContent className="space-y-2 text-sm">
+-              <Metric label="セッション" value="38,420" delta="+9.4%" />
+-              <Metric label="カート追加率" value="8.7%" delta="+1.2pt" />
+-              <Metric label="購入完了率" value="2.35%" delta="+0.48pt" />
+-              <Metric label="平均注文単価" value="¥9,551" delta="+2.1%" />
++              <Metric label="セッション" value="未集計" delta="計測設定が必要です" />
++              <Metric label="カート追加率" value="未集計" delta="商品公開後に計測します" />
++              <Metric label="購入完了率" value="未集計" delta="注文確定後に計測します" />
++              <Metric label="平均注文単価" value="未集計" delta="注文確定後に集計します" />
+             </CardContent>
+           </Card>
+         </TabsContent>
+@@ -62,6 +68,11 @@ export function ShopAnalytics() {
+               <CardTitle className="text-sm">商品別売上</CardTitle>
+             </CardHeader>
+             <CardContent className="space-y-2">
++              {shopProducts.length === 0 ? (
++                <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-3 py-6 text-sm text-neutral-500">
++                  商品別売上はまだありません。商品と注文データが揃うと表示します。
++                </div>
++              ) : null}
+               {shopProducts.map((product) => (
+                 <div key={product.id} className="grid items-center gap-2 rounded-lg border border-neutral-200 px-3 py-2 text-sm md:grid-cols-[1fr_120px_100px_100px]">
+                   <span className="font-medium">{product.name}</span>
+@@ -90,7 +101,7 @@ function Metric({ label, value, delta }: { label: string; value: string; delta:
+       <span className="text-neutral-600">{label}</span>
+       <span className="flex items-center gap-2">
+         <span className="font-semibold text-neutral-950">{value}</span>
+-        <span className="text-xs font-medium text-emerald-600">{delta}</span>
++        <span className="text-xs font-medium text-neutral-500">{delta}</span>
+       </span>
+     </div>
+   );
+diff --git a/src/components/shop/ShopAppsPanel.tsx b/src/components/shop/ShopAppsPanel.tsx
+index f644f0c..be6c40d 100644
+--- a/src/components/shop/ShopAppsPanel.tsx
++++ b/src/components/shop/ShopAppsPanel.tsx
+@@ -30,7 +30,7 @@ export function ShopAppsPanel() {
+                 {integration.status === "接続済み" ? <CheckCircle2 className="size-4 text-emerald-600" /> : integration.status === "確認必要" ? <TriangleAlert className="size-4 text-amber-600" /> : <PlugZap className="size-4 text-neutral-500" />}
+                 <span>{integration.description}</span>
+               </div>
+-              <Button variant="outline" size="sm" className="gap-2" onClick={() => { window.location.href = "/shop/settings"; }}>
++              <Button variant="outline" size="sm" className="gap-2" onClick={() => { window.history.pushState({ section: "settings" }, "", "/s/aiboux/admin/settings"); }}>
+                 設定を開く
+                 <ExternalLink className="size-4" />
+               </Button>
+diff --git a/src/components/shop/ShopBestSellers.tsx b/src/components/shop/ShopBestSellers.tsx
+index f80a3f4..0f0610b 100644
+--- a/src/components/shop/ShopBestSellers.tsx
++++ b/src/components/shop/ShopBestSellers.tsx
+@@ -22,6 +22,11 @@ export function ShopBestSellers({ products = shopProducts }: { products?: ShopPr
+         </Select>
+       </CardHeader>
+       <CardContent className="space-y-2 px-4 pb-4">
++        {products.length === 0 ? (
++          <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-3 py-6 text-sm text-neutral-600">
++            商品別売上はまだありません。商品を登録し、注文が入ると集計します。
++          </div>
++        ) : null}
+         {products.map((product) => (
+           <div key={product.id} className="grid grid-cols-[40px_1fr_auto_auto] items-center gap-2">
+             <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
+@@ -34,7 +39,7 @@ export function ShopBestSellers({ products = shopProducts }: { products?: ShopPr
+           </div>
+         ))}
+         <Button asChild variant="link" className="h-7 px-0">
+-          <a href="/shop/products">商品別売上を開く</a>
++          <a href="/s/aiboux/admin/products">商品別売上を開く</a>
+         </Button>
+       </CardContent>
+     </Card>
+diff --git a/src/components/shop/ShopClientShell.tsx b/src/components/shop/ShopClientShell.tsx
+index 21f78fb..a727a23 100644
+--- a/src/components/shop/ShopClientShell.tsx
++++ b/src/components/shop/ShopClientShell.tsx
+@@ -23,6 +23,7 @@ import { ShopSidebar } from "@/components/shop/ShopSidebar";
+ import { StorefrontDesignBuilder } from "@/components/shop/StorefrontDesignBuilder";
+ import { ShopTopbar } from "@/components/shop/ShopTopbar";
+ import {
++  createEmptyProduct,
+   inventoryItems,
+   shopOrders,
+   shopProducts,
+@@ -59,7 +60,7 @@ interface ShopClientShellProps {
+ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShellProps) {
+   const [activeSection, setActiveSection] = React.useState<ShopSection>(initialSection);
+   const [searchQuery, setSearchQuery] = React.useState("");
+-  const [dateRange, setDateRange] = React.useState("2024/05/13 - 2024/05/19");
++  const [dateRange, setDateRange] = React.useState("今月");
+   const [hasUnsavedInventory, setHasUnsavedInventory] = React.useState(false);
+ 
+   const changeSection = React.useCallback((section: ShopSection) => {
+@@ -289,9 +290,9 @@ function filterProducts(products: ShopProduct[], query: string) {
+ }
+ 
+ function getProductFromPath() {
+-  if (typeof window === "undefined") return shopProducts[0];
++  if (typeof window === "undefined") return shopProducts[0] ?? createEmptyProduct();
+   const productId = window.location.pathname.split("/").filter(Boolean).at(-1);
+-  return shopProducts.find((product) => product.id === productId) ?? shopProducts[0];
++  return shopProducts.find((product) => product.id === productId) ?? shopProducts[0] ?? createEmptyProduct();
+ }
+ 
+ function getOrderFromPath() {
+diff --git a/src/components/shop/ShopContentPanel.tsx b/src/components/shop/ShopContentPanel.tsx
+index bd9feda..feb8ed7 100644
+--- a/src/components/shop/ShopContentPanel.tsx
++++ b/src/components/shop/ShopContentPanel.tsx
+@@ -6,12 +6,7 @@ import { Button } from "@/components/ui/button";
+ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+ 
+-const contentItems = [
+-  { id: "page-about", type: "固定ページ", title: "ブランドについて", status: "公開中", updatedAt: "2024/05/18", icon: FileText },
+-  { id: "news-001", type: "お知らせ", title: "初夏の新作入荷のお知らせ", status: "公開中", updatedAt: "2024/05/17", icon: Megaphone },
+-  { id: "banner-main", type: "バナー", title: "送料無料キャンペーン", status: "下書き", updatedAt: "2024/05/16", icon: Image },
+-  { id: "seo-home", type: "SEO", title: "トップページメタ情報", status: "改善候補", updatedAt: "2024/05/15", icon: Search },
+-];
++const contentItems: Array<{ id: string; type: string; title: string; status: string; updatedAt: string; icon: typeof FileText }> = [];
+ 
+ export function ShopContentPanel() {
+   return (
+@@ -39,6 +34,13 @@ export function ShopContentPanel() {
+               </TableRow>
+             </TableHeader>
+             <TableBody>
++              {contentItems.length === 0 ? (
++                <TableRow>
++                  <TableCell colSpan={5} className="h-28 text-center text-sm text-neutral-500">
++                    公開コンテンツはまだありません。特商法・配送・返品・問い合わせ文言は設定画面から登録します。
++                  </TableCell>
++                </TableRow>
++              ) : null}
+               {contentItems.map((item) => {
+                 const Icon = item.icon;
+                 return (
+diff --git a/src/components/shop/ShopDashboard.tsx b/src/components/shop/ShopDashboard.tsx
+index f1f1100..2c03eb0 100644
+--- a/src/components/shop/ShopDashboard.tsx
++++ b/src/components/shop/ShopDashboard.tsx
+@@ -89,14 +89,14 @@ export function ShopDashboard({ onSectionChange }: ShopDashboardProps) {
+       <Card className="mb-3 border-neutral-200 bg-blue-50/40 shadow-sm">
+         <CardContent className="grid gap-3 p-3 lg:grid-cols-[1fr_auto] lg:items-center">
+           <div>
+-            <div className="text-sm font-semibold text-neutral-950">集客とSEOは自動で動いています</div>
++            <div className="text-sm font-semibold text-neutral-950">集客とSEOの設定状態</div>
+             <p className="mt-1 text-xs leading-5 text-neutral-600">
+-              商品を保存すると、画像最適化、Google/Bing向け同期、在庫状態の反映を裏側で進めます。難しい設定は「集客・SEO自動化」でON/OFFだけ確認できます。
++              商品データと連携設定が揃うと、画像最適化、Google/Bing向け同期、在庫状態の反映を確認できます。未設定の項目は「設定」から有効化します。
+             </p>
+             <div className="mt-3 grid gap-2 sm:grid-cols-3">
+-              <AutomationStatus icon={Sparkles} label="AI画像最適化" />
+-              <AutomationStatus icon={Search} label="Google/Bing同期" />
+-              <AutomationStatus icon={Activity} label="在庫状態を自動反映" />
++              <AutomationStatus icon={Sparkles} label="AI画像最適化" active={shopProducts.length > 0} />
++              <AutomationStatus icon={Search} label="Google/Bing同期" active={productsSynced > 0 || productsSyncing > 0} />
++              <AutomationStatus icon={Activity} label="在庫状態を自動反映" active={inventoryItems.length > 0} />
+             </div>
+             <div className="mt-2 text-xs text-neutral-600">
+               現在の自動送信: 同期中 {productsSyncing}件 / 送信済み {productsSynced}件
+@@ -159,14 +159,16 @@ export function ShopDashboard({ onSectionChange }: ShopDashboardProps) {
+   );
+ }
+ 
+-function AutomationStatus({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
++function AutomationStatus({ icon: Icon, label, active }: { icon: LucideIcon; label: string; active: boolean }) {
+   return (
+     <div className="flex items-center gap-2 rounded-md border border-blue-100 bg-white px-2.5 py-2 text-xs text-neutral-700">
+-      <span className="flex size-6 items-center justify-center rounded-md bg-emerald-50 text-emerald-700">
++      <span className={`flex size-6 items-center justify-center rounded-md ${active ? "bg-emerald-50 text-emerald-700" : "bg-neutral-100 text-neutral-500"}`}>
+         <Icon className="size-3.5" />
+       </span>
+       <span className="font-medium">{label}</span>
+-      <span className="ml-auto rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">稼働中</span>
++      <span className={`ml-auto rounded-full px-2 py-0.5 text-[11px] font-medium ${active ? "bg-emerald-50 text-emerald-700" : "bg-neutral-100 text-neutral-600"}`}>
++        {active ? "稼働中" : "未設定"}
++      </span>
+     </div>
+   );
+ }
+diff --git a/src/components/shop/ShopInventoryAlerts.tsx b/src/components/shop/ShopInventoryAlerts.tsx
+index 8850fb3..ed82e8b 100644
+--- a/src/components/shop/ShopInventoryAlerts.tsx
++++ b/src/components/shop/ShopInventoryAlerts.tsx
+@@ -13,6 +13,11 @@ export function ShopInventoryAlerts({ items = inventoryItems, onOpenInventory }:
+         <Button variant="outline" size="sm" onClick={onOpenInventory}>すべて見る</Button>
+       </CardHeader>
+       <CardContent className="space-y-2 px-4 pb-4">
++        {items.filter((item) => item.unshippedOrders > 0).length === 0 ? (
++          <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-3 py-6 text-sm text-neutral-600">
++            在庫アラートはありません。商品と在庫を登録すると注意が必要なSKUを表示します。
++          </div>
++        ) : null}
+         {items
+           .filter((item) => item.unshippedOrders > 0)
+           .map((item) => (
+diff --git a/src/components/shop/ShopRecentOrders.tsx b/src/components/shop/ShopRecentOrders.tsx
+index 424cd55..02c95d3 100644
+--- a/src/components/shop/ShopRecentOrders.tsx
++++ b/src/components/shop/ShopRecentOrders.tsx
+@@ -140,6 +140,13 @@ export function ShopRecentOrders({ orders = shopOrders, compact, onSelectOrder }
+           </TableRow>
+         </TableHeader>
+         <TableBody>
++          {rows.length === 0 ? (
++            <TableRow>
++              <TableCell colSpan={compact ? 7 : 11} className="h-28 text-center text-sm text-neutral-500">
++                注文はまだありません。注文が入ると、支払い状態・発送状態・帳票操作がここに表示されます。
++              </TableCell>
++            </TableRow>
++          ) : null}
+           {rows.map((order) => (
+             <TableRow
+               key={order.id}
+diff --git a/src/components/shop/ShopSidebar.tsx b/src/components/shop/ShopSidebar.tsx
+index 48f13fd..b8b45dd 100644
+--- a/src/components/shop/ShopSidebar.tsx
++++ b/src/components/shop/ShopSidebar.tsx
+@@ -33,7 +33,7 @@ export function ShopSidebar({ activeSection, onSectionChange }: ShopSidebarProps
+     <Sidebar collapsible="offcanvas" className="border-r border-neutral-200 bg-neutral-50">
+       <SidebarHeader className="border-b border-neutral-200 bg-white p-3">
+         <div className="flex items-center justify-between gap-2">
+-          <a href="/shop" className="flex items-center gap-2" aria-label="AIBOUX SHOP Home">
++          <a href="/s/aiboux/admin" className="flex items-center gap-2" aria-label="AIBOUX SHOP Home">
+             <img src="/brand/aiboux-logo.svg" alt="aiboux" className="h-7 w-auto" />
+             <Badge variant="secondary" className="h-5 rounded-md px-1.5 text-[10px] font-semibold tracking-wide">
+               SHOP
+diff --git a/src/components/shop/ShopTopbar.tsx b/src/components/shop/ShopTopbar.tsx
+index 02c3a90..a426267 100644
+--- a/src/components/shop/ShopTopbar.tsx
++++ b/src/components/shop/ShopTopbar.tsx
+@@ -63,7 +63,7 @@ export function ShopTopbar({
+     <header className="flex h-14 shrink-0 items-center gap-2 border-b border-neutral-200 bg-white px-3">
+       <div className="flex items-center gap-2 md:hidden">
+         <SidebarTrigger aria-label="SHOPサイドバーを開く" />
+-        <a href="/shop" className="flex items-center gap-1.5" aria-label="aiboux SHOP">
++        <a href="/s/aiboux/admin" className="flex items-center gap-1.5" aria-label="aiboux SHOP">
+           <img src="/brand/aiboux-logo.svg" alt="aiboux" className="h-5 w-auto" />
+           <Badge variant="secondary" className="h-5 rounded-md px-1.5 text-[10px] font-semibold tracking-wide">
+             SHOP
+@@ -96,7 +96,7 @@ export function ShopTopbar({
+           </Button>
+         </PopoverTrigger>
+         <PopoverContent align="end" className="w-auto p-3">
+-          <Calendar mode="single" selected={new Date(2024, 4, 19)} />
++          <Calendar mode="single" selected={new Date()} />
+           <div className="mt-2 grid grid-cols-2 gap-2">
+             {["今日", "今週", "今月", "前月"].map((range) => (
+               <Button key={range} variant="outline" size="sm" onClick={() => onDateRangeChange(range)}>
+@@ -144,12 +144,11 @@ export function ShopTopbar({
+         <DropdownMenuTrigger asChild>
+           <Button variant="ghost" className="h-9 gap-2 px-2">
+             <Avatar className="size-7">
+-              <AvatarImage src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=80&fit=crop&crop=face" alt="山田 太郎" />
+-              <AvatarFallback>山田</AvatarFallback>
++              <AvatarFallback>管</AvatarFallback>
+             </Avatar>
+             <span className="hidden text-left text-xs leading-tight lg:block">
+-              <span className="block font-medium text-neutral-950">山田 太郎</span>
+-              <span className="block text-neutral-500">管理者</span>
++              <span className="block font-medium text-neutral-950">ストア管理者</span>
++              <span className="block text-neutral-500">管理画面</span>
+             </span>
+           </Button>
+         </DropdownMenuTrigger>
+@@ -157,7 +156,7 @@ export function ShopTopbar({
+           <DropdownMenuLabel>ストアアカウント</DropdownMenuLabel>
+           <DropdownMenuSeparator />
+           <DropdownMenuItem onClick={() => onSectionChange("settings")}>設定</DropdownMenuItem>
+-          <DropdownMenuItem asChild><a href="/shop" target="_blank" rel="noreferrer">公開ストアを開く</a></DropdownMenuItem>
++          <DropdownMenuItem asChild><a href="/s/aiboux/" target="_blank" rel="noreferrer">公開ストアを開く</a></DropdownMenuItem>
+           <DropdownMenuItem disabled>ログアウト</DropdownMenuItem>
+         </DropdownMenuContent>
+       </DropdownMenu>
+diff --git a/src/components/shop/onboarding/ShopOnboardingWizard.tsx b/src/components/shop/onboarding/ShopOnboardingWizard.tsx
+index 244d04b..be275bb 100644
+--- a/src/components/shop/onboarding/ShopOnboardingWizard.tsx
++++ b/src/components/shop/onboarding/ShopOnboardingWizard.tsx
+@@ -270,7 +270,9 @@ export function ShopOnboardingWizard() {
+         return;
+       }
+       toast.success("Shop初期設定を保存しました");
+-      window.location.href = data.dashboardPath ?? "/shop/dashboard";
++      const nextPath = data.dashboardPath ?? "/s/aiboux/admin";
++      window.history.pushState({ section: "dashboard" }, "", nextPath);
++      window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "dashboard" } }));
+     } catch {
+       toast.error("Shop初期設定APIに接続できませんでした");
+     } finally {
+diff --git a/src/components/shop/products/ShopProductWizard.tsx b/src/components/shop/products/ShopProductWizard.tsx
+index 26a257e..1bf1ef9 100644
+--- a/src/components/shop/products/ShopProductWizard.tsx
++++ b/src/components/shop/products/ShopProductWizard.tsx
+@@ -297,7 +297,8 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
+               <Button
+                 variant="outline"
+                 onClick={() => {
+-                  window.location.href = "/shop/settings";
++                  window.history.pushState({ section: "settings" }, "", "/s/aiboux/admin/settings");
++                  window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "settings" } }));
+                 }}
+               >
+                 任意のSNS/LINE設定を確認
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index 003d2c4..911321d 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -27,28 +27,30 @@ type ShadcnStorefrontProps = {
+ };
+ 
+ export function ShadcnStorefront({ storeName, products }: ShadcnStorefrontProps) {
++  const tenantRoot = "/s/aiboux";
++
+   return (
+     <div className="min-h-screen bg-background text-foreground">
+       <header className="border-b bg-background">
+         <div className="mx-auto flex max-w-screen-xl items-center gap-4 px-4 py-4">
+-          <a href="/shop/storefront/aiboux" className="shrink-0 text-lg font-semibold tracking-tight">
++          <a href={`${tenantRoot}/`} className="shrink-0 text-lg font-semibold tracking-tight">
+             {storeName}
+           </a>
+           <div className="min-w-0 flex-1">
+             <Input placeholder="このストアの商品を検索" aria-label="このストアの商品を検索" />
+           </div>
+           <Button asChild variant="outline" size="sm">
+-            <a href="/shop/storefront/aiboux#products">カート</a>
++            <a href={`${tenantRoot}/cart`}>カート</a>
+           </Button>
+         </div>
+         <Separator />
+         <nav className="mx-auto flex max-w-screen-xl items-center gap-5 px-4 py-2 text-sm text-muted-foreground">
+-          <a href="#products" className="font-medium text-foreground">
++          <a href={`${tenantRoot}/products`} className="font-medium text-foreground">
+             商品一覧
+           </a>
+-          <a href="/shop/categories">カテゴリ</a>
+-          <a href="/shop/settings">問い合わせ</a>
+-          <a href="/shop/settings">特商法</a>
++          <a href={`${tenantRoot}/categories`}>カテゴリ</a>
++          <a href={`${tenantRoot}/contact`}>問い合わせ</a>
++          <a href={`${tenantRoot}/legal`}>特商法</a>
+           <a href="https://mall.aiboux.com/">AIBOUX Mall</a>
+           <span>{storeName}</span>
+         </nav>
+@@ -66,6 +68,11 @@ export function ShadcnStorefront({ storeName, products }: ShadcnStorefrontProps)
+         </div>
+ 
+         <div id="products" className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
++          {products.length === 0 ? (
++            <div className="col-span-full rounded-lg border border-dashed bg-muted/40 px-4 py-12 text-center text-sm text-muted-foreground">
++              公開商品はまだありません。管理画面で商品を公開するとここに表示されます。
++            </div>
++          ) : null}
+           {products.map((product) => (
+             <Card key={product.id} className="h-full">
+               <CardContent className="pt-0">
+@@ -112,10 +119,10 @@ export function ShadcnStorefront({ storeName, products }: ShadcnStorefrontProps)
+       </main>
+       <footer className="border-t bg-background">
+         <nav className="mx-auto flex max-w-screen-xl flex-wrap gap-4 px-4 py-5 text-sm text-muted-foreground">
+-          <a href="/shop/settings">プライバシーポリシー</a>
+-          <a href="/shop/settings">配送について</a>
+-          <a href="/shop/settings">返品について</a>
+-          <a href="/shop/settings">問い合わせ</a>
++          <a href={`${tenantRoot}/privacy`}>プライバシーポリシー</a>
++          <a href={`${tenantRoot}/shipping`}>配送について</a>
++          <a href={`${tenantRoot}/returns`}>返品について</a>
++          <a href={`${tenantRoot}/contact`}>問い合わせ</a>
+         </nav>
+       </footer>
+     </div>
+diff --git a/src/components/shop/storefront/ShopStorefrontHome.tsx b/src/components/shop/storefront/ShopStorefrontHome.tsx
+index 7b8e16d..96c7b6f 100644
+--- a/src/components/shop/storefront/ShopStorefrontHome.tsx
++++ b/src/components/shop/storefront/ShopStorefrontHome.tsx
+@@ -77,9 +77,9 @@ export function ShopStorefrontHome() {
+               検索
+             </Button>
+           </div>
+-          <HeaderAction icon={<UserRound className="size-6" />} label="ログイン" sub="アカウントサービス" />
+-          <HeaderAction icon={<PackageCheck className="size-6" />} label="注文履歴" sub="返品もこちら" />
+-          <HeaderAction icon={<ShoppingCart className="size-7" />} label="カート" sub="0" strong />
++          <HeaderAction href="/s/aiboux/account" icon={<UserRound className="size-6" />} label="ログイン" sub="アカウントサービス" />
++          <HeaderAction href="/s/aiboux/account/orders" icon={<PackageCheck className="size-6" />} label="注文履歴" sub="返品もこちら" />
++          <HeaderAction href="/s/aiboux/cart" icon={<ShoppingCart className="size-7" />} label="カート" sub="0" strong />
+         </div>
+         <nav className="mx-auto flex max-w-[1980px] items-center gap-2 overflow-x-auto px-6">
+           <a href="#categories" className="flex h-11 shrink-0 items-center gap-2 border border-b-0 border-neutral-200 bg-white px-4 text-sm font-semibold">
+@@ -87,7 +87,7 @@ export function ShopStorefrontHome() {
+             すべてのカテゴリ
+           </a>
+           {categories.map((category) => (
+-            <a key={category} href={`#${category}`} className="shrink-0 px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-blue-700">
++            <a key={category} href="/s/aiboux/categories" className="shrink-0 px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-blue-700">
+               {category}
+             </a>
+           ))}
+@@ -182,9 +182,9 @@ function UtilityBar() {
+   );
+ }
+ 
+-function HeaderAction({ icon, label, sub, strong }: { icon: React.ReactNode; label: string; sub: string; strong?: boolean }) {
++function HeaderAction({ href, icon, label, sub, strong }: { href: string; icon: React.ReactNode; label: string; sub: string; strong?: boolean }) {
+   return (
+-    <a href="#" className="flex shrink-0 items-center gap-2 text-sm">
++    <a href={href} className="flex shrink-0 items-center gap-2 text-sm">
+       <span className="relative">{icon}{strong ? <Badge className="absolute -right-2 -top-2 size-5 justify-center rounded-full p-0 text-[10px]">0</Badge> : null}</span>
+       <span><span className="block text-xs text-neutral-500">{label}</span><span className="block font-bold text-neutral-950">{sub}</span></span>
+     </a>
+@@ -231,8 +231,13 @@ function ProductRail({ title, products, ranking, sale }: { title: string; produc
+     <section>
+       <div className="mb-2 flex items-center justify-between">
+         <h2 className="text-xl font-bold">{title}</h2>
+-        <a href="#" className="text-xs font-semibold text-blue-700">もっと見る</a>
++        <a href="/s/aiboux/products" className="text-xs font-semibold text-blue-700">もっと見る</a>
+       </div>
++      {products.length === 0 ? (
++        <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-4 py-10 text-center text-sm text-neutral-500">
++          公開商品はまだありません。管理画面で商品を公開するとここに表示されます。
++        </div>
++      ) : null}
+       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
+         {products.slice(0, 8).map((product, index) => <ProductCard key={`${title}-${product.id}`} product={product} rank={ranking ? index + 1 : undefined} sale={sale} />)}
+       </div>
+@@ -259,7 +264,7 @@ function ProductCard({ product, rank, sale }: { product: ShopProduct; rank?: num
+ }
+ 
+ function FeatureCard({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) {
+-  return <Card id={id} className="shadow-none"><CardHeader className="flex flex-row items-center justify-between px-4 py-3"><CardTitle className="text-base">{title}</CardTitle><a href="#" className="text-xs font-semibold text-blue-700">もっと見る</a></CardHeader><CardContent className="px-4 pb-4">{children}</CardContent></Card>;
++  return <Card id={id} className="shadow-none"><CardHeader className="flex flex-row items-center justify-between px-4 py-3"><CardTitle className="text-base">{title}</CardTitle><a href="/s/aiboux/products" className="text-xs font-semibold text-blue-700">もっと見る</a></CardHeader><CardContent className="px-4 pb-4">{children}</CardContent></Card>;
+ }
+ 
+ function MiniList({ products }: { products: ShopProduct[] }) {
+diff --git a/src/data/shop-sample-data.ts b/src/data/shop-sample-data.ts
+index 33c6b14..ad88dd0 100644
+--- a/src/data/shop-sample-data.ts
++++ b/src/data/shop-sample-data.ts
+@@ -173,238 +173,39 @@ export interface AIAction {
+ }
+ 
+ export const shopNavItems: ShopNavItem[] = [
+-  { id: "dashboard", label: "ダッシュボード", href: "/shop/dashboard", icon: Home },
+-  { id: "orders", label: "注文管理", href: "/shop/orders", icon: ShoppingCart, count: 128 },
+-  { id: "products", label: "商品管理", href: "/shop/products", icon: Package },
+-  { id: "inventory", label: "在庫", href: "/shop/inventory", icon: Boxes },
+-  { id: "categories", label: "カテゴリ管理", href: "/shop/categories", icon: Tags },
+-  { id: "customers", label: "顧客", href: "/shop/customers", icon: Users },
+-  { id: "content", label: "コンテンツ", href: "/shop/content", icon: FileText },
+-  { id: "analytics", label: "分析", href: "/shop/analytics", icon: BarChart3 },
+-  { id: "apps", label: "アプリ", href: "/shop/apps", icon: Plug },
+-  { id: "design", label: "ストアデザイン", href: "/shop/settings/design", icon: Paintbrush },
+-  { id: "settings", label: "設定", href: "/shop/settings", icon: Settings },
++  { id: "dashboard", label: "ダッシュボード", href: "/s/aiboux/admin", icon: Home },
++  { id: "orders", label: "注文管理", href: "/s/aiboux/admin/orders", icon: ShoppingCart },
++  { id: "products", label: "商品管理", href: "/s/aiboux/admin/products", icon: Package },
++  { id: "inventory", label: "在庫", href: "/s/aiboux/admin/inventory", icon: Boxes },
++  { id: "categories", label: "カテゴリ管理", href: "/s/aiboux/admin/categories", icon: Tags },
++  { id: "customers", label: "顧客", href: "/s/aiboux/admin/customers", icon: Users },
++  { id: "content", label: "コンテンツ", href: "/s/aiboux/admin/content", icon: FileText },
++  { id: "analytics", label: "分析", href: "/s/aiboux/admin/analytics", icon: BarChart3 },
++  { id: "apps", label: "アプリ", href: "/s/aiboux/admin/apps", icon: Plug },
++  { id: "design", label: "ストアデザイン", href: "/s/aiboux/admin/design", icon: Paintbrush },
++  { id: "settings", label: "設定", href: "/s/aiboux/admin/settings", icon: Settings },
+ ];
+ 
+ export const shopMetrics: ShopMetric[] = [
+-  { id: "sales", label: "売上", value: "¥2,340,000", delta: "前期間比 +18.5%", tone: "success", icon: CircleDollarSign },
+-  { id: "orders", label: "注文数", value: "245件", delta: "前期間比 +15.2%", tone: "success", icon: ShoppingCart },
+-  { id: "conversion", label: "コンバージョン率", value: "2.35%", delta: "前期間比 +0.48pt", tone: "success", icon: Gauge },
+-  { id: "aov", label: "平均注文単価", value: "¥9,551", delta: "前期間比 +2.1%", tone: "success", icon: Tags },
+-  { id: "repeat", label: "リピーター率", value: "28.7%", delta: "前期間比 +3.6pt", tone: "success", icon: Users },
+-];
+-
+-export const shopProducts: ShopProduct[] = [
+-  {
+-    id: "prod-tsh-001",
+-    name: "オーガニックコットンTシャツ",
+-    sku: "TSH-001-WHT",
+-    category: "アパレル",
+-    price: 4800,
+-    stock: 42,
+-    reserved: 5,
+-    incoming: 30,
+-    status: "公開中",
+-    sales: 412800,
+-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=160&h=160&fit=crop",
+-    tags: ["定番", "白"],
+-    feedSync: { google: "synced", bing: "synced", lastSyncedAt: "2026/05/28 12:20" },
+-    variants: [
+-      { id: "v-tsh-s", name: "S / ホワイト", sku: "TSH-001-WHT-S", stock: 12, price: 4800 },
+-      { id: "v-tsh-m", name: "M / ホワイト", sku: "TSH-001-WHT-M", stock: 18, price: 4800 },
+-      { id: "v-tsh-l", name: "L / ホワイト", sku: "TSH-001-WHT-L", stock: 12, price: 4800 },
+-    ],
+-  },
+-  {
+-    id: "prod-bag-001",
+-    name: "ミニマルトートバッグ",
+-    sku: "BAG-001-BLK",
+-    category: "バッグ",
+-    price: 6200,
+-    stock: 7,
+-    reserved: 2,
+-    incoming: 20,
+-    status: "公開中",
+-    sales: 359600,
+-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=160&h=160&fit=crop",
+-    tags: ["人気", "黒"],
+-    feedSync: { google: "syncing", bing: "syncing" },
+-    variants: [{ id: "v-bag-b", name: "ブラック", sku: "BAG-001-BLK", stock: 7, price: 6200 }],
+-  },
+-  {
+-    id: "prod-btl-500",
+-    name: "ステンレスボトル 500ml",
+-    sku: "BTL-500-SLV",
+-    category: "生活雑貨",
+-    price: 3200,
+-    stock: 8,
+-    reserved: 4,
+-    incoming: 24,
+-    status: "公開中",
+-    sales: 166400,
+-    image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=160&h=160&fit=crop",
+-    tags: ["ギフト"],
+-    feedSync: { google: "synced", bing: "error", lastSyncedAt: "2026/05/28 12:10" },
+-    variants: [{ id: "v-btl-s", name: "シルバー", sku: "BTL-500-SLV", stock: 8, price: 3200 }],
+-  },
+-  {
+-    id: "prod-pkr-002",
+-    name: "リラックスフィットパーカー",
+-    sku: "PKR-002-GRY",
+-    category: "アパレル",
+-    price: 7800,
+-    stock: 9,
+-    reserved: 1,
+-    incoming: 18,
+-    status: "公開中",
+-    sales: 296400,
+-    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=160&h=160&fit=crop",
+-    tags: ["季節商品"],
+-    feedSync: { google: "synced", bing: "synced", lastSyncedAt: "2026/05/28 11:58" },
+-    variants: [{ id: "v-pkr-g", name: "グレー", sku: "PKR-002-GRY", stock: 9, price: 7800 }],
+-  },
+-  {
+-    id: "prod-cap-001",
+-    name: "コットンキャップ",
+-    sku: "CAP-001-NVY",
+-    category: "帽子",
+-    price: 2900,
+-    stock: 6,
+-    reserved: 1,
+-    incoming: 12,
+-    status: "公開中",
+-    sales: 89900,
+-    image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=160&h=160&fit=crop",
+-    tags: ["軽量"],
+-    feedSync: { google: "unsynced", bing: "unsynced" },
+-    variants: [{ id: "v-cap-n", name: "ネイビー", sku: "CAP-001-NVY", stock: 6, price: 2900 }],
+-  },
+-];
+-
+-export const shopOrders: ShopOrder[] = [
+-  {
+-    id: "#10085",
+-    orderedAt: "2024/05/19 14:32",
+-    customerName: "佐藤 花子",
+-    customerEmail: "hanako.sato@example.jp",
+-    total: 12480,
+-    carrier: "ヤマト運輸",
+-    trackingNumber: "YMT-8062-4512",
+-    paymentStatus: "支払い済み",
+-    fulfillmentStatus: "発送済み",
+-    deliveryStatus: "配送中",
+-    tags: ["リピーター", "ギフト"],
+-    items: [
+-      { productId: "prod-bag-001", name: "ミニマルトートバッグ", sku: "BAG-001-BLK", quantity: 1, price: 6200 },
+-      { productId: "prod-cap-001", name: "コットンキャップ", sku: "CAP-001-NVY", quantity: 2, price: 2900 },
+-    ],
+-  },
+-  {
+-    id: "#10084",
+-    orderedAt: "2024/05/19 13:15",
+-    customerName: "鈴木 一郎",
+-    customerEmail: "ichiro.suzuki@example.jp",
+-    total: 8760,
+-    carrier: "日本郵便",
+-    paymentStatus: "支払い済み",
+-    fulfillmentStatus: "一部発送",
+-    deliveryStatus: "発送準備中",
+-    tags: ["要確認"],
+-    items: [{ productId: "prod-tsh-001", name: "オーガニックコットンTシャツ", sku: "TSH-001-WHT", quantity: 2, price: 4800 }],
+-  },
+-  {
+-    id: "#10083",
+-    orderedAt: "2024/05/19 11:08",
+-    customerName: "田中 美咲",
+-    customerEmail: "misaki.tanaka@example.jp",
+-    total: 5980,
+-    paymentStatus: "支払い済み",
+-    fulfillmentStatus: "処理中",
+-    deliveryStatus: "未発送",
+-    tags: ["初回"],
+-    items: [{ productId: "prod-btl-500", name: "ステンレスボトル 500ml", sku: "BTL-500-SLV", quantity: 1, price: 3200 }],
+-  },
+-  {
+-    id: "#10082",
+-    orderedAt: "2024/05/18 23:41",
+-    customerName: "高橋 大輔",
+-    customerEmail: "daisuke.takahashi@example.jp",
+-    total: 15320,
+-    paymentStatus: "未払い",
+-    fulfillmentStatus: "処理中",
+-    deliveryStatus: "未発送",
+-    tags: ["決済確認"],
+-    items: [{ productId: "prod-pkr-002", name: "リラックスフィットパーカー", sku: "PKR-002-GRY", quantity: 2, price: 7800 }],
+-  },
+-  {
+-    id: "#10081",
+-    orderedAt: "2024/05/18 21:27",
+-    customerName: "伊藤 優子",
+-    customerEmail: "yuko.ito@example.jp",
+-    total: 9200,
+-    paymentStatus: "返金済み",
+-    fulfillmentStatus: "キャンセル",
+-    deliveryStatus: "未発送",
+-    tags: ["返金済み"],
+-    items: [{ productId: "prod-cap-001", name: "コットンキャップ", sku: "CAP-001-NVY", quantity: 3, price: 2900 }],
+-  },
+-];
+-
+-export const inventoryItems: InventoryItem[] = shopProducts.map((product) => {
+-  const unshippedOrders = shopOrders
+-    .filter((order) => order.fulfillmentStatus !== "発送済み" && order.fulfillmentStatus !== "キャンセル" && !order.trackingNumber)
+-    .flatMap((order) => order.items)
+-    .filter((item) => item.productId === product.id)
+-    .reduce((sum, item) => sum + item.quantity, 0);
+-
+-  return {
+-    productId: product.id,
+-    name: product.name,
+-    sku: product.sku,
+-    stock: product.stock,
+-    unshippedOrders,
+-    location: product.category === "アパレル" ? "東京倉庫 A-1" : "大阪倉庫 B-2",
+-    status: "受注中",
+-  };
+-});
+-
+-export const collections: CollectionItem[] = [
+-  { id: "col-summer", name: "初夏の定番アイテム", productCount: 18, status: "公開中", condition: "タグ: 定番", sort: "売上順", seo: "設定済み", thumbnail: "TSH" },
+-  { id: "col-gift", name: "ギフト向けセレクション", productCount: 12, status: "公開中", condition: "タグ: ギフト", sort: "手動", seo: "改善候補", thumbnail: "GFT" },
+-  { id: "col-stock", name: "在庫強化商品", productCount: 9, status: "下書き", condition: "在庫20以上", sort: "新着順", seo: "未設定", thumbnail: "STK" },
+-];
+-
+-export const customers: ShopCustomer[] = [
+-  { id: "cus-001", name: "佐藤 花子", email: "hanako.sato@example.jp", orders: 8, totalSpent: 92840, lastOrder: "2024/05/19", tags: ["リピーター", "ギフト"], note: "ギフト包装を好む" },
+-  { id: "cus-002", name: "鈴木 一郎", email: "ichiro.suzuki@example.jp", orders: 3, totalSpent: 28600, lastOrder: "2024/05/19", tags: ["要フォロー"], note: "納期確認が多い" },
+-  { id: "cus-003", name: "田中 美咲", email: "misaki.tanaka@example.jp", orders: 1, totalSpent: 5980, lastOrder: "2024/05/19", tags: ["初回"], note: "初回購入" },
+-  { id: "cus-004", name: "高橋 大輔", email: "daisuke.takahashi@example.jp", orders: 5, totalSpent: 74020, lastOrder: "2024/05/18", tags: ["高単価"], note: "まとめ買い傾向" },
+-  { id: "cus-005", name: "伊藤 優子", email: "yuko.ito@example.jp", orders: 2, totalSpent: 18400, lastOrder: "2024/05/18", tags: ["返金履歴"], note: "サイズ交換履歴あり" },
+-];
+-
+-export const discounts: Discount[] = [
+-  { id: "dis-001", code: "WELCOME10", type: "割引コード", target: "初回購入", value: "10%", usage: 42, period: "2024/05/01 - 2024/06/30", status: "有効" },
+-  { id: "dis-002", code: "BAGSET500", type: "自動割引", target: "バッグ + キャップ", value: "¥500", usage: 18, period: "2024/05/10 - 2024/05/31", status: "有効" },
+-  { id: "dis-003", code: "SPRING20", type: "割引コード", target: "季節商品", value: "20%", usage: 96, period: "2024/03/01 - 2024/04/30", status: "期限切れ" },
+-];
+-
+-export const analyticsData: ShopAnalyticsReport[] = [
+-  { date: "5/13", sales: 168000, previous: 72000, orders: 24 },
+-  { date: "5/14", sales: 212000, previous: 126000, orders: 31 },
+-  { date: "5/15", sales: 174000, previous: 98000, orders: 27 },
+-  { date: "5/16", sales: 218000, previous: 132000, orders: 34 },
+-  { date: "5/17", sales: 183000, previous: 101000, orders: 28 },
+-  { date: "5/18", sales: 205000, previous: 118000, orders: 32 },
+-  { date: "5/19", sales: 172000, previous: 73000, orders: 25 },
++  { id: "sales", label: "売上", value: "¥0", delta: "注文データ未連携", tone: "neutral", icon: CircleDollarSign },
++  { id: "orders", label: "注文数", value: "0件", delta: "注文はまだありません", tone: "neutral", icon: ShoppingCart },
++  { id: "conversion", label: "コンバージョン率", value: "未集計", delta: "計測設定が必要です", tone: "neutral", icon: Gauge },
++  { id: "aov", label: "平均注文単価", value: "未集計", delta: "注文確定後に集計します", tone: "neutral", icon: Tags },
++  { id: "repeat", label: "リピーター率", value: "未集計", delta: "顧客データ連携後に表示します", tone: "neutral", icon: Users },
+ ];
+ 
++export const shopProducts: ShopProduct[] = [];
++export const shopOrders: ShopOrder[] = [];
++export const inventoryItems: InventoryItem[] = [];
++export const collections: CollectionItem[] = [];
++export const customers: ShopCustomer[] = [];
++export const discounts: Discount[] = [];
++export const analyticsData: ShopAnalyticsReport[] = [];
+ export const integrations: ShopAppIntegration[] = [
+-  { id: "app-amazon", name: "Amazon Seller Central", category: "3大モール連携", status: "接続済み", description: "出品・在庫・価格を同期中" },
+-  { id: "app-rakuten", name: "楽天 RMS", category: "3大モール連携", status: "確認必要", description: "価格同期で2件の警告" },
+-  { id: "app-yahoo", name: "Yahoo!ストアクリエイターPro", category: "3大モール連携", status: "接続済み", description: "注文取り込みを有効化" },
+-  { id: "app-yamato", name: "ヤマトB2クラウド", category: "配送連携", status: "接続済み", description: "発送CSVを自動生成" },
+-  { id: "app-stripe", name: "Stripe", category: "決済連携", status: "接続済み", description: "カード / Apple Payに対応" },
+-  { id: "app-analytics", name: "Search Console", category: "分析連携", status: "未接続", description: "検索流入分析を準備中" },
++  { id: "app-payment", name: "決済連携", category: "決済", status: "未接続", description: "決済設定を保存すると受付状態を確認できます" },
++  { id: "app-mail", name: "Mail連携", category: "問い合わせ", status: "未接続", description: "問い合わせ保存またはメール送信の接続を確認してください" },
++  { id: "app-seo", name: "検索連携", category: "集客", status: "未接続", description: "商品公開後にGoogle/Bing連携状態を確認します" },
++  { id: "app-core", name: "Core連携", category: "商品・在庫", status: "未接続", description: "Core商品と在庫の同期設定を確認してください" },
+ ];
+ 
+ export const aiActions: AIAction[] = [
+@@ -422,6 +223,25 @@ export const aiActions: AIAction[] = [
+   { id: "mall", label: "3大モール同期状況を確認" },
+ ];
+ 
++export function createEmptyProduct(): ShopProduct {
++  return {
++    id: "new-product",
++    name: "",
++    sku: "",
++    category: "未分類",
++    price: 0,
++    stock: 0,
++    reserved: 0,
++    incoming: 0,
++    status: "下書き",
++    sales: 0,
++    image: "",
++    tags: [],
++    variants: [],
++    feedSync: { google: "unsynced", bing: "unsynced" },
++  };
++}
++
+ export function formatYen(value: number) {
+   return `¥${value.toLocaleString("ja-JP")}`;
+ }
+diff --git a/src/pages/shop/api/settings/onboarding.ts b/src/pages/shop/api/settings/onboarding.ts
+index baaa457..852828e 100644
+--- a/src/pages/shop/api/settings/onboarding.ts
++++ b/src/pages/shop/api/settings/onboarding.ts
+@@ -89,7 +89,7 @@ export const POST: APIRoute = async ({ request }) => {
+       tenantId: tenant.tenantId,
+       storeName,
+       mallSubdomain: subdomain,
+-      dashboardPath: "/shop/dashboard",
++      dashboardPath: "/s/aiboux/admin",
+     });
+   } catch (error) {
+     return productError(error);
+diff --git a/src/pages/shop/api/stripe/onboard.ts b/src/pages/shop/api/stripe/onboard.ts
+index 536bf70..71ace5f 100644
+--- a/src/pages/shop/api/stripe/onboard.ts
++++ b/src/pages/shop/api/stripe/onboard.ts
+@@ -55,7 +55,7 @@ export const POST: APIRoute = async ({ request }) => {
+ 
+     if (businessData.dataSource !== "shop_settings") {
+       accountId = buildMockStripeAccountId(tenant.tenantId);
+-      onboardingUrl = `${origin}/shop/settings?stripe=business_required&account=${encodeURIComponent(accountId)}`;
++      onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=business_required&account=${encodeURIComponent(accountId)}`;
+       warning = "事業者情報が未設定のため、Stripe連携は開始していません。先に帳票・書類設定を保存してください。";
+     } else if (stripeSecret) {
+       mode = "stripe_api";
+@@ -74,11 +74,11 @@ export const POST: APIRoute = async ({ request }) => {
+         mode = "mock";
+         warning = "Stripe API接続に失敗したため、モック連携として状態を保存しました。APIキーとStripe設定を確認してください。";
+         accountId = buildMockStripeAccountId(tenant.tenantId);
+-        onboardingUrl = `${origin}/shop/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
++        onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
+       }
+     } else {
+       accountId = accountId || buildMockStripeAccountId(tenant.tenantId);
+-      onboardingUrl = `${origin}/shop/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
++      onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
+     }
+ 
+     const state: StripeConnectState = "pending";
+@@ -165,8 +165,8 @@ async function createStripeAccount(secret: string, tenantId: string, businessDat
+ async function createStripeAccountLink(secret: string, accountId: string, origin: string): Promise<{ url: string; expiresAt: number }> {
+   const body = new URLSearchParams();
+   body.set("account", accountId);
+-  body.set("refresh_url", `${origin}/shop/settings?stripe=refresh`);
+-  body.set("return_url", `${origin}/shop/settings?stripe=return`);
++  body.set("refresh_url", `${origin}/s/aiboux/admin/settings?stripe=refresh`);
++  body.set("return_url", `${origin}/s/aiboux/admin/settings?stripe=return`);
+   body.set("type", "account_onboarding");
+ 
+   const response = await fetchWithTimeout("https://api.stripe.com/v1/account_links", {
+diff --git a/src/pages/shop/discounts.astro b/src/pages/shop/discounts.astro
+index 23a15fd..72500af 100644
+--- a/src/pages/shop/discounts.astro
++++ b/src/pages/shop/discounts.astro
+@@ -1,4 +1,4 @@
+ ---
+ export const prerender = false;
+-return Astro.redirect("/shop/settings", 302);
++return Astro.redirect("/s/aiboux/admin/settings", 302);
+ ---
+diff --git a/src/pages/shop/storefront/[tenant].astro b/src/pages/shop/storefront/[tenant].astro
+index 292fdba..7e2f030 100644
+--- a/src/pages/shop/storefront/[tenant].astro
++++ b/src/pages/shop/storefront/[tenant].astro
+@@ -28,7 +28,7 @@ const storefrontProducts = shopProducts.map((product) => ({
+   price: product.price.toLocaleString("ja-JP"),
+   category: product.category,
+   inStock: product.stock > 0,
+-  href: `/shop/products/${product.id}`,
++  href: `/s/${encodeURIComponent(tenantParam)}/product/${product.id}`,
+ }));
+ ---
+ 

@@ -22,6 +22,11 @@ export function ShopBestSellers({ products = shopProducts }: { products?: ShopPr
         </Select>
       </CardHeader>
       <CardContent className="space-y-2 px-4 pb-4">
+        {products.length === 0 ? (
+          <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-3 py-6 text-sm text-neutral-600">
+            商品別売上はまだありません。商品を登録し、注文が入ると集計します。
+          </div>
+        ) : null}
         {products.map((product) => (
           <div key={product.id} className="grid grid-cols-[40px_1fr_auto_auto] items-center gap-2">
             <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
@@ -34,7 +39,7 @@ export function ShopBestSellers({ products = shopProducts }: { products?: ShopPr
           </div>
         ))}
         <Button asChild variant="link" className="h-7 px-0">
-          <a href="/shop/products">商品別売上を開く</a>
+          <a href="/s/aiboux/admin/products">商品別売上を開く</a>
         </Button>
       </CardContent>
     </Card>

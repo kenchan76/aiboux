@@ -63,7 +63,7 @@ export function ShopTopbar({
     <header className="flex h-14 shrink-0 items-center gap-2 border-b border-neutral-200 bg-white px-3">
       <div className="flex items-center gap-2 md:hidden">
         <SidebarTrigger aria-label="SHOPサイドバーを開く" />
-        <a href="/shop" className="flex items-center gap-1.5" aria-label="aiboux SHOP">
+        <a href="/s/aiboux/admin" className="flex items-center gap-1.5" aria-label="aiboux SHOP">
           <img src="/brand/aiboux-logo.svg" alt="aiboux" className="h-5 w-auto" />
           <Badge variant="secondary" className="h-5 rounded-md px-1.5 text-[10px] font-semibold tracking-wide">
             SHOP
@@ -96,7 +96,7 @@ export function ShopTopbar({
           </Button>
         </PopoverTrigger>
         <PopoverContent align="end" className="w-auto p-3">
-          <Calendar mode="single" selected={new Date(2024, 4, 19)} />
+          <Calendar mode="single" selected={new Date()} />
           <div className="mt-2 grid grid-cols-2 gap-2">
             {["今日", "今週", "今月", "前月"].map((range) => (
               <Button key={range} variant="outline" size="sm" onClick={() => onDateRangeChange(range)}>
@@ -144,12 +144,11 @@ export function ShopTopbar({
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-9 gap-2 px-2">
             <Avatar className="size-7">
-              <AvatarImage src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=80&fit=crop&crop=face" alt="山田 太郎" />
-              <AvatarFallback>山田</AvatarFallback>
+              <AvatarFallback>管</AvatarFallback>
             </Avatar>
             <span className="hidden text-left text-xs leading-tight lg:block">
-              <span className="block font-medium text-neutral-950">山田 太郎</span>
-              <span className="block text-neutral-500">管理者</span>
+              <span className="block font-medium text-neutral-950">ストア管理者</span>
+              <span className="block text-neutral-500">管理画面</span>
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -157,7 +156,7 @@ export function ShopTopbar({
           <DropdownMenuLabel>ストアアカウント</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => onSectionChange("settings")}>設定</DropdownMenuItem>
-          <DropdownMenuItem asChild><a href="/shop" target="_blank" rel="noreferrer">公開ストアを開く</a></DropdownMenuItem>
+          <DropdownMenuItem asChild><a href="/s/aiboux/" target="_blank" rel="noreferrer">公開ストアを開く</a></DropdownMenuItem>
           <DropdownMenuItem disabled>ログアウト</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

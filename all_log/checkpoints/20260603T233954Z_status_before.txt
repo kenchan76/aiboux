@@ -1,0 +1,38 @@
+ M all_log/92_shop_wip_deploy_public_reflection.md
+ M all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M src/components/shop/CustomersTable.tsx
+ M src/components/shop/InventoryTable.tsx
+ M src/components/shop/ProductEditor.tsx
+ M src/components/shop/ProductsTable.tsx
+ M src/components/shop/ShopAnalytics.tsx
+ M src/components/shop/ShopAppsPanel.tsx
+ M src/components/shop/ShopBestSellers.tsx
+ M src/components/shop/ShopClientShell.tsx
+ M src/components/shop/ShopContentPanel.tsx
+ M src/components/shop/ShopDashboard.tsx
+ M src/components/shop/ShopInventoryAlerts.tsx
+ M src/components/shop/ShopRecentOrders.tsx
+ M src/components/shop/ShopSidebar.tsx
+ M src/components/shop/ShopTopbar.tsx
+ M src/components/shop/onboarding/ShopOnboardingWizard.tsx
+ M src/components/shop/products/ShopProductWizard.tsx
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/components/shop/storefront/ShopStorefrontHome.tsx
+ M src/data/shop-sample-data.ts
+ M src/pages/shop/api/settings/onboarding.ts
+ M src/pages/shop/api/stripe/onboard.ts
+ M src/pages/shop/discounts.astro
+ M src/pages/shop/storefront/[tenant].astro
+?? all_log/checkpoints/20260603T232600Z_wip_commit.txt
+?? all_log/checkpoints/20260603T233309Z_head_before_shop_fix_01.txt
+?? all_log/checkpoints/20260603T233309Z_origin_main_before_shop_fix_01.txt
+?? all_log/checkpoints/20260603T233309Z_status_before_shop_fix_01.txt
+?? all_log/deploys/20260603T232600Z_deployments_before.txt
+?? all_log/deploys/20260603T233309Z_deployments_before_shop_fix_01.txt
+?? all_log/deploys/20260603T233954Z_deploy_shop_fix_01_command.txt
+?? all_log/patches/20260603T233309Z_before_shop_fix_01.patch
+?? all_log/shop-ui/
+?? src/pages/shop/[tenant]/

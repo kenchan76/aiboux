@@ -1,0 +1,10 @@
+38e9566 WIP shop aiboux tenant deploy checkpoint 20260603T232600Z
+3fea25c WIP shop aiboux tenant deploy checkpoint 20260603T232211Z
+47254d9 WIP shop aiboux tenant deploy checkpoint 20260603T231907Z
+c688c05 WIP shop aiboux tenant deploy checkpoint 20260603T231713Z
+1d3683b WIP shop aiboux tenant deploy checkpoint 20260603T231418Z
+f5089d2 docs: expand public master with full Japanese core specifications
+b018c13 docs: publish full Japanese master
+ce94860 docs: expand master with full service specifications
+cf9e392 docs: rewrite public master m68 in Japanese
+d7f36ac docs: rewrite public master m68 in Japanese

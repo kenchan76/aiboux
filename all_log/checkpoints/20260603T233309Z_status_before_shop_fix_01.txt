@@ -1,0 +1,6 @@
+ M all_log/92_shop_wip_deploy_public_reflection.md
+ M all_log/deploys/20260603T232600Z_deploy_shop_wip_log_refresh_command.txt
+ M ops/instructions/current.md
+?? all_log/checkpoints/20260603T232600Z_wip_commit.txt
+?? all_log/checkpoints/20260603T233309Z_status_before_shop_fix_01.txt
+?? all_log/deploys/20260603T232600Z_deployments_before.txt

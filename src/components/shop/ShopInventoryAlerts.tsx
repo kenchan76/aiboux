@@ -13,6 +13,11 @@ export function ShopInventoryAlerts({ items = inventoryItems, onOpenInventory }:
         <Button variant="outline" size="sm" onClick={onOpenInventory}>すべて見る</Button>
       </CardHeader>
       <CardContent className="space-y-2 px-4 pb-4">
+        {items.filter((item) => item.unshippedOrders > 0).length === 0 ? (
+          <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-3 py-6 text-sm text-neutral-600">
+            在庫アラートはありません。商品と在庫を登録すると注意が必要なSKUを表示します。
+          </div>
+        ) : null}
         {items
           .filter((item) => item.unshippedOrders > 0)
           .map((item) => (

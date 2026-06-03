@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { formatYen, shopProducts, type ShopProduct } from "@/data/shop-sample-data";
+import { createEmptyProduct, formatYen, shopProducts, type ShopProduct } from "@/data/shop-sample-data";
 
 type ProductImage = {
   id: string;
@@ -22,11 +22,13 @@ type ProductImage = {
   key?: string;
 };
 
-export function ProductEditor({ product = shopProducts[0], mode = "edit" }: { product?: ShopProduct; mode?: "new" | "edit" }) {
+export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(), mode = "edit" }: { product?: ShopProduct; mode?: "new" | "edit" }) {
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const [images, setImages] = React.useState<ProductImage[]>(() => [
-    { id: `${product.id}-main`, url: product.image, alt: product.name, isMain: true },
-    { id: `${product.id}-detail-1`, url: product.image, alt: `${product.name} 詳細`, isMain: false },
+    ...(product.image ? [
+      { id: `${product.id}-main`, url: product.image, alt: product.name, isMain: true },
+      { id: `${product.id}-detail-1`, url: product.image, alt: `${product.name} 詳細`, isMain: false },
+    ] : []),
   ]);
   const [name, setName] = React.useState(mode === "new" ? "" : product.name);
   const [description, setDescription] = React.useState("素材、サイズ、利用シーン、購入前に知りたい注意点を簡潔に入力します。");
@@ -174,7 +176,7 @@ export function ProductEditor({ product = shopProducts[0], mode = "edit" }: { pr
           <p className="mt-1 text-sm text-neutral-500">販売に必要な情報だけを、公開判断しやすい順番で管理します。</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => { window.location.href = "/shop/products/integration"; }}>
+          <Button variant="outline" onClick={() => { window.history.pushState({ section: "products" }, "", "/s/aiboux/admin/products"); }}>
             商品マスタ連携
           </Button>
           <Button className="gap-2" onClick={saveProduct} disabled={isSaving}>
@@ -208,7 +210,7 @@ export function ProductEditor({ product = shopProducts[0], mode = "edit" }: { pr
               </Field>
               <div className="grid gap-3 sm:grid-cols-3">
                 <Field label="商品番号" help="店内で商品を探すための管理番号です。購入者には目立って表示しません。">
-                  <Input value={sku} placeholder="例: TSH-001-WHT" onChange={(event) => { setSku(event.target.value); markDirty(); }} />
+                  <Input value={sku} placeholder="例: SKU-001" onChange={(event) => { setSku(event.target.value); markDirty(); }} />
                 </Field>
                 <Field label="カテゴリ" help="商品一覧や検索で使う店内カテゴリです。">
                   <Select value={category} onValueChange={(value) => { setCategory(value); markDirty(); }}>

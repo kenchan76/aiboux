@@ -1,0 +1,171 @@
+---
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { shopProducts } from "@/data/shop-sample-data";
+import "@/styles/global.css";
+
+export const prerender = false;
+
+const tenantParam = String(Astro.params.tenant ?? "").trim();
+const pathParam = String(Astro.params.path ?? "").replace(/^\/+|\/+$/g, "");
+const isKnownTenant = tenantParam === "aiboux";
+
+const allowedPaths = new Set([
+  "products",
+  "categories",
+  "cart",
+  "checkout",
+  "contact",
+  "legal",
+  "privacy",
+  "shipping",
+  "returns",
+]);
+
+const productMatch = pathParam.match(/^product\/([^/]+)$/);
+const isAllowedPath = allowedPaths.has(pathParam) || Boolean(productMatch);
+
+if (!isKnownTenant || !isAllowedPath) {
+  Astro.response.status = 404;
+}
+
+Astro.response.headers.set("Cache-Control", isKnownTenant && isAllowedPath ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
+
+const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
+const page = productMatch ? "product" : pathParam;
+const productId = productMatch?.[1] ?? "";
+const product = productId ? shopProducts.find((item) => item.id === productId) : undefined;
+
+const pageMeta: Record<string, { title: string; description: string }> = {
+  products: { title: "商品一覧", description: "公開中の商品を表示します。" },
+  categories: { title: "カテゴリ", description: "公開中カテゴリを表示します。" },
+  cart: { title: "カート", description: "カート内の商品を確認します。" },
+  checkout: { title: "チェックアウト", description: "注文内容と配送先を確認します。" },
+  contact: { title: "問い合わせ", description: "ストアへの問い合わせを受け付けます。" },
+  legal: { title: "特定商取引法に基づく表示", description: "販売者情報と取引条件を表示します。" },
+  privacy: { title: "プライバシーポリシー", description: "個人情報の取り扱いを表示します。" },
+  shipping: { title: "配送について", description: "配送方法と送料の情報を表示します。" },
+  returns: { title: "返品について", description: "返品・交換条件を表示します。" },
+  product: { title: product?.name || "商品詳細", description: product ? `${product.name} の商品詳細です。` : "商品が見つかりません。" },
+};
+
+const meta = pageMeta[page] ?? { title: "ストアページ", description: "AIBOUX Storeの公開ページです。" };
+const title = isKnownTenant && isAllowedPath ? `${meta.title} | AIBOUX Store` : "ページが見つかりません | AIBOUX Store";
+const canonicalUrl = isKnownTenant && isAllowedPath
+  ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
+  : Astro.url.toString();
+---
+
+<!doctype html>
+<html lang="ja" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950">
+    <header class="border-b border-neutral-200 bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+        <a href={`${tenantRoot}/`} class="text-lg font-bold tracking-tight">AIBOUX Store</a>
+        <nav class="flex flex-wrap gap-4 text-sm text-neutral-600">
+          <a class="hover:text-neutral-950" href={`${tenantRoot}/products`}>商品一覧</a>
+          <a class="hover:text-neutral-950" href={`${tenantRoot}/categories`}>カテゴリ</a>
+          <a class="hover:text-neutral-950" href={`${tenantRoot}/cart`}>カート</a>
+          <a class="hover:text-neutral-950" href={`${tenantRoot}/contact`}>問い合わせ</a>
+        </nav>
+      </div>
+    </header>
+    {
+      isKnownTenant && isAllowedPath ? (
+        <main class="mx-auto max-w-6xl px-4 py-8">
+          <div class="mb-6">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">AIBOUX Store</p>
+            <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
+          </div>
+
+          {page === "products" ? (
+            <section class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+              {shopProducts.length === 0 ? (
+                <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+                  公開商品はまだありません。管理画面で商品を公開すると、この一覧に表示されます。
+                </div>
+              ) : shopProducts.map((item) => (
+                <article class="rounded-lg border border-neutral-200 bg-white p-4">
+                  <div class="flex aspect-square items-center justify-center rounded-md bg-neutral-50">
+                    {item.image ? <img src={item.image} alt={item.name} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
+                  </div>
+                  <h2 class="mt-3 text-sm font-semibold text-neutral-950"><a href={`${tenantRoot}/product/${item.id}`}>{item.name}</a></h2>
+                  <p class="mt-1 text-sm font-bold text-red-700">¥{item.price.toLocaleString("ja-JP")}</p>
+                </article>
+              ))}
+            </section>
+          ) : null}
+
+          {page === "product" ? (
+            product ? (
+              <section class="grid gap-6 lg:grid-cols-[420px_1fr]">
+                <div class="flex aspect-square items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  {product.image ? <img src={product.image} alt={product.name} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
+                </div>
+                <div>
+                  <p class="text-sm text-neutral-500">{product.category}</p>
+                  <h1 class="mt-2 text-2xl font-bold text-neutral-950">{product.name}</h1>
+                  <p class="mt-4 text-2xl font-bold text-red-700">¥{product.price.toLocaleString("ja-JP")}</p>
+                  <p class="mt-4 text-sm leading-6 text-neutral-600">商品説明は管理画面で保存された公開情報を表示します。</p>
+                  <a class="mt-6 inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/cart`}>カートへ進む</a>
+                </div>
+              </section>
+            ) : (
+              <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+                商品が見つかりません。公開中の商品だけを表示します。
+              </div>
+            )
+          ) : null}
+
+          {page === "categories" ? (
+            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+              公開カテゴリはまだありません。管理画面でカテゴリを作成すると表示されます。
+            </div>
+          ) : null}
+
+          {page === "cart" ? (
+            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+              カートは空です。商品を追加するとここに表示されます。
+            </div>
+          ) : null}
+
+          {page === "checkout" ? (
+            <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-8 text-sm leading-6 text-amber-900">
+              決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済画面は表示しません。
+            </div>
+          ) : null}
+
+          {page === "contact" ? (
+            <form class="grid max-w-2xl gap-4 rounded-lg border border-neutral-200 bg-white p-4">
+              <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" /></label>
+              <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" /></label>
+              <label class="grid gap-1 text-sm font-medium">内容<textarea class="min-h-32 rounded-md border border-neutral-200 px-3 py-2 font-normal" name="message"></textarea></label>
+              <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="button">入力内容を確認</button>
+            </form>
+          ) : null}
+
+          {["legal", "privacy", "shipping", "returns"].includes(page) ? (
+            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-sm leading-6 text-neutral-600">
+              このページの公開文面はまだ設定されていません。管理画面の設定保存後に、販売者情報・配送条件・返品条件・個人情報の取り扱いを表示します。
+            </div>
+          ) : null}
+        </main>
+      ) : (
+        <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">
+          <p class="text-sm font-bold text-neutral-500">404</p>
+          <h1 class="mt-2 text-xl font-bold text-neutral-950">ページが見つかりません</h1>
+          <p class="mt-2 text-sm leading-6 text-neutral-600">公開中のストアページだけを表示できます。</p>
+        </main>
+      )
+    }
+  </body>
+</html>

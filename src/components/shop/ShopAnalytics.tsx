@@ -32,16 +32,22 @@ export function ShopAnalytics() {
               <CardTitle className="text-sm">売上と注文の推移</CardTitle>
             </CardHeader>
             <CardContent>
-              <ChartContainer config={chartConfig} className="h-[320px] w-full">
-                <AreaChart data={analyticsData} margin={{ left: 0, right: 12, top: 12, bottom: 0 }}>
-                  <CartesianGrid vertical={false} />
-                  <XAxis dataKey="date" tickLine={false} axisLine={false} />
-                  <YAxis tickLine={false} axisLine={false} tickFormatter={(value) => `¥${Number(value) / 1000}K`} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Area dataKey="previous" type="monotone" stroke="var(--color-previous)" fill="var(--color-previous)" fillOpacity={0.08} />
-                  <Area dataKey="sales" type="monotone" stroke="var(--color-sales)" fill="var(--color-sales)" fillOpacity={0.12} />
-                </AreaChart>
-              </ChartContainer>
+              {analyticsData.length === 0 ? (
+                <div className="flex h-[320px] items-center justify-center rounded-md border border-dashed border-neutral-200 bg-neutral-50 text-sm text-neutral-500">
+                  売上データはまだありません。注文確定後に推移を表示します。
+                </div>
+              ) : (
+                <ChartContainer config={chartConfig} className="h-[320px] w-full">
+                  <AreaChart data={analyticsData} margin={{ left: 0, right: 12, top: 12, bottom: 0 }}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis dataKey="date" tickLine={false} axisLine={false} />
+                    <YAxis tickLine={false} axisLine={false} tickFormatter={(value) => `¥${Number(value) / 1000}K`} />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Area dataKey="previous" type="monotone" stroke="var(--color-previous)" fill="var(--color-previous)" fillOpacity={0.08} />
+                    <Area dataKey="sales" type="monotone" stroke="var(--color-sales)" fill="var(--color-sales)" fillOpacity={0.12} />
+                  </AreaChart>
+                </ChartContainer>
+              )}
             </CardContent>
           </Card>
           <Card className="shadow-sm">
@@ -49,10 +55,10 @@ export function ShopAnalytics() {
               <CardTitle className="text-sm">コンバージョン指標</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
-              <Metric label="セッション" value="38,420" delta="+9.4%" />
-              <Metric label="カート追加率" value="8.7%" delta="+1.2pt" />
-              <Metric label="購入完了率" value="2.35%" delta="+0.48pt" />
-              <Metric label="平均注文単価" value="¥9,551" delta="+2.1%" />
+              <Metric label="セッション" value="未集計" delta="計測設定が必要です" />
+              <Metric label="カート追加率" value="未集計" delta="商品公開後に計測します" />
+              <Metric label="購入完了率" value="未集計" delta="注文確定後に計測します" />
+              <Metric label="平均注文単価" value="未集計" delta="注文確定後に集計します" />
             </CardContent>
           </Card>
         </TabsContent>
@@ -62,6 +68,11 @@ export function ShopAnalytics() {
               <CardTitle className="text-sm">商品別売上</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
+              {shopProducts.length === 0 ? (
+                <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-3 py-6 text-sm text-neutral-500">
+                  商品別売上はまだありません。商品と注文データが揃うと表示します。
+                </div>
+              ) : null}
               {shopProducts.map((product) => (
                 <div key={product.id} className="grid items-center gap-2 rounded-lg border border-neutral-200 px-3 py-2 text-sm md:grid-cols-[1fr_120px_100px_100px]">
                   <span className="font-medium">{product.name}</span>
@@ -90,7 +101,7 @@ function Metric({ label, value, delta }: { label: string; value: string; delta: 
       <span className="text-neutral-600">{label}</span>
       <span className="flex items-center gap-2">
         <span className="font-semibold text-neutral-950">{value}</span>
-        <span className="text-xs font-medium text-emerald-600">{delta}</span>
+        <span className="text-xs font-medium text-neutral-500">{delta}</span>
       </span>
     </div>
   );

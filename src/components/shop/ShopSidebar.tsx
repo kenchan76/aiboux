@@ -33,7 +33,7 @@ export function ShopSidebar({ activeSection, onSectionChange }: ShopSidebarProps
     <Sidebar collapsible="offcanvas" className="border-r border-neutral-200 bg-neutral-50">
       <SidebarHeader className="border-b border-neutral-200 bg-white p-3">
         <div className="flex items-center justify-between gap-2">
-          <a href="/shop" className="flex items-center gap-2" aria-label="AIBOUX SHOP Home">
+          <a href="/s/aiboux/admin" className="flex items-center gap-2" aria-label="AIBOUX SHOP Home">
             <img src="/brand/aiboux-logo.svg" alt="aiboux" className="h-7 w-auto" />
             <Badge variant="secondary" className="h-5 rounded-md px-1.5 text-[10px] font-semibold tracking-wide">
               SHOP

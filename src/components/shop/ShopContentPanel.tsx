@@ -6,12 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-const contentItems = [
-  { id: "page-about", type: "固定ページ", title: "ブランドについて", status: "公開中", updatedAt: "2024/05/18", icon: FileText },
-  { id: "news-001", type: "お知らせ", title: "初夏の新作入荷のお知らせ", status: "公開中", updatedAt: "2024/05/17", icon: Megaphone },
-  { id: "banner-main", type: "バナー", title: "送料無料キャンペーン", status: "下書き", updatedAt: "2024/05/16", icon: Image },
-  { id: "seo-home", type: "SEO", title: "トップページメタ情報", status: "改善候補", updatedAt: "2024/05/15", icon: Search },
-];
+const contentItems: Array<{ id: string; type: string; title: string; status: string; updatedAt: string; icon: typeof FileText }> = [];
 
 export function ShopContentPanel() {
   return (
@@ -39,6 +34,13 @@ export function ShopContentPanel() {
               </TableRow>
             </TableHeader>
             <TableBody>
+              {contentItems.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="h-28 text-center text-sm text-neutral-500">
+                    公開コンテンツはまだありません。特商法・配送・返品・問い合わせ文言は設定画面から登録します。
+                  </TableCell>
+                </TableRow>
+              ) : null}
               {contentItems.map((item) => {
                 const Icon = item.icon;
                 return (

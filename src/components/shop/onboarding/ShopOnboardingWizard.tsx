@@ -270,7 +270,9 @@ export function ShopOnboardingWizard() {
         return;
       }
       toast.success("Shop初期設定を保存しました");
-      window.location.href = data.dashboardPath ?? "/shop/dashboard";
+      const nextPath = data.dashboardPath ?? "/s/aiboux/admin";
+      window.history.pushState({ section: "dashboard" }, "", nextPath);
+      window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "dashboard" } }));
     } catch {
       toast.error("Shop初期設定APIに接続できませんでした");
     } finally {

@@ -27,28 +27,30 @@ type ShadcnStorefrontProps = {
 };
 
 export function ShadcnStorefront({ storeName, products }: ShadcnStorefrontProps) {
+  const tenantRoot = "/s/aiboux";
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b bg-background">
         <div className="mx-auto flex max-w-screen-xl items-center gap-4 px-4 py-4">
-          <a href="/shop/storefront/aiboux" className="shrink-0 text-lg font-semibold tracking-tight">
+          <a href={`${tenantRoot}/`} className="shrink-0 text-lg font-semibold tracking-tight">
             {storeName}
           </a>
           <div className="min-w-0 flex-1">
             <Input placeholder="このストアの商品を検索" aria-label="このストアの商品を検索" />
           </div>
           <Button asChild variant="outline" size="sm">
-            <a href="/shop/storefront/aiboux#products">カート</a>
+            <a href={`${tenantRoot}/cart`}>カート</a>
           </Button>
         </div>
         <Separator />
         <nav className="mx-auto flex max-w-screen-xl items-center gap-5 px-4 py-2 text-sm text-muted-foreground">
-          <a href="#products" className="font-medium text-foreground">
+          <a href={`${tenantRoot}/products`} className="font-medium text-foreground">
             商品一覧
           </a>
-          <a href="/shop/categories">カテゴリ</a>
-          <a href="/shop/settings">問い合わせ</a>
-          <a href="/shop/settings">特商法</a>
+          <a href={`${tenantRoot}/categories`}>カテゴリ</a>
+          <a href={`${tenantRoot}/contact`}>問い合わせ</a>
+          <a href={`${tenantRoot}/legal`}>特商法</a>
           <a href="https://mall.aiboux.com/">AIBOUX Mall</a>
           <span>{storeName}</span>
         </nav>
@@ -66,6 +68,11 @@ export function ShadcnStorefront({ storeName, products }: ShadcnStorefrontProps)
         </div>
 
         <div id="products" className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
+          {products.length === 0 ? (
+            <div className="col-span-full rounded-lg border border-dashed bg-muted/40 px-4 py-12 text-center text-sm text-muted-foreground">
+              公開商品はまだありません。管理画面で商品を公開するとここに表示されます。
+            </div>
+          ) : null}
           {products.map((product) => (
             <Card key={product.id} className="h-full">
               <CardContent className="pt-0">
@@ -112,10 +119,10 @@ export function ShadcnStorefront({ storeName, products }: ShadcnStorefrontProps)
       </main>
       <footer className="border-t bg-background">
         <nav className="mx-auto flex max-w-screen-xl flex-wrap gap-4 px-4 py-5 text-sm text-muted-foreground">
-          <a href="/shop/settings">プライバシーポリシー</a>
-          <a href="/shop/settings">配送について</a>
-          <a href="/shop/settings">返品について</a>
-          <a href="/shop/settings">問い合わせ</a>
+          <a href={`${tenantRoot}/privacy`}>プライバシーポリシー</a>
+          <a href={`${tenantRoot}/shipping`}>配送について</a>
+          <a href={`${tenantRoot}/returns`}>返品について</a>
+          <a href={`${tenantRoot}/contact`}>問い合わせ</a>
         </nav>
       </footer>
     </div>

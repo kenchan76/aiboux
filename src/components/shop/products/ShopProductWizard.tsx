@@ -297,7 +297,8 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
               <Button
                 variant="outline"
                 onClick={() => {
-                  window.location.href = "/shop/settings";
+                  window.history.pushState({ section: "settings" }, "", "/s/aiboux/admin/settings");
+                  window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "settings" } }));
                 }}
               >
                 任意のSNS/LINE設定を確認

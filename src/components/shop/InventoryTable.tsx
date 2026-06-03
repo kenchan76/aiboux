@@ -121,6 +121,13 @@ export function InventoryTable({
           </TableRow>
         </TableHeader>
         <TableBody>
+          {rows.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={compact ? 5 : 7} className="h-28 text-center text-sm text-neutral-500">
+                在庫データはまだありません。商品登録後にSKU別の在庫を管理できます。
+              </TableCell>
+            </TableRow>
+          ) : null}
           {rows.map((item) => {
             const draftValue = stockDrafts[item.productId] ?? item.stock;
             const isChanged = draftValue !== (savedStocks[item.productId] ?? item.stock);
