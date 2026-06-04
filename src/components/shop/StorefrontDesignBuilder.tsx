@@ -104,10 +104,19 @@ const globalSections: Array<{ id: EditorSection; label: string; icon: React.Comp
   { id: "global.productCard", label: "商品カード", icon: Package },
 ];
 
+function initialEditorPage(): EditorPage {
+  if (typeof window === "undefined") return "top";
+  return new URLSearchParams(window.location.search).get("page") === "productDetail" ? "productDetail" : "top";
+}
+
+function initialEditorSection(page: EditorPage): EditorSection {
+  return page === "productDetail" ? "product.purchaseBox" : "top.heroSlider";
+}
+
 export function StorefrontDesignBuilder() {
   const [layout, setLayout] = React.useState<StorefrontLayout>(defaultStorefrontLayout);
-  const [activePage, setActivePage] = React.useState<EditorPage>("top");
-  const [selectedSection, setSelectedSection] = React.useState<EditorSection>("top.heroSlider");
+  const [activePage, setActivePage] = React.useState<EditorPage>(() => initialEditorPage());
+  const [selectedSection, setSelectedSection] = React.useState<EditorSection>(() => initialEditorSection(initialEditorPage()));
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
   const [uploadingLogo, setUploadingLogo] = React.useState(false);
@@ -278,7 +287,11 @@ export function StorefrontDesignBuilder() {
         </div>
       </div>
 
-      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:300px_minmax(0,1fr)_340px] min-[1840px]:[grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
+      <div
+        className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:300px_minmax(0,1fr)_340px] min-[1840px]:[grid-template-columns:320px_minmax(1100px,1fr)_360px]"
+        data-shop-design-editor-main
+        data-testid="shop-design-editor-main"
+      >
         <LeftPane
           activePage={activePage}
           selectedSection={selectedSection}
@@ -288,14 +301,14 @@ export function StorefrontDesignBuilder() {
           }}
           onSection={(section) => setSelectedSection(section)}
         />
-        <main className="min-w-0 overflow-auto rounded-lg border border-neutral-200 bg-[#eef1f6] p-4" data-shop-design-preview>
+        <main className="min-w-0 overflow-auto rounded-lg border border-neutral-200 bg-[#eef1f6] p-4" data-shop-design-preview data-testid="shop-design-editor-preview">
           {loading ? (
             <div className="flex h-full min-h-[640px] items-center justify-center rounded-md border border-dashed border-neutral-300 bg-white text-sm text-neutral-500">
               <Loader2 className="mr-2 size-4 animate-spin" />
               読み込み中
             </div>
           ) : (
-            <div className="mx-auto w-full max-w-[1280px]" data-store-preview-frame>
+            <div className="mx-auto w-full max-w-[1280px]" data-store-preview-frame data-testid="store-preview-frame">
               {activePage === "top" ? (
                 <TopPreview layout={layout} selectedSection={selectedSection} onSelect={setSelectedSection} />
               ) : (
@@ -334,7 +347,7 @@ function LeftPane({
 }) {
   const sections = activePage === "top" ? topSections : productSections;
   return (
-    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-left-pane>
+    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-left-pane data-testid="shop-design-left-pane">
       <div className="border-b border-neutral-200 px-4 py-3">
         <div className="grid grid-cols-2 gap-2 text-sm">
           <button
@@ -462,9 +475,10 @@ function TopPreview({
           "grid w-full gap-3 bg-white p-3 text-left [grid-template-columns:180px_minmax(0,1fr)_180px]",
           selectedSection === "top.heroSlider" && "ring-2 ring-inset ring-blue-500",
         )}
+        data-testid="storefront-hero-slider"
       >
         <SideHeroCard slide={previous} direction="left" />
-        <div className="relative min-h-[220px] overflow-hidden rounded-md bg-neutral-900 text-white">
+        <div className="relative min-h-[220px] overflow-hidden rounded-md bg-neutral-900 text-white" data-testid="hero-slide-main">
           {main.imageUrl ? <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-70" /> : <div className="absolute inset-0 bg-[linear-gradient(115deg,#201a12,#80633d_55%,#1b1b1b)]" />}
           <div className="relative z-10 flex h-full max-w-lg flex-col justify-center px-12 py-8">
             <h2 className="text-3xl font-semibold leading-tight">{main.title}</h2>
@@ -551,7 +565,11 @@ function LogoMark({ layout }: { layout: StorefrontLayout }) {
 
 function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSlider"]["slides"][number]; direction: "left" | "right" }) {
   return (
-    <div className="relative min-h-[220px] overflow-hidden rounded-md bg-neutral-200" data-hero-side={direction}>
+    <div
+      className="relative min-h-[220px] overflow-hidden rounded-md bg-neutral-200"
+      data-hero-side={direction}
+      data-testid={direction === "left" ? "hero-slide-prev" : "hero-slide-next"}
+    >
       {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#f4d7a2,#8b6b37_55%,#475569)]" />}
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
@@ -564,7 +582,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
 
 function PreviewProducts({ title, selected, onClick, products }: { title: string; selected: boolean; onClick: () => void; products: string[] }) {
   return (
-    <button type="button" onClick={onClick} className={cn("block w-full p-3 text-left", selected && "ring-2 ring-inset ring-blue-500")}>
+    <button type="button" onClick={onClick} className={cn("block w-full p-3 text-left", selected && "ring-2 ring-inset ring-blue-500")} data-testid="recommended-products">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-base font-bold text-neutral-950">{title}</h3>
         <span className="text-xs text-neutral-500">もっと見る</span>
@@ -622,11 +640,16 @@ function ProductDetailPreview({
 }) {
   const product = layout.pages.productDetail;
   return (
-    <div className="overflow-hidden rounded-md border border-neutral-300 bg-white shadow-sm">
+    <div className="overflow-hidden rounded-md border border-neutral-300 bg-white shadow-sm" data-testid="product-detail-editor-preview">
       <AmazonHeader layout={layout} onSelect={onSelect} selectedSection={selectedSection} />
       <div className="border-b border-neutral-100 px-5 py-3 text-xs text-neutral-500">ストア &gt; 日用品 &gt; 商品詳細</div>
       <div className="grid gap-6 p-5 lg:grid-cols-[300px_1fr_280px]">
-        <button type="button" onClick={() => onSelect("product.gallery")} className={cn("text-left", selectedSection === "product.gallery" && "rounded-md ring-2 ring-blue-500")}>
+        <button
+          type="button"
+          onClick={() => onSelect("product.gallery")}
+          className={cn("text-left", selectedSection === "product.gallery" && "rounded-md ring-2 ring-blue-500")}
+          data-testid="product-detail-gallery"
+        >
           <div className="flex gap-3">
             <div className="grid gap-2">
               {Array.from({ length: product.gallery.thumbnailCount }).map((_, index) => <div key={index} className="size-12 rounded border border-neutral-200 bg-neutral-100" />)}
@@ -656,7 +679,12 @@ function ProductDetailPreview({
             <p className="mt-2 text-sm leading-6 text-neutral-600">商品の特徴、使い方、素材、配送時の注意点をここに表示します。</p>
           </button>
         </div>
-        <button type="button" onClick={() => onSelect("product.purchaseBox")} className={cn("h-fit rounded-md border border-neutral-200 bg-white p-4 text-left shadow-sm", selectedSection === "product.purchaseBox" && "ring-2 ring-blue-500")}>
+        <button
+          type="button"
+          onClick={() => onSelect("product.purchaseBox")}
+          className={cn("h-fit rounded-md border border-neutral-200 bg-white p-4 text-left shadow-sm", selectedSection === "product.purchaseBox" && "ring-2 ring-blue-500")}
+          data-testid="product-detail-purchase-box"
+        >
           <div className="text-2xl font-bold text-red-700">¥4,980</div>
           {product.content.showDeliveryEstimate ? <p className="mt-3 text-sm leading-6 text-neutral-600">最短で明日お届け予定</p> : null}
           {product.content.showStock ? <p className="mt-2 text-sm font-bold text-emerald-700">在庫あり</p> : null}
@@ -695,7 +723,7 @@ function RightPane({
   uploadLogo: (file: File | undefined, target: "light" | "dark") => void;
 }) {
   return (
-    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-right-pane>
+    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-right-pane data-testid="shop-design-right-pane">
       <div className="border-b border-neutral-200 px-4 py-3">
         <p className="text-xs font-bold text-neutral-600">編集中のセクション</p>
         <h2 className="mt-1 text-lg font-semibold text-neutral-950">{sectionTitle(selectedSection)}</h2>

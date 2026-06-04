@@ -1,0 +1,21 @@
+ M ops/instructions/current.md
+ M package.json
+ M src/components/shop/StorefrontDesignBuilder.tsx
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/pages/shop/[tenant]/[...path].astro
+?? all_log/checkpoints/20260604T061656Z_wip_commit.txt
+?? all_log/deploys/20260604T061656Z_deployments_before.txt
+?? all_log/public-g/20260604T061811Z_d68.body
+?? all_log/public-g/20260604T061811Z_d68.headers
+?? all_log/public-g/20260604T061811Z_l68.body
+?? all_log/public-g/20260604T061811Z_l68.headers
+?? all_log/public-g/20260604T061811Z_m68.body
+?? all_log/public-g/20260604T061811Z_m68.headers
+?? all_log/shop-design-editor/20260604T061811Z_admin_design.headers
+?? all_log/shop-design-editor/20260604T061811Z_admin_design.html
+?? all_log/shop-design-editor/20260604T061900Z_bark_progress_notification.json
+?? all_log/shop-design-editor/20260604T061930Z_user_report.html
+?? all_log/shop-design-editor/20260604T061930Z_user_report.md
+?? all_log/shop-design-editor/20260604T061930Z_user_report_input.json
+?? ops/instructions/20260604_shop_design_gate_split_visual_evidence.md
+?? tests/shop-design-editor-public.spec.ts

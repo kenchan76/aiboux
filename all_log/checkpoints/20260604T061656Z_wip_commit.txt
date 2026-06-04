@@ -1,0 +1,25 @@
+timestamp=20260604T061656Z
+commit_status=0
+head_after=006de9f7951d1d3fbee8f48c9329a07d41e834f0
+commit_stdout:
+[main 006de9f] WIP shop aiboux tenant deploy checkpoint 20260604T061656Z
+ 22 files changed, 6333 insertions(+)
+ create mode 100644 all_log/checkpoints/20260604T061228Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T061656Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T061656Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T061656Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T061656Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T061228Z_deployments_before.txt
+ create mode 100644 all_log/patches/20260604T061656Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T061656Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-g/20260604T061436Z_d68.body
+ create mode 100644 all_log/public-g/20260604T061436Z_d68.headers
+ create mode 100644 all_log/public-g/20260604T061436Z_l68.body
+ create mode 100644 all_log/public-g/20260604T061436Z_l68.headers
+ create mode 100644 all_log/public-g/20260604T061436Z_m68.body
+ create mode 100644 all_log/public-g/20260604T061436Z_m68.headers
+ create mode 100644 all_log/shop-design-editor/20260604T061436Z_admin_design.headers
+ create mode 100644 all_log/shop-design-editor/20260604T061436Z_admin_design.html
+ create mode 100644 all_log/shop-design-editor/20260604T061820Z_post_deploy_public_playwright_and_gate_note.md
+
+commit_stderr:

@@ -156,8 +156,8 @@ const canonicalUrl = isKnownTenant && isAllowedPath
 
           {page === "product" ? (
             product ? (
-              <section class="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)_300px]">
-                <div class={productDesign?.gallery.position === "top" ? "lg:col-span-3" : ""}>
+              <section class="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)_300px]" data-testid="public-product-detail">
+                <div class={productDesign?.gallery.position === "top" ? "lg:col-span-3" : ""} data-testid="public-product-gallery">
                   <div class={productDesign?.gallery.position === "top" ? "grid gap-3" : "flex gap-3"}>
                     <div class={productDesign?.gallery.position === "top" ? "order-2 flex gap-2" : "grid h-fit gap-2"}>
                       {Array.from({ length: productDesign?.gallery.thumbnailCount ?? 5 }).map((_, index) => (
@@ -169,7 +169,7 @@ const canonicalUrl = isKnownTenant && isAllowedPath
                     </div>
                   </div>
                 </div>
-                <div>
+                <div data-testid="public-product-info">
                   {productDesign?.content.showBrand ? <p class="text-sm text-blue-700">{product.categoryName || "AIBOUX ブランド"}</p> : null}
                   <h1 class="mt-2 text-2xl font-bold leading-tight text-neutral-950">{product.displayName}</h1>
                   {productDesign?.content.showReviews ? <p class="mt-3 border-b border-neutral-200 pb-3 text-sm text-amber-500">★★★★★ <a class="text-blue-700" href="#reviews">(レビューを確認)</a></p> : null}
@@ -198,7 +198,10 @@ const canonicalUrl = isKnownTenant && isAllowedPath
                     </section>
                   ) : null}
                 </div>
-                <aside class={productDesign?.purchaseBox.sticky ? "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:sticky lg:top-28" : "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"}>
+                <aside
+                  class={productDesign?.purchaseBox.sticky ? "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:sticky lg:top-28" : "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"}
+                  data-testid="public-product-purchase-box"
+                >
                   <div class="text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</div>
                   {productDesign?.content.showDeliveryEstimate ? <p class="mt-3 text-sm leading-6 text-neutral-600">配送予定はチェックアウト画面で確認します。</p> : null}
                   {productDesign?.content.showStock ? <p class="mt-2 text-sm font-bold text-emerald-700">{product.inStock ? "在庫あり" : "在庫確認"}</p> : null}

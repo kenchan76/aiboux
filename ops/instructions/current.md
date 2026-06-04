@@ -1,5 +1,34 @@
 # AIBOUX Current Task
 
+## Active Override: Shop Design Gate Split And Visual Evidence
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_design_gate_split_visual_evidence.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+
+Required work:
+
+1. Do not stop because legacy `npm run gate:design` checks old Core delivery-detail preview.
+2. Add `npm run gate:shop-design`.
+3. Make `gate:shop-design` check Shop design editor only.
+4. Capture 1980px screenshots for editor TOP, editor product detail, public TOP, and public product detail.
+5. Publish screenshots under `public/g/screens/`.
+6. Update `/g/m68`, `/g/l68`, `/g/d68`.
+7. WIP deploy and verify public URLs.
+8. Send Bark progress notification when this work unit pauses or reports, if Bark is configured.
+
+Do not report `FINAL_ACCEPTED`.
+
 ## Task Name
 
 Shop Aiboux Production Tenant Implementation With UI Protection

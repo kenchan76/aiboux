@@ -41,9 +41,9 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
 
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
-        <section className="grid gap-3 pt-3 md:grid-cols-[16%_1fr_16%]">
+        <section className="grid gap-3 pt-3 md:grid-cols-[16%_1fr_16%]" data-testid="storefront-hero-slider">
           <SideHeroCard slide={previous} />
-          <div className="relative min-h-[260px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm">
+          <div className="relative min-h-[260px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main">
             {main.imageUrl ? (
               <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-75" />
             ) : (
@@ -79,7 +79,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
         ) : null}
 
         {recommended.enabled ? (
-          <section id="products" className="rounded-md bg-white p-4 shadow-sm">
+          <section id="products" className="rounded-md bg-white p-4 shadow-sm" data-testid="recommended-products">
             <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h2 className="text-lg font-semibold tracking-tight">{recommended.title}</h2>
@@ -187,8 +187,8 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
 
 function SideHeroCard({ slide }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number] }) {
   return (
-    <div className="relative hidden min-h-[260px] overflow-hidden rounded-md bg-neutral-200 md:block">
-      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full bg-[linear-gradient(135deg,#d7d1c6,#756a58)]" />}
+    <div className="relative hidden min-h-[260px] overflow-hidden rounded-md bg-neutral-200 md:block" data-testid="hero-slide-side">
+      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#d7d1c6,#756a58)]" />}
       <div className="absolute inset-0 bg-black/10" />
     </div>
   );
