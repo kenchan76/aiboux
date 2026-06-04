@@ -74,6 +74,8 @@ This work unit adds a shared page-specific SEO/UI checklist so every public page
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
 - Secret-safe subscription failure artifacts: `all_log/test-results/20260604T220900_subscription_gate_blocked_after_seo_checklist/`
+- Public check artifacts: `all_log/public-checks/20260604T221600Z/`
+- Progress Bark notification: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`, evidence file `all_log/bark/20260604T221650Z_seo_checklist_progress_bark.json`.
 
 ## Non-Final Conditions
 
