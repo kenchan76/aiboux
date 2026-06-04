@@ -1,0 +1,46 @@
+diff --git a/public/g/d68.md b/public/g/d68.md
+index b68e546..4ef6286 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -236,7 +236,7 @@ Public route evidence after public log publication:
+ - Design editor route rewrote to `/shop/settings/design`.
+ - Tenant storefront URL returned HTTP 200.
+ - Product detail URL returned HTTP 200.
+-- All checked responses were served by Worker Version ID `76f71405-3641-4200-834c-892fa3eaf3db`.
++- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+ 
+ Design editor screen evidence:
+ 
+diff --git a/public/g/l68.md b/public/g/l68.md
+index c8460b6..4c9f94d 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -697,13 +697,13 @@ WIP deploy evidence:
+ 
+ - WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
+ - Implementation WIP deploy Worker Version ID before public log publication: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
+-- Public log publication Worker Version ID: `76f71405-3641-4200-834c-892fa3eaf3db`
++- Public log publication Worker Version ID: `__WORKER_VERSION_ID__`
+ 
+ Public route evidence after public log publication:
+ 
+ - `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+ - `x-aiboux-rewritten-path`: `/shop/settings/design`
+-- `x-aiboux-worker-version`: `76f71405-3641-4200-834c-892fa3eaf3db`
++- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+ - `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+ - `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+ 
+diff --git a/public/g/m68.md b/public/g/m68.md
+index c66c09d..9f279ed 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -4398,7 +4398,7 @@ Implementation WIP deploy Worker Version ID:
+ 
+ Public log publication Worker Version ID:
+ 
+-- `76f71405-3641-4200-834c-892fa3eaf3db`
++- `__WORKER_VERSION_ID__`
+ 
+ 公開確認:
+ 

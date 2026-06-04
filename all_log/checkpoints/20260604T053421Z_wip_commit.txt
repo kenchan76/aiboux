@@ -1,0 +1,28 @@
+timestamp=20260604T053421Z
+commit_status=0
+head_after=1c0df521210e378ae6eddb1fc34a647b5727b803
+commit_stdout:
+[main 1c0df52] WIP shop aiboux tenant deploy checkpoint 20260604T053421Z
+ 23 files changed, 6003 insertions(+), 6 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T053213Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T053421Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T053421Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T053421Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T053421Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T053213Z_deployments_before.txt
+ create mode 100644 all_log/patches/20260604T053421Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T053421Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-g/20260604T053326Z_d68.body
+ create mode 100644 all_log/public-g/20260604T053326Z_d68.headers
+ create mode 100644 all_log/public-g/20260604T053326Z_l68.body
+ create mode 100644 all_log/public-g/20260604T053326Z_l68.headers
+ create mode 100644 all_log/public-g/20260604T053326Z_m68.body
+ create mode 100644 all_log/public-g/20260604T053326Z_m68.headers
+ create mode 100644 all_log/shop-design-editor/20260604T053326Z_https___shop.aiboux.com_s_aiboux_.headers
+ create mode 100644 all_log/shop-design-editor/20260604T053326Z_https___shop.aiboux.com_s_aiboux_.html
+ create mode 100644 all_log/shop-design-editor/20260604T053326Z_https___shop.aiboux.com_s_aiboux_admin_design.headers
+ create mode 100644 all_log/shop-design-editor/20260604T053326Z_https___shop.aiboux.com_s_aiboux_admin_design.html
+ create mode 100644 all_log/shop-design-editor/20260604T053326Z_https___shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+ create mode 100644 all_log/shop-design-editor/20260604T053326Z_https___shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.html
+
+commit_stderr:
