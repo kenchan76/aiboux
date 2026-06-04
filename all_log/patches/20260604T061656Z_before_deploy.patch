@@ -1,0 +1,166 @@
+diff --git a/output/playwright/shop-functional/admin-demo-free-1980.png b/output/playwright/shop-functional/admin-demo-free-1980.png
+index c8547f8..0f2c777 100644
+Binary files a/output/playwright/shop-functional/admin-demo-free-1980.png and b/output/playwright/shop-functional/admin-demo-free-1980.png differ
+diff --git a/output/playwright/shop-functional/design-editor-1980.png b/output/playwright/shop-functional/design-editor-1980.png
+index 32dd522..79c0d06 100644
+Binary files a/output/playwright/shop-functional/design-editor-1980.png and b/output/playwright/shop-functional/design-editor-1980.png differ
+diff --git a/public/g/d68.md b/public/g/d68.md
+index c449d10..0481fa5 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -216,6 +216,47 @@ Visual scope:
+ 
+ This is not FINAL_ACCEPTED for the whole Shop tenant.
+ 
++## Shop Design Editor Post Deploy Screen Evidence
++
++Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
++
++Public design editor URL:
++
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++
++Verified route:
++
++- `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
++- HTTP status: `200`
++- `x-aiboux-rewritten-path`: `/shop/settings/design`
++- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
++
++Current visual evidence:
++
++- the normal Shop admin sidebar is not used for the design editor screen;
++- the editor uses a dedicated top bar;
++- the editor uses left pane, central preview, and right settings pane;
++- editable page targets are limited to `TOPページ` and `商品詳細ページ`;
++- TOP preview keeps the Amazon-like category navigation horizontal;
++- the hero slider side previews use actual slide images, not gray placeholders;
++- public Playwright screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`.
++
++Public Playwright after deploy:
++
++- `tests/shop-functional-public.spec.ts`: `6 passed`
++
++Persistence screen behavior:
++
++- the TOP hero title was temporarily edited through the public design editor;
++- the public storefront rendered the temporary title;
++- the layout was restored after the test;
++- restored TOP hero title: `雪花セレクトを、わかりやすく。`
++
++Non-final note:
++
++- `npm run gate:design` is still configured for an older Core preview URL and is not a valid Shop design editor acceptance gate yet.
++- This must be split or replaced before final UI acceptance.
++
+ ## Shop Fix Cycle 04 Functional Screen Evidence Pending Deploy
+ 
+ ## Shop Design Editor Fullscreen Repair Screen Evidence
+diff --git a/public/g/l68.md b/public/g/l68.md
+index 4603968..2a41a17 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -820,3 +820,60 @@ Remaining non-final items:
+ - Production DB save through the public design-editor UI was not executed in this cycle.
+ - Logo upload persistence was not exercised against production storage in this cycle.
+ - Full final Shop sales-tenant completion criteria remain open.
++
++## Shop Design Editor Post Deploy Public Playwright Cycle
++
++Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
++
++Worker Version ID:
++
++- `__WORKER_VERSION_ID__`
++
++WIP commit:
++
++- `2c5c5eeaac2aeffc65224ab41bcc3dd8613dc450`
++
++Public design editor route:
++
++- URL: `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
++- HTTP status: `200`
++- `x-aiboux-rewritten-path`: `/shop/settings/design`
++- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
++
++Public Playwright after deploy:
++
++```bash
++PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line
++```
++
++Result:
++
++```text
++6 passed
++```
++
++The added persistence test verifies:
++
++- TOP hero title can be edited in the public design editor;
++- save posts to `/shop/api/storefront/layout`;
++- the public storefront renders the saved title;
++- reload keeps the saved title;
++- the original layout is restored in `finally`;
++- restore is confirmed through `GET /shop/api/storefront/layout?tenant=aiboux`.
++
++Restore check:
++
++- restored TOP hero title: `雪花セレクトを、わかりやすく。`
++
++Design gate note:
++
++- `npm run gate:design -- --help` currently returns `AIBOUX_DESIGN_GATE_BLOCKED failures=5`;
++- the script still targets an older Core delivery-detail temporary preview URL;
++- this is a gate-target mismatch and not a public Shop design editor failure;
++- next workflow improvement is to split design gates by product area or add a Shop-specific design-editor gate.
++
++Evidence:
++
++- `all_log/shop-design-editor/20260604T061820Z_post_deploy_public_playwright_and_gate_note.md`
++
++This is still WIP evidence, not `FINAL_ACCEPTED`.
+diff --git a/public/g/m68.md b/public/g/m68.md
+index 622230f..161aa38 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -4436,3 +4436,38 @@ Public log publication Worker Version ID:
+ - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: 5 passed
+ 
+ この状態はWIPであり、Shop全体のFINAL_ACCEPTEDではない。
++
++### 32.9 Cycle 06 永続保存・停止通知運用
++
++Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
++
++今回の追加確認:
++
++- ストアデザインエディタのTOPヒーロータイトル保存を公開URLで検証した。
++- 保存後に公開ストアフロントへ反映されることを検証した。
++- リロード後も保存値が残ることを検証した。
++- テスト終了時に元レイアウトへ復元し、復元後のタイトルを確認した。
++
++公開Playwright:
++
++```text
++PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line
++6 passed
++```
++
++復元後のTOPヒーロータイトル:
++
++```text
++雪花セレクトを、わかりやすく。
++```
++
++運用ルール:
++
++- Codexの作業単位が止まる、待つ、またはユーザーへ返す場合は、先に `/g/m68`、`/g/l68`、`/g/d68` を公開反映する。
++- Barkが設定されている場合は、URL Bundleを含めたProgress Notificationを送る。
++- Bark secret、endpoint、tokenはログにもチャットにも出さない。
++
++注意:
++
++- 既存の `npm run gate:design` は古いCore配送詳細プレビューURLを参照しており、今回のShopデザインエディタ用ゲートではない。
++- 次の改善として、Shopデザインエディタ専用のdesign gateへ分離する。

@@ -1,0 +1,16 @@
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M output/playwright/shop-functional/design-editor-1980.png
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+?? all_log/checkpoints/20260604T061228Z_wip_commit.txt
+?? all_log/deploys/20260604T061228Z_deployments_before.txt
+?? all_log/public-g/20260604T061436Z_d68.body
+?? all_log/public-g/20260604T061436Z_d68.headers
+?? all_log/public-g/20260604T061436Z_l68.body
+?? all_log/public-g/20260604T061436Z_l68.headers
+?? all_log/public-g/20260604T061436Z_m68.body
+?? all_log/public-g/20260604T061436Z_m68.headers
+?? all_log/shop-design-editor/20260604T061436Z_admin_design.headers
+?? all_log/shop-design-editor/20260604T061436Z_admin_design.html
+?? all_log/shop-design-editor/20260604T061820Z_post_deploy_public_playwright_and_gate_note.md

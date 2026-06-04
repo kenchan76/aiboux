@@ -83,9 +83,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `6da8ad44-6180-42a4-9957-7ff4e9297235` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `6da8ad44-6180-42a4-9957-7ff4e9297235` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `6da8ad44-6180-42a4-9957-7ff4e9297235` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -140,7 +140,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `6da8ad44-6180-42a4-9957-7ff4e9297235`
 
 Screen evidence policy:
 
@@ -215,47 +215,6 @@ Visual scope:
 - This cycle only removed fixed demo values from delayed Shop/Global AI assistant sources and verified public admin output.
 
 This is not FINAL_ACCEPTED for the whole Shop tenant.
-
-## Shop Design Editor Post Deploy Screen Evidence
-
-Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
-
-Public design editor URL:
-
-- `https://shop.aiboux.com/s/aiboux/admin/design`
-
-Verified route:
-
-- `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
-- HTTP status: `200`
-- `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
-
-Current visual evidence:
-
-- the normal Shop admin sidebar is not used for the design editor screen;
-- the editor uses a dedicated top bar;
-- the editor uses left pane, central preview, and right settings pane;
-- editable page targets are limited to `TOPページ` and `商品詳細ページ`;
-- TOP preview keeps the Amazon-like category navigation horizontal;
-- the hero slider side previews use actual slide images, not gray placeholders;
-- public Playwright screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`.
-
-Public Playwright after deploy:
-
-- `tests/shop-functional-public.spec.ts`: `6 passed`
-
-Persistence screen behavior:
-
-- the TOP hero title was temporarily edited through the public design editor;
-- the public storefront rendered the temporary title;
-- the layout was restored after the test;
-- restored TOP hero title: `雪花セレクトを、わかりやすく。`
-
-Non-final note:
-
-- `npm run gate:design` is still configured for an older Core preview URL and is not a valid Shop design editor acceptance gate yet.
-- This must be split or replaced before final UI acceptance.
 
 ## Shop Fix Cycle 04 Functional Screen Evidence Pending Deploy
 
@@ -347,7 +306,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `6da8ad44-6180-42a4-9957-7ff4e9297235`.
 
 Design editor screen evidence:
 

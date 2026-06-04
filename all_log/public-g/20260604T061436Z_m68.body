@@ -147,7 +147,7 @@ MASTER_REWRITE_REQUIRED
 ### 2.2 現在の確定情報
 
 - 対象Worker名: aiboux
-- Worker Version ID: __WORKER_VERSION_ID__
+- Worker Version ID: 6da8ad44-6180-42a4-9957-7ff4e9297235
 - Remote repository: https://github.com/kenchan76/aiboux.git
 - gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
 - Bark通知方針修正: 完了
@@ -2294,7 +2294,7 @@ AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に
 ### 21.1 Worker
 
 Worker name: aiboux
-Worker Version ID: __WORKER_VERSION_ID__
+Worker Version ID: 6da8ad44-6180-42a4-9957-7ff4e9297235
 Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
 Deployment created_on: 2026-05-31T14:22:16.574248Z
 Version percentage: 100
@@ -4423,7 +4423,7 @@ Implementation WIP deploy Worker Version ID:
 
 Public log publication Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `6da8ad44-6180-42a4-9957-7ff4e9297235`
 
 公開確認:
 
@@ -4436,38 +4436,3 @@ Public log publication Worker Version ID:
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: 5 passed
 
 この状態はWIPであり、Shop全体のFINAL_ACCEPTEDではない。
-
-### 32.9 Cycle 06 永続保存・停止通知運用
-
-Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
-
-今回の追加確認:
-
-- ストアデザインエディタのTOPヒーロータイトル保存を公開URLで検証した。
-- 保存後に公開ストアフロントへ反映されることを検証した。
-- リロード後も保存値が残ることを検証した。
-- テスト終了時に元レイアウトへ復元し、復元後のタイトルを確認した。
-
-公開Playwright:
-
-```text
-PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line
-6 passed
-```
-
-復元後のTOPヒーロータイトル:
-
-```text
-雪花セレクトを、わかりやすく。
-```
-
-運用ルール:
-
-- Codexの作業単位が止まる、待つ、またはユーザーへ返す場合は、先に `/g/m68`、`/g/l68`、`/g/d68` を公開反映する。
-- Barkが設定されている場合は、URL Bundleを含めたProgress Notificationを送る。
-- Bark secret、endpoint、tokenはログにもチャットにも出さない。
-
-注意:
-
-- 既存の `npm run gate:design` は古いCore配送詳細プレビューURLを参照しており、今回のShopデザインエディタ用ゲートではない。
-- 次の改善として、Shopデザインエディタ専用のdesign gateへ分離する。
