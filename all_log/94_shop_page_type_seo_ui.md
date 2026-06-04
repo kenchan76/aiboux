@@ -67,3 +67,36 @@ Checked public URLs:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - This is not `FINAL_ACCEPTED`.
+
+## Public Evidence Publication And Progress Bark
+
+Timestamp: 2026-06-04T17:13:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence deployment:
+- Evidence commit: `b5eb45e5004e72c1f3683186704e4a91e9fab281`
+- Public evidence Worker Version ID: `566b290d-ed0d-4211-ba8d-67fbc5bd4e5a`
+- Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present
+- Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present
+- Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present
+- Public verification file: `all_log/public-g/20260604T171219Z_page_type_seo_public_g_verification.txt`
+
+SHA note:
+- Public `/g/*` responses include runtime Worker Version ID substitution.
+- SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when runtime substitutions are present.
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `566b290d-ed0d-4211-ba8d-67fbc5bd4e5a`
+- Evidence file: `all_log/bark/20260604T171233Z_page_type_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.

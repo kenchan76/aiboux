@@ -4733,6 +4733,22 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_PAGE_TYPE_SEO_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Evidence commit: `b5eb45e5004e72c1f3683186704e4a91e9fab281`
+- Public evidence Worker Version ID: `566b290d-ed0d-4211-ba8d-67fbc5bd4e5a`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Public evidence includes the page-type SEO/UI markers and direct HTML evidence summary.
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_PAGE_TYPE_SEO_UI_WIP
 
 Status: `WIP_DEPLOYED_NOT_FINAL`
