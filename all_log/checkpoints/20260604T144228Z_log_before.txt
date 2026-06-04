@@ -1,0 +1,10 @@
+82c4f6b WIP strengthen shop page entity FAQ SEO parts
+53f4e37 WIP record shop shared nav public evidence
+8fd0093 WIP centralize shop storefront navigation parts
+fb60418 WIP publish shop shared SEO head evidence
+1be17b0 WIP centralize shop SEO head and top ItemList
+f7f0de9 WIP record shop sitemap public log verification
+a3ac105 WIP refresh shop public gate screenshots
+13a37b6 WIP publish shop sitemap SEO evidence
+b8142e0 WIP fix shop sitemap routing
+0a53fad WIP add shop robots sitemap SEO discovery
