@@ -4647,6 +4647,27 @@ Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
 
+## 2026-06-05T00:34:50+09:00 Current Evidence Note: Shop Shared Support Rail SEO/UI
+
+Status: `SHOP_10H_SHARED_SUPPORT_RAIL_SEO_UI_WIP`
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target tenant subpages: `https://shop.aiboux.com/s/aiboux/...`
+- Shared storefront support rail component added: `src/components/shop/storefront/StorefrontSupportRail.tsx`
+- Shared support rail data added to `src/lib/shopStorefrontShared.ts`.
+- TOP React storefront and Astro subpage/product route now use the same support rail component.
+- Support rail exposes crawlable internal links to products, categories, cart, checkout, contact, FAQ, returns, mypage, favorites, and subscriptions.
+- Support rail links use visible blue link affordance and hover underline.
+- `tests/shop-public-crawl.spec.ts` now verifies the support rail on public tenant storefront pages.
+- Google Search Central references checked: SEO Starter Guide, ecommerce structured data, Breadcrumb structured data, Product structured data, and crawlable links.
+- WIP commit: `3984217 WIP add shared storefront support rail SEO UI`
+- Worker Version ID: `ada2e58f-775c-448f-b051-302c13048866`
+- Direct public HTML checks confirmed `storefront-support-rail` on TOP, cart, checkout, mypage, and legal pages.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across all configured sales-quality lanes.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
 ## 2026-06-04T15:12:15Z Current Evidence Note: Shop Shared Footer SEO/UI Parts
 
 Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
