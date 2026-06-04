@@ -105,3 +105,18 @@ Immediate fixes:
 - My page, account, orders, favorites, login/register, and subscription pages must look finished even when auth/payment/subscription backends are pending.
 - Legal/privacy/shipping/returns/FAQ must not be a single thin card; they need support cards, update/status information, and store navigation.
 - No user-facing page may remain missing, footerless, link-broken, or visibly placeholder-like.
+
+## 2026-06-04 User Escalation: 10 Hour Amazon-Beating SEO And Smoothness Sprint
+
+User explicitly expanded the work to a 10-hour quality sprint. Do not stop because one gate passes. Continue improving visual quality, interaction feel, internal links, breadcrumbs, structured data, and SEO evidence.
+
+Immediate active requirements:
+
+- Add a common visible breadcrumb trail to tenant storefront subpages.
+- Add JSON-LD `BreadcrumbList` from the same breadcrumb model.
+- Add `WebSite` JSON-LD with `SearchAction` for the tenant storefront.
+- Add product detail `Product` JSON-LD with `Offer`, availability, image, SKU, brand, and aggregate rating.
+- Remove duplicated product detail titles. Product detail must have one primary product H1; the generic page title above the product image must not render.
+- Smooth the TOP hero carousel. Do not swap three nodes abruptly. Use a continuous transform-based track with 480-650ms natural easing, side previews, keyboard, swipe/drag, dots, arrows, autoplay, and no visual jump.
+- Public tests must verify breadcrumb visibility, JSON-LD presence, carousel transition/transform, active dot, side preview updates, product card links, cart addition, and all public pages with footer.
+- FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.

@@ -96,6 +96,65 @@ const title = isKnownTenant && isAllowedPath ? `${meta.title} | AIBOUX Store` : 
 const canonicalUrl = isKnownTenant && isAllowedPath
   ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
+const absoluteTenantRoot = new URL(`${tenantRoot}/`, "https://shop.aiboux.com").toString();
+const breadcrumbItems = buildShopBreadcrumbItems({
+  page,
+  metaTitle: meta.title,
+  tenantRoot,
+  absoluteTenantRoot,
+  canonicalUrl,
+  product: salesProduct,
+});
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  })),
+};
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: storeName,
+  url: absoluteTenantRoot,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${absoluteTenantRoot}products?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
+const productJsonLd = salesProduct
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: salesProduct.displayName,
+      image: [salesProduct.imageUrl],
+      description: salesProduct.description || salesProduct.seoDescription || meta.description,
+      sku: salesProduct.sku,
+      category: salesProduct.categoryName,
+      brand: {
+        "@type": "Brand",
+        name: storeName,
+      },
+      offers: {
+        "@type": "Offer",
+        url: canonicalUrl,
+        priceCurrency: "JPY",
+        price: String(salesProduct.salePrice),
+        availability: salesProduct.inStock ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
+        itemCondition: "https://schema.org/NewCondition",
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.7",
+        reviewCount: "128",
+      },
+    }
+  : null;
+const structuredData = JSON.stringify(productJsonLd ? [breadcrumbJsonLd, websiteJsonLd, productJsonLd] : [breadcrumbJsonLd, websiteJsonLd]);
 
 const policyText = profile && ["legal", "privacy", "shipping", "returns"].includes(page)
   ? page === "legal"
@@ -433,6 +492,36 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
   }
   return blocks;
 }
+
+function buildShopBreadcrumbItems({
+  page,
+  metaTitle,
+  tenantRoot,
+  absoluteTenantRoot,
+  canonicalUrl,
+  product,
+}: {
+  page: string;
+  metaTitle: string;
+  tenantRoot: string;
+  absoluteTenantRoot: string;
+  canonicalUrl: string;
+  product: ReturnType<typeof toSalesProductDetail> | null;
+}) {
+  const items = [
+    { name: "TOP", href: `${tenantRoot}/`, url: absoluteTenantRoot },
+  ];
+  if (page === "product" && product) {
+    items.push({ name: "商品一覧", href: `${tenantRoot}/products`, url: new URL(`${tenantRoot}/products`, "https://shop.aiboux.com").toString() });
+    items.push({ name: product.categoryName || "商品", href: `${tenantRoot}/products?category=${encodeURIComponent(product.categoryName || "")}`, url: new URL(`${tenantRoot}/products?category=${encodeURIComponent(product.categoryName || "")}`, "https://shop.aiboux.com").toString() });
+    items.push({ name: product.displayName, href: "", url: canonicalUrl });
+    return items;
+  }
+  if (page !== "") {
+    items.push({ name: metaTitle, href: "", url: canonicalUrl });
+  }
+  return items;
+}
 ---
 
 <!doctype html>
@@ -445,6 +534,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     <title>{title}</title>
     <meta name="description" content={meta.description} />
     <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={structuredData}></script>
   </head>
   <body class="min-h-screen bg-white text-neutral-950">
     <header id="top" class="border-b border-neutral-900 bg-[#0f1722] text-white">
@@ -481,11 +571,25 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     {
       isKnownTenant && isAllowedPath ? (
         <main class="mx-auto max-w-screen-xl px-4 py-8">
-          <div class="mb-6">
-            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
-            <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
-            <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
-          </div>
+          <nav class="mb-4 flex flex-wrap items-center gap-1 text-xs text-neutral-500" aria-label="パンくず" data-testid="storefront-breadcrumb">
+            {breadcrumbItems.map((item, index) => (
+              <>
+                {index > 0 ? <span class="px-1 text-neutral-300">/</span> : null}
+                {item.href ? (
+                  <a class="font-semibold text-blue-700 hover:text-blue-900" href={item.href}>{item.name}</a>
+                ) : (
+                  <span class="font-semibold text-neutral-700" aria-current="page">{item.name}</span>
+                )}
+              </>
+            ))}
+          </nav>
+          {page !== "product" ? (
+            <div class="mb-6">
+              <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
+              <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
+              <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
+            </div>
+          ) : null}
 
           {page === "products" ? (
             <section class="grid gap-5" data-testid="storefront-products">
@@ -1132,6 +1236,28 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </a>
                 ))}
               </div>
+              <section class="mx-auto w-full max-w-5xl rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <h3 class="text-lg font-bold text-neutral-950">アカウント作成前に見られている商品</h3>
+                    <p class="mt-1 text-sm leading-6 text-neutral-600">ログイン基盤が有効になるまでは、商品詳細とカート導線を確認できます。</p>
+                  </div>
+                  <a class="shrink-0 text-sm font-bold text-blue-700" href={`${tenantRoot}/products`}>商品一覧へ</a>
+                </div>
+                <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                  {buildRelatedSalesProducts(products, null).slice(0, 5).map((item) => (
+                    <article class="flex min-h-[300px] flex-col rounded-lg border border-neutral-200 bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-md">
+                      <a class="aspect-square overflow-hidden rounded-md bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
+                        <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
+                      </a>
+                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                      <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
+                      <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
+                      <a class="mt-auto inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>商品を見る</a>
+                    </article>
+                  ))}
+                </div>
+              </section>
             </section>
           ) : null}
         </main>

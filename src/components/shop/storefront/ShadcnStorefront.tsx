@@ -89,8 +89,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
   const hero = layout.pages.top.heroSlider;
   const slides = normalizeHeroSlides(hero.slides.filter((slide) => slide.enabled));
   const main = slides[0] ?? hero.slides[0];
-  const previous = slides[slides.length - 1] ?? main;
-  const next = slides[1] ?? main;
+  const trackSlides = slides.length > 1 ? [slides[slides.length - 1], ...slides, slides[0]] : slides;
   const recommended = layout.pages.top.sections.recommendedProducts;
   const visualProducts = buildSalesReadyProducts(products);
   const rankingProducts = rotateProducts(visualProducts, 1);
@@ -121,30 +120,27 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
         >
           <div className="relative overflow-hidden" data-testid="storefront-hero-slider">
             <div
-              className="flex gap-3 transition-transform duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="flex gap-3 transition-transform duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               data-testid="hero-carousel-track"
               data-hero-track
+              style={{ transform: "translate3d(calc(14% - 72% - 12px), 0, 0)" }}
             >
-              <SideHeroCard slide={previous} direction="prev" />
-              <div className="relative min-h-[330px] shrink-0 basis-full overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm md:basis-[72%]" data-testid="hero-slide-main" data-slide-id={main.id}>
-                {main.imageUrl ? (
-                  <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
-                ) : (
-                  <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
-                <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
-                  <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
-                  <h1 className="text-3xl font-black leading-tight md:text-5xl" data-hero-title>{main.title}</h1>
-                  <p className="mt-3 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{main.subtitle}</p>
-                  {main.ctaText ? (
-                    <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`} data-hero-cta>
-                      {main.ctaText}
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-              <SideHeroCard slide={next} direction="next" />
+              {trackSlides.map((slide, trackIndex) => {
+                const isPrevClone = slides.length > 1 && trackIndex === 0;
+                const isNextClone = slides.length > 1 && trackIndex === trackSlides.length - 1;
+                const realIndex = isPrevClone ? slides.length - 1 : isNextClone ? 0 : trackIndex - 1;
+                const initialTestId = trackIndex === 0 ? "hero-slide-prev" : trackIndex === 1 ? "hero-slide-main" : trackIndex === 2 ? "hero-slide-next" : "hero-slide-item";
+                return (
+                  <HeroCarouselSlide
+                    key={`${slide.id}-${trackIndex}`}
+                    slide={slide}
+                    tenantRoot={tenantRoot}
+                    realIndex={realIndex}
+                    trackIndex={trackIndex}
+                    testId={initialTestId}
+                  />
+                );
+              })}
             </div>
             {hero.showArrows ? (
               <>
@@ -323,13 +319,45 @@ function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot:
   );
 }
 
-function SideHeroCard({ slide, direction }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number]; direction: "prev" | "next" }) {
+function HeroCarouselSlide({
+  slide,
+  tenantRoot,
+  realIndex,
+  trackIndex,
+  testId,
+}: {
+  slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number];
+  tenantRoot: string;
+  realIndex: number;
+  trackIndex: number;
+  testId: string;
+}) {
   return (
-    <div className="relative hidden min-h-[330px] shrink-0 basis-[14%] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`} data-slide-id={slide.id}>
-      <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
-      <div className="absolute inset-0 bg-black/25" />
-      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow" data-hero-side-title>{slide.title}</div>
-    </div>
+    <article
+      className="relative min-h-[330px] shrink-0 basis-[72%] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm transition-[filter,opacity,transform] duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+      data-hero-slide
+      data-testid={testId}
+      data-track-index={String(trackIndex)}
+      data-real-index={String(realIndex)}
+      data-slide-id={slide.id}
+    >
+      {slide.imageUrl ? (
+        <img src={slide.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
+      ) : (
+        <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
+      <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
+        <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
+        <h1 className="line-clamp-2 text-3xl font-black leading-tight md:text-5xl" data-hero-title>{slide.title}</h1>
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{slide.subtitle}</p>
+        {slide.ctaText ? (
+          <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={slide.ctaHref || `${tenantRoot}/products`} data-hero-cta>
+            {slide.ctaText}
+          </a>
+        ) : null}
+      </div>
+    </article>
   );
 }
 
@@ -471,21 +499,16 @@ function StorefrontInteractionScript() {
     const loop = carousel.getAttribute("data-loop") !== "false";
     const autoplay = carousel.getAttribute("data-autoplay") === "true";
     const intervalMs = Math.max(3000, Number(carousel.getAttribute("data-interval-ms") || 5000));
-    const transitionMs = 560;
+    const transitionMs = 620;
     const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
-    const offset = "calc(14% + 12px)";
     const track = carousel.querySelector("[data-hero-track]");
-    const main = carousel.querySelector("[data-testid='hero-slide-main']");
-    const prev = carousel.querySelector("[data-testid='hero-slide-prev']");
-    const next = carousel.querySelector("[data-testid='hero-slide-next']");
-    const mainImg = carousel.querySelector("[data-hero-main-img]");
-    const title = carousel.querySelector("[data-hero-title]");
-    const subtitle = carousel.querySelector("[data-hero-subtitle]");
-    const cta = carousel.querySelector("[data-hero-cta]");
+    const viewport = carousel.querySelector("[data-testid='storefront-hero-slider']");
+    const slideNodes = [...carousel.querySelectorAll("[data-hero-slide]")];
     const dots = [...carousel.querySelectorAll("[data-hero-dot]")];
     const prevButton = carousel.querySelector("[data-hero-prev-button]");
     const nextButton = carousel.querySelector("[data-hero-next-button]");
     let index = 0;
+    let activeTrackIndex = 1;
     let timer = 0;
     let paused = false;
     let transitioning = false;
@@ -493,42 +516,44 @@ function StorefrontInteractionScript() {
     let pointerStartY = 0;
     let pointerTracking = false;
 
-    const slideAt = (position) => slides[(position + slides.length) % slides.length];
     const setTrackTransition = (enabled) => {
       if (!track) return;
       track.style.transition = enabled ? "transform " + transitionMs + "ms " + easing : "none";
     };
-    const resetTrack = () => {
+    const targetOffsetForTrackIndex = (trackIndex) => {
+      if (!track || !viewport) return 0;
+      const activeSlide = slideNodes[trackIndex];
+      if (!activeSlide) return 0;
+      const desiredLeft = Math.round(viewport.clientWidth * 0.14 + 12);
+      return Math.round(desiredLeft - activeSlide.offsetLeft);
+    };
+    const applyTrackPosition = (trackIndex, animated) => {
       if (!track) return;
-      setTrackTransition(false);
-      track.style.transform = "translate3d(0, 0, 0)";
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => setTrackTransition(true));
-      });
+      setTrackTransition(animated);
+      const offset = targetOffsetForTrackIndex(trackIndex);
+      track.style.transform = "translate3d(" + offset + "px, 0, 0)";
     };
-    const setSide = (node, slide) => {
-      if (!node || !slide) return;
-      node.setAttribute("data-slide-id", slide.id);
-      const image = node.querySelector("img");
-      const sideTitle = node.querySelector("[data-hero-side-title]");
-      if (image) image.setAttribute("src", slide.imageUrl || "");
-      if (sideTitle) sideTitle.textContent = slide.title || "";
-    };
-    const render = () => {
-      const current = slideAt(index);
-      const previous = slideAt(index - 1);
-      const following = slideAt(index + 1);
+    const renderState = () => {
+      const current = slides[index];
       carousel.setAttribute("data-current-slide-id", current.id);
-      if (main) main.setAttribute("data-slide-id", current.id);
-      if (mainImg) mainImg.setAttribute("src", current.imageUrl || "");
-      if (title) title.textContent = current.title || "";
-      if (subtitle) subtitle.textContent = current.subtitle || "";
-      if (cta) {
-        cta.textContent = current.ctaText || "詳しく見る";
-        cta.setAttribute("href", current.ctaHref || "/s/aiboux/products");
-      }
-      setSide(prev, previous);
-      setSide(next, following);
+      slideNodes.forEach((node, trackIndex) => {
+        node.setAttribute("data-testid", "hero-slide-item");
+        node.classList.toggle("opacity-70", true);
+        node.classList.toggle("scale-[0.985]", true);
+        node.classList.toggle("opacity-100", false);
+        node.classList.toggle("scale-100", false);
+        if (trackIndex === activeTrackIndex - 1) {
+          node.setAttribute("data-testid", "hero-slide-prev");
+        }
+        if (trackIndex === activeTrackIndex) {
+          node.setAttribute("data-testid", "hero-slide-main");
+          node.classList.remove("opacity-70", "scale-[0.985]");
+          node.classList.add("opacity-100", "scale-100");
+        }
+        if (trackIndex === activeTrackIndex + 1) {
+          node.setAttribute("data-testid", "hero-slide-next");
+        }
+      });
       dots.forEach((dot, dotIndex) => {
         const active = dotIndex === index;
         dot.setAttribute("aria-current", active ? "true" : "false");
@@ -536,10 +561,16 @@ function StorefrontInteractionScript() {
         dot.classList.toggle("bg-slate-300", !active);
       });
     };
-    const completeMove = (nextIndex) => {
+    const completeMove = (nextIndex, targetTrackIndex) => {
       index = (nextIndex + slides.length) % slides.length;
-      render();
-      resetTrack();
+      activeTrackIndex = index + 1;
+      if (targetTrackIndex <= 0 || targetTrackIndex >= slides.length + 1) {
+        renderState();
+        applyTrackPosition(activeTrackIndex, false);
+        window.requestAnimationFrame(() => window.requestAnimationFrame(() => setTrackTransition(true)));
+      } else {
+        renderState();
+      }
       transitioning = false;
       carousel.setAttribute("data-hero-animating", "false");
     };
@@ -548,14 +579,14 @@ function StorefrontInteractionScript() {
       const nextIndex = index + delta;
       if (!loop && (nextIndex < 0 || nextIndex >= slides.length)) return;
       if (!animate || !track) {
-        completeMove(nextIndex);
+        completeMove(nextIndex, nextIndex + 1);
         return;
       }
       transitioning = true;
       carousel.setAttribute("data-hero-animating", "true");
-      setTrackTransition(true);
-      track.style.transform = delta > 0 ? "translate3d(calc(-1 * " + offset + "), 0, 0)" : "translate3d(" + offset + ", 0, 0)";
-      window.setTimeout(() => completeMove(nextIndex), transitionMs);
+      const targetTrackIndex = activeTrackIndex + delta;
+      applyTrackPosition(targetTrackIndex, true);
+      window.setTimeout(() => completeMove(nextIndex, targetTrackIndex), transitionMs + 30);
     };
     const goTo = (targetIndex) => {
       if (transitioning) return;
@@ -612,8 +643,9 @@ function StorefrontInteractionScript() {
     carousel.addEventListener("mouseleave", () => { paused = false; });
     carousel.addEventListener("focusin", () => { paused = true; });
     carousel.addEventListener("focusout", () => { paused = false; });
-    setTrackTransition(true);
-    render();
+    renderState();
+    applyTrackPosition(activeTrackIndex, false);
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => setTrackTransition(true)));
     restart();
   });
 })();

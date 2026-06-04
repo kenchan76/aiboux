@@ -23,6 +23,31 @@ const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "�
 const canonicalUrl = isKnownTenant && profile
   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
+const breadcrumbJsonLd = JSON.stringify([
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "TOP",
+        item: canonicalUrl,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: storeName,
+    url: canonicalUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${canonicalUrl}products?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  },
+]);
 
 const storefrontProducts = products.map((product) => ({
   id: product.id,
@@ -45,6 +70,7 @@ const storefrontProducts = products.map((product) => ({
     <title>{title}</title>
     <meta name="description" content={`${storeName}の公開ストアです。`} />
     <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={breadcrumbJsonLd}></script>
   </head>
   <body>
     {

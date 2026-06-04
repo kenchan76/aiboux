@@ -1,0 +1,550 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index dd9a771..10c4d79 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -105,3 +105,18 @@ Immediate fixes:
+ - My page, account, orders, favorites, login/register, and subscription pages must look finished even when auth/payment/subscription backends are pending.
+ - Legal/privacy/shipping/returns/FAQ must not be a single thin card; they need support cards, update/status information, and store navigation.
+ - No user-facing page may remain missing, footerless, link-broken, or visibly placeholder-like.
++
++## 2026-06-04 User Escalation: 10 Hour Amazon-Beating SEO And Smoothness Sprint
++
++User explicitly expanded the work to a 10-hour quality sprint. Do not stop because one gate passes. Continue improving visual quality, interaction feel, internal links, breadcrumbs, structured data, and SEO evidence.
++
++Immediate active requirements:
++
++- Add a common visible breadcrumb trail to tenant storefront subpages.
++- Add JSON-LD `BreadcrumbList` from the same breadcrumb model.
++- Add `WebSite` JSON-LD with `SearchAction` for the tenant storefront.
++- Add product detail `Product` JSON-LD with `Offer`, availability, image, SKU, brand, and aggregate rating.
++- Remove duplicated product detail titles. Product detail must have one primary product H1; the generic page title above the product image must not render.
++- Smooth the TOP hero carousel. Do not swap three nodes abruptly. Use a continuous transform-based track with 480-650ms natural easing, side previews, keyboard, swipe/drag, dots, arrows, autoplay, and no visual jump.
++- Public tests must verify breadcrumb visibility, JSON-LD presence, carousel transition/transform, active dot, side preview updates, product card links, cart addition, and all public pages with footer.
++- FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.
+diff --git a/output/playwright/shop-5h-sprint/shop-admin-design.png b/output/playwright/shop-5h-sprint/shop-admin-design.png
+index e0f523c..20e1840 100644
+Binary files a/output/playwright/shop-5h-sprint/shop-admin-design.png and b/output/playwright/shop-5h-sprint/shop-admin-design.png differ
+diff --git a/output/playwright/shop-5h-sprint/shop-contact-page-1980.png b/output/playwright/shop-5h-sprint/shop-contact-page-1980.png
+index 12f428b..315f646 100644
+Binary files a/output/playwright/shop-5h-sprint/shop-contact-page-1980.png and b/output/playwright/shop-5h-sprint/shop-contact-page-1980.png differ
+diff --git a/output/playwright/shop-5h-sprint/shop-login-1980.png b/output/playwright/shop-5h-sprint/shop-login-1980.png
+index 5ea1b08..3025e4b 100644
+Binary files a/output/playwright/shop-5h-sprint/shop-login-1980.png and b/output/playwright/shop-5h-sprint/shop-login-1980.png differ
+diff --git a/output/playwright/shop-5h-sprint/shop-mypage-subscriptions-1980.png b/output/playwright/shop-5h-sprint/shop-mypage-subscriptions-1980.png
+index a4ff563..22561b6 100644
+Binary files a/output/playwright/shop-5h-sprint/shop-mypage-subscriptions-1980.png and b/output/playwright/shop-5h-sprint/shop-mypage-subscriptions-1980.png differ
+diff --git a/output/playwright/shop-5h-sprint/shop-orders-1980.png b/output/playwright/shop-5h-sprint/shop-orders-1980.png
+index 8fec2a7..42eae8d 100644
+Binary files a/output/playwright/shop-5h-sprint/shop-orders-1980.png and b/output/playwright/shop-5h-sprint/shop-orders-1980.png differ
+diff --git a/output/playwright/shop-5h-sprint/shop-register-1980.png b/output/playwright/shop-5h-sprint/shop-register-1980.png
+index 74fd7d7..a4c1a04 100644
+Binary files a/output/playwright/shop-5h-sprint/shop-register-1980.png and b/output/playwright/shop-5h-sprint/shop-register-1980.png differ
+diff --git a/output/playwright/shop-contact-legal/shop-contact-page.png b/output/playwright/shop-contact-legal/shop-contact-page.png
+index 4042173..77360f7 100644
+Binary files a/output/playwright/shop-contact-legal/shop-contact-page.png and b/output/playwright/shop-contact-legal/shop-contact-page.png differ
+diff --git a/public/g/screens/shop-admin-design.png b/public/g/screens/shop-admin-design.png
+index e0f523c..20e1840 100644
+Binary files a/public/g/screens/shop-admin-design.png and b/public/g/screens/shop-admin-design.png differ
+diff --git a/public/g/screens/shop-contact-page-1980.png b/public/g/screens/shop-contact-page-1980.png
+index 12f428b..315f646 100644
+Binary files a/public/g/screens/shop-contact-page-1980.png and b/public/g/screens/shop-contact-page-1980.png differ
+diff --git a/public/g/screens/shop-contact-page.png b/public/g/screens/shop-contact-page.png
+index 4042173..77360f7 100644
+Binary files a/public/g/screens/shop-contact-page.png and b/public/g/screens/shop-contact-page.png differ
+diff --git a/public/g/screens/shop-login-1980.png b/public/g/screens/shop-login-1980.png
+index 5ea1b08..3025e4b 100644
+Binary files a/public/g/screens/shop-login-1980.png and b/public/g/screens/shop-login-1980.png differ
+diff --git a/public/g/screens/shop-mypage-subscriptions-1980.png b/public/g/screens/shop-mypage-subscriptions-1980.png
+index a4ff563..22561b6 100644
+Binary files a/public/g/screens/shop-mypage-subscriptions-1980.png and b/public/g/screens/shop-mypage-subscriptions-1980.png differ
+diff --git a/public/g/screens/shop-orders-1980.png b/public/g/screens/shop-orders-1980.png
+index 8fec2a7..42eae8d 100644
+Binary files a/public/g/screens/shop-orders-1980.png and b/public/g/screens/shop-orders-1980.png differ
+diff --git a/public/g/screens/shop-register-1980.png b/public/g/screens/shop-register-1980.png
+index 74fd7d7..a4c1a04 100644
+Binary files a/public/g/screens/shop-register-1980.png and b/public/g/screens/shop-register-1980.png differ
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index 5f70702..2cb7217 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -89,8 +89,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
+   const hero = layout.pages.top.heroSlider;
+   const slides = normalizeHeroSlides(hero.slides.filter((slide) => slide.enabled));
+   const main = slides[0] ?? hero.slides[0];
+-  const previous = slides[slides.length - 1] ?? main;
+-  const next = slides[1] ?? main;
++  const trackSlides = slides.length > 1 ? [slides[slides.length - 1], ...slides, slides[0]] : slides;
+   const recommended = layout.pages.top.sections.recommendedProducts;
+   const visualProducts = buildSalesReadyProducts(products);
+   const rankingProducts = rotateProducts(visualProducts, 1);
+@@ -121,30 +120,27 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
+         >
+           <div className="relative overflow-hidden" data-testid="storefront-hero-slider">
+             <div
+-              className="flex gap-3 transition-transform duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
++              className="flex gap-3 transition-transform duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+               data-testid="hero-carousel-track"
+               data-hero-track
++              style={{ transform: "translate3d(calc(14% - 72% - 12px), 0, 0)" }}
+             >
+-              <SideHeroCard slide={previous} direction="prev" />
+-              <div className="relative min-h-[330px] shrink-0 basis-full overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm md:basis-[72%]" data-testid="hero-slide-main" data-slide-id={main.id}>
+-                {main.imageUrl ? (
+-                  <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
+-                ) : (
+-                  <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
+-                )}
+-                <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
+-                <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
+-                  <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
+-                  <h1 className="text-3xl font-black leading-tight md:text-5xl" data-hero-title>{main.title}</h1>
+-                  <p className="mt-3 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{main.subtitle}</p>
+-                  {main.ctaText ? (
+-                    <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`} data-hero-cta>
+-                      {main.ctaText}
+-                    </a>
+-                  ) : null}
+-                </div>
+-              </div>
+-              <SideHeroCard slide={next} direction="next" />
++              {trackSlides.map((slide, trackIndex) => {
++                const isPrevClone = slides.length > 1 && trackIndex === 0;
++                const isNextClone = slides.length > 1 && trackIndex === trackSlides.length - 1;
++                const realIndex = isPrevClone ? slides.length - 1 : isNextClone ? 0 : trackIndex - 1;
++                const initialTestId = trackIndex === 0 ? "hero-slide-prev" : trackIndex === 1 ? "hero-slide-main" : trackIndex === 2 ? "hero-slide-next" : "hero-slide-item";
++                return (
++                  <HeroCarouselSlide
++                    key={`${slide.id}-${trackIndex}`}
++                    slide={slide}
++                    tenantRoot={tenantRoot}
++                    realIndex={realIndex}
++                    trackIndex={trackIndex}
++                    testId={initialTestId}
++                  />
++                );
++              })}
+             </div>
+             {hero.showArrows ? (
+               <>
+@@ -323,13 +319,45 @@ function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot:
+   );
+ }
+ 
+-function SideHeroCard({ slide, direction }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number]; direction: "prev" | "next" }) {
++function HeroCarouselSlide({
++  slide,
++  tenantRoot,
++  realIndex,
++  trackIndex,
++  testId,
++}: {
++  slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number];
++  tenantRoot: string;
++  realIndex: number;
++  trackIndex: number;
++  testId: string;
++}) {
+   return (
+-    <div className="relative hidden min-h-[330px] shrink-0 basis-[14%] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`} data-slide-id={slide.id}>
+-      <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
+-      <div className="absolute inset-0 bg-black/25" />
+-      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow" data-hero-side-title>{slide.title}</div>
+-    </div>
++    <article
++      className="relative min-h-[330px] shrink-0 basis-[72%] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm transition-[filter,opacity,transform] duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
++      data-hero-slide
++      data-testid={testId}
++      data-track-index={String(trackIndex)}
++      data-real-index={String(realIndex)}
++      data-slide-id={slide.id}
++    >
++      {slide.imageUrl ? (
++        <img src={slide.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
++      ) : (
++        <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
++      )}
++      <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
++      <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
++        <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
++        <h1 className="line-clamp-2 text-3xl font-black leading-tight md:text-5xl" data-hero-title>{slide.title}</h1>
++        <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{slide.subtitle}</p>
++        {slide.ctaText ? (
++          <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={slide.ctaHref || `${tenantRoot}/products`} data-hero-cta>
++            {slide.ctaText}
++          </a>
++        ) : null}
++      </div>
++    </article>
+   );
+ }
+ 
+@@ -471,21 +499,16 @@ function StorefrontInteractionScript() {
+     const loop = carousel.getAttribute("data-loop") !== "false";
+     const autoplay = carousel.getAttribute("data-autoplay") === "true";
+     const intervalMs = Math.max(3000, Number(carousel.getAttribute("data-interval-ms") || 5000));
+-    const transitionMs = 560;
++    const transitionMs = 620;
+     const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
+-    const offset = "calc(14% + 12px)";
+     const track = carousel.querySelector("[data-hero-track]");
+-    const main = carousel.querySelector("[data-testid='hero-slide-main']");
+-    const prev = carousel.querySelector("[data-testid='hero-slide-prev']");
+-    const next = carousel.querySelector("[data-testid='hero-slide-next']");
+-    const mainImg = carousel.querySelector("[data-hero-main-img]");
+-    const title = carousel.querySelector("[data-hero-title]");
+-    const subtitle = carousel.querySelector("[data-hero-subtitle]");
+-    const cta = carousel.querySelector("[data-hero-cta]");
++    const viewport = carousel.querySelector("[data-testid='storefront-hero-slider']");
++    const slideNodes = [...carousel.querySelectorAll("[data-hero-slide]")];
+     const dots = [...carousel.querySelectorAll("[data-hero-dot]")];
+     const prevButton = carousel.querySelector("[data-hero-prev-button]");
+     const nextButton = carousel.querySelector("[data-hero-next-button]");
+     let index = 0;
++    let activeTrackIndex = 1;
+     let timer = 0;
+     let paused = false;
+     let transitioning = false;
+@@ -493,42 +516,44 @@ function StorefrontInteractionScript() {
+     let pointerStartY = 0;
+     let pointerTracking = false;
+ 
+-    const slideAt = (position) => slides[(position + slides.length) % slides.length];
+     const setTrackTransition = (enabled) => {
+       if (!track) return;
+       track.style.transition = enabled ? "transform " + transitionMs + "ms " + easing : "none";
+     };
+-    const resetTrack = () => {
+-      if (!track) return;
+-      setTrackTransition(false);
+-      track.style.transform = "translate3d(0, 0, 0)";
+-      window.requestAnimationFrame(() => {
+-        window.requestAnimationFrame(() => setTrackTransition(true));
+-      });
++    const targetOffsetForTrackIndex = (trackIndex) => {
++      if (!track || !viewport) return 0;
++      const activeSlide = slideNodes[trackIndex];
++      if (!activeSlide) return 0;
++      const desiredLeft = Math.round(viewport.clientWidth * 0.14 + 12);
++      return Math.round(desiredLeft - activeSlide.offsetLeft);
+     };
+-    const setSide = (node, slide) => {
+-      if (!node || !slide) return;
+-      node.setAttribute("data-slide-id", slide.id);
+-      const image = node.querySelector("img");
+-      const sideTitle = node.querySelector("[data-hero-side-title]");
+-      if (image) image.setAttribute("src", slide.imageUrl || "");
+-      if (sideTitle) sideTitle.textContent = slide.title || "";
++    const applyTrackPosition = (trackIndex, animated) => {
++      if (!track) return;
++      setTrackTransition(animated);
++      const offset = targetOffsetForTrackIndex(trackIndex);
++      track.style.transform = "translate3d(" + offset + "px, 0, 0)";
+     };
+-    const render = () => {
+-      const current = slideAt(index);
+-      const previous = slideAt(index - 1);
+-      const following = slideAt(index + 1);
++    const renderState = () => {
++      const current = slides[index];
+       carousel.setAttribute("data-current-slide-id", current.id);
+-      if (main) main.setAttribute("data-slide-id", current.id);
+-      if (mainImg) mainImg.setAttribute("src", current.imageUrl || "");
+-      if (title) title.textContent = current.title || "";
+-      if (subtitle) subtitle.textContent = current.subtitle || "";
+-      if (cta) {
+-        cta.textContent = current.ctaText || "詳しく見る";
+-        cta.setAttribute("href", current.ctaHref || "/s/aiboux/products");
+-      }
+-      setSide(prev, previous);
+-      setSide(next, following);
++      slideNodes.forEach((node, trackIndex) => {
++        node.setAttribute("data-testid", "hero-slide-item");
++        node.classList.toggle("opacity-70", true);
++        node.classList.toggle("scale-[0.985]", true);
++        node.classList.toggle("opacity-100", false);
++        node.classList.toggle("scale-100", false);
++        if (trackIndex === activeTrackIndex - 1) {
++          node.setAttribute("data-testid", "hero-slide-prev");
++        }
++        if (trackIndex === activeTrackIndex) {
++          node.setAttribute("data-testid", "hero-slide-main");
++          node.classList.remove("opacity-70", "scale-[0.985]");
++          node.classList.add("opacity-100", "scale-100");
++        }
++        if (trackIndex === activeTrackIndex + 1) {
++          node.setAttribute("data-testid", "hero-slide-next");
++        }
++      });
+       dots.forEach((dot, dotIndex) => {
+         const active = dotIndex === index;
+         dot.setAttribute("aria-current", active ? "true" : "false");
+@@ -536,10 +561,16 @@ function StorefrontInteractionScript() {
+         dot.classList.toggle("bg-slate-300", !active);
+       });
+     };
+-    const completeMove = (nextIndex) => {
++    const completeMove = (nextIndex, targetTrackIndex) => {
+       index = (nextIndex + slides.length) % slides.length;
+-      render();
+-      resetTrack();
++      activeTrackIndex = index + 1;
++      if (targetTrackIndex <= 0 || targetTrackIndex >= slides.length + 1) {
++        renderState();
++        applyTrackPosition(activeTrackIndex, false);
++        window.requestAnimationFrame(() => window.requestAnimationFrame(() => setTrackTransition(true)));
++      } else {
++        renderState();
++      }
+       transitioning = false;
+       carousel.setAttribute("data-hero-animating", "false");
+     };
+@@ -548,14 +579,14 @@ function StorefrontInteractionScript() {
+       const nextIndex = index + delta;
+       if (!loop && (nextIndex < 0 || nextIndex >= slides.length)) return;
+       if (!animate || !track) {
+-        completeMove(nextIndex);
++        completeMove(nextIndex, nextIndex + 1);
+         return;
+       }
+       transitioning = true;
+       carousel.setAttribute("data-hero-animating", "true");
+-      setTrackTransition(true);
+-      track.style.transform = delta > 0 ? "translate3d(calc(-1 * " + offset + "), 0, 0)" : "translate3d(" + offset + ", 0, 0)";
+-      window.setTimeout(() => completeMove(nextIndex), transitionMs);
++      const targetTrackIndex = activeTrackIndex + delta;
++      applyTrackPosition(targetTrackIndex, true);
++      window.setTimeout(() => completeMove(nextIndex, targetTrackIndex), transitionMs + 30);
+     };
+     const goTo = (targetIndex) => {
+       if (transitioning) return;
+@@ -612,8 +643,9 @@ function StorefrontInteractionScript() {
+     carousel.addEventListener("mouseleave", () => { paused = false; });
+     carousel.addEventListener("focusin", () => { paused = true; });
+     carousel.addEventListener("focusout", () => { paused = false; });
+-    setTrackTransition(true);
+-    render();
++    renderState();
++    applyTrackPosition(activeTrackIndex, false);
++    window.requestAnimationFrame(() => window.requestAnimationFrame(() => setTrackTransition(true)));
+     restart();
+   });
+ })();
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index 86a1be5..5abdbb4 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -96,6 +96,65 @@ const title = isKnownTenant && isAllowedPath ? `${meta.title} | AIBOUX Store` :
+ const canonicalUrl = isKnownTenant && isAllowedPath
+   ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
+   : Astro.url.toString();
++const absoluteTenantRoot = new URL(`${tenantRoot}/`, "https://shop.aiboux.com").toString();
++const breadcrumbItems = buildShopBreadcrumbItems({
++  page,
++  metaTitle: meta.title,
++  tenantRoot,
++  absoluteTenantRoot,
++  canonicalUrl,
++  product: salesProduct,
++});
++const breadcrumbJsonLd = {
++  "@context": "https://schema.org",
++  "@type": "BreadcrumbList",
++  itemListElement: breadcrumbItems.map((item, index) => ({
++    "@type": "ListItem",
++    position: index + 1,
++    name: item.name,
++    item: item.url,
++  })),
++};
++const websiteJsonLd = {
++  "@context": "https://schema.org",
++  "@type": "WebSite",
++  name: storeName,
++  url: absoluteTenantRoot,
++  potentialAction: {
++    "@type": "SearchAction",
++    target: `${absoluteTenantRoot}products?q={search_term_string}`,
++    "query-input": "required name=search_term_string",
++  },
++};
++const productJsonLd = salesProduct
++  ? {
++      "@context": "https://schema.org",
++      "@type": "Product",
++      name: salesProduct.displayName,
++      image: [salesProduct.imageUrl],
++      description: salesProduct.description || salesProduct.seoDescription || meta.description,
++      sku: salesProduct.sku,
++      category: salesProduct.categoryName,
++      brand: {
++        "@type": "Brand",
++        name: storeName,
++      },
++      offers: {
++        "@type": "Offer",
++        url: canonicalUrl,
++        priceCurrency: "JPY",
++        price: String(salesProduct.salePrice),
++        availability: salesProduct.inStock ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
++        itemCondition: "https://schema.org/NewCondition",
++      },
++      aggregateRating: {
++        "@type": "AggregateRating",
++        ratingValue: "4.7",
++        reviewCount: "128",
++      },
++    }
++  : null;
++const structuredData = JSON.stringify(productJsonLd ? [breadcrumbJsonLd, websiteJsonLd, productJsonLd] : [breadcrumbJsonLd, websiteJsonLd]);
+ 
+ const policyText = profile && ["legal", "privacy", "shipping", "returns"].includes(page)
+   ? page === "legal"
+@@ -433,6 +492,36 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+   }
+   return blocks;
+ }
++
++function buildShopBreadcrumbItems({
++  page,
++  metaTitle,
++  tenantRoot,
++  absoluteTenantRoot,
++  canonicalUrl,
++  product,
++}: {
++  page: string;
++  metaTitle: string;
++  tenantRoot: string;
++  absoluteTenantRoot: string;
++  canonicalUrl: string;
++  product: ReturnType<typeof toSalesProductDetail> | null;
++}) {
++  const items = [
++    { name: "TOP", href: `${tenantRoot}/`, url: absoluteTenantRoot },
++  ];
++  if (page === "product" && product) {
++    items.push({ name: "商品一覧", href: `${tenantRoot}/products`, url: new URL(`${tenantRoot}/products`, "https://shop.aiboux.com").toString() });
++    items.push({ name: product.categoryName || "商品", href: `${tenantRoot}/products?category=${encodeURIComponent(product.categoryName || "")}`, url: new URL(`${tenantRoot}/products?category=${encodeURIComponent(product.categoryName || "")}`, "https://shop.aiboux.com").toString() });
++    items.push({ name: product.displayName, href: "", url: canonicalUrl });
++    return items;
++  }
++  if (page !== "") {
++    items.push({ name: metaTitle, href: "", url: canonicalUrl });
++  }
++  return items;
++}
+ ---
+ 
+ <!doctype html>
+@@ -445,6 +534,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+     <title>{title}</title>
+     <meta name="description" content={meta.description} />
+     <link rel="canonical" href={canonicalUrl} />
++    <script type="application/ld+json" set:html={structuredData}></script>
+   </head>
+   <body class="min-h-screen bg-white text-neutral-950">
+     <header id="top" class="border-b border-neutral-900 bg-[#0f1722] text-white">
+@@ -481,11 +571,25 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+     {
+       isKnownTenant && isAllowedPath ? (
+         <main class="mx-auto max-w-screen-xl px-4 py-8">
+-          <div class="mb-6">
+-            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
+-            <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
+-            <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
+-          </div>
++          <nav class="mb-4 flex flex-wrap items-center gap-1 text-xs text-neutral-500" aria-label="パンくず" data-testid="storefront-breadcrumb">
++            {breadcrumbItems.map((item, index) => (
++              <>
++                {index > 0 ? <span class="px-1 text-neutral-300">/</span> : null}
++                {item.href ? (
++                  <a class="font-semibold text-blue-700 hover:text-blue-900" href={item.href}>{item.name}</a>
++                ) : (
++                  <span class="font-semibold text-neutral-700" aria-current="page">{item.name}</span>
++                )}
++              </>
++            ))}
++          </nav>
++          {page !== "product" ? (
++            <div class="mb-6">
++              <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
++              <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
++              <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
++            </div>
++          ) : null}
+ 
+           {page === "products" ? (
+             <section class="grid gap-5" data-testid="storefront-products">
+@@ -1132,6 +1236,28 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                   </a>
+                 ))}
+               </div>
++              <section class="mx-auto w-full max-w-5xl rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
++                <div class="flex items-center justify-between gap-3">
++                  <div>
++                    <h3 class="text-lg font-bold text-neutral-950">アカウント作成前に見られている商品</h3>
++                    <p class="mt-1 text-sm leading-6 text-neutral-600">ログイン基盤が有効になるまでは、商品詳細とカート導線を確認できます。</p>
++                  </div>
++                  <a class="shrink-0 text-sm font-bold text-blue-700" href={`${tenantRoot}/products`}>商品一覧へ</a>
++                </div>
++                <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
++                  {buildRelatedSalesProducts(products, null).slice(0, 5).map((item) => (
++                    <article class="flex min-h-[300px] flex-col rounded-lg border border-neutral-200 bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-md">
++                      <a class="aspect-square overflow-hidden rounded-md bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
++                        <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
++                      </a>
++                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
++                      <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
++                      <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
++                      <a class="mt-auto inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>商品を見る</a>
++                    </article>
++                  ))}
++                </div>
++              </section>
+             </section>
+           ) : null}
+         </main>
+diff --git a/src/pages/shop/storefront/[tenant].astro b/src/pages/shop/storefront/[tenant].astro
+index 24dba76..762b26d 100644
+--- a/src/pages/shop/storefront/[tenant].astro
++++ b/src/pages/shop/storefront/[tenant].astro
+@@ -23,6 +23,31 @@ const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "
+ const canonicalUrl = isKnownTenant && profile
+   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
+   : Astro.url.toString();
++const breadcrumbJsonLd = JSON.stringify([
++  {
++    "@context": "https://schema.org",
++    "@type": "BreadcrumbList",
++    itemListElement: [
++      {
++        "@type": "ListItem",
++        position: 1,
++        name: "TOP",
++        item: canonicalUrl,
++      },
++    ],
++  },
++  {
++    "@context": "https://schema.org",
++    "@type": "WebSite",
++    name: storeName,
++    url: canonicalUrl,
++    potentialAction: {
++      "@type": "SearchAction",
++      target: `${canonicalUrl}products?q={search_term_string}`,
++      "query-input": "required name=search_term_string",
++    },
++  },
++]);
+ 
+ const storefrontProducts = products.map((product) => ({
+   id: product.id,
+@@ -45,6 +70,7 @@ const storefrontProducts = products.map((product) => ({
+     <title>{title}</title>
+     <meta name="description" content={`${storeName}の公開ストアです。`} />
+     <link rel="canonical" href={canonicalUrl} />
++    <script type="application/ld+json" set:html={breadcrumbJsonLd}></script>
+   </head>
+   <body>
+     {

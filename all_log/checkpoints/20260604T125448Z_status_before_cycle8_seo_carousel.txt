@@ -1,0 +1,20 @@
+ M ops/instructions/current.md
+ M output/playwright/shop-5h-sprint/shop-admin-design.png
+ M output/playwright/shop-5h-sprint/shop-contact-page-1980.png
+ M output/playwright/shop-5h-sprint/shop-login-1980.png
+ M output/playwright/shop-5h-sprint/shop-mypage-subscriptions-1980.png
+ M output/playwright/shop-5h-sprint/shop-orders-1980.png
+ M output/playwright/shop-5h-sprint/shop-register-1980.png
+ M output/playwright/shop-contact-legal/shop-contact-page.png
+ M public/g/screens/shop-admin-design.png
+ M public/g/screens/shop-contact-page-1980.png
+ M public/g/screens/shop-contact-page.png
+ M public/g/screens/shop-login-1980.png
+ M public/g/screens/shop-mypage-subscriptions-1980.png
+ M public/g/screens/shop-orders-1980.png
+ M public/g/screens/shop-register-1980.png
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+?? all_log/checkpoints/20260604T125448Z_status_before_cycle8_seo_carousel.txt
+?? all_log/deploys/20260604T124530Z_wrangler_cycle7_account_surfaces.txt
