@@ -1,4 +1,4 @@
-# AIBOUX Shop Amazon Quality All Pages Cycle 3
+# AIBOUX Shop Amazon Quality All Pages Cycle 4
 
 Status: WIP
 
@@ -92,3 +92,16 @@ Immediate fixes:
 - TOP, products, mypage recently viewed, favorites, ranking, time sale, related products, and product detail thumbnails must use the same sales-ready image mapping.
 - Re-run public screenshots after deploy and inspect the visual result before reporting.
 - FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.
+
+## 2026-06-04 User Escalation: Footer, Links, My Page, All Pages
+
+User explicitly rejected the current quality again. Amazon-quality now means every reachable tenant storefront page must feel like a complete retail surface, including footer and account flows.
+
+Immediate fixes:
+
+- Footer must be dense and present on all tenant storefront pages.
+- Cart must not be a thin list. It needs item rows, delivery/return notes, order summary, checkout CTA, and recommendation continuation.
+- Checkout must look like a real order review flow while honestly blocking unconnected payment/subscription actions.
+- My page, account, orders, favorites, login/register, and subscription pages must look finished even when auth/payment/subscription backends are pending.
+- Legal/privacy/shipping/returns/FAQ must not be a single thin card; they need support cards, update/status information, and store navigation.
+- No user-facing page may remain missing, footerless, link-broken, or visibly placeholder-like.
