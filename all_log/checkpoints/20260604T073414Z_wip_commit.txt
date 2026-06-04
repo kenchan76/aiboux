@@ -1,0 +1,37 @@
+timestamp=20260604T073414Z
+commit_status=0
+head_after=d7d02ec40dd85d2f1aa8fd42b8ae76db8b2f80b5
+commit_stdout:
+[main d7d02ec] WIP shop aiboux tenant deploy checkpoint 20260604T073414Z
+ 32 files changed, 9230 insertions(+), 1 deletion(-)
+ create mode 100644 all_log/checkpoints/20260604T073152Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T073414Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T073414Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T073414Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T073414Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T073152Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T073414Z_shop_subscriptions_schema_guard_redeploy.txt
+ create mode 100644 all_log/patches/20260604T073414Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T073414Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_d68.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_d68.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_l68.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_l68.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_m68.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_m68.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_admin_subscriptions.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_admin_subscriptions.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_cart.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_cart.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_checkout.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_checkout.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_product_shopprod_tenant_001_4580000232621.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscription_plans_tenant_aiboux_productId_shopprod_tenant_001_4580000232621.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscription_plans_tenant_aiboux_productId_shopprod_tenant_001_4580000232621.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscriptions_tenant_aiboux.body
+ create mode 100644 all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscriptions_tenant_aiboux.headers
+ create mode 100644 all_log/public-checks/20260604T073334Z_public_g_sha256.txt
+ create mode 100644 all_log/public-checks/20260604T073334Z_shop_subscriptions_public_curl_summary.txt
+
+commit_stderr:

@@ -1,0 +1,119 @@
+===== https://shop.aiboux.com/shop/api/subscription-plans?tenant=aiboux&productId=shopprod_tenant_001_4580000232621&verify=20260604T073554Z =====
+HTTP/2 503 
+content-type: application/json
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-worker-version: 2e322d23-ebb5-4e90-9867-cd95efd66776
+{"ok":false,"success":false,"code":"SUBSCRIPTION_SCHEMA_PENDING","message":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","error":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。"}
+
+===== https://shop.aiboux.com/shop/api/subscriptions?tenant=aiboux&verify=20260604T073554Z =====
+HTTP/2 503 
+content-type: application/json
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-worker-version: 2e322d23-ebb5-4e90-9867-cd95efd66776
+{"ok":false,"success":false,"code":"SUBSCRIPTION_SCHEMA_PENDING","message":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","error":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","subscriptions":[]}
+
+===== https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621?verify=20260604T073554Z =====
+HTTP/2 200 
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-worker-version: 2e322d23-ebb5-4e90-9867-cd95efd66776
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/5/wght/normal.woff2);unicode-range:U+9e8b-9e8c,U+9e8e-9e8f,U+9e91-9e92,U+9e95-9e96,U+9e98,U+9e9b,U+9e9d-9e9e,U+9ea4-9ea5,U+9ea8-9eaa,U+9eac-9eb0,U+9eb3-9eb5,U+9eb8,U+9ebc-9ebf,U+9ec3,U+9ec6,U+9ec8,U+9ecb-9ecd,U+9ecf-9ed1,U+9ed4-9ed5,U+9ed8,U+9edb-9ee0,U+9ee4-9ee5,U+9ee7-9ee8,U+9eec-9ef2,U+9ef4-9ef9,U+9efb-9eff,U+9f02-9f03,U+9f07-9f09,U+9f0e-9f12,U+9f14-9f17,U+9f19-9f1b,U+9f1f-9f22,U+9f26,U+9f2a-9f2c,U+9f2f,U+9f31-9f32,U+9f34,U+9f37,U+9f39-9f3a,U+9f3c-9f3f,U+9f41,U+9f43-9f47,U+9f4a,U+9f4e-9f50,U+9f52-9f58,U+9f5a,U+9
+
+===== https://mail.aiboux.com/g/l68?verify=20260604T073554Z =====
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+# AIBOUX Shop Sales Tenant Execution Log
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This is a WIP execution log update. It is not `FINAL_ACCEPTED`.
+
+### Implemented Locally
+
+- Added subscription plan editing to Shop product admin.
+- Added public product detail subscription purchase-box UI.
+- Added cart distinction for subscription items.
+- Added checkout subscription blocker and API call for honest payment-setting failure.
+- Added admin subscription list and pause/resume/skip/cancel actions.
+- Added subscription APIs:
+  - `GET/POST /shop/api/subscription-plans`
+  - `POST /shop/api/checkout/subscription`
+  - `GET /shop/api/subscriptions`
+  - `PATCH /shop/api/subscriptions/{id}/{action}`
+- Added migration and rollback:
+  - `migrations/0020_sho
+
+===== https://mail.aiboux.com/g/d68?verify=20260604T073554Z =====
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This screen artifact records the intended WIP evidence for the AIBOUX Shop subscription flow.
+
+### Subscription Screens Added Locally
+
+- Product admin subscription-plan editor.
+- Product detail purchase box with:
+  - normal purchase;
+  - subscription purchase;
+  - subscription price;
+  - delivery frequency;
+  - notice text;
+  - minimum cycle note.
+- Product detail schema-pending message:
+  - `定期購入は準備中です。`
+  - `DB migrationが未適用のため、現在は申し込みできません。`
+- Cart subscription item display.
+- Checkout subscription blocker:
+  - `定期決済設定が未完了です。`
+- Checkout subscription su
+
+===== https://mail.aiboux.com/g/m68?verify=20260604T073554Z =====
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+# AIBOUX 正本マスター
+# サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+
+## Current Active Operating Override: AIBOUX Shop Subscription Requirement
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+AIBOUX Shop must support subscription purchases as a required sales feature.
+
+Required scope:
+
+- product admin subscription-plan editing;
+- public product-detail subscription purchase option;
+- cart subscription item distinction;
+- checkout subscription terms and payment-setting blocker;
+- admin subscription list and actions;
+- D1 subscription tables;
+- subscription APIs;
+- public Playwright `gate:shop-subscriptions`.
+
+Remote D1 migration for subscription tables is currently blocked by Cloudflare authorization error 74
+
