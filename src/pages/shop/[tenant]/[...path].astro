@@ -120,8 +120,8 @@ const purchaseGuideCards = [
   { title: "発送済み", body: "追跡番号、配送予定日、配送会社を確認できます。" },
   { title: "返品・交換", body: "未開封品、不良品、到着後7日以内などの条件を案内します。" },
 ];
-const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, Math.max(12, Math.min(products.length + 4, 16)));
-const categoryCards = (categories.length ? categories : [
+const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
+const curatedCategoryCards = [
   { name: "食品・飲料", slug: "food-drink", productCount: 18 },
   { name: "コーヒー・お茶", slug: "coffee-tea", productCount: 12 },
   { name: "キッチン用品", slug: "kitchen", productCount: 16 },
@@ -130,7 +130,14 @@ const categoryCards = (categories.length ? categories : [
   { name: "ビューティー", slug: "beauty", productCount: 11 },
   { name: "ペット用品", slug: "pet", productCount: 8 },
   { name: "ギフト", slug: "gift", productCount: 14 },
-]).map((category, index) => ({
+  { name: "スポーツ・アウトドア", slug: "sports-outdoor", productCount: 10 },
+  { name: "本・文具", slug: "books-stationery", productCount: 7 },
+  { name: "セール", slug: "sale", productCount: 15 },
+  { name: "ランキング", slug: "ranking", productCount: 20 },
+];
+const categoryCards = [...curatedCategoryCards, ...categories]
+  .filter((category, index, array) => array.findIndex((item) => item.name === category.name || item.slug === category.slug) === index)
+  .map((category, index) => ({
   ...category,
   imageUrl: imageForSalesProduct(category.name, category.name, index),
 }));
@@ -218,10 +225,16 @@ function buildCuratedPublicProduct(id: string) {
     { id: "setsuka-cleaning", displayName: "毎日使えるホームケア洗剤セット", categoryName: "日用品", salePrice: 1680 },
     { id: "setsuka-skincare", displayName: "ナチュラルスキンケア 3点セット", categoryName: "ビューティー", salePrice: 4280 },
     { id: "setsuka-snack", displayName: "焼き菓子アソートボックス", categoryName: "食品・飲料", salePrice: 2380 },
-    { id: "setsuka-pet", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480 },
-    { id: "setsuka-gift", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980 },
-    { id: "setsuka-tea", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780 },
-  ];
+	    { id: "setsuka-pet", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480 },
+	    { id: "setsuka-gift", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980 },
+	    { id: "setsuka-tea", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780 },
+	    { id: "setsuka-rice", displayName: "北海道ゆめぴりか 2kg", categoryName: "食品・飲料", salePrice: 2680 },
+	    { id: "setsuka-pan", displayName: "ふっくら食パン詰め合わせ", categoryName: "食品・飲料", salePrice: 2280 },
+	    { id: "setsuka-dishcloth", displayName: "吸水キッチンクロス 4枚組", categoryName: "キッチン用品", salePrice: 1480 },
+	    { id: "setsuka-laundry", displayName: "部屋干しランドリー洗剤セット", categoryName: "日用品", salePrice: 1880 },
+	    { id: "setsuka-candle", displayName: "リラックスアロマキャンドル", categoryName: "ギフト", salePrice: 1980 },
+	    { id: "setsuka-stationery", displayName: "毎日使える文具スターターセット", categoryName: "本・文具", salePrice: 1680 },
+	  ];
   const item = catalog.find((entry) => entry.id === normalizedId);
   if (!item) return null;
   return {
@@ -284,6 +297,11 @@ function imageForSalesProduct(name: string, category: string, index: number): st
       "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1607344645866-009c320f6103?auto=format&fit=crop&w=920&h=920&q=84",
     ],
+    stationery: [
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
   };
   const key = /コーヒー|茶|coffee|tea/.test(source)
     ? "coffee"
@@ -299,9 +317,11 @@ function imageForSalesProduct(name: string, category: string, index: number): st
                 ? "pet"
                 : /美容|コスメ|スキン|beauty|skin/.test(source)
                   ? "beauty"
-                : /ギフト|gift/.test(source)
-                  ? "gift"
-                  : "daily";
+	                : /ギフト|gift/.test(source)
+	                  ? "gift"
+	                  : /文具|本|stationery|book/.test(source)
+	                    ? "stationery"
+	                    : "daily";
   const variants = groups[key];
   return `${variants[index % variants.length]}&sig=${encodeURIComponent(`${key}-${index}-${name}`)}`;
 }
@@ -347,9 +367,15 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
     { id: "setsuka-cleaning-related", displayName: "毎日使えるホームケア洗剤セット", categoryName: "日用品", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使えるホームケア洗剤セット", "日用品", 2) },
     { id: "setsuka-skincare-related", displayName: "ナチュラルスキンケア 3点セット", categoryName: "ビューティー", salePrice: 4280, imageUrl: imageForSalesProduct("ナチュラルスキンケア 3点セット", "ビューティー", 2) },
     { id: "setsuka-snack-related", displayName: "焼き菓子アソートボックス", categoryName: "食品・飲料", salePrice: 2380, imageUrl: imageForSalesProduct("焼き菓子アソートボックス", "食品・飲料", 2) },
-    { id: "setsuka-pet-related", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480, imageUrl: imageForSalesProduct("ペットケアおでかけセット", "ペット用品", 2) },
-    { id: "setsuka-tea-related", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780, imageUrl: imageForSalesProduct("国産茶葉ティーバッグ 30包", "コーヒー・お茶", 2) },
-  ];
+	    { id: "setsuka-pet-related", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480, imageUrl: imageForSalesProduct("ペットケアおでかけセット", "ペット用品", 2) },
+	    { id: "setsuka-tea-related", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780, imageUrl: imageForSalesProduct("国産茶葉ティーバッグ 30包", "コーヒー・お茶", 2) },
+	    { id: "setsuka-rice-related", displayName: "北海道ゆめぴりか 2kg", categoryName: "食品・飲料", salePrice: 2680, imageUrl: imageForSalesProduct("北海道ゆめぴりか 2kg", "食品・飲料", 3) },
+	    { id: "setsuka-pan-related", displayName: "ふっくら食パン詰め合わせ", categoryName: "食品・飲料", salePrice: 2280, imageUrl: imageForSalesProduct("ふっくら食パン詰め合わせ", "食品・飲料", 4) },
+	    { id: "setsuka-dishcloth-related", displayName: "吸水キッチンクロス 4枚組", categoryName: "キッチン用品", salePrice: 1480, imageUrl: imageForSalesProduct("吸水キッチンクロス 4枚組", "キッチン用品", 3) },
+	    { id: "setsuka-laundry-related", displayName: "部屋干しランドリー洗剤セット", categoryName: "日用品", salePrice: 1880, imageUrl: imageForSalesProduct("部屋干しランドリー洗剤セット", "日用品", 3) },
+	    { id: "setsuka-candle-related", displayName: "リラックスアロマキャンドル", categoryName: "ギフト", salePrice: 1980, imageUrl: imageForSalesProduct("リラックスアロマキャンドル", "ギフト", 3) },
+	    { id: "setsuka-stationery-related", displayName: "毎日使える文具スターターセット", categoryName: "本・文具", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使える文具スターターセット", "本・文具", 3) },
+	  ];
   return [...fallback, ...normalized].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
 }
 
@@ -791,8 +817,8 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
                 <section class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                   <h3 class="text-base font-bold text-neutral-950">最近チェックした商品</h3>
-                  <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {buildRelatedSalesProducts(products, null).slice(0, 3).map((item) => (
+                  <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    {buildRelatedSalesProducts(products, null).slice(0, 6).map((item) => (
                       <a class="rounded-lg border border-neutral-200 bg-white p-3 hover:bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                         <div class="aspect-square overflow-hidden rounded-md bg-neutral-50">
                           <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
@@ -806,6 +832,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
                   <h3 class="font-bold text-neutral-950">アカウント機能の状態</h3>
                   <p class="mt-2">ログイン、住所保存、支払い方法保存は本番認証・決済接続後に有効化します。現時点では成功したふりをせず、各導線を確認用テンプレートとして表示します。</p>
+                  <div class="mt-4 grid gap-2">
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/orders`}>注文履歴を見る</a>
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/favorites`}>お気に入りを見る</a>
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/mypage/subscriptions`}>定期購入を見る</a>
+                  </div>
                   <a class="mt-4 inline-flex h-9 items-center rounded-md border border-amber-300 bg-white px-3 text-xs font-semibold" href={`${tenantRoot}/contact`}>問い合わせする</a>
                 </aside>
               </div>

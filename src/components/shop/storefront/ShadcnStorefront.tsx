@@ -60,6 +60,9 @@ const categoryShowcase = [
   { name: "ビューティー", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82" },
   { name: "ペット用品", image: "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=420&h=280&q=82" },
   { name: "ギフト", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "本・文具", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "セール", image: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "ランキング", image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=420&h=280&q=82" },
 ];
 
 const curatedStorefrontProducts: StorefrontProduct[] = [
@@ -73,6 +76,12 @@ const curatedStorefrontProducts: StorefrontProduct[] = [
   { id: "setsuka-pet", image: "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=720&h=720&q=82", name: "ペットケアおでかけセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/product/setsuka-pet" },
   { id: "setsuka-gift", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/product/setsuka-gift" },
   { id: "setsuka-tea", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82", name: "国産茶葉ティーバッグ 30包", price: "1,780", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/product/setsuka-tea" },
+  { id: "setsuka-rice", image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&h=720&q=82", name: "北海道ゆめぴりか 2kg", price: "2,680", category: "食品・飲料", inStock: true, href: "/s/aiboux/product/setsuka-rice" },
+  { id: "setsuka-pan", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82", name: "ふっくら食パン詰め合わせ", price: "2,280", category: "食品・飲料", inStock: true, href: "/s/aiboux/product/setsuka-pan" },
+  { id: "setsuka-dishcloth", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=720&h=720&q=82", name: "吸水キッチンクロス 4枚組", price: "1,480", category: "キッチン用品", inStock: true, href: "/s/aiboux/product/setsuka-dishcloth" },
+  { id: "setsuka-laundry", image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=720&h=720&q=82", name: "部屋干しランドリー洗剤セット", price: "1,880", category: "日用品", inStock: true, href: "/s/aiboux/product/setsuka-laundry" },
+  { id: "setsuka-candle", image: "https://images.unsplash.com/photo-1607344645866-009c320f6103?auto=format&fit=crop&w=720&h=720&q=82", name: "リラックスアロマキャンドル", price: "1,980", category: "ギフト", inStock: true, href: "/s/aiboux/product/setsuka-candle" },
+  { id: "setsuka-stationery", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使える文具スターターセット", price: "1,680", category: "本・文具", inStock: true, href: "/s/aiboux/product/setsuka-stationery" },
 ];
 
 export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefrontProps) {
@@ -669,6 +678,7 @@ function inferCategory(product: StorefrontProduct) {
   if (/ペット|pet/.test(source)) return "ペット用品";
   if (/美容|コスメ|スキン|beauty|skin/.test(source)) return "ビューティー";
   if (/ギフト|gift/.test(source)) return "ギフト";
+  if (/文具|本|stationery|book/.test(source)) return "本・文具";
   if (/家電|電/.test(source)) return "キッチン用品";
   return product.category && product.category !== "未分類" ? product.category : "日用品";
 }
@@ -712,6 +722,10 @@ function imageForProduct(name: string, category: string, index: number) {
       "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82",
     ],
+    stationery: [
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=720&h=720&q=82",
+      "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=720&h=720&q=82",
+    ],
   };
   const key = /コーヒー|茶|coffee|tea/.test(source)
     ? "coffee"
@@ -727,9 +741,11 @@ function imageForProduct(name: string, category: string, index: number) {
                 ? "pet"
                 : /美容|コスメ|スキン|beauty|skin/.test(source)
                   ? "beauty"
-                : /ギフト|gift/.test(source)
-                  ? "gift"
-                  : "daily";
+	                : /ギフト|gift/.test(source)
+	                  ? "gift"
+	                  : /文具|本|stationery|book/.test(source)
+	                    ? "stationery"
+	                    : "daily";
   const variants = images[key];
   return `${variants[index % variants.length]}&sig=${encodeURIComponent(`${key}-${index}-${name}`)}`;
 }
