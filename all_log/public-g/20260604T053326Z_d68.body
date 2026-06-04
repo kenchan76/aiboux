@@ -83,9 +83,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `76f71405-3641-4200-834c-892fa3eaf3db` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `76f71405-3641-4200-834c-892fa3eaf3db` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `76f71405-3641-4200-834c-892fa3eaf3db` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -140,7 +140,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `76f71405-3641-4200-834c-892fa3eaf3db`
 
 Screen evidence policy:
 
@@ -230,13 +230,13 @@ Target public screens:
 - `https://shop.aiboux.com/s/aiboux/`
 - `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
 
-Public route evidence after public log publication:
+Public route evidence:
 
 - Design editor URL returned HTTP 200.
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `76f71405-3641-4200-834c-892fa3eaf3db`.
+- All checked responses were served by Worker Version ID `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`.
 
 Design editor screen evidence:
 

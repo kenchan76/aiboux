@@ -125,7 +125,7 @@ npm run deploy:shop:wip: PASS
 ## WIP Deploy Evidence
 
 - Latest verified WIP commit hash: `3fea25cee2769c5e0f42d148f4596586bfb51972`
-- Latest Worker Version ID: `__WORKER_VERSION_ID__`
+- Latest Worker Version ID: `76f71405-3641-4200-834c-892fa3eaf3db`
 - Latest checkpoint timestamp: `20260603T232211Z`
 - Latest checkpoint evidence: `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
 - Latest deploy output: `all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt`
@@ -135,7 +135,7 @@ npm run deploy:shop:wip: PASS
 
 `/g/l68` and `/g/d68` are served through `src/lib/server/tempLogShares.ts`.
 The route was updated so `l68` returns `public/g/l68.md` content and `d68` returns `public/g/d68.md` content.
-Runtime placeholders such as `__WORKER_VERSION_ID__` are replaced in the public response.
+Runtime placeholders such as `76f71405-3641-4200-834c-892fa3eaf3db` are replaced in the public response.
 
 ### Public `/g/*` verification after WIP deploy
 
@@ -145,16 +145,16 @@ Runtime placeholders such as `__WORKER_VERSION_ID__` are replaced in the public 
 | `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `c0319e74cf59f99eded51156509f2c719c4aea4c3c14bdac66596add30187483` | `2ab82b664777aac8c179c70eb66d2ec3b1b959b1014718f344be5a0925f8d527` | no |
 | `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `e9598f11b69485f967f72300fc3b81fb6e8e2c7c68e9219b6025ebe42e6e9e4a` | no |
 
-The SHA mismatch is expected for files containing `__WORKER_VERSION_ID__`.
+The SHA mismatch is expected for files containing `76f71405-3641-4200-834c-892fa3eaf3db`.
 The `/g/*` route replaces that placeholder at runtime, so public body hashes differ from source markdown hashes while the content remains the intended WIP evidence document.
 
 ### Public Shop URL verification after WIP deploy
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `76f71405-3641-4200-834c-892fa3eaf3db` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `76f71405-3641-4200-834c-892fa3eaf3db` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `76f71405-3641-4200-834c-892fa3eaf3db` | `AIBOUX SHOP Dashboard` |
 
 ## Current Completion Status
 
@@ -242,7 +242,7 @@ Latest WIP commit:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `76f71405-3641-4200-834c-892fa3eaf3db`
 
 What changed:
 
@@ -261,7 +261,7 @@ Required public verification before every report:
 
 Runtime note:
 
-- `/g/*` responses replace `__WORKER_VERSION_ID__` at runtime.
+- `/g/*` responses replace `76f71405-3641-4200-834c-892fa3eaf3db` at runtime.
 - Source markdown SHA and public response SHA can differ when that placeholder exists.
 - This SHA difference is expected and must be recorded honestly.
 
@@ -696,14 +696,13 @@ Verification before this evidence publication:
 WIP deploy evidence:
 
 - WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
-- Implementation WIP deploy Worker Version ID before public log publication: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
-- Public log publication Worker Version ID: `76f71405-3641-4200-834c-892fa3eaf3db`
+- Worker Version ID: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
 
-Public route evidence after public log publication:
+Public route evidence:
 
 - `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `76f71405-3641-4200-834c-892fa3eaf3db`
+- `x-aiboux-worker-version`: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
 - `https://shop.aiboux.com/s/aiboux/`: HTTP 200
 - `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
 
