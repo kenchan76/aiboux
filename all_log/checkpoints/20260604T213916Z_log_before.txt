@@ -1,0 +1,10 @@
+88ab5e4 WIP add shop page action map SEO links
+c05c2cf WIP record final shop SEO public verification
+7679732 WIP record shop SEO common parts public evidence
+67096d3 WIP publish shop SEO common parts evidence
+881e7e3 WIP strengthen shop shared SEO navigation graph
+93aeb31 WIP add shop breadcrumb support SEO links
+5bf7b1d WIP render shop page quality summary user report
+0b96d21 WIP record shop page quality final public verification
+459b1bf WIP publish shop page quality public verification
+0fbd073 WIP publish shop page quality summary evidence
