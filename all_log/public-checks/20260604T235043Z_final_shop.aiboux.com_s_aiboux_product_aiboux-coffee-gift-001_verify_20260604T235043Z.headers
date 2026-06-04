@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Thu, 04 Jun 2026 23:50:44 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/aiboux-coffee-gift-001
+x-aiboux-rewritten-path: /shop/aiboux/product/aiboux-coffee-gift-001
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 90847e9b-6cd9-418b-a2ec-96300c113a99
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=U2KpWb21yZQyiyM16%2BrZNOXdeg2k2QofCvIEXTh%2FhGrxFhHmEN%2B8BfJJd8FHypvs8v5Uw1l8Yco9mEEq9reAvbFu74bWDOfJ5ituSmBZPTtcEM4HVA%2B1DeV75omJz1AUqZQ%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06ad76dfc4c5775-NRT
+alt-svc: h3=":443"; ma=86400
+
