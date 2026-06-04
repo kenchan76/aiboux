@@ -4802,6 +4802,46 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## 2026-06-05 Active WIP: Shared Product Card SEO/UI Contract
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+The public Shop tenant storefront must keep improving toward Amazon-like sales quality and 2026 search quality.
+
+Current confirmed shared product-card contract:
+
+- Product cards must be rendered through a shared storefront component where practical.
+- Product title and image must link with real crawlable `<a href>` to `/s/{tenant}/product/{id}`.
+- Category labels must link with real crawlable `<a href>` to stable category discovery URLs.
+- Product title and category links must remain visibly link-colored.
+- Product card images must have product-specific alt text.
+- Product cards must expose consistent image ratio, title height, rating, review count, price, tax label, hover state, and CTA placement.
+- Cart-capable product cards must keep `data-cart-add` and product data attributes.
+- Shared product cards must expose `Product`, `AggregateRating`, and `Offer` microdata.
+
+Implemented WIP:
+
+- `src/components/shop/storefront/StorefrontProductCard.astro`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `tests/shop-public-crawl.spec.ts`
+- `tests/shop-product-detail-public.spec.ts`
+
+Latest WIP evidence:
+
+- Implementation commit: `6090368`
+- Deploy checkpoint commit: `8f43942`
+- Worker Version ID: `ec4df0de-75ea-4976-b185-c06e2c7f16d8`
+- `gate:shop-seo-meta`: PASS
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-sales-quality`: PASS
+
+Not final:
+
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
 ## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE
 
 Status: `WIP_DEPLOYED_NOT_FINAL`
