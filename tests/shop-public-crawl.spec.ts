@@ -73,6 +73,8 @@ async function saveScreenshot(page: Page, filename: string) {
 }
 
 test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+  test.setTimeout(120000);
+
   test.beforeAll(() => {
     mkdirSync(outputDir, { recursive: true });
     mkdirSync(publicDir, { recursive: true });

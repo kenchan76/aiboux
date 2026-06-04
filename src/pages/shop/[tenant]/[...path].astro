@@ -584,23 +584,23 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
     .map((item, index) => toSalesProductDetail(item, index + 1))
     .filter((item, index, array) => array.findIndex((next) => next.displayName === item.displayName) === index);
   const fallback = [
-    { id: "setsuka-coffee-related", displayName: "雪花セレクト ドリップコーヒー 20袋", categoryName: "コーヒー・お茶", salePrice: 1980, imageUrl: imageForSalesProduct("雪花セレクト ドリップコーヒー 20袋", "コーヒー・お茶", 1) },
-    { id: "setsuka-bottle-related", displayName: "軽量ステンレスボトル 500ml", categoryName: "キッチン用品", salePrice: 2480, imageUrl: imageForSalesProduct("軽量ステンレスボトル 500ml", "キッチン用品", 1) },
-    { id: "setsuka-towel-related", displayName: "雪花セレクト ギフトタオル 2枚セット", categoryName: "タオル・寝具", salePrice: 2980, imageUrl: imageForSalesProduct("雪花セレクト ギフトタオル 2枚セット", "タオル・寝具", 1) },
-    { id: "setsuka-gift-related", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980, imageUrl: imageForSalesProduct("季節のギフトボックス", "ギフト", 1) },
-    { id: "setsuka-storage-related", displayName: "キッチン保存容器 6点セット", categoryName: "キッチン用品", salePrice: 3280, imageUrl: imageForSalesProduct("キッチン保存容器 6点セット", "キッチン用品", 2) },
-    { id: "setsuka-cleaning-related", displayName: "毎日使えるホームケア洗剤セット", categoryName: "日用品", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使えるホームケア洗剤セット", "日用品", 2) },
-    { id: "setsuka-skincare-related", displayName: "ナチュラルスキンケア 3点セット", categoryName: "ビューティー", salePrice: 4280, imageUrl: imageForSalesProduct("ナチュラルスキンケア 3点セット", "ビューティー", 2) },
-    { id: "setsuka-snack-related", displayName: "焼き菓子アソートボックス", categoryName: "食品・飲料", salePrice: 2380, imageUrl: imageForSalesProduct("焼き菓子アソートボックス", "食品・飲料", 2) },
-	    { id: "setsuka-pet-related", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480, imageUrl: imageForSalesProduct("ペットケアおでかけセット", "ペット用品", 2) },
-	    { id: "setsuka-tea-related", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780, imageUrl: imageForSalesProduct("国産茶葉ティーバッグ 30包", "コーヒー・お茶", 2) },
-	    { id: "setsuka-rice-related", displayName: "北海道ゆめぴりか 2kg", categoryName: "食品・飲料", salePrice: 2680, imageUrl: imageForSalesProduct("北海道ゆめぴりか 2kg", "食品・飲料", 3) },
-	    { id: "setsuka-pan-related", displayName: "ふっくら食パン詰め合わせ", categoryName: "食品・飲料", salePrice: 2280, imageUrl: imageForSalesProduct("ふっくら食パン詰め合わせ", "食品・飲料", 4) },
-	    { id: "setsuka-dishcloth-related", displayName: "吸水キッチンクロス 4枚組", categoryName: "キッチン用品", salePrice: 1480, imageUrl: imageForSalesProduct("吸水キッチンクロス 4枚組", "キッチン用品", 3) },
-	    { id: "setsuka-laundry-related", displayName: "部屋干しランドリー洗剤セット", categoryName: "日用品", salePrice: 1880, imageUrl: imageForSalesProduct("部屋干しランドリー洗剤セット", "日用品", 3) },
-	    { id: "setsuka-candle-related", displayName: "リラックスアロマキャンドル", categoryName: "ギフト", salePrice: 1980, imageUrl: imageForSalesProduct("リラックスアロマキャンドル", "ギフト", 3) },
-	    { id: "setsuka-stationery-related", displayName: "毎日使える文具スターターセット", categoryName: "本・文具", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使える文具スターターセット", "本・文具", 3) },
-	  ];
+    { id: "setsuka-coffee", displayName: "雪花セレクト ドリップコーヒー 20袋", categoryName: "コーヒー・お茶", salePrice: 1980, imageUrl: imageForSalesProduct("雪花セレクト ドリップコーヒー 20袋", "コーヒー・お茶", 1) },
+    { id: "setsuka-bottle", displayName: "軽量ステンレスボトル 500ml", categoryName: "キッチン用品", salePrice: 2480, imageUrl: imageForSalesProduct("軽量ステンレスボトル 500ml", "キッチン用品", 1) },
+    { id: "setsuka-towel", displayName: "雪花セレクト ギフトタオル 2枚セット", categoryName: "タオル・寝具", salePrice: 2980, imageUrl: imageForSalesProduct("雪花セレクト ギフトタオル 2枚セット", "タオル・寝具", 1) },
+    { id: "setsuka-gift", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980, imageUrl: imageForSalesProduct("季節のギフトボックス", "ギフト", 1) },
+    { id: "setsuka-storage", displayName: "キッチン保存容器 6点セット", categoryName: "キッチン用品", salePrice: 3280, imageUrl: imageForSalesProduct("キッチン保存容器 6点セット", "キッチン用品", 2) },
+    { id: "setsuka-cleaning", displayName: "毎日使えるホームケア洗剤セット", categoryName: "日用品", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使えるホームケア洗剤セット", "日用品", 2) },
+    { id: "setsuka-skincare", displayName: "ナチュラルスキンケア 3点セット", categoryName: "ビューティー", salePrice: 4280, imageUrl: imageForSalesProduct("ナチュラルスキンケア 3点セット", "ビューティー", 2) },
+    { id: "setsuka-snack", displayName: "焼き菓子アソートボックス", categoryName: "食品・飲料", salePrice: 2380, imageUrl: imageForSalesProduct("焼き菓子アソートボックス", "食品・飲料", 2) },
+    { id: "setsuka-pet", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480, imageUrl: imageForSalesProduct("ペットケアおでかけセット", "ペット用品", 2) },
+    { id: "setsuka-tea", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780, imageUrl: imageForSalesProduct("国産茶葉ティーバッグ 30包", "コーヒー・お茶", 2) },
+    { id: "setsuka-rice", displayName: "北海道ゆめぴりか 2kg", categoryName: "食品・飲料", salePrice: 2680, imageUrl: imageForSalesProduct("北海道ゆめぴりか 2kg", "食品・飲料", 3) },
+    { id: "setsuka-pan", displayName: "ふっくら食パン詰め合わせ", categoryName: "食品・飲料", salePrice: 2280, imageUrl: imageForSalesProduct("ふっくら食パン詰め合わせ", "食品・飲料", 4) },
+    { id: "setsuka-dishcloth", displayName: "吸水キッチンクロス 4枚組", categoryName: "キッチン用品", salePrice: 1480, imageUrl: imageForSalesProduct("吸水キッチンクロス 4枚組", "キッチン用品", 3) },
+    { id: "setsuka-laundry", displayName: "部屋干しランドリー洗剤セット", categoryName: "日用品", salePrice: 1880, imageUrl: imageForSalesProduct("部屋干しランドリー洗剤セット", "日用品", 3) },
+    { id: "setsuka-candle", displayName: "リラックスアロマキャンドル", categoryName: "ギフト", salePrice: 1980, imageUrl: imageForSalesProduct("リラックスアロマキャンドル", "ギフト", 3) },
+    { id: "setsuka-stationery", displayName: "毎日使える文具スターターセット", categoryName: "本・文具", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使える文具スターターセット", "本・文具", 3) },
+  ];
   return [...fallback, ...normalized].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
 }
 
