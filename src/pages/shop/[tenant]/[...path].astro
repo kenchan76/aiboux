@@ -18,6 +18,7 @@ import {
   buildShopRobotsContent,
   buildShopSiteNavigationJsonLd,
   buildShopSocialMeta,
+  buildShopStructuredDataGraph,
   buildShopStorefrontSeoMeta,
   buildShopWebPageJsonLd,
   buildShopWebsiteJsonLd,
@@ -227,7 +228,7 @@ const structuredDataItems: any[] = [breadcrumbJsonLd, websiteJsonLd, organizatio
 if (productJsonLd) structuredDataItems.push(productJsonLd);
 if (itemListJsonLd) structuredDataItems.push(itemListJsonLd);
 if (faqJsonLd) structuredDataItems.push(faqJsonLd);
-const structuredData = JSON.stringify(structuredDataItems);
+const structuredData = JSON.stringify(buildShopStructuredDataGraph(structuredDataItems));
 const socialMeta = buildShopSocialMeta({
   title,
   description: meta.description,

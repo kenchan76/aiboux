@@ -6,6 +6,29 @@ Active instruction file:
 
 - `ops/instructions/20260605_shop_shared_seo_meta_model.md`
 - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
+- `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+
+## 2026-06-05 Continuation: Schema Graph SEO/UI Hardening
+
+Continue the active sales-quality sprint. The next concrete work unit is converting public storefront structured data to a single connected Schema.org `@graph` so every page exposes a coherent WebSite, OnlineStore, BreadcrumbList, SiteNavigationElement, page entity, ItemList, and Product/FAQ where applicable.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+
+Current additions required:
+
+- Add `buildShopStructuredDataGraph` in `src/lib/shopSeo.ts`.
+- Use the graph helper from TOP and subpage storefront routes.
+- Remove repeated top-level `@context` inside graph nodes.
+- Deduplicate graph nodes by `@id` where possible.
+- Strengthen public Playwright checks for top-level `@graph`, entity IDs, and page graph connectivity.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Shared SEO Meta Model
 

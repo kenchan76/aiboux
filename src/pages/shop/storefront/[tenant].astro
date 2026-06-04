@@ -8,6 +8,7 @@ import {
   buildShopRobotsContent,
   buildShopSiteNavigationJsonLd,
   buildShopSocialMeta,
+  buildShopStructuredDataGraph,
   buildShopStorefrontSeoMeta,
   buildShopWebPageJsonLd,
   buildShopWebsiteJsonLd,
@@ -61,7 +62,7 @@ const footerColumns = buildShopFooterColumns(tenantRoot);
 const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections("", tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
-const structuredData = JSON.stringify([
+const structuredData = JSON.stringify(buildShopStructuredDataGraph([
   buildShopBreadcrumbJsonLd(breadcrumbItems),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
   buildShopOrganizationJsonLd({
@@ -98,7 +99,7 @@ const structuredData = JSON.stringify([
       ...footerColumns.flatMap((column) => column.links),
     ],
   }),
-].filter(Boolean));
+].filter(Boolean)));
 
 const storefrontProducts = products.map((product) => ({
   id: product.id,

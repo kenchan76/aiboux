@@ -183,6 +183,11 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         }
 
         const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
+        const jsonLd = JSON.parse(jsonLdText || "{}");
+        expect(jsonLd["@context"], `${target.path} structured data should use a single top-level schema.org context`).toBe("https://schema.org");
+        expect(Array.isArray(jsonLd["@graph"]), `${target.path} structured data should be emitted as a connected @graph`).toBe(true);
+        expect(jsonLd["@graph"].length, `${target.path} @graph should contain several connected storefront entities`).toBeGreaterThanOrEqual(5);
+        expect((jsonLdText?.match(/"@context"/g) ?? []).length, `${target.path} should not repeat @context inside graph nodes`).toBe(1);
         expect(jsonLdText ?? "", `${target.path} should include BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
         expect(jsonLdText ?? "", `${target.path} should include WebSite JSON-LD`).toContain("WebSite");
         expect(jsonLdText ?? "", `${target.path} should include Organization JSON-LD`).toContain("Organization");

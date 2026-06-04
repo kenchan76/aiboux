@@ -505,6 +505,48 @@ export function buildShopSiteNavigationJsonLd({
   };
 }
 
+type ShopJsonLdNode = Record<string, unknown>;
+
+function isShopJsonLdNode(value: unknown): value is ShopJsonLdNode {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function stripTopLevelJsonLdContext(node: ShopJsonLdNode): ShopJsonLdNode {
+  const { "@context": _context, ...rest } = node;
+  return rest;
+}
+
+function shopJsonLdDedupeKey(node: ShopJsonLdNode): string {
+  const id = node["@id"];
+  if (typeof id === "string" && id.trim()) return `id:${id}`;
+  const type = node["@type"];
+  const url = node.url;
+  const name = node.name;
+  if (typeof type === "string" && typeof url === "string") return `type-url:${type}:${url}`;
+  if (Array.isArray(type) && typeof url === "string") return `type-url:${type.join("|")}:${url}`;
+  if (typeof type === "string" && typeof name === "string") return `type-name:${type}:${name}`;
+  return `json:${JSON.stringify(node)}`;
+}
+
+export function buildShopStructuredDataGraph(items: unknown[]) {
+  const graph: ShopJsonLdNode[] = [];
+  const seen = new Set<string>();
+
+  for (const item of items.flat()) {
+    if (!isShopJsonLdNode(item)) continue;
+    const node = stripTopLevelJsonLdContext(item);
+    const key = shopJsonLdDedupeKey(node);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    graph.push(node);
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
 export function buildShopOrganizationJsonLd({
   storeName,
   absoluteTenantRoot,

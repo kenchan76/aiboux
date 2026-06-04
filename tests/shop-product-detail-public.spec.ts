@@ -78,6 +78,11 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await page.getByText(productTitle, { exact: true }).count(), "product title should be visible only as the primary product h1").toBe(1);
 
       const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
+      const jsonLd = JSON.parse(jsonLdText || "{}");
+      expect(jsonLd["@context"], "product detail structured data should use a single top-level schema.org context").toBe("https://schema.org");
+      expect(Array.isArray(jsonLd["@graph"]), "product detail structured data should be emitted as @graph").toBe(true);
+      expect(jsonLd["@graph"].length, "product detail @graph should contain connected storefront and product entities").toBeGreaterThanOrEqual(6);
+      expect((jsonLdText?.match(/"@context"/g) ?? []).length, "product detail should not repeat @context inside graph nodes").toBe(1);
       expect(jsonLdText ?? "", "product detail should include BreadcrumbList JSON-LD").toContain("BreadcrumbList");
       expect(jsonLdText ?? "", "product breadcrumb JSON-LD should preserve the full product title").toContain(productTitle);
       expect(jsonLdText ?? "", "product detail should include Product JSON-LD").toContain("Product");
