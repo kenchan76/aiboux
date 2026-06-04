@@ -1,0 +1,5 @@
+ M public/g/l68.md
+ M src/lib/server/shopStorefront.ts
+?? all_log/checkpoints/20260604T015303Z_wip_commit.txt
+?? all_log/deploys/20260604T015303Z_deployments_before.txt
+?? all_log/shop-functional/20260604T015426Z_public_url_status_after_functional_wip.txt

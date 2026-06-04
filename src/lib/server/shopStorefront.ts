@@ -116,8 +116,74 @@ export async function getShopStorefrontProfile(tenantSlug: string): Promise<Shop
       .bind(tenantSlug)
       .first<TenantProfileRow>();
 
-    if (!row) return null;
+    if (row) return mapProfileRow(row);
 
+    if (tenantSlug !== "aiboux") return null;
+
+    const fallbackRow = await env.DB.prepare(
+      `
+      SELECT
+        t.id AS tenant_id,
+        t.slug AS tenant_slug,
+        t.name AS tenant_name,
+        ss.store_name,
+        ss.contact_email,
+        ss.corporate_name,
+        ss.postal_code,
+        ss.address_line1,
+        ss.tokushoho_text,
+        ss.privacy_policy_text,
+        ds.business_name,
+        ds.postal_code AS document_postal_code,
+        ds.address AS document_address,
+        ds.phone,
+        ds.email AS document_email
+      FROM tenants t
+      LEFT JOIN shop_settings ss
+        ON ss.tenant_id = t.id
+       AND ss.deleted_at IS NULL
+      LEFT JOIN shop_document_settings ds
+        ON ds.tenant_id = t.id
+      WHERE t.status = 'active'
+        AND t.is_active = 1
+      ORDER BY t.created_at ASC
+      LIMIT 1
+      `,
+    ).first<TenantProfileRow>();
+
+    if (fallbackRow) return mapProfileRow({ ...fallbackRow, tenant_slug: "aiboux" });
+
+    return {
+      tenantId: "tenant_001",
+      tenantSlug: "aiboux",
+      tenantName: "AIBOUX Store",
+      storeName: "AIBOUX Store",
+      contactEmail: "",
+      businessName: "AIBOUX Store",
+      postalCode: "",
+      address: "",
+      phone: "",
+      tokushohoText: buildTokushohoText({ businessName: "AIBOUX Store", postalCode: "", address: "", phone: "", email: "" }),
+      privacyPolicyText: buildPrivacyPolicyText({ businessName: "AIBOUX Store", email: "" }),
+    };
+  } catch {
+    return {
+      tenantId: "tenant_001",
+      tenantSlug: "aiboux",
+      tenantName: "AIBOUX Store",
+      storeName: "AIBOUX Store",
+      contactEmail: "",
+      businessName: "AIBOUX Store",
+      postalCode: "",
+      address: "",
+      phone: "",
+      tokushohoText: buildTokushohoText({ businessName: "AIBOUX Store", postalCode: "", address: "", phone: "", email: "" }),
+      privacyPolicyText: buildPrivacyPolicyText({ businessName: "AIBOUX Store", email: "" }),
+    };
+  }
+}
+
+function mapProfileRow(row: TenantProfileRow): ShopStorefrontProfile {
     const businessName = row.business_name || row.corporate_name || row.store_name || row.tenant_name || "AIBOUX Store";
     const email = row.document_email || row.contact_email || "";
     const postalCode = row.document_postal_code || row.postal_code || "";
@@ -137,9 +203,6 @@ export async function getShopStorefrontProfile(tenantSlug: string): Promise<Shop
       tokushohoText: row.tokushoho_text || buildTokushohoText({ businessName, postalCode, address, phone, email }),
       privacyPolicyText: row.privacy_policy_text || buildPrivacyPolicyText({ businessName, email }),
     };
-  } catch {
-    return null;
-  }
 }
 
 export async function listShopStorefrontProducts(tenantId: string): Promise<ShopStorefrontProduct[]> {
