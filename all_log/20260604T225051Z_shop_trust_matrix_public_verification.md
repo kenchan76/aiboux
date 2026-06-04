@@ -75,3 +75,14 @@ Key files:
 - Remote D1 subscription migration and provider-backed recurring billing are not accepted.
 - `gate:shop-subscriptions` remains BLOCKED / not final.
 - `FINAL_ACCEPTED` remains prohibited.
+
+## Progress Bark
+
+- Purpose: progress notification.
+- Stage: `DEPLOYED_NOT_FINAL`.
+- Delivered: `true`.
+- Skipped: `false`.
+- Secret logged: `false`.
+- Final gate: `false`.
+- User receipt confirmed: `false`.
+- Worker Version ID at send time: `575c4bc6-7bf4-4031-94e5-134c69c6a80e`.
