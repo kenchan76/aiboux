@@ -1,0 +1,23 @@
+200 https://mail.aiboux.com/g/m68 | content-type: text/markdown; charset=utf-8 | bytes=124112 | sha256=4f91d2357b7b5603b2b539b3fdd10a505cdda019ca175d7f9ded9cbfb1b98694
+200 https://mail.aiboux.com/g/l68 | content-type: text/markdown; charset=utf-8 | bytes=44979 | sha256=26c04900d0ee75ee42f7ed2c2c7fe2fc94ec9eb8b95f0b83306fc687543a7e99
+200 https://mail.aiboux.com/g/d68 | content-type: text/markdown; charset=utf-8 | bytes=24230 | sha256=f31868f7ae7529c714b2debaa3ab593ea836d7113bf1cfea27416a57f4ebd8f1
+200 https://mail.aiboux.com/g/screens/public-storefront-after-quality-fix-1365.png | content-type: image/png | bytes=1905408 | sha256=5fd9e7adfc4c0ce327a2b21021d266937e59d910afdfd19e144f62aa65b6e133
+200 https://mail.aiboux.com/g/screens/public-storefront-after-quality-fix-1980.png | content-type: image/png | bytes=1957491 | sha256=2e0d015da99a6fbd4573b0aa0cbd4045cc2228356d780f736b0acbff57a2e7fb
+200 https://mail.aiboux.com/g/screens/public-storefront-after-quality-fix-mobile.png | content-type: image/png | bytes=967733 | sha256=3328e1e5a2a2fa0b22c3af452e11815642a271cc99c4dfdcef821d5a5c70cc77
+200 https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png | content-type: image/png | bytes=1172036 | sha256=74e26a67cd6073da201bc35e5100514d3b010c8854ad92749d220d3b38246bb4
+200 https://shop.aiboux.com/s/aiboux/ | content-type: text/html | bytes=315724 | sha256=6d4ab7f31bca0f91fc9ff57f8c7cdd6dec212f45d8367d9bbae6f638175c9326
+200 https://shop.aiboux.com/s/aiboux/admin/design | content-type: text/html | bytes=330994 | sha256=fb889bad77592550d6abe65dbb595fb201eb1914eb806302d97e505fefd9f3d3
+
+--- storefront assertions ---
+product_card_count=10
+ranking_card_count=5
+time_sale_card_count=5
+category_card_count=8
+img_count=31
+recommended_img_count=10
+recommended_unique_img_count=10
+public_test_product_matches=0
+weak_img_src_matches=0
+hero_main_img=true
+hero_prev_img=false
+hero_next_img=false

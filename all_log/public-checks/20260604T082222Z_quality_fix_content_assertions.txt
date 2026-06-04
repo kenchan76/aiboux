@@ -1,0 +1,10 @@
+timestamp=20260604T082222Z
+worker_version=dfadddde-c39f-48c9-a9d6-b8de6d6fe815
+recommended_cards=10
+ranking_cards=5
+time_sale_cards=5
+category_cards=8
+unsplash_count=31
+test_product_matches=0
+weak_img_src_matches=0
+unique_recommended_image_count=21

@@ -99,7 +99,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
 
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
         <section className="grid gap-3 pt-3 md:grid-cols-[12%_minmax(0,1fr)_12%] xl:grid-cols-[140px_minmax(0,1fr)_140px]" data-testid="storefront-hero-slider">
-          <SideHeroCard slide={previous} />
+          <SideHeroCard slide={previous} direction="prev" />
           <div className="relative min-h-[330px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main">
             {main.imageUrl ? (
               <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" />
@@ -128,7 +128,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
               </>
             ) : null}
           </div>
-          <SideHeroCard slide={next} />
+          <SideHeroCard slide={next} direction="next" />
         </section>
 
         {hero.showDots ? (
@@ -228,9 +228,9 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
   );
 }
 
-function SideHeroCard({ slide }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number] }) {
+function SideHeroCard({ slide, direction }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number]; direction: "prev" | "next" }) {
   return (
-    <div className="relative hidden min-h-[330px] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid="hero-slide-side">
+    <div className="relative hidden min-h-[330px] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`}>
       <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
       <div className="absolute inset-0 bg-black/25" />
       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow">{slide.title}</div>

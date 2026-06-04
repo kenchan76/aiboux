@@ -32,6 +32,8 @@ test.describe("AIBOUX Shop public storefront visual quality", () => {
 
     await expect(page.getByTestId("storefront-hero-slider")).toBeVisible();
     await expect(page.getByTestId("hero-slide-main").locator("img")).toBeVisible();
+    await expect(page.getByTestId("hero-slide-prev").locator("img")).toBeVisible();
+    await expect(page.getByTestId("hero-slide-next").locator("img")).toBeVisible();
     await expect(page.locator("[data-hero-side-image]")).toHaveCount(2);
 
     const recommendedCards = page.getByTestId("recommended-products").getByTestId("product-card");

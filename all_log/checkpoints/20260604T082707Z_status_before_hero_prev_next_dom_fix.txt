@@ -1,0 +1,55 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M output/playwright/shop-design-editor/shop-design-editor-top-1980.png
+ M output/playwright/shop-design-editor/shop-storefront-top-1365.png
+ M output/playwright/shop-design-editor/shop-storefront-top-1980.png
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M public/g/screens/shop-design-editor-top-1980.png
+ M public/g/screens/shop-storefront-top-1365.png
+ M public/g/screens/shop-storefront-top-1980.png
+?? all_log/checkpoints/20260604T081945Z_wip_commit.txt
+?? all_log/checkpoints/20260604T082707Z_status_before_hero_prev_next_dom_fix.txt
+?? all_log/deploys/20260604T081945Z_deployments_before.txt
+?? all_log/deploys/20260604T082426Z_shop_storefront_quality_evidence_deploy.txt
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.body
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.headers
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.body
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.headers
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.body
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.headers
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.body
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.headers
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.body
+?? all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.headers
+?? all_log/public-checks/20260604T082222Z_quality_fix_content_assertions.txt
+?? all_log/public-checks/20260604T082222Z_quality_fix_public_url_status.txt
+?? all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_.body
+?? all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_.headers
+?? all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_admin_design.body
+?? all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_admin_design.headers
+?? all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.body
+?? all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_d68.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_d68.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_l68.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_l68.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_m68.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_m68.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.headers
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.body
+?? all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.headers
+?? all_log/public-checks/20260604T082637Z_quality_fix_after_evidence_public_verify.txt
+?? all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_.body
+?? all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_.headers
+?? all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_admin_design.body
+?? all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_admin_design.headers
+?? output/playwright/shop-storefront-visual/
+?? public/g/screens/public-storefront-after-quality-fix-1365.png
+?? public/g/screens/public-storefront-after-quality-fix-1980.png
+?? public/g/screens/public-storefront-after-quality-fix-mobile.png

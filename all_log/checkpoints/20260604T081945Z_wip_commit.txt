@@ -1,0 +1,50 @@
+timestamp=20260604T081945Z
+commit_status=0
+head_after=2827bfef73e408ca54bf2454b538710369539659
+commit_stdout:
+[main 2827bfe] WIP shop aiboux tenant deploy checkpoint 20260604T081945Z
+ 47 files changed, 8110 insertions(+), 94 deletions(-)
+ create mode 100644 all_log/bark/20260604T075927Z_shop_public_storefront_visual_wip_bark.json
+ create mode 100644 all_log/checkpoints/20260604T075639Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T081149Z_head_before_storefront_quality_fix.txt
+ create mode 100644 all_log/checkpoints/20260604T081149Z_origin_main_before_storefront_quality_fix.txt
+ create mode 100644 all_log/checkpoints/20260604T081149Z_status_before_storefront_quality_fix.txt
+ create mode 100644 all_log/checkpoints/20260604T081945Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T081945Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T081945Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T081945Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T075639Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T081149Z_deployments_before_storefront_quality_fix.txt
+ create mode 100644 all_log/patches/20260604T081149Z_before_storefront_quality_fix.patch
+ create mode 100644 all_log/patches/20260604T081945Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T081945Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_d68.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_d68.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_l68.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_l68.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_m68.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_m68.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-product-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-product-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1365.png.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1365.png.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_public_url_status_after_visual_wip.txt
+ create mode 100644 all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_admin_design.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_admin_design.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.body
+ create mode 100644 all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+ create mode 100644 all_log/public-checks/20260604T075927Z_visual_content_assertions.txt
+ create mode 100644 all_log/reports/20260604T075927Z_shop_public_storefront_visual_wip_report.html
+ create mode 100644 all_log/reports/20260604T075927Z_shop_public_storefront_visual_wip_report.md
+ create mode 100644 ops/instructions/20260604_shop_public_storefront_visual_quality_fix.md
+ create mode 100644 tests/shop-storefront-visual-public.spec.ts
+
+commit_stderr:

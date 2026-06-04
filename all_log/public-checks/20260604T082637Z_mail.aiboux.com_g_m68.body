@@ -146,6 +146,31 @@ Codexは、ユーザーへ報告する前に必ず実行ログを公開URLへ反
 Shop UI品質チェックはWIP deployではwarn-onlyでよい。
 ただし、実行ログ公開は必須であり、warn-onlyではない。
 
+### 0.2 Shopストアデザインエディタ差し戻し修復状態
+
+`https://shop.aiboux.com/s/aiboux/admin/design` は、通常Shop管理画面のサイドバーとヘッダーに埋め込んではいけない。
+
+ストアデザインエディタは専用フルスクリーンEditorLayoutで描画する。
+
+確定事項:
+
+- 編集可能ページは `TOPページ` と `商品詳細ページ` のみ。
+- その他のページはテナント全共通テンプレートで固定。
+- `/s/aiboux/admin/design` では通常管理サイドバーを表示しない。
+- `/s/aiboux/admin/design` では通常管理ヘッダーを表示しない。
+- 上部はデザインエディタ専用バーにする。
+- 左ペイン、中央ライブプレビュー、右設定ペインの3カラムにする。
+- 1980px幅で中央プレビューを1100px以上確保する。
+- Amazon風カテゴリナビの文字を縦折れさせない。
+- ヒーロースライダー左右プレビューは実画像を表示し、灰色プレースホルダーだけにしない。
+
+2026-06-04の修復サイクルでは、上記に合わせて `/s/aiboux/admin/design` を専用フルスクリーン化し、公開URL向けPlaywrightで5件PASSを確認した。
+ただし、これはWIP修復であり、Shop全体の `FINAL_ACCEPTED` ではない。
+
+2026-06-04の継続サイクルでは、デザインエディタの保存永続化を公開Playwrightで確認した。
+確認内容は、現在レイアウトのsnapshot、TOPヒーロータイトルの一時変更、`POST /shop/api/storefront/layout`、公開TOPへの反映、再読み込み後の維持、元レイアウト復元、公開TOPから一時マーカーが消えたことの確認である。
+この保存確認もWIP証跡であり、Shop全体の `FINAL_ACCEPTED` ではない。
+
 ---
 
 ## 1. 最上位ルール: 省略禁止
@@ -226,7 +251,7 @@ MASTER_REWRITE_REQUIRED
 ### 2.2 現在の確定情報
 
 - 対象Worker名: aiboux
-- Worker Version ID: __WORKER_VERSION_ID__
+- Worker Version ID: a1f58681-b14f-4da1-aa41-6b3e5ea84a62
 - Remote repository: https://github.com/kenchan76/aiboux.git
 - gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
 - Bark通知方針修正: 完了
@@ -2373,7 +2398,7 @@ AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に
 ### 21.1 Worker
 
 Worker name: aiboux
-Worker Version ID: __WORKER_VERSION_ID__
+Worker Version ID: a1f58681-b14f-4da1-aa41-6b3e5ea84a62
 Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
 Deployment created_on: 2026-05-31T14:22:16.574248Z
 Version percentage: 100
@@ -4363,3 +4388,225 @@ WIP deployはcheckpoint作成後に可能である。
 - UI劣化をログだけで完了扱いしない。
 - strict check未通過でFINAL_ACCEPTEDにしない。
 - WIP_DEPLOYEDをFINAL_ACCEPTEDと書かない。
+
+---
+
+## 32. Shopストアデザインエディタ確定仕様
+
+### 32.1 編集対象ページ
+
+Shopストアデザインエディタでページ単位編集できるのは次の2つだけである。
+
+- TOPページ: `/s/{tenantSlug}/`
+- 商品詳細ページ: `/s/{tenantSlug}/product/{id}`
+
+今回の検証テナントでは次を対象にする。
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+### 32.2 編集不可ページ
+
+次のページはストアデザインエディタのページ単位編集対象にしてはいけない。
+これらはテナント全共通テンプレートで固定表示する。
+
+- 商品一覧
+- カテゴリ
+- 検索結果
+- カート
+- チェックアウト
+- 問い合わせ
+- 特定商取引法
+- プライバシーポリシー
+- 配送
+- 返品
+- マイページ
+- 注文履歴
+- お気に入り
+- FAQ
+- 404ページ
+
+### 32.3 共通設定
+
+共通設定として編集できる対象は次である。
+
+- ヘッダー
+- ロゴ
+- ナビゲーション
+- カラー
+- フォント
+- ボタン
+- 商品カード
+
+共通ロゴ設定はTOPページ、商品詳細ページ、商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務ページ、配送返品ページに反映してよい。
+ただし、TOPページと商品詳細ページ以外をページ単位の自由編集対象にしてはいけない。
+
+### 32.4 UI構成
+
+ストアデザインエディタは3カラム構成とする。
+
+- 左ペイン: 編集対象ページ、セクション、共通設定
+- 中央: ライブプレビュー
+- 右ペイン: 選択中セクションの設定
+
+左ペインには次の注意を明示する。
+
+```text
+編集できるのは「TOPページ」と「商品詳細ページ」のみです。
+その他のページはテナント全共通テンプレートです。
+```
+
+### 32.5 TOPページ仕様
+
+TOPページはAmazon風の店舗トップとして扱う。
+
+- 上部配送バー
+- ロゴ
+- カテゴリ選択
+- 検索バー
+- アカウント
+- 注文履歴
+- カート
+- カテゴリナビ
+- ヒーロースライダー
+- おすすめ商品
+- 売れ筋ランキング
+- タイムセール
+- カテゴリ一覧
+- 人気ブランド
+- 最近チェックした商品
+
+ヒーロースライダーは中央メインスライドを大きく表示し、左右に前後スライドを少し見せる。
+ヒーロー直下にはおすすめ商品を置く。
+おすすめ商品の上に余計なプロモーションゾーンを置かない。
+
+### 32.6 商品詳細ページ仕様
+
+商品詳細ページはAmazon風の3カラム構成とする。
+
+- 左: 商品画像ギャラリー
+- 中央: 商品名、ブランド、レビュー、価格、ポイント、バリエーション、商品説明、仕様
+- 右: 購入ボックス、配送予定、在庫、数量、カート、今すぐ購入、お気に入り
+
+### 32.7 保存構造
+
+保存対象は次に限定する。
+
+```text
+global.*
+pages.top
+pages.productDetail
+```
+
+保存してはいけない対象は次である。
+
+```text
+pages.products
+pages.categories
+pages.cart
+pages.checkout
+pages.contact
+pages.legal
+pages.privacy
+pages.shipping
+pages.returns
+pages.mypage
+pages.orders
+pages.faq
+pages.404
+```
+
+### 32.8 Cycle 05 WIP証跡
+
+Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
+
+Implementation WIP deploy Worker Version ID:
+
+- `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
+
+Public log publication Worker Version ID:
+
+- `a1f58681-b14f-4da1-aa41-6b3e5ea84a62`
+
+公開確認:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+
+公開Playwright:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: 5 passed
+
+この状態はWIPであり、Shop全体のFINAL_ACCEPTEDではない。
+
+### 32.9 Cycle 06 永続保存・停止通知運用
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+今回の追加確認:
+
+- ストアデザインエディタのTOPヒーロータイトル保存を公開URLで検証した。
+- 保存後に公開ストアフロントへ反映されることを検証した。
+- リロード後も保存値が残ることを検証した。
+- テスト終了時に元レイアウトへ復元し、復元後のタイトルを確認した。
+
+公開Playwright:
+
+```text
+PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line
+6 passed
+```
+
+復元後のTOPヒーロータイトル:
+
+```text
+雪花セレクトを、わかりやすく。
+```
+
+運用ルール:
+
+- Codexの作業単位が止まる、待つ、またはユーザーへ返す場合は、先に `/g/m68`、`/g/l68`、`/g/d68` を公開反映する。
+- Barkが設定されている場合は、URL Bundleを含めたProgress Notificationを送る。
+- Bark secret、endpoint、tokenはログにもチャットにも出さない。
+
+注意:
+
+- 既存の `npm run gate:design` は古いCore配送詳細プレビューURLを参照しており、今回のShopデザインエディタ用ゲートではない。
+- 次の改善として、Shopデザインエディタ専用のdesign gateへ分離する。
+
+### 32.10 Cycle 07 Shop専用Design Gate分離
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+実施内容:
+
+- `npm run gate:shop-design` を追加した。
+- `npm run gate:design:legacy` を追加した。
+- 旧 `gate:design` はCore配送詳細用のlegacy gateとして扱い、ShopデザインエディタWIPの停止理由にしない。
+- Shop専用gateは公開 `https://shop.aiboux.com` を対象にする。
+
+Shop専用gateの確認対象:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/admin/design?page=productDetail`
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+
+スクリーンショット公開URL:
+
+- `https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-design-editor-product-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-storefront-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+結果:
+
+```text
+npm run gate:shop-design: PASS, 4 passed
+```
+
+注意:
+
+- これはWIPであり、Shop全体の `FINAL_ACCEPTED` ではない。
