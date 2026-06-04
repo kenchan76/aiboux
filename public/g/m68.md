@@ -4733,6 +4733,30 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_SEARCH_SEO_PUBLICATION_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Public evidence deploy:
+- Worker Version ID: `18795347-7cc1-46ee-b5ca-683b7fb15d8c`
+- Public verification file: `all_log/public-g/20260604T173456Z_search_seo_public_g_verification.txt`
+
+Public URL bundle:
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+Public confirmation:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- `SHOP_10H_SEARCH_SEO_UI_WIP` visible in public m68/l68/d68.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_SEARCH_SEO_UI_WIP
 
 Status: `WIP_DEPLOYED_NOT_FINAL`

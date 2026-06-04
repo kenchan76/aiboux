@@ -79,3 +79,23 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - Continue improving all-page structure, SEO, UI density, and conversion flow.
+
+## Publication update
+
+Timestamp: 2026-06-04T17:34:56Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence deploy:
+- Worker Version ID: `18795347-7cc1-46ee-b5ca-683b7fb15d8c`
+- Deploy log: `all_log/deploys/20260604T173418Z_publish_search_seo_evidence.txt`
+
+Public `/g/*` verification:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- Markers present in public m68/l68/d68: `SHOP_10H_SEARCH_SEO_UI_WIP`
+- Public verification file: `all_log/public-g/20260604T173456Z_search_seo_public_g_verification.txt`
+
+SHA note:
+- Public `/g/*` responses include runtime Worker Version ID substitution.
+- SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when runtime substitution changes the response body.

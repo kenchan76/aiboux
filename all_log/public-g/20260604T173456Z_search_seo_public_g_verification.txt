@@ -1,0 +1,45 @@
+Timestamp: 20260604T173456Z
+m68 headers:
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+l68 headers:
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+d68 headers:
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+sha256:
+8db825c71801ea4734efb1b62d874ec3a55fb69feb60b028c83b7afa541a31e8  public/g/m68.md
+9e93bc62e78c324cb477f84fc88cbee59033149f1f98562ecf01f05610359aea  /tmp/m68.body
+5180082e9e6f9703426eb0c69846843f6c1a9f1f88c3cadc4d238df068e9095b  public/g/l68.md
+65c287fbf0aa302360ee7ce019319e2abcbc12b82f6d815518aa4c3ade538afb  /tmp/l68.body
+9099a71048d6f0e954abc7b8d01aa38679d161a825ecf413d6afcb2fe91d8d79  public/g/d68.md
+784a207ca9fb3c7746fb67a6d396ddae64c32b1799f9a01a2ef58606384584ec  /tmp/d68.body
+markers:
+/tmp/m68.body:4736:## SHOP_10H_SEARCH_SEO_UI_WIP
+/tmp/l68.body:2173:## SHOP_10H_SEARCH_SEO_UI_WIP
+/tmp/d68.body:1320:## SHOP_10H_SEARCH_SEO_UI_WIP Screen Evidence
+/tmp/m68.body:4752:- Latest Worker Version ID: `dad7c13e-c940-4a25-9fd8-0f484bce01d3`
+/tmp/l68.body:2212:- Mobile visibility fix deploy Worker Version ID: `dad7c13e-c940-4a25-9fd8-0f484bce01d3`
+/tmp/d68.body:1326:- Latest Worker Version ID: `dad7c13e-c940-4a25-9fd8-0f484bce01d3`
+/tmp/l68.body:1748:- Added WebSite JSON-LD SearchAction for tenant storefront discovery.
+/tmp/l68.body:1867:- Cart `/s/aiboux/cart`: HTTP 200, robots `noindex,follow,noarchive`, `og:type=website`, Twitter Card `summary_large_image`, canonical cart URL.
+/tmp/l68.body:2187:- Schema.org `WebSite` / `SearchAction`, `CollectionPage`, `ItemList`, and `Product` were used to align structured data with the actual storefront search route.
+/tmp/l68.body:2194:- Search result pages use canonical `/s/{tenant}/products` and `noindex,follow,noarchive`.
+/tmp/l68.body:2195:- `WebSite` JSON-LD `SearchAction` targets `/s/aiboux/products?q={search_term_string}` and is now backed by the real public form.
+/tmp/l68.body:2225:- Confirmed markers: `storefront-search-form`, `name="q"`, `検索語: コーヒー`, `noindex,follow,noarchive`, canonical `/s/aiboux/products`, `SearchAction`, `products?q={search_term_string}`.
+/tmp/d68.body:1184:- WebSite SearchAction JSON-LD from shared helper: PASS
+/tmp/d68.body:1330:- Query page SEO: canonical `/s/aiboux/products`, robots `noindex,follow,noarchive`.
+/tmp/d68.body:1331:- JSON-LD: `WebSite` `SearchAction` targets `/s/aiboux/products?q={search_term_string}`.
