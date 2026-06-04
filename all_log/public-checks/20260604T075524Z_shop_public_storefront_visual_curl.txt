@@ -1,0 +1,81 @@
+===== https://shop.aiboux.com/s/aiboux/?verify=20260604T075524Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:55:24 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/
+x-aiboux-rewritten-path: /shop/storefront/aiboux
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=z7nmnLpch%2BD2aVkGao2jV6nzxHqIRTfIqgfebpykeZ4u1cq%2BRPnqCFy8RFJM7sVBe1JTsCVREaLDJUtcxwKZ7gFVE1oWXHi9FRpA2UAG1HH0SRmS3M44hDWSzzPq%2FxKgZ3A%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0656006b8bceb85-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- images ---
+https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&amp;fit=crop&amp;w=1500&amp;h=620&amp;q=86
+https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1500&amp;h=620&amp;q=86
+https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&amp;fit=crop&amp;w=1500&amp;h=620&amp;q=86
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4580000232621
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4901234567895
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4901234567818
+https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82
+https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82
+https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4901234567895
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4901234567818
+https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82
+
+===== https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T075524Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:55:24 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+clear-site-data: "cache"
+cloudflare-cdn-cache-control: no-store
+x-aiboux-admin-cache-policy: no-store-clear-cache
+x-aiboux-original-path: /s/aiboux/admin/design
+x-aiboux-rewritten-path: /shop/settings/design
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Pn65zFAY%2FjYZrqMGNNh6hE2u9YQfLCAlymZ4vTZ6o1TjfcwghdaK11nK7itBDtWY1MyJTWcfobedcKSyCyJMRZ8MV8OnMaB5D0xg%2FC1YxKWMxaO0q726xfRo124vPIj%2F2Yo%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0656007ed4cd4d0-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- images ---
+
+===== https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621?verify=20260604T075524Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:55:25 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/shopprod_tenant_001_4580000232621
+x-aiboux-rewritten-path: /shop/aiboux/product/shopprod_tenant_001_4580000232621
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=NPqoOh4OgOmpLlWrkuzwHqtmrahNG9ig2pegeJQQoTgtq1bUwxyCXIe9h8wegmmqVCC0cjMj6Uy%2BuysPfkF3GfyBjEkvDATTIeh0TAvxa7wSjThp5mDDgKEt7zf9SYYUD8M%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0656008fd523c02-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- images ---
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4580000232621
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4580000232621
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4901234567895
+https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=720&amp;h=720&amp;q=82&amp;sig=shopprod_tenant_001_4901234567818
+

@@ -1,0 +1,238 @@
+diff --git a/AIBOUX_MASTER_DOCUMENT.md b/AIBOUX_MASTER_DOCUMENT.md
+index 8d4c14f..2f8d3a5 100644
+--- a/AIBOUX_MASTER_DOCUMENT.md
++++ b/AIBOUX_MASTER_DOCUMENT.md
+@@ -29,6 +29,40 @@ WIP deploy is allowed if:
+ 
+ `FINAL_ACCEPTED` is prohibited until remote D1 migration is applied and `gate:shop-subscriptions` passes against public URLs.
+ 
++## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Repair
++
++Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
++
++The tenant storefront is `https://shop.aiboux.com/s/aiboux/`.
++
++The storefront visual repair takes priority over remote subscription D1 migration while D1 authorization is unavailable.
++
++Required public storefront rules:
++
++- no gray image placeholders in the public TOP page;
++- hero uses real sales-oriented image URLs;
++- hero is center main slide plus smaller previous/next side previews;
++- recommended products show at least five product images;
++- ranking, time sale, and categories use image-backed cards;
++- product cards show image, name, rating, review count, price, tax label, and CTA;
++- editor preview and public storefront use the same visual language;
++- screenshots must be published under `/g/screens/`;
++- `/g/l68` and `/g/d68` must record WIP evidence before reporting.
++
++Latest WIP evidence:
++
++- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-design-editor-public.spec.ts`: 5 passed
++- public storefront `/s/aiboux/`: HTTP 200 and includes real `https://images.unsplash.com/...` imagery
++- screenshots:
++  - `/g/screens/shop-design-editor-top-1980.png`
++  - `/g/screens/shop-design-editor-product-1980.png`
++  - `/g/screens/shop-storefront-top-1980.png`
++  - `/g/screens/shop-storefront-top-1365.png`
++  - `/g/screens/shop-product-detail-1980.png`
++
++This is WIP evidence, not `FINAL_ACCEPTED`.
++
+ ## 0. このマスターの位置づけ
+ 
+ この文書は、AIBOUX全体の正本マスターである。
+diff --git a/output/playwright/shop-design-editor/shop-design-editor-product-1980.png b/output/playwright/shop-design-editor/shop-design-editor-product-1980.png
+index 7c9e2f0..6e60074 100644
+Binary files a/output/playwright/shop-design-editor/shop-design-editor-product-1980.png and b/output/playwright/shop-design-editor/shop-design-editor-product-1980.png differ
+diff --git a/output/playwright/shop-design-editor/shop-design-editor-top-1980.png b/output/playwright/shop-design-editor/shop-design-editor-top-1980.png
+index 114fb47..dd70e14 100644
+Binary files a/output/playwright/shop-design-editor/shop-design-editor-top-1980.png and b/output/playwright/shop-design-editor/shop-design-editor-top-1980.png differ
+diff --git a/output/playwright/shop-design-editor/shop-product-detail-1980.png b/output/playwright/shop-design-editor/shop-product-detail-1980.png
+index 9ddd653..9ae6cf8 100644
+Binary files a/output/playwright/shop-design-editor/shop-product-detail-1980.png and b/output/playwright/shop-design-editor/shop-product-detail-1980.png differ
+diff --git a/output/playwright/shop-design-editor/shop-storefront-top-1980.png b/output/playwright/shop-design-editor/shop-storefront-top-1980.png
+index 5462520..645fb4d 100644
+Binary files a/output/playwright/shop-design-editor/shop-storefront-top-1980.png and b/output/playwright/shop-design-editor/shop-storefront-top-1980.png differ
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 9d553c9..ad5be53 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -1,5 +1,41 @@
+ # AIBOUX Shop Sales Tenant Screen Artifact
+ 
++## 2026-06-04T07:55:00Z Public Storefront Visual Repair Evidence
++
++Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
++
++This is WIP visual evidence, not `FINAL_ACCEPTED`.
++
++### Public Screen Evidence
++
++| Evidence | Public URL |
++| --- | --- |
++| TOP editor 1980px | `/g/screens/shop-design-editor-top-1980.png` |
++| Product editor 1980px | `/g/screens/shop-design-editor-product-1980.png` |
++| Public storefront TOP 1980px | `/g/screens/shop-storefront-top-1980.png` |
++| Public storefront TOP 1365px | `/g/screens/shop-storefront-top-1365.png` |
++| Public product detail 1980px | `/g/screens/shop-product-detail-1980.png` |
++
++### Visual Checks
++
++- Normal Shop admin sidebar is not used in the design editor.
++- TOP and Product Detail are the only editable pages.
++- Public storefront TOP uses real sales-oriented images.
++- Hero main slide is visible.
++- Hero previous and next previews use real image URLs.
++- Recommended products show at least five images.
++- Weak image URLs containing `placeholder`, `skeleton`, `gray`, `grey`, `no-image`, `画像なし`, or `/shop/design/hero-` are rejected by Playwright.
++- Ranking and time sale cards use product images.
++- Category cards use images.
++- Public 1365px storefront screenshot was captured.
++
++### Public URL Evidence
++
++- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
++- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
++
+ ## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
+ 
+ Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+diff --git a/public/g/l68.md b/public/g/l68.md
+index 5a4b41c..de10edc 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -1,5 +1,73 @@
+ # AIBOUX Shop Sales Tenant Execution Log
+ 
++## 2026-06-04T07:55:00Z Public Storefront Visual Repair WIP
++
++Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
++
++This is not `FINAL_ACCEPTED`.
++
++### User Rejection Addressed
++
++The public tenant storefront `https://shop.aiboux.com/s/aiboux/` was rejected because the TOP page looked like a dummy editor preview:
++
++- hero imagery looked thin and temporary;
++- recommended product cards used gray placeholders;
++- ranking, time sale, and categories used gray placeholder blocks;
++- public storefront did not look like a finished Amazon-style sales storefront.
++
++### Implementation
++
++- `src/lib/server/shopStorefront.ts`
++  - Added category-aware sales-image fallback for products that lack D1/R2 images.
++  - Product detail and storefront product data now receive an image URL instead of an empty image.
++- `src/components/shop/storefront/ShadcnStorefront.tsx`
++  - Replaced weak `/shop/design/hero-*.svg` hero fallback with real sales-oriented `https://images.unsplash.com/...` imagery.
++  - Changed hero layout to center main slide with smaller previous/next image previews.
++  - Replaced gray ranking/time-sale/category placeholder blocks with image-backed cards.
++  - Product cards now show image, name, rating, review count, price, tax label, and CTA.
++- `src/components/shop/StorefrontDesignBuilder.tsx`
++  - Aligned editor preview imagery with the public storefront.
++  - Replaced preview gray cards with image-backed cards.
++- `tests/shop-design-editor-public.spec.ts`
++  - Added public 1365px storefront test.
++  - Added at-least-five recommended product image check.
++  - Added no weak placeholder image check.
++- `ops/instructions/20260604_shop_public_storefront_visual_mismatch_fix.md`
++  - Created active instruction for this repair.
++
++### Verification
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run astro check`: PASS, 0 errors
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++- `npm run check:shop-ui-protection`: PASS in warn mode
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-design-editor-public.spec.ts`: 5 passed
++- WIP deploy: PASS
++- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
++
++### Public URL Checks
++
++- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
++- `x-aiboux-worker-version`: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
++- Public TOP HTML includes real `https://images.unsplash.com/...` hero and product imagery.
++- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
++
++### Screen Evidence
++
++- TOP editor 1980px: `/g/screens/shop-design-editor-top-1980.png`
++- Product editor 1980px: `/g/screens/shop-design-editor-product-1980.png`
++- Public storefront TOP 1980px: `/g/screens/shop-storefront-top-1980.png`
++- Public storefront TOP 1365px: `/g/screens/shop-storefront-top-1365.png`
++- Public product detail 1980px: `/g/screens/shop-product-detail-1980.png`
++
++### Remaining Non-Final Items
++
++- This does not complete Shop overall acceptance.
++- Remote D1 subscription migration remains blocked by Cloudflare D1 permission.
++- `gate:shop-subscriptions` remains final-only after remote migration is applied.
++
+ ## 2026-06-04T07:30:00Z Shop Subscriptions WIP
+ 
+ Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+diff --git a/public/g/m68.md b/public/g/m68.md
+index dc8fb65..dc10f2a 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -29,6 +29,40 @@ WIP deploy is allowed if:
+ 
+ `FINAL_ACCEPTED` is prohibited until remote D1 migration is applied and `gate:shop-subscriptions` passes against public URLs.
+ 
++## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Repair
++
++Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
++
++The tenant storefront is `https://shop.aiboux.com/s/aiboux/`.
++
++The storefront visual repair takes priority over remote subscription D1 migration while D1 authorization is unavailable.
++
++Required public storefront rules:
++
++- no gray image placeholders in the public TOP page;
++- hero uses real sales-oriented image URLs;
++- hero is center main slide plus smaller previous/next side previews;
++- recommended products show at least five product images;
++- ranking, time sale, and categories use image-backed cards;
++- product cards show image, name, rating, review count, price, tax label, and CTA;
++- editor preview and public storefront use the same visual language;
++- screenshots must be published under `/g/screens/`;
++- `/g/l68` and `/g/d68` must record WIP evidence before reporting.
++
++Latest WIP evidence:
++
++- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-design-editor-public.spec.ts`: 5 passed
++- public storefront `/s/aiboux/`: HTTP 200 and includes real `https://images.unsplash.com/...` imagery
++- screenshots:
++  - `/g/screens/shop-design-editor-top-1980.png`
++  - `/g/screens/shop-design-editor-product-1980.png`
++  - `/g/screens/shop-storefront-top-1980.png`
++  - `/g/screens/shop-storefront-top-1365.png`
++  - `/g/screens/shop-product-detail-1980.png`
++
++This is WIP evidence, not `FINAL_ACCEPTED`.
++
+ ## 0. このマスターの位置づけ
+ 
+ この文書は、AIBOUX全体の正本マスターである。
+diff --git a/public/g/screens/shop-design-editor-product-1980.png b/public/g/screens/shop-design-editor-product-1980.png
+index 7c9e2f0..6e60074 100644
+Binary files a/public/g/screens/shop-design-editor-product-1980.png and b/public/g/screens/shop-design-editor-product-1980.png differ
+diff --git a/public/g/screens/shop-design-editor-top-1980.png b/public/g/screens/shop-design-editor-top-1980.png
+index 114fb47..dd70e14 100644
+Binary files a/public/g/screens/shop-design-editor-top-1980.png and b/public/g/screens/shop-design-editor-top-1980.png differ
+diff --git a/public/g/screens/shop-product-detail-1980.png b/public/g/screens/shop-product-detail-1980.png
+index 9ddd653..9ae6cf8 100644
+Binary files a/public/g/screens/shop-product-detail-1980.png and b/public/g/screens/shop-product-detail-1980.png differ
+diff --git a/public/g/screens/shop-storefront-top-1980.png b/public/g/screens/shop-storefront-top-1980.png
+index 5462520..645fb4d 100644
+Binary files a/public/g/screens/shop-storefront-top-1980.png and b/public/g/screens/shop-storefront-top-1980.png differ

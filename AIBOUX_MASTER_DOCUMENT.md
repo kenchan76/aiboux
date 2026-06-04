@@ -29,6 +29,40 @@ WIP deploy is allowed if:
 
 `FINAL_ACCEPTED` is prohibited until remote D1 migration is applied and `gate:shop-subscriptions` passes against public URLs.
 
+## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Repair
+
+Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
+
+The tenant storefront is `https://shop.aiboux.com/s/aiboux/`.
+
+The storefront visual repair takes priority over remote subscription D1 migration while D1 authorization is unavailable.
+
+Required public storefront rules:
+
+- no gray image placeholders in the public TOP page;
+- hero uses real sales-oriented image URLs;
+- hero is center main slide plus smaller previous/next side previews;
+- recommended products show at least five product images;
+- ranking, time sale, and categories use image-backed cards;
+- product cards show image, name, rating, review count, price, tax label, and CTA;
+- editor preview and public storefront use the same visual language;
+- screenshots must be published under `/g/screens/`;
+- `/g/l68` and `/g/d68` must record WIP evidence before reporting.
+
+Latest WIP evidence:
+
+- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-design-editor-public.spec.ts`: 5 passed
+- public storefront `/s/aiboux/`: HTTP 200 and includes real `https://images.unsplash.com/...` imagery
+- screenshots:
+  - `/g/screens/shop-design-editor-top-1980.png`
+  - `/g/screens/shop-design-editor-product-1980.png`
+  - `/g/screens/shop-storefront-top-1980.png`
+  - `/g/screens/shop-storefront-top-1365.png`
+  - `/g/screens/shop-product-detail-1980.png`
+
+This is WIP evidence, not `FINAL_ACCEPTED`.
+
 ## 0. このマスターの位置づけ
 
 この文書は、AIBOUX全体の正本マスターである。

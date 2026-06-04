@@ -1,0 +1,23 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M output/playwright/shop-design-editor/shop-design-editor-product-1980.png
+ M output/playwright/shop-design-editor/shop-design-editor-top-1980.png
+ M output/playwright/shop-design-editor/shop-product-detail-1980.png
+ M output/playwright/shop-design-editor/shop-storefront-top-1980.png
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M public/g/screens/shop-design-editor-product-1980.png
+ M public/g/screens/shop-design-editor-top-1980.png
+ M public/g/screens/shop-product-detail-1980.png
+ M public/g/screens/shop-storefront-top-1980.png
+?? all_log/checkpoints/20260604T075333Z_wip_commit.txt
+?? all_log/deploys/20260604T075333Z_deployments_before.txt
+?? all_log/public-checks/20260604T075524Z_https___shop_aiboux_com_s_aiboux__verify_20260604T075524Z.body
+?? all_log/public-checks/20260604T075524Z_https___shop_aiboux_com_s_aiboux__verify_20260604T075524Z.headers
+?? all_log/public-checks/20260604T075524Z_https___shop_aiboux_com_s_aiboux_admin_design_verify_20260604T075524Z.body
+?? all_log/public-checks/20260604T075524Z_https___shop_aiboux_com_s_aiboux_admin_design_verify_20260604T075524Z.headers
+?? all_log/public-checks/20260604T075524Z_https___shop_aiboux_com_s_aiboux_product_shopprod_tenant_001_4580000232621_verify_20260604T075524Z.body
+?? all_log/public-checks/20260604T075524Z_https___shop_aiboux_com_s_aiboux_product_shopprod_tenant_001_4580000232621_verify_20260604T075524Z.headers
+?? all_log/public-checks/20260604T075524Z_shop_public_storefront_visual_curl.txt
+?? output/playwright/shop-design-editor/shop-storefront-top-1365.png
+?? public/g/screens/shop-storefront-top-1365.png
