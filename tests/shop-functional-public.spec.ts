@@ -166,6 +166,66 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });
   });
 
+  test("store design editor saves top hero changes and restores original layout", async ({ page, request }) => {
+    const originalResponse = await request.get("/shop/api/storefront/layout", {
+      headers: {
+        "cache-control": "no-cache",
+        pragma: "no-cache",
+      },
+    });
+    expect(originalResponse.ok(), "layout GET before persistence test").toBeTruthy();
+    const originalData = await originalResponse.json();
+    expect(originalData.success, "layout GET success before persistence test").toBeTruthy();
+    const originalLayout = originalData.layout;
+    const marker = `Playwright保存検証 ${Date.now()}`;
+
+    try {
+      await page.setViewportSize({ width: 1980, height: 1080 });
+      await page.goto(`/s/aiboux/admin/design?persistence=${encodeURIComponent(marker)}`);
+      await expect(page.getByText("AIBOUX SHOP ストアデザインエディタ")).toBeVisible();
+      await expect(page.getByText("読み込み中")).toHaveCount(0);
+
+      const heroTitle = page.getByLabel("タイトル").first();
+      await expect(heroTitle).toBeVisible();
+      await expect(heroTitle).not.toHaveValue("");
+      await heroTitle.fill(marker);
+      await expect(heroTitle).toHaveValue(marker);
+
+      const saveResponsePromise = page.waitForResponse((response) =>
+        response.url().includes("/shop/api/storefront/layout") && response.request().method() === "POST",
+      );
+      await page.getByRole("button", { name: "保存", exact: true }).click();
+      const saveResponse = await saveResponsePromise;
+      expect(saveResponse.ok(), "layout POST from design editor save").toBeTruthy();
+
+      const savedResponse = await request.get("/shop/api/storefront/layout", {
+        headers: {
+          "cache-control": "no-cache",
+          pragma: "no-cache",
+        },
+      });
+      expect(savedResponse.ok(), "layout GET after design editor save").toBeTruthy();
+      const savedData = await savedResponse.json();
+      expect(savedData.layout?.pages?.top?.heroSlider?.slides?.[0]?.title).toBe(marker);
+
+      await page.goto(`/s/aiboux/?layoutVerify=${encodeURIComponent(marker)}`);
+      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
+      await page.reload();
+      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
+    } finally {
+      const restoreResponse = await request.post("/shop/api/storefront/layout", {
+        data: {
+          layout: originalLayout,
+          actorId: "playwright-layout-restore",
+        },
+      });
+      expect(restoreResponse.ok(), "layout restore POST after persistence test").toBeTruthy();
+
+      await page.goto(`/s/aiboux/?layoutRestoreVerify=${Date.now()}`);
+      await expect(page.getByText(marker)).toHaveCount(0);
+    }
+  });
+
   test("published product add-to-cart works when published products exist", async ({ page }) => {
     await page.goto("/s/aiboux/products");
     const addButtons = page.locator("[data-cart-add]");

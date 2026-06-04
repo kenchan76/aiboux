@@ -1,0 +1,23 @@
+ M ops/instructions/current.md
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M output/playwright/shop-functional/design-editor-1980.png
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M tests/shop-functional-public.spec.ts
+?? all_log/checkpoints/20260604T060117Z_wip_commit.txt
+?? all_log/deploys/20260604T060117Z_deployments_before.txt
+?? all_log/public-g/20260604T060226Z_d68.body
+?? all_log/public-g/20260604T060226Z_d68.headers
+?? all_log/public-g/20260604T060226Z_g_bundle_verify.txt
+?? all_log/public-g/20260604T060226Z_l68.body
+?? all_log/public-g/20260604T060226Z_l68.headers
+?? all_log/public-g/20260604T060226Z_m68.body
+?? all_log/public-g/20260604T060226Z_m68.headers
+?? all_log/shop-design-editor/20260604T060226Z_admin_design.headers
+?? all_log/shop-design-editor/20260604T060226Z_admin_design.html
+?? all_log/shop-design-editor/20260604T060226Z_admin_design_verify.txt
+?? all_log/shop-design-editor/20260604T060226Z_design_editor_fullscreen_report.json
+?? all_log/shop-design-editor/20260604T061024Z_design_editor_persistence_evidence.md
+?? ops/improvements/20260604_daily_improvement.md
+?? ops/instructions/20260604_shop_design_editor_persistence_and_stop_notification.md

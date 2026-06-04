@@ -1,0 +1,1 @@
+admin_design status=200 worker=f03716d6-6cc4-4d67-ab5e-b4eb089bd513 rewrite=/shop/settings/design

@@ -83,9 +83,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `f03716d6-6cc4-4d67-ab5e-b4eb089bd513` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `f03716d6-6cc4-4d67-ab5e-b4eb089bd513` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `f03716d6-6cc4-4d67-ab5e-b4eb089bd513` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -140,7 +140,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `f03716d6-6cc4-4d67-ab5e-b4eb089bd513`
 
 Screen evidence policy:
 
@@ -256,38 +256,6 @@ Public Playwright evidence:
 
 This is WIP screen evidence and not `FINAL_ACCEPTED`.
 
-## Shop Design Editor Persistence Screen Evidence
-
-Status: `WIP_DESIGN_EDITOR_PERSISTENCE_VERIFIED_NOT_FINAL`
-
-Verified public screens:
-
-- `https://shop.aiboux.com/s/aiboux/admin/design`
-- `https://shop.aiboux.com/s/aiboux/`
-
-Public Playwright behavior evidence:
-
-- The design editor loads as the dedicated fullscreen editor.
-- The first TOP hero title is edited through the visible right-pane input.
-- The exact top-bar `保存` button is clicked.
-- The layout API receives a save request.
-- The public storefront shows the temporary hero title.
-- The public storefront still shows the temporary title after reload/revisit.
-- The original layout is restored after the test.
-- The temporary marker is not left on the public storefront after restore.
-
-Screenshot artifacts:
-
-- `output/playwright/shop-functional/design-editor-1980.png`
-- `output/playwright/shop-functional/admin-demo-free-1980.png`
-
-Playwright results:
-
-- Full public Shop functional spec: PASS, 6 passed
-- Persistence-only spec selection: PASS, 1 passed
-
-This is WIP screen evidence and not `FINAL_ACCEPTED`.
-
 ## Shop Fix Cycle 05 Store Design Editor Screen Evidence
 
 Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
@@ -306,7 +274,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `f03716d6-6cc4-4d67-ab5e-b4eb089bd513`.
 
 Design editor screen evidence:
 

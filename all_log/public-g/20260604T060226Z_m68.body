@@ -63,10 +63,6 @@ Shop UI品質チェックはWIP deployではwarn-onlyでよい。
 2026-06-04の修復サイクルでは、上記に合わせて `/s/aiboux/admin/design` を専用フルスクリーン化し、公開URL向けPlaywrightで5件PASSを確認した。
 ただし、これはWIP修復であり、Shop全体の `FINAL_ACCEPTED` ではない。
 
-2026-06-04の継続サイクルでは、デザインエディタの保存永続化を公開Playwrightで確認した。
-確認内容は、現在レイアウトのsnapshot、TOPヒーロータイトルの一時変更、`POST /shop/api/storefront/layout`、公開TOPへの反映、再読み込み後の維持、元レイアウト復元、公開TOPから一時マーカーが消えたことの確認である。
-この保存確認もWIP証跡であり、Shop全体の `FINAL_ACCEPTED` ではない。
-
 ---
 
 ## 1. 最上位ルール: 省略禁止
@@ -147,7 +143,7 @@ MASTER_REWRITE_REQUIRED
 ### 2.2 現在の確定情報
 
 - 対象Worker名: aiboux
-- Worker Version ID: __WORKER_VERSION_ID__
+- Worker Version ID: f03716d6-6cc4-4d67-ab5e-b4eb089bd513
 - Remote repository: https://github.com/kenchan76/aiboux.git
 - gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
 - Bark通知方針修正: 完了
@@ -2294,7 +2290,7 @@ AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に
 ### 21.1 Worker
 
 Worker name: aiboux
-Worker Version ID: __WORKER_VERSION_ID__
+Worker Version ID: f03716d6-6cc4-4d67-ab5e-b4eb089bd513
 Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
 Deployment created_on: 2026-05-31T14:22:16.574248Z
 Version percentage: 100
@@ -4423,7 +4419,7 @@ Implementation WIP deploy Worker Version ID:
 
 Public log publication Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `f03716d6-6cc4-4d67-ab5e-b4eb089bd513`
 
 公開確認:
 

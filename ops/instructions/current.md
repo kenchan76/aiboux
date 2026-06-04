@@ -188,6 +188,30 @@ Rejection repair requirements:
 6. Hero side previews must show previous and next slide images, not gray placeholder panels.
 7. Playwright must check these visual/layout conditions, not only HTTP 200 and text presence.
 
+## Fix Cycle 06: Design Editor Persistence And Stop Notification
+
+Status: WIP_CONTINUING_AFTER_USER_RESTART
+
+Instruction file:
+
+- `ops/instructions/20260604_shop_design_editor_persistence_and_stop_notification.md`
+
+User instruction:
+
+- Continue without stopping after fullscreen WIP repair.
+- If Codex work pauses or stops, publish `/g/*` and attempt progress notification when configured.
+
+Current target:
+
+1. Verify the design editor save path with a public Playwright test.
+2. Snapshot the current layout before test changes.
+3. Save a temporary TOP hero title through `/s/aiboux/admin/design`.
+4. Verify the saved title appears on `https://shop.aiboux.com/s/aiboux/`.
+5. Verify the saved title survives reload/revisit.
+6. Restore the original layout after the test.
+7. Verify the temporary marker is not left on the public storefront.
+8. Publish updated execution log and screen evidence before reporting.
+
 ## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
 
 Status: WIP_FIXING

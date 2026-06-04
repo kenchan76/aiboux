@@ -1,0 +1,228 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index f883458..61f676d 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -188,6 +188,30 @@ Rejection repair requirements:
+ 6. Hero side previews must show previous and next slide images, not gray placeholder panels.
+ 7. Playwright must check these visual/layout conditions, not only HTTP 200 and text presence.
+ 
++## Fix Cycle 06: Design Editor Persistence And Stop Notification
++
++Status: WIP_CONTINUING_AFTER_USER_RESTART
++
++Instruction file:
++
++- `ops/instructions/20260604_shop_design_editor_persistence_and_stop_notification.md`
++
++User instruction:
++
++- Continue without stopping after fullscreen WIP repair.
++- If Codex work pauses or stops, publish `/g/*` and attempt progress notification when configured.
++
++Current target:
++
++1. Verify the design editor save path with a public Playwright test.
++2. Snapshot the current layout before test changes.
++3. Save a temporary TOP hero title through `/s/aiboux/admin/design`.
++4. Verify the saved title appears on `https://shop.aiboux.com/s/aiboux/`.
++5. Verify the saved title survives reload/revisit.
++6. Restore the original layout after the test.
++7. Verify the temporary marker is not left on the public storefront.
++8. Publish updated execution log and screen evidence before reporting.
++
+ ## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
+ 
+ Status: WIP_FIXING
+diff --git a/output/playwright/shop-functional/admin-demo-free-1980.png b/output/playwright/shop-functional/admin-demo-free-1980.png
+index 1aae223..c8547f8 100644
+Binary files a/output/playwright/shop-functional/admin-demo-free-1980.png and b/output/playwright/shop-functional/admin-demo-free-1980.png differ
+diff --git a/output/playwright/shop-functional/design-editor-1980.png b/output/playwright/shop-functional/design-editor-1980.png
+index 9c74532..32dd522 100644
+Binary files a/output/playwright/shop-functional/design-editor-1980.png and b/output/playwright/shop-functional/design-editor-1980.png differ
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 0289f90..c449d10 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -256,6 +256,38 @@ Public Playwright evidence:
+ 
+ This is WIP screen evidence and not `FINAL_ACCEPTED`.
+ 
++## Shop Design Editor Persistence Screen Evidence
++
++Status: `WIP_DESIGN_EDITOR_PERSISTENCE_VERIFIED_NOT_FINAL`
++
++Verified public screens:
++
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++- `https://shop.aiboux.com/s/aiboux/`
++
++Public Playwright behavior evidence:
++
++- The design editor loads as the dedicated fullscreen editor.
++- The first TOP hero title is edited through the visible right-pane input.
++- The exact top-bar `保存` button is clicked.
++- The layout API receives a save request.
++- The public storefront shows the temporary hero title.
++- The public storefront still shows the temporary title after reload/revisit.
++- The original layout is restored after the test.
++- The temporary marker is not left on the public storefront after restore.
++
++Screenshot artifacts:
++
++- `output/playwright/shop-functional/design-editor-1980.png`
++- `output/playwright/shop-functional/admin-demo-free-1980.png`
++
++Playwright results:
++
++- Full public Shop functional spec: PASS, 6 passed
++- Persistence-only spec selection: PASS, 1 passed
++
++This is WIP screen evidence and not `FINAL_ACCEPTED`.
++
+ ## Shop Fix Cycle 05 Store Design Editor Screen Evidence
+ 
+ Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
+diff --git a/public/g/l68.md b/public/g/l68.md
+index e70e5f7..4603968 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -178,6 +178,53 @@ Evidence:
+ 
+ This cycle is WIP only and is not `FINAL_ACCEPTED`.
+ 
++## Shop Design Editor Persistence Verification Cycle
++
++Status: `WIP_DESIGN_EDITOR_PERSISTENCE_VERIFIED_NOT_FINAL`
++
++Cycle timestamp: `20260604T061024Z`
++
++The work continued after the fullscreen repair cycle to verify that the store design editor actually persists layout changes and reflects them on the public storefront.
++
++Added public Playwright coverage:
++
++- `store design editor saves top hero changes and restores original layout`
++
++What the test verifies:
++
++- It snapshots the current layout through `GET /shop/api/storefront/layout`.
++- It opens `https://shop.aiboux.com/s/aiboux/admin/design`.
++- It waits for the editor loading state to finish.
++- It edits the first TOP hero slide title through the visible editor input.
++- It clicks the exact `保存` button.
++- It waits for `POST /shop/api/storefront/layout`.
++- It confirms the temporary title is saved in the layout API.
++- It opens `https://shop.aiboux.com/s/aiboux/?layoutVerify=<marker>` and confirms the public storefront displays the temporary title.
++- It reloads/revisits the public storefront and confirms persistence.
++- It restores the original layout in `finally`.
++- It confirms the temporary marker is not left on the public storefront after restore.
++
++Failure found and fixed:
++
++- The first version of the test filled the title before the async editor load settled.
++- The first version also used a non-exact save button locator that became ambiguous when the live preview contained the marker text.
++- The test now waits for `読み込み中` to disappear, checks the input value before and after fill, and clicks `getByRole("button", { name: "保存", exact: true })`.
++
++Verification:
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts -g "saves top hero" --reporter=line`: PASS, 1 passed
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line`: PASS, 6 passed
++- Public layout title after restore: `雪花セレクトを、わかりやすく。`
++
++Evidence:
++
++- `all_log/shop-design-editor/20260604T061024Z_design_editor_persistence_evidence.md`
++- `ops/improvements/20260604_daily_improvement.md`
++
++This cycle is WIP evidence and not `FINAL_ACCEPTED`.
++
+ ## WIP Log Route Fix
+ 
+ `/g/l68` and `/g/d68` are served through `src/lib/server/tempLogShares.ts`.
+diff --git a/public/g/m68.md b/public/g/m68.md
+index 498b509..622230f 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -63,6 +63,10 @@ Shop UI品質チェックはWIP deployではwarn-onlyでよい。
+ 2026-06-04の修復サイクルでは、上記に合わせて `/s/aiboux/admin/design` を専用フルスクリーン化し、公開URL向けPlaywrightで5件PASSを確認した。
+ ただし、これはWIP修復であり、Shop全体の `FINAL_ACCEPTED` ではない。
+ 
++2026-06-04の継続サイクルでは、デザインエディタの保存永続化を公開Playwrightで確認した。
++確認内容は、現在レイアウトのsnapshot、TOPヒーロータイトルの一時変更、`POST /shop/api/storefront/layout`、公開TOPへの反映、再読み込み後の維持、元レイアウト復元、公開TOPから一時マーカーが消えたことの確認である。
++この保存確認もWIP証跡であり、Shop全体の `FINAL_ACCEPTED` ではない。
++
+ ---
+ 
+ ## 1. 最上位ルール: 省略禁止
+diff --git a/tests/shop-functional-public.spec.ts b/tests/shop-functional-public.spec.ts
+index 9cc961b..a10ed13 100644
+--- a/tests/shop-functional-public.spec.ts
++++ b/tests/shop-functional-public.spec.ts
+@@ -166,6 +166,66 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+     await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });
+   });
+ 
++  test("store design editor saves top hero changes and restores original layout", async ({ page, request }) => {
++    const originalResponse = await request.get("/shop/api/storefront/layout", {
++      headers: {
++        "cache-control": "no-cache",
++        pragma: "no-cache",
++      },
++    });
++    expect(originalResponse.ok(), "layout GET before persistence test").toBeTruthy();
++    const originalData = await originalResponse.json();
++    expect(originalData.success, "layout GET success before persistence test").toBeTruthy();
++    const originalLayout = originalData.layout;
++    const marker = `Playwright保存検証 ${Date.now()}`;
++
++    try {
++      await page.setViewportSize({ width: 1980, height: 1080 });
++      await page.goto(`/s/aiboux/admin/design?persistence=${encodeURIComponent(marker)}`);
++      await expect(page.getByText("AIBOUX SHOP ストアデザインエディタ")).toBeVisible();
++      await expect(page.getByText("読み込み中")).toHaveCount(0);
++
++      const heroTitle = page.getByLabel("タイトル").first();
++      await expect(heroTitle).toBeVisible();
++      await expect(heroTitle).not.toHaveValue("");
++      await heroTitle.fill(marker);
++      await expect(heroTitle).toHaveValue(marker);
++
++      const saveResponsePromise = page.waitForResponse((response) =>
++        response.url().includes("/shop/api/storefront/layout") && response.request().method() === "POST",
++      );
++      await page.getByRole("button", { name: "保存", exact: true }).click();
++      const saveResponse = await saveResponsePromise;
++      expect(saveResponse.ok(), "layout POST from design editor save").toBeTruthy();
++
++      const savedResponse = await request.get("/shop/api/storefront/layout", {
++        headers: {
++          "cache-control": "no-cache",
++          pragma: "no-cache",
++        },
++      });
++      expect(savedResponse.ok(), "layout GET after design editor save").toBeTruthy();
++      const savedData = await savedResponse.json();
++      expect(savedData.layout?.pages?.top?.heroSlider?.slides?.[0]?.title).toBe(marker);
++
++      await page.goto(`/s/aiboux/?layoutVerify=${encodeURIComponent(marker)}`);
++      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
++      await page.reload();
++      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
++    } finally {
++      const restoreResponse = await request.post("/shop/api/storefront/layout", {
++        data: {
++          layout: originalLayout,
++          actorId: "playwright-layout-restore",
++        },
++      });
++      expect(restoreResponse.ok(), "layout restore POST after persistence test").toBeTruthy();
++
++      await page.goto(`/s/aiboux/?layoutRestoreVerify=${Date.now()}`);
++      await expect(page.getByText(marker)).toHaveCount(0);
++    }
++  });
++
+   test("published product add-to-cart works when published products exist", async ({ page }) => {
+     await page.goto("/s/aiboux/products");
+     const addButtons = page.locator("[data-cart-add]");
