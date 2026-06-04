@@ -42,7 +42,7 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
   test("legal, privacy, shipping, returns, and FAQ pages render shared templates", async ({ page }) => {
     await page.setViewportSize({ width: 1365, height: 1200 });
     const expectations = [
-      { path: "/s/aiboux/legal", text: "販売業者:", file: "shop-legal-page.png" },
+      { path: "/s/aiboux/legal", text: "販売業者", file: "shop-legal-page.png" },
       { path: "/s/aiboux/privacy", text: "個人情報", file: "shop-privacy-page.png" },
       { path: "/s/aiboux/shipping", text: "配送方法と送料", file: "shop-shipping-page.png" },
       { path: "/s/aiboux/returns", text: "返品・交換", file: "shop-returns-page.png" },

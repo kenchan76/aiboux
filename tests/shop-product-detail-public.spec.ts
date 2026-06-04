@@ -51,7 +51,7 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await page.getByTestId("product-thumbnail").count(), "thumbnail gallery should use real image thumbnails").toBeGreaterThanOrEqual(5);
       const thumbnailImages = page.locator("[data-testid='product-thumbnail'] img");
       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
-      await expect(page.getByText("返品条件")).toBeVisible();
+      await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
 
       const purchaseBox = await page.getByTestId("public-product-purchase-box").boundingBox();
