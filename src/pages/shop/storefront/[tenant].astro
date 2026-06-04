@@ -22,6 +22,7 @@ import {
   buildShopPageActionMap,
   buildShopPageBuyingGuide,
   buildShopPageQualitySummary,
+  buildShopSeoSiteMapPanel,
   buildShopTrustMatrix,
 } from "@/lib/shopStorefrontShared";
 import "@/styles/global.css";
@@ -73,6 +74,10 @@ const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href:
 const buyingGuideLinks = buildShopPageBuyingGuide("", tenantRoot).map((item) => ({ label: item.label, href: item.href }));
 const pageQualityLinks = buildShopPageQualitySummary("", tenantRoot).signals.map((item) => ({ label: item.label, href: item.href }));
 const trustMatrixLinks = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true }).signals.map((item) => ({ label: item.label, href: item.href }));
+const seoSiteMapLinks = buildShopSeoSiteMapPanel("", tenantRoot, {
+  canonicalUrl,
+  robots: buildShopRobotsContent(""),
+}).nodes.map((item) => ({ label: item.label, href: item.href }));
 const structuredData = JSON.stringify(buildShopStructuredDataGraph([
   buildShopBreadcrumbJsonLd(breadcrumbItems),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
@@ -110,6 +115,7 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
       ...pageQualityLinks,
       ...actionMapLinks,
       ...trustMatrixLinks,
+      ...seoSiteMapLinks,
       ...buyingGuideLinks,
       ...contextualLinks,
       ...footerColumns.flatMap((column) => column.links),

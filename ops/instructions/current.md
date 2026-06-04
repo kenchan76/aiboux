@@ -14,6 +14,30 @@ Active instruction file:
 - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
 - `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
 - `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
+- `ops/instructions/20260605_shop_seo_sitemap_panel_commonization.md`
+
+## 2026-06-05 Continuation: SEO Sitemap Panel Commonization
+
+Continue the active sales-quality sprint. The current work unit is adding a shared visible SEO sitemap panel to every public tenant storefront page so canonical target, robots/index policy, sitemap inclusion, page role, and crawlable next links are visible and testable.
+
+Official references checked:
+
+- Google Search Central Ecommerce Website Navigation Structure
+- Google Search Central Crawlable Links
+- Google Search Central Ecommerce URL Structure
+- Google Search Central Product structured data
+- Google Search Central Breadcrumb structured data
+
+Current additions required:
+
+- Add shared SEO sitemap panel data in `shopStorefrontShared.ts`.
+- Add `StorefrontSeoSiteMapPanel`.
+- Render it on TOP, product detail, and every public storefront subpage.
+- Keep links crawlable and visibly blue.
+- Expose visible `ItemList` microdata for sitemap links.
+- Add sitemap-panel links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
+- Keep product detail single-H1 and no duplicate product title above the gallery.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Trust Matrix SEO/UI Commonization
 

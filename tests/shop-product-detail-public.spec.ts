@@ -105,6 +105,19 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO checklist should expose visible ListItems").toBeGreaterThanOrEqual(3);
       expect(await seoChecklist.locator("a").count(), "product detail SEO checklist should expose crawlable links").toBeGreaterThanOrEqual(3);
       expect(await seoChecklist.locator("a").first().getAttribute("class"), "product detail SEO checklist links should be visibly blue").toContain("text-blue-700");
+      const seoSiteMapPanel = page.getByTestId("storefront-seo-sitemap-panel");
+      await expect(seoSiteMapPanel, "product detail should include shared SEO sitemap panel").toBeVisible();
+      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose ItemList microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/ItemList",
+      );
+      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose canonical").toContainText("canonical");
+      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose robots").toContainText("robots");
+      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose sitemap status").toContainText("sitemap");
+      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should identify product role").toContainText("商品詳細");
+      expect(await seoSiteMapPanel.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO sitemap panel should expose visible ListItems").toBeGreaterThanOrEqual(4);
+      expect(await seoSiteMapPanel.locator("a").count(), "product detail SEO sitemap panel should expose crawlable links").toBeGreaterThanOrEqual(4);
+      expect(await seoSiteMapPanel.locator("a").first().getAttribute("class"), "product detail SEO sitemap panel links should be visibly blue").toContain("text-blue-700");
       const buyingGuide = page.getByTestId("storefront-buying-guide");
       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");

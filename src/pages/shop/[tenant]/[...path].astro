@@ -12,6 +12,7 @@ import StorefrontProductCard from "@/components/shop/storefront/StorefrontProduc
 import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSearchForm";
 import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
+import { StorefrontSeoSiteMapPanel } from "@/components/shop/storefront/StorefrontSeoSiteMapPanel";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import { StorefrontTrustMatrix } from "@/components/shop/storefront/StorefrontTrustMatrix";
 import {
@@ -52,6 +53,7 @@ import {
   buildShopPageHeaderActions,
   buildShopPageQualitySummary,
   buildShopSeoChecklist,
+  buildShopSeoSiteMapPanel,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
   buildShopTrustMatrix,
@@ -150,6 +152,7 @@ const canonicalPath = page === "products" && searchQuery
 const canonicalUrl = isKnownTenant && isAllowedPath
   ? new URL(canonicalPath, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
+const robotsContent = page === "products" && searchQuery ? "noindex,follow,noarchive" : buildShopRobotsContent(page);
 const absoluteTenantRoot = new URL(`${tenantRoot}/`, "https://shop.aiboux.com").toString();
 const breadcrumbItems = buildShopBreadcrumbItems({
   page,
@@ -205,6 +208,14 @@ const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
   subscriptionSchemaPending,
 });
 const trustMatrixLinks = trustMatrix.signals.map((item) => ({ label: item.label, href: item.href }));
+const seoSiteMapPanel = buildShopSeoSiteMapPanel(page, tenantRoot, {
+  canonicalUrl,
+  robots: robotsContent,
+  productName: salesProduct?.displayName,
+  categoryName: salesProduct?.categoryName ?? activeCategoryName,
+  searchQuery,
+});
+const seoSiteMapLinks = seoSiteMapPanel.nodes.map((item) => ({ label: item.label, href: item.href }));
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const normalizedSearchNeedle = searchQuery.toLowerCase();
 const visibleProductCards = page === "products" && normalizedSearchNeedle
@@ -253,6 +264,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
     ...actionMapLinks,
     ...trustMatrixLinks,
     ...seoChecklistLinks,
+    ...seoSiteMapLinks,
     ...buyingGuideLinks,
     ...contextualLinks,
     ...footerColumns.flatMap((column) => column.links),
@@ -631,7 +643,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     <ShopSeoHead
       title={title}
       description={socialMeta.description}
-      robots={page === "products" && searchQuery ? "noindex,follow,noarchive" : buildShopRobotsContent(page)}
+      robots={robotsContent}
       canonicalUrl={canonicalUrl}
       socialMeta={socialMeta}
       structuredData={structuredData}
@@ -687,6 +699,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           <StorefrontPageQualitySummary summary={pageQualitySummary} />
           <StorefrontPageActionMap actionMap={actionMap} />
           <StorefrontSeoChecklist checklist={seoChecklist} />
+          <StorefrontSeoSiteMapPanel siteMap={seoSiteMapPanel} />
 
           {page === "products" ? (
             <section class="grid gap-5" data-testid="storefront-products">

@@ -22,3 +22,6 @@ For ecommerce SEO/UI work, each public page should expose a visible page-specifi
 ## Additional Improvement 2
 
 Every public ecommerce page should expose a shared trust matrix that makes seller identity, shipping, returns, payment state, subscription state, privacy, and support crawlable and visible. This prevents policy/support pages from becoming thin content and gives product, cart, checkout, and account pages the same purchase-confidence model.
+## 2026-06-05 Shop SEO Sitemap Panel Improvement
+
+Add a visible, shared SEO sitemap panel for every public storefront page. This makes page role, canonical target, robots policy, sitemap inclusion, and crawlable next links testable in public Playwright instead of relying only on hidden head tags or XML files.

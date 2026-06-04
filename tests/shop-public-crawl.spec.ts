@@ -171,6 +171,20 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO checklist should expose ListItem microdata`).toBeGreaterThanOrEqual(3);
         expect(await seoChecklist.locator("a").count(), `${target.path} SEO checklist should expose crawlable links`).toBeGreaterThanOrEqual(3);
         expect(await seoChecklist.locator("a").first().getAttribute("class"), `${target.path} SEO checklist links should be visibly blue and underlined`).toContain("text-blue-700");
+        const seoSiteMapPanel = page.getByTestId("storefront-seo-sitemap-panel");
+        await expect(seoSiteMapPanel, `${target.path} should include shared SEO sitemap panel`).toBeVisible();
+        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose ItemList microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/ItemList",
+        );
+        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose page role`).toContainText("ページ役割");
+        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose canonical`).toContainText("canonical");
+        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose robots`).toContainText("robots");
+        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose sitemap status`).toContainText("sitemap");
+        await expect(seoSiteMapPanel.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO sitemap panel should declare numberOfItems`).toHaveCount(1);
+        expect(await seoSiteMapPanel.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO sitemap panel should expose ListItem microdata`).toBeGreaterThanOrEqual(4);
+        expect(await seoSiteMapPanel.locator("a").count(), `${target.path} SEO sitemap panel should expose crawlable links`).toBeGreaterThanOrEqual(4);
+        expect(await seoSiteMapPanel.locator("a").first().getAttribute("class"), `${target.path} SEO sitemap panel links should be visibly blue and underlined`).toContain("text-blue-700");
         const buyingGuide = page.getByTestId("storefront-buying-guide");
         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");

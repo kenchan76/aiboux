@@ -114,6 +114,25 @@ export type ShopStorefrontTrustMatrix = {
   signals: ShopStorefrontTrustMatrixSignal[];
 };
 
+export type ShopStorefrontSeoSiteMapNode = {
+  title: string;
+  body: string;
+  href: string;
+  label: string;
+  badge: string;
+  policy: "indexable" | "noindex-follow" | "support" | "transaction";
+};
+
+export type ShopStorefrontSeoSiteMapPanel = {
+  title: string;
+  summary: string;
+  pageRole: string;
+  canonicalUrl: string;
+  robots: string;
+  sitemapStatus: string;
+  nodes: ShopStorefrontSeoSiteMapNode[];
+};
+
 export type ShopStorefrontBreadcrumbSupportLink = {
   label: string;
   href: string;
@@ -1919,6 +1938,290 @@ export function buildShopTrustMatrix(
     signals: [...selected.signals, ...sharedSignals]
       .filter((item, index, array) => array.findIndex((candidate) => candidate.title === item.title || candidate.href === item.href) === index)
       .slice(0, 6),
+  };
+}
+
+export function buildShopSeoSiteMapPanel(
+  page: string,
+  tenantRoot: string,
+  input: {
+    canonicalUrl: string;
+    robots: string;
+    productName?: string;
+    categoryName?: string;
+    searchQuery?: string;
+  },
+): ShopStorefrontSeoSiteMapPanel {
+  const normalizedPage = page || "";
+  const isTransactional = ["cart", "checkout", "mypage", "account", "orders", "favorites", "login", "register", "mypage/subscriptions"].includes(normalizedPage);
+  const isSearchResult = normalizedPage === "products" && Boolean(input.searchQuery);
+  const isIndexable = !isTransactional && !isSearchResult;
+  const categoryName = String(input.categoryName || "").trim();
+  const productName = String(input.productName || "").trim();
+
+  const pageRoleMap: Record<string, string> = {
+    "": "TOP: 商品発見、カテゴリ回遊、キャンペーン入口",
+    products: isSearchResult ? "検索結果: noindexで商品発見を補助" : categoryName ? `カテゴリ商品一覧: ${categoryName}` : "商品一覧: index可能な商品発見ページ",
+    categories: "カテゴリ一覧: 売り場階層と商品発見",
+    product: productName ? `商品詳細: ${productName}` : "商品詳細: Product/Offerと購入判断",
+    cart: "カート: noindexの購入準備ページ",
+    checkout: "checkout: noindexの注文確認ページ",
+    contact: "問い合わせ: 購入前後サポート",
+    legal: "特商法: 販売者と取引条件",
+    privacy: "プライバシー: 個人情報の扱い",
+    shipping: "配送: 送料と配送条件",
+    returns: "返品: キャンセル・返品条件",
+    faq: "FAQ: 購入前後の質問整理",
+    mypage: "マイページ: noindexの顧客操作入口",
+    account: "アカウント: noindexの顧客情報入口",
+    orders: "注文履歴: noindexの購入後ページ",
+    favorites: "お気に入り: noindexの保存候補ページ",
+    login: "ログイン: noindexの認証ページ",
+    register: "会員登録: noindexの認証ページ",
+    "mypage/subscriptions": "定期購入: noindexの契約状態ページ",
+  };
+
+  const sitemapStatus = isIndexable
+    ? "sitemap対象。canonicalと主要内部リンクを同じURLへ揃えます。"
+    : isSearchResult
+      ? "sitemap対象外。任意検索語はcanonicalを商品一覧へ寄せ、noindex,followで回遊を維持します。"
+      : "sitemap対象外。取引・認証・顧客情報ページはnoindex,followで内部リンクを残します。";
+
+  const discoveryNodes: ShopStorefrontSeoSiteMapNode[] = [
+    {
+      title: "TOPへ戻る",
+      body: "ストア全体のカテゴリ、ヒーロー、おすすめ商品へ戻ります。",
+      href: `${tenantRoot}/`,
+      label: "TOP",
+      badge: "Home",
+      policy: "indexable",
+    },
+    {
+      title: "商品一覧",
+      body: "商品カード、価格、レビュー、カート導線をまとめて確認します。",
+      href: `${tenantRoot}/products`,
+      label: "商品一覧",
+      badge: "Products",
+      policy: "indexable",
+    },
+    {
+      title: "カテゴリ一覧",
+      body: "カテゴリ単位の安定URLから商品を探します。",
+      href: `${tenantRoot}/categories`,
+      label: "カテゴリ",
+      badge: "Category",
+      policy: "indexable",
+    },
+  ];
+
+  const policyNodes: ShopStorefrontSeoSiteMapNode[] = [
+    {
+      title: "配送条件",
+      body: "送料、配送予定、購入前の配送確認へ移動します。",
+      href: `${tenantRoot}/shipping`,
+      label: "配送",
+      badge: "Policy",
+      policy: "support",
+    },
+    {
+      title: "返品・キャンセル",
+      body: "返品、交換、キャンセル条件を購入前に確認します。",
+      href: `${tenantRoot}/returns`,
+      label: "返品",
+      badge: "Policy",
+      policy: "support",
+    },
+    {
+      title: "問い合わせ",
+      body: "注文前後の不明点をフォームへ接続します。",
+      href: `${tenantRoot}/contact`,
+      label: "問い合わせ",
+      badge: "Support",
+      policy: "support",
+    },
+  ];
+
+  const transactionalNodes: ShopStorefrontSeoSiteMapNode[] = [
+    {
+      title: "カート",
+      body: "購入候補、数量、小計、配送確認へ進みます。",
+      href: `${tenantRoot}/cart`,
+      label: "カート",
+      badge: "Cart",
+      policy: "transaction",
+    },
+    {
+      title: "注文履歴",
+      body: "購入後の配送、返品、問い合わせ導線を確認します。",
+      href: `${tenantRoot}/orders`,
+      label: "注文履歴",
+      badge: "Account",
+      policy: "noindex-follow",
+    },
+  ];
+
+  const pageSpecific: Record<string, ShopStorefrontSeoSiteMapNode[]> = {
+    "": [
+      {
+        title: "タイムセール",
+        body: "セール商品の安定カテゴリURLへ接続します。",
+        href: buildShopCategoryHref(tenantRoot, "sale"),
+        label: "セール",
+        badge: "Sale",
+        policy: "indexable",
+      },
+      {
+        title: "売れ筋ランキング",
+        body: "ランキングカテゴリへ移動し、人気商品を比較します。",
+        href: buildShopCategoryHref(tenantRoot, "ranking"),
+        label: "ランキング",
+        badge: "Rank",
+        policy: "indexable",
+      },
+    ],
+    products: [
+      {
+        title: "カテゴリで絞る",
+        body: "任意検索ではなく安定カテゴリURLへ回遊します。",
+        href: `${tenantRoot}/categories`,
+        label: "カテゴリ一覧",
+        badge: "Facet",
+        policy: "indexable",
+      },
+      {
+        title: "食品・飲料",
+        body: "食品カテゴリの商品群へ移動します。",
+        href: buildShopCategoryHref(tenantRoot, "food-drink"),
+        label: "食品・飲料",
+        badge: "Category",
+        policy: "indexable",
+      },
+    ],
+    categories: [
+      {
+        title: "コーヒー・お茶",
+        body: "カテゴリ別の安定URLとして商品発見を補助します。",
+        href: buildShopCategoryHref(tenantRoot, "coffee-tea"),
+        label: "コーヒー",
+        badge: "Category",
+        policy: "indexable",
+      },
+      {
+        title: "日用品",
+        body: "日用品カテゴリの商品群へ移動します。",
+        href: buildShopCategoryHref(tenantRoot, "daily-goods"),
+        label: "日用品",
+        badge: "Category",
+        policy: "indexable",
+      },
+    ],
+    product: [
+      {
+        title: "同じカテゴリへ戻る",
+        body: categoryName ? `${categoryName}の商品一覧へ戻ります。` : "関連カテゴリの商品一覧へ戻ります。",
+        href: categoryName ? buildShopCategoryHref(tenantRoot, categoryName) : `${tenantRoot}/categories`,
+        label: categoryName || "カテゴリ",
+        badge: "Related",
+        policy: "indexable",
+      },
+      {
+        title: "購入候補を確認",
+        body: "商品詳細からカートへ移動します。",
+        href: `${tenantRoot}/cart`,
+        label: "カート",
+        badge: "Cart",
+        policy: "transaction",
+      },
+    ],
+    checkout: [
+      {
+        title: "特商法",
+        body: "注文前に販売者、支払、配送、返品条件を確認します。",
+        href: `${tenantRoot}/legal`,
+        label: "特商法",
+        badge: "Legal",
+        policy: "support",
+      },
+    ],
+    contact: [
+      {
+        title: "FAQで確認",
+        body: "問い合わせ前によくある質問を確認します。",
+        href: `${tenantRoot}/faq`,
+        label: "FAQ",
+        badge: "FAQ",
+        policy: "support",
+      },
+    ],
+    legal: [
+      {
+        title: "プライバシー",
+        body: "販売条件と個人情報の扱いを合わせて確認します。",
+        href: `${tenantRoot}/privacy`,
+        label: "プライバシー",
+        badge: "Policy",
+        policy: "support",
+      },
+    ],
+    privacy: [
+      {
+        title: "会員登録",
+        body: "登録前の個人情報利用を確認します。",
+        href: `${tenantRoot}/register`,
+        label: "会員登録",
+        badge: "Account",
+        policy: "noindex-follow",
+      },
+    ],
+    shipping: [
+      {
+        title: "返品条件",
+        body: "配送条件と返品条件を合わせて確認します。",
+        href: `${tenantRoot}/returns`,
+        label: "返品",
+        badge: "Policy",
+        policy: "support",
+      },
+    ],
+    returns: [
+      {
+        title: "配送条件",
+        body: "返品前提となる配送条件へ戻ります。",
+        href: `${tenantRoot}/shipping`,
+        label: "配送",
+        badge: "Policy",
+        policy: "support",
+      },
+    ],
+    faq: [
+      {
+        title: "問い合わせ",
+        body: "FAQで解決しない内容を問い合わせます。",
+        href: `${tenantRoot}/contact`,
+        label: "問い合わせ",
+        badge: "Support",
+        policy: "support",
+      },
+    ],
+  };
+
+  const nodes = [
+    ...(pageSpecific[normalizedPage] ?? []),
+    ...discoveryNodes,
+    ...policyNodes,
+    ...transactionalNodes,
+  ]
+    .filter((item, index, array) => array.findIndex((candidate) => candidate.href === item.href || candidate.title === item.title) === index)
+    .slice(0, 8);
+
+  return {
+    title: "SEO site map",
+    summary: "canonical、robots、sitemap対象、主要内部リンクを同じ部品で見える化します。",
+    pageRole: pageRoleMap[normalizedPage] ?? "公開ストア共通ページ",
+    canonicalUrl: input.canonicalUrl,
+    robots: input.robots,
+    sitemapStatus,
+    nodes,
   };
 }
 
