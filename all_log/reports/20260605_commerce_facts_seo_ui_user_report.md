@@ -1,0 +1,37 @@
+# AIBOUX Shop Commerce Facts SEO/UI WIP Report
+
+## Status
+WIP_DEPLOYED_NOT_FINAL
+
+## Summary
+- 全公開ストアページに価格、税込、在庫、配送、返品、決済状態、定期購入準備中、問い合わせ導線をまとめる共通購入事実パーツを追加しました。
+- TOP、商品詳細、商品一覧、カテゴリ、カート、checkout、問い合わせ、法務、配送返品、FAQ、マイページ系の公開ページで共通SEO/UI構造を確認しました。
+- Google Search CentralのSEO Starter Guide、ecommerce URL、Product structured data、merchant listing、breadcrumb、crawlable linksを確認し、クロール可能リンク、パンくず、Product/Offer、配送/返品情報の観点を反映しました。
+- Worker Version IDは73103cd1-97c2-4e4f-8920-08abdcbc17bbです。
+
+## Verification
+- npm run check:control-chars: PASS
+- npm run check:mojibake: PASS
+- npm run astro check: PASS with existing hints only
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl: PASS, 9 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail: PASS, 3 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality: PASS across public crawl, carousel, interaction, visual, product detail, cart/checkout, contact/legal, admin ops
+- m68/l68/d68: HTTP 200 / text/markdown; charset=utf-8 / SHOP_5H_COMMERCE_FACTS_SEO_UI_WIP marker present
+- Bark progress notification: delivered=true, skipped=false, secretLogged=false
+
+## Bark
+- notification: progress delivered
+- reason: Progress Bark sent after WIP deploy and public URL bundle verification; final acceptance Bark is not sent because FINAL_ACCEPTED is prohibited.
+
+## Notes
+- FINAL_ACCEPTEDではありません。
+- Remote D1 subscription migrationは未適用です。
+- Provider-backed recurring subscription creationは未検証です。
+- 公開/g/*はWorker Version IDを実行時置換するため、source fileとfetch bodyのsha256差分は想定内です。
+- shop.aiboux.com/はサービスサイトのまま、テナントフロントはhttps://shop.aiboux.com/s/aiboux/のままです。
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
