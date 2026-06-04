@@ -90,3 +90,31 @@ Not FINAL_ACCEPTED:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - Further Amazon-quality polish continues across all public/admin-linked pages.
+
+## Cycle 4 Public Deploy Verification - 2026-06-04T11:33:40Z
+
+Status: SHOP_ALL_PAGES_AMAZON_QUALITY_WIP_DEPLOYED_NOT_FINAL
+
+WIP commit before deploy: 981f2c8
+Worker Version ID: 9b8b0a0a-9984-42b3-b20b-c973c6ae349f
+
+Public gate results after deploy:
+- gate:shop-public-crawl: PASS, 5 passed. This includes all public pages at 1365, 1980, and mobile, admin crawl, and internal tenant link resolution.
+- gate:shop-storefront-visual: PASS, 3 passed.
+- gate:shop-storefront-interaction: PASS, 2 passed.
+- gate:shop-product-detail: PASS, 3 passed.
+- gate:shop-cart-checkout: PASS, 1 passed.
+- gate:shop-contact-legal: PASS, 2 passed.
+- gate:shop-admin-ops: PASS, 2 passed.
+- gate:shop-sales-quality: PASS.
+
+Public evidence refreshed:
+- storefront footer exists on all public storefront pages covered by gate:shop-public-crawl.
+- public internal tenant links return HTTP 200 and do not return the not-found template.
+- products page and categories page screenshots were refreshed under public/g/screens.
+- top/product/cart/checkout/contact/legal/privacy/shipping/returns/faq/account/orders/favorites/auth/subscriptions screenshots were refreshed.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- Additional Amazon-quality polish continues.
