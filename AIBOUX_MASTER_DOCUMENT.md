@@ -4713,8 +4713,11 @@ Implementation:
 - Strengthened `tests/shop-public-crawl.spec.ts` to require the SEO hub, visible `SiteNavigationElement` microdata, dense internal links, and visible link color.
 
 Public deploy:
-- Worker Version ID: `89d685a7-8eb1-401c-8c6b-d92d29b9aa37`
+- Implementation Worker Version ID: `89d685a7-8eb1-401c-8c6b-d92d29b9aa37`
+- Public evidence publication Worker Version ID: `08b5ddf3-dd69-43e6-9a62-c4187f97a803`
 - WIP commit: `847f49b`
+- Evidence commit: `359311b`
+- Publication deploy log: `all_log/deploys/20260604T155748Z_wrangler_publish_seo_hub_evidence.txt`
 
 Verification:
 - `npm run check:control-chars`: PASS
