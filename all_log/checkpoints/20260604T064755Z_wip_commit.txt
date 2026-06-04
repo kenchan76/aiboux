@@ -1,0 +1,26 @@
+timestamp=20260604T064755Z
+commit_status=0
+head_after=d73bbd3ba59374c84dcba0c0cc68a29206e1923c
+commit_stdout:
+[main d73bbd3] WIP shop aiboux tenant deploy checkpoint 20260604T064755Z
+ 20 files changed, 424 insertions(+), 3 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T064542Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T064755Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T064755Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T064755Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T064755Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T064542Z_deployments_before.txt
+ create mode 100644 all_log/patches/20260604T064755Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T064755Z_before_deploy_staged.patch
+ create mode 100644 output/playwright/shop-design-editor/shop-design-editor-product-1980.png
+ create mode 100644 output/playwright/shop-design-editor/shop-design-editor-top-1980.png
+ create mode 100644 output/playwright/shop-design-editor/shop-storefront-top-1980.png
+ create mode 100644 public/g/screens/shop-design-editor-product-1980.png
+ create mode 100644 public/g/screens/shop-design-editor-top-1980.png
+ create mode 100644 public/g/screens/shop-storefront-top-1980.png
+ create mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/error-context.md
+ create mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/test-failed-1.png
+ create mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/trace.zip
+ create mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/video.webm
+
+commit_stderr:
