@@ -1,0 +1,3754 @@
+# AIBOUX Shop Sales Tenant Execution Log
+
+## 2026-06-04T21:20:47Z All Pages SEO Common Parts WIP
+
+Status: `SHOP_5H_ALL_PAGES_SEO_COMMON_PARTS_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Purpose
+
+The user requested every page structure to be SEO-strong and UI-strong, with reusable common parts wherever possible. This cycle aligns the TOP page structured navigation with the same shared SEO/UI link sources already rendered visibly on the storefront.
+
+### References Checked
+
+Official Google Search Central references checked for this cycle:
+
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Product/Merchant structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+
+### Implementation
+
+- `ops/instructions/20260605_shop_all_pages_seo_common_parts_continuation.md`
+  - Added the active instruction for the all-pages SEO common-parts continuation.
+- `ops/instructions/current.md`
+  - Reflected the new continuation.
+- `ops/improvements/20260605_daily_improvement.md`
+  - Added the process improvement: visible shared navigation and JSON-LD navigation must be checked from the same shared sources.
+- `src/pages/shop/storefront/[tenant].astro`
+  - Added TOP breadcrumb support links, page-quality links, and buying-guide links to TOP `SiteNavigationElement` JSON-LD.
+  - Keeps the rendered TOP page and structured navigation aligned with the same shared SEO/UI model.
+- `tests/shop-public-crawl.spec.ts`
+  - Strengthened TOP JSON-LD checks for breadcrumb support links, page-quality links, and buying-guide links.
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- WIP commit: `881e7e35e799caa2900ade531f0ab5e663a6f7ed`
+- WIP deploy: PASS
+- WIP Worker Version ID: `08c51847-da75-4556-b094-e311c2dcb17a`
+- Public evidence deploy: PASS
+- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - `gate:shop-public-crawl`: PASS, 9 tests
+  - `gate:shop-storefront-carousel`: PASS, 2 tests
+  - `gate:shop-storefront-interaction`: PASS, 2 tests
+  - `gate:shop-storefront-visual`: PASS, 3 tests
+  - `gate:shop-product-detail`: PASS, 3 tests
+  - `gate:shop-cart-checkout`: PASS, 1 test
+  - `gate:shop-contact-legal`: PASS, 2 tests
+  - `gate:shop-admin-ops`: PASS, 2 tests
+
+### Subscription Lane
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- Failure reason: subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Secret-safe failure artifacts were moved to `all_log/test-results/20260604T212038Z_subscription_gate_blocked_after_seo_common/`.
+
+### Public URL Evidence
+
+- `https://mail.aiboux.com/g/m68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/l68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200 / `text/html` / `x-aiboux-worker-version: 94d34d86-c05c-4b0a-94fb-060a5eed2d84`
+- Public marker checked: `SHOP_5H_ALL_PAGES_SEO_COMMON_PARTS_WIP`
+- Public TOP HTML marker checked: `送料と配送を見る`
+- Note: public `/g/*` bodies returned latest markers and no-store markdown responses. Exact sha256 equality with `public/g/*.md` is still not used as a final acceptance gate because older log sections differ in published body serialization; current marker, HTTP, content-type, and Worker evidence are recorded.
+
+### Bark Progress Notification
+
+- Purpose: progress notification, not final acceptance.
+- Bark result: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
+
+### Non-Final Conditions
+
+- This is a WIP SEO/UI hardening checkpoint.
+- Remote D1 subscription migration is not accepted.
+- Provider-backed recurring subscription creation is not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## 2026-06-04T21:07:27Z Breadcrumb Support SEO/UI Commonization WIP
+
+Status: `SHOP_5H_BREADCRUMB_SUPPORT_SEO_UI_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Purpose
+
+The user requested all pages to be SEO-strong and UI-strong, and specifically requested shared breadcrumbs. This cycle upgrades the breadcrumb from a simple path indicator into a shared SEO/UI shell with breadcrumb-adjacent support links on every public storefront page.
+
+### References Checked
+
+Official Google Search Central references checked for this cycle:
+
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+
+### Implementation
+
+- `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+  - Added the active instruction for this work unit.
+- `ops/instructions/current.md`
+  - Reflected this breadcrumb support continuation.
+- `src/lib/shopStorefrontShared.ts`
+  - Added `ShopStorefrontBreadcrumbSupportLink`.
+  - Added `buildShopBreadcrumbSupportLinks(page, tenantRoot, input)`.
+  - Generates page-specific support links for TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, subscriptions, orders, favorites, login, register, and account.
+- `src/components/shop/storefront/StorefrontBreadcrumb.tsx`
+  - Upgraded the breadcrumb into a shared shell.
+  - Keeps visible `BreadcrumbList` microdata.
+  - Adds `現在地` context.
+  - Adds breadcrumb support links with visible blue link styling and `SiteNavigationElement` microdata.
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+  - Passes TOP support links into the shared breadcrumb.
+- `src/pages/shop/[tenant]/[...path].astro`
+  - Passes page-specific support links into every public subpage and product detail.
+- Tests strengthened:
+  - `tests/shop-public-crawl.spec.ts`
+  - `tests/shop-product-detail-public.spec.ts`
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- WIP implementation commit: `93aeb31`
+- WIP deploy: PASS
+- WIP Worker Version ID: `e0272b54-499a-46c6-82ae-ad56be555977`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - `gate:shop-public-crawl`: PASS, 9 tests
+  - `gate:shop-storefront-carousel`: PASS, 2 tests
+  - `gate:shop-storefront-interaction`: PASS, 2 tests
+  - `gate:shop-storefront-visual`: PASS, 3 tests
+  - `gate:shop-product-detail`: PASS, 3 tests
+  - `gate:shop-cart-checkout`: PASS, 1 test
+  - `gate:shop-contact-legal`: PASS, 2 tests
+  - `gate:shop-admin-ops`: PASS, 2 tests
+
+### Subscription Lane
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- Failure reason: subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Secret-safe failure artifacts were moved to `all_log/test-results/20260604T210727Z_subscription_gate_blocked/`.
+- This does not block the current SEO/UI breadcrumb support WIP, but it blocks `FINAL_ACCEPTED`.
+
+### Non-Final Conditions
+
+- This is a WIP SEO/UI hardening checkpoint.
+- Remote D1 subscription migration is not accepted.
+- Provider-backed recurring subscription creation is not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+
+## 2026-06-04T20:48:58Z Page Quality Summary SEO/UI Commonization WIP
+
+Status: `SHOP_5H_PAGE_QUALITY_SUMMARY_SEO_UI_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Purpose
+
+The user requested that every AIBOUX Shop page be checked for strongest SEO structure and strongest UI, and that reusable parts be identified and applied.
+
+This cycle adds a shared page-quality summary to all public tenant storefront pages. The shared part makes each page's search intent, SEO role, and next user action visible and consistent instead of leaving that context scattered across templates.
+
+### References Checked
+
+Official Google Search Central references checked for this cycle:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Merchant return policy structured data: `https://developers.google.com/search/docs/appearance/structured-data/return-policy`
+
+### Implementation
+
+- `ops/instructions/20260605_shop_page_quality_summary_seo_ui.md`
+  - Added the active instruction for this work unit.
+- `ops/instructions/current.md`
+  - Reflected the current continuation and official SEO references checked.
+- `src/lib/shopStorefrontShared.ts`
+  - Added `ShopStorefrontPageQualitySignal`.
+  - Added `ShopStorefrontPageQualitySummary`.
+  - Added `buildShopPageQualitySummary(page, tenantRoot)`.
+  - Covers TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
+- `src/components/shop/storefront/StorefrontPageQualitySummary.tsx`
+  - Added a reusable visible page-quality summary component.
+  - Shows `検索意図`, `SEO構造`, and `次の操作`.
+  - Uses crawlable `<a href>` links with visible blue link affordance.
+  - Exposes visible `SiteNavigationElement` microdata.
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+  - Renders the shared page-quality summary on public TOP.
+- `src/pages/shop/[tenant]/[...path].astro`
+  - Renders the shared page-quality summary on every public subpage and product detail.
+  - Adds the page-quality links into shared navigation JSON-LD input.
+- Tests strengthened:
+  - `tests/shop-public-crawl.spec.ts`
+  - `tests/shop-product-detail-public.spec.ts`
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- WIP implementation commit: `2372dfa`
+- WIP deploy: PASS
+- WIP Worker Version ID: `700f1613-6f09-4fb0-a96b-65b524b1298e`
+- Public evidence Worker Version ID: `b020b5b0-f913-4fcc-8301-c16ae44843d9`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - `gate:shop-public-crawl`: PASS, 9 tests
+  - `gate:shop-storefront-carousel`: PASS, 2 tests
+  - `gate:shop-storefront-interaction`: PASS, 2 tests
+  - `gate:shop-storefront-visual`: PASS, 3 tests
+  - `gate:shop-product-detail`: PASS, 3 tests
+  - `gate:shop-cart-checkout`: PASS, 1 test
+  - `gate:shop-contact-legal`: PASS, 2 tests
+  - `gate:shop-admin-ops`: PASS, 2 tests
+- Public `/g/*` verification after evidence deploy: HTTP 200 / `text/markdown; charset=utf-8`
+- Public TOP verification: HTTP 200 / `x-aiboux-worker-version: b020b5b0-f913-4fcc-8301-c16ae44843d9`
+- Public product detail verification: HTTP 200 / `x-aiboux-worker-version: b020b5b0-f913-4fcc-8301-c16ae44843d9`
+- Progress Bark notification: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`, evidence file `all_log/bark/20260604T205230Z_page_quality_summary_progress_bark.json`.
+
+### Verified SEO/UI Assertions
+
+- `data-testid="storefront-page-quality-summary"` is present on public storefront pages checked by Playwright.
+- Visible `検索意図`, `SEO構造`, and `次の操作` sections are present.
+- Links in the shared summary are crawlable anchors.
+- Link affordance uses visible blue styling.
+- Visible `SiteNavigationElement` microdata is present.
+- Product detail still keeps one visible product `h1`; the duplicate title above the image gallery remains removed.
+- Product detail includes `Product/Offer` page role copy in the shared summary without replacing structured data gates.
+
+### Subscription Lane
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- Failure reason: subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Secret-safe failure artifacts were moved to `all_log/test-results/20260604T204858Z_subscription_gate_blocked/`.
+- This does not block the current SEO/UI page-quality WIP, but it blocks `FINAL_ACCEPTED`.
+
+### Public URL State
+
+- Tenant storefront remains: `https://shop.aiboux.com/s/aiboux/`
+- Product detail remains: `https://shop.aiboux.com/s/aiboux/product/{id}`
+- Shop service site remains: `https://shop.aiboux.com/`
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+### Non-Final Conditions
+
+- This is a WIP SEO/UI hardening checkpoint.
+- Remote D1 subscription migration is not accepted.
+- Provider-backed recurring subscription creation is not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## 2026-06-04T20:25:29Z Page Buying Guide SEO/UI Commonization WIP
+
+Status: `SHOP_5H_PAGE_BUYING_GUIDE_SEO_UI_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Purpose
+
+The user requested that every page be checked for strongest SEO structure, strongest UI, and reusable shared parts.
+
+This cycle adds a shared page-specific buying guide / purchase decision aid to every public tenant storefront page. It strengthens visible text, internal links, purchase decision context, and reusable UI without falsely claiming all pages are FAQ rich-result pages.
+
+### Implementation
+
+- `ops/instructions/20260605_shop_page_buying_guide_seo_ui.md`
+  - Added the active instruction for this work unit.
+- `ops/instructions/current.md`
+  - Reflected the current continuation and Google Search Central references checked.
+- `src/lib/shopStorefrontShared.ts`
+  - Added `ShopStorefrontBuyingGuideItem`.
+  - Added `buildShopPageBuyingGuide(page, tenantRoot)`.
+  - Generates page-specific purchase guidance for TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
+- `src/components/shop/storefront/StorefrontBuyingGuide.tsx`
+  - Added a reusable visible buying-guide component.
+  - Uses real crawlable links.
+  - Uses visible blue link affordance.
+  - Exposes visible `SiteNavigationElement` microdata.
+- `src/pages/shop/[tenant]/[...path].astro`
+  - Renders the guide on every public subpage and product detail.
+  - Adds guide links into shared navigation JSON-LD input.
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+  - Renders the guide on the public TOP page.
+- Tests strengthened:
+  - `tests/shop-public-crawl.spec.ts`
+  - `tests/shop-product-detail-public.spec.ts`
+  - `tests/shop-contact-legal-public.spec.ts`
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- WIP deploy: PASS
+- WIP commit: `3c0693b4e9dbc12fe68b7562b6cc3f691eeb3a8a`
+- Public evidence deploy commit: `69881a2`
+- Latest Worker Version ID: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+- Public `/g/*` verification: HTTP 200 / `text/markdown; charset=utf-8`
+- Public `/g/*` content markers: present.
+- Runtime SHA note: `/g/*` replaces `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` at response time, so source markdown SHA and public body SHA differ only by Worker Version ID substitution.
+- Progress Bark notification for Worker `c7faabc4-5c7d-435f-bd38-a6a12a0459f7`: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts`: PASS, 9 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-product-detail-public.spec.ts`: PASS, 3 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-contact-legal-public.spec.ts`: PASS, 2 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - `gate:shop-public-crawl`: PASS, 9 tests
+  - `gate:shop-storefront-carousel`: PASS, 2 tests
+  - `gate:shop-storefront-interaction`: PASS, 2 tests
+  - `gate:shop-storefront-visual`: PASS, 3 tests
+  - `gate:shop-product-detail`: PASS, 3 tests
+  - `gate:shop-cart-checkout`: PASS, 1 test
+  - `gate:shop-contact-legal`: PASS, 2 tests
+  - `gate:shop-admin-ops`: PASS, 2 tests
+
+### Subscription Lane
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- Failure reason: subscription plan POST returned HTTP 200 but the public gate did not observe the active `subplan_playwright_subscription_gate` plan persisted in the response.
+- Secret-safe failure summary is saved under `all_log/test-results/20260604T203000Z_subscription_gate_blocked/`.
+- Trace/video artifacts were not retained in git artifacts.
+- This does not block the current SEO/UI buying-guide WIP, but it blocks `FINAL_ACCEPTED`.
+
+### Public URL State
+
+- Tenant storefront remains: `https://shop.aiboux.com/s/aiboux/`
+- Product detail remains: `https://shop.aiboux.com/s/aiboux/product/{id}`
+- Shop service site remains: `https://shop.aiboux.com/`
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+### Non-Final Conditions
+
+- This is a WIP SEO/UI hardening checkpoint.
+- Remote D1 subscription migration is not accepted.
+- Provider-backed recurring subscription creation is not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## 2026-06-04T18:03:00Z Shared Category Link Parts WIP
+
+Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Purpose
+
+The user requested stronger SEO/UI across all pages and asked to find common parts.
+
+This cycle removes category URL drift by sharing one category definition across sitemap, header navigation, footer commerce links, SEO hub links, and product detail breadcrumbs.
+
+### Implementation
+
+- `src/lib/shopStorefrontShared.ts`
+  - Added shared category URL helpers:
+    - `buildShopCategoryHref`
+    - `findShopCuratedCategory`
+    - `buildShopHeaderCategoryLinks`
+  - Footer commerce links now use stable sale/ranking category URLs.
+  - SEO hub popular category links reuse the same helper.
+- `src/lib/shopSeo.ts`
+  - Sitemap category URLs now come from `buildShopCuratedCategoryCards()`.
+  - Product detail breadcrumb category links now resolve to stable slugs.
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+  - Public TOP header category navigation now links directly to stable category URLs.
+- `src/pages/shop/[tenant]/[...path].astro`
+  - Shared storefront template header category navigation now uses stable category URLs.
+- `tests/shop-public-crawl.spec.ts`
+  - Added coverage for header category links, footer sale/ranking links, and product breadcrumb category slug URL.
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- WIP commit: `9728617 WIP centralize shop category SEO links`
+- WIP deploy: PASS
+- Implementation Worker Version ID: `3b551bcd-da16-4307-9a36-0d6189e26e37`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+
+### Specific SEO/UI Assertions
+
+- Header `日用品`: `/s/aiboux/products?category=daily-goods`
+- Header `セール`: `/s/aiboux/products?category=sale`
+- Header `ランキング`: `/s/aiboux/products?category=ranking`
+- Footer `タイムセール`: `/s/aiboux/products?category=sale`
+- Footer `売れ筋ランキング`: `/s/aiboux/products?category=ranking`
+- Product breadcrumb `コーヒー・お茶`: `/s/aiboux/products?category=coffee-tea`
+
+### Non-Final Conditions
+
+- This is still a WIP SEO/UI hardening checkpoint.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## 2026-06-04T17:48:29Z Stable Category URL SEO/UI WIP
+
+Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Purpose
+
+The latest user instruction requires all pages to be stronger in SEO and UI, and to identify common parts that can be shared.
+
+This cycle hardens product discovery category URLs so they are not thin duplicate pages and so they reuse the same shared storefront SEO/UI infrastructure.
+
+### Implementation
+
+- `src/lib/shopSeo.ts`
+  - Added curated category sitemap entries for stable public category discovery.
+  - `buildShopSitemapEntries()` now emits category URLs such as `/s/aiboux/products?category=coffee-tea`.
+- `src/pages/shop/[tenant]/[...path].astro`
+  - Added `category` query parsing for `/products`.
+  - Search `q` remains crawlable but noindex.
+  - Category pages are indexable and filter product cards by public category.
+  - Category pages get category-specific title, description, H1, badge, canonical, robots, Open Graph URL, Twitter URL, breadcrumb, `CollectionPage`, and `ItemList`.
+  - The products grid, page header, breadcrumb, navigation, and structured data continue to use shared page parts.
+- `tests/shop-public-crawl.spec.ts`
+  - Added sitemap assertions for category URLs.
+  - Added public category page test for `coffee-tea`, including H1, self canonical, indexable robots, visible category badge, filtered product links, and JSON-LD.
+
+### Public Category URL Evidence
+
+- URL: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+- HTTP status: 200
+- implementation Worker Version ID: `4fbe75e7-3e56-4bcc-9cd3-f2560427db34`
+- title: `コーヒー・お茶の商品一覧 | AIBOUX Store`
+- robots: `index,follow,max-image-preview:large`
+- canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+- verified JSON-LD: `BreadcrumbList`, `WebSite`, `OnlineStore`, `CollectionPage`, `SiteNavigationElement`, `ItemList`
+- verified visible UI: breadcrumb current text and `カテゴリ: コーヒー・お茶`
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- WIP deploy: PASS
+- WIP commit: `a534b5a WIP harden shop category URL SEO`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 8 tests
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+
+### Non-Final Conditions
+
+- This is still a WIP SEO/UI hardening checkpoint.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## 2026-06-04T10:48:00Z Shop 5H Sales Quality Sprint Cycle 2 WIP
+
+Status: `SHOP_5H_SALES_QUALITY_SPRINT_CYCLE2_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### Deployment
+
+- WIP commit: `7b68bf11e35e671c545379f58efa711ad44b87ba`
+- Worker Version ID: `50b53609-d572-4f93-9ce6-0558d4b5022b`
+- Public tenant storefront: `https://shop.aiboux.com/s/aiboux/`
+- Shop service site remains: `https://shop.aiboux.com/`
+
+### Implementation
+
+- Product detail public page now removes public test product names from page title, H1, product info, cart payload, and related display.
+- Product detail gallery now uses image thumbnails instead of numbered boxes.
+- Product detail purchase box was strengthened with stock, delivery estimate, quantity, cart, buy-now, cart-link, return/payment notices, and honest subscription schema-pending state.
+- Contact page now includes order-number input, validation, and explicit no-fake-success behavior.
+- Legal, privacy, shipping, and returns pages now render structured shared templates with seller/contact/display-date evidence.
+- Public Playwright config now accepts both `PLAYWRIGHT_BASE_URL` and `BASE_URL` so public gates do not silently fall back to localhost.
+- Cart/checkout public test was stabilized to seed localStorage before an explicit public cart reload.
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run check:shop-ui-protection`: PASS in warn mode
+- `npm run gate:shop-sales-quality`: PASS
+  - `gate:shop-public-crawl`: 4 passed
+  - `gate:shop-storefront-carousel`: 2 passed
+  - `gate:shop-storefront-interaction`: 2 passed
+  - `gate:shop-storefront-visual`: 3 passed
+  - `gate:shop-product-detail`: 3 passed
+  - `gate:shop-cart-checkout`: 1 passed
+  - `gate:shop-contact-legal`: 2 passed
+  - `gate:shop-admin-ops`: 2 passed
+
+### Subscription Lane
+
+- `npm run gate:shop-subscriptions`: BLOCKED as expected for FINAL.
+- Public API response: HTTP 503 with `SUBSCRIPTION_SCHEMA_PENDING`.
+- Response is honest and non-final: `定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。`
+- Remote D1 migration remains blocked by Cloudflare D1 permission and must not be treated as `FINAL_ACCEPTED`.
+
+### Public URL Checks
+
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
+
+### Remaining Non-Final Items
+
+- This is still a WIP sprint checkpoint, not final acceptance.
+- D1 subscription migration is not applied remotely.
+- Provider-backed recurring subscription creation is not accepted.
+- Continue sales-quality iteration rather than stopping at one passing gate.
+
+## 2026-06-04T08:22:22Z Public Storefront Visual Quality Fix WIP
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### User Rejection Addressed
+
+The previous public storefront repair was rejected because it only proved that images existed. The public TOP still lacked sales quality:
+
+- product-image and product-name coherence was not strict enough;
+- duplicate generic images could remain;
+- recommended products, ranking, time sale, and categories were too sparse;
+- public TOP still looked closer to a preview than a sales storefront.
+
+### Implementation
+
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+  - Rebuilt public TOP product normalization as sales-ready storefront data.
+  - Excludes public test product names from TOP display.
+  - Uses category-matched product imagery instead of broad repeated fallback images.
+  - Fills TOP with coherent Snowflake/setsuka-style sales items when D1 products are not display-ready.
+  - Sets recommended products to 10 cards.
+  - Sets ranking and time-sale sections to 5 cards each.
+  - Sets category showcase to 8 image-backed categories.
+  - Keeps hero as center main slide with real side previews and coherent daily-goods/gift theme.
+- `src/components/shop/StorefrontDesignBuilder.tsx`
+  - Updated design editor TOP preview to the same sales imagery and dense section structure.
+- `src/lib/shopStorefrontLayout.ts`
+  - Updated default section limits: recommended 10, ranking 5, time sale 5, categories 8.
+- `tests/shop-storefront-visual-public.spec.ts`
+  - Added public storefront visual quality gate for 1365px, 1980px, and mobile.
+  - Checks product count, image count, duplicate image threshold, public test product names, ranking count, time-sale count, category count, and screenshots.
+- `package.json`
+  - Added `gate:shop-storefront-visual`.
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run check:shop-ui-protection`: PASS in warn mode
+- `npm run gate:shop-storefront-visual`: 3 passed
+- `npm run gate:shop-design`: 5 passed
+- WIP deploy: PASS
+- Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+
+### Public URL Checks
+
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+- recommended product cards: 10
+- ranking cards: 5
+- time-sale cards: 5
+- category cards: 8
+- Unsplash image references in public TOP HTML: 31
+- public test product matches: 0
+- weak image URL matches: 0
+- unique sales image references: 21
+
+### Screen Evidence
+
+- Public storefront after quality fix 1365px: `/g/screens/public-storefront-after-quality-fix-1365.png`
+- Public storefront after quality fix 1980px: `/g/screens/public-storefront-after-quality-fix-1980.png`
+- Public storefront after quality fix mobile: `/g/screens/public-storefront-after-quality-fix-mobile.png`
+- TOP editor 1980px: `/g/screens/shop-design-editor-top-1980.png`
+- Product detail 1980px: `/g/screens/shop-product-detail-1980.png`
+
+### Remaining Non-Final Items
+
+- This does not complete Shop overall acceptance.
+- Remote D1 subscription migration remains blocked by Cloudflare D1 permission.
+- `gate:shop-subscriptions` remains final-only after remote migration is applied.
+
+## 2026-06-04T07:55:00Z Public Storefront Visual Repair WIP
+
+Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
+
+This is not `FINAL_ACCEPTED`.
+
+### User Rejection Addressed
+
+The public tenant storefront `https://shop.aiboux.com/s/aiboux/` was rejected because the TOP page looked like a dummy editor preview:
+
+- hero imagery looked thin and temporary;
+- recommended product cards used gray placeholders;
+- ranking, time sale, and categories used gray placeholder blocks;
+- public storefront did not look like a finished Amazon-style sales storefront.
+
+### Implementation
+
+- `src/lib/server/shopStorefront.ts`
+  - Added category-aware sales-image fallback for products that lack D1/R2 images.
+  - Product detail and storefront product data now receive an image URL instead of an empty image.
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+  - Replaced weak `/shop/design/hero-*.svg` hero fallback with real sales-oriented `https://images.unsplash.com/...` imagery.
+  - Changed hero layout to center main slide with smaller previous/next image previews.
+  - Replaced gray ranking/time-sale/category placeholder blocks with image-backed cards.
+  - Product cards now show image, name, rating, review count, price, tax label, and CTA.
+- `src/components/shop/StorefrontDesignBuilder.tsx`
+  - Aligned editor preview imagery with the public storefront.
+  - Replaced preview gray cards with image-backed cards.
+- `tests/shop-design-editor-public.spec.ts`
+  - Added public 1365px storefront test.
+  - Added at-least-five recommended product image check.
+  - Added no weak placeholder image check.
+- `ops/instructions/20260604_shop_public_storefront_visual_mismatch_fix.md`
+  - Created active instruction for this repair.
+
+### Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run check:shop-ui-protection`: PASS in warn mode
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-design-editor-public.spec.ts`: 5 passed
+- WIP deploy: PASS
+- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
+
+### Public URL Checks
+
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `x-aiboux-worker-version`: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
+- Public TOP HTML includes real `https://images.unsplash.com/...` hero and product imagery.
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+
+### Screen Evidence
+
+- TOP editor 1980px: `/g/screens/shop-design-editor-top-1980.png`
+- Product editor 1980px: `/g/screens/shop-design-editor-product-1980.png`
+- Public storefront TOP 1980px: `/g/screens/shop-storefront-top-1980.png`
+- Public storefront TOP 1365px: `/g/screens/shop-storefront-top-1365.png`
+- Public product detail 1980px: `/g/screens/shop-product-detail-1980.png`
+
+### Remaining Non-Final Items
+
+- This does not complete Shop overall acceptance.
+- Remote D1 subscription migration remains blocked by Cloudflare D1 permission.
+- `gate:shop-subscriptions` remains final-only after remote migration is applied.
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This is a WIP execution log update. It is not `FINAL_ACCEPTED`.
+
+### Implemented Locally
+
+- Added subscription plan editing to Shop product admin.
+- Added public product detail subscription purchase-box UI.
+- Added cart distinction for subscription items.
+- Added checkout subscription blocker and API call for honest payment-setting failure.
+- Added admin subscription list and pause/resume/skip/cancel actions.
+- Added subscription APIs:
+  - `GET/POST /shop/api/subscription-plans`
+  - `POST /shop/api/checkout/subscription`
+  - `GET /shop/api/subscriptions`
+  - `PATCH /shop/api/subscriptions/{id}/{action}`
+- Added migration and rollback:
+  - `migrations/0020_shop_subscriptions.sql`
+  - `migrations/0020_shop_subscriptions_rollback.sql`
+- Added `gate:shop-subscriptions`.
+- Added schema guard for remote DBs where subscription migration is not yet applied.
+
+### Local Verification
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- Local D1 apply/rollback/reapply for `0020_shop_subscriptions`: PASS
+
+### Remote D1 Status
+
+Remote D1 migration is still blocked by Cloudflare authorization.
+
+Safe error summary:
+
+```text
+Cloudflare API D1 query failed.
+The given account is not valid or is not authorized to access this service.
+Error code: 7403
+```
+
+This blocks only:
+
+- remote D1 migration apply;
+- public subscription contract persistence;
+- final public `gate:shop-subscriptions` acceptance.
+
+It does not block WIP deploy, because schema guard now prevents subscription APIs and pages from becoming generic 500 errors when remote schema is pending.
+
+Expected schema pending JSON:
+
+```json
+{
+  "ok": false,
+  "success": false,
+  "code": "SUBSCRIPTION_SCHEMA_PENDING",
+  "message": "定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。"
+}
+```
+
+### Final Acceptance
+
+`FINAL_ACCEPTED` is prohibited until:
+
+- remote D1 migration is applied;
+- `shop_subscription_plans`, `shop_subscriptions`, and `shop_subscription_events` exist remotely;
+- `gate:shop-subscriptions` passes against public URLs;
+- public logs and screenshots are updated after that verification.
+
+### Public WIP Correction
+
+The first WIP public check found `/shop/api/subscriptions` still returned a generic D1 500 for the missing table.
+
+Fix applied:
+
+- schema guard now detects both `shop_subscription_plans` and `shop_subscriptions` missing-table errors;
+- next WIP deploy must prove the API returns `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500.
+
+### Public WIP Proof After Schema Guard Redeploy
+
+Worker Version ID: `2e322d23-ebb5-4e90-9867-cd95efd66776`
+
+Public URL checks:
+
+- `GET https://shop.aiboux.com/shop/api/subscription-plans?tenant=aiboux&productId=shopprod_tenant_001_4580000232621`: HTTP 503 JSON `SUBSCRIPTION_SCHEMA_PENDING`
+- `GET https://shop.aiboux.com/shop/api/subscriptions?tenant=aiboux`: HTTP 503 JSON `SUBSCRIPTION_SCHEMA_PENDING`
+- `GET https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+- `GET https://shop.aiboux.com/s/aiboux/admin/subscriptions`: HTTP 200
+
+This proves remote schema pending is now explicit and no longer a generic 500 for these subscription APIs.
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Status: `WIP_LOG_RULE_READY_TO_DEPLOY`
+
+Codex must publish execution logs to public `/g/*` URLs before every user-facing report.
+
+Required report header:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Prohibited:
+
+- reporting only `all_log/...`;
+- reporting only that `public/g/*.md` was updated locally;
+- reporting that the next deploy will publish the log;
+- reporting only SHA values;
+- reporting PASS results without public URL evidence.
+
+Before reporting, Codex must curl `m68`, `l68`, and `d68` from the public URLs and record HTTP status, content-type, and SHA256.
+
+Shop UI protection can remain warn-only for WIP deploy.
+Public execution log publication is mandatory.
+
+Evidence:
+
+- `all_log/public-g/20260604T000724Z_public_log_required_rule.md`
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+## Current Meaning
+
+This log is the execution evidence destination for the AIBOUX Shop sales tenant work.
+It is not final acceptance evidence.
+
+## Policy Fixed On 2026-06-04
+
+The operating policy has changed.
+
+Wrong:
+
+- Stop deploy only because dirty UI exists.
+- Hide WIP from public visual confirmation.
+- Make UI protection a hard deploy gate.
+
+Correct:
+
+- Create rollback checkpoint first.
+- Save patch and deployment state.
+- Create WIP commit.
+- Deploy WIP when build passes.
+- Verify through public URLs.
+- List and fix problems.
+- Roll back to previous Worker Version or git checkpoint when WIP is bad.
+- Block only final acceptance until strict checks pass.
+
+## Implemented Local Changes
+
+Added:
+
+- `scripts/create-shop-wip-checkpoint.mjs`
+
+Updated:
+
+- `scripts/check-shop-ui-protection.mjs`
+- `package.json`
+- `scripts/aiboux-gate-check.mjs`
+- `AIBOUX_MASTER_DOCUMENT.md`
+- `public/g/m68.md`
+- `public/g/l68.md`
+- `public/g/d68.md`
+- `ops/instructions/current.md`
+- `ops/instructions/20260604_shop_aiboux_production_tenant_with_ui_protection.md`
+- `all_log/91_shop_wip_deploy_checkpoint_policy_update.md`
+
+## WIP Deploy Flow
+
+```text
+1. Create checkpoint.
+2. Save git status, HEAD, origin/main, diff, staged diff, git log.
+3. Save Wrangler deployments list.
+4. Create WIP commit.
+5. Run control-character check.
+6. Run mojibake check.
+7. Build.
+8. Run Shop UI protection in warn mode.
+9. Deploy.
+10. Verify public URL.
+11. Update m68/l68/d68 as WIP_DEPLOYED, not FINAL_ACCEPTED.
+```
+
+## Scripts
+
+```bash
+npm run shop:checkpoint
+npm run deploy:shop:wip
+npm run verify:shop:final
+npm run check:shop-ui-protection
+npm run check:shop-ui-protection:strict
+```
+
+## Current Check Results
+
+```text
+npm run check:control-chars: PASS
+npm run check:mojibake: PASS
+npm run check:shop-ui-protection: WARN mode, exits 0
+npm run check:shop-ui-protection:strict: expected NG while dirty Shop UI paths remain
+npm run gate:deploy: AIBOUX_GATE_DEPLOYED
+ESBUILD_WORKER_THREADS=0 npm run build: PASS
+npm run deploy:shop:wip: PASS
+```
+
+## WIP Deploy Evidence
+
+- Latest verified WIP commit hash: `3fea25cee2769c5e0f42d148f4596586bfb51972`
+- Latest Worker Version ID: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+- Latest checkpoint timestamp: `20260603T232211Z`
+- Latest checkpoint evidence: `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
+- Latest deploy output: `all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt`
+- Reflection log: `all_log/92_shop_wip_deploy_public_reflection.md`
+
+## Shop Design Editor Fullscreen Repair Cycle
+
+Status: `WIP_DESIGN_EDITOR_FULLSCREEN_REPAIR_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260604T055934Z`
+
+The previous design editor WIP was rejected because `/s/aiboux/admin/design` was still embedded inside the normal Shop admin sidebar/header. That made the central preview too narrow and caused the Amazon-style category navigation and hero layout to break visually.
+
+Implemented repair:
+
+- `/s/aiboux/admin/design` now renders a dedicated fullscreen editor page instead of the normal Shop admin layout.
+- The normal Shop admin sidebar is not rendered on the design editor route.
+- The normal Shop admin header is not rendered on the design editor route.
+- A dedicated editor top bar is used.
+- The editor uses left pane, central live preview, and right settings pane.
+- At a 1980px viewport, the central preview is verified to be at least 1100px wide.
+- Category navigation labels are kept horizontal and are not allowed to vertically fold.
+- Hero side previews show actual previous/next slide images from `/shop/design/hero-*.svg` instead of gray placeholders.
+- Only `TOPページ` and `商品詳細ページ` are exposed as editable pages.
+- Other storefront pages remain fixed common templates and are not exposed as page-level editor targets.
+
+Changed files:
+
+- `src/pages/shop/settings/design.astro`
+- `src/components/shop/StorefrontDesignBuilder.tsx`
+- `src/lib/shopStorefrontLayout.ts`
+- `tests/shop-functional-public.spec.ts`
+- `public/shop/design/hero-lifestyle.svg`
+- `public/shop/design/hero-daily.svg`
+- `public/shop/design/hero-season.svg`
+- `ops/instructions/20260604_shop_store_design_editor_top_product_only.md`
+- `ops/instructions/current.md`
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: PASS, 5 passed
+
+Evidence:
+
+- Screenshot: `output/playwright/shop-functional/design-editor-1980.png`
+- Local evidence log: `all_log/shop-design-editor/20260604T055934Z_fullscreen_editor_repair_evidence.md`
+
+This cycle is WIP only and is not `FINAL_ACCEPTED`.
+
+## Shop Design Editor Persistence Verification Cycle
+
+Status: `WIP_DESIGN_EDITOR_PERSISTENCE_VERIFIED_NOT_FINAL`
+
+Cycle timestamp: `20260604T061024Z`
+
+The work continued after the fullscreen repair cycle to verify that the store design editor actually persists layout changes and reflects them on the public storefront.
+
+Added public Playwright coverage:
+
+- `store design editor saves top hero changes and restores original layout`
+
+What the test verifies:
+
+- It snapshots the current layout through `GET /shop/api/storefront/layout`.
+- It opens `https://shop.aiboux.com/s/aiboux/admin/design`.
+- It waits for the editor loading state to finish.
+- It edits the first TOP hero slide title through the visible editor input.
+- It clicks the exact `保存` button.
+- It waits for `POST /shop/api/storefront/layout`.
+- It confirms the temporary title is saved in the layout API.
+- It opens `https://shop.aiboux.com/s/aiboux/?layoutVerify=<marker>` and confirms the public storefront displays the temporary title.
+- It reloads/revisits the public storefront and confirms persistence.
+- It restores the original layout in `finally`.
+- It confirms the temporary marker is not left on the public storefront after restore.
+
+Failure found and fixed:
+
+- The first version of the test filled the title before the async editor load settled.
+- The first version also used a non-exact save button locator that became ambiguous when the live preview contained the marker text.
+- The test now waits for `読み込み中` to disappear, checks the input value before and after fill, and clicks `getByRole("button", { name: "保存", exact: true })`.
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts -g "saves top hero" --reporter=line`: PASS, 1 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line`: PASS, 6 passed
+- Public layout title after restore: `雪花セレクトを、わかりやすく。`
+
+Evidence:
+
+- `all_log/shop-design-editor/20260604T061024Z_design_editor_persistence_evidence.md`
+- `ops/improvements/20260604_daily_improvement.md`
+
+This cycle is WIP evidence and not `FINAL_ACCEPTED`.
+
+## WIP Log Route Fix
+
+`/g/l68` and `/g/d68` are served through `src/lib/server/tempLogShares.ts`.
+The route was updated so `l68` returns `public/g/l68.md` content and `d68` returns `public/g/d68.md` content.
+Runtime placeholders such as `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` are replaced in the public response.
+
+### Public `/g/*` verification after WIP deploy
+
+| URL | HTTP | Content-Type | Local SHA256 | Remote SHA256 | Match |
+| --- | --- | --- | --- | --- | --- |
+| `https://mail.aiboux.com/g/m68` | 200 | `text/markdown; charset=utf-8` | `c15961469f0b44df0bcfdae02f3bc69072e4a8608c1a460ca51a12f62d917e72` | `c67c44fce776881b4ddffe51942ea98abdd3b957f7b1a1df838421f4145ba939` | no |
+| `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `c0319e74cf59f99eded51156509f2c719c4aea4c3c14bdac66596add30187483` | `2ab82b664777aac8c179c70eb66d2ec3b1b959b1014718f344be5a0925f8d527` | no |
+| `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `e9598f11b69485f967f72300fc3b81fb6e8e2c7c68e9219b6025ebe42e6e9e4a` | no |
+
+The SHA mismatch is expected for files containing `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`.
+The `/g/*` route replaces that placeholder at runtime, so public body hashes differ from source markdown hashes while the content remains the intended WIP evidence document.
+
+### Public Shop URL verification after WIP deploy
+
+| URL | HTTP | Worker Version ID | Title |
+| --- | --- | --- | --- |
+| `https://shop.aiboux.com/` | 200 | `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` | `AIBOUX SHOP Dashboard` |
+
+## Current Completion Status
+
+Not complete.
+Current status is `WIP_DEPLOYED`, not `FINAL_ACCEPTED`.
+
+## Shop Fix Cycle 01
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260603T233309Z`
+
+Cycle 01 removes visible fake Shop admin values and repairs tenant routes without broad visual redesign.
+
+Implemented in this cycle:
+
+- Shop sample products, orders, customers, discounts, collections, inventory, and analytics arrays now resolve to production-safe empty arrays.
+- Fake KPI values are replaced with `0` or honest `未集計` states.
+- Visible fake admin account name is replaced with `ストア管理者`.
+- Default fixed date range is removed from Shop admin topbar.
+- Empty states were added for products, orders, inventory, customers, analytics, best sellers, inventory alerts, and content.
+- Shop admin links are normalized to `/s/aiboux/admin/...`.
+- Storefront links are normalized to `/s/aiboux/...`.
+- `src/pages/shop/[tenant]/[...path].astro` was added so storefront child routes can return HTTP 200.
+- Shop storefront `href="#"` links were removed.
+- Old `/shop/products`, `/shop/settings`, and `/shop/storefront` UI links were removed from Shop UI.
+
+Local verification before WIP deploy:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run check:shop-ui-protection`: WARN mode, exit 0
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+
+Cycle 01 WIP deploy evidence:
+
+- Worker Version ID: `ed331907-7c17-4135-8184-746d9989c229`
+- WIP commit: `a1ed8048235fbeefa24f1427693eb60e94b8d4b2`
+- `all_log/shop-ui/20260603T233309Z_shop_fix_01.md`
+- `all_log/shop-ui/20260603T233309Z_public_url_status_before_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_public_url_status_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_admin_fixed_value_check_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_playwright_text_check_after_fix_01.json`
+
+Cycle 01 public result:
+
+- Admin and storefront target URLs returned HTTP 200.
+- Storefront child routes that were 404 before this cycle now return HTTP 200.
+- Public admin HTML no longer contains the specified fake fixed values.
+- Playwright rendered text check found zero specified fake fixed values on admin, storefront, products, cart, and checkout.
+
+Current latest Worker Version ID after cycle 01:
+
+- `ed331907-7c17-4135-8184-746d9989c229`
+
+The following remain required before FINAL_ACCEPTED:
+
+- commit hash
+- Worker Version ID
+- deploy timestamp
+- migration names and results
+- changed file list
+- all admin URLs HTTP 200
+- all storefront URLs HTTP 200
+- Playwright result
+- product create -> edit -> list -> storefront reflection
+- settings save -> public page reflection
+- cart add -> quantity change -> delete -> checkout transition
+- contact form verification
+- legal/privacy/shipping/returns settings reflection
+- dead link zero
+- `href="#"` zero
+- old route leakage zero
+- `shop.aboux.com` zero
+- sample fixed values zero
+- unresolved items zero
+
+## Public Execution Log Required Rule Deployment
+
+Status: `WIP_LOG_RULE_PUBLISHED`
+
+Latest WIP commit:
+
+- `c3a4689970102059d9545ebbd2cf2067d6b9db68`
+
+Latest Worker Version ID:
+
+- `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+
+What changed:
+
+- Reports must begin with the public URL bundle.
+- Execution logs must be published to `https://mail.aiboux.com/g/l68` before user-facing reports.
+- Screen evidence must be published to `https://mail.aiboux.com/g/d68` before user-facing reports.
+- Master evidence remains `https://mail.aiboux.com/g/m68`.
+- Local-only evidence such as `all_log/...` is not a valid user-facing report.
+- `public/g/*.md updated locally` without deploy and public curl verification is not a valid user-facing report.
+
+Required public verification before every report:
+
+- `https://mail.aiboux.com/g/m68`: HTTP 200, `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/l68`: HTTP 200, `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/d68`: HTTP 200, `text/markdown; charset=utf-8`
+
+Runtime note:
+
+- `/g/*` responses replace `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` at runtime.
+- Source markdown SHA and public response SHA can differ when that placeholder exists.
+- This SHA difference is expected and must be recorded honestly.
+
+Safety for this policy deployment:
+
+- No DB write was run.
+- No migration apply was run.
+- Bark was not sent.
+- `git reset --hard` was not run.
+- `git clean -fd` was not run.
+- force push was not run.
+- secrets were not printed.
+
+## Shop Fix Cycle 02: Public Admin Demo Value Recheck
+
+Status: `WIP_FIXING_PENDING_DEPLOY`
+
+Reason:
+
+- The user reported that public `https://shop.aiboux.com/s/aiboux/admin` still displayed fixed demo values.
+- Product/settings/cart work is paused until the public admin fixed-value check is handled first.
+
+Public admin target:
+
+- `https://shop.aiboux.com/s/aiboux/admin`
+
+Current direct public checks before this deploy:
+
+- curl public admin HTML with no-cache headers: HTTP 200
+- The following patterns were not found in the fetched public HTML: `2024/05`, `山田`, `¥2,340,000`, `245件`, `2.35%`, `¥9,551`, `28.7%`, `TSH-001`, `BAG-001`, `BTL-500`, `#10085`, `#10084`, `#10083`, `佐藤`, `鈴木`, `田中`.
+- Playwright public rendered DOM check: HTTP 200; visible text did not include the fixed demo values.
+
+Source fix in this cycle:
+
+- `src/components/ai/ShopAIAssistantPanel.tsx` no longer contains fixed Shop sales values such as `¥2,340,000`, `245件`, or `¥9,551`.
+- The Shop AI panel now shows honest `未集計` / `0件` states for unavailable live data.
+- `src/components/ai/GlobalAIAssistant.tsx` no longer uses the person-name example `佐藤さん...` in the Shop admin HTML path; the placeholder now uses a generic `取引先` example.
+
+Scope control:
+
+- Core and Mail sample data were not changed.
+- Shop page layout and CSS were not redesigned.
+- No DB write or migration was run.
+
+Next evidence to publish after deploy:
+
+- public admin curl HTML grep result
+- public admin Playwright rendered DOM result
+- Worker Version ID
+- `/g/*` HTTP and SHA verification
+
+### Cycle 02 public verification after deploy
+
+Status: `WIP_PUBLIC_ADMIN_DEMO_VALUES_ZERO`
+
+Fix deploy Worker Version ID:
+
+- `117ac4a0-68c2-4807-b650-8c793599f73d`
+
+Changed files in the fix scope:
+
+- `src/components/ai/ShopAIAssistantPanel.tsx`
+- `src/components/ai/GlobalAIAssistant.tsx`
+- `ops/instructions/20260604_shop_public_admin_demo_value_recheck.md`
+- `ops/instructions/current.md`
+- `public/g/l68.md`
+- `public/g/d68.md`
+
+Public admin curl target:
+
+- `https://shop.aiboux.com/s/aiboux/admin?codex_nocache=20260604T002350Z`
+
+Public admin curl result:
+
+- HTTP 200
+- content-type: `text/html`
+- `2024/05`: not found
+- `山田`: not found
+- `¥2,340,000`: not found
+- `245件`: not found
+- `2.35%`: not found
+- `¥9,551`: not found
+- `28.7%`: not found
+- `TSH-001`: not found
+- `BAG-001`: not found
+- `BTL-500`: not found
+- `#10085`: not found
+- `#10084`: not found
+- `#10083`: not found
+- `佐藤`: not found
+- `鈴木`: not found
+- `田中`: not found
+
+Public Playwright target:
+
+- `https://shop.aiboux.com/s/aiboux/admin?codex_nocache=20260604T002350Z`
+
+Public Playwright result:
+
+- HTTP 200
+- title: `AIBOUX SHOP Dashboard`
+- all listed fixed demo values were false in visible text
+- all listed fixed demo values were false in rendered HTML
+
+Shop smoke:
+
+- `https://shop.aiboux.com/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200
+
+Local checks:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS through `npm run deploy:shop:wip`
+- `npm run check:shop-ui-protection`: PASS in warn mode
+
+Evidence files:
+
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_grep.txt`
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_result.json`
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_text.txt`
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_content.html`
+
+Completion note:
+
+- This cycle proves the fixed demo values are absent from the public admin HTML and rendered DOM from this execution environment.
+- This is still WIP evidence, not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Fix Cycle 03: Public Admin Route And Cache Mismatch
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIX_PENDING_DEPLOY`
+
+Reason:
+
+- The user reports that another external fetch path still sees the old fixed demo values on `https://shop.aiboux.com/s/aiboux/admin`.
+- Codex curl and Playwright from the deployment environment see fixed values absent.
+- A web fetch path reproduced the stale old content, so this is treated as a public route/cache mismatch, not as a completed Shop fix.
+
+Current deployed route headers observed before this cycle:
+
+- URL: `https://shop.aiboux.com/s/aiboux/admin?verify=20260604T011751Z`
+- HTTP 200
+- `cache-control: no-store, max-age=0`
+- `x-aiboux-original-path: /s/aiboux/admin`
+- `x-aiboux-rewritten-path: /shop/dashboard`
+- `x-aiboux-route-source: worker-entry`
+- `x-aiboux-worker-version: 496937a0-cf76-48e4-ba58-37a08e77a06b`
+- `server: cloudflare`
+- public HTML grep in this environment: no matches for the reported fixed values
+
+Cloudflare purge attempt:
+
+- A targeted purge was attempted for the admin/dashboard URLs.
+- Result: failed with Cloudflare API authentication error.
+- Secrets were not printed.
+- Wrangler deploy authentication still works; purge permission/auth is treated separately.
+
+Code changes for this cycle:
+
+- `src/worker.ts` now sets stronger no-store headers for service-routed pages:
+  - `cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0`
+  - `cdn-cache-control: no-store`
+  - `cloudflare-cdn-cache-control: no-store`
+  - `pragma: no-cache`
+  - `expires: 0`
+- Shop admin paths also receive:
+  - `clear-site-data: "cache"`
+  - `x-aiboux-admin-cache-policy: no-store-clear-cache`
+- `src/middleware.ts` also applies no-store headers for Shop admin pass-through responses.
+
+Next evidence to publish after deploy:
+
+- public admin response headers with the stronger cache policy
+- public admin fixed-value grep
+- public Playwright rendered DOM fixed-value grep
+- public `/g/*` HTTP, content-type, sha256
+
+### Cycle 03 public verification after cache header deploy
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIXED_FOR_VERIFIED_PATHS`
+
+Cache-header deploy Worker Version ID:
+
+- `9f28a3bb-99e5-4655-9caf-999263b016f4`
+
+Public admin URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin?verify=20260604T012024Z`
+
+Public response headers:
+
+- HTTP 200
+- `cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0`
+- `cdn-cache-control: no-store`
+- `cloudflare-cdn-cache-control: no-store`
+- `pragma: no-cache`
+- `expires: 0`
+- `clear-site-data: "cache"`
+- `x-aiboux-admin-cache-policy: no-store-clear-cache`
+- `x-aiboux-worker-version: 9f28a3bb-99e5-4655-9caf-999263b016f4`
+- `x-aiboux-original-path: /s/aiboux/admin`
+- `x-aiboux-rewritten-path: /shop/dashboard`
+- `server: cloudflare`
+
+Public curl HTML grep:
+
+- `2024/05`: absent
+- `山田`: absent
+- `¥2,340,000`: absent
+- `245件`: absent
+- `2.35%`: absent
+- `¥9,551`: absent
+- `28.7%`: absent
+- `TSH-001`: absent
+- `BAG-001`: absent
+- `BTL-500`: absent
+- `#10085`: absent
+- `#10084`: absent
+- `#10083`: absent
+- `佐藤`: absent
+- `鈴木`: absent
+- `田中`: absent
+
+Public Playwright rendered DOM:
+
+- HTTP 200
+- title: `AIBOUX SHOP Dashboard`
+- all listed fixed demo values were absent from visible text
+- all listed fixed demo values were absent from rendered HTML
+
+External web fetch path:
+
+- `https://shop.aiboux.com/s/aiboux/admin` returned the updated admin content after the cache-header deploy.
+- The old values were no longer present in the web fetch result.
+- The visible public result showed `¥0`, `0件`, `未集計`, and `ストア管理者`.
+
+Cloudflare purge note:
+
+- Targeted purge was attempted before the header deploy.
+- It failed with Cloudflare API authentication error.
+- The token value was not printed.
+- The issue was mitigated by stronger no-store/cache-clear headers plus redeploy.
+
+This is still WIP evidence and not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Fix Cycle 04: Functional Hardening Pending Deploy
+
+Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
+
+Started at:
+
+- `2026-06-04T01:52:05Z`
+
+Instruction source:
+
+- User accepted that public admin fixed demo value zero passed.
+- Next scope is product/settings/cart/checkout/contact/legal functional hardening.
+- FINAL_ACCEPTED remains forbidden.
+
+Implementation changes prepared:
+
+- Added D1 storefront reader helper:
+  - `src/lib/server/shopStorefront.ts`
+- Switched Shop admin product rows to load from the product API:
+  - `src/components/shop/ShopClientShell.tsx`
+  - `src/pages/api/shop/products/index.ts`
+- Added product-save refresh event after product edit or wizard save:
+  - `src/components/shop/ProductEditor.tsx`
+  - `src/components/shop/products/ShopProductWizard.tsx`
+- Kept product table layout and added an honest image-missing placeholder:
+  - `src/components/shop/ProductsTable.tsx`
+- Switched storefront pages from `shop-sample-data` to D1 published products and shop settings:
+  - `src/pages/shop/storefront/[tenant].astro`
+  - `src/pages/shop/[tenant]/[...path].astro`
+- Added browser cart behavior for add, quantity change, remove, subtotal, and checkout transition.
+- Added honest checkout state when payment is not connected.
+- Added contact form validation without pretending to submit when storage/notification is not connected.
+- Added legal/privacy/shipping/returns rendering from saved/generated shop profile text.
+- Added public Playwright coverage:
+  - `tests/shop-functional-public.spec.ts`
+
+Verification before deploy:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with 0 errors; existing repository hints only
+- `npm run check:shop-ui-protection`: WARN only as expected for dirty protected Shop UI paths
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+
+WIP deploy required next:
+
+- run checkpointed `npm run deploy:shop:wip`
+- run public URL status checks
+- run public Playwright with `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com`
+- publish post-deploy `/g/*` HTTP/content-type/sha256 evidence
+
+This is not FINAL_ACCEPTED.
+
+### Cycle 04 Route Correction Before Second WIP Deploy
+
+Status: `WIP_FUNCTIONAL_ROUTE_FIX_PENDING_DEPLOY`
+
+Public URL check after the first Cycle 04 deploy showed:
+
+- admin URLs: HTTP 200
+- storefront root and child pages: HTTP 404
+
+Cause:
+
+- The new storefront reader required `tenants.slug = aiboux`.
+- The admin/API side can use host/default tenant fallback, but the storefront pages could not.
+- This made `/s/aiboux/` and `/s/aiboux/...` return 404 before the functional UI could be verified.
+
+Fix prepared:
+
+- `src/lib/server/shopStorefront.ts` now uses the active tenant fallback for the reserved `aiboux` slug.
+- If tenant lookup fails, public storefront pages still render an honest AIBOUX Store empty state instead of returning 404.
+
+This is still not FINAL_ACCEPTED.
+
+### Cycle 04 Public Verification After Route Fix
+
+Status: `WIP_FUNCTIONAL_HARDENING_DEPLOYED_NOT_FINAL`
+
+WIP deploy:
+
+- WIP commit: `cf22820d7aaf5c8fe08a005bae1b0caa55eaeb48`
+- Worker Version ID: `99725905-9dd6-4263-a7a6-c098f0372ff7`
+
+Public URL status after route fix:
+
+- `https://shop.aiboux.com/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/products`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/orders`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/inventory`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/categories`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/customers`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/content`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/analytics`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/apps`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/settings`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/categories`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/privacy`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/shipping`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/returns`: HTTP 200
+
+Public Playwright:
+
+- Command: `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
+- Result: 4 passed
+- Covered:
+  - all target URLs return usable HTML
+  - public admin fixed demo values remain absent
+  - cart quantity change, remove, subtotal, and checkout transition
+  - checkout shows honest payment-not-connected state
+  - contact validation works and does not fake send success
+  - legal/privacy/shipping/returns render configured or generated policy text
+  - published product add-to-cart works when published products exist; otherwise honest empty state is accepted
+
+Remaining non-final items:
+
+- Product creation through public admin UI has not been executed against production in this cycle to avoid creating unmanaged storefront data.
+- Payment provider connection is still not final; checkout correctly blocks false completion.
+- Strict Shop final gate has not been run.
+
+This is WIP_DEPLOYED_NOT_FINAL.
+
+## Shop Fix Cycle 05 Focused Store Design Editor
+
+Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260604T052958Z`
+
+Confirmed design-editor specification:
+
+- Editable pages are limited to `TOPページ` and `商品詳細ページ`.
+- Product list, category, cart, checkout, contact, legal, privacy, shipping, returns, mypage, orders, FAQ, and 404 are not page-level design-editor targets.
+- Other storefront pages use tenant-wide fixed templates while still inheriting global header/logo/navigation/theme settings.
+- The Shop service root remains `https://shop.aiboux.com/`.
+- The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+- The design editor is `https://shop.aiboux.com/s/aiboux/admin/design`.
+
+Implementation summary:
+
+- Added a typed `StoreDesignConfig`-style schema under `src/lib/shopStorefrontLayout.ts`.
+- Added global logo/header/navigation/theme/product-card config.
+- Added `pages.top` and `pages.productDetail` only.
+- Added backward conversion for existing legacy `blocks` layout rows.
+- Rebuilt the store design editor as a three-column editor:
+  - left pane: TOP page, product detail page, common settings;
+  - center pane: Amazon-like live preview;
+  - right pane: selected section settings.
+- Added TOP preview with Amazon-like header, category navigation, center hero slide with side previews, and recommended products directly below the hero.
+- Added product detail preview with image gallery, product information column, and purchase box column.
+- Added logo upload/change/delete/alt/display/size/alignment/link controls in common logo settings.
+- Reflected layout config on the public tenant storefront and product detail page.
+- Fixed tenant admin design routing so `/s/aiboux/admin/design` rewrites to `/shop/settings/design`.
+
+Changed files in this cycle include:
+
+- `ops/instructions/20260604_shop_store_design_editor_top_product_only.md`
+- `ops/instructions/current.md`
+- `src/lib/shopStorefrontLayout.ts`
+- `src/lib/server/shopStorefront.ts`
+- `src/components/shop/StorefrontDesignBuilder.tsx`
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+- `src/pages/shop/storefront/[tenant].astro`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `src/pages/shop/[tenant]/product/[id].astro`
+- `src/worker.ts`
+- `src/middleware.ts`
+- `tests/shop-functional-public.spec.ts`
+
+Verification before this evidence publication:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run check:shop-ui-protection`: PASS in warn mode
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: PASS, 5 passed
+
+WIP deploy evidence:
+
+- WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
+- Implementation WIP deploy Worker Version ID before public log publication: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
+- Public log publication Worker Version ID: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+
+Public route evidence after public log publication:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `x-aiboux-rewritten-path`: `/shop/settings/design`
+- `x-aiboux-worker-version`: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+
+Public Playwright evidence:
+
+- all target public URLs return usable HTML: PASS
+- cart, checkout, and contact honest behavior: PASS
+- legal pages render policy text: PASS
+- store design editor exposes only top and product detail page editing: PASS
+- published product add-to-cart works when published products exist: PASS
+
+Artifacts:
+
+- `output/playwright/shop-functional/design-editor-1980.png`
+- `all_log/shop-design-editor/20260604T052958Z_design_editor_wip_evidence.md`
+
+Remaining non-final items:
+
+- This is WIP evidence, not `FINAL_ACCEPTED`.
+- Production DB save through the public design-editor UI was not executed in this cycle.
+- Logo upload persistence was not exercised against production storage in this cycle.
+- Full final Shop sales-tenant completion criteria remain open.
+
+## Shop Design Editor Post Deploy Public Playwright Cycle
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+Worker Version ID:
+
+- `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+
+WIP commit:
+
+- `2c5c5eeaac2aeffc65224ab41bcc3dd8613dc450`
+
+Public design editor route:
+
+- URL: `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
+- HTTP status: `200`
+- `x-aiboux-rewritten-path`: `/shop/settings/design`
+- `x-aiboux-worker-version`: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+
+Public Playwright after deploy:
+
+```bash
+PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts --reporter=line
+```
+
+Result:
+
+```text
+6 passed
+```
+
+The added persistence test verifies:
+
+- TOP hero title can be edited in the public design editor;
+- save posts to `/shop/api/storefront/layout`;
+- the public storefront renders the saved title;
+- reload keeps the saved title;
+- the original layout is restored in `finally`;
+- restore is confirmed through `GET /shop/api/storefront/layout?tenant=aiboux`.
+
+Restore check:
+
+- restored TOP hero title: `雪花セレクトを、わかりやすく。`
+
+Design gate note:
+
+- `npm run gate:design -- --help` currently returns `AIBOUX_DESIGN_GATE_BLOCKED failures=5`;
+- the script still targets an older Core delivery-detail temporary preview URL;
+- this is a gate-target mismatch and not a public Shop design editor failure;
+- next workflow improvement is to split design gates by product area or add a Shop-specific design-editor gate.
+
+Evidence:
+
+- `all_log/shop-design-editor/20260604T061820Z_post_deploy_public_playwright_and_gate_note.md`
+
+This is still WIP evidence, not `FINAL_ACCEPTED`.
+
+## Shop Design Gate Split Visual Evidence Cycle
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+Worker Version ID:
+
+- `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+
+Target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+
+Gate change:
+
+- Added `npm run gate:shop-design`.
+- Added `npm run gate:design:legacy`.
+- `gate:shop-design` runs public Playwright against `https://shop.aiboux.com`.
+- Legacy `gate:design` is not treated as the Shop design editor WIP blocker.
+
+Command:
+
+```bash
+npm run gate:shop-design -- --reporter=line
+```
+
+Result:
+
+```text
+4 passed
+```
+
+The new gate caught and fixed one visual layout issue:
+
+- First run failed because public product detail info column was `412px`.
+- Public product detail main container was widened from `max-w-6xl` to `max-w-screen-xl`.
+- Rerun passed.
+
+Screenshots saved:
+
+- `https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-design-editor-product-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-storefront-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run check:shop-ui-protection`: PASS in warn mode
+- `npm run gate:shop-design`: PASS, 4 passed
+
+Evidence:
+
+- `all_log/shop-design-editor/20260604T065000Z_shop_design_gate_split_visual_evidence.md`
+
+This is WIP evidence only. Do not report `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T08:30:30Z Public Storefront Hero Prev/Next DOM Evidence
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+This entry records the follow-up fix after the public HTML audit found that the side hero images existed but were not explicitly exposed as `hero-slide-prev` and `hero-slide-next` in the public storefront DOM.
+
+- Target URL: `https://shop.aiboux.com/s/aiboux/`
+- Code WIP Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- WIP commit: `d6403e1f1348032cd3d44200ccb8a17584e5aa1f`
+- Change: public storefront side hero cards now expose `data-testid="hero-slide-prev"` and `data-testid="hero-slide-next"`.
+- Gate: `npm run gate:shop-storefront-visual`: PASS, 3 passed.
+- Public TOP still keeps 10 recommended product cards, 5 ranking cards, 5 time-sale cards, 8 category cards, 0 public test product names, and 0 weak placeholder image URLs.
+- `FINAL_ACCEPTED`: prohibited. This is WIP evidence only.
+
+---
+
+## 2026-06-04T08:53:40Z Public Storefront Slider And Interaction Fix
+
+Status: `PUBLIC_STOREFRONT_SLIDER_AND_INTERACTION_FIX_WIP`
+
+Target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+WIP commit:
+
+- `53c1fee` (`WIP fix shop storefront carousel interactions`)
+
+Code WIP Worker Version ID:
+
+- `4c77ab87-dffa-46b3-a764-10545da399e9`
+
+What changed:
+
+- The public TOP hero now has a hydrated carousel controller.
+- `next`, `prev`, dot click, loop, and autoplay update the main slide.
+- Left and right hero preview cards update with the current previous and next slides.
+- Hero active dots update `aria-current`.
+- Hero arrow buttons were moved above the text layer so they are actually clickable.
+- Recommended products now expose a real `もっと見る` link inside the section.
+- Product cards support public detail navigation and local cart add state.
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed
+
+Public interaction gate assertions:
+
+- hero next click changes main slide: PASS
+- hero prev click changes main slide: PASS
+- hero dot click changes main slide: PASS
+- hero autoplay changes slide: PASS
+- hero side previews update: PASS
+- product card click opens product detail: PASS
+- add to cart updates cart count/state: PASS
+- recommended `もっと見る` opens `/s/aiboux/products`: PASS
+- category `もっと見る` opens `/s/aiboux/categories`: PASS
+- `href="#"` and `javascript:void` links on public TOP: 0
+
+Screen evidence:
+
+- `https://mail.aiboux.com/g/screens/shop-hero-initial-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-after-next-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-after-dot-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-after-autoplay-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-product-card-click-result.png`
+- `https://mail.aiboux.com/g/screens/shop-cart-add-result.png`
+
+Unresolved:
+
+- This is not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains blocked by permission.
+- Full Shop sales flow and subscription checkout are still WIP.
+
+---
+
+## 2026-06-04T11:03:50Z Shop Amazon Quality All Pages Cycle 3
+
+Status: `SHOP_AMAZON_QUALITY_ALL_PAGES_CYCLE3_WIP`
+
+Important:
+
+- This is not `FINAL_ACCEPTED`.
+- The Shop storefront and linked public pages were expanded toward Amazon-quality coverage.
+- Remote D1 subscription migration remains blocked separately as `D1_PERMISSION_BLOCKED_NOT_FINAL`.
+- Subscription contract creation and provider-backed recurring billing are not accepted.
+
+Target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/mypage`
+- `https://shop.aiboux.com/s/aiboux/account`
+- `https://shop.aiboux.com/s/aiboux/orders`
+- `https://shop.aiboux.com/s/aiboux/favorites`
+- `https://shop.aiboux.com/s/aiboux/login`
+- `https://shop.aiboux.com/s/aiboux/register`
+- `https://shop.aiboux.com/s/aiboux/mypage/subscriptions`
+- `https://shop.aiboux.com/s/aiboux/admin/*`
+
+WIP commit:
+
+- `1b681098a868629bf52a2c1ccd58aef65c6b44f4`
+
+Code WIP Worker Version ID:
+
+- `9d20ebd3-bb07-493e-b3e7-56d85d742d10`
+
+What changed:
+
+- Added Amazon-quality public templates for `mypage`, `account`, `orders`, `favorites`, `login`, `register`, and `mypage/subscriptions`.
+- Header account link now routes to `/s/aiboux/mypage`.
+- Header order-history link now routes to `/s/aiboux/orders`.
+- Public account dashboard links to orders, favorites, subscription self-service, checkout, contact, and returns.
+- Public order history now renders an honest empty-order state instead of a missing page.
+- Public favorites page renders product cards with images, price, rating, and add-to-cart buttons.
+- Login/register pages now show honest auth-disabled state and do not fake account creation or login.
+- Subscription self-service page shows the D1 migration pending state without returning a broken page.
+- Public crawl gate now includes account, mypage, orders, favorites, login, register, and mypage/subscriptions.
+- Legacy `/shop/collections` and `/shop/collections/new` now redirect to `/s/aiboux/admin/categories` instead of old `/shop/categories`.
+
+Public URL status:
+
+- `/s/aiboux/mypage`: HTTP 200
+- `/s/aiboux/account`: HTTP 200
+- `/s/aiboux/orders`: HTTP 200
+- `/s/aiboux/favorites`: HTTP 200
+- `/s/aiboux/login`: HTTP 200
+- `/s/aiboux/register`: HTTP 200
+- `/s/aiboux/mypage/subscriptions`: HTTP 200
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run gate:shop-public-crawl`: PASS, 4 passed
+- `npm run gate:shop-public-crawl` after internal-link gate expansion: PASS, 5 passed
+- `npm run gate:shop-sales-quality`: PASS
+  - public crawl: PASS
+  - storefront carousel: PASS
+  - storefront interaction: PASS
+  - storefront visual: PASS
+  - product detail: PASS
+  - cart checkout: PASS
+  - contact legal: PASS
+  - admin ops: PASS
+- `npm run gate:shop-subscriptions`: FAIL as expected while remote D1 subscription schema is pending.
+
+Subscription blocker:
+
+- API returned HTTP 503 for subscription plan GET.
+- Failure code: `SUBSCRIPTION_SCHEMA_PENDING`.
+- Saved context: `all_log/test-results/20260604T110255_subscription_schema_pending_error_context.md`
+
+Unresolved:
+
+- This is not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration is not applied.
+- Provider-backed recurring billing is not verified.
+- More visual polish can continue, but the newly requested public link destinations no longer return missing/thin pages.
+- Internal `/s/aiboux` links extracted from storefront pages resolve to HTTP 200 and do not return the not-found template.
+- Legacy collections redirects are normalized to the tenant admin category route.
+
+---
+
+## 2026-06-04T10:20:00Z Shop 5H Sales Quality Sprint WIP
+
+Status: `SHOP_5H_SALES_QUALITY_SPRINT_WIP`
+
+Target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/products`
+- `https://shop.aiboux.com/s/aiboux/categories`
+- `https://shop.aiboux.com/s/aiboux/cart`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/contact`
+- `https://shop.aiboux.com/s/aiboux/legal`
+- `https://shop.aiboux.com/s/aiboux/privacy`
+- `https://shop.aiboux.com/s/aiboux/shipping`
+- `https://shop.aiboux.com/s/aiboux/returns`
+- `https://shop.aiboux.com/s/aiboux/faq`
+- `https://shop.aiboux.com/s/aiboux/admin`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/admin/subscriptions`
+
+WIP commit:
+
+- `ab2bdc6` (`WIP add shop sales quality sprint gates`)
+
+Worker Version ID:
+
+- `c9c83766-c725-46fd-86cc-b408fdae4d8e`
+
+What changed:
+
+- Added `SHOP_5H_SALES_QUALITY_SPRINT_WIP` instruction and current-task override.
+- Added public FAQ route under `/s/aiboux/faq` as a shared storefront template page.
+- Added sprint gates:
+  - `gate:shop-public-crawl`
+  - `gate:shop-product-detail`
+  - `gate:shop-cart-checkout`
+  - `gate:shop-contact-legal`
+  - `gate:shop-admin-ops`
+  - `gate:shop-sales-quality`
+- Captured public screenshots for TOP, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, product detail, design editor, and subscriptions admin.
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run gate:shop-public-crawl`: PASS, 4 passed
+- `npm run gate:shop-storefront-carousel`: PASS, 2 passed
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed
+- `npm run gate:shop-product-detail`: PASS, 3 passed
+- `npm run gate:shop-cart-checkout`: PASS, 1 passed
+- `npm run gate:shop-contact-legal`: PASS, 2 passed
+- `npm run gate:shop-admin-ops`: PASS, 2 passed
+- `npm run gate:shop-sales-quality`: PASS
+
+Subscription lane:
+
+- `npm run gate:shop-subscriptions`: FAIL as expected while remote D1 subscription schema is not applied.
+- Failure reason: `subscription-plans` GET returned HTTP 503 instead of 200.
+- Current classification: `D1_PERMISSION_BLOCKED_NOT_FINAL`.
+- This remains separate from storefront, shared template, and admin shell quality gates.
+
+Public page coverage:
+
+- `/s/aiboux/`: PASS
+- `/s/aiboux/products`: PASS
+- `/s/aiboux/categories`: PASS
+- `/s/aiboux/cart`: PASS
+- `/s/aiboux/checkout`: PASS
+- `/s/aiboux/contact`: PASS
+- `/s/aiboux/legal`: PASS
+- `/s/aiboux/privacy`: PASS
+- `/s/aiboux/shipping`: PASS
+- `/s/aiboux/returns`: PASS
+- `/s/aiboux/faq`: PASS
+
+Admin page coverage:
+
+- `/s/aiboux/admin`: PASS
+- `/s/aiboux/admin/products`: PASS
+- `/s/aiboux/admin/orders`: PASS
+- `/s/aiboux/admin/inventory`: PASS
+- `/s/aiboux/admin/categories`: PASS
+- `/s/aiboux/admin/customers`: PASS
+- `/s/aiboux/admin/content`: PASS
+- `/s/aiboux/admin/analytics`: PASS
+- `/s/aiboux/admin/apps`: PASS
+- `/s/aiboux/admin/design`: PASS
+- `/s/aiboux/admin/settings`: PASS
+- `/s/aiboux/admin/subscriptions`: PASS as shell/schema-pending evidence, not final subscription acceptance.
+
+Unresolved:
+
+- This is not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Subscription creation and provider-backed recurring billing are not accepted.
+
+---
+
+## 2026-06-04T09:51:40Z Public Storefront Carousel Smoothness And Visual Polish
+
+Status: `PUBLIC_STOREFRONT_CAROUSEL_SMOOTHNESS_AND_VISUAL_POLISH_WIP`
+
+Target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+WIP commit:
+
+- `afb7187` (`WIP smooth shop storefront carousel`)
+
+Code WIP Worker Version ID:
+
+- `dcc6bae5-b1e6-4628-af00-5d0fdc5baa92`
+
+What changed:
+
+- The public TOP hero was converted from immediate state replacement to a transform-based sliding carousel track.
+- `data-testid="hero-carousel-track"` was added for transition/transform verification.
+- The carousel track uses `transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1)`.
+- `next`, `previous`, dot click, keyboard arrows, swipe/drag, and autoplay now use the same transition path.
+- The carousel publishes `data-current-slide-id` for state verification.
+- Side preview cards remain synchronized with the main slide after movement.
+
+Verification:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run gate:shop-storefront-carousel`: PASS, 2 passed
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed
+
+Carousel gate assertions:
+
+- transform transition detected: PASS
+- transition duration: `0.56s`
+- transition easing: `cubic-bezier(...)`
+- during-animation transform is not `none`: PASS
+- next click changes main slide: PASS
+- side previews update: PASS
+- dot click changes slide: PASS
+- keyboard ArrowLeft changes slide: PASS
+- swipe/drag changes slide: PASS
+- autoplay changes slide: PASS
+
+Screen evidence:
+
+- `https://mail.aiboux.com/g/screens/shop-hero-before-click-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-after-next-smooth-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-after-dot-smooth-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-hero-after-autoplay-smooth-1365.png`
+
+Unresolved:
+
+- This is not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains blocked by permission.
+- Full Shop sales flow and subscription checkout are still WIP.
+
+---
+
+## SHOP_ALL_PAGES_AMAZON_QUALITY_CYCLE4_WIP
+
+Timestamp: 2026-06-04T11:26:38Z
+Status: WIP_DEPLOY_PENDING_NOT_FINAL
+
+What changed:
+- Added Amazon-like dense storefront footer as a required element for all public storefront pages.
+- Added the footer to public TOP and lower storefront pages.
+- Corrected storefront header account/order links to `/s/aiboux/mypage` and `/s/aiboux/orders`.
+- Curated TOP product cards now use implemented product-detail fallback routes.
+- Products page is now an image-backed sales grid with rating, price, tax label, and cart CTA.
+- Categories page is now image-backed and dense.
+- Checkout/account/auth copy avoids test/demo wording while still honestly blocking unconnected auth/payment.
+- `gate:shop-public-crawl` now fails if any public page lacks `storefront-footer`.
+
+Verification before deploy:
+- check:control-chars: PASS
+- check:mojibake: PASS
+- astro check: PASS with existing warnings/hints only
+- build: PASS
+- Pre-deploy public crawl: expected FAIL because current production had no new footer yet. Re-run after WIP deploy is required.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration remains blocked/unapplied.
+- Provider-backed recurring billing remains unverified.
+
+---
+
+## SHOP_ALL_PAGES_AMAZON_QUALITY_CYCLE4_DEPLOYED_WIP
+
+Timestamp: 2026-06-04T11:33:40Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 9b8b0a0a-9984-42b3-b20b-c973c6ae349f
+WIP commit: 981f2c8
+
+Public gate results after deploy:
+- gate:shop-public-crawl: PASS, 5 passed.
+- gate:shop-storefront-visual: PASS, 3 passed.
+- gate:shop-storefront-interaction: PASS, 2 passed.
+- gate:shop-product-detail: PASS, 3 passed.
+- gate:shop-cart-checkout: PASS, 1 passed.
+- gate:shop-contact-legal: PASS, 2 passed.
+- gate:shop-admin-ops: PASS, 2 passed.
+- gate:shop-sales-quality: PASS.
+
+Cycle 4 public changes now visible:
+- Amazon-like footer is present on all public storefront pages covered by the public crawl.
+- Header account and order links resolve to /s/aiboux/mypage and /s/aiboux/orders.
+- Curated TOP products resolve to implemented product-detail fallback routes.
+- Products page is a dense image-backed sales grid.
+- Categories page is image-backed.
+- Checkout and account/auth pages remain honest about unconnected payment/auth while looking like finished storefront pages.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+Evidence publication note:
+- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3
+- The immediately preceding code deploy Version ID remains recorded above for traceability.
+
+---
+
+## SHOP_ALL_PAGES_AMAZON_QUALITY_CYCLE5_IMAGE_MATCH_WIP
+
+Timestamp: 2026-06-04T11:45:00Z
+Status: WIP_DEPLOY_PENDING_NOT_FINAL
+
+Reason:
+- User rejected the latest storefront as still below Amazon quality.
+- Public screenshots showed product-name/image mismatches across TOP, products, mypage, ranking, time sale, and related product surfaces.
+- Old DB/sample images could override the sales-ready curated image mapping.
+- Pet-care products could classify as beauty because generic care wording matched before pet.
+
+Implementation:
+- Updated `ops/instructions/current.md` with the new "Still Not Amazon Quality" escalation.
+- Updated `src/pages/shop/[tenant]/[...path].astro`.
+- Updated `src/components/shop/storefront/ShadcnStorefront.tsx`.
+- Public sales storefront now normalizes product images by display name and category instead of trusting old DB/sample image URLs.
+- Pet classification now runs before generic beauty/care matching.
+- Curated sales products now take precedence over weak or mismatched legacy product rows in public storefront collections.
+
+Verification before deploy:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with existing unrelated hints
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+
+WIP commit:
+- `8b4edc0` `WIP align shop product images with sales categories`
+
+Worker Version ID:
+- Pending next WIP deploy.
+
+FINAL_ACCEPTED:
+- Prohibited.
+
+---
+
+## SHOP_ALL_PAGES_AMAZON_QUALITY_CYCLE6_FOOTER_CART_CHECKOUT_WIP
+
+Timestamp: 2026-06-04T12:45:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 522b3fdb-81d9-4d45-913b-112ce56372bd
+WIP commits:
+- 5a74d3e WIP improve shop cart checkout and footer density
+
+User rejection handled:
+- "まだまだamazon品質じゃない"
+- "フッターすらない"
+- "リンク先やマイページまですべて残らずamazon品質"
+- "未実装ページを残すな"
+
+Implemented in this WIP cycle:
+- Cart page changed from a thin list into a sales-quality layout:
+  - left cart content panel;
+  - right order summary panel;
+  - shipping/return condition link;
+  - honest payment-not-configured notice;
+  - recommendation continuation section with product cards.
+- Checkout page strengthened:
+  - order review section;
+  - delivery/contact section;
+  - shipping, returns, contact support cards;
+  - sales condition and privacy links in the blocker panel;
+  - still blocks unconnected payment honestly.
+- Shared footer strengthened on all tenant storefront pages:
+  - delivery assurance card;
+  - returns assurance card;
+  - payment status card;
+  - subscription status card;
+  - dense shopping/account/support/store-info link columns.
+- Cart Playwright gate was corrected to scope product assertions inside `[data-cart-list]` because recommendation cards can legitimately show the same product name.
+
+Public gate results after deploy:
+- gate:shop-public-crawl: PASS, 5 passed.
+- gate:shop-contact-legal: PASS, 2 passed.
+- gate:shop-cart-checkout: PASS, 1 passed.
+
+Current WIP visual evidence:
+- Cart screenshot refreshed with sales summary and recommendations.
+- Checkout screenshot refreshed with support cards and honest payment blocker.
+- Legal/privacy/shipping/returns/FAQ screenshots refreshed with dense footer.
+- Products/categories/mypage/favorites screenshots remain published for all-pages crawl evidence.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- User-facing polish is still WIP and must continue until the user accepts the visual quality.
+
+## SHOP_10H_SEO_BREADCRUMB_CAROUSEL_SMOOTHNESS_WIP
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+User escalation:
+- Amazon品質ではまだ足りない。
+- 共通パンくずを作る。
+- SEOを2026年最強レベルへ近づける。
+- 商品詳細の画像上に出ていた不要な重複タイトルを削除する。
+- TOPヒーロースライダーをより滑らかにする。
+
+Implemented in this WIP cycle:
+- Added visible storefront breadcrumb for tenant subpages.
+- Added JSON-LD BreadcrumbList from the same breadcrumb model.
+- Added WebSite JSON-LD SearchAction for tenant storefront discovery.
+- Added Product JSON-LD with Offer, availability, image, SKU, brand, and aggregateRating on product detail pages.
+- Removed product detail duplicated outer page title. Product detail now keeps one primary product H1.
+- Reworked TOP hero carousel from abrupt visible-node replacement toward a continuous transform-based track.
+- Updated carousel gate duration assertion to accept the specified 480-650ms smooth transition window.
+
+Public verification:
+- product detail breadcrumb visible: PASS
+- BreadcrumbList JSON-LD: PASS
+- Product JSON-LD: PASS
+- product detail H1 count: PASS, 1
+- duplicated generic product detail title above image: PASS, 0
+- gate:shop-public-crawl: PASS, 5 tests
+- gate:shop-storefront-carousel: PASS, 2 tests
+- gate:shop-product-detail: PASS, 3 tests
+
+Current Worker Version ID for shop WIP deploy:
+- 1deccc09-4cb5-4671-be7d-c665bcc83f51
+
+WIP commit before this log update:
+- aa5a3e0 WIP add shop SEO breadcrumbs and smooth carousel
+
+Important source references checked:
+- Google Search Central Breadcrumb structured data documentation
+- Google Search Central Product structured data documentation
+
+Still not FINAL_ACCEPTED:
+- Remote D1 subscription migration and provider-backed recurring billing are not verified.
+- Visual polish must continue for the 10-hour Amazon-quality sprint.
+- Further improvements are still needed across account, checkout, legal, footer, mobile, and sales density.
+
+---
+
+## SHOP_10H_SEO_COMMON_PARTS_AND_ALL_PAGE_GATE_WIP
+
+Timestamp: 2026-06-04T13:29:06Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 985c06c4-3aba-491a-aa53-db516a6a8bd5
+WIP commits:
+- 2101eb9 WIP strengthen shop shared SEO components
+- 98a25ed WIP return schema pending subscription API as honest 200
+
+User escalation handled in this cycle:
+- 全ページ構造をSEO最強へ寄せる。
+- 共通化できるSEO部品を共通化する。
+- 共通パンくずを全公開ストアページへ出す。
+- 商品詳細のH1を1つに保ち、不要な重複タイトルを出さない。
+- リンクは視認できる青系リンク色とhover underlineへ寄せる。
+- TOPヒーローは滑らかなtransform carouselとして検証する。
+
+Implementation:
+- Added shared SEO utility: src/lib/shopSeo.ts
+- Unified BreadcrumbList/WebSite/Organization/Product/ItemList JSON-LD generation through shared helpers.
+- TOP storefront now has exactly one page H1 and hero slide titles are not repeated H1s.
+- Product detail keeps exactly one H1 and includes Product/Offer/shipping/return policy structured data.
+- Subscription plans API now returns HTTP 200 with SUBSCRIPTION_SCHEMA_PENDING instead of 503 when remote D1 migration is missing.
+
+Public HTML verification:
+- TOP /s/aiboux/: H1 count 1, BreadcrumbList 1, WebSite 1, Organization 1, side hero image attributes 2.
+- Product /s/aiboux/product/setsuka-coffee: H1 count 1, BreadcrumbList 1, Product 1, OfferShippingDetails 1, MerchantReturnPolicy present.
+- Subscription plans API: HTTP 200, code SUBSCRIPTION_SCHEMA_PENDING, no 500/503.
+
+Public gate results after deploy:
+- gate:shop-sales-quality: PASS
+  - gate:shop-public-crawl: PASS, 5 tests
+  - gate:shop-storefront-carousel: PASS, 2 tests
+  - gate:shop-storefront-interaction: PASS, 2 tests
+  - gate:shop-storefront-visual: PASS, 3 tests
+  - gate:shop-product-detail: PASS, 3 tests
+  - gate:shop-cart-checkout: PASS, 1 test
+  - gate:shop-contact-legal: PASS, 2 tests
+  - gate:shop-admin-ops: PASS, 2 tests
+
+Blocked lane:
+- gate:shop-subscriptions: BLOCKED_NOT_FINAL
+- Reason: remote D1 migrations list/apply still fails with Cloudflare API code 7403, account not authorized for D1 query.
+- Current API behavior is honest and non-crashing: HTTP 200 + SUBSCRIPTION_SCHEMA_PENDING.
+- Provider-backed recurring billing remains unverified.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration is not applied.
+- Provider-backed subscription contract creation is not verified.
+- This is WIP_DEPLOYED_NOT_FINAL even though storefront SEO/common UI gates passed.
+
+---
+
+## SHOP_10H_SOCIAL_ROBOTS_SEO_WIP
+
+Timestamp: 2026-06-04T13:56:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: d9802610-8d8a-4958-b78c-d5b1c93ab8f7
+WIP commit: 48c82e4 WIP add shop social robots SEO meta
+
+User escalation handled in this cycle:
+- 全ページの構造をSEO最強へ寄せる。
+- 共通化できるSEOパーツをさらに共通化する。
+- Google Search Centralの現行ガイドを確認してから実装する。
+- リンクはSEOに忠実な`<a href>`と意味のあるアンカーテキストにする。
+
+Official guidance checked:
+- Google Search Central ecommerce best practices: ecommerce data and site structure must be shared so Google can find and parse product content.
+- Google Search Central link best practices: crawlable links require real `<a href>` and descriptive anchor text.
+- Google Search Central Breadcrumb structured data: visible breadcrumb hierarchy and `BreadcrumbList` help users and Search understand page position.
+- Google Search Central ecommerce URL structure: indexable pages should use self-referencing canonical URLs and direct internal anchors.
+
+Implemented:
+- Added shared social/robots SEO helpers in `src/lib/shopSeo.ts`.
+- Added Open Graph metadata to TOP and all tenant storefront subpages.
+- Added Twitter Card metadata to TOP and all tenant storefront subpages.
+- Added `robots` policy split:
+  - index: TOP, products, categories, product detail, contact, legal, privacy, shipping, returns, FAQ.
+  - noindex/follow: cart, checkout, mypage, account, orders, favorites, login, register, mypage/subscriptions.
+- Added `ja-JP` alternate link on tenant storefront pages.
+- Kept self-referencing canonical URL on public pages.
+- Strengthened public Playwright gates to verify canonical, robots, Open Graph, Twitter Card, `ja-JP` alternate, one primary H1, visible breadcrumb, footer, and implemented internal links.
+
+Public HTML verification after WIP deploy:
+- TOP `/s/aiboux/`: HTTP 200, robots `index,follow,max-image-preview:large`, `og:type=website`, Twitter Card `summary_large_image`, canonical `https://shop.aiboux.com/s/aiboux/`.
+- Product `/s/aiboux/product/setsuka-coffee`: HTTP 200, robots `index,follow,max-image-preview:large`, `og:type=product`, Twitter Card `summary_large_image`, canonical product URL.
+- Cart `/s/aiboux/cart`: HTTP 200, robots `noindex,follow,noarchive`, `og:type=website`, Twitter Card `summary_large_image`, canonical cart URL.
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with existing warnings/hints, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 5 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - public crawl: PASS, 5 tests
+  - carousel: PASS, 2 tests
+  - storefront interaction: PASS, 2 tests
+  - storefront visual: PASS, 3 tests
+  - product detail: PASS, 3 tests
+  - cart/checkout: PASS, 1 test
+  - contact/legal: PASS, 2 tests
+  - admin ops: PASS, 2 tests
+
+Blocked lane:
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED_NOT_FINAL
+- Reason: subscription plan POST cannot persist an active plan because the remote D1 subscription migration remains unapplied.
+- Related Cloudflare blocker remains API code 7403 for remote D1 migration/list/apply.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration is not applied.
+- Provider-backed recurring billing is not verified.
+- This cycle improves shared SEO/head metadata and gates, but AIBOUX Shop remains WIP.
+
+---
+
+## SHOP_10H_ROBOTS_SITEMAP_DISCOVERY_FIX_WIP
+
+Timestamp: 2026-06-04T13:57:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 90cbebfd-c9f4-418f-a8f7-d72e7f6df6cf
+WIP commit: b8142e0 WIP fix shop sitemap routing
+
+Issue found:
+- `https://shop.aiboux.com/sitemap.xml` initially returned Shop HTML because service-host routing rewrote `/sitemap.xml` to `/shop/sitemap.xml`.
+- This was not acceptable for SEO discovery because robots pointed to a sitemap URL that was not XML.
+
+Implemented:
+- Added `/sitemap.xml` to Worker static/API pass-through routing in `src/worker.ts`.
+- Added `/sitemap.xml` to Astro middleware static pass-through prefixes in `src/middleware.ts`.
+- Kept `robots.txt` and `sitemap.xml` implementation centralized through `src/pages/robots.txt.ts`, `src/pages/sitemap.xml.ts`, and `src/lib/shopSeo.ts`.
+
+Public verification after route fix:
+- `https://shop.aiboux.com/robots.txt`: HTTP 200, `text/plain; charset=utf-8`.
+- `robots.txt` includes `Sitemap: https://shop.aiboux.com/sitemap.xml`.
+- `robots.txt` disallows `/s/aiboux/cart`, `/s/aiboux/checkout`, and `/s/aiboux/admin`.
+- `https://shop.aiboux.com/sitemap.xml`: HTTP 200, `application/xml; charset=utf-8`.
+- sitemap includes `/s/aiboux/`, `/s/aiboux/products`, `/s/aiboux/categories`, `/s/aiboux/product/setsuka-coffee`, and `/s/aiboux/returns`.
+- sitemap excludes cart, checkout, and admin paths.
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - public crawl: PASS, 6 tests
+  - carousel: PASS, 2 tests
+  - storefront interaction: PASS, 2 tests
+  - storefront visual: PASS, 3 tests
+  - product detail: PASS, 3 tests
+  - cart/checkout: PASS, 1 test
+  - contact/legal: PASS, 2 tests
+  - admin ops: PASS, 2 tests
+
+Blocked lane:
+- `gate:shop-subscriptions`: still BLOCKED_NOT_FINAL.
+- Remote D1 subscription migration remains unapplied because Cloudflare D1 remote access previously returned API code 7403.
+- Provider-backed recurring billing remains unverified.
+
+Not FINAL_ACCEPTED:
+- This cycle fixes SEO discovery files and shared routing, but AIBOUX Shop remains WIP until subscription D1/provider-backed recurring billing and final user acceptance gates are complete.
+
+---
+
+## SHOP_10H_SHARED_SEO_HEAD_AND_COMMON_PARTS_WIP
+
+Timestamp: 2026-06-04T14:16:04Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: e9aefc79-e737-4566-ba3e-50e4806a54a1
+WIP commit: 1be17b0 WIP centralize shop SEO head and top ItemList
+
+User requirement:
+- 全ページの構造をSEO最強にする。
+- 共通化できるパーツを徹底的に共通化する。
+- リンクはSEOに忠実な実 `<a href>` とし、ユーザーに分かる色とhover表現を維持する。
+- TOP、商品詳細、サポート、アカウント系まで公開テナントページ全体を対象にする。
+
+Google Search Central references checked:
+- Ecommerce SEO: https://developers.google.com/search/docs/specialty/ecommerce
+- Crawlable links: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Breadcrumb structured data: https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+- Product structured data: https://developers.google.com/search/docs/appearance/structured-data/product-snippet
+- Merchant listing structured data: https://developers.google.com/search/docs/appearance/structured-data/merchant-listing
+- Sitemaps: https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+- robots.txt: https://developers.google.com/search/docs/crawling-indexing/robots/intro
+
+Implemented:
+- Added shared storefront SEO head component: `src/components/shop/ShopSeoHead.astro`.
+- Replaced duplicated SEO head markup in:
+  - `src/pages/shop/storefront/[tenant].astro`
+  - `src/pages/shop/[tenant]/[...path].astro`
+- Extended `buildShopItemListJsonLd` so TOP `/s/aiboux/` exposes product discovery `ItemList` JSON-LD.
+- Product detail pages now emit Open Graph product price metadata:
+  - `product:price:amount`
+  - `product:price:currency=JPY`
+- Public page tests now verify visible breadcrumb, BreadcrumbList, WebSite, Organization, ItemList, canonical, robots, Open Graph, Twitter Card, `ja-JP`, `x-default`, and one primary H1.
+- Product detail tests now verify Product, Offer, OfferShippingDetails, MerchantReturnPolicy, `og:type=product`, product price Open Graph metadata, and no duplicated product H1.
+
+Public direct verification:
+- TOP `https://shop.aiboux.com/s/aiboux/`: HTTP 200, `text/html`, `x-aiboux-worker-version: e9aefc79-e737-4566-ba3e-50e4806a54a1`.
+- TOP public HTML contains `ItemList`, `hreflang="x-default"`, `og:title`, and `twitter:card`.
+- Product `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`: HTTP 200, `text/html`, `x-aiboux-worker-version: e9aefc79-e737-4566-ba3e-50e4806a54a1`.
+- Product public HTML contains `og:type=product`, `product:price:amount`, `product:price:currency`, `hreflang="x-default"`, `og:title`, and `twitter:card`.
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - public crawl: PASS, 6 tests
+  - carousel: PASS, 2 tests
+  - storefront interaction: PASS, 2 tests
+  - storefront visual: PASS, 3 tests
+  - product detail: PASS, 3 tests
+  - cart/checkout: PASS, 1 test
+  - contact/legal: PASS, 2 tests
+  - admin ops: PASS, 2 tests
+
+Blocked lane:
+- `gate:shop-subscriptions`: BLOCKED_NOT_FINAL.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+Not FINAL_ACCEPTED:
+- This is an SEO/common-parts WIP deployment and evidence update.
+- AIBOUX Shop remains WIP until subscription D1/provider-backed recurring billing and final external acceptance gates are complete.
+
+---
+
+## SHOP_10H_SHARED_STOREFRONT_NAV_SUPPORT_PARTS_WIP
+
+Timestamp: 2026-06-04T14:27:00Z
+Status: CODE_READY_WIP_NOT_FINAL
+
+User requirement:
+- 全ページ構造をSEO最強にする。
+- 共通化できるパーツを徹底的に共通化する。
+- マイページ、注文履歴、定期購入、法務、配送、返品、FAQまでリンク先が分かる導線にする。
+
+Implemented:
+- Added shared storefront navigation/support helper: `src/lib/shopStorefrontShared.ts`.
+- Shared data now includes:
+  - footer link groups
+  - footer assurance cards
+  - account cards
+  - policy support cards
+  - purchase guide cards
+  - curated category seed data
+- TOP React storefront now uses `buildShopFooterColumns`.
+- Astro subpage route now uses:
+  - `buildShopAccountCards`
+  - `buildShopPolicySupportCards`
+  - `buildShopPurchaseGuideCards`
+  - `buildShopCuratedCategoryCards`
+  - `buildShopFooterColumns`
+  - `buildShopFooterAssurances`
+- This reduces duplicated public storefront link structures and keeps SEO-critical anchors consistent across TOP, account/support pages, and footer navigation.
+
+Verification before WIP deploy:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - public crawl: PASS, 6 tests
+  - carousel: PASS, 2 tests
+  - storefront interaction: PASS, 2 tests
+  - storefront visual: PASS, 3 tests
+  - product detail: PASS, 3 tests
+  - cart/checkout: PASS, 1 test
+  - contact/legal: PASS, 2 tests
+  - admin ops: PASS, 2 tests
+
+Not FINAL_ACCEPTED:
+- This is a common-parts WIP.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+---
+
+## SHOP_10H_SHARED_PAGE_ENTITY_FAQ_SEO_WIP
+
+Timestamp: 2026-06-04T14:40:11Z
+Status: CODE_READY_WIP_NOT_FINAL
+
+User requirement:
+- 全ページの構造をSEO最強にする。
+- 共通化できるパーツをさらに共通化する。
+- contact / FAQ / account / support / product detail まで、検索エンジンとユーザーに意味が伝わるページ構造にする。
+
+Implemented:
+- Added shared FAQ data source: `buildShopFaqItems()` in `src/lib/shopStorefrontShared.ts`.
+- Added shared SEO JSON-LD helpers in `src/lib/shopSeo.ts`:
+  - `buildShopWebPageJsonLd`
+  - `buildShopSiteNavigationJsonLd`
+  - `buildShopFaqPageJsonLd`
+- TOP `/s/aiboux/` now emits page entity JSON-LD and shared `SiteNavigationElement`.
+- Subpage/product route now emits:
+  - shared page entity JSON-LD;
+  - shared `SiteNavigationElement`;
+  - `FAQPage` JSON-LD on `/s/aiboux/faq`;
+  - `ContactPage` JSON-LD on `/s/aiboux/contact`.
+- FAQ visible content now maps from the same shared FAQ source used for JSON-LD.
+- Strengthened `tests/shop-public-crawl.spec.ts` to verify:
+  - `SiteNavigationElement`;
+  - page entity JSON-LD;
+  - FAQ `Question` and `acceptedAnswer`;
+  - ContactPage.
+
+Verification before WIP deploy:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with existing hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+
+Not FINAL_ACCEPTED:
+- This is an SEO/shared-parts WIP.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+Public deploy and verification:
+- WIP commit: `82c4f6b WIP strengthen shop page entity FAQ SEO parts`
+- Worker Version ID: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+- Public TOP `/s/aiboux/`: HTTP 200 / `SiteNavigationElement` present / page entity `WebPage` present.
+- Public FAQ `/s/aiboux/faq`: HTTP 200 / `FAQPage` present / `Question` count 4 / `acceptedAnswer` count 4 / `SiteNavigationElement` present.
+- Public Contact `/s/aiboux/contact`: HTTP 200 / `ContactPage` present / `SiteNavigationElement` present.
+
+Public verification after WIP deploy:
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+  - public crawl: PASS, 6 tests
+  - carousel: PASS, 2 tests
+  - storefront interaction: PASS, 2 tests
+  - storefront visual: PASS, 3 tests
+  - product detail: PASS, 3 tests
+  - cart/checkout: PASS, 1 test
+  - contact/legal: PASS, 2 tests
+  - admin ops: PASS, 2 tests
+
+Google Search Central references checked during this cycle:
+- FAQ structured data: `https://developers.google.com/search/docs/appearance/structured-data/faqpage`
+- Structured data intro and JSON-LD guidance: `https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data`
+- Structured data general guidelines: `https://developers.google.com/search/docs/appearance/structured-data/sd-policies`
+- Organization structured data: `https://developers.google.com/search/docs/appearance/structured-data/organization`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+
+Not FINAL_ACCEPTED:
+- FAQPage markup is an SEO clarity improvement, not a guarantee of rich-result appearance.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP
+
+Timestamp: 2026-06-04T14:55:42Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+User request:
+- Make every storefront page SEO-strong and UI-strong.
+- Reuse common parts where possible.
+- Make links visually identifiable and SEO faithful.
+
+Official SEO references checked:
+- Google Search Central FAQ structured data: https://developers.google.com/search/docs/appearance/structured-data/faqpage
+- Google Search Central Breadcrumb structured data: https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+- Google Search Central structured data introduction: https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+- Google Search Central structured data general guidelines: https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+
+Implementation:
+- Added shared visible breadcrumb component: `src/components/shop/storefront/StorefrontBreadcrumb.tsx`.
+- Replaced TOP breadcrumb markup in `src/components/shop/storefront/ShadcnStorefront.tsx`.
+- Replaced subpage/product breadcrumb markup in `src/pages/shop/[tenant]/[...path].astro`.
+- Breadcrumb visible DOM now exposes Schema.org `BreadcrumbList` and `ListItem` microdata.
+- Breadcrumb links use visible `text-blue-700`, underline hover, and focus outline affordance.
+- JSON-LD breadcrumbs and visible breadcrumbs remain sourced from the same `ShopBreadcrumbItem` data model.
+- Strengthened `tests/shop-public-crawl.spec.ts` to verify visible breadcrumb microdata and link color.
+- Strengthened `tests/shop-product-detail-public.spec.ts` to verify visible breadcrumb microdata, link color, and single product `h1`.
+
+Verification before WIP deploy:
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with existing hints only.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_5H_SCHEMA_GRAPH_SEO_UI_WIP
+
+Timestamp: 2026-06-04T19:39:29Z
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Objective:
+- Continue the Shop sales-quality sprint by strengthening public storefront structured data.
+- Convert storefront JSON-LD from a loose array into one connected Schema.org `@graph`.
+
+Changed implementation:
+- Added `buildShopStructuredDataGraph()` in `src/lib/shopSeo.ts`.
+- Applied the shared graph helper to `src/pages/shop/storefront/[tenant].astro`.
+- Applied the shared graph helper to `src/pages/shop/[tenant]/[...path].astro`.
+- Strengthened public Playwright checks in `tests/shop-public-crawl.spec.ts` and `tests/shop-product-detail-public.spec.ts`.
+
+Public deploy:
+- WIP implementation commit: `414690b`
+- WIP deploy checkpoint commit: `304e0a5`
+- Worker Version ID: `2c4c61f2-3be5-4901-8c35-d519ce451737`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, existing hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+
+Direct public HTML evidence:
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`: HTTP 200
+- `x-aiboux-worker-version`: `2c4c61f2-3be5-4901-8c35-d519ce451737`
+- TOP JSON-LD `@graph`: count 1
+- TOP JSON-LD `@context`: count 1
+- Product JSON-LD `@graph`: count 1
+- Product JSON-LD `@context`: count 1
+- TOP JSON-LD includes `WebSite`, `OnlineStore`, `BreadcrumbList`, `SiteNavigationElement`, `Product`, and `ItemList`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_SHARED_PRODUCT_CARD_SEO_UI_WIP
+
+Timestamp: 2026-06-04T19:18:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Strengthen every public tenant storefront product surface by replacing duplicated product-card markup with one shared SEO/UI component.
+- Make product cards crawlable and readable for users and search engines through consistent `<a href>`, visible blue link affordance, Product microdata, Offer microdata, image alt text, pricing, tax label, rating, review count, and CTA layout.
+
+Reference SEO basis checked:
+- Google Search Central SEO Starter Guide.
+- Google Search Central crawlable links guidance.
+- Google Search Central product structured data guidance.
+- Google Search Central breadcrumb structured data guidance.
+- Google Search Central ecommerce structured data guidance.
+
+Changed implementation:
+- Added `src/components/shop/storefront/StorefrontProductCard.astro`.
+- Updated `src/pages/shop/[tenant]/[...path].astro` to use the shared card on products, product detail related products, cart recommendations, mypage, orders, favorites, subscription, login, and register surfaces.
+- Updated `tests/shop-public-crawl.spec.ts` to require shared product cards, Product microdata, Offer microdata, crawlable product/category links, visible link colors, and image alt text.
+- Updated `tests/shop-product-detail-public.spec.ts` to require related products to use the same shared product-card contract.
+- Added instruction `ops/instructions/20260605_shop_shared_product_card_seo_ui.md`.
+
+Public deploy:
+- Implementation commit: `6090368`
+- Deploy checkpoint commit: `8f43942`
+- Worker Version ID: `ec4df0de-75ea-4976-b185-c06e2c7f16d8`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-seo-meta`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE
+
+Timestamp: 2026-06-04T18:56:35Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Purpose:
+- Publish the shared storefront SEO meta model evidence to the public URL bundle.
+- Record the deploy that made `SHOP_10H_SHARED_SEO_META_MODEL_WIP` visible from `/g/m68`, `/g/l68`, and `/g/d68`.
+
+Public evidence:
+- Public evidence Worker Version ID: `dda0942c-aa3d-4fa4-bd15-67b7ad7f2263`
+- Evidence commit before publication: `352d358`
+- Deploy log: `all_log/deploys/20260604T185432Z_publish_shared_seo_meta_evidence.txt`
+- Public verification log: `all_log/public-g/20260604T185635Z_shared_seo_meta_public_g_verification.txt`
+
+Public URL verification:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- `SHOP_10H_SHARED_SEO_META_MODEL_WIP`: present in all three public Markdown bodies.
+
+SHA note:
+- `public/g/*.md` source SHA does not match fetched `/g/*` body SHA when runtime placeholders are present.
+- This is expected because the Worker replaces `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3` with the runtime Worker Version ID in public responses.
+- Runtime Worker Version ID visible in public bodies: `dda0942c-aa3d-4fa4-bd15-67b7ad7f2263`
+
+Verification summary:
+- `gate:shop-seo-meta`: PASS
+- `gate:shop-sales-quality`: PASS
+- Shared SEO meta builder: active for TOP, storefront subpages, product detail, search, and category pages.
+- Thin placeholder SEO descriptions: blocked by Playwright assertions.
+- Canonical, Open Graph, Twitter Card, robots, breadcrumb, and Product structured data checks remain covered by public gates.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## SHOP_10H_SHARED_SEO_META_MODEL_PROGRESS_BARK
+
+Timestamp: 2026-06-04T19:00:21Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID in notification: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+- Evidence file: `all_log/bark/20260604T190021Z_shared_seo_meta_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+
+Timestamp: 2026-06-04T18:50:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Centralize SEO titles and descriptions for every public tenant storefront page.
+- Replace thin per-page copy with purchase/search/support intent metadata.
+- Strengthen public Playwright checks for title length, description quality, canonical URL, Open Graph, Twitter Card, robots policy, and product detail SEO.
+
+Changed files:
+- `src/lib/shopSeo.ts`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `src/pages/shop/storefront/[tenant].astro`
+- `tests/shop-public-crawl.spec.ts`
+- `tests/shop-product-detail-public.spec.ts`
+- `package.json`
+- `ops/instructions/20260605_shop_shared_seo_meta_model.md`
+- `ops/instructions/current.md`
+- `all_log/101_shop_shared_seo_meta_model.md`
+
+Deploy:
+- WIP checkpoint commit: `b647f213a07a556e448b9832d99c3ab3722ffaba`
+- Current Worker Version ID: `62c71267-70d0-428d-a124-ab06a3f3938a`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with existing hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-seo-meta`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, interaction, visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+Public evidence publication:
+- Public evidence Worker Version ID: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+- Public evidence deploy log: `all_log/deploys/20260604T182707Z_publish_all_pages_seo_structure_evidence.txt`
+- Public `/g/*` verification file: `all_log/public-g/20260604T182951Z_all_pages_seo_structure_public_g_nocache_verification.txt`
+- Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- Marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in public m68/l68/d68.
+
+Progress Bark notification:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+- Evidence file: `all_log/bark/20260604T183003Z_all_pages_seo_structure_progress_bark.json`
+
+## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+
+Timestamp: 2026-06-04T18:30:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Strengthen all public AIBOUX Shop tenant pages so the structure is more SEO-complete, internally linked, reusable, and UI-consistent.
+- Keep `https://shop.aiboux.com/` as the Shop service site.
+- Keep `https://shop.aiboux.com/s/aiboux/` as the tenant storefront.
+
+Implemented:
+- Added shared contextual internal-link sections for every public storefront page.
+- Added reusable `StorefrontContextLinks`.
+- Rendered context links on both the TOP storefront route and shared dynamic storefront route.
+- Added visible blue link affordance for contextual SEO links.
+- Added `SiteNavigationElement` microdata to contextual links.
+- Included contextual links in `SiteNavigationElement` JSON-LD.
+- Added contextual links as an `ItemList` fallback for pages without product/category item lists.
+- Strengthened public crawl tests to require contextual links, blue links, navigation microdata, crawlable anchors, and ItemList JSON-LD.
+- Added `gate:shop-seo-structure`.
+
+Changed files:
+- `src/lib/shopStorefrontShared.ts`
+- `src/lib/shopSeo.ts`
+- `src/components/shop/storefront/StorefrontContextLinks.tsx`
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `src/pages/shop/storefront/[tenant].astro`
+- `tests/shop-public-crawl.spec.ts`
+- `package.json`
+- `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
+- `ops/instructions/current.md`
+
+Deploy evidence:
+- First deploy Worker Version ID: `1c6fde84-5225-4469-bdd1-9fd1a0f19ef6`
+- First deploy log: `all_log/deploys/20260604T181721Z_shop_all_pages_seo_structure_wip_deploy.txt`
+- First deploy result: deployed, but public crawl found TOP missing the new context-link component because TOP uses a separate renderer.
+- Fix deploy Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+- Fix deploy log: `all_log/deploys/20260604T182202Z_shop_all_pages_seo_structure_top_context_fix_deploy.txt`
+- Fix result: deployed with TOP route context links included.
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+
+`gate:shop-sales-quality` passed:
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-storefront-carousel`: PASS
+- `gate:shop-storefront-interaction`: PASS
+- `gate:shop-storefront-visual`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-cart-checkout`: PASS
+- `gate:shop-contact-legal`: PASS
+- `gate:shop-admin-ops`: PASS
+
+Public SEO/UI assertions now covered:
+- public storefront pages render styled HTML at 1365px, 1980px, and mobile;
+- shared contextual internal links exist on public storefront pages;
+- visible blue link affordance exists for SEO/support links;
+- contextual link navigation includes `SiteNavigationElement` microdata;
+- public storefront pages include `ItemList` structured data;
+- public internal links resolve to implemented tenant URLs;
+- robots and sitemap expose only intended indexable tenant discovery pages;
+- storefront search uses crawlable GET URLs and keeps query pages noindex;
+- stable category product URLs are meaningful indexable discovery pages;
+- shared category links use stable slug URLs across header and product breadcrumbs.
+
+Reference SEO basis:
+- Google Search Central SEO Starter Guide.
+- Google Search Central crawlable links guidance.
+- Google Search Central ecommerce URL guidance.
+- Google Search Central breadcrumb structured data guidance.
+- Google Search Central product structured data guidance.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK
+
+Timestamp: 2026-06-04T17:38:54Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Runtime public `/g/*` verification:
+- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- Verification file: `all_log/public-g/20260604T173842Z_search_seo_publication_runtime_verification.txt`
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID in notification: `1895a01c-5311-49e6-b647-38f087d56747`
+- Evidence file: `all_log/bark/20260604T173854Z_search_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SEARCH_SEO_PUBLICATION_WIP
+
+Timestamp: 2026-06-04T17:34:56Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence deploy:
+- Worker Version ID: `18795347-7cc1-46ee-b5ca-683b7fb15d8c`
+- Deploy log: `all_log/deploys/20260604T173418Z_publish_search_seo_evidence.txt`
+
+Public `/g/*` verification:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- Markers present in public m68/l68/d68: `SHOP_10H_SEARCH_SEO_UI_WIP`
+- Public verification file: `all_log/public-g/20260604T173456Z_search_seo_public_g_verification.txt`
+
+SHA note:
+- Public `/g/*` responses include runtime Worker Version ID substitution.
+- SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when runtime substitution changes the response body.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SEARCH_SEO_UI_WIP
+
+Timestamp: 2026-06-04T17:30:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the all-page Shop SEO/UI hardening sprint.
+- Convert the storefront header search from decorative UI into a crawlable, reusable, GET-based search form.
+- Keep arbitrary query result URLs SEO-safe while preserving useful internal product discovery.
+
+Reference SEO basis checked:
+- Google Search Central ecommerce site structure guidance: product and category pages should be reachable through links and navigation.
+- Google Search Central crawlable URL/link guidance: important destinations must be reachable through real URLs and anchors.
+- Google Search Central SEO starter guidance: page titles and descriptions should describe the actual page content.
+- Schema.org `WebSite` / `SearchAction`, `CollectionPage`, `ItemList`, and `Product` were used to align structured data with the actual storefront search route.
+
+Implementation:
+- Added shared component `src/components/shop/storefront/StorefrontSearchForm.tsx`.
+- Reused the search component in TOP storefront and public tenant subpage headers.
+- Header search now submits `GET /s/{tenant}/products?q=<term>`.
+- Products page reads `q`, shows search context, filters product cards, and preserves crawlable product links.
+- Search result pages use canonical `/s/{tenant}/products` and `noindex,follow,noarchive`.
+- `WebSite` JSON-LD `SearchAction` targets `/s/aiboux/products?q={search_term_string}` and is now backed by the real public form.
+- Mobile header now wraps so the search form remains visible and usable.
+
+Changed files:
+- `ops/instructions/20260605_shop_search_seo_ui.md`
+- `ops/instructions/current.md`
+- `src/components/shop/storefront/StorefrontSearchForm.tsx`
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `tests/shop-public-crawl.spec.ts`
+
+Commits:
+- `30f4f07` WIP add crawlable storefront search SEO
+- `23e556d` WIP keep storefront search visible on mobile
+
+Deployment:
+- First search SEO deploy Worker Version ID: `46ef9a02-a4bc-4fec-b1d8-831a235a142d`
+- Mobile visibility fix deploy Worker Version ID: `dad7c13e-c940-4a25-9fd8-0f484bce01d3`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 7 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+
+Public search evidence:
+- URL: `https://shop.aiboux.com/s/aiboux/products?q=%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC`
+- HTTP: 200
+- Confirmed markers: `storefront-search-form`, `name="q"`, `検索語: コーヒー`, `noindex,follow,noarchive`, canonical `/s/aiboux/products`, `SearchAction`, `products?q={search_term_string}`.
+- Evidence files:
+  - `all_log/public-checks/20260604T172224Z_search_products.headers`
+  - `all_log/public-checks/20260604T172224Z_search_products.html`
+  - `all_log/public-checks/20260604T172224Z_search_products_summary.txt`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_PAGE_TYPE_SEO_PUBLICATION_AND_BARK
+
+Timestamp: 2026-06-04T17:13:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `b5eb45e5004e72c1f3683186704e4a91e9fab281`
+- Public evidence Worker Version ID: `566b290d-ed0d-4211-ba8d-67fbc5bd4e5a`
+- Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present
+- Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present
+- Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present
+- Public verification file: `all_log/public-g/20260604T171219Z_page_type_seo_public_g_verification.txt`
+
+SHA note:
+- Public `/g/*` responses include runtime Worker Version ID substitution.
+- SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when runtime substitutions are present.
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `566b290d-ed0d-4211-ba8d-67fbc5bd4e5a`
+- Evidence file: `all_log/bark/20260604T171233Z_page_type_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_PAGE_TYPE_SEO_UI_WIP
+
+Timestamp: 2026-06-04T17:18:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the Shop SEO/UI sprint by strengthening page-type structured data across public tenant pages.
+- Keep all work public-URL verified. Do not treat this as `FINAL_ACCEPTED`.
+
+Reference basis checked:
+- Google Search Central ecommerce SEO guidance: ecommerce pages should expose product/store meaning with relevant structured data.
+- Google Search Central Product structured data guidance: merchant product pages should expose product facts in initial HTML where eligible.
+- Google Search Central Breadcrumb structured data guidance: breadcrumb markup should represent a useful user path.
+- Schema.org references for `ItemList`, `CollectionPage`, `ContactPage`, `FAQPage`, `Product`, and `Offer`.
+
+Changed implementation:
+- Added stable `ItemList` `@id` values with `#itemlist`.
+- Added `numberOfItems` and `mainEntityOfPage` to Shop `ItemList` JSON-LD.
+- Added product/category item entity references inside `ItemList`.
+- Mapped `/products`, `/categories`, and `/favorites` discovery pages to `CollectionPage`.
+- Preserved `ContactPage`, `FAQPage`, `ItemPage`, `Product`, and `Offer` for the matching page types.
+
+Public deploy:
+- WIP commit: `6276c851b3127ec0c44a1542fde222a0267e6a74`
+- Worker Version ID: `bcb4177a-3d5e-4a77-a591-60a2ddf13d55`
+- Deploy log: `all_log/deploys/20260604T170422Z_page_type_seo_wrangler_deploy.txt`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, interaction, visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Direct public HTML evidence:
+- `/s/aiboux/`: HTTP 200, `#itemlist`, `Product`, `mainEntityOfPage`, `numberOfItems`
+- `/s/aiboux/products`: HTTP 200, `CollectionPage`, `#itemlist`, `Product`, `mainEntityOfPage`, `numberOfItems`
+- `/s/aiboux/categories`: HTTP 200, `CollectionPage`, `#itemlist`, `mainEntityOfPage`, `numberOfItems`
+- `/s/aiboux/favorites`: HTTP 200, `CollectionPage`, `#itemlist`, `Product`, `mainEntityOfPage`, `numberOfItems`
+- `/s/aiboux/contact`: HTTP 200, `ContactPage`, `#itemlist`, `mainEntityOfPage`, `numberOfItems`
+- `/s/aiboux/faq`: HTTP 200, `FAQPage`, `#itemlist`, `mainEntityOfPage`, `numberOfItems`
+- `/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200, `ItemPage`, `Product`, `Offer`, `mainEntityOfPage`
+- Summary file: `all_log/public-checks/20260604T170640Z_page_type_summary.txt`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP
+
+Timestamp: 2026-06-04T16:55:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the Shop sales-quality sprint by strengthening the reusable SEO entity graph across all public tenant storefront pages.
+- Connect storefront, website, page, product, offer, seller, shipping, and return-policy structured data instead of leaving each JSON-LD block isolated.
+
+Reference SEO basis checked:
+- Google Search Central ecommerce guidance for crawlable ecommerce pages and merchant/product structured data.
+- Google Search Central Product structured data guidance for product, offer, shipping, and return information.
+- Google Search Central MerchantReturnPolicy guidance for return policy details.
+- Schema.org `BreadcrumbList`, `WebPage`, `Product`, `Offer`, and `OnlineStore` references.
+
+Changed implementation:
+- Updated `src/lib/shopSeo.ts` with stable entity IDs for `#store`, `#website`, `#webpage`, `#product`, and `#offer`.
+- Updated `Organization` markup to include the ecommerce `OnlineStore` subtype while retaining `Organization`.
+- Added `WebSite.@id` and `publisher` reference to the shared store entity.
+- Added `WebPage.@id`, `isPartOf`, `publisher`, and `about` references.
+- Added `Product.@id`, `mainEntityOfPage`, `brand.@id`, `Offer.@id`, and `Offer.seller`.
+- Kept `OfferShippingDetails` and `MerchantReturnPolicy` on Product Offer.
+- Updated public storefront and product detail page integrations.
+- Strengthened `tests/shop-public-crawl.spec.ts` and `tests/shop-product-detail-public.spec.ts`.
+
+Public deploy:
+- WIP commit: `b6ba295`
+- Worker Version ID: `d7617383-347a-43b5-ab4d-dc54ddab17d7`
+- Deploy log: `all_log/deploys/20260604T164621Z_entity_graph_seo_wrangler_deploy.txt`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed after deploy propagation settled
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Direct public HTML evidence:
+- Checked public URLs:
+  - `https://shop.aiboux.com/s/aiboux/`
+  - `https://shop.aiboux.com/s/aiboux/products`
+  - `https://shop.aiboux.com/s/aiboux/contact`
+  - `https://shop.aiboux.com/s/aiboux/faq`
+  - `https://shop.aiboux.com/s/aiboux/shipping`
+  - `https://shop.aiboux.com/s/aiboux/returns`
+  - `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
+- All checked URLs returned HTTP 200.
+- All checked URLs include `OnlineStore`, `#store`, `#website`, `isPartOf`, `publisher`, `about`, and `MerchantReturnPolicy`.
+- Product detail also includes `OfferShippingDetails`, `mainEntityOfPage`, and `seller`.
+- Summary file: `all_log/public-checks/20260604T164843Z_entity_graph_summary.txt`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_ENTITY_GRAPH_SEO_PUBLICATION_AND_BARK
+
+Timestamp: 2026-06-04T16:56:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `2818d8c`
+- Public evidence Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
+- Publication deploy log: `all_log/deploys/20260604T165412Z_publish_entity_graph_seo_evidence.txt`
+
+Public URL verification:
+- m68: HTTP 200 / `text/markdown; charset=utf-8` / marker `SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP` present
+- l68: HTTP 200 / `text/markdown; charset=utf-8` / marker `SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP` present
+- d68: HTTP 200 / `text/markdown; charset=utf-8` / marker `SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP` present
+- Verification files: `all_log/public-g/20260604T165437Z_*`
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
+- Evidence file: `all_log/bark/20260604T165451Z_entity_graph_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_PUBLICATION_AND_BARK
+
+Timestamp: 2026-06-04T16:40:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `683b487`
+- Public evidence Worker Version ID: `9b7fe5ca-9d1a-4ea2-a89a-cfd79c5ce4ab`
+- Publication deploy log: `all_log/deploys/20260604T163236Z_wrangler_publish_shared_page_header_seo_evidence.txt`
+- Bark evidence commit: `c78750f`
+- Bark evidence publication Worker Version ID: `a97cd55e-9531-467c-bf97-d45cae19cc71`
+- Bark evidence publication deploy log: `all_log/deploys/20260604T163455Z_wrangler_publish_shared_page_header_seo_bark_evidence.txt`
+
+Public URL verification after evidence publication:
+- `https://mail.aiboux.com/g/m68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/l68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP`: present in public m68/l68/d68.
+
+SHA note:
+- Public `/g/*` responses include runtime Worker Version ID substitution.
+- SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when the body includes runtime version placeholders.
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `9b7fe5ca-9d1a-4ea2-a89a-cfd79c5ce4ab`
+- Evidence file: `all_log/bark/20260604T163322Z_shared_page_header_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_SEO_HUB_PROGRESS_BARK
+
+Timestamp: 2026-06-04T16:00:40Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark:
+- Purpose: progress notification, not final acceptance notification.
+- Result: `delivered=true`, `skipped=false`, `secretLogged=false`.
+- User receipt confirmation is not required for progress Bark.
+- Evidence file: `all_log/bark/20260604T160040Z_seo_hub_progress_bark.json`
+- Worker Version ID in notification: `9d722b46-aca9-42f6-a2ab-3b3807d0e182`
+- URL Bundle included: m68 / l68 / d68.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_SUPPORT_RAIL_SEO_UI_WIP
+
+Timestamp: 2026-06-05T00:34:50+09:00
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Worker Version ID:
+- `ada2e58f-775c-448f-b051-302c13048866`
+
+WIP commit:
+- `3984217 WIP add shared storefront support rail SEO UI`
+
+Purpose:
+- Continue the 5-hour AIBOUX Shop sales-quality sprint.
+- Strengthen all public storefront pages with a reusable SEO/UI support rail.
+- Add crawlable internal links with clear link affordance.
+- Reduce duplicated account/support/legal link structures.
+
+Official SEO references checked:
+- Google SEO Starter Guide: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- Google ecommerce structured data: https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce
+- Google Breadcrumb structured data: https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+- Google Product structured data: https://developers.google.com/search/docs/appearance/structured-data/product
+- Google crawlable links: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+
+Changed:
+- Added `src/components/shop/storefront/StorefrontSupportRail.tsx`.
+- Added `buildShopSupportRailCards` and `buildShopSupportRailQuickLinks`.
+- Rendered support rail on TOP and tenant subpages.
+- Strengthened `tests/shop-public-crawl.spec.ts` to require the shared support rail on public storefront pages.
+- Added `ops/improvements/20260605_daily_improvement.md`.
+
+Direct public checks:
+- `https://shop.aiboux.com/s/aiboux/`: `storefront-support-rail` present.
+- `https://shop.aiboux.com/s/aiboux/cart`: `storefront-support-rail` present.
+- `https://shop.aiboux.com/s/aiboux/checkout`: `storefront-support-rail` present.
+- `https://shop.aiboux.com/s/aiboux/mypage`: `storefront-support-rail` present.
+- `https://shop.aiboux.com/s/aiboux/legal`: `storefront-support-rail` present.
+
+Evidence files:
+- `all_log/deploys/20260604T152920Z_wrangler_shared_support_rail_seo_ui.txt`
+- `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux.html`
+- `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_cart.html`
+- `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_checkout.html`
+- `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_mypage.html`
+- `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_legal.html`
+
+Verification:
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS, 0 errors.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+
+Not final:
+- This is a WIP public deployment and evidence update.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed subscription creation remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## SHOP_10H_SHARED_FOOTER_PROGRESS_BARK
+
+Timestamp: 2026-06-04T15:22:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `04337ed3-fa17-4f73-889d-1fd42a236019`
+- URL Bundle included: m68 / l68 / d68
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
+
+## SHOP_10H_SHARED_FOOTER_PUBLIC_VERIFICATION_WIP
+
+Timestamp: 2026-06-04T15:18:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Deploy:
+- WIP commit before deploy: `6d86c1d`
+- Worker Version ID: `8dd4a847-0b5b-4df2-87c7-9a7a2442356d`
+- Deploy log: `all_log/deploys/20260604T151520Z_wrangler_shared_footer_seo_ui.txt`
+
+Public direct curl evidence:
+- TOP: `https://shop.aiboux.com/s/aiboux/` HTTP 200 / `x-aiboux-worker-version: 8dd4a847-0b5b-4df2-87c7-9a7a2442356d`
+- Cart: `https://shop.aiboux.com/s/aiboux/cart` HTTP 200 / `x-aiboux-worker-version: 8dd4a847-0b5b-4df2-87c7-9a7a2442356d`
+- Evidence files:
+  - `all_log/public-checks/20260604T151550Z_shared_footer_top.headers`
+  - `all_log/public-checks/20260604T151550Z_shared_footer_top.html`
+  - `all_log/public-checks/20260604T151550Z_shared_footer_cart.headers`
+  - `all_log/public-checks/20260604T151550Z_shared_footer_cart.html`
+
+Public DOM verification:
+- `data-testid="storefront-footer"`: present.
+- `itemtype="https://schema.org/SiteNavigationElement"`: present.
+- Dense internal footer links: present.
+- Honest payment/subscription message `決済未接続時は注文確定しません`: present.
+
+Public gates:
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across all configured sales-quality lanes.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_BREADCRUMB_PUBLIC_VERIFICATION_WIP
+
+Timestamp: 2026-06-04T15:00:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Deploy:
+- WIP commit before deploy: `9e48dc0`
+- Worker Version ID: `73a4a4fd-a69b-4ce7-9c7b-18ecee9c6701`
+- Deploy log: `all_log/deploys/20260604T145759Z_wrangler_shared_breadcrumb_seo_ui.txt`
+
+Public direct curl evidence:
+- TOP: `https://shop.aiboux.com/s/aiboux/` HTTP 200 / `x-aiboux-worker-version: 73a4a4fd-a69b-4ce7-9c7b-18ecee9c6701`
+- Product detail: `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee` HTTP 200 / visible shared breadcrumb microdata present
+- Evidence files:
+  - `all_log/public-checks/20260604T145848Z_breadcrumb_top.headers`
+  - `all_log/public-checks/20260604T145848Z_breadcrumb_top.html`
+  - `all_log/public-checks/20260604T145848Z_breadcrumb_product.headers`
+  - `all_log/public-checks/20260604T145848Z_breadcrumb_product.html`
+
+Public DOM verification:
+- `data-testid="storefront-breadcrumb"`: present.
+- `itemtype="https://schema.org/BreadcrumbList"`: present.
+- `itemtype="https://schema.org/ListItem"`: present.
+- `text-blue-700`: present on breadcrumb links.
+- Product detail visible `h1`: exactly one, verified by gate.
+
+Public gates:
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across all configured sales-quality lanes.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_BREADCRUMB_PROGRESS_BARK
+
+Timestamp: 2026-06-04T15:08:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `21ec387f-fa3a-41b3-9c73-51b53931f5cc`
+- URL Bundle included: m68 / l68 / d68
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
+
+## SHOP_10H_SHARED_FOOTER_SEO_UI_WIP
+
+Timestamp: 2026-06-04T15:12:15Z
+Status: WIP_NOT_FINAL
+
+Objective:
+- Continue the all-page SEO/UI common-parts audit.
+- Replace duplicated tenant storefront footer markup with a shared reusable component.
+- Strengthen footer navigation as a consistent SEO/internal-link surface on every public tenant page.
+
+Changed implementation:
+- Added `src/components/shop/storefront/StorefrontFooter.tsx`.
+- Updated `src/components/shop/storefront/ShadcnStorefront.tsx` to use the shared footer.
+- Updated `src/pages/shop/[tenant]/[...path].astro` to use the shared footer.
+- Strengthened `tests/shop-public-crawl.spec.ts` to verify shared footer microdata, internal link density, and honest payment/subscription messaging.
+
+SEO/UI intent:
+- Visible footer navigation uses the same shared link source as `SiteNavigationElement` JSON-LD.
+- Footer DOM exposes Schema.org `SiteNavigationElement` microdata.
+- Footer provides dense, crawlable `<a href>` links for shopping, account, support, and store information.
+- Footer assurance cards are shared across TOP and subpages.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_SUPPORT_RAIL_PROGRESS_BARK
+
+Timestamp: 2026-06-04T15:39:50Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `e1357e15-5018-4aaa-8ea2-cf7b451da878`
+- URL Bundle included: m68 / l68 / d68
+- Evidence file: `all_log/bark/20260604T153950Z_support_rail_progress_bark.json`
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
+## SHOP_10H_SHARED_SEO_HUB_WIP
+
+Timestamp: 2026-06-04T15:48:58Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the AIBOUX Shop sales-quality sprint.
+- Add a shared SEO/internal-link hub to all public tenant storefront pages.
+- Make popular category, purchase guide, account, order, favorite, and subscription links crawlable and visibly clickable.
+
+Changed implementation:
+- `src/components/shop/storefront/StorefrontSeoHub.tsx`
+- `src/lib/shopStorefrontShared.ts`
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `tests/shop-public-crawl.spec.ts`
+- `ops/instructions/current.md`
+- `ops/instructions/20260605_shop_seo_ui_common_seo_hub.md`
+- `ops/improvements/20260605_daily_improvement.md`
+
+Public deploy:
+- WIP commit: `847f49b`
+- Implementation Worker Version ID: `89d685a7-8eb1-401c-8c6b-d92d29b9aa37`
+- Deploy log: `all_log/deploys/20260604T154828Z_wrangler_shared_seo_hub.txt`
+- Evidence commit: `359311b`
+- Public evidence publication Worker Version ID: `08b5ddf3-dd69-43e6-9a62-c4187f97a803`
+- Publication deploy log: `all_log/deploys/20260604T155748Z_wrangler_publish_seo_hub_evidence.txt`
+
+Public direct HTML checks:
+- `https://shop.aiboux.com/s/aiboux/`: `storefront-seo-hub` present.
+- `https://shop.aiboux.com/s/aiboux/cart`: `storefront-seo-hub` present.
+- `https://shop.aiboux.com/s/aiboux/checkout`: `storefront-seo-hub` present.
+- `https://shop.aiboux.com/s/aiboux/mypage`: `storefront-seo-hub` present.
+- `https://shop.aiboux.com/s/aiboux/legal`: `storefront-seo-hub` present.
+- All checked pages included visible `https://schema.org/SiteNavigationElement` microdata and the `定期購入の状態を見る` link.
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+- `/g/m68`, `/g/l68`, `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` after evidence publication deploy.
+- Published `/g/l68` and `/g/d68` include `SHOP_10H_SHARED_SEO_HUB_WIP` evidence.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_CLEANUP_WIP
+
+Timestamp: 2026-06-04T16:21:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the AIBOUX Shop sales-quality sprint.
+- Audit shared SEO/UI parts across public tenant pages.
+- Strengthen the shared storefront breadcrumb so product detail pages keep one visible product title while preserving full product title in structured data.
+- Remove the visual impression of a duplicate product title above the product image.
+
+SEO references checked:
+- Google Search Central SEO Starter Guide: page titles should be unique, clear, concise, and descriptive.
+- Google Search Central ecommerce guidance: ecommerce pages should expose structured data relevant to products and page meaning.
+- Google Search Central Breadcrumb structured data: BreadcrumbList should describe page hierarchy for Search.
+- Google Search Central Product structured data: product pages should expose product-specific structured data when eligible.
+
+Changed implementation:
+- `src/components/shop/storefront/StorefrontBreadcrumb.tsx`
+- `src/lib/shopSeo.ts`
+- `tests/shop-product-detail-public.spec.ts`
+- `ops/instructions/current.md`
+- `ops/instructions/20260605_shop_breadcrumb_product_seo_cleanup.md`
+
+Implementation:
+- Added `visibleName` support to shared breadcrumb items.
+- Product detail visible breadcrumb current label is now `商品詳細`.
+- Product detail full product name remains in BreadcrumbList JSON-LD and breadcrumb microdata `itemProp="name"`.
+- Product detail keeps a single visible product `h1`.
+- Product pages continue to share the same storefront header, breadcrumb, SEO hub, support rail, and footer structure.
+
+Public deploy:
+- WIP commit: `6c3d010`
+- Worker Version ID: `f4073dab-a074-4cf3-a5c7-456f75e072c3`
+- Deploy log: `all_log/deploys/20260604T160856Z_wrangler_breadcrumb_seo_deploy.txt`
+
+Public verification:
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+- Public HTML includes `data-testid="storefront-breadcrumb-current"`.
+- Public HTML includes visible `商品詳細`.
+- Public HTML includes `BreadcrumbList`.
+- Public HTML check file: `all_log/public-checks/20260604T161031Z_product_breadcrumb.html`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-product-detail-public.spec.ts`: PASS, 3 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_PUBLICATION_AND_BARK
+
+Timestamp: 2026-06-04T16:30:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `87862ac`
+- Public evidence Worker Version ID: `1dda6a0e-440d-4eaf-958a-b5adbb60f585`
+- Publication deploy log: `all_log/deploys/20260604T161631Z_wrangler_publish_breadcrumb_product_seo_evidence.txt`
+
+Public URL verification after evidence publication:
+- `https://mail.aiboux.com/g/m68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/l68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- `SHOP_10H_BREADCRUMB_PRODUCT_SEO_CLEANUP_WIP`: present in public m68/l68/d68.
+- `商品詳細`: present in public m68/l68/d68.
+- `BreadcrumbList`: present in public m68/l68/d68.
+
+SHA note:
+- Public `/g/*` responses include runtime Worker Version ID substitution.
+- SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when the body includes runtime version placeholders.
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `1dda6a0e-440d-4eaf-958a-b5adbb60f585`
+- Evidence file: `all_log/bark/20260604T161711Z_breadcrumb_product_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP
+
+Timestamp: 2026-06-04T16:35:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the Shop sales-quality sprint by strengthening reusable SEO/UI parts across all public non-product tenant storefront pages.
+- Do not change the product detail duplicate-title cleanup: product detail keeps one visible product `h1`.
+
+Reference SEO basis checked:
+- Google Search Central ecommerce SEO guidance: ecommerce pages should expose product/store meaning clearly and use ecommerce-relevant structured data.
+- Google Search Central product structured data guidance: merchant product pages benefit from product facts in initial HTML.
+- Google Search Central ecommerce URL guidance: crawlable URLs and links help Google find ecommerce pages.
+- Schema.org `BreadcrumbList`, `WebPage`, and `SiteNavigationElement` references for page hierarchy and navigation semantics.
+
+Changed implementation:
+- Added shared component `src/components/shop/storefront/StorefrontPageHeader.tsx`.
+- Added shared page action builder `buildShopPageHeaderActions()` in `src/lib/shopStorefrontShared.ts`.
+- Rendered `StorefrontPageHeader` on public non-product tenant pages through `src/pages/shop/[tenant]/[...path].astro`.
+- Strengthened `tests/shop-public-crawl.spec.ts` to verify the shared page header on public URLs.
+- Added active instruction `ops/instructions/20260605_shop_shared_page_header_seo_ui.md`.
+
+Shared page header contract:
+- one page `h1`;
+- page description;
+- store context;
+- two or more crawlable internal links;
+- visible blue secondary link affordance;
+- `SiteNavigationElement` microdata on the action nav;
+- product detail excluded to avoid duplicate visible product titles.
+
+Public deploy:
+- WIP commit: `4b90bb0`
+- Worker Version ID: `1bd147f4-517a-4703-974a-56198b05bd86`
+- Deploy log: `all_log/deploys/20260604T162618Z_wrangler_shared_page_header_seo_ui.txt`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Direct public HTML evidence:
+- Checked 16 public non-product URLs.
+- All checked URLs returned HTTP 200.
+- All checked URLs included `data-testid="storefront-page-header"`.
+- All checked URLs included `storefront-page-title`.
+- All checked URLs included `https://schema.org/SiteNavigationElement`.
+- Summary file: `all_log/public-checks/20260604T163007Z_page_header_summary.txt`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_5H_COMMERCE_FACTS_SEO_UI_WIP
+
+Timestamp: 2026-06-05T05:20:00+09:00
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Objective:
+- Continue the Shop sales-quality sprint by strengthening all public storefront pages with shared purchase facts and reusable SEO/UI structure.
+- Make price, tax, stock, shipping, returns, payment state, support, and subscription readiness visible through one shared component instead of page-local fragments.
+
+Reference SEO basis checked:
+- Google Search Central SEO Starter Guide.
+- Google Search Central ecommerce URL structure guidance.
+- Google Search Central Product structured data guidance.
+- Google Search Central merchant listing and return policy guidance.
+- Google Search Central Breadcrumb structured data guidance.
+- Google Search Central crawlable link guidance.
+
+Changed implementation:
+- Added `buildShopCommerceFacts()` in `src/lib/shopStorefrontShared.ts`.
+- Added `src/components/shop/storefront/StorefrontCommerceFacts.tsx`.
+- Rendered shared commerce facts on TOP through `src/components/shop/storefront/ShadcnStorefront.tsx`.
+- Rendered shared commerce facts on all non-product public pages and product detail through `src/pages/shop/[tenant]/[...path].astro`.
+- Strengthened `tests/shop-public-crawl.spec.ts` to require shared purchase facts on every public storefront page.
+- Strengthened `tests/shop-product-detail-public.spec.ts` to require shared product detail merchant-listing purchase facts without reintroducing a duplicate product title.
+- Added active instruction `ops/instructions/20260605_shop_commerce_facts_seo_ui.md`.
+
+Public deploy:
+- WIP implementation commit: `d2bc86e`
+- WIP deploy checkpoint commit: `6b93e7d`
+- Worker Version ID: `d3a99848-acc8-47be-bd09-661e24b1fe85`
+- Public evidence Worker Version ID: `123c0ba9-8f7e-49a8-9b2e-23ef3fdac8a3`
+- Evidence publication commit: `e4e998a`
+- Evidence deploy log: `all_log/deploys/20260604T200405Z_commerce_facts_evidence_wrangler_deploy.txt`
+
+Verification:
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro check`: PASS with existing hints only.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / public marker `SHOP_5H_COMMERCE_FACTS_SEO_UI_WIP` present.
+- `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / public marker `SHOP_5H_COMMERCE_FACTS_SEO_UI_WIP` present.
+- `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / public marker `SHOP_5H_COMMERCE_FACTS_SEO_UI_WIP` present.
+- SHA note: public `/g/*` bodies include runtime Worker Version ID substitution, so source and fetched body SHA can differ.
+
+Public SEO/UI checks now covered:
+- Every public storefront page renders `data-testid="storefront-commerce-facts"`.
+- Every commerce facts block exposes visible `https://schema.org/SiteNavigationElement` microdata.
+- Every commerce facts block exposes at least five crawlable internal links.
+- Public crawl checks still require shared search form, footer, support rail, SEO hub, contextual links, breadcrumb, connected JSON-LD graph, canonical, robots, Open Graph, Twitter, and sitemap/category URL behavior.
+- Product detail still has exactly one visible product `h1`; visible breadcrumb current label remains `商品詳細`, while structured breadcrumb data retains the full product title.
+
+Not final:
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This work strengthens SEO/UI structure but does not claim the Shop is fully complete.
+
+## SHOP_5H_COMMERCE_FACTS_PROGRESS_BARK
+
+Timestamp: 2026-06-05T05:09:00+09:00
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID at send time: `722630cb-2669-44d2-a616-f2bcca1c2f5d`
+- Evidence file: `all_log/bark/20260604T200749Z_commerce_facts_progress_bark.json`
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
