@@ -69,3 +69,24 @@ Practical process improvement:
 Applied target:
 
 - `StorefrontCommerceFacts` is required by public crawl and product detail gates.
+
+## Additional Improvement: Shared Page Quality Summary Gate
+
+After checking Google Search Central ecommerce site structure, crawlable link, product, merchant listing, return policy, and breadcrumb guidance again, page intent should be visible and testable instead of only implied by meta tags.
+
+Practical process improvement:
+
+- Every public storefront page must render a shared page-quality summary.
+- The summary must state visible search intent, SEO role, and next user action.
+- The summary must use crawlable `<a href>` links with visible blue link affordance.
+- The summary must expose visible `SiteNavigationElement` microdata.
+- Product detail must keep exactly one visible product `h1` and use the summary as supporting context, not as a duplicate product title.
+
+Applied targets:
+
+- `src/lib/shopStorefrontShared.ts`
+- `src/components/shop/storefront/StorefrontPageQualitySummary.tsx`
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `tests/shop-public-crawl.spec.ts`
+- `tests/shop-product-detail-public.spec.ts`
