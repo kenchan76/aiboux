@@ -305,6 +305,24 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## 2026-06-05 Continuation: Page-Type SEO/UI
+
+Active instruction file:
+
+- `ops/instructions/20260605_shop_page_type_seo_ui.md`
+
+Additional active requirements:
+- Products and categories discovery pages must use `CollectionPage` page JSON-LD.
+- Contact must remain `ContactPage`, FAQ must remain `FAQPage`, and product detail must remain `ItemPage` plus `Product`.
+- `ItemList` JSON-LD must include stable `@id`, `numberOfItems`, and `mainEntityOfPage`.
+- Product listing `ItemList` entries should point at product entity IDs where possible.
+- Public gates must verify page-type SEO markers on `https://shop.aiboux.com`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## 2026-06-04 User Escalation: Shared Breadcrumb SEO/UI Parts
 
 User required all pages to be made SEO strongest and UI strongest, including common reusable parts.

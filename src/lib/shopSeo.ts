@@ -63,6 +63,10 @@ function shopWebPageEntityId(canonicalUrl: string): string {
   return `${canonicalUrl.split("#")[0]}#webpage`;
 }
 
+function shopItemListEntityId(canonicalUrl: string): string {
+  return `${canonicalUrl.split("#")[0]}#itemlist`;
+}
+
 export function normalizeShopSeoDescription(value: string, fallback: string): string {
   const normalized = String(value || fallback).replace(/\s+/g, " ").trim();
   const description = normalized || fallback;
@@ -248,7 +252,9 @@ export function buildShopWebPageJsonLd({
         ? "FAQPage"
         : page === "product"
           ? "ItemPage"
-          : "WebPage";
+          : ["products", "categories", "favorites"].includes(page)
+            ? "CollectionPage"
+            : "WebPage";
 
   return {
     "@context": "https://schema.org",
@@ -473,23 +479,31 @@ export function buildShopItemListJsonLd({
   const listItems =
     page === "" || page === "products" || page === "favorites"
       ? publicProductCards.slice(0, 20).map((item) => ({
+          itemType: "Product",
           name: item.displayName,
           url: absoluteShopUrl(`${tenantRoot}/product/${item.id}`),
+          entityId: `${absoluteShopUrl(`${tenantRoot}/product/${item.id}`)}#product`,
         }))
       : page === "categories"
         ? categoryCards.slice(0, 20).map((item) => ({
+            itemType: "CollectionPage",
             name: item.name,
             url: absoluteShopUrl(`${tenantRoot}/products?category=${encodeURIComponent(item.slug ?? item.name)}`),
+            entityId: `${absoluteShopUrl(`${tenantRoot}/products?category=${encodeURIComponent(item.slug ?? item.name)}`)}#collection`,
           }))
         : ["mypage", "account", "login", "register"].includes(page)
           ? accountCards.map((item) => ({
+              itemType: "WebPage",
               name: item.title,
               url: item.href ? absoluteShopUrl(item.href) : "",
+              entityId: item.href ? `${absoluteShopUrl(item.href)}#webpage` : "",
             })).filter((item) => item.url)
           : ["contact", "legal", "privacy", "shipping", "returns", "faq"].includes(page)
             ? policySupportCards.map((item) => ({
+                itemType: "WebPage",
                 name: item.title,
                 url: item.href ? absoluteShopUrl(item.href) : "",
+                entityId: item.href ? `${absoluteShopUrl(item.href)}#webpage` : "",
               })).filter((item) => item.url)
             : [];
 
@@ -498,12 +512,24 @@ export function buildShopItemListJsonLd({
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    "@id": shopItemListEntityId(canonicalUrl),
+    name: page === "" ? "ストアTOPの商品導線" : `${page} 関連導線`,
     url: canonicalUrl,
+    numberOfItems: listItems.length,
+    mainEntityOfPage: {
+      "@id": shopWebPageEntityId(canonicalUrl),
+    },
     itemListElement: listItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
       url: item.url,
+      item: {
+        "@type": item.itemType,
+        "@id": item.entityId,
+        name: item.name,
+        url: item.url,
+      },
     })),
   };
 }
