@@ -124,6 +124,18 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(buyingGuide, "product detail buying guide should reinforce single-H1 SEO cleanup").toContainText("可視H1を1つ");
       expect(await buyingGuide.locator("a").count(), "product detail buying guide should expose crawlable links").toBeGreaterThanOrEqual(4);
       expect(await buyingGuide.locator("a").first().getAttribute("class"), "product detail buying guide links should be visibly blue").toContain("text-blue-700");
+      const footer = page.getByTestId("storefront-footer");
+      await expect(footer, "product detail should include shared storefront footer").toBeVisible();
+      const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
+      await expect(footerSeoSitemap, "product detail should include footer SEO sitemap").toBeVisible();
+      await expect(footerSeoSitemap, "product detail footer sitemap should expose ItemList microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/ItemList",
+      );
+      await expect(footerSeoSitemap, "product detail footer sitemap should explain crawlable links").toContainText("SEO site map");
+      expect(await footerSeoSitemap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail footer sitemap should expose ListItem microdata").toBeGreaterThanOrEqual(20);
+      expect(await footerSeoSitemap.locator("a").count(), "product detail footer sitemap should expose dense internal links").toBeGreaterThanOrEqual(20);
+      expect(await footerSeoSitemap.locator("a").first().getAttribute("class"), "product detail footer sitemap links should be visibly sky colored").toContain("text-sky-200");
       const relatedCards = page.getByTestId("storefront-product-card");
       expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
       await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(

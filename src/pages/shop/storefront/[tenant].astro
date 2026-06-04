@@ -18,6 +18,7 @@ import {
   buildShopBreadcrumbSupportLinks,
   buildShopContextualLinkSections,
   buildShopFooterColumns,
+  buildShopFooterSeoSitemapLinks,
   buildShopHeaderCategoryLinks,
   buildShopPageActionMap,
   buildShopPageBuyingGuide,
@@ -65,6 +66,7 @@ const publicProductCards = products.map((product) => ({
 }));
 const breadcrumbItems = [{ name: "TOP", href: "", url: canonicalUrl }];
 const footerColumns = buildShopFooterColumns(tenantRoot);
+const footerSeoSitemapLinks = buildShopFooterSeoSitemapLinks(tenantRoot);
 const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections("", tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
@@ -119,6 +121,7 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
       ...buyingGuideLinks,
       ...contextualLinks,
       ...footerColumns.flatMap((column) => column.links),
+      ...footerSeoSitemapLinks,
     ],
   }),
 ].filter(Boolean)));

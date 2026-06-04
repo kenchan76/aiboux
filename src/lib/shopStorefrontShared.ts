@@ -365,6 +365,33 @@ export function buildShopFooterColumns(tenantRoot: string): ShopStorefrontLinkGr
   ];
 }
 
+export function buildShopFooterSeoSitemapLinks(tenantRoot: string): ShopStorefrontLink[] {
+  return [
+    { label: "TOPページ", href: `${tenantRoot}/` },
+    { label: "商品一覧", href: `${tenantRoot}/products` },
+    { label: "カテゴリ一覧", href: `${tenantRoot}/categories` },
+    { label: "食品・飲料", href: buildShopCategoryHref(tenantRoot, "food-drink") },
+    { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
+    { label: "キッチン用品", href: buildShopCategoryHref(tenantRoot, "kitchen") },
+    { label: "日用品", href: buildShopCategoryHref(tenantRoot, "daily-goods") },
+    { label: "ギフト", href: buildShopCategoryHref(tenantRoot, "gift") },
+    { label: "タイムセール", href: buildShopCategoryHref(tenantRoot, "sale") },
+    { label: "売れ筋ランキング", href: buildShopCategoryHref(tenantRoot, "ranking") },
+    { label: "カート", href: `${tenantRoot}/cart` },
+    { label: "チェックアウト", href: `${tenantRoot}/checkout` },
+    { label: "マイページ", href: `${tenantRoot}/mypage` },
+    { label: "注文履歴", href: `${tenantRoot}/orders` },
+    { label: "お気に入り", href: `${tenantRoot}/favorites` },
+    { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions` },
+    { label: "問い合わせ", href: `${tenantRoot}/contact` },
+    { label: "よくある質問", href: `${tenantRoot}/faq` },
+    { label: "配送について", href: `${tenantRoot}/shipping` },
+    { label: "返品について", href: `${tenantRoot}/returns` },
+    { label: "特定商取引法", href: `${tenantRoot}/legal` },
+    { label: "プライバシーポリシー", href: `${tenantRoot}/privacy` },
+  ];
+}
+
 export function buildShopFooterAssurances(): ShopStorefrontInfoCard[] {
   return [
     { title: "税込価格", body: "商品価格は税込表示で統一します。" },

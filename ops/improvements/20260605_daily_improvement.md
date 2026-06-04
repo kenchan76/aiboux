@@ -25,3 +25,7 @@ Every public ecommerce page should expose a shared trust matrix that makes selle
 ## 2026-06-05 Shop SEO Sitemap Panel Improvement
 
 Add a visible, shared SEO sitemap panel for every public storefront page. This makes page role, canonical target, robots policy, sitemap inclusion, and crawlable next links testable in public Playwright instead of relying only on hidden head tags or XML files.
+
+## 2026-06-05 Shop Footer SEO Sitemap Improvement
+
+For ecommerce pages, the footer must be treated as a shared SEO/UI surface, not a decorative afterthought. Public gates should verify that the footer exposes dense crawlable links, visible link styling, `SiteNavigationElement` columns, and an `ItemList` footer sitemap across every public storefront page.

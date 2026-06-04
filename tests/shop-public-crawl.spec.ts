@@ -106,8 +106,20 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         const footer = page.getByTestId("storefront-footer");
         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
-        expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(16);
+        expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
         await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("決済未接続時は注文確定しません");
+        const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
+        await expect(footerSeoSitemap, `${target.path} should include shared footer SEO sitemap`).toBeVisible();
+        await expect(footerSeoSitemap, `${target.path} footer SEO sitemap should expose ItemList microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/ItemList",
+        );
+        await expect(footerSeoSitemap, `${target.path} footer SEO sitemap should explain crawlable links`).toContainText("SEO site map");
+        await expect(footerSeoSitemap.locator('meta[itemprop="numberOfItems"]'), `${target.path} footer SEO sitemap should declare numberOfItems`).toHaveCount(1);
+        expect(await footerSeoSitemap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} footer SEO sitemap should expose ListItem microdata`).toBeGreaterThanOrEqual(20);
+        expect(await footerSeoSitemap.locator("a").count(), `${target.path} footer SEO sitemap should expose dense crawlable links`).toBeGreaterThanOrEqual(20);
+        expect(await footerSeoSitemap.locator("a").first().getAttribute("class"), `${target.path} footer sitemap links should be visibly blue or sky colored`).toContain("text-sky-200");
+        await expect(footerSeoSitemap, `${target.path} footer sitemap should include account, purchase, and policy routes`).toContainText(/商品一覧|注文履歴|特定商取引法|定期購入/);
         const supportRail = page.getByTestId("storefront-support-rail");
         await expect(supportRail, `${target.path} should include shared storefront support rail`).toBeVisible();
         await expect(supportRail, `${target.path} support rail should expose purchase guidance`).toContainText("迷わず買えるための確認導線");

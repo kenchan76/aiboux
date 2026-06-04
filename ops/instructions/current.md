@@ -4,6 +4,7 @@ Status: WIP
 
 Active instruction file:
 
+- `ops/instructions/20260605_shop_footer_seo_sitemap_quality.md`
 - `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
 - `ops/instructions/20260605_shop_all_pages_seo_common_parts_continuation.md`
 - `ops/instructions/20260605_shop_page_quality_summary_seo_ui.md`
@@ -15,6 +16,20 @@ Active instruction file:
 - `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
 - `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
 - `ops/instructions/20260605_shop_seo_sitemap_panel_commonization.md`
+
+## 2026-06-05 Continuation: Footer SEO Sitemap Quality
+
+Continue the active sales-quality sprint. The current work unit strengthens the shared storefront footer as an Amazon-quality, SEO-strong, all-page internal-link component.
+
+Current additions required:
+
+- Add a visible footer SEO sitemap area to `StorefrontFooter`.
+- Keep crawlable `<a href>` links with visible blue/sky link affordance.
+- Expose visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- Keep existing footer `SiteNavigationElement` columns.
+- Strengthen `tests/shop-public-crawl.spec.ts` to check footer sitemap, visible link color, and dense internal-link coverage on every public storefront page.
+- Keep product detail single-H1 and no duplicate product title above the gallery.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: SEO Sitemap Panel Commonization
 
