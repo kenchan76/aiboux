@@ -1,0 +1,7 @@
+200 https://shop.aiboux.com/s/aiboux/mypage
+200 https://shop.aiboux.com/s/aiboux/account
+200 https://shop.aiboux.com/s/aiboux/orders
+200 https://shop.aiboux.com/s/aiboux/favorites
+200 https://shop.aiboux.com/s/aiboux/login
+200 https://shop.aiboux.com/s/aiboux/register
+200 https://shop.aiboux.com/s/aiboux/mypage/subscriptions
