@@ -133,6 +133,22 @@ The local Shop UI protection warns because protected Shop paths are dirty.
 This warning no longer blocks WIP deploy.
 Final acceptance remains blocked until strict check and all completion evidence pass.
 
+## Public Execution Log Required Rule
+
+Every user-facing report must begin with:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Local-only `all_log/...` reports are prohibited.
+Reporting that `public/g/*.md` is updated locally is prohibited.
+Reporting that the next deploy will publish logs is prohibited.
+Before reporting, update `public/g/l68.md` and `public/g/d68.md`, build, deploy, and curl all three public `/g/*` URLs.
+
+Shop UI quality protection is warn-only for WIP deploys.
+Public execution log publication is mandatory and must not be skipped.
+
 ## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
 
 Status: WIP_FIXING

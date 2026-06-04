@@ -21,6 +21,27 @@
 `/g/d68` は、画面証跡、成果物証跡、確認対象を示す。
 この文書は、作業者、Codex、Claude、ChatGPT、開発AI、運用者が、過去の文脈を忘れてもAIBOUX全体を復元できるようにするための正本である。
 
+### 0.1 公開実行ログ必須ルール
+
+Codexは、ユーザーへ報告する前に必ず実行ログを公開URLへ反映する。
+
+報告の先頭に必ず次を出す。
+
+- 実行ログURL: `https://mail.aiboux.com/g/l68`
+- 画面証跡URL: `https://mail.aiboux.com/g/d68`
+- マスターURL: `https://mail.aiboux.com/g/m68`
+
+ローカルログだけで報告してはいけない。
+`all_log/...` だけの報告は禁止する。
+`public/g/*.md` をローカル更新済みとだけ報告することは禁止する。
+次回deployで反映される、という報告は禁止する。
+公開URLへ反映していないログを実行ログと呼んではいけない。
+
+報告前に必ず `https://mail.aiboux.com/g/m68`、`https://mail.aiboux.com/g/l68`、`https://mail.aiboux.com/g/d68` をcurlで取得し、HTTP status、content-type、sha256を記録する。
+
+Shop UI品質チェックはWIP deployではwarn-onlyでよい。
+ただし、実行ログ公開は必須であり、warn-onlyではない。
+
 ---
 
 ## 1. 最上位ルール: 省略禁止

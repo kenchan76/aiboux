@@ -1,0 +1,14 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M all_log/deploys/20260603T234225Z_deploy_shop_fix_01_log_refresh_command.txt
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+?? all_log/checkpoints/20260603T234225Z_wip_commit.txt
+?? all_log/deploys/20260603T234225Z_deployments_before.txt
+?? all_log/deploys/20260604T000811Z_deploy_public_log_required_rule_command.txt
+?? all_log/public-g/
+?? all_log/shop-ui/20260603T233309Z_admin_fixed_value_check_after_log_refresh.txt
+?? all_log/shop-ui/20260603T233309Z_g_bundle_after_log_refresh.txt
+?? all_log/shop-ui/20260603T233309Z_playwright_text_check_after_log_refresh.json
+?? all_log/shop-ui/20260603T233309Z_public_url_status_after_log_refresh.txt

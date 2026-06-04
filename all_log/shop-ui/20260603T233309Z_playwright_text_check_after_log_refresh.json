@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://shop.aiboux.com/s/aiboux/admin",
+    "status": 200,
+    "worker": "dcfa8521-62ed-4609-b0fc-af1e654b7077",
+    "title": "AIBOUX SHOP Dashboard",
+    "forbiddenFound": []
+  },
+  {
+    "url": "https://shop.aiboux.com/s/aiboux/",
+    "status": 200,
+    "worker": "dcfa8521-62ed-4609-b0fc-af1e654b7077",
+    "title": "AIBOUX Store | AIBOUX Storefront",
+    "forbiddenFound": []
+  },
+  {
+    "url": "https://shop.aiboux.com/s/aiboux/products",
+    "status": 200,
+    "worker": "dcfa8521-62ed-4609-b0fc-af1e654b7077",
+    "title": "商品一覧 | AIBOUX Store",
+    "forbiddenFound": []
+  },
+  {
+    "url": "https://shop.aiboux.com/s/aiboux/cart",
+    "status": 200,
+    "worker": "dcfa8521-62ed-4609-b0fc-af1e654b7077",
+    "title": "カート | AIBOUX Store",
+    "forbiddenFound": []
+  },
+  {
+    "url": "https://shop.aiboux.com/s/aiboux/checkout",
+    "status": 200,
+    "worker": "dcfa8521-62ed-4609-b0fc-af1e654b7077",
+    "title": "チェックアウト | AIBOUX Store",
+    "forbiddenFound": []
+  }
+]
