@@ -56,21 +56,21 @@ const categoryShowcase = [
   { name: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=420&h=280&q=82" },
   { name: "キッチン用品", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=420&h=280&q=82" },
   { name: "日用品", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "タオル・寝具", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "タオル・寝具", image: "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=420&h=280&q=82" },
   { name: "ビューティー", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "ペット用品", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "ペット用品", image: "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=420&h=280&q=82" },
   { name: "ギフト", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82" },
 ];
 
 const curatedStorefrontProducts: StorefrontProduct[] = [
   { id: "setsuka-coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ドリップコーヒー 20袋", price: "1,980", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/product/setsuka-coffee" },
   { id: "setsuka-bottle", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82", name: "軽量ステンレスボトル 500ml", price: "2,480", category: "キッチン用品", inStock: true, href: "/s/aiboux/product/setsuka-bottle" },
-  { id: "setsuka-towel", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ギフトタオル 2枚セット", price: "2,980", category: "タオル・寝具", inStock: true, href: "/s/aiboux/product/setsuka-towel" },
+  { id: "setsuka-towel", image: "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ギフトタオル 2枚セット", price: "2,980", category: "タオル・寝具", inStock: true, href: "/s/aiboux/product/setsuka-towel" },
   { id: "setsuka-storage", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82", name: "キッチン保存容器 6点セット", price: "3,280", category: "キッチン用品", inStock: true, href: "/s/aiboux/product/setsuka-storage" },
-  { id: "setsuka-cleaning", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使えるホームケア洗剤セット", price: "1,680", category: "日用品", inStock: true, href: "/s/aiboux/product/setsuka-cleaning" },
+  { id: "setsuka-cleaning", image: "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使えるホームケア洗剤セット", price: "1,680", category: "日用品", inStock: true, href: "/s/aiboux/product/setsuka-cleaning" },
   { id: "setsuka-skincare", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82", name: "ナチュラルスキンケア 3点セット", price: "4,280", category: "ビューティー", inStock: true, href: "/s/aiboux/product/setsuka-skincare" },
   { id: "setsuka-snack", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82", name: "焼き菓子アソートボックス", price: "2,380", category: "食品・飲料", inStock: true, href: "/s/aiboux/product/setsuka-snack" },
-  { id: "setsuka-pet", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82", name: "ペットケアおでかけセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/product/setsuka-pet" },
+  { id: "setsuka-pet", image: "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=720&h=720&q=82", name: "ペットケアおでかけセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/product/setsuka-pet" },
   { id: "setsuka-gift", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/product/setsuka-gift" },
   { id: "setsuka-tea", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82", name: "国産茶葉ティーバッグ 30包", price: "1,780", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/product/setsuka-tea" },
 ];
@@ -677,8 +677,8 @@ function imageForProduct(name: string, category: string, index: number) {
   const source = `${name} ${category}`.toLowerCase();
   const images = {
     coffee: [
-      "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     bottle: [
       "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82",
