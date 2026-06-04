@@ -1,0 +1,30 @@
+TS=20260604T012024Z
+status=200
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+pragma: no-cache
+expires: 0
+clear-site-data: "cache"
+x-aiboux-admin-cache-policy: no-store-clear-cache
+x-aiboux-worker-version: 9f28a3bb-99e5-4655-9caf-999263b016f4
+x-aiboux-original-path: /s/aiboux/admin
+x-aiboux-rewritten-path: /shop/dashboard
+server: cloudflare
+--- grep ---
+OK 2024/05
+OK 山田
+OK ¥2,340,000
+OK 245件
+OK 2.35%
+OK ¥9,551
+OK 28.7%
+OK TSH-001
+OK BAG-001
+OK BTL-500
+OK #10085
+OK #10084
+OK #10083
+OK 佐藤
+OK 鈴木
+OK 田中

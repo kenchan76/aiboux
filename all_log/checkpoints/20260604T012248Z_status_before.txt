@@ -1,0 +1,11 @@
+ M all_log/deploys/20260604T012500Z_deploy_shop_admin_cache_headers.txt
+ M public/g/d68.md
+ M public/g/l68.md
+?? all_log/checkpoints/20260604T012024Z_wip_commit.txt
+?? all_log/deploys/20260604T012024Z_deployments_before.txt
+?? all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt
+?? all_log/public-checks/20260604T012024Z_admin_cache_headers.headers
+?? all_log/public-checks/20260604T012024Z_admin_cache_headers.html
+?? all_log/public-checks/20260604T012024Z_admin_cache_headers_grep.txt
+?? all_log/public-checks/20260604T012024Z_admin_cache_headers_playwright_result.json
+?? all_log/public-checks/20260604T012024Z_shop_admin_route_cache_mismatch_summary.md
