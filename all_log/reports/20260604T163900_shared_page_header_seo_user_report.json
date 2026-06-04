@@ -28,7 +28,12 @@
   "notes": [
     "Latest deployed Worker Version ID observed after final log alignment deploy: c1e785e2-1b71-47f7-8728-79e8e46096f0",
     "Implementation commit: 4b90bb0",
-    "Evidence commits: 683b487, c78750f, cbdbc62, 28723b6",
+    "Evidence commits: 683b487, c78750f, cbdbc62, 28723b6, 7cbf227",
+    "Changed files include src/components/shop/storefront/StorefrontPageHeader.tsx, src/lib/shopStorefrontShared.ts, src/pages/shop/[tenant]/[...path].astro, tests/shop-public-crawl.spec.ts, ops/instructions/current.md, ops/instructions/20260605_shop_shared_page_header_seo_ui.md, AIBOUX_MASTER_DOCUMENT.md, public/g/m68.md, public/g/l68.md, public/g/d68.md, and evidence logs/screenshots.",
+    "Reference: https://developers.google.com/search/docs/specialty/ecommerce",
+    "Reference: https://developers.google.com/search/docs/appearance/structured-data/product-snippet",
+    "Reference: https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites",
+    "Reference: https://schema.org/BreadcrumbList",
     "Published public log contains SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP and SHOP_10H_SHARED_PAGE_HEADER_SEO_PUBLICATION_AND_BARK markers.",
     "No git push was performed."
   ]
