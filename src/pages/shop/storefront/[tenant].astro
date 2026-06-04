@@ -47,6 +47,29 @@ const breadcrumbJsonLd = JSON.stringify([
       "query-input": "required name=search_term_string",
     },
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: storeName,
+    url: canonicalUrl,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: profile?.contactEmail || undefined,
+      telephone: profile?.phone || undefined,
+      areaServed: "JP",
+      availableLanguage: ["ja"],
+    },
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "JP",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 7,
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+      merchantReturnLink: new URL(`/s/${encodeURIComponent(tenantParam)}/returns`, "https://shop.aiboux.com").toString(),
+    },
+  },
 ]);
 
 const storefrontProducts = products.map((product) => ({

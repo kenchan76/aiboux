@@ -106,8 +106,11 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
 
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
+        <nav className="flex items-center gap-1 py-3 text-xs text-neutral-500" aria-label="パンくず" data-testid="storefront-breadcrumb">
+          <span className="font-semibold text-neutral-700" aria-current="page">TOP</span>
+        </nav>
         <section
-          className="pt-3"
+          className="pt-0"
           data-testid="hero-carousel"
           data-hero-carousel
           data-slides={JSON.stringify(slides)}
