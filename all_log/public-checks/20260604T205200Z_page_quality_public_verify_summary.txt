@@ -1,0 +1,26 @@
+Status: SHOP_5H_PAGE_QUALITY_SUMMARY_SEO_UI_WIP public verification
+
+Public URLs:
+- m68: HTTP/2 200 / content-type: text/markdown; charset=utf-8
+- l68: HTTP/2 200 / content-type: text/markdown; charset=utf-8
+- d68: HTTP/2 200 / content-type: text/markdown; charset=utf-8
+- shop top: HTTP/2 200 / x-aiboux-worker-version: b020b5b0-f913-4fcc-8301-c16ae44843d9
+- shop product: HTTP/2 200 / x-aiboux-worker-version: b020b5b0-f913-4fcc-8301-c16ae44843d9
+
+Markers:
+- m68 contains SHOP_5H_PAGE_QUALITY_SUMMARY_SEO_UI_WIP: yes
+- l68 contains SHOP_5H_PAGE_QUALITY_SUMMARY_SEO_UI_WIP: yes
+- d68 contains SHOP_5H_PAGE_QUALITY_SUMMARY_SEO_UI_WIP: yes
+- shop top contains storefront-page-quality-summary: yes
+- shop product contains storefront-page-quality-summary: yes
+
+SHA note:
+- public /g bodies replace __WORKER_VERSION_ID__ at runtime, so source markdown SHA and public body SHA differ by runtime substitution.
+
+Source/public sha256:
+842d613572c441fa66370e23462f9639a8bb13055fb3ef926a94b283ee633506  public/g/m68.md
+f70518ccb5de51f944fd620c69c57087a20232d2e14b2b085adaa4f2b368d0ec  all_log/public-checks/20260604T205200Z_m68.body
+f82266f13042df349df636c98bc6313d603cdbee8a9bb59bea2973e1d4bcb946  public/g/l68.md
+50ec5122d5f5da3d17e715ca61e74abd41de12d11fde5f4b956f2a8e9bc4d377  all_log/public-checks/20260604T205200Z_l68.body
+e9ac028259c3252f325bb6a752a8f44cc6148f3d4e57e75506ff93258cbc9fb0  public/g/d68.md
+9a61ce909be467527d3285aea48a1d03147ae81d45ef14dec3e864c7853085e6  all_log/public-checks/20260604T205200Z_d68.body
