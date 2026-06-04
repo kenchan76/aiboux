@@ -184,11 +184,6 @@ function isPublicTestProductName(value: string | null | undefined): boolean {
   return /公開検証商品|検証商品|テスト商品|dummy|sample|test product/i.test(String(value ?? ""));
 }
 
-function isWeakStoreImage(value: string | null | undefined): boolean {
-  if (!value) return true;
-  return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-|unsplash\.com\/photo-1516321318423/i.test(value);
-}
-
 function inferSalesCategory(name: string, category: string): string {
   const source = `${name} ${category}`.toLowerCase();
   if (/コーヒー|珈琲|茶|coffee|tea/.test(source)) return "コーヒー・お茶";
@@ -196,8 +191,8 @@ function inferSalesCategory(name: string, category: string): string {
   if (/ボトル|水筒|保存|キッチン|kitchen|bottle|家電/.test(source)) return "キッチン用品";
   if (/食品|飲料|菓子|パン|food|drink|snack/.test(source)) return "食品・飲料";
   if (/洗剤|掃除|日用品|ホームケア|daily|clean/.test(source)) return "日用品";
-  if (/美容|コスメ|ケア|beauty|skin/.test(source)) return "ビューティー";
   if (/ペット|pet/.test(source)) return "ペット用品";
+  if (/美容|コスメ|スキン|beauty|skin/.test(source)) return "ビューティー";
   if (/ギフト|gift/.test(source)) return "ギフト";
   return category && category !== "未分類" && !/^\d+$/.test(category) ? category : "日用品";
 }
@@ -246,8 +241,8 @@ function imageForSalesProduct(name: string, category: string, index: number): st
   const source = `${name} ${category}`.toLowerCase();
   const groups: Record<string, string[]> = {
     coffee: [
+      "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=920&h=920&q=84",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=920&h=920&q=84",
     ],
     bottle: [
@@ -256,9 +251,9 @@ function imageForSalesProduct(name: string, category: string, index: number): st
       "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=920&h=920&q=84",
     ],
     towel: [
+      "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&w=920&h=920&q=84",
-      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
     ],
     food: [
       "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=920&h=920&q=84",
@@ -271,7 +266,7 @@ function imageForSalesProduct(name: string, category: string, index: number): st
       "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=920&h=920&q=84",
     ],
     daily: [
-      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
     ],
@@ -281,7 +276,7 @@ function imageForSalesProduct(name: string, category: string, index: number): st
       "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=920&h=920&q=84",
     ],
     pet: [
-      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=920&h=920&q=84",
     ],
@@ -299,12 +294,12 @@ function imageForSalesProduct(name: string, category: string, index: number): st
         ? "towel"
         : /食品|飲料|菓子|パン|food|drink|snack/.test(source)
           ? "food"
-          : /キッチン|保存|家電|kitchen/.test(source)
-            ? "kitchen"
-            : /美容|コスメ|ケア|beauty|skin/.test(source)
-              ? "beauty"
-              : /ペット|pet/.test(source)
+            : /キッチン|保存|家電|kitchen/.test(source)
+              ? "kitchen"
+            : /ペット|pet/.test(source)
                 ? "pet"
+                : /美容|コスメ|スキン|beauty|skin/.test(source)
+                  ? "beauty"
                 : /ギフト|gift/.test(source)
                   ? "gift"
                   : "daily";
@@ -315,9 +310,7 @@ function imageForSalesProduct(name: string, category: string, index: number): st
 function toSalesProductDetail(productValue: any, index: number) {
   const category = inferSalesCategory(String(productValue?.displayName ?? ""), String(productValue?.categoryName ?? ""));
   const name = displayNameForPublicProduct(productValue, category);
-  const imageUrl = isWeakStoreImage(productValue?.imageUrl) || isPublicTestProductName(productValue?.displayName)
-    ? imageForSalesProduct(name, category, index)
-    : String(productValue.imageUrl);
+  const imageUrl = imageForSalesProduct(name, category, index);
   const description = isPublicTestProductName(productValue?.displayName) || !productValue?.description
     ? `${name}は、毎日の暮らしで使いやすい品質と価格のバランスを重視した雪花セレクトの商品です。ギフトやまとめ買いにも選びやすいよう、配送条件と在庫状況を確認しながら購入できます。`
     : String(productValue.description);
@@ -358,7 +351,7 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
     { id: "setsuka-pet-related", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480, imageUrl: imageForSalesProduct("ペットケアおでかけセット", "ペット用品", 2) },
     { id: "setsuka-tea-related", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780, imageUrl: imageForSalesProduct("国産茶葉ティーバッグ 30包", "コーヒー・お茶", 2) },
   ];
-  return [...normalized, ...fallback].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
+  return [...fallback, ...normalized].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
 }
 
 function splitPolicyText(value: string): Array<{ title: string; body: string }> {

@@ -78,4 +78,17 @@ Additional active requirements:
 - Categories page must be image-backed and dense, not a thin text list.
 - Checkout, mypage, auth, and subscription pages may honestly block unconnected auth/payment/subscription actions, but must still look like finished storefront pages.
 - `tests/shop-public-crawl.spec.ts` must require `storefront-footer` on all public pages.
+
+## 2026-06-04 User Escalation: Still Not Amazon Quality
+
+The latest public screenshots still fail visual quality because product names and images do not match on multiple storefront surfaces.
+
+Immediate fixes:
+
+- Do not trust old DB/sample product images for the public sales storefront when they produce mismatched product/name pairs.
+- Normalize public product images from the display name and sales category.
+- Pet products must classify as pet before generic "care" or beauty matching.
+- Towels must show towels, bottles must show bottles, cleaning products must show cleaning products, pet products must show pet products, and coffee/tea must show coffee/tea.
+- TOP, products, mypage recently viewed, favorites, ranking, time sale, related products, and product detail thumbnails must use the same sales-ready image mapping.
+- Re-run public screenshots after deploy and inspect the visual result before reporting.
 - FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.

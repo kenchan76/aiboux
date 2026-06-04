@@ -632,7 +632,7 @@ function buildSalesReadyProducts(products: StorefrontProduct[]) {
   const realProducts = products
     .filter((product) => !isPublicTestProduct(product.name))
     .map((product, index) => toSalesReadyProduct(product, index));
-  const merged = [...realProducts, ...curatedStorefrontProducts].filter((product, index, array) => {
+  const merged = [...curatedStorefrontProducts, ...realProducts].filter((product, index, array) => {
     const duplicateName = array.findIndex((item) => item.name === product.name) !== index;
     return !duplicateName;
   });
@@ -651,11 +651,10 @@ function isWeakImage(value: string | null | undefined) {
 
 function toSalesReadyProduct(product: StorefrontProduct, index: number): StorefrontProduct {
   const category = inferCategory(product);
-  const useOriginalAsset = /^\/shop\/api\/assets\//.test(product.image) && !isWeakImage(product.image);
   return {
     ...product,
     category,
-    image: useOriginalAsset ? product.image : imageForProduct(product.name, category, index),
+    image: imageForProduct(product.name, category, index),
     href: product.href || "/s/aiboux/products",
   };
 }
@@ -667,8 +666,8 @@ function inferCategory(product: StorefrontProduct) {
   if (/タオル|寝具|布|towel/.test(source)) return "タオル・寝具";
   if (/食品|飲料|菓子|パン|food|drink|snack/.test(source)) return "食品・飲料";
   if (/洗剤|掃除|日用品|ホームケア|daily|clean/.test(source)) return "日用品";
-  if (/美容|コスメ|ケア|beauty|skin/.test(source)) return "ビューティー";
   if (/ペット|pet/.test(source)) return "ペット用品";
+  if (/美容|コスメ|スキン|beauty|skin/.test(source)) return "ビューティー";
   if (/ギフト|gift/.test(source)) return "ギフト";
   if (/家電|電/.test(source)) return "キッチン用品";
   return product.category && product.category !== "未分類" ? product.category : "日用品";
@@ -678,15 +677,15 @@ function imageForProduct(name: string, category: string, index: number) {
   const source = `${name} ${category}`.toLowerCase();
   const images = {
     coffee: [
+      "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     bottle: [
       "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     towel: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82",
+      "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     food: [
@@ -698,7 +697,7 @@ function imageForProduct(name: string, category: string, index: number) {
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     daily: [
-      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82",
+      "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     beauty: [
@@ -706,7 +705,7 @@ function imageForProduct(name: string, category: string, index: number) {
       "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     pet: [
-      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82",
+      "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=720&h=720&q=82",
       "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     gift: [
@@ -724,10 +723,10 @@ function imageForProduct(name: string, category: string, index: number) {
           ? "food"
           : /キッチン|保存|家電|kitchen/.test(source)
             ? "kitchen"
-            : /美容|コスメ|ケア|beauty|skin/.test(source)
-              ? "beauty"
-              : /ペット|pet/.test(source)
+            : /ペット|pet/.test(source)
                 ? "pet"
+                : /美容|コスメ|スキン|beauty|skin/.test(source)
+                  ? "beauty"
                 : /ギフト|gift/.test(source)
                   ? "gift"
                   : "daily";
