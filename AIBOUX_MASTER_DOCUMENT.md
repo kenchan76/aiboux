@@ -4740,6 +4740,8 @@ Status: `WIP_DEPLOYED_NOT_FINAL`
 Latest public evidence publication:
 - Evidence commit: `683b487`
 - Public evidence Worker Version ID: `9b7fe5ca-9d1a-4ea2-a89a-cfd79c5ce4ab`
+- Bark evidence commit: `c78750f`
+- Bark evidence publication Worker Version ID: `a97cd55e-9531-467c-bf97-d45cae19cc71`
 - Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
 - Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
 
