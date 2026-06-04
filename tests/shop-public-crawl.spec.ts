@@ -535,8 +535,12 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
     await expect(header.getByRole("link", { name: "ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
 
     const footer = page.getByTestId("storefront-footer");
-    await expect(footer.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
-    await expect(footer.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+    const footerShoppingColumn = footer.getByLabel("お買い物");
+    await expect(footerShoppingColumn.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+    await expect(footerShoppingColumn.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+    const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
+    await expect(footerSeoSitemap.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+    await expect(footerSeoSitemap.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
 
     await page.goto("/s/aiboux/product/setsuka-coffee", { waitUntil: "networkidle" });
     const breadcrumb = page.getByTestId("storefront-breadcrumb");
