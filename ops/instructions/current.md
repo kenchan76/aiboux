@@ -196,3 +196,56 @@ Cycle 01 evidence target:
 - `all_log/shop-ui/${TS}_shop_fix_01.md`
 - `all_log/shop-ui/${TS}_public_url_status_before_fix_01.txt`
 - `all_log/shop-ui/${TS}_public_url_status_after_fix_01.txt`
+
+## Fix Cycle 02: Public Admin Demo Value Recheck
+
+Status: WIP_FIXING
+
+Instruction file:
+
+- `ops/instructions/20260604_shop_public_admin_demo_value_recheck.md`
+
+Reason:
+
+The user reports that public `https://shop.aiboux.com/s/aiboux/admin` still shows fixed demo values even after the previous WIP report.
+
+Cycle 02 blocks product/settings/cart work until public admin fixed demo value checks pass against the actual production URL.
+
+Required direct public checks:
+
+- curl public admin HTML
+- Playwright public rendered DOM
+- source search for Shop-related fixed demo values
+
+Do not use localhost, preview-only URLs, or alternate routes as proof.
+
+Cycle 02 fixed values to remove or prove absent from Shop public admin:
+
+- `2024/05/13 - 2024/05/19`
+- `山田 太郎`
+- `¥2,340,000`
+- `245件`
+- `2.35%`
+- `¥9,551`
+- `28.7%`
+- `TSH-001-WHT`
+- `BAG-001-BLK`
+- `BTL-500-SLV`
+- `#10085`
+- `#10084`
+- `#10083`
+- `佐藤 花子`
+- `鈴木 一郎`
+- `田中 美咲`
+
+Cycle 02 scope:
+
+- Remove Shop-related fixed values from production-visible and delayed UI code.
+- Do not redesign the Shop UI.
+- Do not modify Core/Mail sample data unless it is rendered inside Shop public admin.
+
+Cycle 02 report must be published to:
+
+- `https://mail.aiboux.com/g/l68`
+- `https://mail.aiboux.com/g/d68`
+- `https://mail.aiboux.com/g/m68`

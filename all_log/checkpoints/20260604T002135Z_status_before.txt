@@ -1,0 +1,11 @@
+ M all_log/deploys/20260604T002000Z_deploy_public_log_required_rule_second_publish.txt
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M src/components/ai/ShopAIAssistantPanel.tsx
+?? all_log/checkpoints/20260604T001112Z_wip_commit.txt
+?? all_log/deploys/20260604T001112Z_deployments_before.txt
+?? all_log/deploys/20260604T002200Z_deploy_shop_public_admin_demo_recheck.txt
+?? all_log/public-checks/
+?? all_log/public-g/20260604T001112Z_public_log_required_rule_final_verify.txt
+?? ops/instructions/20260604_shop_public_admin_demo_value_recheck.md

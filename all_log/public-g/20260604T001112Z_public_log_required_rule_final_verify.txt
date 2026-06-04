@@ -1,0 +1,12 @@
+m68 status=200 bytes=111384 local_sha=634965bada94f347a87d62f0e84c842bf88f7404d611e6635bb8f0248cbd46a6 remote_sha=2703a9abec6e3391d68a46bd8e2f33c431b6b5a910dacac00631935d60e0f522 content-type: text/markdown; charset=utf-8
+l68 status=200 bytes=9915 local_sha=6e16f108e1df9dbaead8c4069bca3efc20dd1c08ada2f31d12eacd04157703ec remote_sha=116c61b269a1b9697b0bf211a87d4ced06d696bd700767aa83dd44f4e0cb0e71 content-type: text/markdown; charset=utf-8
+d68 status=200 bytes=5029 local_sha=58e423712c7dd9096fd2801a3519c061aea94f26dda9b3a30e136488b13d85a7 remote_sha=dc95f9148b28e1e1636502358ea8edb674df347fb6734f707aae0d3dd6eb4a14 content-type: text/markdown; charset=utf-8
+--- content checks ---
+l68 contains Public Execution Log Required Rule
+l68 contains Execution log URL
+l68 contains WIP_LOG_RULE_PUBLISHED
+l68 contains current Worker Version ID
+d68 contains Screen evidence URL
+d68 contains WIP_LOG_RULE_PUBLISHED
+d68 contains current Worker Version ID
+m68 contains 公開実行ログ必須ルール

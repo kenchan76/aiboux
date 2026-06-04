@@ -99,28 +99,28 @@ function AIPanelContent({ activeSection }: { activeSection: ShopSection }) {
 
           <Card className="shadow-none">
             <CardHeader className="px-3 py-2">
-              <CardTitle className="text-sm">売上分析レポート（5/13-5/19）</CardTitle>
+              <CardTitle className="text-sm">売上分析レポート</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 px-3 pb-3 text-sm">
               <div className="grid grid-cols-2 gap-2">
                 <div className="rounded-lg border border-neutral-200 p-2">
                   <div className="text-xs text-neutral-500">売上</div>
-                  <div className=" text-lg font-semibold">¥2,340,000</div>
+                  <div className=" text-lg font-semibold">未集計</div>
                 </div>
                 <div className="rounded-lg border border-neutral-200 p-2">
                   <div className="text-xs text-neutral-500">注文数</div>
-                  <div className=" text-lg font-semibold">245件</div>
+                  <div className=" text-lg font-semibold">0件</div>
                 </div>
               </div>
               <ul className="list-disc space-y-1 pl-4 text-neutral-600">
-                <li>売上は前期間比で18.5%増加しています。</li>
-                <li>平均注文単価は¥9,551で、前期間より2.1%改善しています。</li>
-                <li>在庫が少ない上位商品を補充すると機会損失を抑えられます。</li>
+                <li>実注文データが入ると売上、注文数、平均注文単価を集計します。</li>
+                <li>未接続データをサンプル売上として表示しません。</li>
+                <li>在庫や商品改善の提案は、実データ同期後に表示します。</li>
               </ul>
-              <Progress value={72} />
+              <Progress value={0} />
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">詳細を表示</Button>
-                <Button variant="outline" size="sm">レポートを作成</Button>
+                <Button variant="outline" size="sm">集計状態を確認</Button>
+                <Button variant="outline" size="sm">設定を確認</Button>
               </div>
             </CardContent>
           </Card>
