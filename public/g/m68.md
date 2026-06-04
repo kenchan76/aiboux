@@ -4733,6 +4733,48 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must expose a connected SEO entity graph, not isolated JSON-LD fragments.
+- The shared storefront entity is identified with a stable `#store` ID.
+- The shared website entity is identified with a stable `#website` ID.
+- Public WebPage JSON-LD must include `isPartOf`, `publisher`, and `about`.
+- Store organization markup must include the ecommerce `OnlineStore` subtype while retaining `Organization`.
+- Product detail JSON-LD must link `Product.mainEntityOfPage` to the canonical page entity.
+- Product Offer must link `seller` to the shared store entity.
+- Product Offer must keep `OfferShippingDetails` and `MerchantReturnPolicy`.
+- Visible breadcrumbs, crawlable links, shared page headers, SEO hub, support rail, and footer remain required shared SEO/UI parts.
+
+Current implementation files:
+- Shared SEO builder: `src/lib/shopSeo.ts`
+- Public tenant page integration: `src/pages/shop/[tenant]/[...path].astro`
+- Public TOP integration: `src/pages/shop/storefront/[tenant].astro`
+- Public crawl gate: `tests/shop-public-crawl.spec.ts`
+- Product detail gate: `tests/shop-product-detail-public.spec.ts`
+
+Reference SEO basis:
+- Google Search Central ecommerce guidance: ecommerce pages should expose product/store meaning clearly.
+- Google Search Central Product structured data guidance: Product and Offer data should include product facts, shipping, and return policy where applicable.
+- Google Search Central MerchantReturnPolicy guidance: return-policy structured data can expose return method, fees, window, and policy links.
+- Schema.org references: `OnlineStore`, `WebSite`, `WebPage`, `BreadcrumbList`, `Product`, and `Offer`.
+
+Latest evidence:
+- WIP commit: `b6ba295`
+- Worker Version ID: `d7617383-347a-43b5-ab4d-dc54ddab17d7`
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-sales-quality`: PASS
+- Direct public HTML checks for seven tenant URLs: HTTP 200 with `OnlineStore`, `#store`, `#website`, `isPartOf`, `publisher`, `about`, and `MerchantReturnPolicy`.
+- Product detail direct HTML also includes `OfferShippingDetails`, `mainEntityOfPage`, and `seller`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_SHARED_PAGE_HEADER_SEO_PUBLICATION_AND_BARK
 
 Status: `WIP_DEPLOYED_NOT_FINAL`

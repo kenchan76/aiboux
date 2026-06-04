@@ -1,0 +1,14 @@
+200 /s/aiboux/
+#store #website MerchantReturnPolicy OnlineStore about isPartOf publisher seller 
+200 /s/aiboux/products
+#store #website MerchantReturnPolicy OnlineStore about isPartOf publisher 
+200 /s/aiboux/contact
+#store #website MerchantReturnPolicy OnlineStore about isPartOf publisher 
+200 /s/aiboux/faq
+#store #website MerchantReturnPolicy OnlineStore about isPartOf publisher 
+200 /s/aiboux/shipping
+#store #website MerchantReturnPolicy OnlineStore about isPartOf publisher 
+200 /s/aiboux/returns
+#store #website MerchantReturnPolicy OnlineStore about isPartOf publisher 
+200 /s/aiboux/product/shopprod_tenant_001_4580000232621
+#store #website MerchantReturnPolicy OfferShippingDetails OnlineStore about isPartOf mainEntityOfPage publisher seller 
