@@ -104,4 +104,42 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
       }
     }
   });
+
+  test("public storefront internal links resolve to implemented tenant pages", async ({ request }) => {
+    const discovered = new Set<string>();
+
+    for (const target of publicUrls) {
+      const response = await request.get(target.path, { headers: { "cache-control": "no-cache" } });
+      expect(response.status(), target.path).toBe(200);
+      const html = await response.text();
+
+      for (const match of html.matchAll(/href="([^"]+)"/g)) {
+        const href = match[1];
+        if (
+          !href ||
+          href.startsWith("#") ||
+          href.startsWith("javascript:") ||
+          href.startsWith("mailto:") ||
+          href.startsWith("tel:")
+        ) {
+          continue;
+        }
+
+        const url = new URL(href, "https://shop.aiboux.com");
+        if (url.hostname === "shop.aiboux.com" && url.pathname.startsWith("/s/aiboux")) {
+          discovered.add(url.pathname);
+        }
+      }
+    }
+
+    expect(discovered.size, "tenant storefront should expose internal links for account, commerce, and policy pages").toBeGreaterThan(12);
+
+    for (const pathname of [...discovered].sort()) {
+      const linked = await request.get(pathname, { headers: { "cache-control": "no-cache" } });
+      expect(linked.status(), pathname).toBe(200);
+      const body = await linked.text();
+      expect(body, pathname).not.toContain("ページが見つかりません");
+      expect(body, pathname).not.toContain("Not Found");
+    }
+  });
 });

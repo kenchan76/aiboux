@@ -32,6 +32,7 @@ Timestamp: `2026-06-04T11:03:50Z`
 - `npm run astro check`: PASS
 - `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
 - `npm run gate:shop-public-crawl`: PASS, 4 passed
+- `npm run gate:shop-public-crawl` after internal-link gate expansion: PASS, 5 passed
 - `npm run gate:shop-sales-quality`: PASS
 - `npm run gate:shop-subscriptions`: FAIL as expected with `SUBSCRIPTION_SCHEMA_PENDING`
 
@@ -60,3 +61,4 @@ Timestamp: `2026-06-04T11:03:50Z`
 - This is not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration is not applied.
 - Provider-backed recurring billing is not verified.
+- Internal storefront links under `/s/aiboux` are now extracted by Playwright and verified to return HTTP 200.
