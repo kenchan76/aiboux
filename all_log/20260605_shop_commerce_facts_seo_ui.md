@@ -49,6 +49,9 @@ Strengthen all public AIBOUX Shop tenant pages with shared SEO/UI purchase facts
 - WIP implementation commit: `d2bc86e`
 - WIP deploy checkpoint commit: `6b93e7d`
 - Implementation Worker Version ID: `d3a99848-acc8-47be-bd09-661e24b1fe85`
+- Public evidence Worker Version ID after evidence deploy: `30472ab8-2e60-4115-9489-8d575bfefdec`
+- Evidence publication commit: `e4e998a`
+- Evidence deploy log: `all_log/deploys/20260604T200405Z_commerce_facts_evidence_wrangler_deploy.txt`
 
 ## Verification
 
@@ -59,6 +62,10 @@ Strengthen all public AIBOUX Shop tenant pages with shared SEO/UI purchase facts
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present.
+- Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present.
+- Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / marker present.
+- SHA note: public `/g/*` bodies include runtime Worker Version ID substitution, so source and fetched body SHA can differ.
 
 ## Evidence Summary
 
