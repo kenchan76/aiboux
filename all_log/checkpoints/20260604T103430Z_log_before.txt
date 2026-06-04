@@ -1,0 +1,10 @@
+7e75f3e WIP polish shop sales pages cycle 2
+0452aa7 WIP preserve subscription blocker artifacts
+f433a18 WIP render shop sales quality sprint report
+ec5c4d3 WIP record shop sales quality public verification
+5868719 WIP publish shop sales quality sprint evidence
+ab2bdc6 WIP add shop sales quality sprint gates
+e4ddcc3 WIP render shop carousel smoothness report
+5610b21 WIP record shop carousel smoothness public verification
+e1ab463 WIP publish shop carousel smoothness evidence
+afb7187 WIP smooth shop storefront carousel
