@@ -4661,3 +4661,17 @@ Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
 - `tests/shop-public-crawl.spec.ts` now verifies footer `SiteNavigationElement` microdata, dense internal link coverage, and payment-not-configured honesty text on public URLs.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-04T15:18:00Z Current Evidence Note: Shop Shared Footer Public Verification
+
+Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
+
+- WIP commit before deploy: `6d86c1d`
+- Worker Version ID: `8dd4a847-0b5b-4df2-87c7-9a7a2442356d`
+- Public TOP `https://shop.aiboux.com/s/aiboux/`: HTTP 200 / shared footer DOM present.
+- Public cart `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200 / shared footer DOM present.
+- Public footer DOM confirms `data-testid="storefront-footer"`, `SiteNavigationElement`, dense internal footer links, and honest `決済未接続時は注文確定しません` messaging.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
