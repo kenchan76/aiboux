@@ -1,0 +1,92 @@
+
+ ⛅️ wrangler 4.94.0 (update available 4.97.0)
+─────────────────────────────────────────────
+Created:     2026-06-03T14:28:32.968Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 6f9bca52-3b61-47ef-80dd-61c3b4022d0a
+                 Created:  2026-06-03T14:28:31.705Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:37:35.287Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) b9156463-a63c-4fc5-917c-f1a3ef53f235
+                 Created:  2026-06-03T14:37:34.067Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T14:45:51.664Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 51417201-5383-45b6-8393-a9c5c55611cf
+                 Created:  2026-06-03T14:45:50.069Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T15:27:36.317Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     Rollback before Shop production tenant completion after user request
+Version(s):  (100%) e4d53580-8a17-4de9-98f4-f64e4b1178e6
+                 Created:  2026-06-03T13:26:28.782Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:15:12.091Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 48abf844-f3e7-493f-9086-7a21a5a1c345
+                 Created:  2026-06-03T23:15:09.116Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:19:55.693Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 5fcb5a8e-4aef-42e9-a8a7-13b83462df7b
+                 Created:  2026-06-03T23:19:54.346Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:22:56.836Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) ed81108e-549c-4f02-8f32-bd70fc3e4efe
+                 Created:  2026-06-03T23:22:55.305Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:26:45.699Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 5f64b20a-d4ef-42e5-95e9-6f262c4e5dd8
+                 Created:  2026-06-03T23:26:43.912Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:40:42.879Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) ed331907-7c17-4135-8184-746d9989c229
+                 Created:  2026-06-03T23:40:41.464Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-03T23:43:11.597Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) dcfa8521-62ed-4609-b0fc-af1e654b7077
+                 Created:  2026-06-03T23:43:10.264Z
+                     Tag:  -
+                 Message:  -

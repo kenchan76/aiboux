@@ -1,0 +1,22 @@
+timestamp=20260604T000812Z
+commit_status=0
+head_after=c3a4689970102059d9545ebbd2cf2067d6b9db68
+commit_stdout:
+[main c3a4689] WIP shop aiboux tenant deploy checkpoint 20260604T000812Z
+ 20 files changed, 1773 insertions(+)
+ create mode 100644 all_log/checkpoints/20260603T234225Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T000812Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T000812Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T000812Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T000812Z_status_before.txt
+ create mode 100644 all_log/deploys/20260603T234225Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T000811Z_deploy_public_log_required_rule_command.txt
+ create mode 100644 all_log/patches/20260604T000812Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T000812Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-g/20260604T000724Z_public_log_required_rule.md
+ create mode 100644 all_log/shop-ui/20260603T233309Z_admin_fixed_value_check_after_log_refresh.txt
+ create mode 100644 all_log/shop-ui/20260603T233309Z_g_bundle_after_log_refresh.txt
+ create mode 100644 all_log/shop-ui/20260603T233309Z_playwright_text_check_after_log_refresh.json
+ create mode 100644 all_log/shop-ui/20260603T233309Z_public_url_status_after_log_refresh.txt
+
+commit_stderr:

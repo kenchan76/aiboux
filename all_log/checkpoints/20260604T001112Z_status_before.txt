@@ -1,0 +1,8 @@
+ M all_log/deploys/20260604T000811Z_deploy_public_log_required_rule_command.txt
+ M public/g/d68.md
+ M public/g/l68.md
+?? all_log/checkpoints/20260604T000812Z_wip_commit.txt
+?? all_log/deploys/20260604T000812Z_deployments_before.txt
+?? all_log/deploys/20260604T002000Z_deploy_public_log_required_rule_second_publish.txt
+?? all_log/public-g/20260604T000724Z_public_log_required_rule_public_verify.txt
+?? all_log/public-g/20260604T002000Z_public_log_required_rule_second_publish.md

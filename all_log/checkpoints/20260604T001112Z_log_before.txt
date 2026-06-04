@@ -1,0 +1,10 @@
+c3a4689 WIP shop aiboux tenant deploy checkpoint 20260604T000812Z
+39fc79f WIP shop aiboux tenant deploy checkpoint 20260603T234225Z
+a1ed804 WIP shop aiboux tenant deploy checkpoint 20260603T233954Z
+38e9566 WIP shop aiboux tenant deploy checkpoint 20260603T232600Z
+3fea25c WIP shop aiboux tenant deploy checkpoint 20260603T232211Z
+47254d9 WIP shop aiboux tenant deploy checkpoint 20260603T231907Z
+c688c05 WIP shop aiboux tenant deploy checkpoint 20260603T231713Z
+1d3683b WIP shop aiboux tenant deploy checkpoint 20260603T231418Z
+f5089d2 docs: expand public master with full Japanese core specifications
+b018c13 docs: publish full Japanese master

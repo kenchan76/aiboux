@@ -1,0 +1,8 @@
+m68 status=200 bytes=111384 local_sha=634965bada94f347a87d62f0e84c842bf88f7404d611e6635bb8f0248cbd46a6 remote_sha=00d6b5cfec80e93be537540d6971a217c1a5ec076d004b004fbf162529bda71e content-type: text/markdown; charset=utf-8
+l68 status=200 bytes=8676 local_sha=23916ff2671c111ffed948115641d106a73d080b5fe52cde54e6dff16aeed6fc remote_sha=d7e28dd658f084cf73d30e5a6a7f2bad0cd01a1b0052c1ac090db407bd1fc6cb content-type: text/markdown; charset=utf-8
+d68 status=200 bytes=4365 local_sha=db2962ed2d7dd3c78579893116a91e9e056b54331af879f046d53f39ea66cda1 remote_sha=bd9e5229f859646e730a903746e1e9a61fff1f38f8dd6989f6ccdb80a76f41a6 content-type: text/markdown; charset=utf-8
+--- content checks ---
+l68 contains Public Execution Log Required Rule
+l68 contains Execution log URL
+d68 contains Screen evidence URL
+m68 contains 公開実行ログ必須ルール
