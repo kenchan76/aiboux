@@ -4824,6 +4824,25 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - `FINAL_ACCEPTED` remains prohibited.
 
+## SHOP_10H_SHARED_SEO_META_MODEL_PROGRESS_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Progress Bark notification:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID in notification: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+- Evidence file: `all_log/bark/20260604T190021Z_shared_seo_meta_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
 ## SHOP_10H_SHARED_SEO_META_MODEL_WIP
 
 Status: `WIP_DEPLOYED_NOT_FINAL`

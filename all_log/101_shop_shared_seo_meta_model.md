@@ -107,3 +107,22 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - This is not `FINAL_ACCEPTED`.
+
+## Progress Bark Notification
+
+Timestamp: 2026-06-04T19:00:21Z
+
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID in notification: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+- Evidence file: `all_log/bark/20260604T190021Z_shared_seo_meta_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.

@@ -1,0 +1,108 @@
+# Public /g final verification 20260604T190005Z
+
+## headers
+### m68
+HTTP/2 200 
+date: Thu, 04 Jun 2026 19:00:05 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 158204
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=pNK7RJhh3FvVB6WHa5nHI1YAZY8kgmqa%2FdMgGbm7NsgAx1t2Wuo4GnKILQRJhrmK%2BCM3dpPb3D0LnTbF6qO3dLUoXv0ukWOEaoEKw52xjYCHvJ7bTNk7X6rZ58Y3qelfbBE%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0692dad5e61815c-NRT
+alt-svc: h3=":443"; ma=86400
+
+### l68
+HTTP/2 200 
+date: Thu, 04 Jun 2026 19:00:06 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 137217
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=oMG5e1XlKIRPm3JTjnA3OEeq1xlKfyvYA6AfCUSEwrT3JXfLpd41%2BxaQmzIEgkD4tI1reRyTPkc%2FXuFSrQyLnMijFDsn2vlQtBSOJZNp8oApDUGSXP4aFkqJ2ygWd9W%2Bh%2Fw%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0692db1ce9aae80-NRT
+alt-svc: h3=":443"; ma=86400
+
+### d68
+HTTP/2 200 
+date: Thu, 04 Jun 2026 19:00:07 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 94651
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=mKEAxlxNo2AYwVCwdlW0ilny2D3NyfeE4AZT6JLzgxyHMm7omdET7yONvyYV73BdYLDukPL4TiUDdKhxOGP3nP%2BL%2BHhRmj8DhuH4WJsGgiKrVWjKUM1Su1va5euWXow0sks%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0692db66885795e-NRT
+alt-svc: h3=":443"; ma=86400
+
+
+## sha256
+10e87c14c6a3d7d63992d5f4417e4fe4163eb181e5b8a697e0bf0f19508450c5  public/g/m68.md
+a1a50c7baf613d61200bf13cdc6181362c4d7ba8f8f550a9dc2380d44420b89c  /tmp/m68.final.body
+58ce272e02c1acb444e2010b8baf7ac8c3d17c8b74b99a25b453f9649f094771  public/g/l68.md
+21565fedd09a71cb1f85afc004866ff0cbf71e9de4c8a2b6de4034b08d36d4a8  /tmp/l68.final.body
+33e29348862948caff426b5cf0b8b511f0517187bf9226aebfbada3bb5b48eb4  public/g/d68.md
+f0b5b77de4b5de7964167c012fb5ced1ce8ea6f981f0bea3355068c0d0040829  /tmp/d68.final.body
+
+## markers
+4827:## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+2293:- Record the deploy that made `SHOP_10H_SHARED_SEO_META_MODEL_WIP` visible from `/g/m68`, `/g/l68`, and `/g/d68`.
+2305:- `SHOP_10H_SHARED_SEO_META_MODEL_WIP`: present in all three public Markdown bodies.
+2324:## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+1424:- Public bodies include `SHOP_10H_SHARED_SEO_META_MODEL_WIP`.
+1432:## SHOP_10H_SHARED_SEO_META_MODEL_WIP Screen Evidence
+4805:## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE
+2286:## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE
+1395:## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE Screen Evidence
+
+## runtime worker id markers
+/tmp/d68.final.body:338:| `https://shop.aiboux.com/` | 200 | `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` | `AIBOUX SHOP | サービスサイト` |
+/tmp/d68.final.body:339:| `https://shop.aiboux.com/s/aiboux/` | 200 | `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/d68.final.body:340:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` | `AIBOUX SHOP Dashboard` |
+/tmp/d68.final.body:395:- `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/d68.final.body:484:- `x-aiboux-worker-version`: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/d68.final.body:641:- All checked responses were served by Worker Version ID `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`.
+/tmp/d68.final.body:1116:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4
+/tmp/d68.final.body:1508:- Public evidence Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/d68.final.body:1946:- Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:541:- Latest Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:645:Runtime placeholders such as `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` are replaced in the public response.
+/tmp/l68.final.body:655:The SHA mismatch is expected for files containing `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`.
+/tmp/l68.final.body:662:| `https://shop.aiboux.com/` | 200 | `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` | `AIBOUX SHOP | サービスサイト` |
+/tmp/l68.final.body:663:| `https://shop.aiboux.com/s/aiboux/` | 200 | `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/l68.final.body:664:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` | `AIBOUX SHOP Dashboard` |
+/tmp/l68.final.body:752:- `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:771:- `/g/*` responses replace `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` at runtime.
+/tmp/l68.final.body:1207:- Public log publication Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:1213:- `x-aiboux-worker-version`: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:1243:- `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:1254:- `x-aiboux-worker-version`: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:1300:- `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:1755:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4
+/tmp/l68.final.body:2220:- Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/l68.final.body:2309:- This is expected because the Worker replaces `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4` with the runtime Worker Version ID in public responses.
+/tmp/l68.final.body:2363:- Public evidence Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/m68.final.body:124:- Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+/tmp/m68.final.body:421:- Worker Version ID: c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4
+/tmp/m68.final.body:2568:Worker Version ID: c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4
+/tmp/m68.final.body:4857:- Public evidence Worker Version ID: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
