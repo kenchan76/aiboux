@@ -29,7 +29,7 @@ export const GET: APIRoute = async ({ request }) => {
     return productJson({ success: true, plans });
   } catch (error) {
     if (isSubscriptionSchemaPendingError(error)) {
-      return productJson(subscriptionSchemaPendingJson(), { status: 503 });
+      return productJson({ ...subscriptionSchemaPendingJson(), plans: [] });
     }
     return productError(error);
   }
@@ -50,7 +50,7 @@ export const POST: APIRoute = async ({ request }) => {
     return productJson({ success: true, plans });
   } catch (error) {
     if (isSubscriptionSchemaPendingError(error)) {
-      return productJson(subscriptionSchemaPendingJson(), { status: 503 });
+      return productJson({ ...subscriptionSchemaPendingJson(), plans: [] });
     }
     return productError(error);
   }
