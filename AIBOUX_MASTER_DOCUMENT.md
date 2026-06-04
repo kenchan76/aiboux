@@ -45,6 +45,7 @@ Public evidence publication:
 - Public evidence Worker Version ID: `__WORKER_VERSION_ID__`.
 - Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`.
 - Public TOP and product detail contain `storefront-footer-seo-sitemap`, `SEO site map`, `ItemList`, and visible `text-sky-200` footer links.
+- Progress Bark notification delivered with `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
 - Runtime SHA note: `/g/*` replaces `__WORKER_VERSION_ID__` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
 
 ## Current Active Operating Override: AIBOUX Shop SEO Sitemap Panel Public Evidence
