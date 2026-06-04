@@ -1,0 +1,14 @@
+ M all_log/deploys/20260604T052701Z_deploy_design_editor_route_fix.txt
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M test-results/.last-run.json
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/error-context.md
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/test-failed-1.png
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/trace.zip
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/video.webm
+?? all_log/checkpoints/20260604T052702Z_wip_commit.txt
+?? all_log/deploys/20260604T052702Z_deployments_before.txt
+?? all_log/shop-design-editor/
+?? output/playwright/shop-functional/design-editor-1980.png

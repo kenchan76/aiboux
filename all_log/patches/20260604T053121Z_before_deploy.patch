@@ -1,0 +1,1217 @@
+diff --git a/all_log/deploys/20260604T052701Z_deploy_design_editor_route_fix.txt b/all_log/deploys/20260604T052701Z_deploy_design_editor_route_fix.txt
+index 7d18c6d..271c95b 100644
+--- a/all_log/deploys/20260604T052701Z_deploy_design_editor_route_fix.txt
++++ b/all_log/deploys/20260604T052701Z_deploy_design_editor_route_fix.txt
+@@ -6,3 +6,607 @@
+ > aiboux@0.0.1 shop:checkpoint
+ > node scripts/create-shop-wip-checkpoint.mjs --commit
+ 
++SHOP_WIP_CHECKPOINT_CREATED timestamp=20260604T052702Z
++statusBefore=all_log/checkpoints/20260604T052702Z_status_before.txt
++headBefore=all_log/checkpoints/20260604T052702Z_head_before.txt
++originMainBefore=all_log/checkpoints/20260604T052702Z_origin_main_before.txt
++diffBefore=all_log/patches/20260604T052702Z_before_deploy.patch
++diffStagedBefore=all_log/patches/20260604T052702Z_before_deploy_staged.patch
++logBefore=all_log/checkpoints/20260604T052702Z_log_before.txt
++wipCommit=all_log/checkpoints/20260604T052702Z_wip_commit.txt
++deploymentsBefore=all_log/deploys/20260604T052702Z_deployments_before.txt
++
++> aiboux@0.0.1 check:control-chars
++> node scripts/check-control-chars.mjs
++
++CONTROL_CHAR_CHECK_OK
++
++> aiboux@0.0.1 check:mojibake
++> node scripts/check-mojibake.mjs
++
++MOJIBAKE_CHECK_OK files=471
++
++> aiboux@0.0.1 build
++> astro build
++
++14:27:08 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
++14:27:08 [WARN] [vite] Default inspector port 9229 not available, using 9230 instead
++
++14:27:10 [vite]   ➜  Tunnel closed
++14:27:10 [types] Generated 1.91s
++14:27:10 [build] output: "server"
++14:27:10 [build] mode: "server"
++14:27:10 [build] directory: /home/pkkatsu/aiboux/dist/
++14:27:10 [build] adapter: @astrojs/cloudflare
++14:27:10 [build] Collecting build info...
++14:27:10 [build] ✓ Completed in 1.98s.
++14:27:10 [build] Building server entrypoints...
++14:27:17 [vite]   ➜  Tunnel closed
++14:27:18 [vite] ✓ built in 8.39s
++14:27:29 [vite]   ➜  Tunnel closed
++14:27:30 [vite] ✓ built in 12.01s
++14:27:36 [vite]   ➜  Tunnel closed
++14:27:37 [WARN] [vite] 
++(!) Some chunks are larger than 500 kB after minification. Consider:
++- Using dynamic import() to code-split the application
++- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
++- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
++14:27:37 [vite] ✓ built in 6.76s
++
++ prerendering static routes 
++14:27:38   ├─ /biz/commercial/index.html (+70ms) 
++14:27:38   ├─ /biz/dashboard/index.html (+43ms) 
++14:27:38   ├─ /biz/editor/index.html (+32ms) 
++14:27:38   ├─ /biz/help/index.html (+39ms) 
++14:27:38   ├─ /biz/pricing/index.html (+29ms) 
++14:27:38   ├─ /biz/privacy/index.html (+23ms) 
++14:27:38   ├─ /biz/templates/accounting/index.html (+38ms) 
++14:27:38   ├─ /biz/templates/contracts/index.html (+30ms) 
++14:27:38   ├─ /biz/templates/estimates/index.html (+38ms) 
++14:27:38   ├─ /biz/templates/hr/index.html (+27ms) 
++14:27:38   ├─ /biz/templates/invoices/index.html (+34ms) 
++14:27:38   ├─ /biz/templates/proposals/index.html (+76ms) 
++14:27:38   ├─ /biz/templates/reports/index.html (+25ms) 
++14:27:38   ├─ /biz/templates/simple-estimate/index.html (+27ms) 
++14:27:38   ├─ /biz/templates/invoice-qualified/index.html (+27ms) 
++14:27:38   ├─ /biz/templates/outsourcing-contract/index.html (+27ms) 
++14:27:38   ├─ /biz/templates/nda-basic/index.html (+84ms) 
++14:27:39   ├─ /biz/templates/employment-contract/index.html (+26ms) 
++14:27:39   ├─ /biz/templates/resignation-letter/index.html (+25ms) 
++14:27:39   ├─ /biz/templates/meeting-minutes/index.html (+24ms) 
++14:27:39   ├─ /biz/templates/business-report/index.html (+42ms) 
++14:27:39   ├─ /biz/templates/sales-proposal/index.html (+26ms) 
++14:27:39   ├─ /biz/templates/planning-sheet/index.html (+25ms) 
++14:27:39   ├─ /biz/templates/approval-request/index.html (+24ms) 
++14:27:39   ├─ /biz/templates/expense-report/index.html (+24ms) 
++14:27:39   ├─ /biz/templates/customer-list/index.html (+22ms) 
++14:27:39   ├─ /biz/templates/inventory-sheet/index.html (+30ms) 
++14:27:39   ├─ /biz/templates/purchase-order/index.html (+40ms) 
++14:27:39   ├─ /biz/templates/delivery-note/index.html (+26ms) 
++14:27:39   ├─ /biz/templates/receipt-basic/index.html (+29ms) 
++14:27:39   ├─ /biz/templates/index.html (+47ms) 
++14:27:39   ├─ /biz/terms/index.html (+20ms) 
++14:27:39   ├─ /biz/index.html (+69ms) 
++14:27:39   ├─ /file/abuse/index.html (+28ms) 
++14:27:39   ├─ /file/barcode/index.html (+62ms) 
++14:27:39   ├─ /file/dashboard/index.html (+34ms) 
++14:27:39   ├─ /file/help/index.html (+79ms) 
++14:27:39   ├─ /file/image/background-remover/index.html (+53ms) 
++14:27:39   ├─ /file/image/index.html (+98ms) 
++14:27:39   ├─ /file/pdf/index.html (+26ms) 
++14:27:39   ├─ /file/pricing/index.html (+91ms) 
++14:27:39   ├─ /file/privacy/index.html (+25ms) 
++14:27:40   ├─ /file/terms/index.html (+23ms) 
++14:27:40   ├─ /file/tools/index.html (+39ms) 
++14:27:40   ├─ /file/transfer/index.html (+89ms) 
++14:27:40   ├─ /file/index.html (+86ms) 
++14:27:40   ├─ /office/csv/index.html (+24ms) 
++14:27:40   ├─ /office/disclaimer/index.html (+20ms) 
++14:27:40   ├─ /office/editor/index.html (+49ms) 
++14:27:40   ├─ /office/excel/index.html (+22ms) 
++14:27:40   ├─ /office/help/index.html (+25ms) 
++14:27:40   ├─ /office/history/index.html (+22ms) 
++14:27:40   ├─ /office/pdf/index.html (+21ms) 
++14:27:40   ├─ /office/powerpoint/index.html (+23ms) 
++14:27:40   ├─ /office/privacy/index.html (+24ms) 
++14:27:40   ├─ /office/security/index.html (+22ms) 
++14:27:40   ├─ /office/terms/index.html (+20ms) 
++14:27:40   ├─ /office/word/index.html (+21ms) 
++14:27:40   ├─ /office/index.html (+45ms) 
++14:27:40   ├─ /rirekisho/career/new/index.html (+31ms) 
++14:27:40   ├─ /rirekisho/career/index.html (+34ms) 
++14:27:40   ├─ /rirekisho/checklists/interview/index.html (+47ms) 
++14:27:40   ├─ /rirekisho/checklists/onboarding/index.html (+29ms) 
++14:27:40   ├─ /rirekisho/checklists/resignation/index.html (+26ms) 
++14:27:40   ├─ /rirekisho/commercial/index.html (+21ms) 
++14:27:40   ├─ /rirekisho/cover-letter/index.html (+28ms) 
++14:27:40   ├─ /rirekisho/dashboard/index.html (+31ms) 
++14:27:40   ├─ /rirekisho/help/index.html (+43ms) 
++14:27:40   ├─ /rirekisho/job-scan/index.html (+41ms) 
++14:27:40   ├─ /rirekisho/photo/print/index.html (+27ms) 
++14:27:40   ├─ /rirekisho/photo/index.html (+43ms) 
++14:27:40   ├─ /rirekisho/pricing/index.html (+43ms) 
++14:27:41   ├─ /rirekisho/privacy/index.html (+24ms) 
++14:27:41   ├─ /rirekisho/resignation/index.html (+29ms) 
++14:27:41   ├─ /rirekisho/resume/new/index.html (+26ms) 
++14:27:41   ├─ /rirekisho/resume/index.html (+23ms) 
++14:27:41   ├─ /rirekisho/self-pr/index.html (+23ms) 
++14:27:41   ├─ /rirekisho/templates/index.html (+25ms) 
++14:27:41   ├─ /rirekisho/terms/index.html (+19ms) 
++14:27:41   ├─ /rirekisho/index.html (+42ms) 
++14:27:41 [vite]   ➜  Tunnel closed
++14:27:41 ✓ Completed in 3.86s.
++
++14:27:41 [build] Rearranging server assets...
++14:27:41 [build] ✓ Completed in 31.12s.
++14:27:41 [build] Server built in 33.13s
++14:27:41 [build] Complete!
++14:27:41 [vite]   ➜  Tunnel closed
++
++> aiboux@0.0.1 check:shop-ui-protection
++> node scripts/check-shop-ui-protection.mjs --mode=warn
++
++SHOP_UI_PROTECTION_OK mode=warn: protected Shop UI paths are clean
++
++ ⛅️ wrangler 4.94.0 (update available 4.97.0)
++─────────────────────────────────────────────
++Using redirected Wrangler configuration.
++ - Configuration being used: "dist/server/wrangler.json"
++ - Original user's configuration: "wrangler.toml"
++ - Deploy configuration file: ".wrangler/deploy/config.json"
++Attaching additional modules:
++┌───────────────────────────────────────────────────────────┬──────┬─────────────┐
++│ Name                                                      │ Type │ Size        │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/3________A2_dash_DlIBzgmM.mjs                      │ esm  │ 6.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/CoreLayout_BGjM08Oa.mjs                            │ esm  │ 418.41 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/GlobalAIAssistant_axhVrEyS.mjs                     │ esm  │ 16.50 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/MailClientShell_W9IIQwqq.mjs                       │ esm  │ 153.74 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/NotoSansJpHead_C___lhEr.mjs                        │ esm  │ 0.64 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ShopLayout_BrFM8bYE.mjs                            │ esm  │ 1.62 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_.._29s5XCap.mjs                                   │ esm  │ 35.42 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_.._B-k_uipL.mjs                                   │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_ShopPage_DrMC0dU1.mjs                             │ esm  │ 1156.05 KiB │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_category__BkUXf6uB.mjs                            │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_code__BkBhC3qY.mjs                                │ esm  │ 1.89 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_code__xd_lJOni.mjs                                │ esm  │ 0.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__BPWAC_dJ.mjs                                  │ esm  │ 1.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__C94SQMhn.mjs                                  │ esm  │ 11.91 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__CTqKSfcj.mjs                                  │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__Ctnydbpl.mjs                                  │ esm  │ 0.73 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DADVazqZ.mjs                                  │ esm  │ 15.57 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DgNTd70S.mjs                                  │ esm  │ 0.94 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__MFs0rbHh.mjs                                  │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__jVzDupTT.mjs                                  │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__qZ5QjgA4.mjs                                  │ esm  │ 6.03 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__uzmf4ENI.mjs                                  │ esm  │ 1.12 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__vSZuqw-w.mjs                                  │ esm  │ 6.63 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_provider__BlAqJF7q.mjs                            │ esm  │ 15.34 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_tenant__dOC0Lxl9.mjs                              │ esm  │ 19.41 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_tenant__ijBMVQBB.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_virtual_astro_server-island-manifest_CFl7y3Qj.mjs │ esm  │ 0.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_virtual_astro_session-driver_Csu6PJY6.mjs         │ esm  │ 2.92 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ai-generate_ub8WP5gD.mjs                           │ esm  │ 2.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ai_xSspzK_x.mjs                                    │ esm  │ 4.85 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/alerts_BKwb7jBm.mjs                                │ esm  │ 1.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/analytics_C7bD8wD2.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/approve_BkRn10G1.mjs                               │ esm  │ 1.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/apps_DOdKMW1i.mjs                                  │ esm  │ 0.94 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/archive_DEtwF6jD.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/astro-component_B8klg-BD.mjs                       │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/auto-match_C3o8O33_.mjs                            │ esm  │ 9.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/blocks_Drjo4jm6.mjs                                │ esm  │ 1.32 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/bulk_DnhcMYJ8.mjs                                  │ esm  │ 3.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/button_DVeDUpZ0.mjs                                │ esm  │ 113.11 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/calendar_DyK0PHbi.mjs                              │ esm  │ 173.64 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/cancel-refund_rwnYl8VN.mjs                         │ esm  │ 10.87 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/categories_iSDy4cAv.mjs                            │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/classify_DnahBKUH.mjs                              │ esm  │ 1.91 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/cloudflareAi_B_H7T79O.mjs                          │ esm  │ 2.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coerce_QNKuR2o0.mjs                                │ esm  │ 0.37 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/collections_Dc8SW0pb.mjs                           │ esm  │ 0.83 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/compose_D9HFtiIL.mjs                               │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/content_B5wAXFkr.mjs                               │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreDocumentUiConfig_BCIncEfx.mjs                  │ esm  │ 10.00 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreInventorySync_BOu0Z_J6.mjs                     │ esm  │ 9.08 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreProductMasterFormSchema_CBw1RmDr.mjs           │ esm  │ 2.61 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/corporate_B7ny-Fpk.mjs                             │ esm  │ 1.42 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/create-session_CNRRwXU1.mjs                        │ esm  │ 7.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/csv_YLp-Gq_k.mjs                                   │ esm  │ 1.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/customers_B8CtO9O-.mjs                             │ esm  │ 1.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/customers_C_qN31yk.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/dashboard_DRCTs9s3.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/dashboard_VUZRZUoq.mjs                             │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/deliveries_D4jZBpyL.mjs                            │ esm  │ 1.58 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/delivery-destinations_UheTdaNb.mjs                 │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design-management_z5AZ77eZ.mjs                     │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_BDPrgGV9.mjs                                │ esm  │ 1.26 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_CDpWo374.mjs                                │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_CK-bvR8S.mjs                                │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/discounts_CjcD1wE6.mjs                             │ esm  │ 0.82 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/drafts_CO-RHiY0.mjs                                │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/email-logs_BJsQNDDR.mjs                            │ esm  │ 1.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/estimates_BGSQYYWK.mjs                             │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/events_DIT0alIH.mjs                                │ esm  │ 1.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/execute-voice-command_CX48aUql.mjs                 │ esm  │ 11.08 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/export-csv_BGjIAXTc.mjs                            │ esm  │ 2.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/export-journal_jYp_kLhd.mjs                        │ esm  │ 5.49 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/final-log-a2_s14YeUO6.mjs                          │ esm  │ 1.42 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/gemini_DnGTbmBL.mjs                                │ esm  │ 5.04 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/generate-labels_eBYT945G.mjs                       │ esm  │ 3.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/google-suggest_jl3ghH1T.mjs                        │ esm  │ 1.78 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/health_DC9nq5p2.mjs                                │ esm  │ 2.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/health_UVxVufdf.mjs                                │ esm  │ 0.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/help_DBSotD5b.mjs                                  │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/history_BQV8-hd7.mjs                               │ esm  │ 1.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/history_DFg5kKkb.mjs                               │ esm  │ 1.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/hub_BMzwk_fd.mjs                                   │ esm  │ 3.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/image-passthrough-endpoint_BzemvRmz.mjs            │ esm  │ 73.57 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/import-history_CHB1kvB5.mjs                        │ esm  │ 8.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inbox_BfQJgrKm.mjs                                 │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_4i2tmPw0.mjs                                 │ esm  │ 2.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_4xLM5m1w.mjs                                 │ esm  │ 5.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_BkLFRtG6.mjs                                 │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CS7zwkrh.mjs                                 │ esm  │ 6.35 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CT8q8Wal.mjs                                 │ esm  │ 2.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CWHirkHW.mjs                                 │ esm  │ 245.99 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DWv2aJti.mjs                                 │ esm  │ 1.44 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DikHd6qI.mjs                                 │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DsdQ1PZT.mjs                                 │ esm  │ 2.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DufEiFoF.mjs                                 │ esm  │ 11.03 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_GruT_x4b.mjs                                 │ esm  │ 6.31 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_RdNuGR6t.mjs                                 │ esm  │ 2.50 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ingress_DwGVwBTL.mjs                               │ esm  │ 8.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/input_CUgrykBb.mjs                                 │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/integration_7O5HyZJt.mjs                           │ esm  │ 17.46 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/intent-router_CYlAwzf8.mjs                         │ esm  │ 5.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/intent_DSs2Wk24.mjs                                │ esm  │ 1.48 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inventory_BDGUxLn6.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inventory_GzsVWNLH.mjs                             │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/invoices_B41VyYG9.mjs                              │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/jsx-runtime_Bo14_ato.mjs                           │ esm  │ 1.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/layout_BJP6V8q-.mjs                                │ esm  │ 2.34 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/list_D1tCA_2p.mjs                                  │ esm  │ 1.43 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/listing-draft_P4loPPc0.mjs                         │ esm  │ 4.70 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/mall-sync_UVmqC0eQ.mjs                             │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/mark-shipped_DOBNXZK0.mjs                          │ esm  │ 4.16 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_9YEWyhTz.mjs                                   │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_B9hCXHPt.mjs                                   │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_CDt-YKjp.mjs                                   │ esm  │ 0.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/noop-entrypoint_DsBX4kaI.mjs                       │ esm  │ 0.10 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/noop_DmYGopSA.mjs                                  │ esm  │ 0.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/omnichannel_tgK9Syww.mjs                           │ esm  │ 3.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/onboard_B_awkb-h.mjs                               │ esm  │ 6.63 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/onboarding_uEv0wSPb.mjs                            │ esm  │ 3.23 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/order_BuUuY4uN.mjs                                 │ esm  │ 4.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/orders_lTU0hbRF.mjs                                │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/orders_vFQ6CxIu.mjs                                │ esm  │ 0.95 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/params-and-props_TxpTdKXw.mjs                      │ esm  │ 234.82 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/partners_C967pF1Z.mjs                              │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/payments_CHMWfsB-.mjs                              │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/popover_H9nhkwT1.mjs                               │ esm  │ 114.17 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/price-schedules_P9IzysFO.mjs                       │ esm  │ 2.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/prices_D3mBjdss.mjs                                │ esm  │ 2.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/process-image_Bj9o70mO.mjs                         │ esm  │ 1.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/process_Bymv5imz.mjs                               │ esm  │ 5.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-enrichment_IFaUHe8q.mjs                    │ esm  │ 7.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-master-data_B9vCsFVn.mjs                   │ esm  │ 13.33 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-master_C12nRU-B.mjs                        │ esm  │ 4.84 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/productMasterApi_TVTgBCqw.mjs                      │ esm  │ 3.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_CHEV2-GH.mjs                              │ esm  │ 1.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_CXFTZbnH.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_jO710BOn.mjs                              │ esm  │ 2.59 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/profile_mN87dBfp.mjs                               │ esm  │ 11.27 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/purchase-orders_YF3G2llj.mjs                       │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/receive_KkKaOyhS.mjs                               │ esm  │ 1.86 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/remove_ygJ5nRBN.mjs                                │ esm  │ 1.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/restore_lLAF18nD.mjs                               │ esm  │ 1.95 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_BsBoaGhn.mjs                                  │ esm  │ 3.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_CU-6mUOl.mjs                                  │ esm  │ 18.04 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_Qa9Ne0WZ.mjs                                  │ esm  │ 9.61 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_vBEZQemn.mjs                                  │ esm  │ 12.33 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/search_C-g_Q6yu.mjs                                │ esm  │ 0.33 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/select_BHViUDr4.mjs                                │ esm  │ 139.17 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/send_By4N-sy_.mjs                                  │ esm  │ 7.07 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sent_jG86pAaL.mjs                                  │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_BUy-bmAw.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_C-loKFjk.mjs                              │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_DtFVp_3V.mjs                              │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shippingCsv_C0vjzGuI.mjs                           │ esm  │ 2.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopNotificationEmail_CPG6A-aS.mjs                 │ esm  │ 1.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStorefrontLayout_DXmDSrbR.mjs                  │ esm  │ 15.04 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStorefront_CMuEJf56.mjs                        │ esm  │ 11.17 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStripeConnect_4pL_6CVT.mjs                     │ esm  │ 4.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopping-cart_DFqyuynD.mjs                         │ esm  │ 0.82 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sidebar_-lRwxrzm.mjs                               │ esm  │ 16.05 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/simulate-stock_N0bo-JRn.mjs                        │ esm  │ 1.38 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/skeleton_DvAxElQ8.mjs                              │ esm  │ 2.18 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/snoozed_JCiu1M24.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/social_D0l7pgDv.mjs                                │ esm  │ 4.67 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sonner_CI0pkdMZ.mjs                                │ esm  │ 209.32 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/spam_BKRUjESO.mjs                                  │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ssoSession_yWa8ddq_.mjs                            │ esm  │ 4.52 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/starred_CsXMt7EH.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/status_DboRQbyD.mjs                                │ esm  │ 1.64 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/status_sfhQrheT.mjs                                │ esm  │ 3.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/storageQuota_CBN4KDRQ.mjs                          │ esm  │ 1.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/stripe.esm.worker_B6dUhoSD.mjs                     │ esm  │ 620.22 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sync_DWt80cYC.mjs                                  │ esm  │ 3.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/table_BlK3sVi7.mjs                                 │ esm  │ 2.66 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tempImageShares_D9Pibe2K.mjs                       │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tempLogShares_D-IJgr-3.mjs                         │ esm  │ 593.37 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/temp_TECxt_t0.mjs                                  │ esm  │ 2.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/templates_BMypnecp.mjs                             │ esm  │ 1.30 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tenantContext_BlOEaOuW.mjs                         │ esm  │ 3.06 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tenant_De_pbStJ.mjs                                │ esm  │ 1.49 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/testStockConcurrency_D07eitii.mjs                  │ esm  │ 4.92 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/timeline_DVf_jkC5.mjs                              │ esm  │ 4.89 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/trash_DctbIvLC.mjs                                 │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/unread_DoGahQX9.mjs                                │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/unsubscribe_BTTWULzi.mjs                           │ esm  │ 1.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-shipping_BopG28-k.mjs                       │ esm  │ 3.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-stock_CN-dqGd8.mjs                          │ esm  │ 3.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-stock_G8eaNYZu.mjs                          │ esm  │ 2.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_DiZ3Yn0I.mjs                                │ esm  │ 3.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_DrznlYMK.mjs                                │ esm  │ 4.48 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_YvZgROpc.mjs                                │ esm  │ 8.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/users_dqrl--y_.mjs                                 │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/variants_BQUJmTD9.mjs                              │ esm  │ 2.86 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/voice-draft_D8SO4ZBB.mjs                           │ esm  │ 2.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook-stripe_RkDSSzcD.mjs                        │ esm  │ 5.16 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_C3yETFrH.mjs                               │ esm  │ 3.12 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_CoDgRPWE.mjs                               │ esm  │ 18.45 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_DvjeU3LI.mjs                               │ esm  │ 8.33 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/worker-entry_CwH4t7lX.mjs                          │ esm  │ 1092.71 KiB │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/zipcode_Dj3E2mu5.mjs                               │ esm  │ 1.50 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ virtual_astro_middleware.mjs                              │ esm  │ 10.28 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ Total (202 modules)                                       │      │ 6062.62 KiB │
++└───────────────────────────────────────────────────────────┴──────┴─────────────┘
++🌀 Building list of assets...
++✨ Read 217 files from the assets directory /home/pkkatsu/aiboux/dist/client
++🌀 Starting asset upload...
++No updated asset files to upload. Proceeding with deployment...
++Total Upload: 6062.78 KiB / gzip: 1198.88 KiB
++Worker Startup Time: 12 ms
++Your Worker has access to the following bindings:
++Binding                                                                      Resource                     
++env.SESSION (inherited)                                                      KV Namespace                 
++env.EMAIL (unrestricted)                                                     Send Email                   
++env.SHOP_FEED_SYNC_QUEUE (shop-feed-sync-queue)                              Queue                        
++env.DB (aiboux-b2b-db)                                                       D1 Database                  
++env.STORAGE (aiboux-mail-assets)                                             R2 Bucket                    
++env.SHOP_STORAGE (aiboux-shop-assets)                                        R2 Bucket                    
++env.AI                                                                       AI                           
++env.ASSETS                                                                   Assets                       
++env.CF_VERSION_METADATA                                                      Worker Version Metadata      
++env.AIBOUX_PUBLIC_URL ("https://mail.aiboux.com")                            Environment Variable         
++env.DEFAULT_FROM_EMAIL ("noreply@aiboux.com")                                Environment Variable         
++env.MAIL_RETENTION_FREE_DAYS ("7")                                           Environment Variable         
++env.MAIL_RETENTION_STANDARD_DAYS ("7")                                       Environment Variable         
++env.MAIL_RETENTION_PREMIUM_DAYS ("365")                                      Environment Variable         
++env.MAX_FREE_MAIL_ADDRESSES ("5")                                            Environment Variable         
++env.MAX_STANDARD_MAIL_ADDRESSES ("10")                                       Environment Variable         
++env.GEMINI_MODEL ("gemini-2.5-flash")                                        Environment Variable         
++env.WORKERS_AI_TEXT_MODEL ("@cf/meta/llama-3.1-8b-instruct-fp8")             Environment Variable         
++env.RESEND_FROM_EMAIL ("AIBOUX Shop <info@aiboux.com>")                      Environment Variable         
++
++Uploaded aiboux (5.32 sec)
++Deployed aiboux triggers (2.44 sec)
++  https://aiboux.kenchan-7648.workers.dev
++  core.aiboux.com (custom domain)
++  mail.aiboux.com (custom domain)
++  file.aiboux.com (custom domain)
++  biz.aiboux.com (custom domain)
++  office.aiboux.com (custom domain)
++  rirekisho.aiboux.com (custom domain)
++  docs.aiboux.com (custom domain)
++  shop.aiboux.com (custom domain)
++  mall.aiboux.com (custom domain)
++  schedule: * * * * *
++  schedule: */15 * * * *
++  schedule: 17 18 * * *
++  Producer for shop-feed-sync-queue
++  Consumer for shop-feed-sync-queue
++Current Version ID: 42ebe1ab-db4d-4152-8462-4dc26e97d7f1
+diff --git a/output/playwright/shop-functional/admin-demo-free-1980.png b/output/playwright/shop-functional/admin-demo-free-1980.png
+index 4beda50..0f2c777 100644
+Binary files a/output/playwright/shop-functional/admin-demo-free-1980.png and b/output/playwright/shop-functional/admin-demo-free-1980.png differ
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 7e36aaa..86c64e2 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -218,6 +218,54 @@ This is not FINAL_ACCEPTED for the whole Shop tenant.
+ 
+ ## Shop Fix Cycle 04 Functional Screen Evidence Pending Deploy
+ 
++## Shop Fix Cycle 05 Store Design Editor Screen Evidence
++
++Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
++
++Cycle timestamp: `20260604T052958Z`
++
++Target public screens:
++
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++- `https://shop.aiboux.com/s/aiboux/`
++- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
++
++Public route evidence:
++
++- Design editor URL returned HTTP 200.
++- Design editor route rewrote to `/shop/settings/design`.
++- Tenant storefront URL returned HTTP 200.
++- Product detail URL returned HTTP 200.
++- All checked responses were served by Worker Version ID `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`.
++
++Design editor screen evidence:
++
++- The left pane exposes `TOPページ` and `商品詳細ページ`.
++- The left pane does not expose product list, category, cart, checkout, contact, legal, privacy, shipping, returns, mypage, orders, FAQ, or 404 as page-level editing targets.
++- The editor includes the explicit note that only TOP page and product detail page are editable.
++- The editor includes `ヒーロースライダー` settings.
++- The editor includes common `ロゴ` settings.
++- The center preview uses a three-column editor layout matching the requested direction:
++  - left navigation/layers;
++  - center live preview;
++  - right selected-section settings.
++
++Storefront screen evidence:
++
++- The public TOP page uses the tenant URL `https://shop.aiboux.com/s/aiboux/`.
++- The public TOP page keeps the Shop service root separate from the tenant storefront.
++- The public TOP page renders an Amazon-like header, category navigation, hero area, and product sections.
++- The product detail page renders an Amazon-like product detail structure with image gallery, product information, and purchase box.
++
++Playwright result:
++
++- Command: `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
++- Result: 5 passed
++- Screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`
++
++This screen evidence is WIP only.
++It must not be treated as FINAL_ACCEPTED for the whole Shop tenant.
++
+ Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
+ 
+ Prepared public screen targets:
+diff --git a/public/g/l68.md b/public/g/l68.md
+index bc360c5..02f525f 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -637,3 +637,91 @@ Remaining non-final items:
+ - Strict Shop final gate has not been run.
+ 
+ This is WIP_DEPLOYED_NOT_FINAL.
++
++## Shop Fix Cycle 05 Focused Store Design Editor
++
++Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
++
++Cycle timestamp: `20260604T052958Z`
++
++Confirmed design-editor specification:
++
++- Editable pages are limited to `TOPページ` and `商品詳細ページ`.
++- Product list, category, cart, checkout, contact, legal, privacy, shipping, returns, mypage, orders, FAQ, and 404 are not page-level design-editor targets.
++- Other storefront pages use tenant-wide fixed templates while still inheriting global header/logo/navigation/theme settings.
++- The Shop service root remains `https://shop.aiboux.com/`.
++- The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
++- The design editor is `https://shop.aiboux.com/s/aiboux/admin/design`.
++
++Implementation summary:
++
++- Added a typed `StoreDesignConfig`-style schema under `src/lib/shopStorefrontLayout.ts`.
++- Added global logo/header/navigation/theme/product-card config.
++- Added `pages.top` and `pages.productDetail` only.
++- Added backward conversion for existing legacy `blocks` layout rows.
++- Rebuilt the store design editor as a three-column editor:
++  - left pane: TOP page, product detail page, common settings;
++  - center pane: Amazon-like live preview;
++  - right pane: selected section settings.
++- Added TOP preview with Amazon-like header, category navigation, center hero slide with side previews, and recommended products directly below the hero.
++- Added product detail preview with image gallery, product information column, and purchase box column.
++- Added logo upload/change/delete/alt/display/size/alignment/link controls in common logo settings.
++- Reflected layout config on the public tenant storefront and product detail page.
++- Fixed tenant admin design routing so `/s/aiboux/admin/design` rewrites to `/shop/settings/design`.
++
++Changed files in this cycle include:
++
++- `ops/instructions/20260604_shop_store_design_editor_top_product_only.md`
++- `ops/instructions/current.md`
++- `src/lib/shopStorefrontLayout.ts`
++- `src/lib/server/shopStorefront.ts`
++- `src/components/shop/StorefrontDesignBuilder.tsx`
++- `src/components/shop/storefront/ShadcnStorefront.tsx`
++- `src/pages/shop/storefront/[tenant].astro`
++- `src/pages/shop/[tenant]/[...path].astro`
++- `src/pages/shop/[tenant]/product/[id].astro`
++- `src/worker.ts`
++- `src/middleware.ts`
++- `tests/shop-functional-public.spec.ts`
++
++Verification before this evidence publication:
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run astro check`: PASS, 0 errors
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++- `npm run check:shop-ui-protection`: PASS in warn mode
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: PASS, 5 passed
++
++WIP deploy evidence:
++
++- WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
++- Worker Version ID: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
++
++Public route evidence:
++
++- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
++- `x-aiboux-rewritten-path`: `/shop/settings/design`
++- `x-aiboux-worker-version`: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
++- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
++
++Public Playwright evidence:
++
++- all target public URLs return usable HTML: PASS
++- cart, checkout, and contact honest behavior: PASS
++- legal pages render policy text: PASS
++- store design editor exposes only top and product detail page editing: PASS
++- published product add-to-cart works when published products exist: PASS
++
++Artifacts:
++
++- `output/playwright/shop-functional/design-editor-1980.png`
++- `all_log/shop-design-editor/20260604T052958Z_design_editor_wip_evidence.md`
++
++Remaining non-final items:
++
++- This is WIP evidence, not `FINAL_ACCEPTED`.
++- Production DB save through the public design-editor UI was not executed in this cycle.
++- Logo upload persistence was not exercised against production storage in this cycle.
++- Full final Shop sales-tenant completion criteria remain open.
+diff --git a/public/g/m68.md b/public/g/m68.md
+index c1414ba..f81b254 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -4259,3 +4259,151 @@ WIP deployはcheckpoint作成後に可能である。
+ - UI劣化をログだけで完了扱いしない。
+ - strict check未通過でFINAL_ACCEPTEDにしない。
+ - WIP_DEPLOYEDをFINAL_ACCEPTEDと書かない。
++
++---
++
++## 32. Shopストアデザインエディタ確定仕様
++
++### 32.1 編集対象ページ
++
++Shopストアデザインエディタでページ単位編集できるのは次の2つだけである。
++
++- TOPページ: `/s/{tenantSlug}/`
++- 商品詳細ページ: `/s/{tenantSlug}/product/{id}`
++
++今回の検証テナントでは次を対象にする。
++
++- `https://shop.aiboux.com/s/aiboux/`
++- `https://shop.aiboux.com/s/aiboux/product/{id}`
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++
++### 32.2 編集不可ページ
++
++次のページはストアデザインエディタのページ単位編集対象にしてはいけない。
++これらはテナント全共通テンプレートで固定表示する。
++
++- 商品一覧
++- カテゴリ
++- 検索結果
++- カート
++- チェックアウト
++- 問い合わせ
++- 特定商取引法
++- プライバシーポリシー
++- 配送
++- 返品
++- マイページ
++- 注文履歴
++- お気に入り
++- FAQ
++- 404ページ
++
++### 32.3 共通設定
++
++共通設定として編集できる対象は次である。
++
++- ヘッダー
++- ロゴ
++- ナビゲーション
++- カラー
++- フォント
++- ボタン
++- 商品カード
++
++共通ロゴ設定はTOPページ、商品詳細ページ、商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務ページ、配送返品ページに反映してよい。
++ただし、TOPページと商品詳細ページ以外をページ単位の自由編集対象にしてはいけない。
++
++### 32.4 UI構成
++
++ストアデザインエディタは3カラム構成とする。
++
++- 左ペイン: 編集対象ページ、セクション、共通設定
++- 中央: ライブプレビュー
++- 右ペイン: 選択中セクションの設定
++
++左ペインには次の注意を明示する。
++
++```text
++編集できるのは「TOPページ」と「商品詳細ページ」のみです。
++その他のページはテナント全共通テンプレートです。
++```
++
++### 32.5 TOPページ仕様
++
++TOPページはAmazon風の店舗トップとして扱う。
++
++- 上部配送バー
++- ロゴ
++- カテゴリ選択
++- 検索バー
++- アカウント
++- 注文履歴
++- カート
++- カテゴリナビ
++- ヒーロースライダー
++- おすすめ商品
++- 売れ筋ランキング
++- タイムセール
++- カテゴリ一覧
++- 人気ブランド
++- 最近チェックした商品
++
++ヒーロースライダーは中央メインスライドを大きく表示し、左右に前後スライドを少し見せる。
++ヒーロー直下にはおすすめ商品を置く。
++おすすめ商品の上に余計なプロモーションゾーンを置かない。
++
++### 32.6 商品詳細ページ仕様
++
++商品詳細ページはAmazon風の3カラム構成とする。
++
++- 左: 商品画像ギャラリー
++- 中央: 商品名、ブランド、レビュー、価格、ポイント、バリエーション、商品説明、仕様
++- 右: 購入ボックス、配送予定、在庫、数量、カート、今すぐ購入、お気に入り
++
++### 32.7 保存構造
++
++保存対象は次に限定する。
++
++```text
++global.*
++pages.top
++pages.productDetail
++```
++
++保存してはいけない対象は次である。
++
++```text
++pages.products
++pages.categories
++pages.cart
++pages.checkout
++pages.contact
++pages.legal
++pages.privacy
++pages.shipping
++pages.returns
++pages.mypage
++pages.orders
++pages.faq
++pages.404
++```
++
++### 32.8 Cycle 05 WIP証跡
++
++Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
++
++WIP deploy Worker Version ID:
++
++- `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
++
++公開確認:
++
++- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
++
++公開Playwright:
++
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: 5 passed
++
++この状態はWIPであり、Shop全体のFINAL_ACCEPTEDではない。
+diff --git a/test-results/.last-run.json b/test-results/.last-run.json
+index bc5d366..cbcc1fb 100644
+--- a/test-results/.last-run.json
++++ b/test-results/.last-run.json
+@@ -1,6 +1,4 @@
+ {
+-  "status": "failed",
+-  "failedTests": [
+-    "7a2936fb73539c61c84e-fc8a7d230c404cb09049"
+-  ]
++  "status": "passed",
++  "failedTests": []
+ }
+\ No newline at end of file
+diff --git a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/error-context.md b/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/error-context.md
+deleted file mode 100644
+index b7706f8..0000000
+--- a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/error-context.md
++++ /dev/null
+@@ -1,258 +0,0 @@
+-# Instructions
+-
+-- Following Playwright test failed.
+-- Explain why, be concise, respect Playwright best practices.
+-- Provide a snippet of code with the fix, if possible.
+-
+-# Test info
+-
+-- Name: shop-functional-public.spec.ts >> AIBOUX Shop public functional hardening >> store design editor exposes only top and product detail page editing
+-- Location: tests/shop-functional-public.spec.ts:112:3
+-
+-# Error details
+-
+-```
+-Error: expect(locator).toBeVisible() failed
+-
+-Locator: getByText('AIBOUX SHOP ストアデザインエディタ')
+-Expected: visible
+-Timeout: 10000ms
+-Error: element(s) not found
+-
+-Call log:
+-  - Expect "toBeVisible" with timeout 10000ms
+-  - waiting for getByText('AIBOUX SHOP ストアデザインエディタ')
+-
+-```
+-
+-```yaml
+-- link "AIBOUX SHOP Home":
+-  - /url: /s/aiboux/admin
+-  - img "aiboux"
+-  - text: SHOP
+-- link "ストアを開く":
+-  - /url: /s/aiboux/
+-- list:
+-  - listitem:
+-    - button "ダッシュボード"
+-  - listitem:
+-    - button "注文管理"
+-  - listitem:
+-    - button "商品管理"
+-  - listitem:
+-    - button "在庫"
+-  - listitem:
+-    - button "カテゴリ管理"
+-  - listitem:
+-    - button "顧客"
+-  - listitem:
+-    - button "コンテンツ"
+-  - listitem:
+-    - button "分析"
+-  - listitem:
+-    - button "アプリ"
+-  - listitem:
+-    - button "ストアデザイン"
+-  - listitem:
+-    - button "設定"
+-- text: AIBOUX STORE shop.aiboux.com
+-- main:
+-  - text: Shop / ダッシュボード
+-  - button "ストア検索を開く": ストア内を検索（注文、商品、顧客など） ⌘ K
+-  - button "今月"
+-  - button "フィルター"
+-  - button "アプリ切替"
+-  - button "通知"
+-  - button "ヘルプ"
+-  - button "管 ストア管理者 管理画面"
+-  - heading "Command Palette" [level=2]
+-  - paragraph: Search for a command to run...
+-  - main:
+-    - heading "ダッシュボード" [level=1]
+-    - paragraph: ストアの最新状況を確認しましょう。
+-    - button "商品を追加"
+-    - button "在庫を更新"
+-    - text: 今日やること 発送待ちの注文 0件
+-    - paragraph: 発送待ちはありません。
+-    - button "注文を見る"
+-    - text: 在庫が少ない商品 0件
+-    - paragraph: 在庫不足の注意はありません。
+-    - button "在庫を見る"
+-    - text: 商品ページの見直し 0件
+-    - paragraph: 見直しが必要な商品はありません。
+-    - button "商品を見る"
+-    - text: 集客とSEOの設定状態
+-    - paragraph: 商品データと連携設定が揃うと、画像最適化、Google/Bing向け同期、在庫状態の反映を確認できます。未設定の項目は「設定」から有効化します。
+-    - text: "AI画像最適化 未設定 Google/Bing同期 未設定 在庫状態を自動反映 未設定 現在の自動送信: 同期中 0件 / 送信済み 0件"
+-    - button "商品の同期状態を見る"
+-    - button "自動化設定"
+-    - text: 売上 ¥0 注文データ未連携 注文数 0件 注文はまだありません コンバージョン率 未集計 計測設定が必要です 平均注文単価 未集計 注文確定後に集計します リピーター率 未集計 顧客データ連携後に表示します 売上の動き ¥0 ▲ 0.0% 日別表示
+-    - application
+-    - text: ベストセラー商品
+-    - combobox: 今週
+-    - text: 商品別売上はまだありません。商品を登録し、注文が入ると集計します。
+-    - link "商品別売上を開く":
+-      - /url: /s/aiboux/admin/products
+-    - text: 最近の注文
+-    - button "すべて見る"
+-    - table:
+-      - rowgroup:
+-        - row "注文番号 日時 お客様 合計金額 支払い 発送準備":
+-          - columnheader "注文番号"
+-          - columnheader "日時"
+-          - columnheader "お客様"
+-          - columnheader "合計金額"
+-          - columnheader "支払い"
+-          - columnheader "発送準備"
+-      - rowgroup:
+-        - row "注文はまだありません。注文が入ると、支払い状態・発送状態・帳票操作がここに表示されます。":
+-          - cell "注文はまだありません。注文が入ると、支払い状態・発送状態・帳票操作がここに表示されます。"
+-    - text: 在庫アラート
+-    - button "すべて見る"
+-    - text: 在庫アラートはありません。商品と在庫を登録すると注意が必要なSKUを表示します。
+-- region "Notifications alt+T"
+-- region "AIBOUX Global AI Assistant":
+-  - text: AI Assistant Shop 待機中
+-  - button "AI Assistantを閉じる"
+-  - text: 永続状態 この会話と入力中テキストはブラウザに保存され、MailからCoreなどへ移動しても復帰します。 AIBOUX OS全体を横断して支援します。Mail、Core、Shop、Fileの作業状態を保ったまま相談できます。 初期
+-  - textbox "AIに依頼する（例：取引先へ明日の会議は10時からとメール）"
+-  - button "音声入力"
+-  - button "添付"
+-  - button "音声テスト"
+-  - button "送信"
+-- region "Notifications alt+T"
+-```
+-
+-# Test source
+-
+-```ts
+-  15  |   "/s/aiboux/admin/apps",
+-  16  |   "/s/aiboux/admin/design",
+-  17  |   "/s/aiboux/admin/settings",
+-  18  |   "/s/aiboux/products",
+-  19  |   "/s/aiboux/categories",
+-  20  |   "/s/aiboux/cart",
+-  21  |   "/s/aiboux/checkout",
+-  22  |   "/s/aiboux/contact",
+-  23  |   "/s/aiboux/legal",
+-  24  |   "/s/aiboux/privacy",
+-  25  |   "/s/aiboux/shipping",
+-  26  |   "/s/aiboux/returns",
+-  27  | ];
+-  28  | 
+-  29  | const forbiddenDemoTexts = [
+-  30  |   "2024/05",
+-  31  |   "山田 太郎",
+-  32  |   "¥2,340,000",
+-  33  |   "245件",
+-  34  |   "2.35%",
+-  35  |   "¥9,551",
+-  36  |   "28.7%",
+-  37  |   "TSH-001",
+-  38  |   "BAG-001",
+-  39  |   "BTL-500",
+-  40  |   "#10085",
+-  41  |   "#10084",
+-  42  |   "#10083",
+-  43  |   "shop.aboux.com",
+-  44  | ];
+-  45  | 
+-  46  | test.describe("AIBOUX Shop public functional hardening", () => {
+-  47  |   test.beforeAll(() => {
+-  48  |     mkdirSync("output/playwright/shop-functional", { recursive: true });
+-  49  |   });
+-  50  | 
+-  51  |   test("all target public URLs return usable HTML", async ({ page, request }) => {
+-  52  |     for (const url of shopUrls) {
+-  53  |       const response = await request.get(url);
+-  54  |       expect(response.status(), url).toBe(200);
+-  55  |       const contentType = response.headers()["content-type"] ?? "";
+-  56  |       expect(contentType, url).toContain("text/html");
+-  57  |     }
+-  58  | 
+-  59  |     await page.goto("/s/aiboux/admin");
+-  60  |     const bodyText = await page.locator("body").innerText();
+-  61  |     for (const text of forbiddenDemoTexts) {
+-  62  |       expect(bodyText, `demo text should be absent: ${text}`).not.toContain(text);
+-  63  |     }
+-  64  |     await page.screenshot({ path: "output/playwright/shop-functional/admin-demo-free-1980.png", fullPage: true });
+-  65  |   });
+-  66  | 
+-  67  |   test("storefront cart, checkout, and contact behave honestly", async ({ page }) => {
+-  68  |     await page.goto("/s/aiboux/cart");
+-  69  |     await page.evaluate(() => {
+-  70  |       localStorage.setItem(
+-  71  |         "aiboux:shop:aiboux:cart",
+-  72  |         JSON.stringify([{ id: "playwright-product", name: "Playwright検証商品", price: 1200, image: "", quantity: 1 }]),
+-  73  |       );
+-  74  |       window.location.reload();
+-  75  |     });
+-  76  |     await expect(page.getByText("Playwright検証商品")).toBeVisible();
+-  77  |     const quantity = page.locator("[data-cart-qty]").first();
+-  78  |     await quantity.fill("3");
+-  79  |     await expect(page.getByText("¥3,600")).toBeVisible();
+-  80  |     await page.locator("[data-cart-remove]").first().click();
+-  81  |     await expect(page.getByText("カートは空です。商品を追加するとここに表示されます。")).toBeVisible();
+-  82  | 
+-  83  |     await page.goto("/s/aiboux/checkout");
+-  84  |     await expect(page.getByText("決済設定が必要です")).toBeVisible();
+-  85  |     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
+-  86  |     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
+-  87  | 
+-  88  |     await page.goto("/s/aiboux/contact");
+-  89  |     await page.getByRole("button", { name: "入力内容を確認" }).click();
+-  90  |     await expect(page.getByText("お名前を入力してください。")).toBeVisible();
+-  91  |     await page.locator("input[name='name']").fill("検証 太郎");
+-  92  |     await page.locator("input[name='email']").fill("invalid-email");
+-  93  |     await page.locator("textarea[name='message']").fill("問い合わせ検証です。");
+-  94  |     await page.getByRole("button", { name: "入力内容を確認" }).click();
+-  95  |     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
+-  96  |     await page.locator("input[name='email']").fill("tester@example.com");
+-  97  |     await page.getByRole("button", { name: "入力内容を確認" }).click();
+-  98  |     await expect(page.getByText("送信完了扱いにはしません。")).toBeVisible();
+-  99  |   });
+-  100 | 
+-  101 |   test("legal pages render configured or generated policy text", async ({ page }) => {
+-  102 |     await page.goto("/s/aiboux/legal");
+-  103 |     await expect(page.getByText("販売業者:")).toBeVisible();
+-  104 |     await page.goto("/s/aiboux/privacy");
+-  105 |     await expect(page.locator("pre").getByText("個人情報")).toBeVisible();
+-  106 |     await page.goto("/s/aiboux/shipping");
+-  107 |     await expect(page.locator("pre").getByText("配送方法と送料")).toBeVisible();
+-  108 |     await page.goto("/s/aiboux/returns");
+-  109 |     await expect(page.locator("pre").getByText("返品・交換")).toBeVisible();
+-  110 |   });
+-  111 | 
+-  112 |   test("store design editor exposes only top and product detail page editing", async ({ page }) => {
+-  113 |     await page.setViewportSize({ width: 1980, height: 1080 });
+-  114 |     await page.goto("/s/aiboux/admin/design");
+-> 115 |     await expect(page.getByText("AIBOUX SHOP ストアデザインエディタ")).toBeVisible();
+-      |                                                             ^ Error: expect(locator).toBeVisible() failed
+-  116 |     await expect(page.getByText("TOPページ").first()).toBeVisible();
+-  117 |     await expect(page.getByText("商品詳細ページ").first()).toBeVisible();
+-  118 |     await expect(page.getByText("編集できるのは「TOPページ」と「商品詳細ページ」のみです。")).toBeVisible();
+-  119 |     await expect(page.getByText("ヒーロースライダー").first()).toBeVisible();
+-  120 |     await expect(page.getByText("ロゴ").first()).toBeVisible();
+-  121 |     await expect(page.getByText("商品一覧ページ")).toHaveCount(0);
+-  122 |     await expect(page.getByText("カートページ")).toHaveCount(0);
+-  123 |     await expect(page.getByText("チェックアウトページ")).toHaveCount(0);
+-  124 |     await expect(page.getByText("404ページ")).toHaveCount(0);
+-  125 |     await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });
+-  126 |   });
+-  127 | 
+-  128 |   test("published product add-to-cart works when published products exist", async ({ page }) => {
+-  129 |     await page.goto("/s/aiboux/products");
+-  130 |     const addButtons = page.locator("[data-cart-add]");
+-  131 |     const count = await addButtons.count();
+-  132 |     if (count === 0) {
+-  133 |       await expect(page.getByText("公開商品はまだありません。")).toBeVisible();
+-  134 |       return;
+-  135 |     }
+-  136 | 
+-  137 |     await addButtons.first().click();
+-  138 |     await expect(page).toHaveURL(/\/s\/aiboux\/cart$/);
+-  139 |     await expect(page.locator("[data-cart-list]")).toBeVisible();
+-  140 |   });
+-  141 | });
+-  142 | 
+-```
+\ No newline at end of file
+diff --git a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/test-failed-1.png b/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/test-failed-1.png
+deleted file mode 100644
+index 361be7d..0000000
+Binary files a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/test-failed-1.png and /dev/null differ
+diff --git a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/trace.zip b/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/trace.zip
+deleted file mode 100644
+index 3d28ef6..0000000
+Binary files a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/trace.zip and /dev/null differ
+diff --git a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/video.webm b/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/video.webm
+deleted file mode 100644
+index 2a188e0..0000000
+Binary files a/test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/video.webm and /dev/null differ
