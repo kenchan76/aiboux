@@ -441,10 +441,64 @@ function toSalesProductDetail(productValue: any, index: number) {
 function buildProductThumbnails(productValue: any): Array<{ imageUrl: string; alt: string }> {
   const category = String(productValue?.categoryName ?? "日用品");
   const name = String(productValue?.displayName ?? "商品");
+  const galleryImages = buildProductGalleryImages(name, category, productValue.imageUrl);
   return Array.from({ length: Math.max(productDesign?.gallery.thumbnailCount ?? 5, 5) }).map((_, index) => ({
-    imageUrl: index === 0 ? productValue.imageUrl : imageForSalesProduct(name, category, index),
+    imageUrl: galleryImages[index % galleryImages.length],
     alt: `${name} サムネイル ${index + 1}`,
   }));
+}
+
+function buildProductGalleryImages(name: string, category: string, primaryImage: string): string[] {
+  const source = `${name} ${category}`.toLowerCase();
+  const sets: Record<string, string[]> = {
+    cleaning: [
+      primaryImage,
+      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    coffee: [
+      primaryImage,
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1522992319-0365e5f11656?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    towel: [
+      primaryImage,
+      "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1604014238170-4def1e4e6fcf?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    kitchen: [
+      primaryImage,
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    gift: [
+      primaryImage,
+      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1607344645866-009c320f6103?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+  };
+  const key = /洗剤|掃除|ホームケア|ランドリー|clean/.test(source)
+    ? "cleaning"
+    : /コーヒー|茶|coffee|tea/.test(source)
+      ? "coffee"
+      : /タオル|寝具|towel/.test(source)
+        ? "towel"
+        : /キッチン|保存|ボトル|水筒|kitchen|bottle/.test(source)
+          ? "kitchen"
+          : /ギフト|gift/.test(source)
+            ? "gift"
+            : "kitchen";
+  return sets[key].filter(Boolean).map((url, index) => `${url}${url.includes("?") ? "&" : "?"}gallery=${index}`);
 }
 
 function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
