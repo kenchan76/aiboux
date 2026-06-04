@@ -8,6 +8,12 @@ export type ShopStorefrontLinkGroup = {
   links: ShopStorefrontLink[];
 };
 
+export type ShopStorefrontContextLinkSection = {
+  title: string;
+  summary: string;
+  links: ShopStorefrontLink[];
+};
+
 export type ShopStorefrontInfoCard = {
   title: string;
   body: string;
@@ -235,6 +241,113 @@ export function buildShopSeoHubHighlights(tenantRoot: string): ShopStorefrontInf
       label: "マイページ",
     },
   ];
+}
+
+export function buildShopContextualLinkSections(page: string, tenantRoot: string): ShopStorefrontContextLinkSection[] {
+  const productDiscovery: ShopStorefrontContextLinkSection = {
+    title: "商品を探す",
+    summary: "価格、税込表示、レビュー、カテゴリ、在庫、配送条件を同じ導線で比較します。",
+    links: [
+      { label: "すべての商品", href: `${tenantRoot}/products` },
+      { label: "カテゴリ一覧", href: `${tenantRoot}/categories` },
+      { label: "食品・飲料", href: buildShopCategoryHref(tenantRoot, "food-drink") },
+      { label: "日用品", href: buildShopCategoryHref(tenantRoot, "daily-goods") },
+      { label: "タイムセール", href: buildShopCategoryHref(tenantRoot, "sale") },
+      { label: "売れ筋ランキング", href: buildShopCategoryHref(tenantRoot, "ranking") },
+    ],
+  };
+
+  const purchaseSupport: ShopStorefrontContextLinkSection = {
+    title: "購入前に確認",
+    summary: "送料、返品、問い合わせ、取引条件を購入前に確認できるようにします。",
+    links: [
+      { label: "カート", href: `${tenantRoot}/cart` },
+      { label: "チェックアウト", href: `${tenantRoot}/checkout` },
+      { label: "配送について", href: `${tenantRoot}/shipping` },
+      { label: "返品について", href: `${tenantRoot}/returns` },
+      { label: "特定商取引法", href: `${tenantRoot}/legal` },
+      { label: "問い合わせ", href: `${tenantRoot}/contact` },
+    ],
+  };
+
+  const accountSupport: ShopStorefrontContextLinkSection = {
+    title: "購入後サポート",
+    summary: "注文履歴、マイページ、定期購入、お気に入りへ迷わず戻れるようにします。",
+    links: [
+      { label: "マイページ", href: `${tenantRoot}/mypage` },
+      { label: "注文履歴", href: `${tenantRoot}/orders` },
+      { label: "お気に入り", href: `${tenantRoot}/favorites` },
+      { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions` },
+      { label: "ログイン", href: `${tenantRoot}/login` },
+      { label: "会員登録", href: `${tenantRoot}/register` },
+    ],
+  };
+
+  const pageSpecific: Record<string, ShopStorefrontContextLinkSection> = {
+    products: {
+      title: "商品一覧から次に見る",
+      summary: "カテゴリ、セール、ランキングに分岐して、商品発見URLを薄い一覧で終わらせません。",
+      links: [
+        { label: "カテゴリ一覧", href: `${tenantRoot}/categories` },
+        { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
+        { label: "キッチン用品", href: buildShopCategoryHref(tenantRoot, "kitchen") },
+        { label: "ギフト", href: buildShopCategoryHref(tenantRoot, "gift") },
+      ],
+    },
+    categories: {
+      title: "カテゴリから売り場へ",
+      summary: "カテゴリ一覧は各カテゴリURLへ直接リンクし、検索エンジンにも階層を伝えます。",
+      links: [
+        { label: "食品・飲料", href: buildShopCategoryHref(tenantRoot, "food-drink") },
+        { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
+        { label: "日用品", href: buildShopCategoryHref(tenantRoot, "daily-goods") },
+        { label: "ペット用品", href: buildShopCategoryHref(tenantRoot, "pet") },
+      ],
+    },
+    product: {
+      title: "商品詳細で確認する",
+      summary: "購入判断に必要な比較、返品、配送、問い合わせ導線を商品詳細から離脱させずに提示します。",
+      links: [
+        { label: "同じカテゴリを見る", href: `${tenantRoot}/products` },
+        { label: "カートを見る", href: `${tenantRoot}/cart` },
+        { label: "配送条件", href: `${tenantRoot}/shipping` },
+        { label: "返品条件", href: `${tenantRoot}/returns` },
+      ],
+    },
+    cart: {
+      title: "カートから次に進む",
+      summary: "注文前に商品追加、配送、返品、決済未接続状態を確認できます。",
+      links: [
+        { label: "商品を追加", href: `${tenantRoot}/products` },
+        { label: "チェックアウト", href: `${tenantRoot}/checkout` },
+        { label: "配送について", href: `${tenantRoot}/shipping` },
+        { label: "返品について", href: `${tenantRoot}/returns` },
+      ],
+    },
+    checkout: {
+      title: "注文前の確認",
+      summary: "決済未接続時は成功したふりをせず、取引条件と問い合わせ先へ誘導します。",
+      links: [
+        { label: "カートへ戻る", href: `${tenantRoot}/cart` },
+        { label: "特定商取引法", href: `${tenantRoot}/legal` },
+        { label: "配送について", href: `${tenantRoot}/shipping` },
+        { label: "問い合わせ", href: `${tenantRoot}/contact` },
+      ],
+    },
+    faq: {
+      title: "FAQから確認する",
+      summary: "よくある質問から配送、返品、問い合わせ、商品一覧へ直接戻れます。",
+      links: [
+        { label: "配送について", href: `${tenantRoot}/shipping` },
+        { label: "返品について", href: `${tenantRoot}/returns` },
+        { label: "問い合わせ", href: `${tenantRoot}/contact` },
+        { label: "商品一覧", href: `${tenantRoot}/products` },
+      ],
+    },
+  };
+
+  const sections = [pageSpecific[page], productDiscovery, purchaseSupport, accountSupport].filter(Boolean) as ShopStorefrontContextLinkSection[];
+  return sections.filter((section, index, array) => array.findIndex((item) => item.title === section.title) === index);
 }
 
 export function buildShopPageHeaderActions(page: string, tenantRoot: string): ShopStorefrontPageHeaderAction[] {

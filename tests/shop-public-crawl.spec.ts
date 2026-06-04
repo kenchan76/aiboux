@@ -100,6 +100,12 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(supportRail, `${target.path} support rail should expose honest subscription state`).toContainText("定期購入");
         expect(await supportRail.locator("a").count(), `${target.path} support rail should expose crawlable support links`).toBeGreaterThanOrEqual(9);
         expect(await supportRail.locator("a").first().getAttribute("class"), `${target.path} support rail links should have visible link affordance`).toMatch(/text-|bg-amber/);
+        const contextLinks = page.getByTestId("storefront-context-links");
+        await expect(contextLinks, `${target.path} should include page-context internal links`).toBeVisible();
+        await expect(contextLinks, `${target.path} contextual links should explain next actions`).toContainText("このページから次に確認すること");
+        expect(await contextLinks.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} contextual links should expose visible SiteNavigationElement microdata`).toBeGreaterThanOrEqual(1);
+        expect(await contextLinks.locator("a").count(), `${target.path} contextual links should expose dense internal links`).toBeGreaterThanOrEqual(16);
+        expect(await contextLinks.locator("a").first().getAttribute("class"), `${target.path} contextual links should use visible blue link affordance`).toContain("text-blue-700");
         const seoHub = page.getByTestId("storefront-seo-hub");
         await expect(seoHub, `${target.path} should include shared SEO hub`).toBeVisible();
         await expect(seoHub, `${target.path} SEO hub should explain internal navigation`).toContainText("迷わず探す");
@@ -164,26 +170,10 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         if (target.name === "shop-contact-page") {
           expect(jsonLdText ?? "", `${target.path} should expose ContactPage JSON-LD`).toContain("ContactPage");
         }
-        if ([
-          "shop-products-page",
-          "shop-categories-page",
-          "shop-contact-page",
-          "shop-legal-page",
-          "shop-privacy-page",
-          "shop-shipping-page",
-          "shop-returns-page",
-          "shop-faq-page",
-          "shop-mypage",
-          "shop-account",
-          "shop-login",
-          "shop-register",
-          "shop-favorites",
-        ].includes(target.name)) {
-          expect(jsonLdText ?? "", `${target.path} should include page-specific ItemList JSON-LD`).toContain("ItemList");
-          expect(jsonLdText ?? "", `${target.path} ItemList should expose a stable entity id`).toContain("#itemlist");
-          expect(jsonLdText ?? "", `${target.path} ItemList should declare numberOfItems`).toContain("numberOfItems");
-          expect(jsonLdText ?? "", `${target.path} ItemList should link back to the WebPage entity`).toContain("mainEntityOfPage");
-        }
+        expect(jsonLdText ?? "", `${target.path} should include page-specific ItemList JSON-LD`).toContain("ItemList");
+        expect(jsonLdText ?? "", `${target.path} ItemList should expose a stable entity id`).toContain("#itemlist");
+        expect(jsonLdText ?? "", `${target.path} ItemList should declare numberOfItems`).toContain("numberOfItems");
+        expect(jsonLdText ?? "", `${target.path} ItemList should link back to the WebPage entity`).toContain("mainEntityOfPage");
 
         const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
         expect(canonical, `${target.path} should include a self-referencing canonical URL`).toBeTruthy();

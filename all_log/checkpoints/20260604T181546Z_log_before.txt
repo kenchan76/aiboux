@@ -1,0 +1,10 @@
+83818c6 WIP publish shared category link parts evidence
+9728617 WIP centralize shop category SEO links
+1c3b718 WIP publish category URL SEO evidence
+a534b5a WIP harden shop category URL SEO
+49482fc WIP publish search SEO runtime evidence and bark
+be12b08 WIP record storefront search SEO publication
+9020ef8 WIP publish storefront search SEO evidence
+23e556d WIP keep storefront search visible on mobile
+30f4f07 WIP add crawlable storefront search SEO
+dfde3aa WIP add page type SEO user report 20260604T171533Z

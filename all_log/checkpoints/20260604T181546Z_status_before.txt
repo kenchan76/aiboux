@@ -1,0 +1,8 @@
+ M ops/instructions/current.md
+ M package.json
+ M src/lib/shopSeo.ts
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-public-crawl.spec.ts
+?? ops/instructions/20260605_shop_all_pages_seo_structure_ui.md
+?? src/components/shop/storefront/StorefrontContextLinks.tsx

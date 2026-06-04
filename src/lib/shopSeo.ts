@@ -475,6 +475,7 @@ export function buildShopItemListJsonLd({
   categoryCards,
   accountCards,
   policySupportCards,
+  contextualLinks = [],
 }: {
   page: string;
   canonicalUrl: string;
@@ -483,6 +484,7 @@ export function buildShopItemListJsonLd({
   categoryCards: Array<{ name: string; slug?: string }>;
   accountCards: Array<{ title: string; href?: string }>;
   policySupportCards: Array<{ title: string; href?: string }>;
+  contextualLinks?: ShopSeoLink[];
 }) {
   const listItems =
     page === "" || page === "products" || page === "favorites"
@@ -513,7 +515,12 @@ export function buildShopItemListJsonLd({
                 url: item.href ? absoluteShopUrl(item.href) : "",
                 entityId: item.href ? `${absoluteShopUrl(item.href)}#webpage` : "",
               })).filter((item) => item.url)
-            : [];
+            : contextualLinks.map((item) => ({
+                itemType: "WebPage",
+                name: item.label,
+                url: item.href ? absoluteShopUrl(item.href) : "",
+                entityId: item.href ? `${absoluteShopUrl(item.href)}#webpage` : "",
+              })).filter((item) => item.url);
 
   if (!listItems.length) return null;
 
