@@ -415,7 +415,8 @@ async function withSubscriptionSchemaGuard<T>(operation: () => Promise<T>): Prom
 
 function isMissingSubscriptionSchema(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error ?? "");
-  return /no such table: shop_subscription_|SQLITE_ERROR.*shop_subscription_/i.test(message);
+  return /no such table:\s*shop_subscription/i.test(message)
+    || /SQLITE_ERROR.*shop_subscription/i.test(message);
 }
 
 async function getSubscriptionPaymentReadiness(tenantId: string): Promise<{ ready: boolean; reason: string }> {

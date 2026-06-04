@@ -1,0 +1,235 @@
+===== https://mail.aiboux.com/g/m68 =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:35 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 120809
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=w%2F4nPH%2FkFLnGWs4Yh5I%2B4Ggz14huDViZ8UV%2Bt%2Fumfovx%2F9E%2Boy2oK3ZC8wTTAHluTXTfDn8GxOLiW1W%2B26KutsM71zD9orf4vmvQmawqUqU8Mt%2B2qZ%2BZxhgeJl5xrSZqwh8%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065400bab9dabf9-NRT
+alt-svc: h3=":443"; ma=86400
+
+# AIBOUX 正本マスター
+# サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+
+## Current Active Operating Override: AIBOUX Shop Subscription Requirement
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+AIBOUX Shop must support subscription purchases as a required sales feature.
+
+Required scope:
+
+- product admin subscription-plan editing;
+- public product-detail subscription purchase option;
+- cart subscription item distinc
+
+===== https://mail.aiboux.com/g/l68 =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:35 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 37355
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=JPNB%2FjorZJV8lwI2GL%2BTvhEDhdWzQp6foHBIaDHL0h27WIzvXc06bWycQCVCvG9NOLcJcqDBE54qJDGRm48O1att0wLoHwymSjOILOMbAHm5bho0BO36N1P7u3ucjtYx1uI%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065400ec9523435-NRT
+alt-svc: h3=":443"; ma=86400
+
+# AIBOUX Shop Sales Tenant Execution Log
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This is a WIP execution log update. It is not `FINAL_ACCEPTED`.
+
+### Implemented Locally
+
+- Added subscription plan editing to Shop product admin.
+- Added public product detail subscription purchase-box UI.
+- Added cart distinction for subscription items.
+- Added checkout subscription blocker and API call for honest payment-setting failure.
+- Added admin subscripti
+
+===== https://mail.aiboux.com/g/d68 =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:35 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 19757
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=vXau9Dwn6O3b5WEDfRKHCuE6UuyFjydyPQW%2FQc5kSKtt%2Fibg16BONbXtEOQ1PrjQA7sUcOwpTHmz3%2F%2FsrN4kQfWTO8z5MCCwqh5uop9QQZx1W0V%2FwUUinGUyLSy4OQ6GbJk%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0654011bc2c26cc-NRT
+alt-svc: h3=":443"; ma=86400
+
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Every user-facing report must start with the public URL Bundle:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Screen evidence is not valid if it exists only under `all_log/...`.
+Before reporting, this `d68` public URL must be deployed and verified with curl.
+
+## URL Bundle
+
+- Maste
+
+===== https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621 =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:36 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/shopprod_tenant_001_4580000232621
+x-aiboux-rewritten-path: /shop/aiboux/product/shopprod_tenant_001_4580000232621
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 81a9a786-e109-4234-bc37-4f3f1f7466c2
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=L8O5eFgdp2BvZh6Je6qln%2BIGox%2F1az2uAt2sgGb36S0toWBZu3G2DOWWuEF1uRTZ3%2BAmYDdL3sAmGL6qae%2FhVq6gkwWQwwuGjUGXQCLHZ%2BYqDw0BqYiWu5%2BU8xwpYvs2Yjs%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06540135f17fd42-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/118/wght/normal.woff2);unicode-range:U+21-22,U+27-2a,U+2c-3b,U+3f,U+41-4d,U+4f-5d,U+61-7b,U+7d,U+ab,U+ae,U+b2-b3,U+b7,U+bb,U+c9,U+cd,U+d6,U+d8,U+dc,U+e0-e5,U+e7-ed,U+ef,U+f1-f4,U+f6,U+f8,U+fa,U+fc-fd,U+103,U+14d,U+1b0,U+
+
+===== https://shop.aiboux.com/s/aiboux/cart =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:36 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/cart
+x-aiboux-rewritten-path: /shop/aiboux/cart
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 1c1a8f52-7aca-4163-8d91-96300b79bcd5
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=2rGcJc3s4cXHc9TOX282JqSFj1M5PUS7ScWxip3otk7GAfsC3j%2F70mv3LyVfm2465vEMVLTczn3dQYbkPM6EIZfMOurCudjOBSuO51ra%2BwFHfMfZsUkkZxaW1lG%2B5MCuyCg%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065401648f22c1c-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/100/wght/normal.woff2);unicode-range:U+4e08,U+4f9d,U+5012,U+514d,U+51b7,U+5275,U+53ca,U+53f8,U+5584,U+57fc,U+5b9d,U+5bfa,U+5c3e,U+5f01,U+5fb4,U+5fd7,U+606f,U+62e1,U+6563,U+6674,U+6cb3,U+6d3e,U+6d74,U+6e1b,U+6e2f,U+718a,U
+
+===== https://shop.aiboux.com/s/aiboux/checkout =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:36 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/checkout
+x-aiboux-rewritten-path: /shop/aiboux/checkout
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 1c1a8f52-7aca-4163-8d91-96300b79bcd5
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=PAAPLntYa4aXFl6xU9E425RSyEFyow1BybmRK2S5ZocyWxumnhjSLz9DKnRETocSZ280vn4ICrCL54QfzHn2Dp9NoJikx2jbjKle2lDAq2lGsui%2BE%2B2Fo1hUIbxGi6S9iuA%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06540187f447fde-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/91/wght/normal.woff2);unicode-range:U+60,U+2200,U+226b,U+2461,U+517c,U+526f,U+5800,U+5b97,U+5bf8,U+5c01,U+5d29,U+5e4c,U+5e81,U+6065,U+61d0,U+667a,U+6696,U+6843,U+6c99,U+6d99,U+6ec5,U+6f22,U+6f6e,U+6fa4,U+6fef,U+71c3,U+72
+
+===== https://shop.aiboux.com/s/aiboux/admin/subscriptions =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:33:37 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+clear-site-data: "cache"
+cloudflare-cdn-cache-control: no-store
+x-aiboux-admin-cache-policy: no-store-clear-cache
+x-aiboux-original-path: /s/aiboux/admin/subscriptions
+x-aiboux-rewritten-path: /shop/subscriptions
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 81a9a786-e109-4234-bc37-4f3f1f7466c2
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=fzsqr1iEdy17hoU3j%2BGrTUA%2B9WTQiriO4KS5God3qr32TvvKRs2bUd3c%2FLvpbNiREPEGNfUXNaSxGN1qEauHTIC6Yaf0P3sheakxUnhDYbDcGzSvNdeOJtJQ8uhP7T7t6BM%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065401a984dd4dc-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/115/wght/normal.woff2);unicode-range:U+7c,U+3080,U+4ee5,U+5148,U+516c,U+521d,U+5225,U+529b,U+52a0,U+53ef,U+56de,U+56fd,U+5909,U+591a,U+5b66,U+5b9f,U+5bb6,U+5bfe,U+5e73,U+5e83,U+5ea6,U+5f53,U+6027,U+610f,U+6210,U+6240,U+6
+
+===== https://shop.aiboux.com/shop/api/subscription-plans?tenant=aiboux&productId=shopprod_tenant_001_4580000232621 =====
+HTTP/2 404 
+date: Thu, 04 Jun 2026 07:33:37 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /shop/api/subscription-plans
+x-aiboux-rewritten-path: /shop/api/subscription-plans
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 1c1a8f52-7aca-4163-8d91-96300b79bcd5
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=yjncquD7Zls1cqavd%2Bl7qfmJhLAkyQJc4iO61ojKCu7LqrJUyJGLPS2wtUnTeDn7r8fuCwZxXeJ81esdVZqNIjqMH4DoG0EGetQtl2N%2BvffCvqKjLBvGHgN4tMQWZLhc9fA%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065401d8c329bd1-NRT
+alt-svc: h3=":443"; ma=86400
+
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/113/wght/normal.woff2);unicode-range:U+26,U+5f,U+2026,U+203b,U+4e09,U+4eac,U+4ed5,U+4fa1,U+5143,U+5199,U+5207,U+539f,U+53e3,U+53f7,U+5411,U+5473,U+5546,U+55b6,U+5929,U+597d,U+5bb9,U+5c11,U+5c4b,U+5ddd,U+5f97,U+5fc5,U+629
+
+===== https://shop.aiboux.com/shop/api/subscriptions?tenant=aiboux =====
+HTTP/2 500 
+date: Thu, 04 Jun 2026 07:33:37 GMT
+content-type: application/json
+content-length: 85
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /shop/api/subscriptions
+x-aiboux-rewritten-path: /shop/api/subscriptions
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 81a9a786-e109-4234-bc37-4f3f1f7466c2
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Dvu9YG0G%2FFGBk3vjehknQTgUHlPv15OjEyy5hwWXW6kmNRCYNBf08nesbY0EHPta0THSZUokE7aZjdjEsXCDJZIWbyiXrmgR2ys5prhfsmXHr%2Fm%2FNf62ZZmL9tqeyhDPJhE%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065401f9ea5260d-NRT
+alt-svc: h3=":443"; ma=86400
+
+{"success":false,"error":"D1_ERROR: no such table: shop_subscriptions: SQLITE_ERROR"}
+

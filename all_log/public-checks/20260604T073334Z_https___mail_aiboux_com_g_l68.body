@@ -72,15 +72,6 @@ Expected schema pending JSON:
 - `gate:shop-subscriptions` passes against public URLs;
 - public logs and screenshots are updated after that verification.
 
-### Public WIP Correction
-
-The first WIP public check found `/shop/api/subscriptions` still returned a generic D1 500 for the missing table.
-
-Fix applied:
-
-- schema guard now detects both `shop_subscription_plans` and `shop_subscriptions` missing-table errors;
-- next WIP deploy must prove the API returns `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500.
-
 ## Status
 
 WIP_DEPLOYED
@@ -206,7 +197,7 @@ npm run deploy:shop:wip: PASS
 ## WIP Deploy Evidence
 
 - Latest verified WIP commit hash: `3fea25cee2769c5e0f42d148f4596586bfb51972`
-- Latest Worker Version ID: `__WORKER_VERSION_ID__`
+- Latest Worker Version ID: `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 - Latest checkpoint timestamp: `20260603T232211Z`
 - Latest checkpoint evidence: `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
 - Latest deploy output: `all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt`
@@ -310,7 +301,7 @@ This cycle is WIP evidence and not `FINAL_ACCEPTED`.
 
 `/g/l68` and `/g/d68` are served through `src/lib/server/tempLogShares.ts`.
 The route was updated so `l68` returns `public/g/l68.md` content and `d68` returns `public/g/d68.md` content.
-Runtime placeholders such as `__WORKER_VERSION_ID__` are replaced in the public response.
+Runtime placeholders such as `81a9a786-e109-4234-bc37-4f3f1f7466c2` are replaced in the public response.
 
 ### Public `/g/*` verification after WIP deploy
 
@@ -320,16 +311,16 @@ Runtime placeholders such as `__WORKER_VERSION_ID__` are replaced in the public 
 | `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `c0319e74cf59f99eded51156509f2c719c4aea4c3c14bdac66596add30187483` | `2ab82b664777aac8c179c70eb66d2ec3b1b959b1014718f344be5a0925f8d527` | no |
 | `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `e9598f11b69485f967f72300fc3b81fb6e8e2c7c68e9219b6025ebe42e6e9e4a` | no |
 
-The SHA mismatch is expected for files containing `__WORKER_VERSION_ID__`.
+The SHA mismatch is expected for files containing `81a9a786-e109-4234-bc37-4f3f1f7466c2`.
 The `/g/*` route replaces that placeholder at runtime, so public body hashes differ from source markdown hashes while the content remains the intended WIP evidence document.
 
 ### Public Shop URL verification after WIP deploy
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `81a9a786-e109-4234-bc37-4f3f1f7466c2` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `81a9a786-e109-4234-bc37-4f3f1f7466c2` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `81a9a786-e109-4234-bc37-4f3f1f7466c2` | `AIBOUX SHOP Dashboard` |
 
 ## Current Completion Status
 
@@ -417,7 +408,7 @@ Latest WIP commit:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 
 What changed:
 
@@ -436,7 +427,7 @@ Required public verification before every report:
 
 Runtime note:
 
-- `/g/*` responses replace `__WORKER_VERSION_ID__` at runtime.
+- `/g/*` responses replace `81a9a786-e109-4234-bc37-4f3f1f7466c2` at runtime.
 - Source markdown SHA and public response SHA can differ when that placeholder exists.
 - This SHA difference is expected and must be recorded honestly.
 
@@ -872,13 +863,13 @@ WIP deploy evidence:
 
 - WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
 - Implementation WIP deploy Worker Version ID before public log publication: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
-- Public log publication Worker Version ID: `__WORKER_VERSION_ID__`
+- Public log publication Worker Version ID: `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 
 Public route evidence after public log publication:
 
 - `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 - `https://shop.aiboux.com/s/aiboux/`: HTTP 200
 - `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
 
@@ -908,7 +899,7 @@ Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
 
 Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 
 WIP commit:
 
@@ -919,7 +910,7 @@ Public design editor route:
 - URL: `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 
 Public Playwright after deploy:
 
@@ -965,7 +956,7 @@ Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
 
 Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `81a9a786-e109-4234-bc37-4f3f1f7466c2`
 
 Target URLs:
 

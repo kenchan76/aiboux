@@ -1,0 +1,8 @@
+
+> aiboux@0.0.1 deploy:shop:wip
+> npm run shop:checkpoint && npm run check:control-chars && npm run check:mojibake && npm run astro check && ESBUILD_WORKER_THREADS=0 npm run build && npm run check:shop-ui-protection && npx wrangler deploy
+
+
+> aiboux@0.0.1 shop:checkpoint
+> node scripts/create-shop-wip-checkpoint.mjs --commit
+

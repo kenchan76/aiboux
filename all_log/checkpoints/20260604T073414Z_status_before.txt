@@ -1,0 +1,26 @@
+ M all_log/deploys/20260604T073152Z_shop_subscriptions_wip_deploy.txt
+ M public/g/l68.md
+ M src/lib/server/shopSubscriptions.ts
+?? all_log/checkpoints/20260604T073152Z_wip_commit.txt
+?? all_log/deploys/20260604T073152Z_deployments_before.txt
+?? all_log/deploys/20260604T073414Z_shop_subscriptions_schema_guard_redeploy.txt
+?? all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_d68.body
+?? all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_d68.headers
+?? all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_l68.body
+?? all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_l68.headers
+?? all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_m68.body
+?? all_log/public-checks/20260604T073334Z_https___mail_aiboux_com_g_m68.headers
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_admin_subscriptions.body
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_admin_subscriptions.headers
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_cart.body
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_cart.headers
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_checkout.body
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_checkout.headers
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_product_shopprod_tenant_001_4580000232621.body
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscription_plans_tenant_aiboux_productId_shopprod_tenant_001_4580000232621.body
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscription_plans_tenant_aiboux_productId_shopprod_tenant_001_4580000232621.headers
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscriptions_tenant_aiboux.body
+?? all_log/public-checks/20260604T073334Z_https___shop_aiboux_com_shop_api_subscriptions_tenant_aiboux.headers
+?? all_log/public-checks/20260604T073334Z_public_g_sha256.txt
+?? all_log/public-checks/20260604T073334Z_shop_subscriptions_public_curl_summary.txt
