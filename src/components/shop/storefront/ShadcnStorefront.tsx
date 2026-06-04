@@ -686,7 +686,7 @@ function imageForProduct(name: string, category: string, index: number) {
     ],
     towel: [
       "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=720&h=720&q=82",
-      "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&w=720&h=720&q=82",
+      "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=720&h=720&q=82",
     ],
     food: [
       "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82",
