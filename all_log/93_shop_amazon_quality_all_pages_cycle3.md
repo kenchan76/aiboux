@@ -118,3 +118,7 @@ Not FINAL_ACCEPTED:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - Additional Amazon-quality polish continues.
+
+## Evidence Publication Note - 2026-06-04T11:34:34Z
+
+The final public evidence Worker Version ID is resolved at runtime in /g routes from Cloudflare Version Metadata using __WORKER_VERSION_ID__.
