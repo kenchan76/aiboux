@@ -20,12 +20,18 @@ Implemented WIP direction:
 - Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
 - Google Search Central references checked for this WIP include Breadcrumb structured data, ecommerce structured data, URL structure best practices, and Product structured data.
 
-Latest WIP evidence before deploy:
+Latest WIP evidence:
 
 - `npm run check:control-chars`: PASS.
 - `npm run check:mojibake`: PASS.
 - `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
-- WIP commit, Worker Version ID, public Playwright, and public `/g/*` verification are pending in the deploy cycle.
+- WIP implementation commit: `88ab5e4`.
+- WIP text-collision fix commit: `86773c8`.
+- WIP deploy Worker Version ID: `0d378f76-d1b9-4f87-afb4-711095743e1c`.
+- Product action-map text-collision fix Worker Version ID: `ea1005e3-12f6-412c-870f-2872a826e0e5`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final. The subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
 
 Not final:
 

@@ -40,7 +40,14 @@ User requested every storefront page structure to be SEO-strong and UI-strong, a
 
 ## Public Verification
 
-Pending after WIP deploy.
+- WIP implementation commit: `88ab5e4`
+- WIP text-collision fix commit: `86773c8`
+- WIP deploy Worker Version ID: `0d378f76-d1b9-4f87-afb4-711095743e1c`
+- Product action-map text-collision fix Worker Version ID: `ea1005e3-12f6-412c-870f-2872a826e0e5`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- Subscription failure artifacts: `all_log/test-results/20260604T215000_subscription_gate_blocked_after_action_map/`
 
 ## Non-Final Conditions
 
