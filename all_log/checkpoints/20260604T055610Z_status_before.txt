@@ -1,0 +1,7 @@
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M output/playwright/shop-functional/design-editor-1980.png
+ M src/components/shop/StorefrontDesignBuilder.tsx
+?? all_log/checkpoints/20260604T055337Z_wip_commit.txt
+?? all_log/deploys/20260604T055337Z_deployments_before.txt
+?? all_log/shop-design-editor/20260604T055444Z_admin_design_after_fullscreen.headers
+?? all_log/shop-design-editor/20260604T055444Z_admin_design_after_fullscreen.html

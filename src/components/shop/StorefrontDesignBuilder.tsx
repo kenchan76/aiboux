@@ -278,7 +278,7 @@ export function StorefrontDesignBuilder() {
         </div>
       </div>
 
-      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
+      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:300px_minmax(0,1fr)_340px] min-[1840px]:[grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
         <LeftPane
           activePage={activePage}
           selectedSection={selectedSection}

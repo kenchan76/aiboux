@@ -1,0 +1,19 @@
+diff --git a/output/playwright/shop-functional/admin-demo-free-1980.png b/output/playwright/shop-functional/admin-demo-free-1980.png
+index 0f2c777..9fe348b 100644
+Binary files a/output/playwright/shop-functional/admin-demo-free-1980.png and b/output/playwright/shop-functional/admin-demo-free-1980.png differ
+diff --git a/output/playwright/shop-functional/design-editor-1980.png b/output/playwright/shop-functional/design-editor-1980.png
+index 2e5c93b..f8a2b2d 100644
+Binary files a/output/playwright/shop-functional/design-editor-1980.png and b/output/playwright/shop-functional/design-editor-1980.png differ
+diff --git a/src/components/shop/StorefrontDesignBuilder.tsx b/src/components/shop/StorefrontDesignBuilder.tsx
+index d928e9b..9e8b7d5 100644
+--- a/src/components/shop/StorefrontDesignBuilder.tsx
++++ b/src/components/shop/StorefrontDesignBuilder.tsx
+@@ -278,7 +278,7 @@ export function StorefrontDesignBuilder() {
+         </div>
+       </div>
+ 
+-      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
++      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:300px_minmax(0,1fr)_340px] min-[1840px]:[grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
+         <LeftPane
+           activePage={activePage}
+           selectedSection={selectedSection}
