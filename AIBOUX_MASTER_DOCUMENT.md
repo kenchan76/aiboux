@@ -4732,6 +4732,49 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must share SEO-critical parts wherever possible.
+- Shared parts now include storefront header, breadcrumb, page header, SEO hub, support rail, and footer.
+- Non-product public tenant pages must use `StorefrontPageHeader`.
+- Product detail pages must not use the shared page header because product detail must keep exactly one visible product `h1`.
+- Links that matter for shopping and SEO must be real crawlable `<a href>` anchors with visible blue link affordance.
+
+Current shared page header rule:
+- Shared component: `src/components/shop/storefront/StorefrontPageHeader.tsx`
+- Shared action builder: `buildShopPageHeaderActions()` in `src/lib/shopStorefrontShared.ts`
+- Page integration: `src/pages/shop/[tenant]/[...path].astro`
+- Public test coverage: `tests/shop-public-crawl.spec.ts`
+
+Required shared page header fields:
+- store context;
+- one page `h1`;
+- page description;
+- at least two internal crawlable action links;
+- visible blue secondary link affordance;
+- `SiteNavigationElement` microdata.
+
+Reference SEO basis:
+- Google Search Central ecommerce SEO guidance: ecommerce pages should expose store/product meaning and use relevant structured data.
+- Google Search Central product structured data guidance: merchant product pages should expose product facts in initial HTML when eligible.
+- Google Search Central ecommerce URL guidance: crawlable URLs and links help Google find ecommerce pages.
+- Schema.org references for `BreadcrumbList`, `WebPage`, and `SiteNavigationElement`.
+
+Latest evidence:
+- WIP commit: `4b90bb0`
+- Worker Version ID: `1bd147f4-517a-4703-974a-56198b05bd86`
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-sales-quality`: PASS
+- Direct public HTML checks for 16 non-product tenant URLs: HTTP 200 with shared page header and navigation microdata.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
 ## SHOP_10H_BREADCRUMB_PRODUCT_SEO_CLEANUP_WIP
 
 Status: `WIP_DEPLOYED_NOT_FINAL`
