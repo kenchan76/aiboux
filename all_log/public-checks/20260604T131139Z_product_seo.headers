@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Thu, 04 Jun 2026 13:11:40 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/setsuka-cleaning
+x-aiboux-rewritten-path: /shop/aiboux/product/setsuka-cleaning
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: d163f797-0d0f-426a-92f9-3998ad6822c8
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=XQNU%2BjoFdi2BOruTzBTYQjjzXoYuFiCoX8HymTFIMl9ghT%2BWqyap5BJJuu8TEBVOZopcjioWgwBCJADK1zc8nroV9bHhwMNnmaQoqketzQYncFjY%2FniLdpJBpXEU1WSJFXs%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0672f4a8d4880e1-NRT
+alt-svc: h3=":443"; ma=86400
+

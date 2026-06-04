@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Thu, 04 Jun 2026 13:17:41 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/home-care-set
+x-aiboux-rewritten-path: /shop/aiboux/product/home-care-set
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 7182db35-1c2f-4d19-8029-c6d34d765cc9
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=dBto8HxhlLXZ5WVBtWxrkXBhXxp6LiYmcOz2YhFnhREThUrptw6f5FcIT5qiXptDgxhUh4vuanltVqk7kPMMAuN9RqNV62eUMf6RvyIlhxpvZSFOAB6ImlDH4bmPwSJhYH0%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a067381e3834efbb-NRT
+alt-svc: h3=":443"; ma=86400
+
