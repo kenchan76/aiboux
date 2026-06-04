@@ -63,6 +63,12 @@ test.describe("AIBOUX Shop product detail public quality", () => {
         "https://schema.org/SiteNavigationElement",
       );
       expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
+      const buyingGuide = page.getByTestId("storefront-buying-guide");
+      await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
+      await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");
+      await expect(buyingGuide, "product detail buying guide should reinforce single-H1 SEO cleanup").toContainText("可視H1を1つ");
+      expect(await buyingGuide.locator("a").count(), "product detail buying guide should expose crawlable links").toBeGreaterThanOrEqual(4);
+      expect(await buyingGuide.locator("a").first().getAttribute("class"), "product detail buying guide links should be visibly blue").toContain("text-blue-700");
       const relatedCards = page.getByTestId("storefront-product-card");
       expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
       await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(

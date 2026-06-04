@@ -1,9 +1,14 @@
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
-import { buildShopHeaderCategoryLinks, type ShopStorefrontContextLinkSection } from "@/lib/shopStorefrontShared";
+import {
+  buildShopHeaderCategoryLinks,
+  buildShopPageBuyingGuide,
+  type ShopStorefrontContextLinkSection,
+} from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
+import { StorefrontBuyingGuide } from "./StorefrontBuyingGuide";
 import { StorefrontCommerceFacts } from "./StorefrontCommerceFacts";
 import { StorefrontContextLinks } from "./StorefrontContextLinks";
 import { StorefrontFooter } from "./StorefrontFooter";
@@ -101,6 +106,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const visualProducts = buildSalesReadyProducts(products);
   const rankingProducts = rotateProducts(visualProducts, 1);
   const saleProducts = rotateProducts(visualProducts, 3);
+  const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
   const columnClass = {
     3: "lg:grid-cols-3",
     4: "lg:grid-cols-4",
@@ -229,6 +235,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
       </main>
 
       <div className="mx-auto max-w-screen-xl px-4 pb-2">
+        <StorefrontBuyingGuide items={buyingGuideItems} pageLabel={`${storeName} TOPページ`} />
         <StorefrontContextLinks sections={contextualLinkSections} />
         <StorefrontSeoHub tenantRoot={tenantRoot} storeName={storeName} />
         <StorefrontSupportRail tenantRoot={tenantRoot} />

@@ -36,6 +36,8 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
     await page.locator("input[name='email']").fill("tester@example.com");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.getByText("送信完了扱いにはしません。")).toBeVisible();
+    await expect(page.getByTestId("storefront-buying-guide")).toBeVisible();
+    await expect(page.getByTestId("storefront-buying-guide")).toContainText("問い合わせ前");
     await saveScreenshot(page, "shop-contact-page.png");
   });
 
@@ -58,6 +60,8 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
         await expect(page.getByText("AIBOUX Shop 共通テンプレート")).toBeVisible();
         await expect(page.getByText("表示確認日")).toBeVisible();
       }
+      await expect(page.getByTestId("storefront-buying-guide")).toBeVisible();
+      expect(await page.getByTestId("storefront-buying-guide").locator("a").count()).toBeGreaterThanOrEqual(4);
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
       await saveScreenshot(page, item.file);
     }

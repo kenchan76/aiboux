@@ -1,6 +1,7 @@
 ---
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
+import { StorefrontBuyingGuide } from "@/components/shop/storefront/StorefrontBuyingGuide";
 import { StorefrontCommerceFacts } from "@/components/shop/storefront/StorefrontCommerceFacts";
 import { StorefrontContextLinks } from "@/components/shop/storefront/StorefrontContextLinks";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
@@ -41,6 +42,7 @@ import {
   buildShopFaqItems,
   buildShopFooterColumns,
   buildShopHeaderCategoryLinks,
+  buildShopPageBuyingGuide,
   buildShopPageHeaderActions,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
@@ -176,6 +178,8 @@ const faqItems = buildShopFaqItems();
 const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections(page, tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
+const buyingGuideItems = buildShopPageBuyingGuide(page, tenantRoot);
+const buyingGuideLinks = buyingGuideItems.map((item) => ({ label: item.label, href: item.href }));
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const normalizedSearchNeedle = searchQuery.toLowerCase();
 const visibleProductCards = page === "products" && normalizedSearchNeedle
@@ -220,6 +224,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
   links: [
     ...headerCategoryLinks,
     ...pageHeaderActions,
+    ...buyingGuideLinks,
     ...contextualLinks,
     ...footerColumns.flatMap((column) => column.links),
   ],
@@ -1257,6 +1262,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               </section>
             </section>
           ) : null}
+          <StorefrontBuyingGuide items={buyingGuideItems} pageLabel={page === "product" && salesProduct ? salesProduct.displayName : meta.metaTitle} />
           <StorefrontContextLinks sections={contextualLinkSections} />
           <StorefrontSeoHub tenantRoot={tenantRoot} storeName={storeName} />
           <StorefrontSupportRail tenantRoot={tenantRoot} />

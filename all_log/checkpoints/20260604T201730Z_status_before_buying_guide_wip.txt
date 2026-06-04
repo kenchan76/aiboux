@@ -1,0 +1,10 @@
+ M ops/instructions/current.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-contact-legal-public.spec.ts
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260604T201730Z_status_before_buying_guide_wip.txt
+?? ops/instructions/20260605_shop_page_buying_guide_seo_ui.md
+?? src/components/shop/storefront/StorefrontBuyingGuide.tsx

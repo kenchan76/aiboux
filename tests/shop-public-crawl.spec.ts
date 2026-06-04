@@ -122,6 +122,16 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         );
         expect(await commerceFacts.locator("a").count(), `${target.path} purchase facts should have crawlable internal links`).toBeGreaterThanOrEqual(5);
         expect(await commerceFacts.locator("a").first().getAttribute("class"), `${target.path} purchase fact links should be visibly styled`).toMatch(/border-|bg-/);
+        const buyingGuide = page.getByTestId("storefront-buying-guide");
+        await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
+        await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");
+        await expect(buyingGuide, `${target.path} buying guide should expose pricing/shipping/payment context`).toContainText(/価格|配送|返品|決済|定期購入/);
+        await expect(buyingGuide, `${target.path} buying guide should expose SiteNavigationElement microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/SiteNavigationElement",
+        );
+        expect(await buyingGuide.locator("a").count(), `${target.path} buying guide should expose crawlable internal links`).toBeGreaterThanOrEqual(4);
+        expect(await buyingGuide.locator("a").first().getAttribute("class"), `${target.path} buying guide links should use visible blue link affordance`).toContain("text-blue-700");
         const contextLinks = page.getByTestId("storefront-context-links");
         await expect(contextLinks, `${target.path} should include page-context internal links`).toBeVisible();
         await expect(contextLinks, `${target.path} contextual links should explain next actions`).toContainText("このページから次に確認すること");

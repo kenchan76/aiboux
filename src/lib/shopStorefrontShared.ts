@@ -47,6 +47,13 @@ export type ShopStorefrontFaqItem = {
   answer: string;
 };
 
+export type ShopStorefrontBuyingGuideItem = {
+  question: string;
+  answer: string;
+  href: string;
+  label: string;
+};
+
 export function buildShopCategoryHref(tenantRoot: string, slugOrName: string): string {
   const category = findShopCuratedCategory(slugOrName);
   const slug = category?.slug ?? slugOrName;
@@ -420,6 +427,307 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
 
   const sections = [pageSpecific[page], productDiscovery, purchaseSupport, accountSupport].filter(Boolean) as ShopStorefrontContextLinkSection[];
   return sections.filter((section, index, array) => array.findIndex((item) => item.title === section.title) === index);
+}
+
+export function buildShopPageBuyingGuide(page: string, tenantRoot: string): ShopStorefrontBuyingGuideItem[] {
+  const defaultItems: ShopStorefrontBuyingGuideItem[] = [
+    {
+      question: "購入前に価格・税込・送料をどこで確認できますか。",
+      answer: "商品カードと商品詳細は税込表示で揃え、送料と配送目安は配送ページへ集約しています。",
+      href: `${tenantRoot}/shipping`,
+      label: "送料と配送を見る",
+    },
+    {
+      question: "返品やキャンセル条件は注文前に確認できますか。",
+      answer: "返品条件、未開封品、初期不良、問い合わせ期限を共通テンプレートで確認できます。",
+      href: `${tenantRoot}/returns`,
+      label: "返品条件を見る",
+    },
+    {
+      question: "決済や定期購入が未接続の場合はどう表示されますか。",
+      answer: "成功したふりをせず、決済未接続や定期購入DB未適用を画面上で明示します。",
+      href: `${tenantRoot}/checkout`,
+      label: "注文前に確認",
+    },
+    {
+      question: "迷ったときはどのページへ進めばよいですか。",
+      answer: "商品一覧、カテゴリ、FAQ、問い合わせへ戻れる内部リンクを全ページに配置しています。",
+      href: `${tenantRoot}/faq`,
+      label: "FAQを見る",
+    },
+  ];
+
+  const pageItems: Record<string, ShopStorefrontBuyingGuideItem[]> = {
+    "": [
+      {
+        question: "TOPページから最短で商品を探すには。",
+        answer: "ヒーロー直下のおすすめ商品、ランキング、タイムセール、カテゴリから商品詳細へ直接進めます。",
+        href: `${tenantRoot}/products`,
+        label: "商品一覧へ",
+      },
+      {
+        question: "カテゴリ別に比較できますか。",
+        answer: "カテゴリURLは安定した検索向けURLとして用意し、食品、日用品、キッチン、ギフトなどへ分岐できます。",
+        href: `${tenantRoot}/categories`,
+        label: "カテゴリを見る",
+      },
+    ],
+    products: [
+      {
+        question: "商品一覧はSEOに強いカテゴリURLで見られますか。",
+        answer: "カテゴリ選択時は安定した `category` URLで表示し、任意検索語ページとはcanonicalとrobotsを分けます。",
+        href: `${tenantRoot}/categories`,
+        label: "カテゴリ一覧へ",
+      },
+      {
+        question: "価格・レビュー・在庫を同じ形式で比較できますか。",
+        answer: "共有商品カードで画像、商品名、評価、税込価格、CTA、カテゴリリンクを同じ位置に揃えています。",
+        href: `${tenantRoot}/products`,
+        label: "商品を比較",
+      },
+    ],
+    categories: [
+      {
+        question: "カテゴリは検索エンジンにも分かる構造ですか。",
+        answer: "カテゴリ名、画像、商品件数、カテゴリ別商品URLを同じカードで並べ、内部リンクを明確にしています。",
+        href: `${tenantRoot}/products`,
+        label: "商品一覧へ",
+      },
+      {
+        question: "売れ筋やセールカテゴリへ直接進めますか。",
+        answer: "ランキング、セール、食品、日用品、ギフトなどのカテゴリURLをクロール可能なリンクで提供します。",
+        href: buildShopCategoryHref(tenantRoot, "ranking"),
+        label: "ランキングを見る",
+      },
+    ],
+    product: [
+      {
+        question: "商品詳細で購入判断に必要な情報は揃っていますか。",
+        answer: "商品名、画像、税込価格、レビュー、在庫、配送、返品、定期購入状態を購入ボックス周辺に集約します。",
+        href: `${tenantRoot}/cart`,
+        label: "カートを見る",
+      },
+      {
+        question: "商品名の重複やSEO上の薄い見出しはありませんか。",
+        answer: "商品詳細は可視H1を1つに絞り、パンくずと構造化データで階層を補強します。",
+        href: `${tenantRoot}/products`,
+        label: "関連商品を探す",
+      },
+    ],
+    cart: [
+      {
+        question: "カートで通常購入と定期購入を区別できますか。",
+        answer: "定期購入商品は頻度や次回配送の説明を分け、未接続時は申込み確定しない表示にします。",
+        href: `${tenantRoot}/mypage/subscriptions`,
+        label: "定期購入を見る",
+      },
+      {
+        question: "注文前に商品追加や返品条件へ戻れますか。",
+        answer: "カートから商品一覧、配送、返品、チェックアウトへ進めるリンクを用意しています。",
+        href: `${tenantRoot}/products`,
+        label: "商品を追加",
+      },
+    ],
+    checkout: [
+      {
+        question: "決済未接続でも注文完了のように見えませんか。",
+        answer: "決済未接続時は明確に停止し、特定商取引法、配送、問い合わせへ誘導します。",
+        href: `${tenantRoot}/legal`,
+        label: "販売条件を見る",
+      },
+      {
+        question: "配送先や支払い情報は保存されますか。",
+        answer: "本番認証と決済接続前は個人情報を保存せず、入力導線は状態表示として扱います。",
+        href: `${tenantRoot}/privacy`,
+        label: "個人情報の扱い",
+      },
+    ],
+    contact: [
+      {
+        question: "問い合わせ前に何を確認すればよいですか。",
+        answer: "配送状況、返品条件、FAQを確認し、必要なら注文番号と商品名を添えて問い合わせます。",
+        href: `${tenantRoot}/faq`,
+        label: "FAQを見る",
+      },
+      {
+        question: "フォームは未接続なのに送信完了扱いになりませんか。",
+        answer: "通知未接続時は成功したふりをせず、入力確認と未接続状態を明示します。",
+        href: `${tenantRoot}/contact`,
+        label: "問い合わせを確認",
+      },
+    ],
+    legal: [
+      {
+        question: "販売者情報と取引条件は注文前に確認できますか。",
+        answer: "販売者、問い合わせ先、支払い、配送、返品条件を共通テンプレートで整理します。",
+        href: `${tenantRoot}/shipping`,
+        label: "配送条件を見る",
+      },
+      {
+        question: "未設定項目がある場合はどう扱いますか。",
+        answer: "空欄で隠さず、管理画面の設定反映が必要であることを明示します。",
+        href: `${tenantRoot}/contact`,
+        label: "確認する",
+      },
+    ],
+    privacy: [
+      {
+        question: "個人情報の扱いはどこで確認できますか。",
+        answer: "注文、問い合わせ、アカウント、定期購入で扱う情報の方針をこのページに集約します。",
+        href: `${tenantRoot}/contact`,
+        label: "問い合わせる",
+      },
+      {
+        question: "ログインや決済未接続時のデータ保存はどうなりますか。",
+        answer: "未接続機能は保存済みのように見せず、利用可能範囲を画面に明記します。",
+        href: `${tenantRoot}/mypage`,
+        label: "マイページを見る",
+      },
+    ],
+    shipping: [
+      {
+        question: "配送予定と送料を商品購入前に確認できますか。",
+        answer: "通常2〜4営業日の目安、送料、追跡条件をまとめ、商品詳細とカートからリンクします。",
+        href: `${tenantRoot}/products`,
+        label: "商品を選ぶ",
+      },
+      {
+        question: "返品条件と一緒に確認できますか。",
+        answer: "配送と返品は相互リンクし、購入前の不安を同じ流れで解消します。",
+        href: `${tenantRoot}/returns`,
+        label: "返品条件を見る",
+      },
+    ],
+    returns: [
+      {
+        question: "返品できる条件は分かりやすく整理されていますか。",
+        answer: "未開封、初期不良、到着後7日以内の問い合わせなど、判断基準を明確にします。",
+        href: `${tenantRoot}/contact`,
+        label: "問い合わせる",
+      },
+      {
+        question: "返品前に注文や配送を確認できますか。",
+        answer: "注文履歴、配送条件、問い合わせへ戻れる導線を用意しています。",
+        href: `${tenantRoot}/orders`,
+        label: "注文履歴へ",
+      },
+    ],
+    faq: [
+      {
+        question: "FAQから商品購入へ戻れますか。",
+        answer: "配送、返品、定期購入、決済状態を確認したあと商品一覧やカテゴリへ戻れます。",
+        href: `${tenantRoot}/products`,
+        label: "商品一覧へ",
+      },
+      {
+        question: "FAQの内容は実装状態と一致していますか。",
+        answer: "決済未接続や定期購入準備中など、未完了を実装済みのように書かない方針です。",
+        href: `${tenantRoot}/checkout`,
+        label: "注文前に確認",
+      },
+    ],
+    mypage: [
+      {
+        question: "マイページで注文や定期購入を確認できますか。",
+        answer: "注文履歴、定期購入、お気に入り、問い合わせ入口をまとめ、未接続機能は準備中として表示します。",
+        href: `${tenantRoot}/orders`,
+        label: "注文履歴へ",
+      },
+      {
+        question: "ログイン基盤未接続でも誤解しませんか。",
+        answer: "保存済みアカウントのように見せず、ログイン機能の状態と利用可能な導線を明記します。",
+        href: `${tenantRoot}/login`,
+        label: "ログインを見る",
+      },
+    ],
+    account: [
+      {
+        question: "アカウント機能の入口は整理されていますか。",
+        answer: "注文履歴、お気に入り、定期購入、問い合わせへ同じ導線で移動できます。",
+        href: `${tenantRoot}/mypage`,
+        label: "マイページへ",
+      },
+      {
+        question: "会員登録前に購入条件を確認できますか。",
+        answer: "配送、返品、特商法、プライバシーをアカウント導線から確認できます。",
+        href: `${tenantRoot}/legal`,
+        label: "取引条件を見る",
+      },
+    ],
+    orders: [
+      {
+        question: "注文がない状態でも次の行動が分かりますか。",
+        answer: "空状態には商品一覧、問い合わせ、配送・返品への導線を出し、何もないページで終わらせません。",
+        href: `${tenantRoot}/products`,
+        label: "商品を見る",
+      },
+      {
+        question: "注文後の問い合わせ導線はありますか。",
+        answer: "注文番号を添えて問い合わせできる導線を注文履歴から確認できます。",
+        href: `${tenantRoot}/contact`,
+        label: "問い合わせる",
+      },
+    ],
+    favorites: [
+      {
+        question: "お気に入りから商品比較に戻れますか。",
+        answer: "候補商品、商品詳細、カテゴリ、カートへ移動できるリンクを維持します。",
+        href: `${tenantRoot}/products`,
+        label: "商品一覧へ",
+      },
+      {
+        question: "保存機能が未接続でも分かりますか。",
+        answer: "ログイン保存が有効化されるまで、人気商品候補として表示することを明記します。",
+        href: `${tenantRoot}/login`,
+        label: "ログインを見る",
+      },
+    ],
+    login: [
+      {
+        question: "ログイン未接続でも利用者に誤解を与えませんか。",
+        answer: "本番認証接続前は入力を保存せず、注文履歴やお気に入りの確認導線を表示します。",
+        href: `${tenantRoot}/mypage`,
+        label: "マイページへ",
+      },
+      {
+        question: "会員登録や注文履歴へ移動できますか。",
+        answer: "ログイン、会員登録、注文履歴、問い合わせを相互リンクでつなげます。",
+        href: `${tenantRoot}/register`,
+        label: "会員登録へ",
+      },
+    ],
+    register: [
+      {
+        question: "会員登録前に個人情報の扱いを確認できますか。",
+        answer: "プライバシーポリシー、問い合わせ、ログイン導線を近くに置きます。",
+        href: `${tenantRoot}/privacy`,
+        label: "プライバシーを見る",
+      },
+      {
+        question: "登録機能が未接続でも購入導線は残りますか。",
+        answer: "商品一覧、カート、問い合わせへ戻れる導線を残し、認証未接続を明示します。",
+        href: `${tenantRoot}/products`,
+        label: "商品を見る",
+      },
+    ],
+    "mypage/subscriptions": [
+      {
+        question: "定期購入の状態は正直に表示されていますか。",
+        answer: "D1 migration未適用時は契約作成や表示を行わず、準備中として明示します。",
+        href: `${tenantRoot}/checkout`,
+        label: "注文前に確認",
+      },
+      {
+        question: "スキップ・一時停止・解約条件は確認できますか。",
+        answer: "本番接続後に操作できる項目を説明し、問い合わせと商品一覧へ戻れるようにします。",
+        href: `${tenantRoot}/contact`,
+        label: "問い合わせる",
+      },
+    ],
+  };
+
+  const merged = [...(pageItems[page] ?? []), ...defaultItems];
+  return merged.filter((item, index, array) => array.findIndex((candidate) => candidate.question === item.question) === index).slice(0, 6);
 }
 
 export function buildShopPageHeaderActions(page: string, tenantRoot: string): ShopStorefrontPageHeaderAction[] {
