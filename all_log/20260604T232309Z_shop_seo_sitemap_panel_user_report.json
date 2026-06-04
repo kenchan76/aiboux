@@ -1,0 +1,42 @@
+{
+  "title": "AIBOUX Shop SEO Sitemap Panel WIP Report",
+  "status": "DEPLOYED_NOT_FINAL",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "全公開Shopページ向けに共通SEOサイトマップパネルを追加しました。",
+    "canonical、robots、sitemap状態、ページ役割、クロール可能な内部リンクを共通部品化しました。",
+    "TOP、商品詳細、公開サブページで visible ItemList/ListItem microdata と青い内部リンクを確認しました。",
+    "商品詳細のH1二重化は禁止状態を維持しています。",
+    "FINAL_ACCEPTEDではありません。定期購入laneはまだBLOCKED_NOT_FINALです。"
+  ],
+  "verification": [
+    "npm run check:control-chars PASS",
+    "npm run check:mojibake PASS",
+    "ESBUILD_WORKER_THREADS=0 npm run build PASS",
+    "gate:shop-sales-quality PASS",
+    "gate:shop-public-crawl PASS 9 tests",
+    "gate:shop-product-detail PASS 3 tests",
+    "公開m68/l68/d68 HTTP 200 / text/markdown; charset=utf-8",
+    "公開Shop TOP HTTP 200 / x-aiboux-worker-version 1b23ce8d-5f40-4326-ac33-92ab06c8daf3",
+    "公開Shop商品詳細 HTTP 200 / x-aiboux-worker-version 1b23ce8d-5f40-4326-ac33-92ab06c8daf3",
+    "TOP/product HTML marker storefront-seo-sitemap-panel present",
+    "TOP/product HTML marker SEO site map present",
+    "TOP/product HTML marker canonical present",
+    "TOP/product HTML marker robots present"
+  ],
+  "bark": {
+    "notification": "progress delivered",
+    "reason": "Progress Bark sent with delivered=true, skipped=false, secretLogged=false, finalGate=false. Final acceptance Bark is not claimed."
+  },
+  "notes": [
+    "WIP implementation commit: 912978c42733e0ed6f88ba811d0f42fb920ee2d5",
+    "Public log commit: 251d008640aafb9c754ea86634a7330de75b49d1",
+    "Final public-check evidence commit: bf3949514aedb3f725f109106f317b02b1000084",
+    "Latest deploy Worker Version ID: 1b23ce8d-5f40-4326-ac33-92ab06c8daf3",
+    "Public /g/* source SHA and response SHA differ because __WORKER_VERSION_ID__ is replaced at runtime; this is recorded in l68.",
+    "gate:shop-subscriptions remains BLOCKED_NOT_FINAL because recurring subscription plan persistence/provider-backed billing is not accepted.",
+    "Google Search Central references checked: SEO Starter Guide, Breadcrumb structured data, Product/Merchant Listing structured data, and Page Experience."
+  ]
+}
