@@ -103,3 +103,26 @@ The Shop service site remains:
 - Remote D1 subscription migration and provider-backed recurring billing are not accepted.
 - `gate:shop-subscriptions` is still BLOCKED / not final.
 - `FINAL_ACCEPTED` remains prohibited.
+
+## Public Log Publication And Bark Progress
+
+- Public log publication Worker Version ID: `__WORKER_VERSION_ID__`.
+- Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`.
+- Public Shop TOP: HTTP 200 / `x-aiboux-worker-version: fe1e6ec0-4463-48b8-8fed-91e97d78ee2d`.
+- Public Shop product detail: HTTP 200 / `x-aiboux-worker-version: fe1e6ec0-4463-48b8-8fed-91e97d78ee2d`.
+- TOP and product detail public HTML markers found:
+  - `storefront-seo-sitemap-panel`: present.
+  - `SEO site map`: present.
+  - `canonical`: present.
+  - `robots`: present.
+- Public `/g/*` SHA note: source markdown SHA and public body SHA differ because the `/g/*` route replaces `__WORKER_VERSION_ID__` at response time. The mismatch is expected and recorded honestly.
+- Progress Bark notification:
+  - Purpose: progress notification.
+  - Stage: `DEPLOYED_NOT_FINAL`.
+  - Delivered: `true`.
+  - Skipped: `false`.
+  - Secret logged: `false`.
+  - Final gate: `false`.
+  - User receipt confirmed: `false`.
+  - Worker Version ID at send time: `fe1e6ec0-4463-48b8-8fed-91e97d78ee2d`.
+  - Secret-safe evidence file: `all_log/bark/*_seo_sitemap_panel_progress_bark.json`.

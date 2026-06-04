@@ -37,6 +37,14 @@ Not final:
 - Remote D1 subscription migration and provider-backed recurring billing are not accepted.
 - `FINAL_ACCEPTED` remains prohibited.
 
+Public evidence publication:
+
+- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`.
+- Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`.
+- Public TOP and product detail contain `storefront-seo-sitemap-panel`, `SEO site map`, `canonical`, and `robots`.
+- Progress Bark notification delivered with `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
+- Runtime SHA note: `/g/*` replaces `__WORKER_VERSION_ID__` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+
 ## Current Active Operating Override: AIBOUX Shop Trust Matrix Public Evidence
 
 Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP_DEPLOYED_NOT_FINAL`
