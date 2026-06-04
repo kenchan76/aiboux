@@ -1,0 +1,2 @@
+?? all_log/checkpoints/20260604T052701Z_wip_commit.txt
+?? all_log/deploys/20260604T052701Z_deploy_design_editor_route_fix.txt
