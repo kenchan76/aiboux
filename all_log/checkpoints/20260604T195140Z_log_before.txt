@@ -1,0 +1,10 @@
+d2bc86e WIP strengthen shop commerce facts SEO UI 20260604T195129Z
+8bf3385 WIP record shop schema graph public verification
+fb398e7 WIP publish shop schema graph SEO evidence
+304e0a5 WIP shop aiboux tenant deploy checkpoint 20260604T193202Z
+414690b WIP strengthen shop structured data graph SEO
+6d7e6f7 WIP record shared product card SEO public verification
+990a442 WIP publish shared product card SEO evidence
+8f43942 WIP shop aiboux tenant deploy checkpoint 20260604T191207Z
+6090368 WIP strengthen shared shop product card SEO UI
+5b1a428 WIP record shared SEO meta status report
