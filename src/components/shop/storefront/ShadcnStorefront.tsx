@@ -24,6 +24,7 @@ import { StorefrontSearchForm } from "./StorefrontSearchForm";
 import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSeoSiteMapPanel } from "./StorefrontSeoSiteMapPanel";
+import { StorefrontSkipLinks } from "./StorefrontSkipLinks";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
 import { StorefrontTrustMatrix } from "./StorefrontTrustMatrix";
 
@@ -136,9 +137,10 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
 
   return (
     <div id="top" className="min-h-screen bg-[#f3f4f6] text-foreground">
+      <StorefrontSkipLinks />
       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
 
-      <main className="mx-auto max-w-screen-xl px-4 pb-10">
+      <main id="storefront-main" className="mx-auto max-w-screen-xl px-4 pb-10" tabIndex={-1}>
         <StorefrontBreadcrumb
           className="py-3"
           supportLinks={breadcrumbSupportLinks}
@@ -277,7 +279,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
   const logoHref = logo.linkType === "custom" && logo.customUrl ? logo.customUrl : `${tenantRoot}/`;
   const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
   return (
-    <header className="sticky top-0 z-30 bg-[#0f1722] text-white shadow-sm">
+    <header className="sticky top-0 z-30 bg-[#0f1722] text-white shadow-sm" aria-label="ストアヘッダー">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-2 text-xs">
         <span>{layout.global.header.deliveryText}</span>
         <span>{layout.global.header.shippingText}</span>
@@ -299,7 +301,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
         <a href={`${tenantRoot}/orders`} className="hidden text-xs md:block">注文履歴</a>
         <a href={`${tenantRoot}/cart`} className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート <span className="rounded bg-amber-400 px-1.5 py-0.5 text-[11px] font-bold text-neutral-950" data-testid="storefront-cart-count" data-cart-count>0</span></a>
       </div>
-      <nav className="mx-auto flex max-w-screen-xl items-center gap-6 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
+      <nav className="mx-auto flex max-w-screen-xl items-center gap-6 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs" aria-label="ストアカテゴリナビ">
         <a className="shrink-0 font-bold" href={`${tenantRoot}/categories`}>すべてのカテゴリー</a>
         {headerCategoryLinks.map((item) => (
           <a key={item.label} className={cn("shrink-0", item.label === "セール" && "font-bold text-red-400")} href={item.href}>

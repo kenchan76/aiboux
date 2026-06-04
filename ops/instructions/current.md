@@ -16,6 +16,29 @@ Active instruction file:
 - `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
 - `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
 - `ops/instructions/20260605_shop_seo_sitemap_panel_commonization.md`
+- `ops/instructions/20260605_shop_landmark_skiplink_seo_ui.md`
+
+## 2026-06-05 Continuation: Landmark / Skip Link SEO UI Commonization
+
+Continue the active sales-quality sprint. The current work unit strengthens every public tenant storefront page with shared page-experience landmarks and keyboard-accessible skip links.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce website navigation structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+
+Current additions required:
+
+- Add shared `StorefrontSkipLinks`.
+- Add stable `main#storefront-main`, `#storefront-search`, and `footer#storefront-footer` targets.
+- Label the shared storefront header and category navigation.
+- Strengthen public crawl tests so every public page exposes the same SEO/UI landmark structure.
+- Keep links crawlable and visible when focused.
+- Keep product detail single-H1 and no duplicate product title above the gallery.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Footer SEO Sitemap Quality
 

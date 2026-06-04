@@ -1,0 +1,10 @@
+ M ops/improvements/20260605_daily_improvement.md
+ M ops/instructions/current.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/components/shop/storefront/StorefrontFooter.tsx
+ M src/components/shop/storefront/StorefrontSearchForm.tsx
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260604T235810Z_status_before_landmark_deploy.txt
+?? ops/instructions/20260605_shop_landmark_skiplink_seo_ui.md
+?? src/components/shop/storefront/StorefrontSkipLinks.tsx

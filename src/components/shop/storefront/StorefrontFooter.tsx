@@ -12,7 +12,7 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
   const seoSitemapLinks = buildShopFooterSeoSitemapLinks(tenantRoot);
 
   return (
-    <footer className={`mt-8 bg-[#17212f] text-white ${className}`} data-testid="storefront-footer">
+    <footer id="storefront-footer" className={`mt-8 bg-[#17212f] text-white ${className}`} data-testid="storefront-footer">
       <a className="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold underline-offset-4 hover:bg-[#2e4058] hover:underline focus:outline-none focus:ring-2 focus:ring-amber-300" href="#top">
         ページ上部へ戻る
       </a>

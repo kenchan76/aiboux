@@ -2,6 +2,7 @@ import { Search } from "lucide-react";
 
 type StorefrontSearchFormProps = {
   tenantRoot: string;
+  id?: string;
   placeholder?: string;
   defaultQuery?: string;
   categoryLabel?: string;
@@ -10,6 +11,7 @@ type StorefrontSearchFormProps = {
 
 export function StorefrontSearchForm({
   tenantRoot,
+  id = "storefront-search",
   placeholder = "キーワード・商品名・ブランド名で検索",
   defaultQuery = "",
   categoryLabel = "すべてのカテゴリ",
@@ -17,6 +19,7 @@ export function StorefrontSearchForm({
 }: StorefrontSearchFormProps) {
   return (
     <form
+      id={id}
       action={`${tenantRoot}/products`}
       method="get"
       role="search"

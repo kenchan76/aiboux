@@ -29,3 +29,7 @@ Add a visible, shared SEO sitemap panel for every public storefront page. This m
 ## 2026-06-05 Shop Footer SEO Sitemap Improvement
 
 For ecommerce pages, the footer must be treated as a shared SEO/UI surface, not a decorative afterthought. Public gates should verify that the footer exposes dense crawlable links, visible link styling, `SiteNavigationElement` columns, and an `ItemList` footer sitemap across every public storefront page.
+
+## 2026-06-05 Shop Landmark / Skip Link Improvement
+
+Every public storefront page should expose stable page-experience landmarks, not only visible SEO link blocks. Public gates should verify a shared skip-link nav, `main#storefront-main`, `#storefront-search`, `footer#storefront-footer`, and labeled header/category navigation so keyboard users, crawlers, and automated audits see the same predictable structure on every page.

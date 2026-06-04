@@ -98,6 +98,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("Not Found");
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
+        const skipLinks = page.getByTestId("storefront-skip-links");
+        await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
+        await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
+        await expect(skipLinks.locator('a[href="#storefront-search"]'), `${target.path} should allow direct jump to product search`).toHaveCount(1);
+        await expect(skipLinks.locator('a[href="#storefront-footer"]'), `${target.path} should allow direct jump to footer navigation`).toHaveCount(1);
+        await skipLinks.getByRole("link", { name: "本文へスキップ" }).focus();
+        await expect(skipLinks.getByRole("link", { name: "本文へスキップ" }), `${target.path} skip link should become visible on focus`).toBeVisible();
+        await expect(page.locator("main#storefront-main"), `${target.path} should expose a single main landmark target`).toHaveCount(1);
+        await expect(page.locator("#storefront-search"), `${target.path} should expose a product-search landmark target`).toHaveCount(1);
+        await expect(page.locator("footer#storefront-footer"), `${target.path} should expose a footer landmark target`).toHaveCount(1);
+        await expect(page.locator('header[aria-label="ストアヘッダー"]'), `${target.path} should label the shared storefront header`).toHaveCount(1);
+        await expect(page.locator('nav[aria-label="ストアカテゴリナビ"]'), `${target.path} should label the shared category navigation`).toHaveCount(1);
         const searchForm = page.getByTestId("storefront-search-form").first();
         await expect(searchForm, `${target.path} should expose a crawlable store search form`).toBeVisible();
         await expect(searchForm, `${target.path} search form should submit as GET`).toHaveAttribute("method", /get/i);
