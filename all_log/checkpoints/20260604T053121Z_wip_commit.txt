@@ -1,0 +1,28 @@
+timestamp=20260604T053121Z
+commit_status=0
+head_after=d141bb63e67fff9a07087b822ab12aae467ecb3b
+commit_stdout:
+[main d141bb6] WIP shop aiboux tenant deploy checkpoint 20260604T053121Z
+ 26 files changed, 2549 insertions(+), 262 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T052702Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T053121Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T053121Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T053121Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T053121Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T052702Z_deployments_before.txt
+ create mode 100644 all_log/patches/20260604T053121Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T053121Z_before_deploy_staged.patch
+ create mode 100644 all_log/shop-design-editor/20260604T052926Z_https___shop.aiboux.com_s_aiboux_.headers
+ create mode 100644 all_log/shop-design-editor/20260604T052926Z_https___shop.aiboux.com_s_aiboux_.html
+ create mode 100644 all_log/shop-design-editor/20260604T052926Z_https___shop.aiboux.com_s_aiboux_admin_design.headers
+ create mode 100644 all_log/shop-design-editor/20260604T052926Z_https___shop.aiboux.com_s_aiboux_admin_design.html
+ create mode 100644 all_log/shop-design-editor/20260604T052926Z_https___shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+ create mode 100644 all_log/shop-design-editor/20260604T052926Z_https___shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.html
+ create mode 100644 all_log/shop-design-editor/20260604T052958Z_design_editor_wip_evidence.md
+ create mode 100644 output/playwright/shop-functional/design-editor-1980.png
+ delete mode 100644 test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/error-context.md
+ delete mode 100644 test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/test-failed-1.png
+ delete mode 100644 test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/trace.zip
+ delete mode 100644 test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/video.webm
+
+commit_stderr:
