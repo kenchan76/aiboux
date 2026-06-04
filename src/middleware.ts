@@ -47,7 +47,8 @@ export const onRequest = defineMiddleware(async (context, next): Promise<Respons
   }
 
   if (shouldPassThrough(pathname)) {
-    return next();
+    const response = await next();
+    return withNoStoreForShopAdmin(context, response);
   }
 
   const tenant = await resolveOptionalTenant(context.request);
@@ -62,7 +63,8 @@ export const onRequest = defineMiddleware(async (context, next): Promise<Respons
   }
 
   if (APP_MOUNT_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
-    return next();
+    const response = await next();
+    return withNoStoreForShopAdmin(context, response);
   }
 
   if (host === 'core.aiboux.com') {
@@ -105,8 +107,36 @@ export const onRequest = defineMiddleware(async (context, next): Promise<Respons
     return routeCustomShopDomain(context, next, tenant.slug);
   }
 
-  return next();
+  const response = await next();
+  return withNoStoreForShopAdmin(context, response);
 });
+
+function withNoStoreForShopAdmin(context: MiddlewareContext, response: Response): Response {
+  const requestHost = normalizeHost(context.request.headers.get('host') || context.url.hostname);
+  const pathname = context.url.pathname;
+  const isShopAdminPath = requestHost === 'shop.aiboux.com'
+    && (pathname === '/s/aiboux/admin'
+      || pathname.startsWith('/s/aiboux/admin/')
+      || pathname === '/shop/dashboard'
+      || pathname.startsWith('/shop/admin/')
+      || pathname === '/shop/products'
+      || pathname === '/shop/orders'
+      || pathname === '/shop/settings');
+
+  if (!isShopAdminPath) return response;
+
+  const headers = new Headers(response.headers);
+  headers.set('cache-control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0');
+  headers.set('cdn-cache-control', 'no-store');
+  headers.set('cloudflare-cdn-cache-control', 'no-store');
+  headers.set('pragma', 'no-cache');
+  headers.set('expires', '0');
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
 
 async function resolveOptionalTenant(request: Request) {
   try {

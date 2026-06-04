@@ -1,0 +1,63 @@
+m68 status=200 sha=8afcd6a2532ec090d6e0d585929561f7cc0bf6cad72ed967a431de0661b4dc5b content-type: text/markdown; charset=utf-8
+l68 status=200 sha=cd851d5a36ba1fdd6a99b7c2405dff7b5200f24863aef4ba05fe75255f99eb46 content-type: text/markdown; charset=utf-8
+d68 status=200 sha=82c28d5fa1514d7a4a58075d4541be67f1ef0e293d7c0b1753ed87e15e6bc63e content-type: text/markdown; charset=utf-8
+--- admin ---
+admin_status=200
+OK 2024/05
+OK 山田
+OK ¥2,340,000
+OK 245件
+OK 2.35%
+OK ¥9,551
+OK 28.7%
+OK TSH-001
+OK BAG-001
+OK BTL-500
+OK #10085
+OK #10084
+OK #10083
+OK 佐藤
+OK 鈴木
+OK 田中
+--- l68 first20 ---
+# AIBOUX Shop Sales Tenant Execution Log
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Status: `WIP_LOG_RULE_READY_TO_DEPLOY`
+
+Codex must publish execution logs to public `/g/*` URLs before every user-facing report.
+
+Required report header:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Prohibited:
+
+--- d68 first20 ---
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Every user-facing report must start with the public URL Bundle:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Screen evidence is not valid if it exists only under `all_log/...`.
+Before reporting, this `d68` public URL must be deployed and verified with curl.
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`

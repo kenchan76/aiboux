@@ -249,3 +249,27 @@ Cycle 02 report must be published to:
 - `https://mail.aiboux.com/g/l68`
 - `https://mail.aiboux.com/g/d68`
 - `https://mail.aiboux.com/g/m68`
+
+## Fix Cycle 03: Public Admin Route And Cache Mismatch
+
+Status: WIP_FIXING
+
+Instruction file:
+
+- `ops/instructions/20260604_shop_public_admin_route_cache_mismatch.md`
+
+Reason:
+
+The user reports that an external fetch route still sees the old fixed demo values even though Codex curl and Playwright see them absent.
+
+Do not proceed to product/settings/cart/checkout/contact/legal work until this route/cache mismatch is handled.
+
+Cycle 03 scope:
+
+- Strengthen no-store headers for service-routed HTML.
+- Add admin-specific browser cache clearing headers.
+- Attempt targeted Cloudflare cache purge.
+- Record purge failure honestly if API authentication or permission fails.
+- Verify public admin headers, Worker Version ID, route rewrite headers, HTML grep, and Playwright rendered DOM.
+
+Cycle 03 must not redesign the Shop UI.

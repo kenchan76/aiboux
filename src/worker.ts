@@ -128,11 +128,23 @@ async function servePersistentShortlink(request: Request, env: EnvWithAssets): P
 
 function persistentArtifactHeaders(): HeadersInit {
   return {
-    'cache-control': 'no-store, max-age=0',
+    'cache-control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+    'cdn-cache-control': 'no-store',
+    'cloudflare-cdn-cache-control': 'no-store',
     'content-type': 'text/markdown; charset=utf-8',
+    'expires': '0',
+    'pragma': 'no-cache',
     'x-content-type-options': 'nosniff',
     'x-robots-tag': 'noindex, nofollow, noarchive',
   };
+}
+
+function applyNoStoreHeaders(headers: Headers): void {
+  headers.set('cache-control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0');
+  headers.set('cdn-cache-control', 'no-store');
+  headers.set('cloudflare-cdn-cache-control', 'no-store');
+  headers.set('pragma', 'no-cache');
+  headers.set('expires', '0');
 }
 
 function withServiceRoutingHeaders(
@@ -154,7 +166,11 @@ function withServiceRoutingHeaders(
   }
 
   const headers = new Headers(response.headers);
-  headers.set('cache-control', 'no-store, max-age=0');
+  applyNoStoreHeaders(headers);
+  if (isShopAdminPath(originalUrl.pathname) || isShopAdminPath(rewrittenUrl.pathname)) {
+    headers.set('clear-site-data', '"cache"');
+    headers.set('x-aiboux-admin-cache-policy', 'no-store-clear-cache');
+  }
   headers.set('x-aiboux-route-source', 'worker-entry');
   headers.set('x-aiboux-original-path', originalUrl.pathname);
   headers.set('x-aiboux-rewritten-path', rewrittenUrl.pathname);
@@ -165,6 +181,16 @@ function withServiceRoutingHeaders(
     statusText: response.statusText,
     headers,
   });
+}
+
+function isShopAdminPath(pathname: string): boolean {
+  return pathname === '/s/aiboux/admin'
+    || pathname.startsWith('/s/aiboux/admin/')
+    || pathname === '/shop/dashboard'
+    || pathname.startsWith('/shop/admin/')
+    || pathname === '/shop/products'
+    || pathname === '/shop/orders'
+    || pathname === '/shop/settings';
 }
 
 function replaceWorkerMetadata(content: string, env: EnvWithAssets): string {

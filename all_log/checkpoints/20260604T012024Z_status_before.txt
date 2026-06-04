@@ -1,0 +1,19 @@
+ M all_log/deploys/20260604T003600Z_deploy_shop_public_admin_final_evidence_log.txt
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M src/middleware.ts
+ M src/worker.ts
+?? all_log/cache/
+?? all_log/checkpoints/20260604T002551Z_wip_commit.txt
+?? all_log/deploys/20260604T002551Z_deployments_before.txt
+?? all_log/deploys/20260604T011751Z_deployments_list_route_mismatch.txt
+?? all_log/deploys/20260604T012500Z_deploy_shop_admin_cache_headers.txt
+?? all_log/public-checks/20260604T002551Z_final_admin_playwright_result.json
+?? all_log/public-checks/20260604T002551Z_final_public_g_and_admin_verify.txt
+?? all_log/public-checks/20260604T003100Z_admin_normal_final.headers
+?? all_log/public-checks/20260604T003100Z_admin_normal_final.html
+?? all_log/public-checks/20260604T003100Z_admin_normal_final_grep.txt
+?? all_log/public-checks/20260604T011751Z_admin_nocache.headers
+?? all_log/public-checks/20260604T011751Z_admin_nocache.html
+?? ops/instructions/20260604_shop_public_admin_route_cache_mismatch.md
