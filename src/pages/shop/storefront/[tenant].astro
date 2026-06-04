@@ -4,6 +4,8 @@ import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront"
 import {
   buildShopBreadcrumbJsonLd,
   buildShopOrganizationJsonLd,
+  buildShopRobotsContent,
+  buildShopSocialMeta,
   buildShopWebsiteJsonLd,
 } from "@/lib/shopSeo";
 import { getShopStorefrontLayout, getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
@@ -25,10 +27,18 @@ Astro.response.headers.set("Cache-Control", isKnownTenant && profile ? "public, 
 
 const storeName = profile?.storeName ?? "AIBOUX Store";
 const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
+const metaDescription = `${storeName}の公開ストアです。商品、カテゴリ、セール、ランキング、配送・返品条件を確認できます。`;
 const canonicalUrl = isKnownTenant && profile
   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
 const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
+const socialMeta = buildShopSocialMeta({
+  title,
+  description: metaDescription,
+  canonicalUrl,
+  imageUrl: products[0]?.imageUrl,
+  storeName,
+});
 const structuredData = JSON.stringify([
   buildShopBreadcrumbJsonLd([{ name: "TOP", href: "", url: canonicalUrl }]),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
@@ -60,8 +70,20 @@ const storefrontProducts = products.map((product) => ({
     <NotoSansJpHead />
     <meta name="color-scheme" content="light" />
     <title>{title}</title>
-    <meta name="description" content={`${storeName}の公開ストアです。`} />
+    <meta name="description" content={socialMeta.description} />
+    <meta name="robots" content={buildShopRobotsContent("")} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
+    <meta property="og:site_name" content={socialMeta.storeName} />
+    <meta property="og:type" content={socialMeta.ogType} />
+    <meta property="og:title" content={socialMeta.title} />
+    <meta property="og:description" content={socialMeta.description} />
+    <meta property="og:url" content={socialMeta.canonicalUrl} />
+    <meta property="og:image" content={socialMeta.imageUrl} />
+    <meta name="twitter:card" content={socialMeta.twitterCard} />
+    <meta name="twitter:title" content={socialMeta.title} />
+    <meta name="twitter:description" content={socialMeta.description} />
+    <meta name="twitter:image" content={socialMeta.imageUrl} />
     <script type="application/ld+json" set:html={structuredData}></script>
   </head>
   <body>

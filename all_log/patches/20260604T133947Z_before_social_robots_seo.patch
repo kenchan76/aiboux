@@ -1,0 +1,323 @@
+diff --git a/ops/improvements/20260604_daily_improvement.md b/ops/improvements/20260604_daily_improvement.md
+index 8ce4554..bc3adc9 100644
+--- a/ops/improvements/20260604_daily_improvement.md
++++ b/ops/improvements/20260604_daily_improvement.md
+@@ -1,12 +1,35 @@
+-# 2026-06-04 Daily Improvement
++# 2026-06-04 Daily Improvement: Shop SEO Shared Head Gate
+ 
+-Checked current official documentation while preparing the Shop sales-quality sprint.
++## Source Checked
+ 
+-## Documentation Checked
++- Google Search Central: Best practices for ecommerce sites in Google Search
++- Google Search Central: Link best practices for Google
++- Google Search Central: Breadcrumb structured data
++- Google Search Central: Ecommerce URL structure best practices
+ 
+-- Playwright screenshot and visual evidence guidance: use screenshots as concrete evidence instead of relying only on HTTP status.
+-- Cloudflare Workers versions and deployments guidance: deployments produce version evidence, and Worker Version ID should continue to be recorded after WIP deploys.
++## Practical Improvement
+ 
+-## Improvement Applied
++AIBOUX Shop storefront SEO must not be page-local hand work.
+ 
+-The Shop sales-quality sprint will not stop after a single passing gate. It adds page-crawl and behavior gates across storefront, product detail, cart, checkout, contact/legal pages, admin pages, and subscription state. Public screenshots are treated as required evidence in `/g/d68`, and Worker Version ID remains required in `/g/l68`.
++The Shop code now treats the following as shared page infrastructure:
++
++- self-referencing canonical URL;
++- visible breadcrumb;
++- `BreadcrumbList` JSON-LD from the same breadcrumb model;
++- `WebSite` SearchAction JSON-LD;
++- `Organization` JSON-LD with support/return policy;
++- `Product` JSON-LD on product detail pages;
++- page-specific `ItemList` JSON-LD where listing/support/account cards are rendered;
++- robots policy split between indexable discovery/content pages and noindex transactional/account pages;
++- Open Graph and Twitter Card metadata;
++- crawlable `<a href>` links with meaningful visible text.
++
++## Gate Strengthening
++
++`tests/shop-public-crawl.spec.ts` must verify canonical, robots, Open Graph, Twitter Card, `ja-JP` alternate metadata, visible breadcrumbs, footer presence, direct links, and one primary `h1`.
++
++`tests/shop-product-detail-public.spec.ts` must verify product-specific canonical, indexable robots, product Open Graph type, product image metadata, Twitter Card metadata, one product `h1`, and Product JSON-LD.
++
++## Reason
++
++Google Search Central emphasizes that ecommerce visibility depends on product data, site structure, crawlable links, canonical URL consistency, and structured data. AIBOUX Shop needs these as shared implementation guarantees rather than per-page reminders.
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 07d129b..6ec76c8 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -138,3 +138,21 @@ Additional active requirements:
+ - Make text links visually identifiable using blue link color and hover underline on public storefront pages.
+ - Keep footer links and support navigation complete on every public tenant storefront page.
+ - Do not copy Amazon text, templates, or content. Use Amazon only as a structural benchmark for density, navigability, and purchase readiness.
++
++## 2026-06-04 User Escalation: Social SEO, Robots, And Shared Head Meta
++
++User explicitly required every page structure to be SEO strongest and asked to continue after checking current web guidance.
++
++Google Search Central references checked:
++- Ecommerce SEO: share ecommerce data and site structure so Google can find and parse product content.
++- Link best practices: use crawlable `<a href>` links with descriptive anchor text.
++- Breadcrumb structured data: visible breadcrumb trails help users understand hierarchy and can be paired with `BreadcrumbList`.
++- Ecommerce URL structure: indexable pages should use self-referencing canonical URLs and internal links should use direct anchors.
++
++Additional active requirements:
++- Add shared helpers for robots, Open Graph, Twitter Card, canonical, and image URL normalization.
++- Index public discovery/content pages: TOP, products, categories, product detail, contact, legal, privacy, shipping, returns, FAQ.
++- Noindex transactional/private/account pages while keeping crawlable support links: cart, checkout, mypage, account, orders, favorites, login, register, mypage/subscriptions.
++- Every public storefront page must expose canonical, robots, Open Graph, Twitter Card, and `ja-JP` alternate metadata.
++- Product detail Open Graph must use product image and product title, without a duplicated product title above the gallery.
++- Tests must verify meta tags on public URLs, not only JSON-LD.
+diff --git a/src/lib/shopSeo.ts b/src/lib/shopSeo.ts
+index e346308..fc6964c 100644
+--- a/src/lib/shopSeo.ts
++++ b/src/lib/shopSeo.ts
+@@ -17,11 +17,70 @@ export type ShopSeoProduct = {
+ };
+ 
+ const SHOP_ORIGIN = "https://shop.aiboux.com";
++const DEFAULT_SHOP_OG_IMAGE =
++  "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=1200&h=630&q=84";
++
++const NOINDEX_STOREFRONT_PAGES = new Set([
++  "cart",
++  "checkout",
++  "mypage",
++  "mypage/subscriptions",
++  "orders",
++  "favorites",
++  "login",
++  "register",
++  "account",
++]);
+ 
+ export function absoluteShopUrl(path: string): string {
+   return new URL(path, SHOP_ORIGIN).toString();
+ }
+ 
++export function normalizeShopSeoDescription(value: string, fallback: string): string {
++  const normalized = String(value || fallback).replace(/\s+/g, " ").trim();
++  const description = normalized || fallback;
++  return description.length > 155 ? `${description.slice(0, 152)}...` : description;
++}
++
++export function normalizeShopSeoImageUrl(value?: string | null): string {
++  if (!value) return DEFAULT_SHOP_OG_IMAGE;
++  return new URL(value, SHOP_ORIGIN).toString();
++}
++
++export function buildShopRobotsContent(page: string): string {
++  if (NOINDEX_STOREFRONT_PAGES.has(page)) {
++    return "noindex,follow,noarchive";
++  }
++  return "index,follow,max-image-preview:large";
++}
++
++export function buildShopSocialMeta({
++  title,
++  description,
++  canonicalUrl,
++  imageUrl,
++  storeName,
++  type = "website",
++}: {
++  title: string;
++  description: string;
++  canonicalUrl: string;
++  imageUrl?: string | null;
++  storeName: string;
++  type?: "website" | "product";
++}) {
++  const safeDescription = normalizeShopSeoDescription(description, `${storeName}の公開ストアです。`);
++  return {
++    title,
++    description: safeDescription,
++    canonicalUrl,
++    imageUrl: normalizeShopSeoImageUrl(imageUrl),
++    storeName,
++    ogType: type,
++    twitterCard: "summary_large_image",
++  };
++}
++
+ export function buildShopBreadcrumbJsonLd(items: ShopBreadcrumbItem[]) {
+   return {
+     "@context": "https://schema.org",
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index cc873c5..ded411d 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -6,6 +6,8 @@ import {
+   buildShopItemListJsonLd,
+   buildShopOrganizationJsonLd,
+   buildShopProductJsonLd,
++  buildShopRobotsContent,
++  buildShopSocialMeta,
+   buildShopWebsiteJsonLd,
+ } from "@/lib/shopSeo";
+ import {
+@@ -190,6 +192,14 @@ const structuredDataItems: any[] = [breadcrumbJsonLd, websiteJsonLd, organizatio
+ if (productJsonLd) structuredDataItems.push(productJsonLd);
+ if (itemListJsonLd) structuredDataItems.push(itemListJsonLd);
+ const structuredData = JSON.stringify(structuredDataItems);
++const socialMeta = buildShopSocialMeta({
++  title,
++  description: meta.description,
++  canonicalUrl,
++  imageUrl: salesProduct?.imageUrl || publicProductCards[0]?.imageUrl || categoryCards[0]?.imageUrl,
++  storeName,
++  type: page === "product" ? "product" : "website",
++});
+ const footerColumns = [
+   {
+     title: "お買い物",
+@@ -542,8 +552,20 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+     <NotoSansJpHead />
+     <meta name="color-scheme" content="light" />
+     <title>{title}</title>
+-    <meta name="description" content={meta.description} />
++    <meta name="description" content={socialMeta.description} />
++    <meta name="robots" content={buildShopRobotsContent(page)} />
+     <link rel="canonical" href={canonicalUrl} />
++    <link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
++    <meta property="og:site_name" content={socialMeta.storeName} />
++    <meta property="og:type" content={socialMeta.ogType} />
++    <meta property="og:title" content={socialMeta.title} />
++    <meta property="og:description" content={socialMeta.description} />
++    <meta property="og:url" content={socialMeta.canonicalUrl} />
++    <meta property="og:image" content={socialMeta.imageUrl} />
++    <meta name="twitter:card" content={socialMeta.twitterCard} />
++    <meta name="twitter:title" content={socialMeta.title} />
++    <meta name="twitter:description" content={socialMeta.description} />
++    <meta name="twitter:image" content={socialMeta.imageUrl} />
+     <script type="application/ld+json" set:html={structuredData}></script>
+   </head>
+   <body class="min-h-screen bg-white text-neutral-950">
+diff --git a/src/pages/shop/storefront/[tenant].astro b/src/pages/shop/storefront/[tenant].astro
+index 4990da3..33c43d1 100644
+--- a/src/pages/shop/storefront/[tenant].astro
++++ b/src/pages/shop/storefront/[tenant].astro
+@@ -4,6 +4,8 @@ import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront"
+ import {
+   buildShopBreadcrumbJsonLd,
+   buildShopOrganizationJsonLd,
++  buildShopRobotsContent,
++  buildShopSocialMeta,
+   buildShopWebsiteJsonLd,
+ } from "@/lib/shopSeo";
+ import { getShopStorefrontLayout, getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
+@@ -25,10 +27,18 @@ Astro.response.headers.set("Cache-Control", isKnownTenant && profile ? "public,
+ 
+ const storeName = profile?.storeName ?? "AIBOUX Store";
+ const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
++const metaDescription = `${storeName}の公開ストアです。商品、カテゴリ、セール、ランキング、配送・返品条件を確認できます。`;
+ const canonicalUrl = isKnownTenant && profile
+   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
+   : Astro.url.toString();
+ const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
++const socialMeta = buildShopSocialMeta({
++  title,
++  description: metaDescription,
++  canonicalUrl,
++  imageUrl: products[0]?.imageUrl,
++  storeName,
++});
+ const structuredData = JSON.stringify([
+   buildShopBreadcrumbJsonLd([{ name: "TOP", href: "", url: canonicalUrl }]),
+   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
+@@ -60,8 +70,20 @@ const storefrontProducts = products.map((product) => ({
+     <NotoSansJpHead />
+     <meta name="color-scheme" content="light" />
+     <title>{title}</title>
+-    <meta name="description" content={`${storeName}の公開ストアです。`} />
++    <meta name="description" content={socialMeta.description} />
++    <meta name="robots" content={buildShopRobotsContent("")} />
+     <link rel="canonical" href={canonicalUrl} />
++    <link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
++    <meta property="og:site_name" content={socialMeta.storeName} />
++    <meta property="og:type" content={socialMeta.ogType} />
++    <meta property="og:title" content={socialMeta.title} />
++    <meta property="og:description" content={socialMeta.description} />
++    <meta property="og:url" content={socialMeta.canonicalUrl} />
++    <meta property="og:image" content={socialMeta.imageUrl} />
++    <meta name="twitter:card" content={socialMeta.twitterCard} />
++    <meta name="twitter:title" content={socialMeta.title} />
++    <meta name="twitter:description" content={socialMeta.description} />
++    <meta name="twitter:image" content={socialMeta.imageUrl} />
+     <script type="application/ld+json" set:html={structuredData}></script>
+   </head>
+   <body>
+diff --git a/tests/shop-product-detail-public.spec.ts b/tests/shop-product-detail-public.spec.ts
+index bb22c34..d15e2f3 100644
+--- a/tests/shop-product-detail-public.spec.ts
++++ b/tests/shop-product-detail-public.spec.ts
+@@ -63,6 +63,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       expect(jsonLdText ?? "", "product detail should include Organization return policy JSON-LD").toContain("MerchantReturnPolicy");
+       expect(jsonLdText ?? "", "product detail should include shipping details for merchant listing").toContain("OfferShippingDetails");
+ 
++      const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
++      expect(canonical ?? "", "product detail canonical should point at the product URL").toContain("https://shop.aiboux.com/s/aiboux/product/");
++      expect(await page.locator('meta[name="robots"]').getAttribute("content"), "product detail should be indexable").toContain("index");
++      expect(await page.locator('meta[property="og:type"]').getAttribute("content"), "product detail should use product Open Graph type").toBe("product");
++      await expect(page.locator('meta[property="og:title"]'), "product detail should include Open Graph title").toHaveCount(1);
++      await expect(page.locator('meta[property="og:image"]'), "product detail should include Open Graph product image").toHaveCount(1);
++      await expect(page.locator('meta[name="twitter:card"]'), "product detail should include Twitter Card metadata").toHaveCount(1);
++      await expect(page.locator('link[rel="alternate"][hreflang="ja-JP"]'), "product detail should include ja-JP alternate link").toHaveCount(1);
++
+       const purchaseBox = await page.getByTestId("public-product-purchase-box").boundingBox();
+       expect(purchaseBox?.height ?? 0, "purchase box should not be collapsed").toBeGreaterThan(260);
+       await saveScreenshot(page, viewport.file);
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index fadf993..0ba9832 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -41,6 +41,18 @@ const adminUrls = [
+   { path: "/s/aiboux/admin/subscriptions", name: "shop-admin-subscriptions" },
+ ];
+ 
++const noIndexPublicPageNames = new Set([
++  "shop-cart-page",
++  "shop-checkout-page",
++  "shop-mypage",
++  "shop-account",
++  "shop-orders",
++  "shop-favorites",
++  "shop-login",
++  "shop-register",
++  "shop-mypage-subscriptions",
++]);
++
+ async function saveScreenshot(page: Page, filename: string) {
+   const outputPath = path.join(outputDir, filename);
+   const publicPath = path.join(publicDir, filename);
+@@ -100,6 +112,27 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+           expect(jsonLdText ?? "", `${target.path} should include page-specific ItemList JSON-LD`).toContain("ItemList");
+         }
+ 
++        const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
++        expect(canonical, `${target.path} should include a self-referencing canonical URL`).toBeTruthy();
++        expect(canonical ?? "", `${target.path} canonical should point at shop.aiboux.com tenant URL`).toContain(`https://shop.aiboux.com${target.path}`);
++
++        const robots = await page.locator('meta[name="robots"]').getAttribute("content");
++        if (noIndexPublicPageNames.has(target.name)) {
++          expect(robots ?? "", `${target.path} transactional/account page should not be indexed`).toContain("noindex");
++          expect(robots ?? "", `${target.path} should still allow link following`).toContain("follow");
++        } else {
++          expect(robots ?? "", `${target.path} discovery/content page should be indexable`).toContain("index");
++          expect(robots ?? "", `${target.path} should allow large image previews`).toContain("max-image-preview:large");
++        }
++
++        await expect(page.locator('meta[property="og:title"]'), `${target.path} should include Open Graph title`).toHaveCount(1);
++        await expect(page.locator('meta[property="og:description"]'), `${target.path} should include Open Graph description`).toHaveCount(1);
++        await expect(page.locator('meta[property="og:url"]'), `${target.path} should include Open Graph URL`).toHaveCount(1);
++        await expect(page.locator('meta[property="og:image"]'), `${target.path} should include Open Graph image`).toHaveCount(1);
++        await expect(page.locator('meta[name="twitter:card"]'), `${target.path} should include Twitter Card metadata`).toHaveCount(1);
++        await expect(page.locator('link[rel="alternate"][hreflang="ja-JP"]'), `${target.path} should include ja-JP alternate link`).toHaveCount(1);
++        await expect(page.locator("h1"), `${target.path} should expose one primary heading`).toHaveCount(1);
++
+         const bodyBox = await page.locator("body").boundingBox();
+         expect(bodyBox?.width ?? 0, `${target.path} should render a styled page body`).toBeGreaterThan(300);
+ 

@@ -1,0 +1,8 @@
+ M ops/improvements/20260604_daily_improvement.md
+ M ops/instructions/current.md
+ M src/lib/shopSeo.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260604T133947Z_status_before_social_robots_seo.txt

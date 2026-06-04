@@ -138,3 +138,21 @@ Additional active requirements:
 - Make text links visually identifiable using blue link color and hover underline on public storefront pages.
 - Keep footer links and support navigation complete on every public tenant storefront page.
 - Do not copy Amazon text, templates, or content. Use Amazon only as a structural benchmark for density, navigability, and purchase readiness.
+
+## 2026-06-04 User Escalation: Social SEO, Robots, And Shared Head Meta
+
+User explicitly required every page structure to be SEO strongest and asked to continue after checking current web guidance.
+
+Google Search Central references checked:
+- Ecommerce SEO: share ecommerce data and site structure so Google can find and parse product content.
+- Link best practices: use crawlable `<a href>` links with descriptive anchor text.
+- Breadcrumb structured data: visible breadcrumb trails help users understand hierarchy and can be paired with `BreadcrumbList`.
+- Ecommerce URL structure: indexable pages should use self-referencing canonical URLs and internal links should use direct anchors.
+
+Additional active requirements:
+- Add shared helpers for robots, Open Graph, Twitter Card, canonical, and image URL normalization.
+- Index public discovery/content pages: TOP, products, categories, product detail, contact, legal, privacy, shipping, returns, FAQ.
+- Noindex transactional/private/account pages while keeping crawlable support links: cart, checkout, mypage, account, orders, favorites, login, register, mypage/subscriptions.
+- Every public storefront page must expose canonical, robots, Open Graph, Twitter Card, and `ja-JP` alternate metadata.
+- Product detail Open Graph must use product image and product title, without a duplicated product title above the gallery.
+- Tests must verify meta tags on public URLs, not only JSON-LD.

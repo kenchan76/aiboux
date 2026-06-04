@@ -6,6 +6,8 @@ import {
   buildShopItemListJsonLd,
   buildShopOrganizationJsonLd,
   buildShopProductJsonLd,
+  buildShopRobotsContent,
+  buildShopSocialMeta,
   buildShopWebsiteJsonLd,
 } from "@/lib/shopSeo";
 import {
@@ -190,6 +192,14 @@ const structuredDataItems: any[] = [breadcrumbJsonLd, websiteJsonLd, organizatio
 if (productJsonLd) structuredDataItems.push(productJsonLd);
 if (itemListJsonLd) structuredDataItems.push(itemListJsonLd);
 const structuredData = JSON.stringify(structuredDataItems);
+const socialMeta = buildShopSocialMeta({
+  title,
+  description: meta.description,
+  canonicalUrl,
+  imageUrl: salesProduct?.imageUrl || publicProductCards[0]?.imageUrl || categoryCards[0]?.imageUrl,
+  storeName,
+  type: page === "product" ? "product" : "website",
+});
 const footerColumns = [
   {
     title: "お買い物",
@@ -542,8 +552,20 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     <NotoSansJpHead />
     <meta name="color-scheme" content="light" />
     <title>{title}</title>
-    <meta name="description" content={meta.description} />
+    <meta name="description" content={socialMeta.description} />
+    <meta name="robots" content={buildShopRobotsContent(page)} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
+    <meta property="og:site_name" content={socialMeta.storeName} />
+    <meta property="og:type" content={socialMeta.ogType} />
+    <meta property="og:title" content={socialMeta.title} />
+    <meta property="og:description" content={socialMeta.description} />
+    <meta property="og:url" content={socialMeta.canonicalUrl} />
+    <meta property="og:image" content={socialMeta.imageUrl} />
+    <meta name="twitter:card" content={socialMeta.twitterCard} />
+    <meta name="twitter:title" content={socialMeta.title} />
+    <meta name="twitter:description" content={socialMeta.description} />
+    <meta name="twitter:image" content={socialMeta.imageUrl} />
     <script type="application/ld+json" set:html={structuredData}></script>
   </head>
   <body class="min-h-screen bg-white text-neutral-950">

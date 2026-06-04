@@ -41,6 +41,18 @@ const adminUrls = [
   { path: "/s/aiboux/admin/subscriptions", name: "shop-admin-subscriptions" },
 ];
 
+const noIndexPublicPageNames = new Set([
+  "shop-cart-page",
+  "shop-checkout-page",
+  "shop-mypage",
+  "shop-account",
+  "shop-orders",
+  "shop-favorites",
+  "shop-login",
+  "shop-register",
+  "shop-mypage-subscriptions",
+]);
+
 async function saveScreenshot(page: Page, filename: string) {
   const outputPath = path.join(outputDir, filename);
   const publicPath = path.join(publicDir, filename);
@@ -99,6 +111,27 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         ].includes(target.name)) {
           expect(jsonLdText ?? "", `${target.path} should include page-specific ItemList JSON-LD`).toContain("ItemList");
         }
+
+        const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+        expect(canonical, `${target.path} should include a self-referencing canonical URL`).toBeTruthy();
+        expect(canonical ?? "", `${target.path} canonical should point at shop.aiboux.com tenant URL`).toContain(`https://shop.aiboux.com${target.path}`);
+
+        const robots = await page.locator('meta[name="robots"]').getAttribute("content");
+        if (noIndexPublicPageNames.has(target.name)) {
+          expect(robots ?? "", `${target.path} transactional/account page should not be indexed`).toContain("noindex");
+          expect(robots ?? "", `${target.path} should still allow link following`).toContain("follow");
+        } else {
+          expect(robots ?? "", `${target.path} discovery/content page should be indexable`).toContain("index");
+          expect(robots ?? "", `${target.path} should allow large image previews`).toContain("max-image-preview:large");
+        }
+
+        await expect(page.locator('meta[property="og:title"]'), `${target.path} should include Open Graph title`).toHaveCount(1);
+        await expect(page.locator('meta[property="og:description"]'), `${target.path} should include Open Graph description`).toHaveCount(1);
+        await expect(page.locator('meta[property="og:url"]'), `${target.path} should include Open Graph URL`).toHaveCount(1);
+        await expect(page.locator('meta[property="og:image"]'), `${target.path} should include Open Graph image`).toHaveCount(1);
+        await expect(page.locator('meta[name="twitter:card"]'), `${target.path} should include Twitter Card metadata`).toHaveCount(1);
+        await expect(page.locator('link[rel="alternate"][hreflang="ja-JP"]'), `${target.path} should include ja-JP alternate link`).toHaveCount(1);
+        await expect(page.locator("h1"), `${target.path} should expose one primary heading`).toHaveCount(1);
 
         const bodyBox = await page.locator("body").boundingBox();
         expect(bodyBox?.width ?? 0, `${target.path} should render a styled page body`).toBeGreaterThan(300);

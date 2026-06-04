@@ -17,9 +17,68 @@ export type ShopSeoProduct = {
 };
 
 const SHOP_ORIGIN = "https://shop.aiboux.com";
+const DEFAULT_SHOP_OG_IMAGE =
+  "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=1200&h=630&q=84";
+
+const NOINDEX_STOREFRONT_PAGES = new Set([
+  "cart",
+  "checkout",
+  "mypage",
+  "mypage/subscriptions",
+  "orders",
+  "favorites",
+  "login",
+  "register",
+  "account",
+]);
 
 export function absoluteShopUrl(path: string): string {
   return new URL(path, SHOP_ORIGIN).toString();
+}
+
+export function normalizeShopSeoDescription(value: string, fallback: string): string {
+  const normalized = String(value || fallback).replace(/\s+/g, " ").trim();
+  const description = normalized || fallback;
+  return description.length > 155 ? `${description.slice(0, 152)}...` : description;
+}
+
+export function normalizeShopSeoImageUrl(value?: string | null): string {
+  if (!value) return DEFAULT_SHOP_OG_IMAGE;
+  return new URL(value, SHOP_ORIGIN).toString();
+}
+
+export function buildShopRobotsContent(page: string): string {
+  if (NOINDEX_STOREFRONT_PAGES.has(page)) {
+    return "noindex,follow,noarchive";
+  }
+  return "index,follow,max-image-preview:large";
+}
+
+export function buildShopSocialMeta({
+  title,
+  description,
+  canonicalUrl,
+  imageUrl,
+  storeName,
+  type = "website",
+}: {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  imageUrl?: string | null;
+  storeName: string;
+  type?: "website" | "product";
+}) {
+  const safeDescription = normalizeShopSeoDescription(description, `${storeName}の公開ストアです。`);
+  return {
+    title,
+    description: safeDescription,
+    canonicalUrl,
+    imageUrl: normalizeShopSeoImageUrl(imageUrl),
+    storeName,
+    ogType: type,
+    twitterCard: "summary_large_image",
+  };
 }
 
 export function buildShopBreadcrumbJsonLd(items: ShopBreadcrumbItem[]) {
