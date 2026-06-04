@@ -131,6 +131,13 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(jsonLdText ?? "", `${target.path} should include BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
         expect(jsonLdText ?? "", `${target.path} should include WebSite JSON-LD`).toContain("WebSite");
         expect(jsonLdText ?? "", `${target.path} should include Organization JSON-LD`).toContain("Organization");
+        expect(jsonLdText ?? "", `${target.path} should identify the storefront as OnlineStore JSON-LD`).toContain("OnlineStore");
+        expect(jsonLdText ?? "", `${target.path} should expose a stable store entity id`).toContain("#store");
+        expect(jsonLdText ?? "", `${target.path} should expose a stable website entity id`).toContain("#website");
+        expect(jsonLdText ?? "", `${target.path} WebPage should be linked to the WebSite entity`).toContain("isPartOf");
+        expect(jsonLdText ?? "", `${target.path} WebPage should declare the storefront publisher`).toContain("publisher");
+        expect(jsonLdText ?? "", `${target.path} WebPage should describe the storefront entity it is about`).toContain("about");
+        expect(jsonLdText ?? "", `${target.path} should include merchant return policy JSON-LD`).toContain("MerchantReturnPolicy");
         expect(jsonLdText ?? "", `${target.path} should include shared site navigation JSON-LD`).toContain("SiteNavigationElement");
         expect(jsonLdText ?? "", `${target.path} should expose a page entity JSON-LD`).toMatch(/WebPage|ContactPage|FAQPage|ItemPage/);
         if (target.name === "shop-top") {

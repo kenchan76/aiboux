@@ -137,6 +137,7 @@ const websiteJsonLd = buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot });
 const productJsonLd = buildShopProductJsonLd({
   product: salesProduct,
   canonicalUrl,
+  absoluteTenantRoot,
   storeName,
   fallbackDescription: meta.description,
 });
@@ -185,6 +186,7 @@ const webPageJsonLd = buildShopWebPageJsonLd({
   name: title,
   description: meta.description,
   canonicalUrl,
+  absoluteTenantRoot,
   breadcrumbItems,
 });
 const navigationJsonLd = buildShopSiteNavigationJsonLd({

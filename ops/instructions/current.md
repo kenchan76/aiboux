@@ -287,6 +287,24 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## 2026-06-05 Continuation: Entity Graph SEO/UI
+
+Active instruction file:
+
+- `ops/instructions/20260605_shop_entity_graph_seo_ui.md`
+
+Additional active requirements:
+- Public storefront structured data must connect the store entity, website entity, page entity, product entity, shipping details, and return policy.
+- Organization markup should use the ecommerce-appropriate `OnlineStore` subtype.
+- WebPage markup must include `isPartOf`, `publisher`, and `about` references.
+- Product Offer must keep `OfferShippingDetails` and `MerchantReturnPolicy`, and link seller/brand to the store entity.
+- Public gates must verify the entity graph on `https://shop.aiboux.com` URLs.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## 2026-06-04 User Escalation: Shared Breadcrumb SEO/UI Parts
 
 User required all pages to be made SEO strongest and UI strongest, including common reusable parts.

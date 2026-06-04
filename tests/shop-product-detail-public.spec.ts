@@ -68,6 +68,12 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(jsonLdText ?? "", "product breadcrumb JSON-LD should preserve the full product title").toContain(productTitle);
       expect(jsonLdText ?? "", "product detail should include Product JSON-LD").toContain("Product");
       expect(jsonLdText ?? "", "product detail should include Offer JSON-LD").toContain("Offer");
+      expect(jsonLdText ?? "", "product detail should identify the storefront as OnlineStore JSON-LD").toContain("OnlineStore");
+      expect(jsonLdText ?? "", "product detail should link Product to its canonical WebPage").toContain("mainEntityOfPage");
+      expect(jsonLdText ?? "", "product detail should link offer seller to the shared store entity").toContain("seller");
+      expect(jsonLdText ?? "", "product detail should expose stable store and website entity ids").toContain("#store");
+      expect(jsonLdText ?? "", "product detail should expose stable website entity id").toContain("#website");
+      expect(jsonLdText ?? "", "product detail WebPage should be linked to the WebSite entity").toContain("isPartOf");
       expect(jsonLdText ?? "", "product detail should include Organization return policy JSON-LD").toContain("MerchantReturnPolicy");
       expect(jsonLdText ?? "", "product detail should include shipping details for merchant listing").toContain("OfferShippingDetails");
 

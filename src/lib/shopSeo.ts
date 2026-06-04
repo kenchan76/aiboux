@@ -47,6 +47,22 @@ export function absoluteShopUrl(path: string): string {
   return new URL(path, SHOP_ORIGIN).toString();
 }
 
+function normalizeEntityRoot(absoluteTenantRoot: string): string {
+  return absoluteTenantRoot.endsWith("/") ? absoluteTenantRoot.slice(0, -1) : absoluteTenantRoot;
+}
+
+function shopStoreEntityId(absoluteTenantRoot: string): string {
+  return `${normalizeEntityRoot(absoluteTenantRoot)}#store`;
+}
+
+function shopWebsiteEntityId(absoluteTenantRoot: string): string {
+  return `${normalizeEntityRoot(absoluteTenantRoot)}#website`;
+}
+
+function shopWebPageEntityId(canonicalUrl: string): string {
+  return `${canonicalUrl.split("#")[0]}#webpage`;
+}
+
 export function normalizeShopSeoDescription(value: string, fallback: string): string {
   const normalized = String(value || fallback).replace(/\s+/g, " ").trim();
   const description = normalized || fallback;
@@ -192,11 +208,16 @@ export function buildShopWebsiteJsonLd({
   storeName: string;
   absoluteTenantRoot: string;
 }) {
+  const storeId = shopStoreEntityId(absoluteTenantRoot);
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": shopWebsiteEntityId(absoluteTenantRoot),
     name: storeName,
     url: absoluteTenantRoot,
+    publisher: {
+      "@id": storeId,
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: `${absoluteTenantRoot}products?q={search_term_string}`,
@@ -210,12 +231,14 @@ export function buildShopWebPageJsonLd({
   name,
   description,
   canonicalUrl,
+  absoluteTenantRoot,
   breadcrumbItems,
 }: {
   page: string;
   name: string;
   description: string;
   canonicalUrl: string;
+  absoluteTenantRoot: string;
   breadcrumbItems: ShopBreadcrumbItem[];
 }) {
   const type =
@@ -230,10 +253,20 @@ export function buildShopWebPageJsonLd({
   return {
     "@context": "https://schema.org",
     "@type": type,
+    "@id": shopWebPageEntityId(canonicalUrl),
     name,
     description: normalizeShopSeoDescription(description, name),
     url: canonicalUrl,
     inLanguage: "ja-JP",
+    isPartOf: {
+      "@id": shopWebsiteEntityId(absoluteTenantRoot),
+    },
+    publisher: {
+      "@id": shopStoreEntityId(absoluteTenantRoot),
+    },
+    about: {
+      "@id": shopStoreEntityId(absoluteTenantRoot),
+    },
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: breadcrumbItems.map((item, index) => ({
@@ -285,9 +318,11 @@ export function buildShopOrganizationJsonLd({
   contactEmail?: string | null;
   phone?: string | null;
 }) {
+  const storeId = shopStoreEntityId(absoluteTenantRoot);
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "OnlineStore"],
+    "@id": storeId,
     name: storeName,
     url: absoluteTenantRoot,
     contactPoint: {
@@ -337,35 +372,48 @@ export function buildShopFaqPageJsonLd({
 export function buildShopProductJsonLd({
   product,
   canonicalUrl,
+  absoluteTenantRoot,
   storeName,
   fallbackDescription,
 }: {
   product: ShopSeoProduct | null;
   canonicalUrl: string;
+  absoluteTenantRoot: string;
   storeName: string;
   fallbackDescription: string;
 }) {
   if (!product) return null;
 
+  const storeId = shopStoreEntityId(absoluteTenantRoot);
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `${canonicalUrl.split("#")[0]}#product`,
     name: product.displayName,
     image: [product.imageUrl],
     description: product.description || product.seoDescription || fallbackDescription,
     sku: product.sku,
     category: product.categoryName,
+    mainEntityOfPage: {
+      "@id": shopWebPageEntityId(canonicalUrl),
+    },
     brand: {
       "@type": "Brand",
+      "@id": `${storeId}-brand`,
       name: storeName,
     },
     offers: {
       "@type": "Offer",
+      "@id": `${canonicalUrl.split("#")[0]}#offer`,
       url: canonicalUrl,
       priceCurrency: "JPY",
       price: String(product.salePrice),
       availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
       itemCondition: "https://schema.org/NewCondition",
+      seller: {
+        "@id": storeId,
+      },
       shippingDetails: {
         "@type": "OfferShippingDetails",
         shippingDestination: {
