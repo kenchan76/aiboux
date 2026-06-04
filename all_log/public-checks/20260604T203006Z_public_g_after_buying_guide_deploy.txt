@@ -1,0 +1,22 @@
+# public g verification 20260604T203006Z
+## headers
+### m68
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+### l68
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+### d68
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+## sha256
+fd8851abc010021ba085cdc2e6d95ce62af27022fd493ad7a2209ee6374557db  public/g/m68.md
+33c73e25e627ca25e0c9336f4d335b710a2d7c8afc12963bf8fedba68d7873ec  /tmp/m68.body
+db5b4beac6b1ea95257875e172d566229fe60ab965cfa9a6e783a16b6bc51dfb  public/g/l68.md
+89cc79e78bcadefb69e7cd222e2c0a7c1931092ae6e121fc18d6f6abf178bd37  /tmp/l68.body
+bc2ed0861d550994b84ffd2eb5457c81c908d71f182b9967d15b3c2d1da770a2  public/g/d68.md
+327dfa837f3579ff51e0093c5f593b1136074fc62bdf60de93c00242dadd31ee  /tmp/d68.body
+## content markers
+6:Status: `SHOP_5H_PAGE_BUYING_GUIDE_SEO_UI_WIP`
+5:Status: `SHOP_5H_PAGE_BUYING_GUIDE_SEO_UI_WIP`
+3:## 2026-06-04T20:25:29Z Page Buying Guide SEO/UI Evidence
