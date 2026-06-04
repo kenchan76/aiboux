@@ -90,7 +90,7 @@ const SHOP_STOREFRONT_PAGE_META: Record<string, { title: string; description: st
   contact: {
     title: "問い合わせ",
     description:
-      "商品、注文、配送、返品、定期購入について、必要な情報を添えてストアへ問い合わせできます。",
+      "商品、注文、配送、返品、定期購入、支払い設定について、必要な情報を添えてストアへ問い合わせできます。",
   },
   legal: {
     title: "特定商取引法に基づく表示",
@@ -215,10 +215,14 @@ export function buildShopStorefrontSeoMeta({
     const safeProductName = String(productName || "商品詳細").replace(/\s+/g, " ").trim();
     const metaTitle = safeProductName || "商品詳細";
     const fallbackDescription = `${metaTitle}の価格、税込表示、レビュー、在庫、配送予定、返品条件、定期購入の可否を確認できます。`;
+    const sourceDescription = String(productDescription || "").replace(/\s+/g, " ").trim();
+    const purchaseDecisionDescription = sourceDescription
+      ? `${fallbackDescription} ${sourceDescription}`
+      : fallbackDescription;
     return {
       metaTitle,
       title: normalizeShopSeoTitle(`${metaTitle} | ${storeName}`),
-      description: normalizeShopSeoDescription(productDescription || fallbackDescription, fallbackDescription),
+      description: normalizeShopSeoDescription(purchaseDecisionDescription, fallbackDescription),
     };
   }
 

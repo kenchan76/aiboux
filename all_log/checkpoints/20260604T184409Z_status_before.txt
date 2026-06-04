@@ -1,0 +1,18 @@
+ M output/playwright/shop-5h-sprint/shop-cart-page-1980.png
+ M output/playwright/shop-5h-sprint/shop-categories-page-1980.png
+ M output/playwright/shop-5h-sprint/shop-checkout-page-1980.png
+ M output/playwright/shop-5h-sprint/shop-products-page-1980.png
+ M public/g/screens/shop-cart-page-1980.png
+ M public/g/screens/shop-categories-page-1980.png
+ M public/g/screens/shop-checkout-page-1980.png
+ M public/g/screens/shop-products-page-1980.png
+ M src/lib/shopSeo.ts
+ M test-results/.last-run.json
+?? all_log/checkpoints/20260604T184106Z_wip_commit.txt
+?? all_log/deploys/20260604T184106Z_deployments_before.txt
+?? test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/
+?? test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/
+?? test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/
+?? test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/
+?? test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/
+?? test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/
