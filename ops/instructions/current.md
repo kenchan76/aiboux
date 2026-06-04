@@ -4,11 +4,36 @@ Status: WIP
 
 Active instruction file:
 
+- `ops/instructions/20260605_shop_page_quality_summary_seo_ui.md`
 - `ops/instructions/20260605_shop_page_buying_guide_seo_ui.md`
 - `ops/instructions/20260605_shop_commerce_facts_seo_ui.md`
 - `ops/instructions/20260605_shop_shared_seo_meta_model.md`
 - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
 - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+
+## 2026-06-05 Continuation: Page Quality Summary SEO/UI Commonization
+
+Continue the active sales-quality sprint. The next concrete work unit is adding a shared, visible page-quality summary to every public tenant storefront page.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+
+Current additions required:
+
+- Add shared page-quality summary data in `shopStorefrontShared.ts`.
+- Add `StorefrontPageQualitySummary`.
+- Render it on TOP, product detail, and every public storefront subpage.
+- Keep links crawlable and visibly blue.
+- Do not create duplicate product H1 above the gallery.
+- Add public Playwright checks.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Page Buying Guide SEO/UI Commonization
 

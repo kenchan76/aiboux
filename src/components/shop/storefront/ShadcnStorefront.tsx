@@ -4,6 +4,7 @@ import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import {
   buildShopHeaderCategoryLinks,
   buildShopPageBuyingGuide,
+  buildShopPageQualitySummary,
   type ShopStorefrontContextLinkSection,
 } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
@@ -12,6 +13,7 @@ import { StorefrontBuyingGuide } from "./StorefrontBuyingGuide";
 import { StorefrontCommerceFacts } from "./StorefrontCommerceFacts";
 import { StorefrontContextLinks } from "./StorefrontContextLinks";
 import { StorefrontFooter } from "./StorefrontFooter";
+import { StorefrontPageQualitySummary } from "./StorefrontPageQualitySummary";
 import { StorefrontSearchForm } from "./StorefrontSearchForm";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
@@ -107,6 +109,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const rankingProducts = rotateProducts(visualProducts, 1);
   const saleProducts = rotateProducts(visualProducts, 3);
   const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
+  const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
   const columnClass = {
     3: "lg:grid-cols-3",
     4: "lg:grid-cols-4",
@@ -215,6 +218,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
           page=""
           subscriptionSchemaPending
         />
+        <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
 
         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />

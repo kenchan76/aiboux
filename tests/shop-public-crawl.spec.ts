@@ -122,6 +122,17 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         );
         expect(await commerceFacts.locator("a").count(), `${target.path} purchase facts should have crawlable internal links`).toBeGreaterThanOrEqual(5);
         expect(await commerceFacts.locator("a").first().getAttribute("class"), `${target.path} purchase fact links should be visibly styled`).toMatch(/border-|bg-/);
+        const qualitySummary = page.getByTestId("storefront-page-quality-summary");
+        await expect(qualitySummary, `${target.path} should include shared page quality summary`).toBeVisible();
+        await expect(qualitySummary, `${target.path} quality summary should explain page intent`).toContainText("検索意図");
+        await expect(qualitySummary, `${target.path} quality summary should explain SEO structure`).toContainText("SEO構造");
+        await expect(qualitySummary, `${target.path} quality summary should explain next action`).toContainText("次の操作");
+        await expect(qualitySummary, `${target.path} quality summary should expose SiteNavigationElement microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/SiteNavigationElement",
+        );
+        expect(await qualitySummary.locator("a").count(), `${target.path} quality summary should expose crawlable links`).toBeGreaterThanOrEqual(4);
+        expect(await qualitySummary.locator("a").first().getAttribute("class"), `${target.path} quality summary links should be visibly blue`).toContain("text-blue-700");
         const buyingGuide = page.getByTestId("storefront-buying-guide");
         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");

@@ -63,6 +63,13 @@ test.describe("AIBOUX Shop product detail public quality", () => {
         "https://schema.org/SiteNavigationElement",
       );
       expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
+      const qualitySummary = page.getByTestId("storefront-page-quality-summary");
+      await expect(qualitySummary, "product detail should include shared page quality summary").toBeVisible();
+      await expect(qualitySummary, "product detail quality summary should identify page role").toContainText("商品詳細で確認できること");
+      await expect(qualitySummary, "product detail quality summary should reinforce single-H1 cleanup").toContainText("単一H1");
+      await expect(qualitySummary, "product detail quality summary should mention product structured data").toContainText("Product/Offer");
+      expect(await qualitySummary.locator("a").count(), "product detail quality summary should expose crawlable links").toBeGreaterThanOrEqual(4);
+      expect(await qualitySummary.locator("a").first().getAttribute("class"), "product detail quality summary links should be visibly blue").toContain("text-blue-700");
       const buyingGuide = page.getByTestId("storefront-buying-guide");
       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");
