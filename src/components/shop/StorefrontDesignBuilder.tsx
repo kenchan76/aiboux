@@ -688,6 +688,13 @@ function ProductDetailPreview({
           <div className="text-2xl font-bold text-red-700">¥4,980</div>
           {product.content.showDeliveryEstimate ? <p className="mt-3 text-sm leading-6 text-neutral-600">最短で明日お届け予定</p> : null}
           {product.content.showStock ? <p className="mt-2 text-sm font-bold text-emerald-700">在庫あり</p> : null}
+          {product.purchaseBox.showSubscriptionOptions ? (
+            <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-xs">
+              <div className="font-bold text-neutral-950">購入方法</div>
+              <div className="mt-2 rounded bg-white px-2 py-1">通常購入 ¥4,980</div>
+              <div className="mt-1 rounded bg-white px-2 py-1 text-amber-800">定期購入 ¥4,482 10%OFF / 毎月</div>
+            </div>
+          ) : null}
           {product.purchaseBox.showQuantity ? <label className="mt-4 block text-xs font-semibold">数量<input className="mt-1 h-9 w-full rounded-md border border-neutral-200 px-3" value="1" readOnly /></label> : null}
           <div className="mt-4 grid gap-2">
             <span className="flex h-10 items-center justify-center rounded-full bg-amber-400 text-sm font-bold text-neutral-950">{product.purchaseBox.cartButtonText}</span>
@@ -963,6 +970,7 @@ function ProductDetailEditor({ layout, selectedSection, updateProductDetail }: {
         <TabsLabel />
         <SwitchField label="追従表示" checked={product.purchaseBox.sticky} onChange={(sticky) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, sticky } })} />
         <SwitchField label="数量表示" checked={product.purchaseBox.showQuantity} onChange={(showQuantity) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, showQuantity } })} />
+        <SwitchField label="定期購入選択を表示" checked={product.purchaseBox.showSubscriptionOptions} onChange={(showSubscriptionOptions) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, showSubscriptionOptions } })} />
         <Field label="カートボタン文言"><Input value={product.purchaseBox.cartButtonText} onChange={(event) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, cartButtonText: event.target.value } })} /></Field>
         <Field label="今すぐ購入ボタン文言"><Input value={product.purchaseBox.buyNowButtonText} onChange={(event) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, buyNowButtonText: event.target.value } })} /></Field>
       </div>

@@ -1,5 +1,38 @@
 # AIBOUX Current Task
 
+## Active Override: Shop Subscriptions Required
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_subscriptions_required.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/cart`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/admin/products`
+- `https://shop.aiboux.com/s/aiboux/admin/subscriptions`
+
+Required work:
+
+1. Add subscriptions as a required Shop sales feature.
+2. Add non-destructive DB migration and rollback SQL for subscription plans, subscriptions, and events.
+3. Add product admin subscription settings and DB save.
+4. Add public product detail normal/subscription purchase selection.
+5. Add cart subscription item display and frequency handling.
+6. Add checkout subscription terms and honest payment-unconfigured blocker.
+7. Add admin subscriptions list and state action placeholders that do not fake provider success.
+8. Add `npm run gate:shop-subscriptions`.
+9. Update `/g/m68`, `/g/l68`, and `/g/d68` with public evidence.
+
+Do not report `FINAL_ACCEPTED` until subscription behavior is verified on public URLs.
+
 ## Active Override: Shop Design Gate Split And Visual Evidence
 
 Instruction source:

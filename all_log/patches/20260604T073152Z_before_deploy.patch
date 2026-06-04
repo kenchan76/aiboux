@@ -1,0 +1,1176 @@
+diff --git a/AIBOUX_MASTER_DOCUMENT.md b/AIBOUX_MASTER_DOCUMENT.md
+index c1414ba..8d4c14f 100644
+--- a/AIBOUX_MASTER_DOCUMENT.md
++++ b/AIBOUX_MASTER_DOCUMENT.md
+@@ -1,6 +1,34 @@
+ # AIBOUX 正本マスター
+ # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+ 
++## Current Active Operating Override: AIBOUX Shop Subscription Requirement
++
++Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
++
++AIBOUX Shop must support subscription purchases as a required sales feature.
++
++Required scope:
++
++- product admin subscription-plan editing;
++- public product-detail subscription purchase option;
++- cart subscription item distinction;
++- checkout subscription terms and payment-setting blocker;
++- admin subscription list and actions;
++- D1 subscription tables;
++- subscription APIs;
++- public Playwright `gate:shop-subscriptions`.
++
++Remote D1 migration for subscription tables is currently blocked by Cloudflare authorization error 7403. This blocks remote migration and final public persistence verification only.
++
++WIP deploy is allowed if:
++
++- build passes;
++- subscription APIs return `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500 when remote schema is missing;
++- public product and cart flows do not break;
++- `/g/l68` and `/g/d68` honestly state the remote migration blocker.
++
++`FINAL_ACCEPTED` is prohibited until remote D1 migration is applied and `gate:shop-subscriptions` passes against public URLs.
++
+ ## 0. このマスターの位置づけ
+ 
+ この文書は、AIBOUX全体の正本マスターである。
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 226efff..747d414 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -1,5 +1,38 @@
+ # AIBOUX Current Task
+ 
++## Active Override: Shop Subscriptions Required
++
++Instruction source:
++
++- `ops/instructions/20260604_shop_subscriptions_required.md`
++
++Current status:
++
++- `ACTIVE_WIP`
++
++Current target URLs:
++
++- `https://shop.aiboux.com/s/aiboux/`
++- `https://shop.aiboux.com/s/aiboux/product/{id}`
++- `https://shop.aiboux.com/s/aiboux/cart`
++- `https://shop.aiboux.com/s/aiboux/checkout`
++- `https://shop.aiboux.com/s/aiboux/admin/products`
++- `https://shop.aiboux.com/s/aiboux/admin/subscriptions`
++
++Required work:
++
++1. Add subscriptions as a required Shop sales feature.
++2. Add non-destructive DB migration and rollback SQL for subscription plans, subscriptions, and events.
++3. Add product admin subscription settings and DB save.
++4. Add public product detail normal/subscription purchase selection.
++5. Add cart subscription item display and frequency handling.
++6. Add checkout subscription terms and honest payment-unconfigured blocker.
++7. Add admin subscriptions list and state action placeholders that do not fake provider success.
++8. Add `npm run gate:shop-subscriptions`.
++9. Update `/g/m68`, `/g/l68`, and `/g/d68` with public evidence.
++
++Do not report `FINAL_ACCEPTED` until subscription behavior is verified on public URLs.
++
+ ## Active Override: Shop Design Gate Split And Visual Evidence
+ 
+ Instruction source:
+diff --git a/package.json b/package.json
+index 5b56144..05d8ac0 100644
+--- a/package.json
++++ b/package.json
+@@ -28,6 +28,7 @@
+     "gate:design": "node scripts/aiboux-design-gate.mjs",
+     "gate:design:legacy": "node scripts/aiboux-design-gate.mjs",
+     "gate:shop-design": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-design-editor-public.spec.ts",
++    "gate:shop-subscriptions": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-subscriptions-public.spec.ts",
+     "gate:deploy": "node scripts/aiboux-gate-check.mjs --stage deploy",
+     "gate:final": "node scripts/aiboux-gate-check.mjs --stage final",
+     "cf:types": "wrangler types",
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 9a839a4..9d553c9 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -1,5 +1,52 @@
+ # AIBOUX Shop Sales Tenant Screen Artifact
+ 
++## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
++
++Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
++
++This screen artifact records the intended WIP evidence for the AIBOUX Shop subscription flow.
++
++### Subscription Screens Added Locally
++
++- Product admin subscription-plan editor.
++- Product detail purchase box with:
++  - normal purchase;
++  - subscription purchase;
++  - subscription price;
++  - delivery frequency;
++  - notice text;
++  - minimum cycle note.
++- Product detail schema-pending message:
++  - `定期購入は準備中です。`
++  - `DB migrationが未適用のため、現在は申し込みできません。`
++- Cart subscription item display.
++- Checkout subscription blocker:
++  - `定期決済設定が未完了です。`
++- Checkout subscription submit result area.
++- Admin subscription list:
++  - customer;
++  - product / plan;
++  - amount;
++  - next billing;
++  - next delivery;
++  - status;
++  - pause / resume / skip / cancel actions.
++
++### Screenshot Evidence Pending
++
++The following public screenshot evidence still requires remote D1 migration and WIP deploy:
++
++- `/g/screens/shop-subscription-product-1980.png`
++- `/g/screens/shop-subscription-cart-1980.png`
++- `/g/screens/shop-subscription-checkout-1980.png`
++- `/g/screens/shop-subscription-admin-1980.png`
++
++### Non-Final Condition
++
++This is not final visual acceptance.
++
++Remote D1 migration is blocked by Cloudflare authorization error 7403, so the public subscription flow cannot yet prove persisted remote subscription records.
++
+ ## Status
+ 
+ WIP_DEPLOYED
+diff --git a/public/g/l68.md b/public/g/l68.md
+index f3b54a4..3996b4d 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -1,5 +1,77 @@
+ # AIBOUX Shop Sales Tenant Execution Log
+ 
++## 2026-06-04T07:30:00Z Shop Subscriptions WIP
++
++Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
++
++This is a WIP execution log update. It is not `FINAL_ACCEPTED`.
++
++### Implemented Locally
++
++- Added subscription plan editing to Shop product admin.
++- Added public product detail subscription purchase-box UI.
++- Added cart distinction for subscription items.
++- Added checkout subscription blocker and API call for honest payment-setting failure.
++- Added admin subscription list and pause/resume/skip/cancel actions.
++- Added subscription APIs:
++  - `GET/POST /shop/api/subscription-plans`
++  - `POST /shop/api/checkout/subscription`
++  - `GET /shop/api/subscriptions`
++  - `PATCH /shop/api/subscriptions/{id}/{action}`
++- Added migration and rollback:
++  - `migrations/0020_shop_subscriptions.sql`
++  - `migrations/0020_shop_subscriptions_rollback.sql`
++- Added `gate:shop-subscriptions`.
++- Added schema guard for remote DBs where subscription migration is not yet applied.
++
++### Local Verification
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run astro check`: PASS
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++- Local D1 apply/rollback/reapply for `0020_shop_subscriptions`: PASS
++
++### Remote D1 Status
++
++Remote D1 migration is still blocked by Cloudflare authorization.
++
++Safe error summary:
++
++```text
++Cloudflare API D1 query failed.
++The given account is not valid or is not authorized to access this service.
++Error code: 7403
++```
++
++This blocks only:
++
++- remote D1 migration apply;
++- public subscription contract persistence;
++- final public `gate:shop-subscriptions` acceptance.
++
++It does not block WIP deploy, because schema guard now prevents subscription APIs and pages from becoming generic 500 errors when remote schema is pending.
++
++Expected schema pending JSON:
++
++```json
++{
++  "ok": false,
++  "success": false,
++  "code": "SUBSCRIPTION_SCHEMA_PENDING",
++  "message": "定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。"
++}
++```
++
++### Final Acceptance
++
++`FINAL_ACCEPTED` is prohibited until:
++
++- remote D1 migration is applied;
++- `shop_subscription_plans`, `shop_subscriptions`, and `shop_subscription_events` exist remotely;
++- `gate:shop-subscriptions` passes against public URLs;
++- public logs and screenshots are updated after that verification.
++
+ ## Status
+ 
+ WIP_DEPLOYED
+diff --git a/public/g/m68.md b/public/g/m68.md
+index f62f788..dc8fb65 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -1,6 +1,34 @@
+ # AIBOUX 正本マスター
+ # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+ 
++## Current Active Operating Override: AIBOUX Shop Subscription Requirement
++
++Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
++
++AIBOUX Shop must support subscription purchases as a required sales feature.
++
++Required scope:
++
++- product admin subscription-plan editing;
++- public product-detail subscription purchase option;
++- cart subscription item distinction;
++- checkout subscription terms and payment-setting blocker;
++- admin subscription list and actions;
++- D1 subscription tables;
++- subscription APIs;
++- public Playwright `gate:shop-subscriptions`.
++
++Remote D1 migration for subscription tables is currently blocked by Cloudflare authorization error 7403. This blocks remote migration and final public persistence verification only.
++
++WIP deploy is allowed if:
++
++- build passes;
++- subscription APIs return `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500 when remote schema is missing;
++- public product and cart flows do not break;
++- `/g/l68` and `/g/d68` honestly state the remote migration blocker.
++
++`FINAL_ACCEPTED` is prohibited until remote D1 migration is applied and `gate:shop-subscriptions` passes against public URLs.
++
+ ## 0. このマスターの位置づけ
+ 
+ この文書は、AIBOUX全体の正本マスターである。
+diff --git a/src/components/shop/ProductEditor.tsx b/src/components/shop/ProductEditor.tsx
+index 4ae0a53..04ba91d 100644
+--- a/src/components/shop/ProductEditor.tsx
++++ b/src/components/shop/ProductEditor.tsx
+@@ -1,7 +1,7 @@
+ "use client";
+ 
+ import * as React from "react";
+-import { AlertTriangle, GripVertical, ImagePlus, Loader2, Save, Star, Trash2, UploadCloud } from "lucide-react";
++import { AlertTriangle, CircleDollarSign, GripVertical, ImagePlus, Loader2, Save, Star, Trash2, UploadCloud } from "lucide-react";
+ import { toast } from "sonner";
+ import { Badge } from "@/components/ui/badge";
+ import { Button } from "@/components/ui/button";
+@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
+ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+ import { Textarea } from "@/components/ui/textarea";
+ import { cn } from "@/lib/utils";
+-import { createEmptyProduct, formatYen, shopProducts, type ShopProduct } from "@/data/shop-sample-data";
++import { createEmptyProduct, formatYen, shopProducts, type ShopProduct, type ShopSubscriptionPlan } from "@/data/shop-sample-data";
+ 
+ type ProductImage = {
+   id: string;
+@@ -45,6 +45,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+   const [isUploadingImage, setIsUploadingImage] = React.useState(false);
+   const [isDragging, setIsDragging] = React.useState(false);
+   const [status, setStatus] = React.useState<ShopProduct["status"]>(product.status);
++  const [subscriptionPlans, setSubscriptionPlans] = React.useState<ShopSubscriptionPlan[]>(() => initialSubscriptionPlans(product));
+ 
+   React.useEffect(() => {
+     setImages([
+@@ -60,6 +61,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+     setStock(String(product.stock));
+     setTags(product.tags.join(", "));
+     setStatus(product.status);
++    setSubscriptionPlans(initialSubscriptionPlans(product));
+     setIsDirty(false);
+   }, [mode, product]);
+ 
+@@ -101,6 +103,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+           imageR2Keys: images.map((image) => image.key).filter(Boolean),
+           aiAltTexts: images.map((image) => image.alt).filter(Boolean),
+           publishState: status === "公開中" ? "published" : "draft",
++          subscriptionPlans,
+         }),
+       });
+       const result = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string };
+@@ -209,6 +212,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+           <TabsTrigger value="summary" className="text-xs">販売情報</TabsTrigger>
+           <TabsTrigger value="media" className="text-xs">画像</TabsTrigger>
+           <TabsTrigger value="pricing" className="text-xs">価格・在庫</TabsTrigger>
++          <TabsTrigger value="subscription" className="text-xs">定期購入</TabsTrigger>
+           <TabsTrigger value="seo" className="text-xs">SEO・公開</TabsTrigger>
+         </TabsList>
+ 
+@@ -406,6 +410,119 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+           </Card>
+         </TabsContent>
+ 
++        <TabsContent value="subscription" className="mt-3 grid gap-3 xl:grid-cols-[1fr_340px]">
++          <Card className="shadow-none">
++            <CardHeader className="border-b border-neutral-200 px-4 py-3">
++              <div className="flex items-center justify-between gap-3">
++                <CardTitle className="text-sm">定期購入プラン</CardTitle>
++                <Button
++                  size="sm"
++                  variant="outline"
++                  className="h-8 gap-1.5"
++                  onClick={() => {
++                    setSubscriptionPlans((current) => [...current, createSubscriptionPlan(product.id, current.length, toPositiveNumber(price))]);
++                    markDirty();
++                  }}
++                >
++                  <CircleDollarSign className="size-3.5" />
++                  プラン追加
++                </Button>
++              </div>
++            </CardHeader>
++            <CardContent className="space-y-3 p-4">
++              {subscriptionPlans.length === 0 ? (
++                <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-10 text-center text-sm text-neutral-600">
++                  定期購入プランは未設定です。プランを追加すると商品詳細、カート、checkoutに反映します。
++                </div>
++              ) : subscriptionPlans.map((plan, index) => (
++                <div key={plan.id} className="rounded-lg border border-neutral-200 bg-white p-3" data-testid="subscription-plan-editor">
++                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
++                    <div>
++                      <div className="text-sm font-semibold text-neutral-950">プラン {index + 1}</div>
++                      <div className="text-xs text-neutral-500">{subscriptionIntervalLabel(plan.intervalUnit, plan.intervalCount)} / {formatYen(plan.price)}</div>
++                    </div>
++                    <Button
++                      variant="outline"
++                      size="sm"
++                      className="h-8 text-red-600"
++                      onClick={() => {
++                        setSubscriptionPlans((current) => current.filter((item) => item.id !== plan.id));
++                        markDirty();
++                      }}
++                    >
++                      削除
++                    </Button>
++                  </div>
++                  <div className="grid gap-3 md:grid-cols-3">
++                    <Field label="プラン名" help="購入ボックスとカートで表示します。">
++                      <Input value={plan.name} onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { name: event.target.value }, markDirty)} />
++                    </Field>
++                    <Field label="頻度単位" help="毎週、毎月などの基本単位です。">
++                      <Select value={plan.intervalUnit} onValueChange={(value) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { intervalUnit: value as ShopSubscriptionPlan["intervalUnit"] }, markDirty)}>
++                        <SelectTrigger><SelectValue /></SelectTrigger>
++                        <SelectContent>
++                          <SelectItem value="week">週</SelectItem>
++                          <SelectItem value="month">月</SelectItem>
++                          <SelectItem value="day">日</SelectItem>
++                        </SelectContent>
++                      </Select>
++                    </Field>
++                    <Field label="間隔" help="2か月ごと、3週間ごとなどの数字です。">
++                      <Input value={String(plan.intervalCount)} inputMode="numeric" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { intervalCount: toPositiveNumber(event.target.value) || 1 }, markDirty)} />
++                    </Field>
++                    <Field label="定期価格" help="初回以降の1回あたり税込価格です。">
++                      <Input value={String(plan.price)} inputMode="numeric" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { price: toPositiveNumber(event.target.value) }, markDirty)} />
++                    </Field>
++                    <Field label="割引率" help="通常価格からの割引表示です。">
++                      <Input value={String(plan.discountRate)} inputMode="decimal" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { discountRate: Number(event.target.value) || 0 }, markDirty)} />
++                    </Field>
++                    <Field label="最低継続回数" help="0なら最低継続なしです。">
++                      <Input value={String(plan.minimumCycles)} inputMode="numeric" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { minimumCycles: toPositiveNumber(event.target.value) }, markDirty)} />
++                    </Field>
++                  </div>
++                  <div className="mt-3 grid gap-2 md:grid-cols-4">
++                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
++                      <Checkbox checked={plan.status === "active"} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { status: checked ? "active" : "hidden" }, markDirty)} />
++                      公開
++                    </label>
++                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
++                      <Checkbox checked={plan.canSkip} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { canSkip: Boolean(checked) }, markDirty)} />
++                      スキップ可
++                    </label>
++                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
++                      <Checkbox checked={plan.canPause} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { canPause: Boolean(checked) }, markDirty)} />
++                      一時停止可
++                    </label>
++                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
++                      <Checkbox checked={plan.canCancel} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { canCancel: Boolean(checked) }, markDirty)} />
++                      解約可
++                    </label>
++                  </div>
++                  <div className="mt-3 grid gap-3 md:grid-cols-2">
++                    <Field label="注意文" help="商品詳細とcheckoutに表示します。">
++                      <Textarea value={plan.noticeText} onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { noticeText: event.target.value }, markDirty)} />
++                    </Field>
++                    <Field label="解約ポリシー" help="解約可能タイミングを明示します。">
++                      <Textarea value={plan.cancellationPolicy} onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { cancellationPolicy: event.target.value }, markDirty)} />
++                    </Field>
++                  </div>
++                </div>
++              ))}
++            </CardContent>
++          </Card>
++          <Card className="shadow-none">
++            <CardHeader className="border-b border-neutral-200 px-4 py-3"><CardTitle className="text-sm">公開反映</CardTitle></CardHeader>
++            <CardContent className="space-y-2 px-4 py-4 text-xs text-neutral-600">
++              <QualityRow label="定期購入プラン" ready={subscriptionPlans.some((plan) => plan.status === "active" && plan.price > 0)} />
++              <QualityRow label="商品詳細への表示" ready={status === "公開中" && subscriptionPlans.some((plan) => plan.status === "active")} />
++              <QualityRow label="checkoutの正直なブロック" ready />
++              <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-amber-800">
++                決済未接続時は「定期決済設定が未完了です」と表示し、成功したふりをしません。
++              </div>
++            </CardContent>
++          </Card>
++        </TabsContent>
++
+         <TabsContent value="seo" className="mt-3 grid gap-3 xl:grid-cols-[1fr_340px]">
+           <Card className="shadow-none">
+             <CardHeader className="border-b border-neutral-200 px-4 py-3"><CardTitle className="text-sm">SEO・モール連携</CardTitle></CardHeader>
+@@ -467,6 +584,48 @@ function buildStableJan(productId: string, sku: string): string {
+   return String(10_000_000 + (hash % 89_999_999)).slice(0, 8);
+ }
+ 
++function initialSubscriptionPlans(product: ShopProduct): ShopSubscriptionPlan[] {
++  if (product.subscriptionPlans?.length) return product.subscriptionPlans;
++  return [];
++}
++
++function createSubscriptionPlan(productId: string, index: number, basePrice: number): ShopSubscriptionPlan {
++  const price = basePrice > 0 ? Math.max(Math.round(basePrice * 0.9), 0) : 0;
++  return {
++    id: `subplan_${productId}_${Date.now()}_${index + 1}`.replace(/[^a-zA-Z0-9_-]/g, "_"),
++    name: "毎月お届け",
++    intervalUnit: "month",
++    intervalCount: 1,
++    price,
++    discountRate: 10,
++    firstOrderPrice: null,
++    minimumCycles: 0,
++    canSkip: true,
++    canPause: true,
++    canCancel: true,
++    status: "active",
++    noticeText: "定期購入は次回配送前にスキップ・一時停止・解約を確認できます。",
++    cancellationPolicy: "最低継続回数がない場合、次回決済前まで解約できます。",
++  };
++}
++
++function updateSubscriptionPlan(
++  setPlans: React.Dispatch<React.SetStateAction<ShopSubscriptionPlan[]>>,
++  planId: string,
++  patch: Partial<ShopSubscriptionPlan>,
++  markDirty: () => void,
++) {
++  setPlans((current) => current.map((plan) => plan.id === planId ? { ...plan, ...patch } : plan));
++  markDirty();
++}
++
++function subscriptionIntervalLabel(unit: ShopSubscriptionPlan["intervalUnit"], count: number): string {
++  const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
++  if (unit === "week") return safeCount === 1 ? "毎週" : `${safeCount}週間ごと`;
++  if (unit === "day") return `${safeCount}日ごと`;
++  return safeCount === 1 ? "毎月" : `${safeCount}か月ごと`;
++}
++
+ function Field({ label, help, children }: { label: string; help: string; children: React.ReactNode }) {
+   return (
+     <label className="block space-y-1.5">
+diff --git a/src/components/shop/ShopClientShell.tsx b/src/components/shop/ShopClientShell.tsx
+index dba81c8..7b874eb 100644
+--- a/src/components/shop/ShopClientShell.tsx
++++ b/src/components/shop/ShopClientShell.tsx
+@@ -2,6 +2,7 @@
+ 
+ import * as React from "react";
+ import { PackagePlus } from "lucide-react";
++import { Badge } from "@/components/ui/badge";
+ import { Button } from "@/components/ui/button";
+ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+ import { Toaster } from "@/components/ui/sonner";
+@@ -24,6 +25,7 @@ import { StorefrontDesignBuilder } from "@/components/shop/StorefrontDesignBuild
+ import { ShopTopbar } from "@/components/shop/ShopTopbar";
+ import {
+   createEmptyProduct,
++  formatYen,
+   inventoryItems,
+   shopOrders,
+   shopProducts,
+@@ -36,6 +38,7 @@ const sectionPath: Record<ShopSection, string> = {
+   dashboard: "",
+   orders: "orders",
+   "order-detail": "orders/10085",
++  subscriptions: "subscriptions",
+   products: "products",
+   "product-new": "products/new",
+   "product-detail": "products/prod-tsh-001",
+@@ -225,6 +228,8 @@ function renderSection(
+       );
+     case "order-detail":
+       return <ShopOrderDetailPage order={getOrderFromPath()} onSectionChange={onSectionChange} />;
++    case "subscriptions":
++      return <ShopSubscriptionsPanel />;
+     case "products":
+       return (
+         <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
+@@ -360,6 +365,7 @@ function mapApiProduct(row: Record<string, unknown>): ShopProduct {
+     image: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : "",
+     tags,
+     variants: [{ id: `${id}-default`, name, sku, stock, price }],
++    subscriptionPlans: parseSubscriptionPlans(row.subscriptionPlans),
+     feedSync: { google: "unsynced", bing: "unsynced" },
+   };
+ }
+@@ -383,3 +389,138 @@ function parseStringArray(value: unknown): string[] {
+     return value.split(",").map((item) => item.trim()).filter(Boolean);
+   }
+ }
++
++function parseSubscriptionPlans(value: unknown): ShopProduct["subscriptionPlans"] {
++  if (!Array.isArray(value)) return [];
++  return value.map((item, index) => {
++    const row = item && typeof item === "object" ? item as Record<string, unknown> : {};
++    const intervalUnit = row.intervalUnit === "day" || row.intervalUnit === "week" || row.intervalUnit === "month" ? row.intervalUnit : "month";
++    const status = row.status === "hidden" || row.status === "archived" ? row.status : "active";
++    return {
++      id: stringValue(row.id) || `subplan_${index + 1}`,
++      name: stringValue(row.name) || "毎月お届け",
++      intervalUnit,
++      intervalCount: Math.max(numberValue(row.intervalCount) || 1, 1),
++      price: numberValue(row.price),
++      discountRate: Number(row.discountRate ?? 0) || 0,
++      firstOrderPrice: row.firstOrderPrice === null || row.firstOrderPrice === undefined ? null : numberValue(row.firstOrderPrice),
++      minimumCycles: numberValue(row.minimumCycles),
++      canSkip: row.canSkip !== false,
++      canPause: row.canPause !== false,
++      canCancel: row.canCancel !== false,
++      status,
++      noticeText: stringValue(row.noticeText),
++      cancellationPolicy: stringValue(row.cancellationPolicy),
++    };
++  });
++}
++
++function ShopSubscriptionsPanel() {
++  const [subscriptions, setSubscriptions] = React.useState<Array<Record<string, unknown>>>([]);
++  const [loading, setLoading] = React.useState(true);
++  const [error, setError] = React.useState("");
++
++  const load = React.useCallback(() => {
++    setLoading(true);
++    fetch("/shop/api/subscriptions")
++      .then(async (response) => {
++        const data = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string; subscriptions?: Array<Record<string, unknown>> };
++        if (!response.ok || data.success === false) throw new Error(data.error || "定期購入一覧を取得できませんでした");
++        setSubscriptions(Array.isArray(data.subscriptions) ? data.subscriptions : []);
++        setError("");
++      })
++      .catch((caught) => setError(caught instanceof Error ? caught.message : "定期購入一覧を取得できませんでした"))
++      .finally(() => setLoading(false));
++  }, []);
++
++  React.useEffect(() => {
++    load();
++  }, [load]);
++
++  const action = async (subscriptionId: string, nextAction: "pause" | "resume" | "skip" | "cancel") => {
++    const response = await fetch(`/shop/api/subscriptions/${encodeURIComponent(subscriptionId)}/${nextAction}`, { method: "PATCH" });
++    const data = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string };
++    if (!response.ok || data.success === false) {
++      alert(data.error || "定期購入を更新できませんでした");
++      return;
++    }
++    load();
++  };
++
++  return (
++    <section className="min-h-0 flex-1 overflow-auto bg-white p-4" data-testid="admin-subscriptions-page">
++      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
++        <div>
++          <h1 className="text-xl font-semibold tracking-tight text-neutral-950">定期購入</h1>
++          <p className="text-sm text-neutral-500">定期購入契約、次回請求日、次回配送日、停止・再開・スキップ・解約を確認します。</p>
++        </div>
++        <Button variant="outline" onClick={load} disabled={loading}>{loading ? "読込中..." : "再読込"}</Button>
++      </div>
++      {error ? <div className="mb-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div> : null}
++      {subscriptions.length === 0 ? (
++        <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
++          定期購入はまだありません。商品詳細から定期購入を選ぶと、決済設定確認後にここへ表示します。
++        </div>
++      ) : (
++        <div className="overflow-x-auto rounded-lg border border-neutral-200">
++          <table className="w-full min-w-[980px] text-sm">
++            <thead className="bg-neutral-50 text-left text-xs text-neutral-500">
++              <tr>
++                <th className="px-3 py-2">顧客</th>
++                <th className="px-3 py-2">商品 / プラン</th>
++                <th className="px-3 py-2">金額</th>
++                <th className="px-3 py-2">次回請求</th>
++                <th className="px-3 py-2">次回配送</th>
++                <th className="px-3 py-2">状態</th>
++                <th className="px-3 py-2 text-right">操作</th>
++              </tr>
++            </thead>
++            <tbody className="divide-y divide-neutral-100">
++              {subscriptions.map((subscription) => {
++                const id = stringValue(subscription.id);
++                const status = stringValue(subscription.status);
++                return (
++                  <tr key={id}>
++                    <td className="px-3 py-3">
++                      <div className="font-medium text-neutral-950">{stringValue(subscription.customerName) || "未入力"}</div>
++                      <div className="text-xs text-neutral-500">{stringValue(subscription.customerEmail) || "メール未入力"}</div>
++                    </td>
++                    <td className="px-3 py-3">
++                      <div className="font-medium text-neutral-950">{stringValue(subscription.productName)}</div>
++                      <div className="text-xs text-neutral-500">{stringValue(subscription.planName)} / {subscriptionIntervalLabelForAdmin(subscription)}</div>
++                    </td>
++                    <td className="px-3 py-3 font-semibold">{formatYen(numberValue(subscription.unitPrice))}</td>
++                    <td className="px-3 py-3">{formatDateValue(subscription.nextBillingAt)}</td>
++                    <td className="px-3 py-3">{formatDateValue(subscription.nextDeliveryAt)}</td>
++                    <td className="px-3 py-3"><Badge variant="outline" className="rounded-md">{status || "pending_payment_setup"}</Badge></td>
++                    <td className="px-3 py-3">
++                      <div className="flex justify-end gap-2">
++                        <Button variant="outline" size="sm" className="h-8" onClick={() => action(id, status === "paused" ? "resume" : "pause")}>{status === "paused" ? "再開" : "一時停止"}</Button>
++                        <Button variant="outline" size="sm" className="h-8" onClick={() => action(id, "skip")}>スキップ</Button>
++                        <Button variant="outline" size="sm" className="h-8 text-red-600" onClick={() => action(id, "cancel")}>解約</Button>
++                      </div>
++                    </td>
++                  </tr>
++                );
++              })}
++            </tbody>
++          </table>
++        </div>
++      )}
++    </section>
++  );
++}
++
++function subscriptionIntervalLabelForAdmin(value: Record<string, unknown>): string {
++  const unit = stringValue(value.intervalUnit);
++  const count = Math.max(numberValue(value.intervalCount) || 1, 1);
++  if (unit === "week") return count === 1 ? "毎週" : `${count}週間ごと`;
++  if (unit === "day") return `${count}日ごと`;
++  return count === 1 ? "毎月" : `${count}か月ごと`;
++}
++
++function formatDateValue(value: unknown): string {
++  const number = typeof value === "number" ? value : Number(value ?? 0);
++  if (!Number.isFinite(number) || number <= 0) return "未設定";
++  return new Intl.DateTimeFormat("ja-JP", { dateStyle: "medium" }).format(new Date(number));
++}
+diff --git a/src/components/shop/StorefrontDesignBuilder.tsx b/src/components/shop/StorefrontDesignBuilder.tsx
+index 62faa44..2684d30 100644
+--- a/src/components/shop/StorefrontDesignBuilder.tsx
++++ b/src/components/shop/StorefrontDesignBuilder.tsx
+@@ -688,6 +688,13 @@ function ProductDetailPreview({
+           <div className="text-2xl font-bold text-red-700">¥4,980</div>
+           {product.content.showDeliveryEstimate ? <p className="mt-3 text-sm leading-6 text-neutral-600">最短で明日お届け予定</p> : null}
+           {product.content.showStock ? <p className="mt-2 text-sm font-bold text-emerald-700">在庫あり</p> : null}
++          {product.purchaseBox.showSubscriptionOptions ? (
++            <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-xs">
++              <div className="font-bold text-neutral-950">購入方法</div>
++              <div className="mt-2 rounded bg-white px-2 py-1">通常購入 ¥4,980</div>
++              <div className="mt-1 rounded bg-white px-2 py-1 text-amber-800">定期購入 ¥4,482 10%OFF / 毎月</div>
++            </div>
++          ) : null}
+           {product.purchaseBox.showQuantity ? <label className="mt-4 block text-xs font-semibold">数量<input className="mt-1 h-9 w-full rounded-md border border-neutral-200 px-3" value="1" readOnly /></label> : null}
+           <div className="mt-4 grid gap-2">
+             <span className="flex h-10 items-center justify-center rounded-full bg-amber-400 text-sm font-bold text-neutral-950">{product.purchaseBox.cartButtonText}</span>
+@@ -963,6 +970,7 @@ function ProductDetailEditor({ layout, selectedSection, updateProductDetail }: {
+         <TabsLabel />
+         <SwitchField label="追従表示" checked={product.purchaseBox.sticky} onChange={(sticky) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, sticky } })} />
+         <SwitchField label="数量表示" checked={product.purchaseBox.showQuantity} onChange={(showQuantity) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, showQuantity } })} />
++        <SwitchField label="定期購入選択を表示" checked={product.purchaseBox.showSubscriptionOptions} onChange={(showSubscriptionOptions) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, showSubscriptionOptions } })} />
+         <Field label="カートボタン文言"><Input value={product.purchaseBox.cartButtonText} onChange={(event) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, cartButtonText: event.target.value } })} /></Field>
+         <Field label="今すぐ購入ボタン文言"><Input value={product.purchaseBox.buyNowButtonText} onChange={(event) => updateProductDetail({ purchaseBox: { ...product.purchaseBox, buyNowButtonText: event.target.value } })} /></Field>
+       </div>
+diff --git a/src/data/shop-sample-data.ts b/src/data/shop-sample-data.ts
+index ad88dd0..507b8fd 100644
+--- a/src/data/shop-sample-data.ts
++++ b/src/data/shop-sample-data.ts
+@@ -19,6 +19,7 @@ export type ShopSection =
+   | "dashboard"
+   | "orders"
+   | "order-detail"
++  | "subscriptions"
+   | "products"
+   | "product-new"
+   | "product-detail"
+@@ -88,6 +89,23 @@ export interface ProductVariant {
+   price: number;
+ }
+ 
++export interface ShopSubscriptionPlan {
++  id: string;
++  name: string;
++  intervalUnit: "day" | "week" | "month";
++  intervalCount: number;
++  price: number;
++  discountRate: number;
++  firstOrderPrice: number | null;
++  minimumCycles: number;
++  canSkip: boolean;
++  canPause: boolean;
++  canCancel: boolean;
++  status: "active" | "hidden" | "archived";
++  noticeText: string;
++  cancellationPolicy: string;
++}
++
+ export interface ShopProduct {
+   id: string;
+   name: string;
+@@ -102,6 +120,7 @@ export interface ShopProduct {
+   image: string;
+   tags: string[];
+   variants: ProductVariant[];
++  subscriptionPlans?: ShopSubscriptionPlan[];
+   feedSync?: {
+     google: "unsynced" | "syncing" | "synced" | "error";
+     bing: "unsynced" | "syncing" | "synced" | "error";
+@@ -175,6 +194,7 @@ export interface AIAction {
+ export const shopNavItems: ShopNavItem[] = [
+   { id: "dashboard", label: "ダッシュボード", href: "/s/aiboux/admin", icon: Home },
+   { id: "orders", label: "注文管理", href: "/s/aiboux/admin/orders", icon: ShoppingCart },
++  { id: "subscriptions", label: "定期購入", href: "/s/aiboux/admin/subscriptions", icon: CircleDollarSign },
+   { id: "products", label: "商品管理", href: "/s/aiboux/admin/products", icon: Package },
+   { id: "inventory", label: "在庫", href: "/s/aiboux/admin/inventory", icon: Boxes },
+   { id: "categories", label: "カテゴリ管理", href: "/s/aiboux/admin/categories", icon: Tags },
+diff --git a/src/lib/server/shopStorefront.ts b/src/lib/server/shopStorefront.ts
+index efdbe43..17e427d 100644
+--- a/src/lib/server/shopStorefront.ts
++++ b/src/lib/server/shopStorefront.ts
+@@ -1,5 +1,10 @@
+ import { env } from "cloudflare:workers";
+ import { defaultStorefrontLayout, parseStorefrontLayoutJson, type StorefrontLayout } from "@/lib/shopStorefrontLayout";
++import {
++  isSubscriptionSchemaPendingError,
++  listShopSubscriptionPlans,
++  type ShopSubscriptionPlan,
++} from "@/lib/server/shopSubscriptions";
+ 
+ export type ShopStorefrontProfile = {
+   tenantId: string;
+@@ -29,6 +34,8 @@ export type ShopStorefrontProduct = {
+   sku: string;
+   stockQuantity: number;
+   inStock: boolean;
++  subscriptionPlans: ShopSubscriptionPlan[];
++  subscriptionSchemaPending: boolean;
+   updatedAt: number;
+ };
+ 
+@@ -294,7 +301,15 @@ export async function getShopStorefrontProduct(tenantId: string, productId: stri
+       .bind(tenantId, productId)
+       .first<ProductRow>();
+ 
+-    return row ? mapProductRow(row) : null;
++    if (!row) return null;
++    const product = mapProductRow(row);
++    try {
++      product.subscriptionPlans = await listShopSubscriptionPlans({ tenantId, productId: product.id, activeOnly: true });
++    } catch (error) {
++      if (!isSubscriptionSchemaPendingError(error)) throw error;
++      product.subscriptionSchemaPending = true;
++    }
++    return product;
+   } catch {
+     return null;
+   }
+@@ -397,6 +412,8 @@ function mapProductRow(row: ProductRow): ShopStorefrontProduct {
+     sku: row.jan_code || row.id,
+     stockQuantity,
+     inStock: row.core_status !== "paused" && stockQuantity > 0,
++    subscriptionPlans: [],
++    subscriptionSchemaPending: false,
+     updatedAt: Number(row.updated_at ?? 0),
+   };
+ }
+diff --git a/src/lib/shopStorefrontLayout.ts b/src/lib/shopStorefrontLayout.ts
+index be7916f..7a0a157 100644
+--- a/src/lib/shopStorefrontLayout.ts
++++ b/src/lib/shopStorefrontLayout.ts
+@@ -87,6 +87,7 @@ export type ProductDetailPageDesignConfig = {
+   purchaseBox: {
+     sticky: boolean;
+     showQuantity: boolean;
++    showSubscriptionOptions: boolean;
+     cartButtonText: string;
+     buyNowButtonText: string;
+   };
+@@ -222,6 +223,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
+       purchaseBox: {
+         sticky: true,
+         showQuantity: true,
++        showSubscriptionOptions: true,
+         cartButtonText: "カートに入れる",
+         buyNowButtonText: "今すぐ購入",
+       },
+@@ -396,6 +398,7 @@ function sanitizeProductDetail(value: Record<string, unknown>): ProductDetailPag
+     purchaseBox: {
+       sticky: sanitizeBoolean(purchaseBox.sticky, true),
+       showQuantity: sanitizeBoolean(purchaseBox.showQuantity, true),
++      showSubscriptionOptions: sanitizeBoolean(purchaseBox.showSubscriptionOptions, true),
+       cartButtonText: sanitizeText(purchaseBox.cartButtonText, "カートに入れる", 28),
+       buyNowButtonText: sanitizeText(purchaseBox.buyNowButtonText, "今すぐ購入", 28),
+     },
+diff --git a/src/pages/api/shop/products/index.ts b/src/pages/api/shop/products/index.ts
+index e1aaa98..ce52c4c 100644
+--- a/src/pages/api/shop/products/index.ts
++++ b/src/pages/api/shop/products/index.ts
+@@ -1,6 +1,7 @@
+ import type { APIRoute } from "astro";
+ import { env } from "cloudflare:workers";
+ import { auditLog, id, productError, productJson, readJsonBody, textValue, withTenant } from "@/lib/server/productMasterApi";
++import { isSubscriptionSchemaPendingError, listShopSubscriptionPlans } from "@/lib/server/shopSubscriptions";
+ 
+ export const prerender = false;
+ 
+@@ -23,7 +24,29 @@ export const GET: APIRoute = async ({ request }) => {
+     )
+       .bind(tenant.tenantId)
+       .all();
+-    return productJson({ success: true, shopProducts: rows.results });
++    const shopProducts = rows.results ?? [];
++    let plans: Awaited<ReturnType<typeof listShopSubscriptionPlans>> = [];
++    let subscriptionSchemaPending = false;
++    try {
++      plans = await listShopSubscriptionPlans({ tenantId: tenant.tenantId });
++    } catch (error) {
++      if (!isSubscriptionSchemaPendingError(error)) throw error;
++      subscriptionSchemaPending = true;
++    }
++    const plansByProduct = new Map<string, typeof plans>();
++    for (const plan of plans) {
++      const current = plansByProduct.get(plan.productId) ?? [];
++      current.push(plan);
++      plansByProduct.set(plan.productId, current);
++    }
++    return productJson({
++      success: true,
++      shopProducts: shopProducts.map((row) => ({
++        ...row,
++          subscriptionPlans: plansByProduct.get(String(row.id)) ?? [],
++      })),
++      subscriptionSchemaPending,
++    });
+   } catch (error) {
+     return productError(error);
+   }
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index d79fde1..df42cef 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -52,6 +52,9 @@ const headerDesign = layout?.global.header;
+ const logo = layout?.global.logo;
+ const productDesign = layout?.pages.productDetail;
+ const logoHref = logo?.linkType === "custom" && logo.customUrl ? logo.customUrl : `${tenantRoot}/`;
++const activeSubscriptionPlans = product?.subscriptionPlans ?? [];
++const primarySubscriptionPlan = activeSubscriptionPlans[0] ?? null;
++const subscriptionSchemaPending = Boolean(product?.subscriptionSchemaPending);
+ 
+ const pageMeta: Record<string, { title: string; description: string }> = {
+   products: { title: "商品一覧", description: "公開中の商品を表示します。" },
+@@ -71,6 +74,13 @@ const title = isKnownTenant && isAllowedPath ? `${meta.title} | AIBOUX Store` :
+ const canonicalUrl = isKnownTenant && isAllowedPath
+   ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
+   : Astro.url.toString();
++
++function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number): string {
++  const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
++  if (unit === "week") return safeCount === 1 ? "毎週" : `${safeCount}週間ごと`;
++  if (unit === "day") return `${safeCount}日ごと`;
++  return safeCount === 1 ? "毎月" : `${safeCount}か月ごと`;
++}
+ ---
+ 
+ <!doctype html>
+@@ -203,6 +213,41 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+                   data-testid="public-product-purchase-box"
+                 >
+                   <div class="text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</div>
++                  {productDesign?.purchaseBox.showSubscriptionOptions !== false && activeSubscriptionPlans.length ? (
++                    <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3" data-testid="subscription-purchase-options">
++                      <div class="text-sm font-bold text-neutral-950">購入方法</div>
++                      <label class="mt-3 flex items-start gap-2 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm">
++                        <input type="radio" name="purchase_mode" value="normal" checked data-purchase-mode />
++                        <span><strong>通常購入</strong><br /><span class="text-xs text-neutral-600">{formatShopPrice(product.salePrice)}</span></span>
++                      </label>
++                      {activeSubscriptionPlans.map((plan, index) => (
++                        <label class="mt-2 flex items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-sm">
++                          <input type="radio" name="purchase_mode" value="subscription" data-purchase-mode data-plan-id={plan.id} checked={index === 0 ? false : undefined} />
++                          <span>
++                            <strong>定期購入</strong><br />
++                            <span class="text-xs text-neutral-600">{formatShopPrice(plan.price)} {plan.discountRate > 0 ? `${plan.discountRate}%OFF` : ""} / {subscriptionIntervalLabel(plan.intervalUnit, plan.intervalCount)}</span>
++                          </span>
++                        </label>
++                      ))}
++                      <label class="mt-3 block text-xs font-semibold text-neutral-700">お届け頻度
++                        <select class="mt-1 h-9 w-full rounded-md border border-neutral-200 bg-white px-2" data-subscription-plan-select>
++                          {activeSubscriptionPlans.map((plan) => (
++                            <option value={plan.id} data-price={String(plan.price)} data-interval={subscriptionIntervalLabel(plan.intervalUnit, plan.intervalCount)}>
++                              {plan.name} / {subscriptionIntervalLabel(plan.intervalUnit, plan.intervalCount)}
++                            </option>
++                          ))}
++                        </select>
++                      </label>
++                      <p class="mt-2 text-xs leading-5 text-neutral-700">{primarySubscriptionPlan?.noticeText || "いつでもスキップ・一時停止・解約条件を確認できます。"}</p>
++                      <p class="mt-1 text-[11px] leading-5 text-neutral-500">最低継続回数: {primarySubscriptionPlan?.minimumCycles ? `${primarySubscriptionPlan.minimumCycles}回` : "なし"}</p>
++                    </div>
++                  ) : null}
++                  {productDesign?.purchaseBox.showSubscriptionOptions !== false && subscriptionSchemaPending ? (
++                    <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900" data-testid="subscription-schema-pending">
++                      <div class="font-bold">定期購入は準備中です。</div>
++                      <p class="mt-1 text-xs leading-5">DB migrationが未適用のため、現在は申し込みできません。通常購入と商品閲覧は利用できます。</p>
++                    </div>
++                  ) : null}
+                   {productDesign?.content.showDeliveryEstimate ? <p class="mt-3 text-sm leading-6 text-neutral-600">配送予定はチェックアウト画面で確認します。</p> : null}
+                   {productDesign?.content.showStock ? <p class="mt-2 text-sm font-bold text-emerald-700">{product.inStock ? "在庫あり" : "在庫確認"}</p> : null}
+                   {productDesign?.purchaseBox.showQuantity ? <label class="mt-4 block text-xs font-semibold">数量<input class="mt-1 h-9 w-full rounded-md border border-neutral-200 px-3 font-normal" value="1" readonly /></label> : null}
+@@ -215,10 +260,14 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+                       data-product-name={product.displayName}
+                       data-product-price={String(product.salePrice)}
+                       data-product-image={product.imageUrl}
++                      data-subscription-plan-id={primarySubscriptionPlan?.id ?? ""}
++                      data-subscription-plan-name={primarySubscriptionPlan?.name ?? ""}
++                      data-subscription-price={primarySubscriptionPlan ? String(primarySubscriptionPlan.price) : ""}
++                      data-subscription-interval={primarySubscriptionPlan ? subscriptionIntervalLabel(primarySubscriptionPlan.intervalUnit, primarySubscriptionPlan.intervalCount) : ""}
+                     >
+                       {productDesign?.purchaseBox.cartButtonText ?? "カートに入れる"}
+                     </button>
+-                    <a class="inline-flex h-10 items-center justify-center rounded-full bg-orange-500 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/checkout`}>
++                    <a class="inline-flex h-10 items-center justify-center rounded-full bg-orange-500 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/checkout`} data-subscription-checkout-link>
+                       {productDesign?.purchaseBox.buyNowButtonText ?? "今すぐ購入"}
+                     </a>
+                     <a class="inline-flex h-9 items-center justify-center rounded-md border border-neutral-300 bg-white px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/cart`}>カートを見る</a>
+@@ -269,8 +318,11 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+                 カートは空です。商品を追加するとここに表示されます。
+               </div>
+               <div data-cart-list class="hidden space-y-3"></div>
+-              <div data-cart-summary class="hidden mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 pt-4">
+-                <div class="text-sm text-neutral-600">小計: <strong data-cart-subtotal class="text-neutral-950">¥0</strong></div>
++                <div data-cart-summary class="hidden mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 pt-4">
++                <div class="text-sm text-neutral-600">
++                  小計: <strong data-cart-subtotal class="text-neutral-950">¥0</strong>
++                  <div data-cart-subscription-summary class="mt-1 text-xs text-amber-700"></div>
++                </div>
+                 <a class="inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/checkout`}>チェックアウトへ進む</a>
+               </div>
+             </div>
+@@ -285,6 +337,15 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+               <aside class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-900">
+                 <div class="font-bold">決済設定が必要です</div>
+                 <p class="mt-2">決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済完了風の画面は表示しません。</p>
++                <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期決済設定が未完了です。定期購入は決済設定完了後に申込みできます。</p>
++                <label class="mt-3 hidden items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs" data-subscription-terms>
++                  <input type="checkbox" disabled />
++                  <span>定期購入規約、解約ポリシー、次回配送予定を確認しました。</span>
++                </label>
++                <button class="mt-3 hidden h-9 w-full items-center justify-center rounded-md bg-neutral-950 px-3 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:bg-neutral-400" type="button" data-subscription-submit>
++                  定期購入を申し込む
++                </button>
++                <p class="mt-2 hidden rounded-md border border-amber-300 bg-white px-3 py-2 text-xs font-semibold text-amber-900" data-subscription-result></p>
+                 <a class="mt-3 inline-flex h-9 items-center rounded-md border border-amber-300 bg-white px-3 text-xs font-semibold text-amber-900" href={`${tenantRoot}/cart`}>カートへ戻る</a>
+               </aside>
+             </div>
+@@ -357,6 +418,7 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+         const empty = document.querySelector("[data-cart-empty]");
+         const summary = document.querySelector("[data-cart-summary]");
+         const subtotalNode = document.querySelector("[data-cart-subtotal]");
++        const subscriptionSummary = document.querySelector("[data-cart-subscription-summary]");
+         if (!list || !empty || !summary || !subtotalNode) return;
+         const items = readCart();
+         if (!items.length) {
+@@ -376,7 +438,8 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+             </div>
+             <div>
+               <div class="text-sm font-semibold text-neutral-950">${escapeHtml(item.name)}</div>
+-              <div class="mt-1 text-sm text-neutral-600">${formatYen(item.price)}</div>
++              <div class="mt-1 text-sm text-neutral-600">${formatYen(item.price)}${item.purchaseMode === "subscription" ? ` / ${escapeHtml(item.subscriptionInterval || "")}` : ""}</div>
++              ${item.purchaseMode === "subscription" ? `<div class="mt-1 inline-flex rounded bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-800">定期購入: ${escapeHtml(item.subscriptionPlanName || "定期プラン")}</div>` : ""}
+               <label class="mt-2 inline-flex items-center gap-2 text-xs text-neutral-600">数量
+                 <input class="h-8 w-20 rounded-md border border-neutral-200 px-2" data-cart-qty="${escapeHtml(item.id)}" inputmode="numeric" value="${Number(item.quantity || 1)}" />
+               </label>
+@@ -385,6 +448,12 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+           </div>
+         `).join("");
+         subtotalNode.textContent = formatYen(items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0));
++        if (subscriptionSummary) {
++          const subscriptionItems = items.filter((item) => item.purchaseMode === "subscription");
++          subscriptionSummary.textContent = subscriptionItems.length
++            ? `定期購入 ${subscriptionItems.length}件 / 次回以降合計 ${formatYen(subscriptionItems.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0))}`
++            : "";
++        }
+       }
+ 
+       function renderCheckout() {
+@@ -397,10 +466,16 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+         }
+         node.innerHTML = `
+           <div class="space-y-2">
+-            ${items.map((item) => `<div class="flex justify-between gap-3 border-b border-neutral-100 pb-2"><span>${escapeHtml(item.name)} x ${Number(item.quantity || 1)}</span><strong>${formatYen(Number(item.price || 0) * Number(item.quantity || 0))}</strong></div>`).join("")}
++            ${items.map((item) => `<div class="flex justify-between gap-3 border-b border-neutral-100 pb-2"><span>${escapeHtml(item.name)} x ${Number(item.quantity || 1)}${item.purchaseMode === "subscription" ? `<br><span class="text-xs text-amber-700">定期購入 / ${escapeHtml(item.subscriptionInterval || "")}</span>` : ""}</span><strong>${formatYen(Number(item.price || 0) * Number(item.quantity || 0))}</strong></div>`).join("")}
+             <div class="flex justify-between pt-2 text-neutral-950"><span>小計</span><strong>${formatYen(items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0))}</strong></div>
+           </div>
+         `;
++        const hasSubscription = items.some((item) => item.purchaseMode === "subscription");
++        document.querySelectorAll("[data-subscription-payment-blocker], [data-subscription-terms], [data-subscription-submit]").forEach((element) => {
++          element.classList.toggle("hidden", !hasSubscription);
++          if (element.hasAttribute("data-subscription-terms")) element.classList.toggle("flex", hasSubscription);
++          if (element.hasAttribute("data-subscription-submit")) element.classList.toggle("inline-flex", hasSubscription);
++        });
+       }
+ 
+       function escapeHtml(value) {
+@@ -409,11 +484,23 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+ 
+       document.querySelectorAll("[data-cart-add]").forEach((button) => {
+         button.addEventListener("click", () => {
++          const selectedMode = document.querySelector("input[name='purchase_mode']:checked");
++          const planSelect = document.querySelector("[data-subscription-plan-select]");
++          const purchaseMode = selectedMode instanceof HTMLInputElement ? selectedMode.value : "normal";
++          const selectedOption = planSelect instanceof HTMLSelectElement ? planSelect.selectedOptions[0] : null;
++          const subscriptionPrice = Number(selectedOption?.getAttribute("data-price") || button.getAttribute("data-subscription-price") || 0);
+           addToCart({
+-            id: button.getAttribute("data-product-id") || "",
++            id: purchaseMode === "subscription"
++              ? `${button.getAttribute("data-product-id") || ""}:${selectedOption?.value || button.getAttribute("data-subscription-plan-id") || "subscription"}`
++              : button.getAttribute("data-product-id") || "",
++            productId: button.getAttribute("data-product-id") || "",
+             name: button.getAttribute("data-product-name") || "",
+-            price: Number(button.getAttribute("data-product-price") || 0),
++            price: purchaseMode === "subscription" && subscriptionPrice > 0 ? subscriptionPrice : Number(button.getAttribute("data-product-price") || 0),
+             image: button.getAttribute("data-product-image") || "",
++            purchaseMode,
++            subscriptionPlanId: purchaseMode === "subscription" ? selectedOption?.value || button.getAttribute("data-subscription-plan-id") || "" : "",
++            subscriptionPlanName: purchaseMode === "subscription" ? selectedOption?.textContent?.trim() || button.getAttribute("data-subscription-plan-name") || "定期プラン" : "",
++            subscriptionInterval: purchaseMode === "subscription" ? selectedOption?.getAttribute("data-interval") || button.getAttribute("data-subscription-interval") || "" : "",
+           });
+         });
+       });
+@@ -436,6 +523,47 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+         renderCart();
+       });
+ 
++      const subscriptionSubmit = document.querySelector("[data-subscription-submit]");
++      if (subscriptionSubmit instanceof HTMLButtonElement) {
++        subscriptionSubmit.addEventListener("click", async () => {
++          const resultNode = document.querySelector("[data-subscription-result]");
++          const subscriptionItem = readCart().find((item) => item.purchaseMode === "subscription");
++          if (!subscriptionItem) return;
++          subscriptionSubmit.disabled = true;
++          if (resultNode instanceof HTMLElement) {
++            resultNode.classList.remove("hidden");
++            resultNode.textContent = "定期購入の決済設定を確認しています。";
++          }
++          try {
++            const response = await fetch("/shop/api/checkout/subscription?tenant=aiboux", {
++              method: "POST",
++              headers: { "Content-Type": "application/json" },
++              body: JSON.stringify({
++                productId: subscriptionItem.productId,
++                planId: subscriptionItem.subscriptionPlanId,
++                quantity: subscriptionItem.quantity,
++                customerName: "公開チェックアウト確認",
++                customerEmail: "subscription-check@example.invalid",
++              }),
++            });
++            const data = await response.json().catch(() => ({}));
++            if (resultNode instanceof HTMLElement) {
++              resultNode.textContent = data?.error
++                ? String(data.error)
++                : response.ok
++                  ? "定期購入申込みを受け付けました。"
++                  : "定期購入申込みは確定できませんでした。";
++            }
++          } catch {
++            if (resultNode instanceof HTMLElement) {
++              resultNode.textContent = "定期購入申込みAPIへ接続できませんでした。";
++            }
++          } finally {
++            subscriptionSubmit.disabled = false;
++          }
++        });
++      }
++
+       const contactForm = document.querySelector("[data-contact-form]");
+       if (contactForm instanceof HTMLFormElement) {
+         contactForm.addEventListener("submit", (event) => {
+diff --git a/src/pages/shop/api/products/save.ts b/src/pages/shop/api/products/save.ts
+index 1ab004b..d1321ef 100644
+--- a/src/pages/shop/api/products/save.ts
++++ b/src/pages/shop/api/products/save.ts
+@@ -13,6 +13,12 @@ import {
+ import { enqueueShopFeedSync } from "@/lib/server/shopFeedSyncQueue";
+ import { sendShopAdminNotification } from "@/lib/server/shopNotificationEmail";
+ import { requestShopProductCacheRevalidation } from "@/lib/server/shopProductCache";
++import {
++  SUBSCRIPTION_SCHEMA_PENDING_CODE,
++  SUBSCRIPTION_SCHEMA_PENDING_MESSAGE,
++  isSubscriptionSchemaPendingError,
++  replaceShopSubscriptionPlans,
++} from "@/lib/server/shopSubscriptions";
+ 
+ export const prerender = false;
+ 
+@@ -34,6 +40,7 @@ type SaveProductBody = {
+   publishState?: unknown;
+   shopName?: unknown;
+   actorId?: unknown;
++  subscriptionPlans?: unknown;
+ };
+ 
+ export const POST: APIRoute = async ({ request }) => {
+@@ -159,6 +166,24 @@ export const POST: APIRoute = async ({ request }) => {
+       )
+       .run();
+ 
++    let subscriptionPlans: Awaited<ReturnType<typeof replaceShopSubscriptionPlans>> = [];
++    let subscriptionSchemaPending: Record<string, unknown> | null = null;
++    try {
++      subscriptionPlans = await replaceShopSubscriptionPlans({
++        tenantId: tenant.tenantId,
++        productId,
++        plans: body.subscriptionPlans,
++        actorId,
++      });
++    } catch (error) {
++      if (!isSubscriptionSchemaPendingError(error)) throw error;
++      subscriptionSchemaPending = {
++        ok: false,
++        code: SUBSCRIPTION_SCHEMA_PENDING_CODE,
++        message: SUBSCRIPTION_SCHEMA_PENDING_MESSAGE,
++      };
++    }
++
+     const notification =
+       publishState === "published"
+         ? await sendShopAdminNotification(env, {
+@@ -249,6 +274,8 @@ export const POST: APIRoute = async ({ request }) => {
+         jobId: feedSyncJobId,
+       },
+       cacheRevalidation,
++      subscriptionPlans,
++      subscriptionSchemaPending,
+     });
+   } catch (error) {
+     return productError(error);

@@ -1,52 +1,5 @@
 # AIBOUX Shop Sales Tenant Screen Artifact
 
-## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
-
-Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
-
-This screen artifact records the intended WIP evidence for the AIBOUX Shop subscription flow.
-
-### Subscription Screens Added Locally
-
-- Product admin subscription-plan editor.
-- Product detail purchase box with:
-  - normal purchase;
-  - subscription purchase;
-  - subscription price;
-  - delivery frequency;
-  - notice text;
-  - minimum cycle note.
-- Product detail schema-pending message:
-  - `定期購入は準備中です。`
-  - `DB migrationが未適用のため、現在は申し込みできません。`
-- Cart subscription item display.
-- Checkout subscription blocker:
-  - `定期決済設定が未完了です。`
-- Checkout subscription submit result area.
-- Admin subscription list:
-  - customer;
-  - product / plan;
-  - amount;
-  - next billing;
-  - next delivery;
-  - status;
-  - pause / resume / skip / cancel actions.
-
-### Screenshot Evidence Pending
-
-The following public screenshot evidence still requires remote D1 migration and WIP deploy:
-
-- `/g/screens/shop-subscription-product-1980.png`
-- `/g/screens/shop-subscription-cart-1980.png`
-- `/g/screens/shop-subscription-checkout-1980.png`
-- `/g/screens/shop-subscription-admin-1980.png`
-
-### Non-Final Condition
-
-This is not final visual acceptance.
-
-Remote D1 migration is blocked by Cloudflare authorization error 7403, so the public subscription flow cannot yet prove persisted remote subscription records.
-
 ## Status
 
 WIP_DEPLOYED
@@ -130,9 +83,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `1c1a8f52-7aca-4163-8d91-96300b79bcd5` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `1c1a8f52-7aca-4163-8d91-96300b79bcd5` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `1c1a8f52-7aca-4163-8d91-96300b79bcd5` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -187,7 +140,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `1c1a8f52-7aca-4163-8d91-96300b79bcd5`
 
 Screen evidence policy:
 
@@ -276,7 +229,7 @@ Verified route:
 - `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `1c1a8f52-7aca-4163-8d91-96300b79bcd5`
 
 Current visual evidence:
 
@@ -433,7 +386,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `1c1a8f52-7aca-4163-8d91-96300b79bcd5`.
 
 Design editor screen evidence:
 

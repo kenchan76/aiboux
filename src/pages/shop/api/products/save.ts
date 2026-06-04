@@ -13,6 +13,12 @@ import {
 import { enqueueShopFeedSync } from "@/lib/server/shopFeedSyncQueue";
 import { sendShopAdminNotification } from "@/lib/server/shopNotificationEmail";
 import { requestShopProductCacheRevalidation } from "@/lib/server/shopProductCache";
+import {
+  SUBSCRIPTION_SCHEMA_PENDING_CODE,
+  SUBSCRIPTION_SCHEMA_PENDING_MESSAGE,
+  isSubscriptionSchemaPendingError,
+  replaceShopSubscriptionPlans,
+} from "@/lib/server/shopSubscriptions";
 
 export const prerender = false;
 
@@ -34,6 +40,7 @@ type SaveProductBody = {
   publishState?: unknown;
   shopName?: unknown;
   actorId?: unknown;
+  subscriptionPlans?: unknown;
 };
 
 export const POST: APIRoute = async ({ request }) => {
@@ -159,6 +166,24 @@ export const POST: APIRoute = async ({ request }) => {
       )
       .run();
 
+    let subscriptionPlans: Awaited<ReturnType<typeof replaceShopSubscriptionPlans>> = [];
+    let subscriptionSchemaPending: Record<string, unknown> | null = null;
+    try {
+      subscriptionPlans = await replaceShopSubscriptionPlans({
+        tenantId: tenant.tenantId,
+        productId,
+        plans: body.subscriptionPlans,
+        actorId,
+      });
+    } catch (error) {
+      if (!isSubscriptionSchemaPendingError(error)) throw error;
+      subscriptionSchemaPending = {
+        ok: false,
+        code: SUBSCRIPTION_SCHEMA_PENDING_CODE,
+        message: SUBSCRIPTION_SCHEMA_PENDING_MESSAGE,
+      };
+    }
+
     const notification =
       publishState === "published"
         ? await sendShopAdminNotification(env, {
@@ -249,6 +274,8 @@ export const POST: APIRoute = async ({ request }) => {
         jobId: feedSyncJobId,
       },
       cacheRevalidation,
+      subscriptionPlans,
+      subscriptionSchemaPending,
     });
   } catch (error) {
     return productError(error);

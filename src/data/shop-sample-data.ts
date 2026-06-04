@@ -19,6 +19,7 @@ export type ShopSection =
   | "dashboard"
   | "orders"
   | "order-detail"
+  | "subscriptions"
   | "products"
   | "product-new"
   | "product-detail"
@@ -88,6 +89,23 @@ export interface ProductVariant {
   price: number;
 }
 
+export interface ShopSubscriptionPlan {
+  id: string;
+  name: string;
+  intervalUnit: "day" | "week" | "month";
+  intervalCount: number;
+  price: number;
+  discountRate: number;
+  firstOrderPrice: number | null;
+  minimumCycles: number;
+  canSkip: boolean;
+  canPause: boolean;
+  canCancel: boolean;
+  status: "active" | "hidden" | "archived";
+  noticeText: string;
+  cancellationPolicy: string;
+}
+
 export interface ShopProduct {
   id: string;
   name: string;
@@ -102,6 +120,7 @@ export interface ShopProduct {
   image: string;
   tags: string[];
   variants: ProductVariant[];
+  subscriptionPlans?: ShopSubscriptionPlan[];
   feedSync?: {
     google: "unsynced" | "syncing" | "synced" | "error";
     bing: "unsynced" | "syncing" | "synced" | "error";
@@ -175,6 +194,7 @@ export interface AIAction {
 export const shopNavItems: ShopNavItem[] = [
   { id: "dashboard", label: "ダッシュボード", href: "/s/aiboux/admin", icon: Home },
   { id: "orders", label: "注文管理", href: "/s/aiboux/admin/orders", icon: ShoppingCart },
+  { id: "subscriptions", label: "定期購入", href: "/s/aiboux/admin/subscriptions", icon: CircleDollarSign },
   { id: "products", label: "商品管理", href: "/s/aiboux/admin/products", icon: Package },
   { id: "inventory", label: "在庫", href: "/s/aiboux/admin/inventory", icon: Boxes },
   { id: "categories", label: "カテゴリ管理", href: "/s/aiboux/admin/categories", icon: Tags },

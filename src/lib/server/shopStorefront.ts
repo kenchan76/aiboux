@@ -1,5 +1,10 @@
 import { env } from "cloudflare:workers";
 import { defaultStorefrontLayout, parseStorefrontLayoutJson, type StorefrontLayout } from "@/lib/shopStorefrontLayout";
+import {
+  isSubscriptionSchemaPendingError,
+  listShopSubscriptionPlans,
+  type ShopSubscriptionPlan,
+} from "@/lib/server/shopSubscriptions";
 
 export type ShopStorefrontProfile = {
   tenantId: string;
@@ -29,6 +34,8 @@ export type ShopStorefrontProduct = {
   sku: string;
   stockQuantity: number;
   inStock: boolean;
+  subscriptionPlans: ShopSubscriptionPlan[];
+  subscriptionSchemaPending: boolean;
   updatedAt: number;
 };
 
@@ -294,7 +301,15 @@ export async function getShopStorefrontProduct(tenantId: string, productId: stri
       .bind(tenantId, productId)
       .first<ProductRow>();
 
-    return row ? mapProductRow(row) : null;
+    if (!row) return null;
+    const product = mapProductRow(row);
+    try {
+      product.subscriptionPlans = await listShopSubscriptionPlans({ tenantId, productId: product.id, activeOnly: true });
+    } catch (error) {
+      if (!isSubscriptionSchemaPendingError(error)) throw error;
+      product.subscriptionSchemaPending = true;
+    }
+    return product;
   } catch {
     return null;
   }
@@ -397,6 +412,8 @@ function mapProductRow(row: ProductRow): ShopStorefrontProduct {
     sku: row.jan_code || row.id,
     stockQuantity,
     inStock: row.core_status !== "paused" && stockQuantity > 0,
+    subscriptionPlans: [],
+    subscriptionSchemaPending: false,
     updatedAt: Number(row.updated_at ?? 0),
   };
 }

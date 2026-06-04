@@ -1,0 +1,5 @@
+
+ ⛅️ wrangler 4.94.0 (update available 4.97.0)
+─────────────────────────────────────────────
+Resource location: remote 
+

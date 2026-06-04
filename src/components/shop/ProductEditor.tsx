@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AlertTriangle, GripVertical, ImagePlus, Loader2, Save, Star, Trash2, UploadCloud } from "lucide-react";
+import { AlertTriangle, CircleDollarSign, GripVertical, ImagePlus, Loader2, Save, Star, Trash2, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { createEmptyProduct, formatYen, shopProducts, type ShopProduct } from "@/data/shop-sample-data";
+import { createEmptyProduct, formatYen, shopProducts, type ShopProduct, type ShopSubscriptionPlan } from "@/data/shop-sample-data";
 
 type ProductImage = {
   id: string;
@@ -45,6 +45,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
   const [isUploadingImage, setIsUploadingImage] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [status, setStatus] = React.useState<ShopProduct["status"]>(product.status);
+  const [subscriptionPlans, setSubscriptionPlans] = React.useState<ShopSubscriptionPlan[]>(() => initialSubscriptionPlans(product));
 
   React.useEffect(() => {
     setImages([
@@ -60,6 +61,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
     setStock(String(product.stock));
     setTags(product.tags.join(", "));
     setStatus(product.status);
+    setSubscriptionPlans(initialSubscriptionPlans(product));
     setIsDirty(false);
   }, [mode, product]);
 
@@ -101,6 +103,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
           imageR2Keys: images.map((image) => image.key).filter(Boolean),
           aiAltTexts: images.map((image) => image.alt).filter(Boolean),
           publishState: status === "公開中" ? "published" : "draft",
+          subscriptionPlans,
         }),
       });
       const result = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string };
@@ -209,6 +212,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
           <TabsTrigger value="summary" className="text-xs">販売情報</TabsTrigger>
           <TabsTrigger value="media" className="text-xs">画像</TabsTrigger>
           <TabsTrigger value="pricing" className="text-xs">価格・在庫</TabsTrigger>
+          <TabsTrigger value="subscription" className="text-xs">定期購入</TabsTrigger>
           <TabsTrigger value="seo" className="text-xs">SEO・公開</TabsTrigger>
         </TabsList>
 
@@ -406,6 +410,119 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
           </Card>
         </TabsContent>
 
+        <TabsContent value="subscription" className="mt-3 grid gap-3 xl:grid-cols-[1fr_340px]">
+          <Card className="shadow-none">
+            <CardHeader className="border-b border-neutral-200 px-4 py-3">
+              <div className="flex items-center justify-between gap-3">
+                <CardTitle className="text-sm">定期購入プラン</CardTitle>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-8 gap-1.5"
+                  onClick={() => {
+                    setSubscriptionPlans((current) => [...current, createSubscriptionPlan(product.id, current.length, toPositiveNumber(price))]);
+                    markDirty();
+                  }}
+                >
+                  <CircleDollarSign className="size-3.5" />
+                  プラン追加
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 p-4">
+              {subscriptionPlans.length === 0 ? (
+                <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-10 text-center text-sm text-neutral-600">
+                  定期購入プランは未設定です。プランを追加すると商品詳細、カート、checkoutに反映します。
+                </div>
+              ) : subscriptionPlans.map((plan, index) => (
+                <div key={plan.id} className="rounded-lg border border-neutral-200 bg-white p-3" data-testid="subscription-plan-editor">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <div className="text-sm font-semibold text-neutral-950">プラン {index + 1}</div>
+                      <div className="text-xs text-neutral-500">{subscriptionIntervalLabel(plan.intervalUnit, plan.intervalCount)} / {formatYen(plan.price)}</div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 text-red-600"
+                      onClick={() => {
+                        setSubscriptionPlans((current) => current.filter((item) => item.id !== plan.id));
+                        markDirty();
+                      }}
+                    >
+                      削除
+                    </Button>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-3">
+                    <Field label="プラン名" help="購入ボックスとカートで表示します。">
+                      <Input value={plan.name} onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { name: event.target.value }, markDirty)} />
+                    </Field>
+                    <Field label="頻度単位" help="毎週、毎月などの基本単位です。">
+                      <Select value={plan.intervalUnit} onValueChange={(value) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { intervalUnit: value as ShopSubscriptionPlan["intervalUnit"] }, markDirty)}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="week">週</SelectItem>
+                          <SelectItem value="month">月</SelectItem>
+                          <SelectItem value="day">日</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                    <Field label="間隔" help="2か月ごと、3週間ごとなどの数字です。">
+                      <Input value={String(plan.intervalCount)} inputMode="numeric" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { intervalCount: toPositiveNumber(event.target.value) || 1 }, markDirty)} />
+                    </Field>
+                    <Field label="定期価格" help="初回以降の1回あたり税込価格です。">
+                      <Input value={String(plan.price)} inputMode="numeric" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { price: toPositiveNumber(event.target.value) }, markDirty)} />
+                    </Field>
+                    <Field label="割引率" help="通常価格からの割引表示です。">
+                      <Input value={String(plan.discountRate)} inputMode="decimal" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { discountRate: Number(event.target.value) || 0 }, markDirty)} />
+                    </Field>
+                    <Field label="最低継続回数" help="0なら最低継続なしです。">
+                      <Input value={String(plan.minimumCycles)} inputMode="numeric" onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { minimumCycles: toPositiveNumber(event.target.value) }, markDirty)} />
+                    </Field>
+                  </div>
+                  <div className="mt-3 grid gap-2 md:grid-cols-4">
+                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
+                      <Checkbox checked={plan.status === "active"} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { status: checked ? "active" : "hidden" }, markDirty)} />
+                      公開
+                    </label>
+                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
+                      <Checkbox checked={plan.canSkip} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { canSkip: Boolean(checked) }, markDirty)} />
+                      スキップ可
+                    </label>
+                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
+                      <Checkbox checked={plan.canPause} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { canPause: Boolean(checked) }, markDirty)} />
+                      一時停止可
+                    </label>
+                    <label className="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-xs font-medium">
+                      <Checkbox checked={plan.canCancel} onCheckedChange={(checked) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { canCancel: Boolean(checked) }, markDirty)} />
+                      解約可
+                    </label>
+                  </div>
+                  <div className="mt-3 grid gap-3 md:grid-cols-2">
+                    <Field label="注意文" help="商品詳細とcheckoutに表示します。">
+                      <Textarea value={plan.noticeText} onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { noticeText: event.target.value }, markDirty)} />
+                    </Field>
+                    <Field label="解約ポリシー" help="解約可能タイミングを明示します。">
+                      <Textarea value={plan.cancellationPolicy} onChange={(event) => updateSubscriptionPlan(setSubscriptionPlans, plan.id, { cancellationPolicy: event.target.value }, markDirty)} />
+                    </Field>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+          <Card className="shadow-none">
+            <CardHeader className="border-b border-neutral-200 px-4 py-3"><CardTitle className="text-sm">公開反映</CardTitle></CardHeader>
+            <CardContent className="space-y-2 px-4 py-4 text-xs text-neutral-600">
+              <QualityRow label="定期購入プラン" ready={subscriptionPlans.some((plan) => plan.status === "active" && plan.price > 0)} />
+              <QualityRow label="商品詳細への表示" ready={status === "公開中" && subscriptionPlans.some((plan) => plan.status === "active")} />
+              <QualityRow label="checkoutの正直なブロック" ready />
+              <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-amber-800">
+                決済未接続時は「定期決済設定が未完了です」と表示し、成功したふりをしません。
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="seo" className="mt-3 grid gap-3 xl:grid-cols-[1fr_340px]">
           <Card className="shadow-none">
             <CardHeader className="border-b border-neutral-200 px-4 py-3"><CardTitle className="text-sm">SEO・モール連携</CardTitle></CardHeader>
@@ -465,6 +582,48 @@ function buildStableJan(productId: string, sku: string): string {
     hash = (hash * 31 + source.charCodeAt(index)) >>> 0;
   }
   return String(10_000_000 + (hash % 89_999_999)).slice(0, 8);
+}
+
+function initialSubscriptionPlans(product: ShopProduct): ShopSubscriptionPlan[] {
+  if (product.subscriptionPlans?.length) return product.subscriptionPlans;
+  return [];
+}
+
+function createSubscriptionPlan(productId: string, index: number, basePrice: number): ShopSubscriptionPlan {
+  const price = basePrice > 0 ? Math.max(Math.round(basePrice * 0.9), 0) : 0;
+  return {
+    id: `subplan_${productId}_${Date.now()}_${index + 1}`.replace(/[^a-zA-Z0-9_-]/g, "_"),
+    name: "毎月お届け",
+    intervalUnit: "month",
+    intervalCount: 1,
+    price,
+    discountRate: 10,
+    firstOrderPrice: null,
+    minimumCycles: 0,
+    canSkip: true,
+    canPause: true,
+    canCancel: true,
+    status: "active",
+    noticeText: "定期購入は次回配送前にスキップ・一時停止・解約を確認できます。",
+    cancellationPolicy: "最低継続回数がない場合、次回決済前まで解約できます。",
+  };
+}
+
+function updateSubscriptionPlan(
+  setPlans: React.Dispatch<React.SetStateAction<ShopSubscriptionPlan[]>>,
+  planId: string,
+  patch: Partial<ShopSubscriptionPlan>,
+  markDirty: () => void,
+) {
+  setPlans((current) => current.map((plan) => plan.id === planId ? { ...plan, ...patch } : plan));
+  markDirty();
+}
+
+function subscriptionIntervalLabel(unit: ShopSubscriptionPlan["intervalUnit"], count: number): string {
+  const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
+  if (unit === "week") return safeCount === 1 ? "毎週" : `${safeCount}週間ごと`;
+  if (unit === "day") return `${safeCount}日ごと`;
+  return safeCount === 1 ? "毎月" : `${safeCount}か月ごと`;
 }
 
 function Field({ label, help, children }: { label: string; help: string; children: React.ReactNode }) {

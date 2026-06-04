@@ -87,6 +87,7 @@ export type ProductDetailPageDesignConfig = {
   purchaseBox: {
     sticky: boolean;
     showQuantity: boolean;
+    showSubscriptionOptions: boolean;
     cartButtonText: string;
     buyNowButtonText: string;
   };
@@ -222,6 +223,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
       purchaseBox: {
         sticky: true,
         showQuantity: true,
+        showSubscriptionOptions: true,
         cartButtonText: "カートに入れる",
         buyNowButtonText: "今すぐ購入",
       },
@@ -396,6 +398,7 @@ function sanitizeProductDetail(value: Record<string, unknown>): ProductDetailPag
     purchaseBox: {
       sticky: sanitizeBoolean(purchaseBox.sticky, true),
       showQuantity: sanitizeBoolean(purchaseBox.showQuantity, true),
+      showSubscriptionOptions: sanitizeBoolean(purchaseBox.showSubscriptionOptions, true),
       cartButtonText: sanitizeText(purchaseBox.cartButtonText, "カートに入れる", 28),
       buyNowButtonText: sanitizeText(purchaseBox.buyNowButtonText, "今すぐ購入", 28),
     },

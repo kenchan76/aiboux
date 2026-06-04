@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
 import { auditLog, id, productError, productJson, readJsonBody, textValue, withTenant } from "@/lib/server/productMasterApi";
+import { isSubscriptionSchemaPendingError, listShopSubscriptionPlans } from "@/lib/server/shopSubscriptions";
 
 export const prerender = false;
 
@@ -23,7 +24,29 @@ export const GET: APIRoute = async ({ request }) => {
     )
       .bind(tenant.tenantId)
       .all();
-    return productJson({ success: true, shopProducts: rows.results });
+    const shopProducts = rows.results ?? [];
+    let plans: Awaited<ReturnType<typeof listShopSubscriptionPlans>> = [];
+    let subscriptionSchemaPending = false;
+    try {
+      plans = await listShopSubscriptionPlans({ tenantId: tenant.tenantId });
+    } catch (error) {
+      if (!isSubscriptionSchemaPendingError(error)) throw error;
+      subscriptionSchemaPending = true;
+    }
+    const plansByProduct = new Map<string, typeof plans>();
+    for (const plan of plans) {
+      const current = plansByProduct.get(plan.productId) ?? [];
+      current.push(plan);
+      plansByProduct.set(plan.productId, current);
+    }
+    return productJson({
+      success: true,
+      shopProducts: shopProducts.map((row) => ({
+        ...row,
+          subscriptionPlans: plansByProduct.get(String(row.id)) ?? [],
+      })),
+      subscriptionSchemaPending,
+    });
   } catch (error) {
     return productError(error);
   }

@@ -1,0 +1,23 @@
+timestamp=20260604T065203Z
+commit_status=0
+head_after=57321ccca9a1a63c0ae100d11c069e5445a3f8d2
+commit_stdout:
+[main 57321cc] WIP shop aiboux tenant deploy checkpoint 20260604T065203Z
+ 19 files changed, 799 insertions(+), 255 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T064755Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T065203Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T065203Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T065203Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T065203Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T064755Z_deployments_before.txt
+ create mode 100644 all_log/patches/20260604T065203Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T065203Z_before_deploy_staged.patch
+ create mode 100644 all_log/shop-design-editor/20260604T065000Z_shop_design_gate_split_visual_evidence.md
+ create mode 100644 output/playwright/shop-design-editor/shop-product-detail-1980.png
+ create mode 100644 public/g/screens/shop-product-detail-1980.png
+ delete mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/error-context.md
+ delete mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/test-failed-1.png
+ delete mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/trace.zip
+ delete mode 100644 test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/video.webm
+
+commit_stderr:

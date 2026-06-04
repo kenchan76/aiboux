@@ -1,0 +1,54 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M ops/instructions/current.md
+ M package.json
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M src/components/shop/ProductEditor.tsx
+ M src/components/shop/ShopClientShell.tsx
+ M src/components/shop/StorefrontDesignBuilder.tsx
+ M src/data/shop-sample-data.ts
+ M src/lib/server/shopStorefront.ts
+ M src/lib/shopStorefrontLayout.ts
+ M src/pages/api/shop/products/index.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/api/products/save.ts
+?? all_log/20260604T071819Z_shop_subscriptions_user_action_required.md
+?? all_log/20260604T071819Z_shop_subscriptions_user_action_required_report.json
+?? all_log/bark/
+?? all_log/checkpoints/20260604T065203Z_wip_commit.txt
+?? all_log/db/
+?? all_log/deploys/20260604T065203Z_deployments_before.txt
+?? all_log/deploys/20260604T073152Z_shop_subscriptions_wip_deploy.txt
+?? all_log/public-checks/20260604T065402Z_d68.body
+?? all_log/public-checks/20260604T065402Z_d68.headers
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux__verify_20260604T065402Z.headers
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux__verify_20260604T065402Z.html
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux_admin_design_page_productDetail_verify_20260604T065402Z.headers
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux_admin_design_page_productDetail_verify_20260604T065402Z.html
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux_admin_design_verify_20260604T065402Z.headers
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux_admin_design_verify_20260604T065402Z.html
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux_product_aiboux_starter_kit_verify_20260604T065402Z.headers
+?? all_log/public-checks/20260604T065402Z_https___shop_aiboux_com_s_aiboux_product_aiboux_starter_kit_verify_20260604T065402Z.html
+?? all_log/public-checks/20260604T065402Z_l68.body
+?? all_log/public-checks/20260604T065402Z_l68.headers
+?? all_log/public-checks/20260604T065402Z_m68.body
+?? all_log/public-checks/20260604T065402Z_m68.headers
+?? all_log/public-checks/20260604T065402Z_shop-design-editor-product-1980.headers
+?? all_log/public-checks/20260604T065402Z_shop-design-editor-product-1980.png
+?? all_log/public-checks/20260604T065402Z_shop-design-editor-top-1980.headers
+?? all_log/public-checks/20260604T065402Z_shop-design-editor-top-1980.png
+?? all_log/public-checks/20260604T065402Z_shop-product-detail-1980.headers
+?? all_log/public-checks/20260604T065402Z_shop-product-detail-1980.png
+?? all_log/public-checks/20260604T065402Z_shop-storefront-top-1980.headers
+?? all_log/public-checks/20260604T065402Z_shop-storefront-top-1980.png
+?? all_log/shop-design-editor/20260604T065600Z_bark_progress_notification.json
+?? migrations/0020_shop_subscriptions.sql
+?? migrations/0020_shop_subscriptions_rollback.sql
+?? ops/instructions/20260604_shop_subscriptions_required.md
+?? src/lib/server/shopSubscriptions.ts
+?? src/pages/shop/api/checkout/
+?? src/pages/shop/api/subscription-plans.ts
+?? src/pages/shop/api/subscriptions/
+?? src/pages/shop/subscriptions.astro
+?? tests/shop-subscriptions-public.spec.ts

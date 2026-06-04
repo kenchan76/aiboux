@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { PackagePlus } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
@@ -24,6 +25,7 @@ import { StorefrontDesignBuilder } from "@/components/shop/StorefrontDesignBuild
 import { ShopTopbar } from "@/components/shop/ShopTopbar";
 import {
   createEmptyProduct,
+  formatYen,
   inventoryItems,
   shopOrders,
   shopProducts,
@@ -36,6 +38,7 @@ const sectionPath: Record<ShopSection, string> = {
   dashboard: "",
   orders: "orders",
   "order-detail": "orders/10085",
+  subscriptions: "subscriptions",
   products: "products",
   "product-new": "products/new",
   "product-detail": "products/prod-tsh-001",
@@ -225,6 +228,8 @@ function renderSection(
       );
     case "order-detail":
       return <ShopOrderDetailPage order={getOrderFromPath()} onSectionChange={onSectionChange} />;
+    case "subscriptions":
+      return <ShopSubscriptionsPanel />;
     case "products":
       return (
         <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
@@ -360,6 +365,7 @@ function mapApiProduct(row: Record<string, unknown>): ShopProduct {
     image: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : "",
     tags,
     variants: [{ id: `${id}-default`, name, sku, stock, price }],
+    subscriptionPlans: parseSubscriptionPlans(row.subscriptionPlans),
     feedSync: { google: "unsynced", bing: "unsynced" },
   };
 }
@@ -382,4 +388,139 @@ function parseStringArray(value: unknown): string[] {
   } catch {
     return value.split(",").map((item) => item.trim()).filter(Boolean);
   }
+}
+
+function parseSubscriptionPlans(value: unknown): ShopProduct["subscriptionPlans"] {
+  if (!Array.isArray(value)) return [];
+  return value.map((item, index) => {
+    const row = item && typeof item === "object" ? item as Record<string, unknown> : {};
+    const intervalUnit = row.intervalUnit === "day" || row.intervalUnit === "week" || row.intervalUnit === "month" ? row.intervalUnit : "month";
+    const status = row.status === "hidden" || row.status === "archived" ? row.status : "active";
+    return {
+      id: stringValue(row.id) || `subplan_${index + 1}`,
+      name: stringValue(row.name) || "毎月お届け",
+      intervalUnit,
+      intervalCount: Math.max(numberValue(row.intervalCount) || 1, 1),
+      price: numberValue(row.price),
+      discountRate: Number(row.discountRate ?? 0) || 0,
+      firstOrderPrice: row.firstOrderPrice === null || row.firstOrderPrice === undefined ? null : numberValue(row.firstOrderPrice),
+      minimumCycles: numberValue(row.minimumCycles),
+      canSkip: row.canSkip !== false,
+      canPause: row.canPause !== false,
+      canCancel: row.canCancel !== false,
+      status,
+      noticeText: stringValue(row.noticeText),
+      cancellationPolicy: stringValue(row.cancellationPolicy),
+    };
+  });
+}
+
+function ShopSubscriptionsPanel() {
+  const [subscriptions, setSubscriptions] = React.useState<Array<Record<string, unknown>>>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState("");
+
+  const load = React.useCallback(() => {
+    setLoading(true);
+    fetch("/shop/api/subscriptions")
+      .then(async (response) => {
+        const data = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string; subscriptions?: Array<Record<string, unknown>> };
+        if (!response.ok || data.success === false) throw new Error(data.error || "定期購入一覧を取得できませんでした");
+        setSubscriptions(Array.isArray(data.subscriptions) ? data.subscriptions : []);
+        setError("");
+      })
+      .catch((caught) => setError(caught instanceof Error ? caught.message : "定期購入一覧を取得できませんでした"))
+      .finally(() => setLoading(false));
+  }, []);
+
+  React.useEffect(() => {
+    load();
+  }, [load]);
+
+  const action = async (subscriptionId: string, nextAction: "pause" | "resume" | "skip" | "cancel") => {
+    const response = await fetch(`/shop/api/subscriptions/${encodeURIComponent(subscriptionId)}/${nextAction}`, { method: "PATCH" });
+    const data = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string };
+    if (!response.ok || data.success === false) {
+      alert(data.error || "定期購入を更新できませんでした");
+      return;
+    }
+    load();
+  };
+
+  return (
+    <section className="min-h-0 flex-1 overflow-auto bg-white p-4" data-testid="admin-subscriptions-page">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-semibold tracking-tight text-neutral-950">定期購入</h1>
+          <p className="text-sm text-neutral-500">定期購入契約、次回請求日、次回配送日、停止・再開・スキップ・解約を確認します。</p>
+        </div>
+        <Button variant="outline" onClick={load} disabled={loading}>{loading ? "読込中..." : "再読込"}</Button>
+      </div>
+      {error ? <div className="mb-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div> : null}
+      {subscriptions.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+          定期購入はまだありません。商品詳細から定期購入を選ぶと、決済設定確認後にここへ表示します。
+        </div>
+      ) : (
+        <div className="overflow-x-auto rounded-lg border border-neutral-200">
+          <table className="w-full min-w-[980px] text-sm">
+            <thead className="bg-neutral-50 text-left text-xs text-neutral-500">
+              <tr>
+                <th className="px-3 py-2">顧客</th>
+                <th className="px-3 py-2">商品 / プラン</th>
+                <th className="px-3 py-2">金額</th>
+                <th className="px-3 py-2">次回請求</th>
+                <th className="px-3 py-2">次回配送</th>
+                <th className="px-3 py-2">状態</th>
+                <th className="px-3 py-2 text-right">操作</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-neutral-100">
+              {subscriptions.map((subscription) => {
+                const id = stringValue(subscription.id);
+                const status = stringValue(subscription.status);
+                return (
+                  <tr key={id}>
+                    <td className="px-3 py-3">
+                      <div className="font-medium text-neutral-950">{stringValue(subscription.customerName) || "未入力"}</div>
+                      <div className="text-xs text-neutral-500">{stringValue(subscription.customerEmail) || "メール未入力"}</div>
+                    </td>
+                    <td className="px-3 py-3">
+                      <div className="font-medium text-neutral-950">{stringValue(subscription.productName)}</div>
+                      <div className="text-xs text-neutral-500">{stringValue(subscription.planName)} / {subscriptionIntervalLabelForAdmin(subscription)}</div>
+                    </td>
+                    <td className="px-3 py-3 font-semibold">{formatYen(numberValue(subscription.unitPrice))}</td>
+                    <td className="px-3 py-3">{formatDateValue(subscription.nextBillingAt)}</td>
+                    <td className="px-3 py-3">{formatDateValue(subscription.nextDeliveryAt)}</td>
+                    <td className="px-3 py-3"><Badge variant="outline" className="rounded-md">{status || "pending_payment_setup"}</Badge></td>
+                    <td className="px-3 py-3">
+                      <div className="flex justify-end gap-2">
+                        <Button variant="outline" size="sm" className="h-8" onClick={() => action(id, status === "paused" ? "resume" : "pause")}>{status === "paused" ? "再開" : "一時停止"}</Button>
+                        <Button variant="outline" size="sm" className="h-8" onClick={() => action(id, "skip")}>スキップ</Button>
+                        <Button variant="outline" size="sm" className="h-8 text-red-600" onClick={() => action(id, "cancel")}>解約</Button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function subscriptionIntervalLabelForAdmin(value: Record<string, unknown>): string {
+  const unit = stringValue(value.intervalUnit);
+  const count = Math.max(numberValue(value.intervalCount) || 1, 1);
+  if (unit === "week") return count === 1 ? "毎週" : `${count}週間ごと`;
+  if (unit === "day") return `${count}日ごと`;
+  return count === 1 ? "毎月" : `${count}か月ごと`;
+}
+
+function formatDateValue(value: unknown): string {
+  const number = typeof value === "number" ? value : Number(value ?? 0);
+  if (!Number.isFinite(number) || number <= 0) return "未設定";
+  return new Intl.DateTimeFormat("ja-JP", { dateStyle: "medium" }).format(new Date(number));
 }
