@@ -4802,6 +4802,35 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure update:
+- Public storefront SEO metadata must be generated from a shared model.
+- Every tenant storefront public page must have a useful title, useful meta description, canonical URL, robots policy, Open Graph metadata, Twitter Card metadata, and structured data.
+- Thin copy such as "公開中の商品を表示します" is not allowed as the SEO description.
+- Search query result URLs remain `noindex,follow,noarchive` and canonicalized to `/products`.
+- Stable category URLs remain indexable and self-canonical.
+- Product detail SEO descriptions must include purchase-decision terms such as price, tax display, reviews, inventory, shipping, returns, and subscription availability.
+
+Current shared metadata implementation:
+- Shared builder: `buildShopStorefrontSeoMeta()` in `src/lib/shopSeo.ts`
+- TOP route: `src/pages/shop/storefront/[tenant].astro`
+- Tenant page route: `src/pages/shop/[tenant]/[...path].astro`
+- Public gate: `gate:shop-seo-meta`
+
+Latest evidence:
+- WIP checkpoint commit: `b647f213a07a556e448b9832d99c3ab3722ffaba`
+- Worker Version ID: `62c71267-70d0-428d-a124-ab06a3f3938a`
+- `gate:shop-seo-meta`: PASS
+- `gate:shop-sales-quality`: PASS
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 Public evidence publication:
 - Public evidence Worker Version ID: `__WORKER_VERSION_ID__`
 - Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
