@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AIBOUX Final User Report</title>
+  <style>
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;margin:24px;max-width:1100px}
+    pre{white-space:pre-wrap;background:#f7f7f8;border:1px solid #e4e4e7;border-radius:8px;padding:16px}
+  </style>
+</head>
+<body>
+  <h1>AIBOUX Final User Report</h1>
+  <pre># AIBOUX Shop Schema Graph SEO/UI WIP Report
+
+## Status
+WIP_DEPLOYED_NOT_FINAL
+
+## Summary
+- 全公開ストアページの構造化データ出力を、単一の Schema.org @graph に寄せました。
+- buildShopStructuredDataGraph を追加し、TOPと全サブページで共通利用するようにしました。
+- JSON-LDの重複 @context をなくし、WebSite / OnlineStore / BreadcrumbList / SiteNavigationElement / WebPage / ItemList / Product を同じgraph内で結線しました。
+- WIP deploy済みです。FINAL_ACCEPTEDではありません。remote D1 subscription migration と決済プロバイダ連携は未完了です。
+
+## Verification
+- check:control-chars PASS
+- check:mojibake PASS
+- astro check PASS
+- build PASS
+- gate:shop-public-crawl PASS
+- gate:shop-product-detail PASS
+- gate:shop-sales-quality PASS
+- public TOP and product detail HTML: @graph count 1, @context count 1
+- public /g/m68 /g/l68 /g/d68 HTTP 200 and text/markdown confirmed
+- Progress Bark delivered=true, skipped=false, secretLogged=false
+
+## Bark
+- notification: progress delivered
+- reason: Progress Bark sent after public URL bundle verification; final acceptance Bark is not applicable because status is WIP_DEPLOYED_NOT_FINAL.
+
+## Notes
+- Implementation Worker Version ID: 2c4c61f2-3be5-4901-8c35-d519ce451737
+- Public evidence Worker Version ID: da5eb212-9842-4ec4-a3ca-b54a9c0a2938
+- Commits: 414690b, 304e0a5, fb398e7
+- Changed code includes src/lib/shopSeo.ts, src/pages/shop/storefront/[tenant].astro, src/pages/shop/[tenant]/[...path].astro, tests/shop-public-crawl.spec.ts, tests/shop-product-detail-public.spec.ts
+- Unresolved: recurring billing FINAL gate remains blocked until remote D1 subscription migration and provider-backed subscription flow are verified.
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
+</pre>
+</body>
+</html>

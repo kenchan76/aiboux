@@ -1,0 +1,5276 @@
+# AIBOUX 正本マスター
+# サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+
+## Current Active Operating Override: AIBOUX Shop Shared Category Link Parts
+
+Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override centralizes category link generation so UI navigation, product breadcrumbs, sitemap entries, footer links, and SEO hub links use the same stable category slug URLs.
+
+Implemented WIP direction:
+
+- Category display names and stable slugs are sourced from the shared curated category model.
+- Header category navigation uses stable URLs such as `/s/aiboux/products?category=daily-goods`, `/s/aiboux/products?category=sale`, and `/s/aiboux/products?category=ranking`.
+- Footer commerce links use stable sale/ranking category URLs instead of generic `/products`.
+- Product detail breadcrumb category links resolve to stable slug URLs such as `/s/aiboux/products?category=coffee-tea` instead of ad hoc Japanese query values.
+- Sitemap category URLs and visible category navigation now share the same category source.
+
+Latest WIP evidence:
+
+- WIP commit: `9728617 WIP centralize shop category SEO links`
+- Implementation Worker Version ID: `3b551bcd-da16-4307-9a36-0d6189e26e37`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- Added gate coverage for shared header category links, footer sale/ranking links, and product breadcrumb category slug URL.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
+## Current Active Operating Override: AIBOUX Shop Schema Graph SEO/UI
+
+Status: `SHOP_5H_SCHEMA_GRAPH_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens every public storefront page's SEO entity structure by emitting one connected Schema.org `@graph`.
+
+Implemented WIP direction:
+
+- Structured data is built through the shared `buildShopStructuredDataGraph()` helper.
+- Public storefront pages emit one top-level `@context: https://schema.org`.
+- Public storefront pages emit one top-level `@graph`.
+- Repeated top-level `@context` values are removed from graph nodes.
+- Graph nodes are deduplicated by `@id` where possible.
+- TOP and subpage routes share the same graph builder.
+- Public Playwright checks parse JSON-LD and verify graph structure, not only string presence.
+
+Latest WIP evidence:
+
+- WIP implementation commit: `414690b`
+- WIP deploy checkpoint commit: `304e0a5`
+- Worker Version ID: `2c4c61f2-3be5-4901-8c35-d519ce451737`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- Direct public HTML verification confirms one `@graph` and one `@context` on TOP and product detail.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
+## Current Active Operating Override: AIBOUX Shop Stable Category URL SEO And UI
+
+Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens all product discovery pages so category URLs are not thin duplicates and so common SEO/UI parts are shared.
+
+Implemented WIP direction:
+
+- Stable category URLs must use `/s/aiboux/products?category={slug}`.
+- Category URLs must filter visible products to that category.
+- Category URLs must have a category-specific H1, visible badge, self canonical URL, indexable robots meta, Open Graph URL, Twitter URL, breadcrumb, `CollectionPage`, and `ItemList`.
+- Search URLs remain crawlable GET URLs, but query result pages stay `noindex,follow,noarchive`.
+- Sitemap must include stable category URLs for public category discovery.
+- Category pages must reuse the same shared product grid, header, breadcrumb, navigation, and JSON-LD helpers rather than one-off templates.
+
+Latest WIP evidence:
+
+- WIP commit: `a534b5a WIP harden shop category URL SEO`
+- Implementation Worker Version ID: `4fbe75e7-3e56-4bcc-9cd3-f2560427db34`
+- `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`: HTTP 200
+- category page title: `コーヒー・お茶の商品一覧 | AIBOUX Store`
+- category canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+- robots: `index,follow,max-image-preview:large`
+- `CollectionPage`, `BreadcrumbList`, `ItemList`, `SiteNavigationElement`, and `SearchAction` verified in public HTML.
+- sitemap includes category URLs such as `coffee-tea`, `kitchen`, and `daily-goods`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 8 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+- This SEO/UI work does not change `shop.aiboux.com/` into a tenant storefront.
+
+## Current Active Operating Override: AIBOUX Shop 5H Sales Quality Sprint
+
+Status: `SHOP_5H_SALES_QUALITY_SPRINT_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+The Shop sales-quality sprint broadens verification beyond a single passing gate.
+
+Current WIP evidence:
+
+- Worker Version ID: `c9c83766-c725-46fd-86cc-b408fdae4d8e`
+- `npm run gate:shop-sales-quality`: PASS
+- public crawl across storefront pages: PASS
+- admin shell crawl: PASS
+- product detail public quality: PASS
+- cart and checkout honest payment blocker: PASS
+- contact and legal shared templates: PASS
+- smooth carousel, storefront interaction, and storefront visual gates: PASS
+
+Still unresolved:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
+This sprint status does not override the requirement that subscription support must pass after D1 permission is restored.
+
+## Current Active Operating Override: AIBOUX Shop Shared Page Entity And FAQ SEO Parts
+
+Status: `SHOP_10H_SHARED_PAGE_ENTITY_FAQ_SEO_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens public storefront SEO structure and shared parts beyond generic metadata.
+
+Implemented WIP direction:
+
+- Public storefront pages must emit a shared page entity JSON-LD:
+  - `WebPage` for ordinary storefront pages;
+  - `ItemPage` for product detail;
+  - `ContactPage` for contact;
+  - `FAQPage` for FAQ.
+- Public storefront pages must emit `SiteNavigationElement` JSON-LD from the same shared footer/navigation model.
+- FAQ visible content and FAQ structured data must come from the same shared FAQ source.
+- Public tests must verify `SiteNavigationElement`, page entity JSON-LD, FAQ `Question` / `acceptedAnswer`, and `ContactPage`.
+
+Latest WIP evidence:
+
+- WIP commit: `82c4f6b WIP strengthen shop page entity FAQ SEO parts`
+- Worker Version ID: `da5eb212-9842-4ec4-a3ca-b54a9c0a2938`
+- TOP `/s/aiboux/`: `SiteNavigationElement` and page entity JSON-LD verified on public HTML.
+- FAQ `/s/aiboux/faq`: `FAQPage`, `Question`, and `acceptedAnswer` verified on public HTML.
+- Contact `/s/aiboux/contact`: `ContactPage` verified on public HTML.
+- `gate:shop-public-crawl`: PASS on public URLs.
+- `gate:shop-sales-quality`: PASS on public URLs.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
+## Current Active Operating Override: AIBOUX Shop Social Robots SEO And Shared Head Meta
+
+Status: `SHOP_10H_SOCIAL_ROBOTS_SEO_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens tenant storefront SEO structure beyond visible breadcrumb and JSON-LD.
+
+Implemented WIP evidence:
+
+- Worker Version ID: `d9802610-8d8a-4958-b78c-d5b1c93ab8f7`
+- `npm run gate:shop-sales-quality`: PASS on public URLs
+- TOP `/s/aiboux/`: robots `index,follow,max-image-preview:large`, self canonical, Open Graph website, Twitter Card
+- Product `/s/aiboux/product/setsuka-coffee`: robots `index,follow,max-image-preview:large`, self canonical, Open Graph product, Twitter Card
+- Cart `/s/aiboux/cart`: robots `noindex,follow,noarchive`, self canonical, Open Graph website, Twitter Card
+
+Active SEO rules:
+
+- Tenant storefront SEO head metadata must be shared infrastructure, not page-local ad hoc code.
+- Public discovery/content pages are indexable:
+  - TOP
+  - products
+  - categories
+  - product detail
+  - contact
+  - legal
+  - privacy
+  - shipping
+  - returns
+  - FAQ
+- Transactional/private/account pages are `noindex,follow,noarchive`:
+  - cart
+  - checkout
+  - mypage
+  - account
+  - orders
+  - favorites
+  - login
+  - register
+  - mypage/subscriptions
+- Every tenant storefront page must include:
+  - self-referencing canonical URL;
+  - robots meta;
+  - Open Graph title, description, URL, image, and type;
+  - Twitter Card title, description, image, and card type;
+  - `ja-JP` alternate URL;
+  - visible breadcrumb for tenant subpages;
+  - JSON-LD generated from shared helpers.
+- Product detail must use product-specific Open Graph image and `og:type=product`.
+- Product detail must keep one primary product H1 and must not render a duplicated title above the image/gallery.
+- SEO-critical navigation must use real `<a href>` anchors with meaningful visible text.
+
+Still unresolved:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
+## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Quality Fix
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+The tenant storefront is `https://shop.aiboux.com/s/aiboux/`.
+
+This override strengthens the previous storefront visual repair. Image existence and placeholder-zero checks are not enough. The public TOP page must look like a sales-ready storefront.
+
+Required public storefront quality rules:
+
+- product names and product images must be coherent;
+- public test product names must not appear on TOP;
+- excessive image reuse must be avoided;
+- recommended products must be dense enough for a sales TOP;
+- ranking and time-sale sections must each show at least five items;
+- category section must show at least eight image-backed categories;
+- hero must keep center main slide plus smaller real side previews;
+- hero theme must be coherent across slides;
+- design editor TOP preview and public `/s/aiboux/` must share the same sales visual language;
+- `/g/l68` and `/g/d68` must record public URL evidence before user reporting.
+
+Latest WIP evidence:
+
+- Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- `npm run gate:shop-storefront-visual`: 3 passed
+- `npm run gate:shop-design`: 5 passed
+- public storefront `/s/aiboux/`: HTTP 200
+- recommended product cards: 10
+- ranking cards: 5
+- time-sale cards: 5
+- category cards: 8
+- public test product name matches: 0
+- weak image URL matches: 0
+- screenshots:
+  - `/g/screens/public-storefront-after-quality-fix-1365.png`
+  - `/g/screens/public-storefront-after-quality-fix-1980.png`
+  - `/g/screens/public-storefront-after-quality-fix-mobile.png`
+  - `/g/screens/shop-design-editor-top-1980.png`
+  - `/g/screens/shop-product-detail-1980.png`
+
+This is WIP evidence, not `FINAL_ACCEPTED`.
+
+## Current Active Operating Override: AIBOUX Shop Subscription Requirement
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+AIBOUX Shop must support subscription purchases as a required sales feature.
+
+Required scope:
+
+- product admin subscription-plan editing;
+- public product-detail subscription purchase option;
+- cart subscription item distinction;
+- checkout subscription terms and payment-setting blocker;
+- admin subscription list and actions;
+- D1 subscription tables;
+- subscription APIs;
+- public Playwright `gate:shop-subscriptions`.
+
+Remote D1 migration for subscription tables is currently blocked by Cloudflare authorization error 7403. This blocks remote migration and final public persistence verification only.
+
+WIP deploy is allowed if:
+
+- build passes;
+- subscription APIs return `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500 when remote schema is missing;
+- public product and cart flows do not break;
+- `/g/l68` and `/g/d68` honestly state the remote migration blocker.
+
+`FINAL_ACCEPTED` is prohibited until remote D1 migration is applied and `gate:shop-subscriptions` passes against public URLs.
+
+## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Repair
+
+Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
+
+The tenant storefront is `https://shop.aiboux.com/s/aiboux/`.
+
+The storefront visual repair takes priority over remote subscription D1 migration while D1 authorization is unavailable.
+
+Required public storefront rules:
+
+- no gray image placeholders in the public TOP page;
+- hero uses real sales-oriented image URLs;
+- hero is center main slide plus smaller previous/next side previews;
+- recommended products show at least five product images;
+- ranking, time sale, and categories use image-backed cards;
+- product cards show image, name, rating, review count, price, tax label, and CTA;
+- editor preview and public storefront use the same visual language;
+- screenshots must be published under `/g/screens/`;
+- `/g/l68` and `/g/d68` must record WIP evidence before reporting.
+
+Latest WIP evidence:
+
+- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-design-editor-public.spec.ts`: 5 passed
+- public storefront `/s/aiboux/`: HTTP 200 and includes real `https://images.unsplash.com/...` imagery
+- screenshots:
+  - `/g/screens/shop-design-editor-top-1980.png`
+  - `/g/screens/shop-design-editor-product-1980.png`
+  - `/g/screens/shop-storefront-top-1980.png`
+  - `/g/screens/shop-storefront-top-1365.png`
+  - `/g/screens/shop-product-detail-1980.png`
+
+This is WIP evidence, not `FINAL_ACCEPTED`.
+
+## 0. このマスターの位置づけ
+
+この文書は、AIBOUX全体の正本マスターである。
+この文書は、AIBOUXシリーズ全サービスのURL、役割、機能、画面、AI機能、データ連携、禁止事項、TBD、運用方針を記録する。
+この文書は、次の2箇所に同等内容で反映する。
+
+- `AIBOUX_MASTER_DOCUMENT.md`
+- `public/g/m68.md`
+
+公開マスターURLは次である。
+
+- マスター: `https://mail.aiboux.com/g/m68`
+- ログ: `https://mail.aiboux.com/g/l68`
+- 画面: `https://mail.aiboux.com/g/d68`
+
+`/g/m68` は、AIBOUX全体の正本仕様と現在状態を示す。
+`/g/l68` は、実行ログ、コマンド結果、検証結果を示す。
+`/g/d68` は、画面証跡、成果物証跡、確認対象を示す。
+この文書は、作業者、Codex、Claude、ChatGPT、開発AI、運用者が、過去の文脈を忘れてもAIBOUX全体を復元できるようにするための正本である。
+
+### 0.1 公開実行ログ必須ルール
+
+Codexは、ユーザーへ報告する前に必ず実行ログを公開URLへ反映する。
+
+報告の先頭に必ず次を出す。
+
+- 実行ログURL: `https://mail.aiboux.com/g/l68`
+- 画面証跡URL: `https://mail.aiboux.com/g/d68`
+- マスターURL: `https://mail.aiboux.com/g/m68`
+
+ローカルログだけで報告してはいけない。
+`all_log/...` だけの報告は禁止する。
+`public/g/*.md` をローカル更新済みとだけ報告することは禁止する。
+次回deployで反映される、という報告は禁止する。
+公開URLへ反映していないログを実行ログと呼んではいけない。
+
+報告前に必ず `https://mail.aiboux.com/g/m68`、`https://mail.aiboux.com/g/l68`、`https://mail.aiboux.com/g/d68` をcurlで取得し、HTTP status、content-type、sha256を記録する。
+
+Shop UI品質チェックはWIP deployではwarn-onlyでよい。
+ただし、実行ログ公開は必須であり、warn-onlyではない。
+
+---
+
+## 1. 最上位ルール: 省略禁止
+
+今後、AIBOUXのマスター、仕様、機能一覧、URL設計、作業指示、完了報告で省略は禁止する。
+
+### 1.1 禁止する書き方
+
+以下の書き方は禁止する。
+
+- 「など」で主要機能をまとめること
+- 「関連機能」で機能一覧を省略すること
+- 「各種設定」で設定項目を省略すること
+- 「必要な画面」で画面一覧を省略すること
+- 「主要サービス」でサービス一覧を省略すること
+- Core / Mail / Shop だけを詳しく書き、Mall / File / Biz / Office / 履歴書 / Docs を薄く書くこと
+- 履歴書を省略すること
+- Docsを省略すること
+- 実装済み、予定、候補、TBDを混ぜること
+- 未確認機能を実装済みと書くこと
+- 仕様未確定項目を空欄にすること
+- 仕様未確定項目を勝手に確定すること
+- URLだけ書いて役割を書かないこと
+- 役割だけ書いて機能を書かないこと
+- 機能だけ書いて対象ユーザーを書かないこと
+- 画面名だけ書いて画面の目的を書かないこと
+- データ連携を省略すること
+- 禁止事項を省略すること
+- 次タスクを省略すること
+
+### 1.2 不明点の扱い
+
+不明点は省略しない。
+不明点は次の形式で記録する。
+
+```text
+TBD: 未確定。次タスクで確認する。
+```
+
+仕様が未確定の場合は、次の4分類を必ず付ける。
+
+- 実装済み
+- 設計確定
+- 設計候補
+- TBD
+
+### 1.3 完了報告禁止条件
+
+次の状態では完了報告をしてはいけない。
+
+- 公開m68が英語主体のまま
+- 公開m68が短縮版のまま
+- 公開m68がURL移行だけの説明のまま
+- AIBOUX全サービス一覧がない
+- 履歴書がない
+- Docsがない
+- 各サービスの機能詳細がない
+- 各サービスの禁止事項がない
+- URL設計の正仕様がない
+- テナント設計がない
+- 独自ドメイン方針がない
+- Bark通知方針がない
+- Worker Version ID証跡がない
+- dirty tree状態がない
+- 次タスクがない
+
+---
+
+## 2. 現在の確定状態
+
+### 2.1 ステータス
+
+DEPLOYED
+ACCEPTED_EVIDENCE_LEVEL
+CLEANUP_APPROVAL_PENDING
+MASTER_REWRITE_REQUIRED
+
+### 2.2 現在の確定情報
+
+- 対象Worker名: aiboux
+- Worker Version ID: da5eb212-9842-4ec4-a3ca-b54a9c0a2938
+- Remote repository: https://github.com/kenchan76/aiboux.git
+- gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
+- Bark通知方針修正: 完了
+- Worker Version ID証跡: 記録済み
+- dirty tree cleanup plan: 作成済み
+- Classification C削除候補: 未承認
+- reset / clean / force push / secret表示: 禁止
+- Bark早期送信: 禁止
+- shop.aiboux.com/ をストアフロント直URLへ戻すこと: 禁止
+- mail.aiboux.com/ をテナント直URLへ戻すこと: 禁止
+- aiboux.com をテナントURLへ変更すること: 禁止
+
+### 2.3 URL Bundle
+
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
+
+### 2.4 Git履歴
+
+重要なcommitは次である。
+
+| Commit | 内容 |
+| --- | --- |
+| baaefcb7256161866d916db3b7cbe745f4546b29 | Bark通知をURL Bundle出力後だけに修正 |
+| 88a0577e78d4dd42fb88f6e99af202074ccaa254 | Worker Version ID証跡とgate passを反映 |
+| d28c4f3ba8ecf01d8fb437424cdc64751dcedf91 | dirty tree cleanup plan |
+| 0ddedfd7dc54896939580b20997fbb0a01820914 | master document source updateとして報告されたcommit |
+
+作業前に必ず確認する。
+
+```bash
+cd /home/pkkatsu/aiboux
+git fetch origin main
+git remote -v
+git rev-parse HEAD
+git rev-parse origin/main
+git log --oneline -5
+```
+
+---
+
+## 3. AIBOUX全体思想
+
+AIBOUXは、業務データ、販売、メール、ファイル、オフィス文書、履歴書、ドキュメント、集客導線を統合するシリーズ型サービスである。
+
+AIBOUXは1つの単体アプリではない。
+AIBOUXは複数のサービスサイトとテナント画面から構成される。
+
+### 3.1 基本思想
+
+- サブドメイン直下はサービスサイト
+- テナント画面は /s/{tenantSlug} 配下
+- Shopストアフロントは /s/{tenantSlug}/
+- Shop管理画面は /s/{tenantSlug}/admin
+- 独自ドメインはストアフロント専用
+- Coreは正本データ
+- Mailは業務メール接続
+- Shopは販売・ストア・商品展開
+- Mallは一般顧客向け集客
+- Fileはファイル変換・圧縮・分割・共有
+- Bizは業務テンプレート・軽量業務ツール
+- Officeはブラウザ上の文書編集・変換入口
+- 履歴書は個人向け就職書類作成入口
+- DocsはAIBOUX全体のヘルプ・操作ガイド
+
+---
+
+## 4. AIBOUX全サービス一覧
+
+| サービス | 正式URL | 役割 | 現在の分類 |
+| --- | --- | --- | --- |
+| AIBOUX Series Site | https://aiboux.com | AIBOUXシリーズ全体の紹介サイト | サービス紹介 |
+| AIBOUX Core | https://core.aiboux.com/ | 業務データ正本、帳票、在庫、取引先、商品管理 | 業務中核 |
+| AIBOUX Mail | https://mail.aiboux.com/ | Mailサービスサイト、業務メール入口 | サービスサイト |
+| AIBOUX Shop | https://shop.aiboux.com/ | Shopサービスサイト、ストア管理入口 | サービスサイト |
+| AIBOUX Mall | https://mall.aiboux.com/ | 一般顧客向けモール、集客入口 | サービスサイト / 集客 |
+| AIBOUX File | https://file.aiboux.com/ | ファイル変換、圧縮、分割、共有入口 | 無料入口 / SEO入口 |
+| AIBOUX Biz | https://biz.aiboux.com/ | 業務テンプレート、簡易業務ツール入口 | 無料入口 / 業務入口 |
+| Aiboux Office | https://office.aiboux.com/ | 文書編集、変換、PDF、Office系入口 | 無料入口 / 文書入口 |
+| AIBOUX 履歴書 | https://rirekisho.aiboux.com/ | 履歴書、職務経歴書、就職書類作成 | 個人向け入口 |
+| AIBOUX Docs | https://docs.aiboux.com/ | AIBOUX全体のヘルプ、操作ガイド、API説明 | ドキュメント |
+
+### 4.1 URL誤記禁止
+
+以下は誤りである。
+
+- rirekisho.aoboux.com
+- doc.aiboux.com
+- docs.aoboux.com
+- shop.aiboux.com/admin
+- mail.aiboux.com/admin
+- aiboux.com/s/aiboux
+
+正しいURLは次である。
+
+- https://rirekisho.aiboux.com/
+- https://docs.aiboux.com/
+- https://shop.aiboux.com/s/aiboux/admin
+- https://mail.aiboux.com/s/aiboux/
+
+---
+
+## 5. URL設計の正仕様
+
+### 5.1 全体URL設計
+
+| URL形式 | 役割 |
+| --- | --- |
+| aiboux.com | AIBOUXシリーズ全体のサービス紹介サイト |
+| {service}.aiboux.com/ | 各サービスのサービスサイト |
+| {service}.aiboux.com/s/{tenantSlug}/ | テナント画面、テナント業務画面、ストアフロント |
+| shop.aiboux.com/s/{tenantSlug}/admin | Shop管理画面 |
+| 独自ドメイン | Shopストアフロント専用 |
+
+### 5.2 tenantSlug
+
+今回の仮tenantSlugは次である。
+
+```text
+aiboux
+```
+
+検証用URLは次になる。
+
+- mail.aiboux.com/s/aiboux/
+- shop.aiboux.com/s/aiboux/
+- shop.aiboux.com/s/aiboux/admin
+
+### 5.3 サブドメイン直下ルール
+
+サブドメイン直下はサービスサイトである。
+
+例:
+
+- mail.aiboux.com/ はMailサービスサイト
+- shop.aiboux.com/ はShopサービスサイト
+- docs.aiboux.com/ はDocsサービスサイト
+- rirekisho.aiboux.com/ は履歴書サービスサイト
+
+サブドメイン直下にテナント業務画面を直接置いてはいけない。
+
+---
+
+## 6. URL移行判定表
+
+| URL | 旧状態 | 新状態 | 判定 | 移行理由 |
+| --- | --- | --- | --- | --- |
+| mail.aiboux.com/ | Mailテナント業務画面 | Mailサービスサイト | サービスサイト | サブドメイン直下はサービス紹介サイトに統一するため |
+| mail.aiboux.com/s/aiboux/ | 未配置または404 | 旧Mailテナント業務画面 | 業務/管理画面 | メールボックス、受信トレイ、管理者、テンプレート管理を含む業務UIだったため |
+| shop.aiboux.com/ | ストアフロント直URLにされていた | Shopサービスサイト | サービスサイト | AIBOUXシリーズのサブドメイン直下はサービスサイトで固定するため |
+| shop.aiboux.com/s/aiboux/ | 未配置または別扱い | Shopストアフロント | 顧客向けフロント | テナントstorefrontは /s/{tenantSlug}/ に置くため |
+| shop.aiboux.com/s/aiboux/admin | 未配置または混在 | Shop管理画面 | 管理画面 | Shop管理画面は /s/{tenantSlug}/admin に明示分離するため |
+
+---
+
+## 7. AIBOUX Series Site 詳細仕様
+
+### 7.1 サービス名
+
+AIBOUX Series Site
+
+### 7.2 正式URL
+
+https://aiboux.com
+
+### 7.3 役割
+
+AIBOUXシリーズ全体のサービス紹介サイトである。
+
+### 7.4 対象ユーザー
+
+- AIBOUXを初めて知る事業者
+- Core、Mail、Shop、Mall、File、Biz、Office、履歴書、Docsへの入口を探すユーザー
+- 中小企業
+- 個人事業主
+- EC事業者
+- 求職者
+- 社内担当者
+- 導入検討者
+
+### 7.5 主要画面
+
+- トップページ
+- サービス一覧
+- Core紹介
+- Mail紹介
+- Shop紹介
+- Mall紹介
+- File紹介
+- Biz紹介
+- Office紹介
+- 履歴書紹介
+- Docs紹介
+- 導入CTA
+- ログイン導線
+- お問い合わせ導線
+- 料金またはTBD
+- よくある質問
+- セキュリティ説明
+- 運営情報
+
+### 7.6 主要機能
+
+- AIBOUXシリーズ全体の説明
+- 各サービスへの遷移
+- サービス間連携の説明
+- 業務課題別の導線
+- 無料入口への誘導
+- Core導入への誘導
+- Shop導入への誘導
+- Mail導入への誘導
+- Docsへのヘルプ誘導
+- 履歴書への個人向け誘導
+- SEO向けサービスページ
+- LP構成
+- CTAボタン
+
+### 7.7 AI機能
+
+Series Site自体は業務AI処理を担わない。
+各サービス内のAI機能を紹介する。
+
+紹介対象:
+
+- Core AI Assistant
+- Mail要約AI
+- Shop商品説明AI
+- Mall集客AI
+- File解析AI
+- Biz文書作成AI
+- Office文章補助AI
+- 履歴書自己PR生成AI
+- Docs検索AI
+
+### 7.8 Coreとの関係
+
+AIBOUX Series SiteはCoreの紹介入口である。
+Coreは業務データ正本であり、Series SiteはCoreへ送客する。
+
+### 7.9 UI方針
+
+- 白基調
+- AIBOUXシリーズ共通ヘッダー
+- サービスカード
+- サービスbadge
+- 明確なCTA
+- サービス別カラーはTBD
+- モバイル対応
+- 過剰な専門用語を避ける
+- 導入メリットを明確にする
+
+### 7.10 禁止事項
+
+- aiboux.com をテナントURLにしない
+- aiboux.com/s/{tenantSlug} を本番テナント入口として扱わない
+- Series Siteをアプリ管理画面にしない
+- Series Siteでテナントデータを直接表示しない
+
+### 7.11 TBD
+
+- 料金表の最終内容
+- 各サービスの公開順
+- CTA色
+- ロゴ統一ルール
+- サービス別アニメーション有無
+
+---
+
+## 8. AIBOUX Core 詳細仕様
+
+### 8.1 サービス名
+
+AIBOUX Core
+
+### 8.2 正式URL
+
+https://core.aiboux.com/
+
+### 8.3 役割
+
+AIBOUX Coreは、業務データの正本を扱う中核サービスである。
+
+Coreは、商品、取引先、納品先、帳票、在庫、請求、支払、仕入、販売、書類、ファイル、メンバー、権限、マスタを管理する。
+
+### 8.4 対象ユーザー
+
+- 中小企業
+- 個人事業主
+- EC事業者
+- 卸売事業者
+- 製造業
+- 小売業
+- 経理担当者
+- 受発注担当者
+- 在庫担当者
+- 管理者
+- 現場担当者
+
+### 8.5 主要画面
+
+- ダッシュボード
+- 見積一覧
+- 見積詳細
+- 受注一覧
+- 受注詳細
+- 請求一覧
+- 請求詳細
+- 入金一覧
+- 入金詳細
+- 仕入一覧
+- 仕入詳細
+- 注文書一覧
+- 注文書詳細
+- 納品書一覧
+- 納品書詳細
+- レシート一覧
+- レシート新規
+- 書類一覧
+- 書類詳細
+- キャビネット
+- キャビネットファイル詳細
+- 商品一覧
+- 商品詳細
+- 商品新規
+- 取引先一覧
+- 取引先詳細
+- 納品先一覧
+- 納品先詳細
+- 在庫一覧
+- 棚卸一覧
+- 棚卸結果
+- 返品一覧
+- 受領請求書一覧
+- 連絡先一覧
+- 連絡先詳細
+- メンバー管理
+- 管理者設定
+- マスタ一覧
+- テンプレート編集
+- バーコードスキャン
+- ウィザード
+- ヘルスダッシュボード
+- カスタムビュー
+- バスケット
+- FLAMインポート
+- モバイルホーム
+- モバイル通知
+- モバイル撮影
+- モバイルチャット
+- モバイルスキャン
+- モバイル商品
+- モバイル書類
+
+### 8.6 主要機能
+
+- 商品マスタ管理
+- 商品詳細管理
+- SKU管理
+- 価格管理
+- 在庫管理
+- 棚卸管理
+- 取引先管理
+- 納品先管理
+- 連絡先管理
+- 見積作成
+- 受注管理
+- 納品書管理
+- 請求書管理
+- 入金管理
+- 仕入管理
+- 注文書管理
+- 受領請求書管理
+- 返品管理
+- レシート登録
+- OCR処理
+- PDF分割
+- 書類アップロード
+- 書類一覧管理
+- 書類詳細確認
+- キャビネット管理
+- ファイル管理
+- テンプレート編集
+- メンバー管理
+- 権限管理
+- マスタ管理
+- バーコードスキャン
+- モバイル撮影
+- モバイルスキャン
+- AIチャット
+- カスタムビュー
+- ヘルスチェック
+- FLAMインポート
+- 業務データ検索
+- 業務データ連携
+- 監査用ログ保存
+
+### 8.7 AI機能
+
+- 書類OCR
+- PDF分割候補検出
+- 書類種別判定
+- 商品情報抽出
+- 請求情報抽出
+- 見積情報抽出
+- 納品書情報抽出
+- 購買情報抽出
+- AI Assistantによる業務支援
+- モバイルチャット
+- 入力補助
+- エラー検知補助
+- マスタ候補提案
+
+### 8.8 データ連携
+
+CoreはAIBOUXの正本データを持つ。
+
+Coreから他サービスへ展開するデータ:
+
+- 商品
+- SKU
+- 価格
+- 在庫
+- 取引先
+- 納品先
+- 顧客
+- 請求
+- 支払
+- 帳票
+- ファイル
+- メンバー
+- 権限
+- テンプレート
+- マスタ
+
+ShopはCoreの商品・在庫・価格を参照または同期する。
+MailはCoreの取引先・顧客・書類・案件文脈と接続する。
+MallはShopの商品情報を顧客向けに集客する。
+DocsはCore操作手順を説明する。
+
+### 8.9 UI方針
+
+- 業務画面として情報密度を確保する
+- 操作性を優先する
+- 一覧・詳細・編集の導線を明確にする
+- モバイルでは専用モバイルUIを使用する
+- AppShellを使う画面とモバイル全画面を分ける
+- 認証前提画面は未ログインで表示しない
+- 業務UIをサービスサイトへ混ぜない
+
+### 8.10 収益方針
+
+- 有料業務サービス本体
+- Coreを中心にMail、Shop、File、Biz、Office、Docsへ展開
+- 無料入口サービスからCoreへ送客
+- 詳細料金はTBD
+
+### 8.11 禁止事項
+
+- Coreの正本データを勝手に作り直さない
+- tenant_idを再作成しない
+- user_idを再作成しない
+- 商品IDを無断で再作成しない
+- 既存在庫を破壊しない
+- 帳票データをURL移行だけのために変更しない
+- Core delivery-detail gateを無関係なservice-url-routingに混ぜない
+
+### 8.12 TBD
+
+- Core料金
+- Core権限体系の最終仕様
+- CoreとShop同期の最終仕様
+- CoreとMail文脈接続の最終仕様
+- 監査ログ保存期間
+- モバイル機能の公開範囲
+
+---
+
+## 9. AIBOUX Mail 詳細仕様
+
+### 9.1 サービス名
+
+AIBOUX Mail
+
+### 9.2 正式URL
+
+https://mail.aiboux.com/
+
+### 9.3 テナントURL
+
+https://mail.aiboux.com/s/{tenantSlug}/
+
+検証用:
+
+https://mail.aiboux.com/s/aiboux/
+
+### 9.4 役割
+
+AIBOUX Mailは、業務メール、メールボックス、受信トレイ、管理者機能、テンプレート管理をAIBOUX Core文脈に接続するサービスである。
+
+### 9.5 対象ユーザー
+
+- 業務メール担当者
+- 受注担当者
+- 問い合わせ担当者
+- 管理者
+- EC運営者
+- 中小企業
+- 個人事業主
+- カスタマーサポート担当者
+
+### 9.6 URL移行理由
+
+旧 mail.aiboux.com/ には、Mailテナント業務画面が出ていた。
+
+旧画面に含まれていた要素:
+
+- メールボックス
+- 受信トレイ
+- 管理者
+- 業務UI
+- テンプレート管理に相当する機能
+- 認証・業務操作前提の導線
+
+これはサービスサイトではない。
+したがって旧業務画面は mail.aiboux.com/s/aiboux/ へ移行した。
+
+mail.aiboux.com/ はMailサービスサイトとして固定する。
+
+### 9.7 主要画面
+
+- Mailサービスサイト
+- テナント受信トレイ
+- メールボックス
+- メール詳細
+- 送信画面
+- 下書き
+- テンプレート管理
+- 管理者画面
+- 設定
+- 連携設定
+- Core連携導線
+- 問い合わせ管理
+- 顧客文脈表示
+- 書類添付表示
+- AI要約表示
+- AI返信候補表示
+
+### 9.8 主要機能
+
+- メール受信
+- メール送信
+- メールボックス管理
+- 受信トレイ管理
+- テンプレート管理
+- 管理者機能
+- 送信者管理
+- 顧客紐付け
+- 取引先紐付け
+- 案件紐付け
+- 書類紐付け
+- 添付ファイル管理
+- 問い合わせ管理
+- ステータス管理
+- ラベル管理
+- 検索
+- フィルタ
+- 返信履歴
+- 内部メモ
+- Core連携
+- Shop問い合わせ連携
+- AI要約
+- AI返信候補
+- 迷惑メール判定候補
+- 重要度判定候補
+
+### 9.9 AI機能
+
+- メール要約
+- スレッド要約
+- 返信文案生成
+- 敬語調整
+- クレーム対応文案
+- 注文問い合わせ分類
+- 返品問い合わせ分類
+- 請求問い合わせ分類
+- 顧客情報抽出
+- 添付書類の内容要約
+- Coreの取引履歴参照候補
+- Shop注文文脈の参照候補
+
+### 9.10 Coreとの関係
+
+MailはCoreの文脈に接続する。
+
+接続対象:
+
+- 取引先
+- 顧客
+- 連絡先
+- 書類
+- 見積
+- 受注
+- 請求
+- 納品
+- 商品
+- 案件
+- ユーザー
+- 権限
+
+### 9.11 Shopとの関係
+
+MailはShopの問い合わせ、注文問い合わせ、返品問い合わせ、配送問い合わせと接続する。
+
+ShopからMailへ接続する情報:
+
+- 注文ID
+- 顧客名
+- メールアドレス
+- 商品名
+- SKU
+- 配送状況
+- 支払状況
+- 返品状況
+
+### 9.12 UI方針
+
+- サービスサイトと業務画面を分離する
+- 直下 mail.aiboux.com/ はサービス紹介
+- /s/{tenantSlug}/ は業務画面
+- 受信トレイは業務UI
+- 管理者画面は業務UI
+- 顧客向け公開ページと混ぜない
+- メール本文とAI要約を明確に分ける
+
+### 9.13 禁止事項
+
+- mail.aiboux.com/ をテナント業務画面に戻さない
+- mail.aiboux.com/ に受信トレイを直出ししない
+- 顧客メールをサービスサイトに露出しない
+- mailbox_idを再作成しない
+- user_idを再作成しない
+- tenant_idを再作成しない
+- メール本文を公開URLに出さない
+- secretをメールテンプレートに出さない
+
+### 9.14 TBD
+
+- メール保存期間
+- 添付ファイル保存容量
+- 迷惑メール処理方式
+- 独自メールドメイン対応
+- SPF/DKIM/DMARC設定支援
+- AI返信の自動送信可否
+- 人間確認必須範囲
+
+---
+
+## 10. AIBOUX Shop 詳細仕様
+
+### 10.1 サービス名
+
+AIBOUX Shop
+
+### 10.2 正式URL
+
+https://shop.aiboux.com/
+
+### 10.3 テナントURL
+
+https://shop.aiboux.com/s/{tenantSlug}/
+
+検証用ストアフロント:
+
+https://shop.aiboux.com/s/aiboux/
+
+検証用管理画面:
+
+https://shop.aiboux.com/s/aiboux/admin
+
+### 10.4 役割
+
+AIBOUX Shopは、Coreの商品・在庫・価格・顧客データをもとに、ShopストアフロントとShop管理画面を提供するECサービスである。
+
+### 10.5 対象ユーザー
+
+- EC事業者
+- 小売事業者
+- 卸売事業者
+- 個人事業主
+- 店舗運営者
+- 商品管理担当者
+- 注文管理担当者
+- 在庫担当者
+- 顧客対応担当者
+
+### 10.6 URL移行理由
+
+shop.aiboux.com/ は一時的にストアフロント直URLにされていた。
+
+これはAIBOUXのURL設計に反する。
+
+AIBOUXでは、サブドメイン直下はサービスサイトである。
+Shopのストアフロントは /s/{tenantSlug}/ に置く。
+Shopの管理画面は /s/{tenantSlug}/admin に置く。
+
+### 10.7 主要画面: サービスサイト
+
+- Shopサービスサイト
+- 機能紹介
+- ストア作成導線
+- Core連携説明
+- Mall連携説明
+- 独自ドメイン説明
+- 管理画面説明
+- ストアフロント説明
+- 料金またはTBD
+- 導入CTA
+- Docs誘導
+
+### 10.8 主要画面: ストアフロント
+
+- トップページ
+- 商品一覧
+- 商品詳細
+- カテゴリページ
+- コレクションページ
+- カート
+- チェックアウト
+- 注文完了
+- 顧客ログイン
+- マイページ
+- 注文履歴
+- 配送情報
+- 返品案内
+- 特定商取引法表示
+- プライバシーポリシー
+- 問い合わせ
+- キャンペーンページ
+- SEOページ
+
+### 10.9 主要画面: 管理画面
+
+- Shopダッシュボード
+- 注文管理
+- 商品管理
+- SKU管理
+- 在庫管理
+- 顧客管理
+- 配送設定
+- 支払設定
+- 税設定
+- ストアデザイン
+- ストアフロントビルダー
+- テーマ設定
+- 独自ドメイン設定
+- クーポン
+- キャンペーン
+- モール連携
+- Core連携
+- Mail連携
+- レポート
+- 設定
+- 管理者権限
+
+### 10.10 主要機能
+
+- 商品公開
+- SKU公開
+- 価格設定
+- 在庫連携
+- カート
+- チェックアウト
+- 注文受付
+- 注文管理
+- 配送管理
+- 顧客管理
+- ストアデザイン編集
+- ストアフロント生成
+- 独自ドメイン対応
+- Core商品連携
+- Mall掲載連携
+- Mail問い合わせ連携
+- クーポン管理
+- キャンペーン管理
+- SEO設定
+- 特商法ページ管理
+- 返品ポリシー管理
+- 決済連携
+- 売上レポート
+- 商品レポート
+- 顧客レポート
+
+### 10.11 AI機能
+
+- 商品説明文生成
+- SEOタイトル生成
+- メタディスクリプション生成
+- カテゴリ説明生成
+- 商品画像説明生成
+- キャンペーン文言生成
+- メール返信文案連携
+- 商品タグ候補
+- 売れ筋分析候補
+- 在庫アラート候補
+- 商品改善提案候補
+
+### 10.12 Coreとの関係
+
+ShopはCoreの商品・SKU・価格・在庫を参照または同期する。
+
+CoreからShopへ展開するデータ:
+
+- 商品名
+- SKU
+- JAN
+- 価格
+- 在庫
+- 商品説明
+- 商品画像
+- カテゴリ
+- 取引先
+- 顧客
+- 配送先
+- 税区分
+
+ShopからCoreへ戻すデータ:
+
+- 注文
+- 顧客
+- 売上
+- 在庫引当
+- 返品
+- 入金候補
+- 問い合わせ文脈
+
+### 10.13 Mallとの関係
+
+Mallは一般顧客向けの集客面である。
+Shopはテナントの販売管理面である。
+
+Mallに掲載する商品はShopまたはCoreから供給される。
+
+### 10.14 Mailとの関係
+
+Shop問い合わせはMailへ接続する。
+
+接続対象:
+
+- 注文問い合わせ
+- 返品問い合わせ
+- 配送問い合わせ
+- 商品問い合わせ
+- 決済問い合わせ
+- 顧客情報
+- 注文ID
+- SKU
+
+### 10.15 独自ドメイン方針
+
+独自ドメインはストアフロント専用である。
+
+独自ドメインは内部的に次と同等の挙動をする。
+
+```text
+shop.aiboux.com/s/{tenantSlug}/
+```
+
+独自ドメインに管理画面を置かない。
+
+禁止:
+
+```text
+https://example-store.com/admin
+```
+
+管理画面は必ず次に置く。
+
+```text
+shop.aiboux.com/s/{tenantSlug}/admin
+```
+
+### 10.16 UI方針
+
+- サービスサイト、ストアフロント、管理画面を分離する
+- サービスサイトは導入検討者向け
+- ストアフロントは顧客向け
+- 管理画面は事業者向け
+- 管理画面はダッシュボード形式
+- ストアフロントはテーマ編集可能
+- 顧客向け画面に管理導線を出さない
+- 管理画面を独自ドメインに出さない
+
+### 10.17 禁止事項
+
+- shop.aiboux.com/ をストアフロント直URLに戻さない
+- shop.aiboux.com/admin を管理画面にしない
+- 独自ドメインに管理画面を置かない
+- shop_idを再作成しない
+- tenant_idを再作成しない
+- Core商品を無断で複製して正本を壊さない
+- 顧客情報を公開ページに露出しない
+- 決済secretを公開しない
+
+### 10.18 TBD
+
+- 決済方式
+- 送料計算
+- 税計算
+- 多店舗対応
+- モール掲載条件
+- クーポン仕様
+- ポイント仕様
+- サブスクリプション販売
+- B2B価格対応
+- 管理者権限粒度
+
+---
+
+## 11. AIBOUX Mall 詳細仕様
+
+### 11.1 サービス名
+
+AIBOUX Mall
+
+### 11.2 正式URL
+
+https://mall.aiboux.com/
+
+### 11.3 役割
+
+AIBOUX Mallは、一般顧客向けの集客モールである。
+
+Shopがテナントの販売管理とストアフロントを提供するのに対し、Mallは複数テナントの商品や店舗を横断して顧客へ見せる集客面である。
+
+### 11.4 対象ユーザー
+
+- 一般顧客
+- 購入者
+- 商品検索ユーザー
+- 店舗を探すユーザー
+- キャンペーン利用者
+- AIBOUX Shop出店者
+- EC事業者
+
+### 11.5 主要画面
+
+- Mallトップ
+- 商品検索
+- 商品一覧
+- 商品詳細
+- 店舗一覧
+- 店舗詳細
+- カテゴリ一覧
+- カテゴリ詳細
+- キャンペーン一覧
+- ランキング
+- おすすめ
+- 検索結果
+- カートまたはShop側遷移
+- 購入導線
+- 出店者紹介
+- 出店案内
+- 問い合わせ
+- ヘルプ
+
+### 11.6 主要機能
+
+- 複数Shop横断の商品掲載
+- 商品検索
+- カテゴリ検索
+- 店舗検索
+- ランキング
+- レコメンド候補
+- キャンペーン掲載
+- 店舗ページ
+- 商品ページ
+- SEO集客
+- Shopストアフロントへの送客
+- AIBOUX Shopへの出店導線
+- Mall掲載管理
+- 掲載審査候補
+- 広告枠候補
+- アフィリエイト候補
+- 顧客レビュー候補
+
+### 11.7 AI機能
+
+- 商品レコメンド候補
+- 検索キーワード補正
+- カテゴリ候補
+- 類似商品候補
+- 商品説明要約
+- レビュー要約候補
+- キャンペーン文生成候補
+- SEOキーワード候補
+
+### 11.8 Shopとの関係
+
+MallはShopの集客面である。
+
+ShopからMallへ渡す情報:
+
+- 商品
+- SKU
+- 価格
+- 在庫
+- 商品画像
+- 店舗情報
+- キャンペーン
+- カテゴリ
+- SEO情報
+
+MallからShopへ戻す情報:
+
+- 流入
+- 商品閲覧
+- 購入導線
+- 問い合わせ
+- 人気商品
+- 検索キーワード
+
+### 11.9 Coreとの関係
+
+MallはCoreの正本データを直接破壊しない。
+MallはShop経由またはCore連携された公開用データを表示する。
+
+### 11.10 UI方針
+
+- 顧客向け
+- 検索しやすい
+- 商品が見やすい
+- 店舗が探しやすい
+- モバイル優先
+- 購入導線を明確にする
+- Shop管理画面と混ぜない
+
+### 11.11 収益方針
+
+- Shopへの送客
+- 出店誘導
+- 広告枠
+- 掲載強化
+- キャンペーン掲載
+- アフィリエイト候補
+- 詳細料金はTBD
+
+### 11.12 禁止事項
+
+- MallをShop管理画面にしない
+- Mallで管理者向けCRUDを出さない
+- MallでCore正本データを直接変更しない
+- Mallを独自ドメイン管理画面として使わない
+- 顧客個人情報を公開しない
+
+### 11.13 TBD
+
+- Mall決済を持つかShop決済へ送るか
+- レビュー機能
+- 広告商品
+- 掲載審査
+- 出店料金
+- ランキングロジック
+- レコメンドロジック
+- 返品問い合わせ導線
+
+---
+
+## 12. AIBOUX File 詳細仕様
+
+### 12.1 サービス名
+
+AIBOUX File
+
+### 12.2 正式URL
+
+https://file.aiboux.com/
+
+### 12.3 役割
+
+AIBOUX Fileは、ファイル変換、圧縮、分割、結合、共有、簡易解析の入口である。
+
+Fileは無料入口、SEO入口、会員登録入口、Coreへの送客装置として機能する。
+
+### 12.4 対象ユーザー
+
+- 個人ユーザー
+- 中小企業
+- 事務担当者
+- EC事業者
+- 書類を扱う担当者
+- PDFを扱うユーザー
+- 画像を扱うユーザー
+- Core導入前ユーザー
+
+### 12.5 主要画面
+
+- Fileトップ
+- PDF圧縮
+- PDF分割
+- PDF結合
+- PDF変換
+- 画像圧縮
+- 画像変換
+- ファイル共有
+- 一時アップロード
+- ダウンロード
+- 処理結果
+- 変換履歴
+- 会員登録導線
+- Core保存導線
+- ヘルプ
+- セキュリティ説明
+
+### 12.6 主要機能
+
+- PDF圧縮
+- PDF分割
+- PDF結合
+- PDFページ抽出
+- PDF画像化
+- 画像圧縮
+- 画像形式変換
+- ファイル一時共有
+- ダウンロードURL生成
+- ファイル名整理
+- ファイルサイズ確認
+- ページ数確認
+- 簡易OCR候補
+- Core保存候補
+- キャビネット連携候補
+- 会員登録導線
+- 無料処理上限
+- 処理履歴
+- セキュリティ注意表示
+
+### 12.7 AI機能
+
+- 書類種別判定候補
+- ファイル名候補生成
+- OCR候補
+- ページ分割候補
+- 内容要約候補
+- Core保存先候補
+- 機密情報検知候補
+
+### 12.8 Coreとの関係
+
+FileはCoreキャビネットへの入口になる。
+
+Fileで処理したファイルをCoreへ保存する候補:
+
+- PDF
+- 画像
+- 請求書
+- 納品書
+- 見積書
+- 注文書
+- レシート
+- 証憑
+- 契約書
+
+### 12.9 UI方針
+
+- 無料ツールとして分かりやすい
+- ドロップエリアを大きくする
+- 処理前後のファイルサイズを表示する
+- セキュリティ注意を明示する
+- Core保存CTAを出す
+- ファイルを無期限保存しない前提を明記する
+
+### 12.10 収益/送客方針
+
+- 無料ファイル処理入口
+- Coreへの会員登録導線
+- 広告候補
+- 有料大容量処理候補
+- 法人向け保存導線
+- 詳細料金はTBD
+
+### 12.11 禁止事項
+
+- ファイルを無断で永久保存しない
+- 保存期間を未確定のまま断定しない
+- 機密ファイルを公開URLに出さない
+- ダウンロードURLにsecretを出さない
+- 個人情報を学習利用すると断定しない
+- Core保存前にユーザー同意を省略しない
+
+### 12.12 TBD
+
+- 無料処理上限
+- 最大ファイルサイズ
+- 保存期間
+- 広告表示有無
+- ログ保存範囲
+- OCR無料枠
+- Core保存仕様
+- 一時共有URL期限
+
+---
+
+## 13. AIBOUX Biz 詳細仕様
+
+### 13.1 サービス名
+
+AIBOUX Biz
+
+### 13.2 正式URL
+
+https://biz.aiboux.com/
+
+### 13.3 役割
+
+AIBOUX Bizは、業務テンプレート、簡易業務ツール、文書作成補助、業務チェックリストの入口である。
+
+Bizは無料入口、SEO入口、Coreへの送客装置として機能する。
+
+### 13.4 対象ユーザー
+
+- 中小企業
+- 個人事業主
+- 事務担当者
+- 営業担当者
+- 経理担当者
+- 起業準備中のユーザー
+- フリーランス
+- 店舗運営者
+
+### 13.5 主要画面
+
+- Bizトップ
+- 業務テンプレート一覧
+- 見積テンプレート
+- 請求テンプレート
+- 納品テンプレート
+- 発注テンプレート
+- 契約書テンプレート
+- 業務チェックリスト
+- 計算ツール
+- 文書作成補助
+- AI文案作成
+- ダウンロード
+- Core保存導線
+- 会員登録導線
+- Docs誘導
+
+### 13.6 主要機能
+
+- 業務テンプレート提供
+- 見積書テンプレート
+- 請求書テンプレート
+- 納品書テンプレート
+- 発注書テンプレート
+- 契約書テンプレート
+- 退職関連テンプレート候補
+- 業務チェックリスト
+- 税計算候補
+- 消費税計算候補
+- 粗利計算候補
+- 見積文面生成候補
+- 請求文面生成候補
+- メール文面生成候補
+- Coreへのデータ移行導線
+- PDF出力候補
+- Office連携候補
+
+### 13.7 AI機能
+
+- 業務文書生成
+- 件名生成
+- メール文案生成
+- 契約条項候補
+- チェックリスト生成
+- 業務フロー整理
+- 見積説明文生成
+- 請求催促文生成
+- お詫び文生成
+- FAQ生成候補
+
+### 13.8 Coreとの関係
+
+BizはCore導入前の入口になる。
+Bizで作った見積、請求、納品、取引先情報をCoreへ移行する導線を持つ。
+
+### 13.9 Mailとの関係
+
+Bizで生成した文面をMailへ渡す候補がある。
+
+対象:
+
+- 見積送付メール
+- 請求送付メール
+- 催促メール
+- お礼メール
+- お詫びメール
+- 問い合わせ返信
+
+### 13.10 UI方針
+
+- テンプレートを探しやすくする
+- 無料ですぐ使える導線を強くする
+- Coreへの保存導線を自然に出す
+- 法務・税務の確定助言ではない注意を出す
+- 文書作成AIの結果はユーザー確認前提にする
+
+### 13.11 収益/送客方針
+
+- 無料テンプレートでSEO集客
+- Coreへの送客
+- Mailへの送客
+- Officeへの送客
+- 広告候補
+- 有料テンプレート候補
+- 詳細料金はTBD
+
+### 13.12 禁止事項
+
+- 法律・税務の確定助言を断定しない
+- AI文書を人間確認なしで正式文書扱いしない
+- 契約書テンプレートを弁護士監修済みと勝手に表示しない
+- Coreデータを勝手に作成しない
+- 個人情報を公開しない
+
+### 13.13 TBD
+
+- テンプレート種類
+- 無料/有料範囲
+- PDF出力
+- Word出力
+- Core保存仕様
+- AI生成回数制限
+- 監修表示の有無
+
+---
+
+## 14. Aiboux Office 詳細仕様
+
+### 14.1 サービス名
+
+Aiboux Office
+
+### 14.2 正式URL
+
+https://office.aiboux.com/
+
+### 14.3 役割
+
+Aiboux Officeは、ブラウザ上で文書、表、PDF、画像を扱う入口である。
+
+Officeは無料入口、SEO入口、Core / File / Bizへの送客装置である。
+
+### 14.4 対象ユーザー
+
+- 個人ユーザー
+- 事務担当者
+- 中小企業
+- フリーランス
+- 学生
+- 書類作成者
+- PDF編集者
+- Office文書利用者
+
+### 14.5 主要画面
+
+- Officeトップ
+- 文書エディタ
+- 表エディタ
+- PDFツール
+- 画像ツール
+- テンプレート一覧
+- ファイル変換
+- ファイルダウンロード
+- File連携
+- Biz連携
+- Core保存導線
+- ヘルプ
+- セキュリティ説明
+
+### 14.6 主要機能
+
+- ブラウザ文書作成
+- 簡易表作成
+- PDF変換候補
+- PDF結合候補
+- PDF分割候補
+- 画像変換候補
+- 文書テンプレート
+- 業務テンプレート連携
+- File連携
+- Biz連携
+- Core保存候補
+- ローカル処理候補
+- ダウンロード
+- 印刷
+- 共有候補
+- AI文章補助候補
+
+### 14.7 AI機能
+
+- 文書作成補助
+- 文章校正
+- 要約
+- 箇条書き生成
+- 表題生成
+- メール文変換
+- ビジネス文体変換
+- テンプレート補完
+- 翻訳候補
+- 誤字脱字候補
+
+### 14.8 Fileとの関係
+
+OfficeはFileの文書・PDF・画像処理機能へ接続する。
+
+### 14.9 Bizとの関係
+
+OfficeはBizのテンプレートを編集する入口になる。
+
+### 14.10 Coreとの関係
+
+Officeで作成した業務文書をCoreへ保存する候補がある。
+
+保存候補:
+
+- 見積
+- 請求
+- 納品
+- 契約
+- 社内資料
+- 添付資料
+
+### 14.11 UI方針
+
+- ブラウザで分かりやすく使える
+- ファイル本体を原則サーバーへ送信しない設計を優先する
+- サーバー送信が必要な場合は明示する
+- 完全互換を断定しない
+- ダウンロード導線を明確にする
+- Core保存CTAを出す
+
+### 14.12 禁止事項
+
+- Office/PDF完全互換を勝手に謳わない
+- ファイルを無断でサーバー保存しない
+- ローカル処理とサーバー処理を混同しない
+- 保存期間を勝手に断定しない
+- Microsoft Office互換を過剰に表現しない
+- Google Docs互換を過剰に表現しない
+
+### 14.13 TBD
+
+- ローカル処理範囲
+- サーバー処理範囲
+- PDF編集機能範囲
+- docx/xlsx/pptx対応範囲
+- 保存期間
+- 最大ファイルサイズ
+- 有料機能
+- 広告表示
+- Core保存仕様
+
+---
+
+## 15. AIBOUX 履歴書 詳細仕様
+
+### 15.1 サービス名
+
+AIBOUX 履歴書
+
+### 15.2 正式URL
+
+https://rirekisho.aiboux.com/
+
+### 15.3 誤記禁止
+
+次は誤りである。
+
+https://rirekisho.aoboux.com/
+
+英字badge RIREKISHO を主表示にしない。
+日本語サービス名は「履歴書」とする。
+
+### 15.4 役割
+
+AIBOUX 履歴書は、履歴書、職務経歴書、退職届、送付状、就職活動用チェックリスト、求人票解析、自己PR作成、志望動機作成、証明写真作成を扱う個人向けサービスである。
+
+### 15.5 対象ユーザー
+
+- 求職者
+- 転職希望者
+- 新卒就職活動者
+- アルバイト応募者
+- パート応募者
+- 派遣登録者
+- 退職届を作成したいユーザー
+- 職務経歴書を作成したいユーザー
+- 自己PRを作りたいユーザー
+- 志望動機を作りたいユーザー
+- 証明写真を作りたいユーザー
+
+### 15.6 主要画面
+
+- 履歴書トップ
+- 履歴書作成
+- 職務経歴書作成
+- 退職届作成
+- 送付状作成
+- 自己PR作成
+- 志望動機作成
+- 求人票解析
+- 証明写真作成
+- チェックリスト
+- テンプレート選択
+- 入力フォーム
+- プレビュー
+- PDF出力
+- ダウンロード
+- 保存
+- 削除
+- 同意画面
+- プライバシー説明
+- 配信停止
+- Docs誘導
+- FAQ
+
+### 15.7 主要機能
+
+- 履歴書作成
+- 職務経歴書作成
+- 退職届作成
+- 送付状作成
+- 自己PR作成
+- 志望動機作成
+- 長所短所作成
+- 職歴整理
+- 学歴整理
+- 資格整理
+- 希望条件整理
+- 通勤時間入力
+- 扶養情報入力
+- 本人希望欄作成
+- 求人票解析
+- 求人票に合わせた自己PR候補
+- 求人票に合わせた志望動機候補
+- 証明写真作成
+- 写真トリミング
+- 写真背景調整候補
+- PDF出力
+- 印刷用レイアウト
+- スマホ入力
+- PC入力
+- 保存
+- 削除
+- エクスポート
+- 入力チェック
+- 誤字脱字チェック
+- 提出前チェックリスト
+- メール送付文候補
+
+### 15.8 AI機能
+
+- 自己PR生成
+- 志望動機生成
+- 職務要約生成
+- 経歴の言い換え
+- 強み抽出
+- 求人票解析
+- 求人票との一致点抽出
+- 応募先別文面調整
+- 誤字脱字確認
+- 敬語調整
+- 短文化
+- 長文化
+- 面接想定質問候補
+- 退職届文面生成
+- 送付状文面生成
+
+### 15.9 個人情報方針
+
+履歴書サービスは、個人情報と顔写真を扱う。
+
+特に保護が必要な情報:
+
+- 氏名
+- 生年月日
+- 住所
+- 電話番号
+- メールアドレス
+- 学歴
+- 職歴
+- 資格
+- 顔写真
+- 志望先
+- 退職理由
+- 希望条件
+- 扶養情報
+- 通勤情報
+
+必須設計:
+
+- 明示的な同意
+- 削除機能
+- 保存期間表示
+- 配信停止
+- 利用目的表示
+- AI利用範囲表示
+- 顔写真の扱い表示
+- ダウンロード後の保存責任説明
+- 公開URL化しない
+- secretを出さない
+- 個人情報を学習利用すると断定しない
+- 保存期間が未確定ならTBDと書く
+
+### 15.10 Coreとの関係
+
+履歴書はCoreの業務正本とは原則分離する。
+企業向け採用管理機能へ接続する場合はTBD。
+個人履歴書データをCoreテナントへ勝手に移動しない。
+
+### 15.11 Docsとの関係
+
+Docsは履歴書の操作説明、FAQ、個人情報の扱い、削除方法、PDF出力手順を説明する。
+
+### 15.12 UI方針
+
+- 日本語中心
+- 履歴書らしい安心感
+- 入力しやすいフォーム
+- プレビュー重視
+- スマホ対応
+- 保存・削除を明確にする
+- 個人情報の扱いを明確にする
+- AI生成文はユーザー確認前提
+- 英字badge RIREKISHO を主表示にしない
+
+### 15.13 収益/送客方針
+
+- 無料履歴書作成入口
+- 広告候補
+- 有料テンプレート候補
+- 証明写真機能候補
+- 就職支援サービス送客候補
+- Docs誘導
+- 詳細料金はTBD
+
+### 15.14 禁止事項
+
+- 履歴書を省略しない
+- rirekisho.aiboux.com を誤記しない
+- rirekisho.aoboux.com と書かない
+- 英字 RIREKISHO badgeを主表示にしない
+- 顔写真を無断保存しない
+- 個人情報を公開URLに出さない
+- PDFを第三者へ無断共有しない
+- AI生成文をそのまま提出推奨と断定しない
+- 保存期間を未確定のまま断定しない
+- 削除導線を省略しない
+
+### 15.15 TBD
+
+- 保存期間
+- 無料保存件数
+- PDF出力形式
+- 証明写真処理方式
+- 顔写真の保存有無
+- AI生成回数制限
+- 会員登録必須範囲
+- 広告表示有無
+- 求人サービス連携有無
+- 職務経歴書テンプレート数
+
+---
+
+## 16. AIBOUX Docs 詳細仕様
+
+### 16.1 サービス名
+
+AIBOUX Docs
+
+### 16.2 正式URL
+
+https://docs.aiboux.com/
+
+### 16.3 誤記禁止
+
+次は誤りである。
+
+https://doc.aiboux.com/
+
+正しいURLは次である。
+
+https://docs.aiboux.com/
+
+### 16.4 役割
+
+AIBOUX Docsは、AIBOUX全体のヘルプ、操作ガイド、仕様説明、API説明、管理者向け手順、トラブルシューティング、FAQを提供するドキュメントサービスである。
+
+Docsは、AIBOUXシリーズ全体の理解を支援する。
+Docsは、ユーザー、管理者、開発者、サポート担当者の共通参照先である。
+
+### 16.5 対象ユーザー
+
+- AIBOUX利用者
+- 管理者
+- 現場担当者
+- Shop運営者
+- Mail運用者
+- Core管理者
+- File利用者
+- Biz利用者
+- Office利用者
+- 履歴書利用者
+- 開発者
+- API利用者
+- サポート担当者
+- 導入検討者
+
+### 16.6 主要画面
+
+- Docsトップ
+- 左ツリーナビ
+- 中央Markdown本文
+- 右目次
+- 上部検索
+- サービス別ガイド
+- はじめに
+- Coreガイド
+- Mailガイド
+- Shopガイド
+- Mallガイド
+- Fileガイド
+- Bizガイド
+- Officeガイド
+- 履歴書ガイド
+- APIガイド
+- 管理者ガイド
+- トラブルシューティング
+- FAQ
+- リリースノート
+- セキュリティ
+- 用語集
+
+### 16.7 主要機能
+
+- Markdownドキュメント表示
+- 左ツリーナビ
+- 右目次
+- 全文検索
+- サービス別カテゴリ
+- 用語集
+- FAQ
+- 操作手順
+- 画像付き手順
+- APIリファレンス候補
+- OpenAPI導線候補
+- バージョン管理候補
+- 更新履歴
+- リリースノート
+- 関連記事
+- コードブロック
+- コマンド例
+- 注意書き
+- 警告表示
+- 問い合わせ導線
+- サポート導線
+
+### 16.8 AI機能
+
+- Docs検索AI
+- 質問応答AI
+- 関連ページ候補
+- 操作手順案内
+- エラー原因候補
+- コマンド説明候補
+- API利用例生成候補
+- ユーザー向け説明文変換
+- 管理者向け説明文変換
+
+### 16.9 各サービスとの関係
+
+Docsは全サービスの操作説明を持つ。
+
+Docsで扱う対象:
+
+- AIBOUX Series Site
+- Core
+- Mail
+- Shop
+- Mall
+- File
+- Biz
+- Office
+- 履歴書
+- Docs自身
+
+### 16.10 Coreとの関係
+
+DocsはCoreの操作説明を提供する。
+
+対象:
+
+- 商品管理
+- 取引先管理
+- 納品先管理
+- 見積
+- 受注
+- 請求
+- 入金
+- 仕入
+- 注文書
+- 納品書
+- レシート
+- 書類
+- キャビネット
+- 在庫
+- 棚卸
+- メンバー
+- 権限
+- マスタ
+- モバイル
+
+### 16.11 Shopとの関係
+
+DocsはShopの操作説明を提供する。
+
+対象:
+
+- サービスサイト
+- ストアフロント
+- 管理画面
+- 商品管理
+- SKU
+- 在庫
+- 注文
+- 顧客
+- 決済
+- 配送
+- 独自ドメイン
+- Mall連携
+- Mail連携
+
+### 16.12 Mailとの関係
+
+DocsはMailの操作説明を提供する。
+
+対象:
+
+- 受信トレイ
+- メールボックス
+- 返信
+- テンプレート
+- 管理者
+- 顧客連携
+- Core連携
+- Shop問い合わせ連携
+- AI要約
+- AI返信候補
+
+### 16.13 履歴書との関係
+
+Docsは履歴書の操作説明を提供する。
+
+対象:
+
+- 履歴書作成
+- 職務経歴書作成
+- 退職届作成
+- 送付状作成
+- 自己PR生成
+- 志望動機生成
+- 証明写真
+- PDF出力
+- 個人情報削除
+- 保存期間
+- 同意
+- 配信停止
+
+### 16.14 UI方針
+
+- 左ツリーナビ
+- 中央Markdown本文
+- 右目次
+- 上部検索
+- モバイルではツリーを折りたたむ
+- 目次を見やすくする
+- コマンド例をコピーしやすくする
+- 注意・警告・禁止事項を目立たせる
+- サービス別に分類する
+- URL誤記を避ける
+- 古い仕様には非推奨表示を付ける
+
+### 16.15 収益/送客方針
+
+Docsは直接収益ではなく、サポート削減、導入支援、SEO、会員登録支援、サービス理解促進を担う。
+
+送客先:
+
+- Core
+- Mail
+- Shop
+- File
+- Biz
+- Office
+- 履歴書
+- サポート
+- 問い合わせ
+
+### 16.16 禁止事項
+
+- Docsを省略しない
+- doc.aiboux.com と書かない
+- 古い仕様を最新仕様として放置しない
+- 実装済みと未実装を混ぜない
+- API secretをDocsに出さない
+- ユーザー固有情報をDocsに出さない
+- private URLを公開しない
+- 管理者専用手順を一般ユーザー向けに露出しない
+
+### 16.17 TBD
+
+- Docsのビルド方式
+- Markdown保存場所
+- 検索方式
+- バージョン管理
+- APIリファレンス生成
+- OpenAPI連携
+- 多言語対応
+- 認証付きDocs範囲
+- 管理者専用Docs
+- 画像管理方式
+
+---
+
+## 17. MCP / API 方針
+
+### 17.1 役割
+
+AIBOUXは、将来的にMCP/API接続を通じて外部AI、外部ツール、社内ツール、EC連携、業務自動化を扱う。
+
+### 17.2 対象候補
+
+- Core API
+- Shop API
+- Mail API
+- File API
+- Docs API
+- AI Assistant
+- 商品検索
+- 顧客検索
+- 帳票検索
+- 在庫照会
+- 注文照会
+- メール要約
+- 文書生成
+- ファイル解析
+
+### 17.3 禁止事項
+
+- API keyを公開しない
+- tokenをログに出さない
+- secretをDocsに出さない
+- public artifactに認証情報を書かない
+- MCP接続を実装済みと断定しない
+- 未確定API仕様を確定版として公開しない
+
+### 17.4 TBD
+
+- MCP提供範囲
+- API認証方式
+- rate limit
+- 外部連携課金
+- APIドキュメント生成
+- SDK提供
+- 管理者権限
+- 監査ログ
+
+---
+
+## 18. UI / ロゴ / Badge 方針
+
+### 18.1 共通UI
+
+AIBOUXシリーズは共通ブランドを保つ。
+
+共通要素:
+
+- AIBOUXロゴ
+- サービス名badge
+- 共通ヘッダー
+- 共通フッター
+- サービスカード
+- CTA
+- Docs導線
+- ログイン導線
+- サポート導線
+
+### 18.2 サービス別badge
+
+| サービス | badge |
+| --- | --- |
+| Core | AIBOUX Core |
+| Mail | AIBOUX Mail |
+| Shop | AIBOUX Shop |
+| Mall | AIBOUX Mall |
+| File | AIBOUX File |
+| Biz | AIBOUX Biz |
+| Office | Aiboux Office |
+| 履歴書 | AIBOUX 履歴書 |
+| Docs | AIBOUX Docs |
+
+### 18.3 履歴書badge禁止
+
+履歴書サービスで、英字 RIREKISHO を主badgeにしてはいけない。
+
+正しい表記:
+
+AIBOUX 履歴書
+
+---
+
+## 19. Bark通知方針
+
+Barkは完了判定ゲートではない。
+Barkは通知手段である。
+
+固定英文チェック文:
+
+- Bark notification timing is fixed to URL Bundle only.
+- Bark may be sent only after the URL Bundle has already been output.
+- Bark delivery and receipt confirmation are notification evidence only.
+- Bark receipt confirmation is not a completion gate.
+
+### 19.1 送信してよいタイミング
+
+Barkは、URL Bundleが出力された後に1回だけ送信してよい。
+
+URL Bundle:
+
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
+
+### 19.2 URL Bundleがない場合
+
+URL Bundleがない場合、Barkは送信しない。
+
+skip理由:
+
+```text
+URL_BUNDLE_REQUIRED_BEFORE_BARK
+```
+
+### 19.3 Bark本文
+
+Bark本文に含める。
+
+- Master URL
+- Log URL
+- Screen URL
+- Worker Version ID
+- 最終状態
+
+### 19.4 Bark受領確認
+
+Bark受領確認は完了ゲートではない。
+
+userReceiptConfirmed=true が未確認でも、検証済みタスクを USER_ACTION_REQUIRED に落としてはいけない。
+
+### 19.5 送信禁止タイミング
+
+以下でBarkを送らない。
+
+- 作業開始
+- 実行中
+- watcher起動
+- watcher停止
+- build PASS
+- deploy PASS
+- Playwright PASS
+- review OK
+- review NG
+- 自動修正完了
+- 途中エラー
+- Bark受領確認待ち
+
+### 19.6 secret禁止
+
+Bark keyを次へ出さない。
+
+- チャット
+- スクリーンショット
+- GitHub
+- public URL
+- all_log
+- ops/instructions
+- AIBOUX_MASTER_DOCUMENT.md
+- public/g/m68.md
+- Bark本文
+
+---
+
+## 20. Gate分離方針
+
+### 20.1 分離するgate
+
+- generic
+- service-url-routing
+- Core delivery-detail
+- Bark receipt policy
+- Worker Version ID evidence
+- report policy
+- control chars
+- mojibake
+- build
+
+### 20.2 service-url-routingで見る項目
+
+- サービスサイトURL
+- テナントURL
+- Shop管理画面URL
+- Storefront URL
+- /g/m68
+- /g/l68
+- /g/d68
+- Worker Version ID
+- Bark通知方針
+- public routing
+- _astro CSS
+- markdown content-type
+
+### 20.3 混ぜてはいけない項目
+
+Core delivery-detail UI gateを、service-url-routingの完了ゲートに混ぜない。
+
+Bark受領確認を、実装完了ゲートに混ぜない。
+
+AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に混ぜない。
+
+---
+
+## 21. Worker Version ID証跡
+
+### 21.1 Worker
+
+Worker name: aiboux
+Worker Version ID: da5eb212-9842-4ec4-a3ca-b54a9c0a2938
+Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
+Deployment created_on: 2026-05-31T14:22:16.574248Z
+Version percentage: 100
+
+### 21.2 証跡ファイル
+
+all_log/79_worker_version_id_evidence_after_push.md
+
+### 21.3 確認コマンド
+
+```bash
+npx wrangler versions list --name aiboux --json
+npx wrangler deployments list --name aiboux --json
+```
+
+### 21.4 注意
+
+npx wrangler deploy を再実行するとWorker Version IDが変わる可能性がある。
+
+再デプロイ後は、必ずWorker Version ID証跡を更新する。
+
+---
+
+## 22. 公開URL検証
+
+### 22.1 検証対象8URL
+
+| URL | 期待状態 |
+| --- | --- |
+| https://mail.aiboux.com/ | Mailサービスサイト |
+| https://mail.aiboux.com/s/aiboux/ | 旧Mailテナント業務画面 |
+| https://shop.aiboux.com/ | Shopサービスサイト |
+| https://shop.aiboux.com/s/aiboux/ | Shopストアフロント |
+| https://shop.aiboux.com/s/aiboux/admin | Shop管理画面 |
+| https://mail.aiboux.com/g/m68 | マスターMarkdown |
+| https://mail.aiboux.com/g/l68 | ログMarkdown |
+| https://mail.aiboux.com/g/d68 | 画面証跡Markdown |
+
+### 22.2 必須確認
+
+- HTTP 200
+- 文字化けなし
+- 不正制御文字なし
+- HTML画面の _astro CSSがHTTP 200
+- /g/* が text/markdown; charset=utf-8
+- m68 が日本語詳細マスター本文
+- m68 が英語主体ではない
+- m68 に全サービス詳細が含まれる
+- m68 に履歴書とDocsが含まれる
+
+### 22.3 ChatGPT外部fetchの扱い
+
+ChatGPT側の外部fetch経路では、Cache miss が出る場合がある。
+
+それ単独を理由に再修正ループへ戻してはいけない。
+
+正とする証跡:
+
+- Codex/SSHのcurl結果
+- Playwright公開URLテスト
+- npm run gate:aiboux
+- Worker Version ID証跡
+- all_log の記録
+- 実ブラウザ確認
+
+---
+
+## 23. Dirty Tree状態
+
+### 23.1 直近件数
+
+直近の報告値:
+
+git status --short: 約345行
+git status --short --untracked-files=all: 約1213行
+untracked files: 約1201件
+tracked source/config diffs: 12件
+
+### 23.2 分類A: 次タスクに必要
+
+- src/
+- db/
+- migrations/
+- scripts/
+- tests/
+- wrangler.toml
+- package.json
+- package-lock.json
+- gate関連
+- Cloudflare設定
+- runtime関連
+- verification関連
+
+### 23.3 分類B: 証跡として残す
+
+- all_log/
+- output/
+- docs/
+- ops/
+- スクリーンショット
+- review pack
+- test result
+- public URL verification log
+
+### 23.4 分類C: 削除候補だが未承認
+
+- .vscode/starwind.code-snippets
+- ゼロバイトmarker file
+- AIBOUX
+- Mailサービスサイト
+- 対応テナントの
+- 旧
+- public/temp/imagegen/.gitkeep
+- 古い生成物
+- 古い output/
+- 古い all_log/
+
+分類Cは削除未承認である。
+ユーザーが明示承認するまで削除しない。
+
+---
+
+## 24. 絶対禁止事項
+
+以下は禁止する。
+
+```bash
+git reset --hard
+git clean -fd
+git clean -fdx
+rm -rf
+```
+
+さらに禁止する。
+
+- 未追跡ファイル削除
+- tracked source/config diff の勝手なrevert
+- source/configの勝手な変更
+- Cloudflare設定の勝手な変更
+- secret表示
+- PAT表示
+- API key表示
+- token表示
+- .env表示
+- .dev.vars表示
+- Bark早期送信
+- Bark endpoint表示
+- force push
+- shop.aiboux.com/ をストアフロント直URLに戻すこと
+- mail.aiboux.com/ をテナント直URLに戻すこと
+- aiboux.com をテナントURLにすること
+- 独自ドメインに管理画面を置くこと
+- tenant_id再作成
+- shop_id再作成
+- mailbox_id再作成
+- user_id再作成
+- 公開m68が旧本文のまま完了報告
+- 公開m68が英語主体のまま完了報告
+- 履歴書を省略したまま完了報告
+- Docsを省略したまま完了報告
+
+---
+
+## 25. 次タスク
+
+次タスクは、破壊的cleanupではない。
+
+次タスクは、dirty treeの安全な棚卸しと、Classification C削除候補のユーザー承認待ちである。
+
+### 25.1 次にやること
+
+1. git status --short を再取得
+2. git status --short --untracked-files=all を再取得
+3. tracked source/config diff 12件をレビュー
+4. untracked約1200件をカテゴリ集計
+5. 分類A/B/Cを再確認
+6. Classification C削除候補を一覧化
+7. USER_ACTION_REQUIRED としてユーザー承認を求める
+8. 承認が出るまで削除しない
+9. git clean から始めない
+10. git reset しない
+11. source/configを勝手に戻さない
+
+### 25.2 次タスク完了条件
+
+- dirty tree分類が更新されている
+- Classification C削除候補が明示されている
+- 削除は実行していない
+- resetしていない
+- cleanしていない
+- force pushしていない
+- Bark送信していない
+- secret表示していない
+- ユーザー承認待ちで止めている
+
+---
+
+## 26. 公開m68反映証跡
+
+このセクションは、public/g/m68.md と公開URL https://mail.aiboux.com/g/m68 の一致を記録する。
+
+### 26.1 必須記録項目
+
+確認日時:
+  TBD。実測して記録する。
+確認コマンド:
+  curl -sS -L -D /tmp/m68.headers https://mail.aiboux.com/g/m68 -o /tmp/m68.body
+HTTP status:
+  TBD。期待値: 200
+content-type:
+  TBD。期待値: text/markdown; charset=utf-8
+cache-control:
+  TBD。実測して記録する。
+public/g/m68.md sha256:
+  TBD。実測して記録する。
+公開 https://mail.aiboux.com/g/m68 本文 sha256:
+  TBD。実測して記録する。
+ソースと公開本文:
+  TBD。一致 / 不一致 / 差分理由を記録する。
+デプロイ後Worker Version ID:
+  TBD。再デプロイした場合は更新する。
+gate:aiboux:
+  TBD。期待値: AIBOUX_GATE_PASS
+
+### 26.2 機械確認コマンド
+
+```bash
+cd /home/pkkatsu/aiboux
+sha256sum public/g/m68.md
+curl -sS -L -D /tmp/m68.headers https://mail.aiboux.com/g/m68 -o /tmp/m68.body
+cat /tmp/m68.headers
+sha256sum /tmp/m68.body
+grep -q "省略禁止" /tmp/m68.body
+grep -q "AIBOUX全サービス一覧" /tmp/m68.body
+grep -q "AIBOUX Core 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX Mail 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX Shop 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX Mall 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX File 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX Biz 詳細仕様" /tmp/m68.body
+grep -q "Aiboux Office 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX 履歴書 詳細仕様" /tmp/m68.body
+grep -q "AIBOUX Docs 詳細仕様" /tmp/m68.body
+grep -q "rirekisho.aiboux.com" /tmp/m68.body
+grep -q "docs.aiboux.com" /tmp/m68.body
+grep -q "URL移行判定表" /tmp/m68.body
+grep -q "Bark通知方針" /tmp/m68.body
+grep -q "Worker Version ID" /tmp/m68.body
+grep -q "Dirty Tree状態" /tmp/m68.body
+grep -q "絶対禁止事項" /tmp/m68.body
+grep -q "次タスク" /tmp/m68.body
+```
+
+---
+
+## 27. Codexへの反映指示
+
+この日本語正本マスターを、次のファイルに反映する。
+
+- AIBOUX_MASTER_DOCUMENT.md
+- public/g/m68.md
+- ops/instructions/current.md
+- all_log/84_master_no_omission_full_service_spec.md
+
+### 27.1 実行コマンド
+
+```bash
+npm run check:control-chars
+npm run check:mojibake
+npm run gate:aiboux
+ESBUILD_WORKER_THREADS=0 npm run build
+npx wrangler deploy
+```
+
+### 27.2 公開確認
+
+```bash
+curl -sS -L -D /tmp/m68.headers https://mail.aiboux.com/g/m68 -o /tmp/m68.body
+cat /tmp/m68.headers
+head -c 4000 /tmp/m68.body
+```
+
+### 27.3 commit
+
+問題なければcommitする。
+
+```bash
+git add AIBOUX_MASTER_DOCUMENT.md public/g/m68.md ops/instructions/current.md all_log/84_master_no_omission_full_service_spec.md
+git commit -m "docs: expand master with full service specifications"
+git push origin HEAD:refs/heads/main
+```
+
+### 27.4 完了条件
+
+- 公開 https://mail.aiboux.com/g/m68 が日本語詳細マスター本文を返す
+- HTTP 200
+- content-type: text/markdown; charset=utf-8
+- 省略禁止ルールが入っている
+- AIBOUX全サービス一覧が入っている
+- Core詳細仕様が入っている
+- Mail詳細仕様が入っている
+- Shop詳細仕様が入っている
+- Mall詳細仕様が入っている
+- File詳細仕様が入っている
+- Biz詳細仕様が入っている
+- Office詳細仕様が入っている
+- 履歴書詳細仕様が入っている
+- Docs詳細仕様が入っている
+- rirekisho.aiboux.com が入っている
+- docs.aiboux.com が入っている
+- URL移行判定表が入っている
+- Bark通知方針が入っている
+- Worker Version ID証跡が入っている
+- Dirty Tree状態が入っている
+- 絶対禁止事項が入っている
+- 次タスクが入っている
+- npm run gate:aiboux が AIBOUX_GATE_PASS
+- Bark送信なし
+- resetなし
+- cleanなし
+- force pushなし
+- 削除なし
+- secret表示なし
+
+公開m68が短縮版、英語版、概要版、URL移行だけの本文なら完了報告禁止。
+
+以上です。
+これをマスターに入れれば、rirekisho、docs、mall、file、biz、officeを落とす事故は止められます。
+
+---
+
+## 28. AIBOUX Core 書類管理AI構想
+
+検証用の正規キーワードは `Core書類管理AI構想` である。
+
+この章は、AIBOUX Coreの「書類管理AI構想」の正本仕様である。
+この章は、まだ実装仕様ではなく、設計確定事項、設計候補、TBDを分けて記録する。
+この章は、既存の「帳票管理」と新しい「書類管理」を混同しないために追加する。
+
+### 28.1 位置づけ
+
+AIBOUX Coreには、次の2つの領域を明確に分けて置く。
+
+| 領域 | 役割 | 代表画面 | 主な対象 |
+| --- | --- | --- | --- |
+| 帳票管理 | Core内部で帳票を作成、一覧、詳細、編集する場所 | 見積書、注文書、納品書、請求書 | 自社が作る業務帳票 |
+| 書類管理 | 外部から来た紙、PDF、画像、LINE文面、メール文面を取り込み、AI解析、人間レビュー、突合、変換候補を扱う場所 | AIワークスペース、解析待ち、レビュー待ち、取込履歴 | 外部入力、撮影画像、PDF、LINE、AIBOUX Mail |
+
+「帳票管理」は、既存の見積書、注文書、納品書、請求書の作成・一覧・詳細に近い。
+「書類管理」は、外部から入ってくる紙、PDF、画像、LINE、メールを処理する場所である。
+この2つを混ぜてはいけない。
+
+### 28.2 採用AI方針
+
+第一採用はGemini Flash系で固定する。
+初期実装では補助AIを入れすぎない。
+最初はGemini Flash一本で作り、低信頼度、失敗、特殊帳票、比較検証が必要になった場合だけ補助AIを検討する。
+
+| 候補 | 採用判断 | 初期実装での扱い |
+| --- | --- | --- |
+| Gemini Flash | 第一採用 | 採用する |
+| Google Document AI Expense Parser | レシート補助候補 | 初期実装では入れない |
+| Google Document AI Invoice Parser | 日本語請求書では補助候補止まり | 初期実装では入れない |
+| Mistral OCR | 代替OCR、比較候補 | 初期実装では入れない |
+| Azure Document Intelligence | 比較候補 | 初期実装では入れない |
+| AWS Textract | 比較候補 | 初期実装では入れない |
+| OpenAI系 | 今回の本命ではない。比較候補止まり | 初期実装では入れない |
+
+### 28.3 Gemini Flashを第一採用にする理由
+
+Gemini Flashを第一採用にする理由は次である。
+
+- PDF、画像、表、レイアウト、長い文脈を視覚理解として扱える。
+- PDFをインラインデータまたはファイル入力として扱える。
+- JSON Schema structured outputに対応している。
+- 書類種別、相手先、日付、金額、税額、明細、マスター候補、仕訳候補を自然文ではなくJSONで返す設計に向いている。
+- 通常処理はコスト重視のFlash、難しい書類は強いFlash、人間確認が必要なものはレビュー待ちに送る運用へ分けやすい。
+- モデル更新に備え、provider/model abstractionを置けば、将来のFlash系列へ設定だけで移行できる。
+
+### 28.4 モデルID固定禁止
+
+Gemini Flashを本命にするが、コードでは実モデルIDを直書きしない。
+環境変数で差し替え可能にする。
+
+```text
+AIBOUX_AI_PROVIDER=gemini
+AIBOUX_AI_MODEL_FAST=gemini-flash
+AIBOUX_AI_MODEL_STRONG=gemini-flash-strong
+AIBOUX_AI_MODEL_FALLBACK=none
+```
+
+上記はAIBOUX内の抽象名である。
+実際のモデルIDは環境変数で差し替える。
+Geminiがアップデートされたときに、コードを書き換えず、設定だけで 2.5 Flash、3 Flash、3.1 Flash、3.5 Flash、将来の新Flashへ切り替えられるようにする。
+
+禁止:
+
+- `gemini-2.5-flash` をアプリコードに直書きすること
+- `gemini-3.5-flash` をアプリコードに直書きすること
+- 価格や無料枠をコードに直書きすること
+- 将来モデル名を仕様未確認のまま確定値として書くこと
+
+### 28.5 価格の扱い
+
+価格は変動するため、AIBOUXの業務ロジック、画面表示、完了報告に固定値として埋め込まない。
+価格は運用判断の参考情報として扱う。
+価格確認日は必ず記録する。
+
+2026-06-01時点の公式確認メモ:
+
+- Gemini 2.5 Flashは、公式価格表で標準入力が $0.30 / 100万token、出力が $2.50 / 100万token と確認した。
+- Gemini 2.5 Flashは、Batchで入力 $0.15 / 100万token、出力 $1.25 / 100万token と確認した。
+- Gemini 3.5 Flashは、公式価格表で標準入力 $0.75 / 100万token、出力 $4.50 / 100万token と確認した。
+- Gemini 3.5 Flashには複数の提供モード、価格帯があるため、強いFlashを使う場合は都度公式価格を確認する。
+- 価格は変わるため、この章の価格は実装値ではなく、2026-06-01の設計判断メモである。
+
+運用方針:
+
+| 用途 | モデル方針 |
+| --- | --- |
+| 通常処理 | コスト重視のGemini Flash |
+| 難しい書類 | 強いGemini Flash |
+| 低信頼度 | 人間レビュー |
+| 量が多い夜間処理 | Batch/Flex価格帯を検討 |
+
+### 28.6 補助AIの扱い
+
+補助AIは初期実装に入れすぎない。
+補助AIは「Gemini Flashで十分に処理できない」「比較検証で改善が明確」「費用対効果がある」「運用が複雑になりすぎない」場合にだけ検討する。
+
+#### 28.6.1 Google Document AI Expense Parser
+
+Google Document AI Expense Parserは、レシート補助候補として有力である。
+経費日付、仕入先名、合計金額、通貨などを抽出できる。
+日本語にも対応している。
+
+扱い:
+
+- レシートはまずGemini Flashで開始する。
+- 精度、速度、コスト、レビュー修正率を比較して必要なら導入する。
+- 初期実装では必須依存にしない。
+
+#### 28.6.2 Google Document AI Invoice Parser
+
+Google Document AI Invoice Parserは、請求書向けの補助候補である。
+ただし、公式の言語リストでは日本語がInvoice Parserの対応言語として明記されていない。
+そのため、日本語請求書はGemini Flash中心で扱う。
+
+扱い:
+
+- 日本語請求書の本命にはしない。
+- 英語や欧州言語の請求書が増えた場合の比較候補にする。
+- 初期実装では必須依存にしない。
+
+#### 28.6.3 Mistral OCR
+
+Mistral OCRは、代替OCR、構造化抽出、Document QnAの比較候補である。
+ページ課金が分かりやすい。
+
+扱い:
+
+- Gemini Flashで失敗するPDFやOCR品質が悪い画像の比較候補にする。
+- 初期実装では必須依存にしない。
+- ページ単価、Batch可否、精度、レスポンス速度、データ取り扱いを比較してから検討する。
+
+#### 28.6.4 Azure Document Intelligence
+
+Azure Document Intelligenceは、レシート、請求書、表、キー・バリュー、カスタム分類などを扱える比較候補である。
+
+扱い:
+
+- AIBOUXの現構成ではGoogle/Geminiに寄せた方が管理が楽である。
+- Azure環境が主になる顧客、カスタム分類が必要な顧客向けの比較候補にする。
+- 初期実装では必須依存にしない。
+
+#### 28.6.5 AWS Textract
+
+AWS Textractは、AnalyzeExpenseなどを持つ比較候補である。
+AnalyzeExpenseは、レシートや請求書の明細とサマリーを返す。
+
+扱い:
+
+- AWS環境が主になる顧客、S3連携を前提にする顧客向けの比較候補にする。
+- 大量処理ではGemini系のtoken課金、Batch/Flex運用、Mistralのページ課金と比較する。
+- 初期実装では必須依存にしない。
+
+### 28.7 AIBOUX CoreでのAIとCoreの責務分離
+
+Gemini Flashは候補を作る。
+AIBOUX Coreは業務として確定する。
+
+Gemini Flashが担当すること:
+
+- 書類種別分類
+- OCR/視覚理解
+- レイアウト理解
+- 明細抽出
+- 金額抽出
+- 税額抽出
+- 相手先抽出
+- LINE文面理解
+- AIBOUX Mail文面理解
+- JSON生成
+- 信頼度、警告、確認ポイントの提示
+
+AIBOUX Coreが担当すること:
+
+- tenant_id管理
+- user_id管理
+- R2保存キー管理
+- マスター照合
+- 商品マスター照合
+- 取引先マスター照合
+- 納品先マスター照合
+- 人間レビュー
+- 突合
+- 注文書確定
+- 納品書作成
+- 月末請求
+- 仕訳候補
+- CSV/API連携
+- 監査ログ
+- 権限管理
+- 確定処理
+
+禁止:
+
+- AI抽出結果を自動確定すること
+- AIがtenant_idやuser_idを作ること
+- AIが既存IDを作り直すこと
+- AIがマスターを無断作成すること
+- AIが仕訳を自動承認すること
+- AIが外部送信を自動実行すること
+
+### 28.8 取り込み経路
+
+最終的な取り込み経路は3つである。
+
+1. LINE
+2. スマホ写真撮影
+3. PCアップロード / AIワークスペースアップロード
+
+スマホ写真撮影は、スマホと写真撮影を別経路にせず、1経路として扱う。
+
+### 28.9 LINE取り込み
+
+LINEでは、画像だけでなく文章注文を扱う。
+LINE公式アカウントへユーザーがメッセージを送ると、LINE側がWebhook URLへHTTP POSTを送る。
+LINEのWebhookでは、テキストメッセージの本文、画像、動画、音声、ファイルなどのユーザー送信コンテンツを扱える。
+
+LINE文面の例:
+
+- あそこに何個送って
+- A商品を3個、B商品を5個お願いします
+- 明日までに〇〇へ納品してください
+- 見積お願いします
+- 請求書お願いします
+- 注文お願いします
+
+LINE経路の基本フロー:
+
+```text
+LINE文面
+  ↓
+Gemini Flashで意図判定
+  ↓
+注文依頼 / 見積依頼 / 請求依頼 / 納品依頼 / 不明
+  ↓
+商品・数量・納品先・希望日を抽出
+  ↓
+注文書ドラフト
+  ↓
+人間確認
+  ↓
+注文書確定
+  ↓
+納品書作成へ
+```
+
+LINE画像経路:
+
+```text
+LINE画像
+  ↓
+Webhook messageId
+  ↓
+LINE content APIで画像取得
+  ↓
+R2保存
+  ↓
+即時プレビュー
+  ↓
+Gemini Flash解析
+  ↓
+レビュー待ち
+```
+
+LINEで必須の安全設計:
+
+- Webhook署名を検証する。
+- LINE channel access tokenをログに出さない。
+- 受信イベントは非同期処理を前提にする。
+- ユーザー送信コンテンツの取得期限を考慮する。
+- LINE本文をAIに送る前にtenant紐付けを確認する。
+- 不明文面は必ず人間レビューに回す。
+
+### 28.10 スマホ写真撮影
+
+スマホでは、レシート、領収書、納品書、請求書、注文書、見積書をカメラで撮る。
+重要なのは、撮った瞬間にプレビューが出ることである。
+AI解析を待たず、人間がまず画像を見られる状態にする。
+
+スマホ写真撮影フロー:
+
+```text
+スマホ撮影
+  ↓
+即時ローカルプレビュー
+  ↓
+アップロード
+  ↓
+R2保存
+  ↓
+AI解析
+  ↓
+レビュー画面
+```
+
+スマホ撮影UIの必須要件:
+
+- 撮影直後にローカルプレビューを出す。
+- アップロード前に撮り直しできる。
+- 斜め、暗い、ブレ、切れを警告候補として出す。
+- アップロード後にR2保存状態を表示する。
+- AI解析中でも原本画像を見られる。
+- AI結果を自動確定しない。
+
+### 28.11 PCアップロード / AIワークスペース
+
+PCからのPDF/画像アップロードは、AIワークスペースを主な入口にする。
+
+AIワークスペースフロー:
+
+```text
+AIワークスペース
+  ↓
+PDF/画像アップロード
+  ↓
+即時プレビュー
+  ↓
+R2保存
+  ↓
+解析ジョブ作成
+  ↓
+Gemini Flash
+  ↓
+レビュー
+  ↓
+書類確定
+```
+
+アップロード対象:
+
+- PDF
+- JPEG
+- PNG
+- WebP
+- HEIC変換後画像
+- スキャン画像
+- メール添付から渡されたファイル
+
+禁止:
+
+- アップロード完了までプレビューを出さない設計
+- AI解析完了まで原本を見せない設計
+- 原本保存前に解析だけ実行する設計
+- ファイルを公開URLへ直置きする設計
+- R2 keyにsecretや個人情報を含めること
+
+### 28.12 UI最重要方針
+
+UIの最重要ポイントは次である。
+
+- ファイル画像を高速でプレビュー表示する。
+- PDFは1ページ目から即プレビューする。
+- AI解析を待たず人間が原本を見られる。
+- 人間が原本とAI抽出結果を横並びで確認できる。
+- AI結果は自動確定しない。
+
+レビュー画面は、細い右カラムだけに詰め込まない。
+情報密度を高くし、プレビューと解析結果を同時に確認できる作業画面にする。
+
+推奨レイアウト:
+
+```text
+左:
+  ファイル一覧
+  解析待ち一覧
+  レビュー待ち一覧
+  取込経路フィルタ
+  書類種別フィルタ
+  信頼度フィルタ
+
+中央:
+  高速プレビュー
+  画像即表示
+  PDF 1ページ目即表示
+  ページサムネイル
+  ズーム
+  回転
+  明細部分の拡大
+  原本ダウンロード権限制御
+
+右:
+  AI抽出結果
+  書類種別
+  相手先
+  日付
+  金額
+  税額
+  明細
+  マスター候補
+  突合候補
+  仕訳候補
+  警告
+  信頼度
+  確定ボタン
+  差戻しボタン
+```
+
+### 28.13 プレビュー技術方針
+
+PDFプレビューはPDF.jsを候補にする。
+PDF.jsはHTML5で作られたPDFビューアであり、Web標準ベースでPDFをパース、レンダリングするためのプラットフォームとして扱える。
+
+画像やサムネイルの高速配信はCloudflare Images Transformationsを候補にする。
+Cloudflare Images Transformationsは、変換済み画像をエッジキャッシュできる。
+
+元ファイル保存はCloudflare R2を候補にする。
+R2は、Workers binding、S3互換API、REST APIから扱えるオブジェクトストレージであり、書類原本、プレビュー画像、サムネイル、AI処理対象ファイルの保存先に向いている。
+
+### 28.14 Coreサイドバー設計
+
+Coreサイドバーは、書類管理と帳票管理を分ける。
+
+```text
+Core
+  ダッシュボード
+  書類管理
+    AIワークスペース
+    カメラ取込
+    LINE取込
+    メール取込
+    解析待ち
+    レビュー待ち
+    レシート
+    領収書
+    納品書
+    請求書
+    注文書
+    見積書
+    突合
+    仕訳候補
+    取込履歴
+    AI設定
+  帳票管理
+    見積書
+    注文書
+    納品書
+    請求書
+  マスター
+    商品
+    得意先
+    納品先
+    設定
+```
+
+「帳票管理」は作る場所。
+「書類管理」は取り込む場所。
+この住み分けで固定する。
+
+### 28.15 書類管理の画面一覧
+
+書類管理に置く画面は次である。
+
+| 画面 | 目的 | 対象ユーザー |
+| --- | --- | --- |
+| 書類管理ダッシュボード | 取込件数、解析待ち、レビュー待ち、警告、処理時間を確認する | 管理者、業務担当者 |
+| AIワークスペース | PCアップロード、PDF/画像プレビュー、AI抽出結果レビューを行う | 業務担当者 |
+| カメラ取込 | スマホ写真撮影から書類を登録する | 現場担当者、業務担当者 |
+| LINE取込 | LINEから来た文面、画像、ファイルを確認する | 業務担当者 |
+| メール取込 | AIBOUX Mailから来た依頼や添付を確認する | メール担当者、業務担当者 |
+| 解析待ち | アップロード済みでAI解析前または解析中の書類を確認する | 業務担当者 |
+| レビュー待ち | AI抽出後、人間確認が必要な書類を確認する | 業務担当者、承認者 |
+| レシート | レシート取込結果を確認する | 経理担当者 |
+| 領収書 | 領収書、納金証、入金証を確認する | 経理担当者 |
+| 納品書 | 外部納品書、取り込み納品書を確認する | 受発注担当者 |
+| 請求書 | 相手から来た請求書、自社発行済み請求書照合を確認する | 経理担当者 |
+| 注文書 | 外部注文書、LINE注文、Mail注文を確認する | 受注担当者 |
+| 見積書 | 外部見積依頼、見積書画像、Mail見積依頼を確認する | 営業担当者 |
+| 突合 | 注文書、納品書、請求書の一致/差異を確認する | 管理者、経理担当者 |
+| 仕訳候補 | AIが作った仕訳候補を確認、修正、承認、CSV出力する | 経理担当者 |
+| 取込履歴 | 取込経路、処理状態、エラー、レビュー履歴を確認する | 管理者 |
+| AI設定 | provider/model、閾値、JSON Schema、レビュー基準を管理する | 管理者 |
+
+### 28.16 対象書類種別
+
+AIはまず、取り込んだものを分類する。
+分類値は次で固定する。
+
+| document_type | 意味 | 扱い |
+| --- | --- | --- |
+| receipt | レシート | 経費、仕訳候補、支払確認 |
+| payment_receipt | 領収書 / 納金証 / 入金証 | 支払確認、入金確認、仕訳候補 |
+| delivery_note | 納品書 | 注文書、請求書との突合対象 |
+| invoice_received | 相手から来た請求書 | 支払、仕訳、突合対象 |
+| invoice_issued_internal | 自分たちが発行した請求書 | 既存請求書データとの照合対象 |
+| order | 注文書 | 注文書ドラフト、納品書作成元 |
+| estimate | 見積書 | 見積依頼、見積書ドラフト |
+| line_order_request | LINEでの注文依頼 | 注文書ドラフト |
+| mail_order_request | AIBOUX Mailでの注文依頼 | 注文書ドラフト |
+| mail_estimate_request | AIBOUX Mailでの見積依頼 | 見積書ドラフト |
+| mail_invoice_request | AIBOUX Mailでの請求依頼 | 請求書作成候補 |
+| unknown | 不明 | 必ず人間レビュー |
+
+重要:
+
+- 自分たちが発行した請求書は、外部請求書として取り込まない。
+- 自分たちが発行した請求書は `invoice_issued_internal` として分類し、既存請求書との照合対象にする。
+- 相手から来た請求書は `invoice_received` として分類し、支払、仕訳、突合対象にする。
+
+### 28.17 データ構造
+
+最初から細かいテーブルを増やしすぎない。
+初期設計は次の4テーブルで開始する。
+
+1. `document_intakes`
+2. `document_extractions`
+3. `document_matches`
+4. `accounting_entry_candidates`
+
+raw_json と normalized_json は必ず持つ。
+AIの元結果と正規化後の結果を分けないと、後で検証できない。
+
+#### 28.17.1 document_intakes
+
+取り込まれた元ファイル、LINE文面、メール文面を管理する。
+
+| カラム | 役割 |
+| --- | --- |
+| id | 取込ID |
+| tenant_id | テナントID |
+| source_type | line / smartphone_camera / ai_workspace_upload / aiboux_mail |
+| source_ref | LINE messageId、Mail messageId、アップロードセッションIDなど |
+| original_filename | 元ファイル名 |
+| mime_type | MIME type |
+| r2_key_original | 原本R2 key |
+| r2_key_preview | プレビューR2 key |
+| status | uploaded / preview_ready / analyzing / needs_review / confirmed / rejected / routed |
+| created_by_user_id | 登録ユーザーID |
+| created_at | 作成日時 |
+| updated_at | 更新日時 |
+
+#### 28.17.2 document_extractions
+
+AI解析結果を保存する。
+
+| カラム | 役割 |
+| --- | --- |
+| id | 解析ID |
+| document_intake_id | 取込ID |
+| engine | gemini_flash |
+| model | 実モデルID。環境変数から記録する |
+| document_type | receipt / delivery_note / invoice_received / invoice_issued_internal / order / estimate / payment_receipt / unknown |
+| confidence | AI信頼度 |
+| raw_json | AIが返した元JSON |
+| normalized_json | Core用に正規化したJSON |
+| warnings | 警告、要確認点 |
+| created_at | 作成日時 |
+
+#### 28.17.3 document_matches
+
+注文書、納品書、請求書の突合を保存する。
+
+| カラム | 役割 |
+| --- | --- |
+| id | 突合ID |
+| tenant_id | テナントID |
+| source_document_id | 突合元ドキュメントID |
+| target_document_id | 突合先ドキュメントID |
+| match_type | order_to_delivery_note / delivery_note_to_invoice / order_to_invoice |
+| status | matched / partial / mismatch / needs_review |
+| amount_diff | 金額差異 |
+| quantity_diff | 数量差異 |
+| tax_diff | 税差異 |
+| confidence | 突合信頼度 |
+| created_at | 作成日時 |
+
+#### 28.17.4 accounting_entry_candidates
+
+仕訳候補を保存する。
+
+| カラム | 役割 |
+| --- | --- |
+| id | 仕訳候補ID |
+| tenant_id | テナントID |
+| document_intake_id | 取込ID |
+| target_accounting | money_forward / freee / generic_csv |
+| debit_account | 借方勘定科目 |
+| credit_account | 貸方勘定科目 |
+| tax_category | 税区分 |
+| amount | 金額 |
+| tax_amount | 税額 |
+| description | 摘要 |
+| status | draft / needs_review / approved / exported / rejected |
+| created_at | 作成日時 |
+
+### 28.18 JSON Schema構造化出力
+
+Gemini Flashの出力は自然文ではなくJSON Schema structured outputを使う。
+Geminiのstructured outputはJSON Schemaの一部をサポートするため、AIBOUXではスキーマを深くしすぎない。
+
+抽出JSONの基本構造:
+
+```json
+{
+  "document_type": "order",
+  "confidence": 0.91,
+  "party": {
+    "name": "株式会社サンプル",
+    "address": "東京都...",
+    "phone": "03-..."
+  },
+  "dates": {
+    "issue_date": "2026-06-01",
+    "due_date": "2026-06-30",
+    "delivery_date": "2026-06-03"
+  },
+  "amounts": {
+    "subtotal": 10000,
+    "tax": 1000,
+    "total": 11000,
+    "currency": "JPY"
+  },
+  "lines": [
+    {
+      "name": "A商品",
+      "sku_candidate": "A-001",
+      "quantity": 3,
+      "unit": "個",
+      "unit_price": 1000,
+      "amount": 3000,
+      "confidence": 0.88
+    }
+  ],
+  "master_candidates": {
+    "customer_id": "candidate",
+    "delivery_destination_id": "candidate",
+    "product_ids": ["candidate"]
+  },
+  "warnings": [
+    "納品先が曖昧です"
+  ]
+}
+```
+
+必須方針:
+
+- JSONはアプリ側で必ずバリデーションする。
+- JSON Schemaが構文的に合っていても、値が業務的に正しいとは限らない。
+- 金額、税額、明細合計、数量、日付、相手先はCore側で検算する。
+- confidenceが低い場合は必ずレビュー待ちにする。
+- unknownは必ずレビュー待ちにする。
+
+### 28.19 注文書から納品書、月末請求への中核フロー
+
+注文書から納品書、月末請求へつなぐことがAIBOUX Coreの中核である。
+
+基本フロー:
+
+```text
+注文書取込
+  ↓
+注文書データへ落とす
+  ↓
+人間レビュー
+  ↓
+注文書確定
+  ↓
+納品書を作成
+  ↓
+納品実績を確認
+  ↓
+月末締め
+  ↓
+請求書を自動作成候補として提示
+  ↓
+人間確認
+  ↓
+請求書確定
+```
+
+注文書の入力元:
+
+- 写真撮影
+- PDFアップロード
+- LINE文面
+- LINE画像
+- AIBOUX Mail本文
+- AIBOUX Mail添付
+
+注文書写真撮影フロー:
+
+```text
+注文書の写真撮影
+  ↓
+AI解析
+  ↓
+注文書ドラフト
+  ↓
+人間確認
+  ↓
+注文書確定
+  ↓
+納品書作成ボタン
+```
+
+LINE文面フロー:
+
+```text
+LINE:
+  A商品を3個、B商品を5個、〇〇へ送って
+  ↓
+Gemini Flash
+  ↓
+注文書ドラフト
+  ↓
+商品マスター照合
+  ↓
+納品先マスター照合
+  ↓
+人間確認
+  ↓
+納品書作成
+```
+
+AIBOUX Mailフロー:
+
+```text
+AIBOUX Mail:
+  見積お願いします
+  請求書お願いします
+  注文お願いします
+  ↓
+アラート
+  ↓
+AI解析
+  ↓
+見積書/注文書/請求依頼候補
+  ↓
+人間確認
+  ↓
+必要な帳票へ変換
+```
+
+### 28.20 AIBOUX Mailからの業務アラート
+
+AIBOUX Mailでは、メール本文から次を検出する。
+
+- 見積依頼
+- 注文依頼
+- 納品依頼
+- 請求書依頼
+- 支払確認
+- 返品依頼
+- 数量変更
+- 納期変更
+
+Mailアラートフロー:
+
+```text
+AIBOUX Mail受信
+  ↓
+AIが業務アラート判定
+  ↓
+Core通知
+  ↓
+「注文書へ変換」
+  ↓
+「見積書へ変換」
+  ↓
+「納品書へ変換」
+  ↓
+「請求書へ変換」
+```
+
+ただし、変換は必ず人間確認を挟む。
+メール本文から直接帳票を確定してはいけない。
+
+### 28.21 仕訳候補
+
+レシートや請求書は仕訳候補を作る。
+仕訳は自動確定しない。
+
+レシート候補:
+
+| 借方候補 | 貸方候補 |
+| --- | --- |
+| 消耗品費 | 現金 |
+| 旅費交通費 | クレジットカード |
+| 通信費 | 未払金 |
+| 接待交際費 | 未払金 |
+
+相手から来た請求書候補:
+
+| 借方候補 | 貸方候補 |
+| --- | --- |
+| 仕入 | 買掛金 |
+| 外注費 | 未払金 |
+| 経費 | 未払金 |
+
+自分たちが発行した請求書候補:
+
+| 借方候補 | 貸方候補 |
+| --- | --- |
+| 売掛金 | 売上 |
+
+AIが作るもの:
+
+- 仕訳候補
+- 勘定科目候補
+- 税区分候補
+- 摘要候補
+- Money Forward CSV候補
+- freee CSV候補
+- generic CSV候補
+
+人間がやるもの:
+
+- 承認
+- 修正
+- 却下
+- CSV出力
+- API連携実行
+
+会計連携Phase:
+
+| Phase | 内容 |
+| --- | --- |
+| Phase 1 | generic CSV |
+| Phase 2 | Money Forward向けCSV |
+| Phase 3 | freee向けCSV |
+| Phase 4 | API連携 |
+
+### 28.22 Astro API Routes設計
+
+Astroベースで実装してよい。
+Astroは `src/pages/` 配下の `.ts` / `.js` endpointでAPI Routesを作れる。
+SSR/オンデマンドレンダリングでは、サーバー側でリクエストを受け、認証、R2操作、AI呼び出し、DB保存を実行できる。
+
+最小API構成:
+
+| API Route | 役割 |
+| --- | --- |
+| `src/pages/api/core/documents/intake.ts` | LINE / upload / mail の取込登録 |
+| `src/pages/api/core/documents/upload-url.ts` | R2アップロードURL作成 |
+| `src/pages/api/core/documents/analyze.ts` | Gemini Flash解析ジョブ起動 |
+| `src/pages/api/core/documents/review.ts` | 人間レビュー保存 |
+| `src/pages/api/core/documents/confirm.ts` | 書類確定 |
+| `src/pages/api/core/documents/create-delivery-note.ts` | 注文書から納品書作成 |
+| `src/pages/api/core/documents/monthly-invoice.ts` | 月末締め請求作成候補 |
+| `src/pages/api/core/line/webhook.ts` | LINE webhook |
+| `src/pages/api/core/mail/alerts.ts` | AIBOUX Mailアラート |
+
+API設計の禁止事項:
+
+- API keyをレスポンスに出さない。
+- Gemini API keyをフロントへ渡さない。
+- LINE channel secretをログに出さない。
+- R2 private keyをログに出さない。
+- tenant_idなしで取込登録しない。
+- user_idなしで人間レビューを保存しない。
+- AI解析APIが直接帳票確定まで行わない。
+
+### 28.23 R2保存方針
+
+R2には原本、プレビュー、サムネイル、AI処理用派生ファイルを保存する。
+
+R2 key方針:
+
+```text
+tenants/{tenant_id}/document-intakes/{document_intake_id}/original/{safe_filename}
+tenants/{tenant_id}/document-intakes/{document_intake_id}/preview/page-{page}.webp
+tenants/{tenant_id}/document-intakes/{document_intake_id}/thumb/page-{page}.webp
+tenants/{tenant_id}/document-intakes/{document_intake_id}/ai/input.json
+tenants/{tenant_id}/document-intakes/{document_intake_id}/ai/raw-output.json
+```
+
+禁止:
+
+- R2 keyに顧客名、メールアドレス、電話番号、住所、API key、tokenを含める。
+- 原本ファイルをpublic bucketへ直置きする。
+- signed URL期限を未定義にする。
+- ファイル保存期間を未確定のまま断定する。
+
+TBD:
+
+- 保存期間
+- signed URL期限
+- サムネイルサイズ
+- プレビュー画像形式
+- PDFページ分割保存方式
+- R2 bucket名
+- lifecycle policy
+
+### 28.24 人間レビュー方針
+
+人間レビューは必須である。
+AI結果をそのまま確定しない。
+
+レビュー画面で確認する項目:
+
+- 原本プレビュー
+- 書類種別
+- 相手先
+- 日付
+- 金額
+- 税額
+- 明細
+- 数量
+- 単価
+- 商品マスター候補
+- 取引先マスター候補
+- 納品先マスター候補
+- 突合候補
+- 仕訳候補
+- 信頼度
+- 警告
+- AI raw_json
+- normalized_json
+
+レビュー操作:
+
+- 承認
+- 修正
+- 却下
+- 保留
+- 別書類種別へ変更
+- マスター候補を採用
+- マスター候補を作成依頼
+- 注文書ドラフトへ変換
+- 納品書作成へ進む
+- 仕訳候補へ送る
+
+### 28.25 Phase計画
+
+#### Phase 1
+
+まずここだけ作る。
+
+- AIワークスペース
+- スマホ写真撮影
+- PCアップロード
+- 高速プレビュー
+- R2保存
+- Gemini Flash分類
+- Gemini Flash JSON抽出
+- 人間レビュー
+- 注文書ドラフト
+- 注文書から納品書作成
+
+Phase 1で後回しにするもの:
+
+- LINE webhook本実装
+- AIBOUX Mailアラート本実装
+- Document AI導入
+- Mistral OCR導入
+- Azure導入
+- AWS導入
+- Money Forward API直結
+- freee API直結
+
+#### Phase 2
+
+- LINE webhook
+- LINE文面から注文書ドラフト
+- LINE画像から書類取込
+- AIBOUX Mailから見積/注文/請求依頼アラート
+- Mail添付から書類取込
+
+#### Phase 3
+
+- 納品書から月末請求書
+- 注文書・納品書・請求書の突合
+- レシートから仕訳候補
+- Money Forward向けCSV
+- freee向けCSV
+
+#### Phase 4
+
+- Document AI Expense Parser比較
+- Mistral OCR比較
+- Azure Document Intelligence比較
+- AWS Textract比較
+- Money Forward API連携
+- freee API連携
+
+### 28.26 設計確定
+
+- 書類管理と帳票管理を分ける。
+- 第一採用はGemini Flash系にする。
+- 初期実装はGemini Flash一本で開始する。
+- provider/model abstractionを入れる。
+- モデルIDをコードに固定しない。
+- JSON Schema structured outputを使う。
+- raw_jsonとnormalized_jsonを分ける。
+- 人間レビューを必須にする。
+- R2へ原本を保存する。
+- Astro API Routesで取込、解析、レビュー、確定を扱う。
+- LINE、スマホ写真撮影、PCアップロード / AIワークスペースを取り込み経路にする。
+- 自社発行済み請求書は `invoice_issued_internal` として分類する。
+- 相手から来た請求書は `invoice_received` として分類する。
+- 仕訳候補は自動承認しない。
+
+### 28.27 設計候補
+
+- PDF.jsでPDFプレビューを作る。
+- Cloudflare Images Transformationsで画像プレビューとサムネイルを高速化する。
+- Cloudflare R2 lifecycle policyを設定する。
+- Gemini Batch/Flexを夜間大量処理で使う。
+- Document AI Expense Parserをレシート補助として比較する。
+- Mistral OCRをOCR比較として使う。
+- Azure Document IntelligenceをAzure顧客向け候補にする。
+- AWS TextractをAWS顧客向け候補にする。
+- Money Forward CSVをPhase 2またはPhase 3で追加する。
+- freee CSVをPhase 2またはPhase 3で追加する。
+
+### 28.28 TBD
+
+- Gemini実モデルID
+- Gemini API利用リージョン
+- Gemini API key管理方式
+- JSON Schema詳細
+- confidence閾値
+- レビュー必須条件
+- R2 bucket名
+- R2保存期間
+- signed URL期限
+- プレビュー画像サイズ
+- PDFページ分割方式
+- LINE tenant紐付け方式
+- AIBOUX Mail連携API
+- 会計CSVフォーマット
+- Money Forward CSV仕様
+- freee CSV仕様
+- Money Forward API連携可否
+- freee API連携可否
+- 保存データの削除ポリシー
+- 監査ログ保存期間
+
+### 28.29 音声入力誤変換の補正
+
+ユーザー音声入力や会話文では、文脈で次のように補正する。
+
+| 誤変換 | 正しい解釈 |
+| --- | --- |
+| 仕分け | 仕訳 |
+| マネボードフリー | Money Forward / freee |
+| Googleフラッシュ | Gemini Flash |
+| 帳表 | 文脈により帳票、ただし今回は書類管理と帳票管理を分ける |
+| 帳票 | 今回は書類管理と帳票管理を住み分ける |
+
+### 28.30 禁止事項
+
+- Gemini Flashに全部任せて終わりにしない。
+- AI結果を自動確定しない。
+- AI抽出結果だけで注文書、納品書、請求書を確定しない。
+- 人間レビューを省略しない。
+- モデルIDをコードに直書きしない。
+- 価格をコードに直書きしない。
+- Document AI、Mistral、Azure、AWSを初期実装に入れすぎない。
+- 自社発行済み請求書を相手から来た請求書として取り込まない。
+- `invoice_issued_internal` と `invoice_received` を混同しない。
+- LINE webhook署名検証を省略しない。
+- LINE channel secretをログに出さない。
+- Gemini API keyをフロントへ渡さない。
+- R2 keyに個人情報やsecretを含めない。
+- 原本ファイルをpublic URLへ直出ししない。
+- tenant_idを作り直さない。
+- user_idを作り直さない。
+- document_id、estimate_id、order_id、delivery_note_id、invoice_idを作り直さない。
+- 仕訳候補を自動承認しない。
+- Money Forward/freee API直結をPhase 1で実装しない。
+
+### 28.31 公式確認メモ
+
+2026-06-01に確認した一次情報の要点は次である。
+
+- Gemini APIはPDFを入力として扱える。
+- Gemini APIはJSON Schema structured outputに対応している。
+- Gemini structured outputはJSON Schemaの一部をサポートするため、AIBOUXではスキーマを過度に複雑にしない。
+- Gemini 2.5 Flashはstructured output対応モデルに含まれる。
+- Gemini 3.5 Flashもstructured output対応モデルに含まれる。
+- Google Document AI Expense Parserは日本語対応を確認した。
+- Google Document AI Invoice Parserの言語リストには日本語が明記されていないため、日本語請求書の本命にはしない。
+- Mistral OCRはページ課金のOCR/Annotation候補として確認した。
+- Azure Document Intelligenceはprebuilt invoice、prebuilt receiptを持つ比較候補として確認した。
+- AWS Textract AnalyzeExpenseはレシートや請求書の明細、サマリーを返す比較候補として確認した。
+- Astro endpointsはAPI Routesとして使える。
+- Cloudflare R2はWorkers binding、S3互換API、REST APIから扱えるオブジェクトストレージとして確認した。
+- Cloudflare Images Transformationsは変換済み画像をエッジキャッシュする仕組みを持つ。
+- LINE Messaging APIはWebhookでメッセージイベントを受け、messageIdから画像、動画、音声、ファイルを取得できる。
+- PDF.jsはHTML5ベースのPDFビューアで、Web標準ベースのPDFパース・レンダリングプラットフォームとして確認した。
+
+### 28.32 次タスク
+
+次タスクは実装ではなく、Phase 1実装前の設計分解である。
+
+1. Core書類管理AIのUIワイヤーを作る。
+2. AIワークスペースの左、中央、右ペインの詳細仕様を作る。
+3. `document_intakes`、`document_extractions`、`document_matches`、`accounting_entry_candidates` のD1 migration案を作る。
+4. Gemini JSON Schema案を作る。
+5. R2 key設計案を作る。
+6. Gemini provider/model abstraction案を作る。
+7. 人間レビュー画面の状態遷移を作る。
+8. 注文書ドラフトから納品書作成の変換仕様を作る。
+9. LINE webhookはPhase 2として別タスクに分ける。
+10. AIBOUX MailアラートはPhase 2として別タスクに分ける。
+
+---
+
+## 29. AIBOUX Core マスターUI v3方針
+
+この章は、AIBOUX Coreのマスター管理UI v3方針の正本仕様である。
+対象は、商品マスター、得意先マスター、納品先マスター、設定画面、自動採番設定である。
+この章は、書類管理AI構想とは別に、Coreの通常業務UIを壊さないために固定する。
+
+### 29.1 対象画面
+
+CoreマスターUI v3の対象画面は次である。
+
+| 画面 | 目的 | 対象ユーザー |
+| --- | --- | --- |
+| 商品マスター一覧 | 商品、SKU、JAN、規格、価格、在庫連携状態を一覧で確認する | 商品管理担当者、在庫担当者、管理者 |
+| 商品マスター詳細 | 商品の基本情報、SKU、価格、在庫、取引先、画像、公開状態を確認する | 商品管理担当者、管理者 |
+| 商品マスター作成 | 商品、SKU、価格、税区分、規格、画像、公開候補を登録する | 商品管理担当者 |
+| 商品マスター編集 | 既存商品を編集し、Core正本を更新する | 商品管理担当者、管理者 |
+| 得意先マスター一覧 | 得意先、請求先、締め日、支払条件、担当者を一覧で確認する | 営業担当者、経理担当者、管理者 |
+| 得意先マスター詳細 | 得意先の基本情報、請求設定、納品先、取引履歴、連絡先を確認する | 営業担当者、経理担当者、管理者 |
+| 得意先マスター作成 | 得意先、請求条件、担当者、連絡先を登録する | 営業担当者、管理者 |
+| 得意先マスター編集 | 既存得意先情報を編集する | 営業担当者、管理者 |
+| 納品先マスター一覧 | 納品先、住所、担当者、配送条件、得意先紐付けを一覧で確認する | 受注担当者、配送担当者、管理者 |
+| 納品先マスター詳細 | 納品先住所、担当者、電話番号、配送メモ、得意先関係を確認する | 受注担当者、配送担当者、管理者 |
+| 納品先マスター作成 | 納品先住所、担当者、配送条件を登録する | 受注担当者、管理者 |
+| 納品先マスター編集 | 既存納品先を編集する | 受注担当者、管理者 |
+| 設定画面 | 会社情報、帳票設定、採番設定、税設定、権限、AI設定を管理する | 管理者 |
+| 自動採番設定 | 見積書、注文書、納品書、請求書の採番prefix、年月、連番を管理する | 管理者 |
+
+### 29.2 左サイドバー固定方針
+
+左サイドバーは既存から勝手に変えない。
+Core全体の操作導線であり、マスターUI v3のためだけに左サイドバー構造を破壊しない。
+
+禁止:
+
+- 左サイドバーをマスター画面専用に作り替えること
+- 帳票管理、在庫管理、マスター管理、設定、ヘルプの既存導線を消すこと
+- 商品マスター、得意先マスター、納品先マスターを別アプリ風に分離すること
+- ページごとにサイドバー幅、余白、ヘッダー位置を変えること
+
+許可:
+
+- 既存サイドバー内に必要な項目を整理して追加すること
+- アクティブ状態、badge、件数表示を既存トークンで調整すること
+- モバイル時の折りたたみを既存方針に合わせること
+
+### 29.3 右細カラム詳細は禁止
+
+CoreマスターUI v3では、右側の細いカラムに詳細を押し込まない。
+商品、得意先、納品先、設定は情報量が多いため、右細カラム詳細では確認、編集、比較がしにくい。
+
+禁止:
+
+- 一覧の右側に幅320px程度の細い詳細カラムを固定すること
+- 重要項目を右細カラムで折り返し続けること
+- 明細、住所、担当者、価格、SKU、履歴を細カラムに詰め込むこと
+- 詳細画面だけ余白、フォント、行高、ボタン位置を別物にすること
+
+採用:
+
+- サイドバー右端から画面右端まで使う全画面スライド
+- 一覧を背景に残したまま詳細/作成/編集を開く
+- URL履歴を無駄に増やさない
+- 閉じると一覧に戻る
+- 保存後に一覧を再取得または状態更新する
+
+### 29.4 全画面スライド詳細・作成UI方針
+
+CoreマスターUI v3の詳細、作成、編集は、サイドバー右端から画面右端まで使う全画面スライドを基準にする。
+これは納品書、見積書、注文書の作成/詳細ウィンドウ方針と揃える。
+
+基本構造:
+
+```text
+左:
+  既存Coreサイドバー
+
+右:
+  一覧画面を背景に保持
+  画面内Sheet / Slide / Workspaceとして詳細・作成・編集を開く
+  ヘッダー固定
+  本文スクロール
+  フッター操作固定
+```
+
+必須UI:
+
+- 固定ヘッダー
+- 画面上部タイトル
+- 状態badge
+- 主要操作ボタン
+- 閉じるボタン
+- 本文スクロール
+- 固定フッター
+- 保存ボタン
+- キャンセルボタン
+- 削除または無効化ボタン
+- 一覧更新
+- エラー表示
+- ローディング表示
+- 空状態
+
+禁止:
+
+- 新規作成で別ページへ遷移すること
+- 詳細表示で別ページへ遷移すること
+- 編集表示で別ページへ遷移すること
+- `window.location.href` で遷移すること
+- 強制reloadすること
+- 不要な `Navigate`、`router.push` を使うこと
+- ブラウザ履歴を無駄に増やすこと
+
+### 29.5 レイアウト統一方針
+
+商品マスター、得意先マスター、納品先マスター、設定画面は、操作感、余白、行高、入力欄、ボタン配置を綺麗に揃える。
+
+揃える項目:
+
+- 一覧ヘッダー
+- 検索欄
+- フィルタ
+- 新規作成ボタン
+- CSV出力ボタン
+- 一覧テーブル列幅
+- 一覧テーブル行高
+- hover状態
+- 選択状態
+- 詳細ボタン
+- 行クリック動作
+- 詳細ウィンドウ幅
+- 詳細ウィンドウ余白
+- 詳細カード幅
+- 詳細カード見出し
+- 入力欄高さ
+- ラベル幅
+- ヘルプテキスト
+- エラー表示
+- 保存ボタン位置
+- キャンセルボタン位置
+- フッター高さ
+
+フォント方針:
+
+- 業務UIとして密度を保つ。
+- 見出しだけを必要に応じて太くする。
+- 値、商品名、住所、数値、メモ本文を不必要に太くしない。
+- フォントサイズ、line-height、色は既存Coreトークンに合わせる。
+
+### 29.6 商品マスターUI v3
+
+商品マスターはCoreの正本データである。
+Shop、Mall、書類管理AI、注文書、納品書、請求書へ展開されるため、作成と編集は慎重に扱う。
+
+商品マスター一覧:
+
+- 商品コード
+- 商品名
+- SKU
+- JAN
+- 規格
+- 税区分
+- 標準価格
+- 在庫状態
+- 公開状態
+- 主要取引先
+- 更新日
+- 担当者
+- 状態
+
+商品マスター詳細:
+
+- 基本情報
+- SKU一覧
+- 価格
+- 税区分
+- 在庫
+- 商品画像
+- 仕入先
+- Shop公開候補
+- Mall掲載候補
+- 書類管理AIのマスター照合候補
+- 履歴
+- メモ
+
+商品マスター作成:
+
+- 商品名必須
+- 商品コード
+- SKU
+- JAN
+- 規格
+- 単位
+- 入数
+- 標準価格
+- 税区分
+- 在庫管理有無
+- 画像
+- 備考
+
+禁止:
+
+- 商品IDを作り直さない。
+- Core商品をShop用に無断複製しない。
+- 書類管理AIが商品マスターを自動確定作成しない。
+- 商品名だけで既存商品を上書きしない。
+
+### 29.7 得意先マスターUI v3
+
+得意先マスターは、見積書、注文書、納品書、請求書、Mail、書類管理AIの取引先照合に使う。
+
+得意先マスター一覧:
+
+- 得意先コード
+- 得意先名
+- 請求先名
+- 締め日
+- 支払条件
+- 担当者
+- 電話番号
+- メールアドレス
+- 状態
+- 更新日
+
+得意先マスター詳細:
+
+- 基本情報
+- 請求条件
+- 支払条件
+- 担当者
+- 連絡先
+- 納品先一覧
+- 取引履歴
+- Mail文脈
+- 書類管理AIの取引先候補
+- メモ
+- 履歴
+
+得意先マスター作成:
+
+- 得意先名必須
+- 得意先コード
+- 請求先名
+- 郵便番号
+- 住所
+- 電話番号
+- メールアドレス
+- 締め日
+- 支払条件
+- 担当者
+- 備考
+
+禁止:
+
+- 得意先IDを作り直さない。
+- メールアドレスだけで既存得意先を自動統合しない。
+- AI抽出結果だけで得意先を自動作成しない。
+- 請求条件をAIが自動確定しない。
+
+### 29.8 納品先マスターUI v3
+
+納品先マスターは、注文書、納品書、配送、LINE文面、Mail文面、書類管理AIの納品先照合に使う。
+
+納品先マスター一覧:
+
+- 納品先コード
+- 納品先名
+- 得意先名
+- 郵便番号
+- 都道府県
+- 市区町村
+- 住所
+- 担当者
+- 電話番号
+- 配送メモ
+- 状態
+- 更新日
+
+納品先マスター詳細:
+
+- 基本情報
+- 住所
+- 担当者
+- 電話番号
+- 配送条件
+- 配送メモ
+- 得意先紐付け
+- 注文履歴
+- 納品履歴
+- 書類管理AIの納品先候補
+- メモ
+- 履歴
+
+納品先マスター作成:
+
+- 納品先名必須
+- 得意先紐付け
+- 郵便番号
+- 都道府県
+- 市区町村
+- 住所
+- 建物名
+- 担当者
+- 電話番号
+- 配送条件
+- 配送メモ
+
+禁止:
+
+- 納品先IDを作り直さない。
+- 曖昧なLINE文面だけで納品先を自動確定しない。
+- 住所だけで既存納品先を自動統合しない。
+- 顧客情報を公開画面へ露出しない。
+
+### 29.9 設定画面UI v3
+
+設定画面は管理者向けである。
+設定画面はサービスサイトや顧客向け画面と混ぜない。
+
+設定カテゴリ:
+
+- 会社情報
+- 帳票設定
+- 自動採番設定
+- 税設定
+- 権限設定
+- メンバー設定
+- 書類管理AI設定
+- R2保存設定
+- Gemini provider/model設定
+- LINE連携設定
+- AIBOUX Mail連携設定
+- CSV出力設定
+- Money Forward連携候補
+- freee連携候補
+- 監査ログ
+
+禁止:
+
+- secretを設定画面に平文表示しない。
+- Gemini API keyを画面に表示しない。
+- LINE channel secretを画面に表示しない。
+- R2 secretを画面に表示しない。
+- 設定保存後に強制reloadしない。
+- 管理者以外にAI/provider/secret設定を表示しない。
+
+### 29.10 CoreマスターUI v3の次タスク
+
+1. 商品マスター一覧/詳細/作成のワイヤーを作る。
+2. 得意先マスター一覧/詳細/作成のワイヤーを作る。
+3. 納品先マスター一覧/詳細/作成のワイヤーを作る。
+4. 設定画面のカテゴリ構造を作る。
+5. 自動採番設定UIを作る。
+6. 納品書UIの全画面スライド構造をマスターUIへ適用する。
+7. 右細カラム詳細を使っている画面があれば廃止候補にする。
+
+---
+
+## 30. AIBOUX Core 自動採番方針
+
+検証用の正規キーワードは `N/E/I/O` である。
+
+この章は、AIBOUX Coreの見積書、注文書、納品書、請求書の自動採番方針である。
+納品書の自動採番仕様を基準にし、prefix以外の採番仕様を揃える。
+
+### 30.1 対象帳票
+
+| 帳票 | prefix | 例 |
+| --- | --- | --- |
+| 納品書 | N | N20260601-01 |
+| 見積書 | E | E20260601-01 |
+| 請求書 | I | I20260601-01 |
+| 注文書 | O | O20260601-01 |
+
+### 30.2 採番基準
+
+納品書の自動採番仕様を基準にする。
+prefix以外は揃える。
+
+基本形式:
+
+```text
+{PREFIX}{YYYYMMDD}-{連番2桁以上}
+```
+
+例:
+
+```text
+N20260601-01
+E20260601-01
+I20260601-01
+O20260601-01
+```
+
+必須方針:
+
+- tenant単位で採番する。
+- 帳票種別単位で採番する。
+- 日付単位で連番を進める。
+- 同一tenant、同一帳票種別、同一日付で重複しない。
+- 保存前の仮番号と保存後の確定番号を混同しない。
+- 手動変更を許可する場合は重複チェックを必須にする。
+- 削除済み番号を再利用しない。
+- 無効化した番号を再利用しない。
+
+### 30.3 採番タイミング
+
+推奨採番タイミング:
+
+```text
+作成ウィンドウを開く
+  ↓
+仮番号候補を表示
+  ↓
+保存
+  ↓
+サーバー側で重複確認
+  ↓
+確定番号を採番
+  ↓
+一覧更新
+```
+
+禁止:
+
+- クライアントだけで確定番号を決めること
+- 保存前にDB確定済み番号として扱うこと
+- 連番衝突時に上書きすること
+- prefixの違いだけで別tenantの番号を混同すること
+
+### 30.4 設定項目
+
+自動採番設定画面で扱う項目は次である。
+
+| 設定 | 役割 |
+| --- | --- |
+| 帳票種別 | 納品書 / 見積書 / 請求書 / 注文書 |
+| prefix | N / E / I / O |
+| 日付形式 | YYYYMMDD |
+| 連番桁数 | 初期値2桁 |
+| リセット単位 | 日次 |
+| 手動採番許可 | TBD |
+| 重複チェック | 必須 |
+| 無効番号再利用 | 禁止 |
+| プレビュー | 次回採番候補表示 |
+
+### 30.5 UI方針
+
+自動採番設定UIは設定画面内に置く。
+右細カラムではなく、全画面スライドまたは設定メイン画面内の十分な幅で扱う。
+
+UI必須項目:
+
+- 帳票種別一覧
+- prefix表示
+- 次回番号プレビュー
+- 連番桁数
+- リセット単位
+- 重複チェック状態
+- 保存ボタン
+- キャンセルボタン
+- 変更履歴
+
+### 30.6 禁止事項
+
+- 納品書だけ別採番仕様にしない。
+- 見積書だけ別採番仕様にしない。
+- 請求書だけ別採番仕様にしない。
+- 注文書だけ別採番仕様にしない。
+- prefix以外の仕様差を理由なく作らない。
+- 既存document_id、estimate_id、order_id、delivery_note_id、invoice_idを作り直さない。
+- 採番設定変更で過去帳票番号を更新しない。
+
+### 30.7 TBD
+
+- 月次リセットを許可するか。
+- 年次リセットを許可するか。
+- 手動採番をどの権限に許可するか。
+- 連番桁数の最大値。
+- 帳票番号prefixのテナント別変更可否。
+- インポート済み帳票番号との衝突処理。
+- legacy番号の扱い。
+
+---
+
+## 31. Shop WIP公開とUI保護運用
+
+### 31.1 追加理由
+
+前回のShop production-tenant実装で、機能追加と同時に見た目、余白、導線、操作感を広範囲に変え、公開Shop UIを劣化させた。
+この失敗を再発させないため、deploy自体を止めて抱え込むのではなく、必ず戻せるcheckpointを作ってからWIP公開し、公開URLで目視確認しながら問題を潰す。
+完了報告だけはstrict check全PASSまで禁止する。
+
+### 31.2 保護対象
+
+次のパスはShop UI警告対象である。
+
+- `src/pages/shop`
+- `src/components/shop`
+- `src/data/shop-sample-data.ts`
+- `src/styles`
+- `src/assets`
+
+### 31.3 実装済み運用
+
+`scripts/check-shop-ui-protection.mjs` を追加した。
+このスクリプトは2モードを持つ。
+
+| mode | 役割 |
+| --- | --- |
+| `--mode=warn` | WIP deploy用。dirtyなShop UIを警告として出すがexit 0で止めない。 |
+| `--mode=strict` | 完了判定用。dirtyなShop UIが残る場合はexit 1で止める。 |
+
+次のnpm scriptは、WIP deploy前にwarn-onlyのShop UI警告を実行する。
+
+- `npm run deploy`
+- `npm run deploy:preview`
+- `npm run deploy:prod`
+- `npm run deploy:shop:wip`
+
+次のnpm scriptは、完了判定でstrict checkを実行する。
+
+- `npm run check:shop-ui-protection:strict`
+- `npm run verify:shop:final`
+
+### 31.4 checkpoint必須
+
+WIP deploy前には必ずcheckpointを作る。
+
+`scripts/create-shop-wip-checkpoint.mjs --commit` は次を保存する。
+
+- `git status --short`
+- `git rev-parse HEAD`
+- `git rev-parse origin/main`
+- `git diff`
+- `git diff --staged`
+- `git log --oneline -10`
+- WIP commit
+- `npx wrangler deployments list --name aiboux`
+
+保存先:
+
+- `all_log/checkpoints/`
+- `all_log/patches/`
+- `all_log/deploys/`
+
+### 31.5 現在の状態
+
+現在のローカルtreeではShop UI保護対象がdirtyである。
+そのため、`npm run check:shop-ui-protection` はWARNになる。
+WIP deployはcheckpoint作成後に可能である。
+完了判定では `npm run check:shop-ui-protection:strict` がNGになり、完了報告を止める。
+
+### 31.6 禁止事項
+
+- checkpointなしでWIP deployしない。
+- 戻し方を記録せずにdeployしない。
+- UI劣化をログだけで完了扱いしない。
+- strict check未通過でFINAL_ACCEPTEDにしない。
+- WIP_DEPLOYEDをFINAL_ACCEPTEDと書かない。
+
+---
+
+## 2026-06-04T08:30:30Z Current Evidence Note: Public Storefront Hero Prev/Next DOM
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- Code WIP Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- WIP commit: `d6403e1f1348032cd3d44200ccb8a17584e5aa1f`
+- Public TOP side hero cards now expose `hero-slide-prev` and `hero-slide-next` with real images.
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T08:53:40Z Current Evidence Note: Public Storefront Slider And Interaction
+
+Status: `PUBLIC_STOREFRONT_SLIDER_AND_INTERACTION_FIX_WIP`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- WIP commit: `53c1fee`
+- Code WIP Worker Version ID: `4c77ab87-dffa-46b3-a764-10545da399e9`
+- Public TOP hero now changes slides by next, previous, dot click, and autoplay.
+- Public TOP side previews update as previous/next slide cards.
+- Product cards open product detail pages.
+- Cart add updates local cart count and button state.
+- Recommended and category `もっと見る` links route to tenant storefront pages.
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed.
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed.
+- Screen evidence is published under `/g/screens/`.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T09:51:40Z Current Evidence Note: Public Storefront Carousel Smoothness
+
+Status: `PUBLIC_STOREFRONT_CAROUSEL_SMOOTHNESS_AND_VISUAL_POLISH_WIP`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- WIP commit: `afb7187`
+- Code WIP Worker Version ID: `dcc6bae5-b1e6-4628-af00-5d0fdc5baa92`
+- Public TOP hero now uses a transform-based carousel track instead of immediate state replacement.
+- Transition: `transform 560ms cubic-bezier(0.22, 1, 0.36, 1)`.
+- `npm run gate:shop-storefront-carousel`: PASS, 2 passed.
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed.
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed.
+- Verified: next, previous, dot click, autoplay, side preview sync, keyboard arrows, swipe/drag, and transform during animation.
+- Smooth carousel screenshots are published under `/g/screens/`.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T12:45:00Z Current Evidence Note: Shop All Pages Cycle 6 Footer Cart Checkout
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- WIP commit: `5a74d3e`
+- Worker Version ID: `522b3fdb-81d9-4d45-913b-112ce56372bd`
+- User rejected the previous quality because all pages, footer, links, mypage, and unimplemented-looking surfaces still did not reach the requested Amazon-like sales quality.
+- Cart page now has a left cart content panel, right order summary, payment-not-configured notice, shipping/return condition link, and recommendation continuation section.
+- Checkout page now has order review, delivery/contact section, support cards, and sales/privacy links while honestly blocking unconnected payment.
+- Shared footer now includes delivery, returns, payment, and subscription assurance cards plus dense shopping/account/support/store-info link columns.
+- `gate:shop-public-crawl`: PASS, 5 passed on public URLs.
+- `gate:shop-contact-legal`: PASS, 2 passed on public URLs.
+- `gate:shop-cart-checkout`: PASS, 1 passed on public URLs.
+- Screen evidence is published under `/g/screens/`.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## Current WIP Evidence: Shop SEO Breadcrumb And Carousel Smoothness
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+The Shop Amazon-quality sprint now includes visible breadcrumbs, BreadcrumbList JSON-LD, Product JSON-LD, WebSite SearchAction JSON-LD, duplicate product title removal, and smoother TOP hero carousel behavior. This is not FINAL_ACCEPTED because D1 subscription migration and provider-backed recurring billing remain unverified.
+
+## 2026-06-04T13:57:00Z Current Evidence Note: Shop Robots And Sitemap SEO Discovery
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+- Target robots: `https://shop.aiboux.com/robots.txt`
+- Target sitemap: `https://shop.aiboux.com/sitemap.xml`
+- WIP commit: `b8142e0`
+- Worker Version ID: `90cbebfd-c9f4-418f-a8f7-d72e7f6df6cf`
+- `/sitemap.xml` was added to Worker and middleware static pass-through so it is not rewritten into Shop HTML.
+- `robots.txt` is HTTP 200 and points to the sitemap.
+- `sitemap.xml` is HTTP 200 and `application/xml; charset=utf-8`.
+- Sitemap includes public indexable Shop tenant discovery/content URLs and excludes cart, checkout, and admin URLs.
+- `gate:shop-public-crawl`: PASS, 6 passed on public URLs including robots/sitemap.
+- `gate:shop-sales-quality`: PASS on public URLs after sitemap route fix.
+
+## 2026-06-04T14:16:04Z Current Evidence Note: Shop Shared SEO Head And Common Parts
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target product: `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`
+- Worker Version ID: `e9aefc79-e737-4566-ba3e-50e4806a54a1`
+- Shared SEO head component added: `src/components/shop/ShopSeoHead.astro`
+- Shared SEO helpers remain centralized in `src/lib/shopSeo.ts`.
+- TOP route and subpage/product route now use the shared SEO head component.
+- TOP `/s/aiboux/` emits product discovery `ItemList` JSON-LD.
+- Product detail pages emit `product:price:amount` and `product:price:currency=JPY` Open Graph metadata.
+- Public TOP HTML includes `ItemList`, `x-default`, Open Graph, and Twitter Card metadata.
+- Public product HTML includes `og:type=product`, product price Open Graph metadata, `x-default`, Open Graph, and Twitter Card metadata.
+- `gate:shop-public-crawl`: PASS, 6 public tests.
+- `gate:shop-product-detail`: PASS, 3 public tests.
+- `gate:shop-sales-quality`: PASS on public URLs.
+- Google Search Central references checked: ecommerce SEO, crawlable links, breadcrumb structured data, product structured data, merchant listing structured data, sitemaps, and robots.txt.
+- FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+
+## 2026-06-04T14:27:00Z Current Evidence Note: Shop Shared Navigation And Support Parts
+
+- Shared storefront navigation/support helper added: `src/lib/shopStorefrontShared.ts`
+- TOP storefront now uses shared footer link groups.
+- Public subpage route now uses shared account cards, policy support cards, purchase guide cards, curated category seeds, footer columns, and footer assurances.
+- Shared data feeds visible navigation and ItemList JSON-LD inputs where applicable.
+- SEO-critical links remain real `<a href>` anchors with visible text.
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `gate:shop-public-crawl`: PASS, 6 public tests.
+- `gate:shop-sales-quality`: PASS on public URLs.
+- FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-04T14:55:42Z Current Evidence Note: Shop Shared Breadcrumb SEO/UI Parts
+
+Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target product/detail and support pages: `https://shop.aiboux.com/s/aiboux/...`
+- Shared visible breadcrumb component added: `src/components/shop/storefront/StorefrontBreadcrumb.tsx`
+- TOP React storefront and Astro subpage/product route now use the same visible breadcrumb component.
+- Visible breadcrumbs expose Schema.org `BreadcrumbList` and `ListItem` microdata.
+- Breadcrumb links use visible blue link color, underline hover state, and keyboard focus outline.
+- Visible breadcrumbs and JSON-LD breadcrumbs are both sourced from `ShopBreadcrumbItem`.
+- Product detail pages continue to require exactly one visible `h1`; duplicate product title above the image/gallery remains prohibited.
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with existing hints only.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- Strengthened public gates: `tests/shop-public-crawl.spec.ts`, `tests/shop-product-detail-public.spec.ts`.
+- FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+## 2026-06-04T15:00:00Z Current Evidence Note: Shop Shared Breadcrumb Public Verification
+
+Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
+
+- WIP commit before deploy: `9e48dc0`
+- Worker Version ID: `73a4a4fd-a69b-4ce7-9c7b-18ecee9c6701`
+- Public TOP `https://shop.aiboux.com/s/aiboux/`: HTTP 200 / `x-aiboux-worker-version: 73a4a4fd-a69b-4ce7-9c7b-18ecee9c6701`.
+- Public product detail `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`: HTTP 200 / visible shared breadcrumb microdata present.
+- Visible breadcrumb DOM confirms `data-testid="storefront-breadcrumb"`, `BreadcrumbList`, `ListItem`, and `text-blue-700` link styling.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-05T00:34:50+09:00 Current Evidence Note: Shop Shared Support Rail SEO/UI
+
+Status: `SHOP_10H_SHARED_SUPPORT_RAIL_SEO_UI_WIP`
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target tenant subpages: `https://shop.aiboux.com/s/aiboux/...`
+- Shared storefront support rail component added: `src/components/shop/storefront/StorefrontSupportRail.tsx`
+- Shared support rail data added to `src/lib/shopStorefrontShared.ts`.
+- TOP React storefront and Astro subpage/product route now use the same support rail component.
+- Support rail exposes crawlable internal links to products, categories, cart, checkout, contact, FAQ, returns, mypage, favorites, and subscriptions.
+- Support rail links use visible blue link affordance and hover underline.
+- `tests/shop-public-crawl.spec.ts` now verifies the support rail on public tenant storefront pages.
+- Google Search Central references checked: SEO Starter Guide, ecommerce structured data, Breadcrumb structured data, Product structured data, and crawlable links.
+- WIP commit: `3984217 WIP add shared storefront support rail SEO UI`
+- Worker Version ID: `ada2e58f-775c-448f-b051-302c13048866`
+- Direct public HTML checks confirmed `storefront-support-rail` on TOP, cart, checkout, mypage, and legal pages.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across all configured sales-quality lanes.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-04T15:12:15Z Current Evidence Note: Shop Shared Footer SEO/UI Parts
+
+Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target tenant subpages: `https://shop.aiboux.com/s/aiboux/...`
+- Shared storefront footer component added: `src/components/shop/storefront/StorefrontFooter.tsx`
+- TOP React storefront and Astro subpage/product route now use the same shared footer component.
+- Footer link groups continue to use the shared `buildShopFooterColumns(tenantRoot)` source used for `SiteNavigationElement` JSON-LD.
+- Visible footer navigation now exposes Schema.org `SiteNavigationElement` microdata in the DOM.
+- Footer assurance cards are shared across TOP and subpages, including honest payment/subscription pending messaging.
+- `tests/shop-public-crawl.spec.ts` now verifies footer `SiteNavigationElement` microdata, dense internal link coverage, and payment-not-configured honesty text on public URLs.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-04T15:18:00Z Current Evidence Note: Shop Shared Footer Public Verification
+
+Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
+
+- WIP commit before deploy: `6d86c1d`
+- Worker Version ID: `8dd4a847-0b5b-4df2-87c7-9a7a2442356d`
+- Public TOP `https://shop.aiboux.com/s/aiboux/`: HTTP 200 / shared footer DOM present.
+- Public cart `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200 / shared footer DOM present.
+- Public footer DOM confirms `data-testid="storefront-footer"`, `SiteNavigationElement`, dense internal footer links, and honest `決済未接続時は注文確定しません` messaging.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+## SHOP_10H_SHARED_SEO_HUB_WIP
+
+Status: `SHOP_10H_SHARED_SEO_HUB_WIP`
+
+Purpose:
+- Continue the AIBOUX Shop 5-hour sales-quality sprint.
+- Strengthen all tenant storefront pages with a shared SEO/internal-link hub.
+- Keep public links crawlable with real `<a href>` anchors and descriptive link text.
+- Keep SEO-relevant links visibly blue with hover/focus affordance.
+
+Implementation:
+- Added `src/components/shop/storefront/StorefrontSeoHub.tsx`.
+- Added shared link builders in `src/lib/shopStorefrontShared.ts`.
+- Rendered the SEO hub on TOP and every public tenant subpage.
+- Strengthened `tests/shop-public-crawl.spec.ts` to require the SEO hub, visible `SiteNavigationElement` microdata, dense internal links, and visible link color.
+
+Public deploy:
+- Implementation Worker Version ID: `89d685a7-8eb1-401c-8c6b-d92d29b9aa37`
+- Public evidence publication Worker Version ID: `08b5ddf3-dd69-43e6-9a62-c4187f97a803`
+- WIP commit: `847f49b`
+- Evidence commit: `359311b`
+- Publication deploy log: `all_log/deploys/20260604T155748Z_wrangler_publish_seo_hub_evidence.txt`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across configured storefront/admin lanes
+- Direct public HTML checks confirmed `storefront-seo-hub` on TOP, cart, checkout, mypage, and legal pages.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## 2026-06-05 Active WIP: Shared Product Card SEO/UI Contract
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+The public Shop tenant storefront must keep improving toward Amazon-like sales quality and 2026 search quality.
+
+Current confirmed shared product-card contract:
+
+- Product cards must be rendered through a shared storefront component where practical.
+- Product title and image must link with real crawlable `<a href>` to `/s/{tenant}/product/{id}`.
+- Category labels must link with real crawlable `<a href>` to stable category discovery URLs.
+- Product title and category links must remain visibly link-colored.
+- Product card images must have product-specific alt text.
+- Product cards must expose consistent image ratio, title height, rating, review count, price, tax label, hover state, and CTA placement.
+- Cart-capable product cards must keep `data-cart-add` and product data attributes.
+- Shared product cards must expose `Product`, `AggregateRating`, and `Offer` microdata.
+
+Implemented WIP:
+
+- `src/components/shop/storefront/StorefrontProductCard.astro`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `tests/shop-public-crawl.spec.ts`
+- `tests/shop-product-detail-public.spec.ts`
+
+Latest WIP evidence:
+
+- Implementation commit: `6090368`
+- Deploy checkpoint commit: `8f43942`
+- Worker Version ID: `ec4df0de-75ea-4976-b185-c06e2c7f16d8`
+- `gate:shop-seo-meta`: PASS
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-sales-quality`: PASS
+
+Not final:
+
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Public evidence Worker Version ID: `dda0942c-aa3d-4fa4-bd15-67b7ad7f2263`
+- Evidence commit before publication: `352d358`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Public verification log: `all_log/public-g/20260604T185635Z_shared_seo_meta_public_g_verification.txt`
+
+Current active Shop SEO meta rule:
+- Storefront page metadata must be produced through `buildShopStorefrontSeoMeta`.
+- TOP, search, category, public utility, account, and product-detail pages must not use thin placeholder titles or descriptions.
+- Canonical URLs, Open Graph URLs, Twitter descriptions, robots policy, breadcrumb structured data, and product structured data remain public-gate checked.
+- Search pages are noindex with canonical `/products`.
+- Category pages are indexable with self-canonical URLs.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## SHOP_10H_SHARED_SEO_META_MODEL_PROGRESS_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Progress Bark notification:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID in notification: `c9e2b75a-2f99-4d38-9b3b-ec6a31ef44c4`
+- Evidence file: `all_log/bark/20260604T190021Z_shared_seo_meta_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
+## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure update:
+- Public storefront SEO metadata must be generated from a shared model.
+- Every tenant storefront public page must have a useful title, useful meta description, canonical URL, robots policy, Open Graph metadata, Twitter Card metadata, and structured data.
+- Thin copy such as "公開中の商品を表示します" is not allowed as the SEO description.
+- Search query result URLs remain `noindex,follow,noarchive` and canonicalized to `/products`.
+- Stable category URLs remain indexable and self-canonical.
+- Product detail SEO descriptions must include purchase-decision terms such as price, tax display, reviews, inventory, shipping, returns, and subscription availability.
+
+Current shared metadata implementation:
+- Shared builder: `buildShopStorefrontSeoMeta()` in `src/lib/shopSeo.ts`
+- TOP route: `src/pages/shop/storefront/[tenant].astro`
+- Tenant page route: `src/pages/shop/[tenant]/[...path].astro`
+- Public gate: `gate:shop-seo-meta`
+
+Latest evidence:
+- WIP checkpoint commit: `b647f213a07a556e448b9832d99c3ab3722ffaba`
+- Worker Version ID: `62c71267-70d0-428d-a124-ab06a3f3938a`
+- `gate:shop-seo-meta`: PASS
+- `gate:shop-sales-quality`: PASS
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+Public evidence publication:
+- Public evidence Worker Version ID: `da5eb212-9842-4ec4-a3ca-b54a9c0a2938`
+- Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
+- Progress Bark notification delivered with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must expose crawlable, visible internal links.
+- Important shopping and support links must use real `<a href>` anchors and visible blue link affordance.
+- Shared reusable parts must be preferred over page-specific duplicate SEO blocks.
+- TOP storefront and dynamic storefront pages must share contextual SEO navigation.
+- Public pages should include `SiteNavigationElement` navigation semantics.
+- Public pages should include `ItemList` structured data where useful, including contextual links as fallback when the page has no product/category item list.
+- Product detail pages must keep one visible product `h1` and must not reintroduce a duplicate title above the image gallery.
+
+Shared parts:
+- Contextual links component: `src/components/shop/storefront/StorefrontContextLinks.tsx`
+- Link builder: `buildShopContextualLinkSections()` in `src/lib/shopStorefrontShared.ts`
+- TOP integration: `src/pages/shop/storefront/[tenant].astro` and `src/components/shop/storefront/ShadcnStorefront.tsx`
+- Dynamic public page integration: `src/pages/shop/[tenant]/[...path].astro`
+- Structured data integration: `src/lib/shopSeo.ts`
+
+Reference SEO basis:
+- Google Search Central SEO Starter Guide.
+- Google Search Central crawlable links guidance.
+- Google Search Central ecommerce URL guidance.
+- Google Search Central breadcrumb structured data guidance.
+- Google Search Central product structured data guidance.
+
+Latest evidence:
+- First deploy Worker Version ID: `1c6fde84-5225-4469-bdd1-9fd1a0f19ef6`
+- Fix deploy Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+- `gate:shop-public-crawl`: PASS, 9 passed
+- `gate:shop-sales-quality`: PASS
+- Evidence file: `all_log/100_shop_all_pages_seo_structure_ui.md`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current evidence:
+- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_SEARCH_SEO_PUBLICATION_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Public evidence deploy:
+- Worker Version ID: `18795347-7cc1-46ee-b5ca-683b7fb15d8c`
+- Public verification file: `all_log/public-g/20260604T173456Z_search_seo_public_g_verification.txt`
+
+Public URL bundle:
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+Public confirmation:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- `SHOP_10H_SEARCH_SEO_UI_WIP` visible in public m68/l68/d68.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_SEARCH_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Active Shop SEO/UI structure update:
+- Public tenant storefront headers must expose a real crawlable search form, not a decorative input.
+- Shared search component: `src/components/shop/storefront/StorefrontSearchForm.tsx`
+- Search route: `GET /s/{tenant}/products?q=<term>`
+- Query result pages must show query context to users.
+- Query result pages must keep canonical `/s/{tenant}/products`.
+- Query result pages must use `noindex,follow,noarchive` to avoid arbitrary internal-search index bloat while preserving product discovery links.
+- `WebSite` structured data `SearchAction` must match the actual public form target.
+- Search form must remain visible and usable on desktop, tablet, and mobile.
+
+Current public evidence:
+- WIP commits: `30f4f07`, `23e556d`
+- Latest Worker Version ID: `dad7c13e-c940-4a25-9fd8-0f484bce01d3`
+- `gate:shop-public-crawl`: PASS, 7 passed
+- `gate:shop-sales-quality`: PASS
+- Public search verification URL: `https://shop.aiboux.com/s/aiboux/products?q=%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_PAGE_TYPE_SEO_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Evidence commit: `b5eb45e5004e72c1f3683186704e4a91e9fab281`
+- Public evidence Worker Version ID: `566b290d-ed0d-4211-ba8d-67fbc5bd4e5a`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Public evidence includes the page-type SEO/UI markers and direct HTML evidence summary.
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_PAGE_TYPE_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must expose page-type-appropriate JSON-LD.
+- Products, categories, and favorites discovery pages use `CollectionPage`.
+- Contact uses `ContactPage`.
+- FAQ uses `FAQPage`.
+- Product detail uses `ItemPage` plus `Product` and `Offer`.
+- Product/list discovery pages expose stable `ItemList` entity IDs with `#itemlist`.
+- `ItemList` includes `numberOfItems` and `mainEntityOfPage`.
+- Product listing `ItemList` entries point at product entity IDs where possible.
+
+Reference SEO basis:
+- Google Search Central ecommerce SEO guidance: ecommerce pages should expose ecommerce-relevant structured data.
+- Google Search Central Product structured data guidance: merchant product pages should expose product facts in initial HTML when eligible.
+- Google Search Central Breadcrumb structured data guidance: breadcrumb markup should represent a useful user path.
+- Schema.org references for `CollectionPage`, `ContactPage`, `FAQPage`, `ItemList`, `Product`, and `Offer`.
+
+Latest evidence:
+- WIP commit: `6276c851b3127ec0c44a1542fde222a0267e6a74`
+- Worker Version ID: `bcb4177a-3d5e-4a77-a591-60a2ddf13d55`
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-sales-quality`: PASS
+- Direct public HTML checks verify `CollectionPage`, `ContactPage`, `FAQPage`, `ItemPage`, `Product`, `Offer`, `#itemlist`, `numberOfItems`, and `mainEntityOfPage` where applicable.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_ENTITY_GRAPH_SEO_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Evidence commit: `2818d8c`
+- Public evidence Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Public `/g/*` include the `SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP` marker.
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must expose a connected SEO entity graph, not isolated JSON-LD fragments.
+- The shared storefront entity is identified with a stable `#store` ID.
+- The shared website entity is identified with a stable `#website` ID.
+- Public WebPage JSON-LD must include `isPartOf`, `publisher`, and `about`.
+- Store organization markup must include the ecommerce `OnlineStore` subtype while retaining `Organization`.
+- Product detail JSON-LD must link `Product.mainEntityOfPage` to the canonical page entity.
+- Product Offer must link `seller` to the shared store entity.
+- Product Offer must keep `OfferShippingDetails` and `MerchantReturnPolicy`.
+- Visible breadcrumbs, crawlable links, shared page headers, SEO hub, support rail, and footer remain required shared SEO/UI parts.
+
+Current implementation files:
+- Shared SEO builder: `src/lib/shopSeo.ts`
+- Public tenant page integration: `src/pages/shop/[tenant]/[...path].astro`
+- Public TOP integration: `src/pages/shop/storefront/[tenant].astro`
+- Public crawl gate: `tests/shop-public-crawl.spec.ts`
+- Product detail gate: `tests/shop-product-detail-public.spec.ts`
+
+Reference SEO basis:
+- Google Search Central ecommerce guidance: ecommerce pages should expose product/store meaning clearly.
+- Google Search Central Product structured data guidance: Product and Offer data should include product facts, shipping, and return policy where applicable.
+- Google Search Central MerchantReturnPolicy guidance: return-policy structured data can expose return method, fees, window, and policy links.
+- Schema.org references: `OnlineStore`, `WebSite`, `WebPage`, `BreadcrumbList`, `Product`, and `Offer`.
+
+Latest evidence:
+- WIP commit: `b6ba295`
+- Worker Version ID: `d7617383-347a-43b5-ab4d-dc54ddab17d7`
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-sales-quality`: PASS
+- Direct public HTML checks for seven tenant URLs: HTTP 200 with `OnlineStore`, `#store`, `#website`, `isPartOf`, `publisher`, `about`, and `MerchantReturnPolicy`.
+- Product detail direct HTML also includes `OfferShippingDetails`, `mainEntityOfPage`, and `seller`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Evidence commit: `683b487`
+- Public evidence Worker Version ID: `9b7fe5ca-9d1a-4ea2-a89a-cfd79c5ce4ab`
+- Bark evidence commit: `c78750f`
+- Bark evidence publication Worker Version ID: `a97cd55e-9531-467c-bf97-d45cae19cc71`
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must share SEO-critical parts wherever possible.
+- Shared parts now include storefront header, breadcrumb, page header, SEO hub, support rail, and footer.
+- Non-product public tenant pages must use `StorefrontPageHeader`.
+- Product detail pages must not use the shared page header because product detail must keep exactly one visible product `h1`.
+- Links that matter for shopping and SEO must be real crawlable `<a href>` anchors with visible blue link affordance.
+
+Current shared page header rule:
+- Shared component: `src/components/shop/storefront/StorefrontPageHeader.tsx`
+- Shared action builder: `buildShopPageHeaderActions()` in `src/lib/shopStorefrontShared.ts`
+- Page integration: `src/pages/shop/[tenant]/[...path].astro`
+- Public test coverage: `tests/shop-public-crawl.spec.ts`
+
+Required shared page header fields:
+- store context;
+- one page `h1`;
+- page description;
+- at least two internal crawlable action links;
+- visible blue secondary link affordance;
+- `SiteNavigationElement` microdata.
+
+Reference SEO basis:
+- Google Search Central ecommerce SEO guidance: ecommerce pages should expose store/product meaning and use relevant structured data.
+- Google Search Central product structured data guidance: merchant product pages should expose product facts in initial HTML when eligible.
+- Google Search Central ecommerce URL guidance: crawlable URLs and links help Google find ecommerce pages.
+- Schema.org references for `BreadcrumbList`, `WebPage`, and `SiteNavigationElement`.
+
+Latest evidence:
+- WIP commit: `4b90bb0`
+- Worker Version ID: `1bd147f4-517a-4703-974a-56198b05bd86`
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-sales-quality`: PASS
+- Direct public HTML checks for 16 non-product tenant URLs: HTTP 200 with shared page header and navigation microdata.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_CLEANUP_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must share SEO-critical parts wherever possible.
+- Shared parts include storefront header, breadcrumb, SEO hub, support rail, and footer.
+- Links that matter for shopping and SEO must be real crawlable `<a href>` anchors with visible blue link affordance.
+- Product detail pages must not show duplicate product titles above the image gallery.
+- Product detail pages must keep one visible product `h1`.
+- Product detail breadcrumb may use a short visible current label, but the full product title must remain in structured data.
+
+Current breadcrumb rule:
+- Shared component: `src/components/shop/storefront/StorefrontBreadcrumb.tsx`
+- Shared SEO builder: `src/lib/shopSeo.ts`
+- Product detail visible current crumb: `商品詳細`
+- Product detail structured breadcrumb item name: full product display name
+- Breadcrumb structured data: `BreadcrumbList`
+
+Reference SEO basis:
+- Google Search Central SEO Starter Guide: unique, clear, concise page titles and useful content.
+- Google Search Central ecommerce guidance: expose ecommerce-relevant structured data.
+- Google Search Central Breadcrumb structured data: use BreadcrumbList for page hierarchy.
+- Google Search Central Product structured data: expose product facts on product pages when eligible.
+
+Latest evidence:
+- WIP commit: `6c3d010`
+- Worker Version ID: `f4073dab-a074-4cf3-a5c7-456f75e072c3`
+- Product detail public verification URL: `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
+- `gate:shop-product-detail`: PASS
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-sales-quality`: PASS
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Evidence commit: `87862ac`
+- Public evidence Worker Version ID: `1dda6a0e-440d-4eaf-958a-b5adbb60f585`
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
