@@ -685,19 +685,28 @@ function inferCategory(product: StorefrontProduct) {
 
 function imageForProduct(name: string, category: string, index: number) {
   const source = `${name} ${category}`.toLowerCase();
-  const directMatch = /ゆめぴりか|米|rice/.test(source)
-    ? "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&h=720&q=82"
-    : /保存容器|クロス|キッチン/.test(source)
-      ? "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82"
-      : /文具|本|stationery|book/.test(source)
-        ? "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=720&h=720&q=82"
-        : /スポーツ|アウトドア|sports|outdoor/.test(source)
-          ? "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=720&h=720&q=82"
-          : /セール|sale/.test(source)
-            ? "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=720&h=720&q=82"
-            : /ランキング|ranking/.test(source)
-              ? "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=720&h=720&q=82"
-              : "";
+  const nameSource = String(name).toLowerCase();
+  const isCategoryCard = String(name).trim() === String(category).trim();
+  let directMatch = "";
+
+  if (/ボトル|水筒|bottle/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/タオル|寝具|towel/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/ゆめぴりか|米|rice/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/保存容器|クロス|キッチン/.test(nameSource) || (isCategoryCard && /キッチン/.test(source))) {
+    directMatch = "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/文具|本|stationery|book/.test(nameSource) || (isCategoryCard && /文具|本/.test(source))) {
+    directMatch = "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/スポーツ|アウトドア|sports|outdoor/.test(nameSource) || (isCategoryCard && /スポーツ|アウトドア/.test(source))) {
+    directMatch = "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/セール|sale/.test(nameSource) || (isCategoryCard && /セール/.test(source))) {
+    directMatch = "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/ランキング|ranking/.test(nameSource) || (isCategoryCard && /ランキング/.test(source))) {
+    directMatch = "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=720&h=720&q=82";
+  }
+
   if (directMatch) return `${directMatch}&sig=${encodeURIComponent(`direct-${index}-${name}`)}`;
   const images = {
     coffee: [
