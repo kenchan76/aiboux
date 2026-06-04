@@ -19,6 +19,16 @@ Active instruction file:
 
 Continue the active sales-quality sprint. The current work unit is adding a shared trust and proof matrix to every public tenant storefront page so purchase confidence, seller information, shipping, returns, payment honesty, subscription status, privacy, and support are visible and crawlable.
 
+### 2026-06-04T22:50:51Z Public Verification Result
+
+- WIP commit before log update: `56b73b50f6b341e8bfe7a1bd88ddb09ecaffea2e`.
+- Latest WIP Worker Version ID before log update: `b496e1a2-0bde-4cbd-9d07-8ff86e9e156b`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- Public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops sub-gates passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final because the subscription plan POST returned HTTP 200 but the active test plan was not observed as persisted in the response.
+- Failure artifacts are retained under `all_log/test-results/20260604T225051Z_subscription_gate_blocked_trust_matrix/`.
+- `FINAL_ACCEPTED` remains prohibited.
+
 Google Search Central references checked for this continuation:
 
 - SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`

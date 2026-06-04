@@ -1,6 +1,34 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Trust Matrix Public Evidence
+
+Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP_DEPLOYED_NOT_FINAL`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override records the public verification state for the shared trust/proof matrix SEO/UI commonization.
+
+Current public WIP evidence:
+
+- WIP commit before this evidence update: `56b73b50f6b341e8bfe7a1bd88ddb09ecaffea2e`.
+- Latest WIP Worker Version ID before this evidence update: `b496e1a2-0bde-4cbd-9d07-8ff86e9e156b`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- Public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops sub-gates passed.
+- TOP and product detail render `StorefrontTrustMatrix`.
+- The trust matrix uses crawlable `<a href>` links with visible blue/underlined link affordance.
+- The trust matrix exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- Product detail keeps one visible product `h1`; duplicate product title above the image gallery remains prohibited.
+- Related product fallback links now point to implemented product IDs instead of non-existent `-related` paths.
+
+Not final:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- The subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
 ## Current Active Operating Override: AIBOUX Shop Trust Matrix SEO/UI Commonization
 
 Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`
