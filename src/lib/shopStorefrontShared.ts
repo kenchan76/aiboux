@@ -32,6 +32,43 @@ export type ShopStorefrontFaqItem = {
   answer: string;
 };
 
+export function buildShopCategoryHref(tenantRoot: string, slugOrName: string): string {
+  const category = findShopCuratedCategory(slugOrName);
+  const slug = category?.slug ?? slugOrName;
+  return `${tenantRoot}/products?category=${encodeURIComponent(slug)}`;
+}
+
+export function findShopCuratedCategory(slugOrName: string): ShopStorefrontCategorySeed | null {
+  const normalized = normalizeShopCategoryToken(slugOrName);
+  return buildShopCuratedCategoryCards().find((category) => {
+    return normalizeShopCategoryToken(category.slug) === normalized || normalizeShopCategoryToken(category.name) === normalized;
+  }) ?? null;
+}
+
+export function buildShopHeaderCategoryLinks(tenantRoot: string): ShopStorefrontLink[] {
+  return [
+    { label: "食品・お菓子", href: buildShopCategoryHref(tenantRoot, "food-drink") },
+    { label: "日用品", href: buildShopCategoryHref(tenantRoot, "daily-goods") },
+    { label: "キッチン用品", href: buildShopCategoryHref(tenantRoot, "kitchen") },
+    { label: "ギフト", href: buildShopCategoryHref(tenantRoot, "gift") },
+    { label: "ビューティー", href: buildShopCategoryHref(tenantRoot, "beauty") },
+    { label: "ペット用品", href: buildShopCategoryHref(tenantRoot, "pet") },
+    { label: "スポーツ・アウトドア", href: buildShopCategoryHref(tenantRoot, "sports-outdoor") },
+    { label: "本・文具", href: buildShopCategoryHref(tenantRoot, "books-stationery") },
+    { label: "セール", href: buildShopCategoryHref(tenantRoot, "sale") },
+    { label: "ランキング", href: buildShopCategoryHref(tenantRoot, "ranking") },
+  ];
+}
+
+function normalizeShopCategoryToken(value: string): string {
+  return String(value || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[・\s_]+/g, "-")
+    .replace(/[^a-z0-9ぁ-んァ-ヶー一-龠-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function buildShopFooterColumns(tenantRoot: string): ShopStorefrontLinkGroup[] {
   return [
     {
@@ -39,7 +76,8 @@ export function buildShopFooterColumns(tenantRoot: string): ShopStorefrontLinkGr
       links: [
         { label: "商品一覧", href: `${tenantRoot}/products` },
         { label: "カテゴリ", href: `${tenantRoot}/categories` },
-        { label: "タイムセール", href: `${tenantRoot}/products` },
+        { label: "タイムセール", href: buildShopCategoryHref(tenantRoot, "sale") },
+        { label: "売れ筋ランキング", href: buildShopCategoryHref(tenantRoot, "ranking") },
         { label: "お気に入り", href: `${tenantRoot}/favorites` },
       ],
     },
@@ -148,11 +186,11 @@ export function buildShopSeoHubGroups(tenantRoot: string): ShopStorefrontLinkGro
     {
       title: "人気カテゴリ",
       links: [
-        { label: "食品・飲料を比較する", href: `${tenantRoot}/products?category=food-drink` },
-        { label: "コーヒー・お茶を見る", href: `${tenantRoot}/products?category=coffee-tea` },
-        { label: "キッチン用品を探す", href: `${tenantRoot}/products?category=kitchen` },
-        { label: "日用品をまとめ買いする", href: `${tenantRoot}/products?category=daily-goods` },
-        { label: "ギフト商品を選ぶ", href: `${tenantRoot}/products?category=gift` },
+        { label: "食品・飲料を比較する", href: buildShopCategoryHref(tenantRoot, "food-drink") },
+        { label: "コーヒー・お茶を見る", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
+        { label: "キッチン用品を探す", href: buildShopCategoryHref(tenantRoot, "kitchen") },
+        { label: "日用品をまとめ買いする", href: buildShopCategoryHref(tenantRoot, "daily-goods") },
+        { label: "ギフト商品を選ぶ", href: buildShopCategoryHref(tenantRoot, "gift") },
       ],
     },
     {
@@ -214,7 +252,7 @@ export function buildShopPageHeaderActions(page: string, tenantRoot: string): Sh
     ],
     categories: [
       { label: "商品一覧へ", href: `${tenantRoot}/products`, tone: "primary" },
-      { label: "タイムセールを見る", href: `${tenantRoot}/products?category=sale`, tone: "secondary" },
+      { label: "タイムセールを見る", href: buildShopCategoryHref(tenantRoot, "sale"), tone: "secondary" },
       { label: "購入前ガイド", href: `${tenantRoot}/faq`, tone: "secondary" },
     ],
     cart: [

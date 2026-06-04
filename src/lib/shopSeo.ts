@@ -1,3 +1,5 @@
+import { buildShopCategoryHref, buildShopCuratedCategoryCards, findShopCuratedCategory } from "./shopStorefrontShared";
+
 export type ShopBreadcrumbItem = {
   name: string;
   visibleName?: string;
@@ -42,21 +44,6 @@ const NOINDEX_STOREFRONT_PAGES = new Set([
   "register",
   "account",
 ]);
-
-const CURATED_SHOP_CATEGORY_SITEMAP_ENTRIES = [
-  "food-drink",
-  "coffee-tea",
-  "kitchen",
-  "daily-goods",
-  "towels",
-  "beauty",
-  "pet",
-  "gift",
-  "sports-outdoor",
-  "books-stationery",
-  "sale",
-  "ranking",
-];
 
 export function absoluteShopUrl(path: string): string {
   return new URL(path, SHOP_ORIGIN).toString();
@@ -141,8 +128,8 @@ export function buildShopSitemapEntries(tenantSlug = "aiboux") {
     { path: `${tenantRoot}/returns`, changefreq: "monthly", priority: "0.60" },
     { path: `${tenantRoot}/faq`, changefreq: "monthly", priority: "0.65" },
   ];
-  const categoryPages = CURATED_SHOP_CATEGORY_SITEMAP_ENTRIES.map((slug) => ({
-    path: `${tenantRoot}/products?category=${encodeURIComponent(slug)}`,
+  const categoryPages = buildShopCuratedCategoryCards().map((category) => ({
+    path: buildShopCategoryHref(tenantRoot, category.slug),
     changefreq: "weekly",
     priority: "0.70",
   }));
@@ -209,10 +196,11 @@ export function buildShopBreadcrumbItems({
   if (page === "product" && product) {
     const categoryName = product.categoryName || "商品";
     items.push({ name: "商品一覧", href: `${tenantRoot}/products`, url: absoluteShopUrl(`${tenantRoot}/products`) });
+    const categoryHref = buildShopCategoryHref(tenantRoot, findShopCuratedCategory(categoryName)?.slug ?? categoryName);
     items.push({
       name: categoryName,
-      href: `${tenantRoot}/products?category=${encodeURIComponent(categoryName)}`,
-      url: absoluteShopUrl(`${tenantRoot}/products?category=${encodeURIComponent(categoryName)}`),
+      href: categoryHref,
+      url: absoluteShopUrl(categoryHref),
     });
     items.push({ name: product.displayName, visibleName: "商品詳細", href: "", url: canonicalUrl });
     return items;

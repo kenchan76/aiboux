@@ -359,4 +359,25 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
     expect(html).toContain("https://shop.aiboux.com/s/aiboux/products?category=coffee-tea");
     expect(html).not.toContain("noindex,follow,noarchive");
   });
+
+  test("shared category links use stable slug URLs across header and product breadcrumbs", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
+
+    const header = page.locator("header").first();
+    await expect(header.getByRole("link", { name: "日用品" })).toHaveAttribute("href", "/s/aiboux/products?category=daily-goods");
+    await expect(header.getByRole("link", { name: "セール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+    await expect(header.getByRole("link", { name: "ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+
+    const footer = page.getByTestId("storefront-footer");
+    await expect(footer.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+    await expect(footer.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+
+    await page.goto("/s/aiboux/product/setsuka-coffee", { waitUntil: "networkidle" });
+    const breadcrumb = page.getByTestId("storefront-breadcrumb");
+    await expect(breadcrumb.getByRole("link", { name: "コーヒー・お茶" })).toHaveAttribute(
+      "href",
+      "/s/aiboux/products?category=coffee-tea",
+    );
+  });
 });

@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
+import { buildShopHeaderCategoryLinks } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
 import { StorefrontFooter } from "./StorefrontFooter";
@@ -230,6 +231,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
 function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; tenantRoot: string; layout: StorefrontLayout }) {
   const logo = layout.global.logo;
   const logoHref = logo.linkType === "custom" && logo.customUrl ? logo.customUrl : `${tenantRoot}/`;
+  const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
   return (
     <header className="sticky top-0 z-30 bg-[#0f1722] text-white shadow-sm">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-2 text-xs">
@@ -255,9 +257,9 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
       </div>
       <nav className="mx-auto flex max-w-screen-xl items-center gap-6 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
         <a className="shrink-0 font-bold" href={`${tenantRoot}/categories`}>すべてのカテゴリー</a>
-        {layout.global.navigation.items.map((item) => (
-          <a key={item} className={cn("shrink-0", item === "セール" && "font-bold text-red-400")} href={`${tenantRoot}/products`}>
-            {item}
+        {headerCategoryLinks.map((item) => (
+          <a key={item.label} className={cn("shrink-0", item.label === "セール" && "font-bold text-red-400")} href={item.href}>
+            {item.label}
           </a>
         ))}
       </nav>

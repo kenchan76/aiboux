@@ -34,6 +34,7 @@ import {
   buildShopCuratedCategoryCards,
   buildShopFaqItems,
   buildShopFooterColumns,
+  buildShopHeaderCategoryLinks,
   buildShopPageHeaderActions,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
@@ -188,6 +189,7 @@ const accountCards = buildShopAccountCards(tenantRoot);
 const purchaseGuideCards = buildShopPurchaseGuideCards();
 const policySupportCards = buildShopPolicySupportCards(tenantRoot);
 const footerColumns = buildShopFooterColumns(tenantRoot);
+const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const faqItems = buildShopFaqItems();
 const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
@@ -637,7 +639,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
       </div>
       <nav class="mx-auto flex max-w-6xl gap-5 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
         <a class="shrink-0 font-bold" href={`${tenantRoot}/categories`}>すべてのカテゴリー</a>
-        {(layout?.global.navigation.items ?? []).map((item) => <a class={item === "セール" ? "shrink-0 font-bold text-red-400" : "shrink-0"} href={`${tenantRoot}/products`}>{item}</a>)}
+        {headerCategoryLinks.map((item) => <a class={item.label === "セール" ? "shrink-0 font-bold text-red-400" : "shrink-0"} href={item.href}>{item.label}</a>)}
       </nav>
     </header>
     {
