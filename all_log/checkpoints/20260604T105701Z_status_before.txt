@@ -1,0 +1,4 @@
+ M ops/instructions/20260604_shop_amazon_quality_all_pages_cycle3.md
+ M ops/instructions/current.md
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-public-crawl.spec.ts

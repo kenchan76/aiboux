@@ -17,6 +17,13 @@ const publicUrls = [
   { path: "/s/aiboux/shipping", name: "shop-shipping-page" },
   { path: "/s/aiboux/returns", name: "shop-returns-page" },
   { path: "/s/aiboux/faq", name: "shop-faq-page" },
+  { path: "/s/aiboux/mypage", name: "shop-mypage", expectedTestId: "storefront-mypage" },
+  { path: "/s/aiboux/account", name: "shop-account", expectedTestId: "storefront-mypage" },
+  { path: "/s/aiboux/orders", name: "shop-orders", expectedTestId: "storefront-orders" },
+  { path: "/s/aiboux/favorites", name: "shop-favorites", expectedTestId: "storefront-favorites" },
+  { path: "/s/aiboux/login", name: "shop-login", expectedTestId: "storefront-auth" },
+  { path: "/s/aiboux/register", name: "shop-register", expectedTestId: "storefront-auth" },
+  { path: "/s/aiboux/mypage/subscriptions", name: "shop-mypage-subscriptions", expectedTestId: "storefront-mypage-subscriptions" },
 ];
 
 const adminUrls = [
@@ -62,8 +69,12 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
 
         await page.goto(`${target.path}?crawl=${Date.now()}`, { waitUntil: "networkidle" });
         await expect(page.locator("body")).not.toContainText("ページが見つかりません");
+        await expect(page.locator("body")).not.toContainText("Not Found");
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
+        if ("expectedTestId" in target && target.expectedTestId) {
+          await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
+        }
 
         const bodyBox = await page.locator("body").boundingBox();
         expect(bodyBox?.width ?? 0, `${target.path} should render a styled page body`).toBeGreaterThan(300);

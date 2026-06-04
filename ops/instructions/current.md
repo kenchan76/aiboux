@@ -25,6 +25,13 @@ Improve sales quality and interaction quality for:
 - shipping
 - returns
 - FAQ
+- mypage
+- account
+- orders
+- favorites
+- login
+- register
+- mypage/subscriptions
 - admin operational shells
 
 ## Non-negotiable Rules
@@ -43,6 +50,8 @@ Improve sales quality and interaction quality for:
 - Checkout and cart must look like real order flow while honestly blocking payment if not configured.
 - Legal/contact pages must not look like thin placeholder cards.
 - Mobile must remain usable and not sparse.
+- No user-facing link destination may remain 404 or thin placeholder.
+- Mypage, order history, favorites, account, login/register, and subscription self-service pages are included in the storefront quality scope.
 
 ## Current Evidence Baseline
 - Worker Version ID: 50b53609-d572-4f93-9ce6-0558d4b5022b

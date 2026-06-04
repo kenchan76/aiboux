@@ -1,0 +1,325 @@
+diff --git a/ops/instructions/20260604_shop_amazon_quality_all_pages_cycle3.md b/ops/instructions/20260604_shop_amazon_quality_all_pages_cycle3.md
+index 152d2ee..aba9464 100644
+--- a/ops/instructions/20260604_shop_amazon_quality_all_pages_cycle3.md
++++ b/ops/instructions/20260604_shop_amazon_quality_all_pages_cycle3.md
+@@ -25,6 +25,13 @@ Improve sales quality and interaction quality for:
+ - shipping
+ - returns
+ - FAQ
++- mypage
++- account
++- orders
++- favorites
++- login
++- register
++- mypage/subscriptions
+ - admin operational shells
+ 
+ ## Non-negotiable Rules
+@@ -43,6 +50,8 @@ Improve sales quality and interaction quality for:
+ - Checkout and cart must look like real order flow while honestly blocking payment if not configured.
+ - Legal/contact pages must not look like thin placeholder cards.
+ - Mobile must remain usable and not sparse.
++- No user-facing link destination may remain 404 or thin placeholder.
++- Mypage, order history, favorites, account, login/register, and subscription self-service pages are included in the storefront quality scope.
+ 
+ ## Current Evidence Baseline
+ - Worker Version ID: 50b53609-d572-4f93-9ce6-0558d4b5022b
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 152d2ee..aba9464 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -25,6 +25,13 @@ Improve sales quality and interaction quality for:
+ - shipping
+ - returns
+ - FAQ
++- mypage
++- account
++- orders
++- favorites
++- login
++- register
++- mypage/subscriptions
+ - admin operational shells
+ 
+ ## Non-negotiable Rules
+@@ -43,6 +50,8 @@ Improve sales quality and interaction quality for:
+ - Checkout and cart must look like real order flow while honestly blocking payment if not configured.
+ - Legal/contact pages must not look like thin placeholder cards.
+ - Mobile must remain usable and not sparse.
++- No user-facing link destination may remain 404 or thin placeholder.
++- Mypage, order history, favorites, account, login/register, and subscription self-service pages are included in the storefront quality scope.
+ 
+ ## Current Evidence Baseline
+ - Worker Version ID: 50b53609-d572-4f93-9ce6-0558d4b5022b
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index 8b2b97e..407d0bc 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -30,6 +30,13 @@ const allowedPaths = new Set([
+   "shipping",
+   "returns",
+   "faq",
++  "mypage",
++  "mypage/subscriptions",
++  "orders",
++  "favorites",
++  "login",
++  "register",
++  "account",
+ ]);
+ 
+ const productMatch = pathParam.match(/^product\/([^/]+)$/);
+@@ -73,6 +80,13 @@ const pageMeta: Record<string, { title: string; description: string }> = {
+   shipping: { title: "配送について", description: "配送方法と送料の情報を表示します。" },
+   returns: { title: "返品について", description: "返品・交換条件を表示します。" },
+   faq: { title: "よくある質問", description: "ストア利用前によく確認される項目を表示します。" },
++  mypage: { title: "マイページ", description: "注文履歴、配送先、お気に入り、定期購入の確認入口です。" },
++  "mypage/subscriptions": { title: "定期購入", description: "定期購入契約と次回配送予定を確認します。" },
++  orders: { title: "注文履歴", description: "過去の注文、配送状況、問い合わせ導線を確認します。" },
++  favorites: { title: "お気に入り", description: "保存した商品とおすすめ商品を確認します。" },
++  login: { title: "ログイン", description: "購入者アカウントへのログイン入口です。" },
++  register: { title: "会員登録", description: "購入者アカウント作成の入口です。" },
++  account: { title: "アカウント", description: "購入者アカウントの確認入口です。" },
+   product: { title: salesProduct?.displayName || "商品詳細", description: salesProduct ? `${salesProduct.displayName} の商品詳細です。` : "商品が見つかりません。" },
+ };
+ 
+@@ -92,6 +106,19 @@ const policyText = profile && ["legal", "privacy", "shipping", "returns"].includ
+         : buildReturnsText(profile)
+   : "";
+ const policyBlocks = policyText ? splitPolicyText(policyText) : [];
++const accountCards = [
++  { title: "注文履歴", body: "注文番号、配送状況、領収書、問い合わせを確認します。", href: `${tenantRoot}/orders` },
++  { title: "お気に入り", body: "あとで購入したい商品を保存して比較できます。", href: `${tenantRoot}/favorites` },
++  { title: "定期購入", body: "次回配送、スキップ、一時停止、解約条件を確認します。", href: `${tenantRoot}/mypage/subscriptions` },
++  { title: "配送先", body: "配送先住所は決済接続後に登録できるようになります。", href: `${tenantRoot}/checkout` },
++  { title: "問い合わせ", body: "注文番号を添えてストアへ問い合わせできます。", href: `${tenantRoot}/contact` },
++  { title: "返品・配送", body: "配送、返品、キャンセル条件を確認します。", href: `${tenantRoot}/returns` },
++];
++const purchaseGuideCards = [
++  { title: "未発送", body: "注文後、発送準備前の変更や問い合わせに対応します。" },
++  { title: "発送済み", body: "追跡番号、配送予定日、配送会社を確認できます。" },
++  { title: "返品・交換", body: "未開封品、不良品、到着後7日以内などの条件を案内します。" },
++];
+ 
+ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number): string {
+   const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
+@@ -232,8 +259,9 @@ function buildProductThumbnails(productValue: any): Array<{ imageUrl: string; al
+ }
+ 
+ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
++  const currentId = currentProduct?.id ?? "";
+   const normalized = sourceProducts
+-    .filter((item) => item.id !== currentProduct.id)
++    .filter((item) => item.id !== currentId)
+     .map((item, index) => toSalesProductDetail(item, index + 1))
+     .filter((item, index, array) => array.findIndex((next) => next.displayName === item.displayName) === index);
+   const fallback = [
+@@ -242,7 +270,7 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
+     { id: "setsuka-towel-related", displayName: "雪花セレクト ギフトタオル 2枚セット", categoryName: "タオル・寝具", salePrice: 2980, imageUrl: imageForSalesProduct("雪花セレクト ギフトタオル 2枚セット", "タオル・寝具", 1) },
+     { id: "setsuka-gift-related", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980, imageUrl: imageForSalesProduct("季節のギフトボックス", "ギフト", 1) },
+   ];
+-  return [...normalized, ...fallback].filter((item, index, array) => item.id !== currentProduct.id && array.findIndex((next) => next.displayName === item.displayName) === index);
++  return [...normalized, ...fallback].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
+ }
+ 
+ function splitPolicyText(value: string): Array<{ title: string; body: string }> {
+@@ -299,8 +327,8 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+           <input class="h-10 min-w-0 flex-1 border-0 px-4 text-sm outline-none" placeholder={headerDesign?.searchPlaceholder ?? "キーワード・商品名・ブランド名で検索"} />
+           <span class="flex w-12 items-center justify-center bg-amber-500 text-neutral-950">検索</span>
+         </div>
+-        <a class="hidden text-xs md:block" href={`${tenantRoot}/contact`}>アカウント<br /><b>ログイン</b></a>
+-        <a class="hidden text-xs md:block" href={`${tenantRoot}/checkout`}>注文履歴</a>
++        <a class="hidden text-xs md:block" href={`${tenantRoot}/mypage`}>アカウント<br /><b>マイページ</b></a>
++        <a class="hidden text-xs md:block" href={`${tenantRoot}/orders`}>注文履歴</a>
+         <a class="text-xs" href={`${tenantRoot}/cart`}>カート</a>
+       </div>
+       <nav class="mx-auto flex max-w-6xl gap-5 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
+@@ -634,6 +662,156 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+               </details>
+             </section>
+           ) : null}
++
++          {["mypage", "account"].includes(page) ? (
++            <section class="grid gap-5" data-testid="storefront-mypage">
++              <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
++                <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
++                  <div>
++                    <p class="text-xs font-semibold text-blue-700">購入者アカウント</p>
++                    <h2 class="mt-1 text-2xl font-bold text-neutral-950">こんにちは。{storeName} のお買い物を管理できます。</h2>
++                    <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
++                      注文、配送、返品、定期購入、お気に入りをここから確認します。ログイン基盤が有効化されるまでは、注文確定や個人情報保存を行わず、公開ストアの確認導線として表示します。
++                    </p>
++                  </div>
++                  <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/login`}>ログインへ進む</a>
++                </div>
++              </div>
++              <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
++                {accountCards.map((card) => (
++                  <a class="group rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={card.href}>
++                    <div class="flex items-start justify-between gap-3">
++                      <h3 class="text-base font-bold text-neutral-950">{card.title}</h3>
++                      <span class="rounded-full bg-neutral-100 px-2 py-1 text-xs font-bold text-neutral-500 group-hover:bg-amber-100 group-hover:text-amber-800">開く</span>
++                    </div>
++                    <p class="mt-3 text-sm leading-6 text-neutral-600">{card.body}</p>
++                  </a>
++                ))}
++              </div>
++              <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
++                <section class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
++                  <h3 class="text-base font-bold text-neutral-950">最近チェックした商品</h3>
++                  <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
++                    {buildRelatedSalesProducts(products, null).slice(0, 3).map((item) => (
++                      <a class="rounded-lg border border-neutral-200 bg-white p-3 hover:bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
++                        <div class="aspect-square overflow-hidden rounded-md bg-neutral-50">
++                          <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
++                        </div>
++                        <div class="mt-2 line-clamp-2 min-h-[2.8em] text-sm font-semibold">{item.displayName}</div>
++                        <div class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
++                      </a>
++                    ))}
++                  </div>
++                </section>
++                <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
++                  <h3 class="font-bold text-neutral-950">アカウント機能の状態</h3>
++                  <p class="mt-2">ログイン、住所保存、支払い方法保存は本番認証・決済接続後に有効化します。現時点では成功したふりをせず、各導線を確認用テンプレートとして表示します。</p>
++                  <a class="mt-4 inline-flex h-9 items-center rounded-md border border-amber-300 bg-white px-3 text-xs font-semibold" href={`${tenantRoot}/contact`}>問い合わせする</a>
++                </aside>
++              </div>
++            </section>
++          ) : null}
++
++          {page === "orders" ? (
++            <section class="grid gap-5" data-testid="storefront-orders">
++              <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
++                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
++                  <div>
++                    <h2 class="text-2xl font-bold text-neutral-950">注文履歴</h2>
++                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文番号、配送状況、領収書、問い合わせを確認するページです。現在は本番注文作成を停止しているため、注文データは表示しません。</p>
++                  </div>
++                  <a class="inline-flex h-10 items-center justify-center rounded-full bg-neutral-950 px-5 text-sm font-bold text-white" href={`${tenantRoot}/products`}>買い物を続ける</a>
++                </div>
++              </div>
++              <div class="grid gap-4 md:grid-cols-3">
++                {purchaseGuideCards.map((card) => (
++                  <article class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm">
++                    <h3 class="text-base font-bold text-neutral-950">{card.title}</h3>
++                    <p class="mt-2 text-sm leading-6 text-neutral-600">{card.body}</p>
++                  </article>
++                ))}
++              </div>
++              <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-8 text-center">
++                <div class="text-base font-bold text-neutral-950">まだ注文はありません</div>
++                <p class="mt-2 text-sm leading-6 text-neutral-600">決済設定が完了し、注文が作成されると配送状況と問い合わせ導線がここに表示されます。</p>
++                <a class="mt-4 inline-flex h-10 items-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/products`}>商品を見る</a>
++              </div>
++            </section>
++          ) : null}
++
++          {page === "favorites" ? (
++            <section class="grid gap-5" data-testid="storefront-favorites">
++              <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
++                <h2 class="text-2xl font-bold text-neutral-950">お気に入り</h2>
++                <p class="mt-2 text-sm leading-6 text-neutral-600">保存した商品を比較し、あとで購入するためのページです。ログイン保存が有効化されるまでは、おすすめ商品を表示します。</p>
++              </div>
++              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
++                {buildRelatedSalesProducts(products, null).slice(0, 10).map((item) => (
++                  <article class="flex min-h-[320px] flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
++                    <a class="aspect-square overflow-hidden rounded-lg bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
++                      <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
++                    </a>
++                    <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
++                    <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
++                    <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
++                    <button
++                      class="mt-auto h-9 rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950"
++                      type="button"
++                      data-cart-add
++                      data-product-id={item.id}
++                      data-product-name={item.displayName}
++                      data-product-price={String(item.salePrice)}
++                      data-product-image={item.imageUrl}
++                    >
++                      カートに入れる
++                    </button>
++                  </article>
++                ))}
++              </div>
++            </section>
++          ) : null}
++
++          {page === "mypage/subscriptions" ? (
++            <section class="grid gap-5" data-testid="storefront-mypage-subscriptions">
++              <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
++                <h2 class="text-2xl font-bold text-neutral-950">定期購入</h2>
++                <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、スキップ、一時停止、解約条件を確認するページです。D1 migrationが未適用のため、契約一覧は正直に停止状態として表示します。</p>
++              </div>
++              <div class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
++                <div class="font-bold text-neutral-950">定期購入DB migrationが未適用です</div>
++                <p class="mt-2">現在は定期購入契約を作成・表示できません。通常購入の閲覧とカート操作は利用できます。</p>
++                <div class="mt-4 grid gap-3 md:grid-cols-3">
++                  <div class="rounded-lg bg-white p-3"><b>スキップ</b><br />契約作成後に次回配送をスキップできます。</div>
++                  <div class="rounded-lg bg-white p-3"><b>一時停止</b><br />契約状態がactiveの場合に停止できます。</div>
++                  <div class="rounded-lg bg-white p-3"><b>解約</b><br />最低継続回数などの条件を確認して解約します。</div>
++                </div>
++              </div>
++            </section>
++          ) : null}
++
++          {["login", "register"].includes(page) ? (
++            <section class="mx-auto grid max-w-4xl gap-5 md:grid-cols-[minmax(0,1fr)_320px]" data-testid="storefront-auth">
++              <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
++                <p class="text-xs font-semibold text-blue-700">{page === "login" ? "ログイン" : "会員登録"}</p>
++                <h2 class="mt-1 text-2xl font-bold text-neutral-950">{page === "login" ? "アカウントへログイン" : "購入者アカウントを作成"}</h2>
++                <p class="mt-2 text-sm leading-6 text-neutral-600">現在は本番認証を接続していないため、成功したふりをしません。ログイン基盤が有効化されるまでは、購入や問い合わせは公開テンプレート上で確認できます。</p>
++                <div class="mt-5 grid gap-3">
++                  <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="email" placeholder="name@example.com" disabled /></label>
++                  <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="本番認証接続後に入力" disabled /></label>
++                  <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "ログインは準備中" : "登録は準備中"}</button>
++                </div>
++              </div>
++              <aside class="rounded-xl border border-neutral-200 bg-white p-5 text-sm leading-6 text-neutral-700 shadow-sm">
++                <h3 class="font-bold text-neutral-950">アカウントでできること</h3>
++                <ul class="mt-3 grid gap-2">
++                  <li class="rounded-md bg-neutral-50 px-3 py-2">注文履歴と配送状況の確認</li>
++                  <li class="rounded-md bg-neutral-50 px-3 py-2">お気に入り商品の保存</li>
++                  <li class="rounded-md bg-neutral-50 px-3 py-2">定期購入のスキップ・一時停止・解約</li>
++                </ul>
++                <a class="mt-4 inline-flex h-9 items-center rounded-md border border-neutral-300 px-3 text-xs font-semibold" href={`${tenantRoot}/mypage`}>マイページへ戻る</a>
++              </aside>
++            </section>
++          ) : null}
+         </main>
+       ) : (
+         <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index 099a327..82748e9 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -17,6 +17,13 @@ const publicUrls = [
+   { path: "/s/aiboux/shipping", name: "shop-shipping-page" },
+   { path: "/s/aiboux/returns", name: "shop-returns-page" },
+   { path: "/s/aiboux/faq", name: "shop-faq-page" },
++  { path: "/s/aiboux/mypage", name: "shop-mypage", expectedTestId: "storefront-mypage" },
++  { path: "/s/aiboux/account", name: "shop-account", expectedTestId: "storefront-mypage" },
++  { path: "/s/aiboux/orders", name: "shop-orders", expectedTestId: "storefront-orders" },
++  { path: "/s/aiboux/favorites", name: "shop-favorites", expectedTestId: "storefront-favorites" },
++  { path: "/s/aiboux/login", name: "shop-login", expectedTestId: "storefront-auth" },
++  { path: "/s/aiboux/register", name: "shop-register", expectedTestId: "storefront-auth" },
++  { path: "/s/aiboux/mypage/subscriptions", name: "shop-mypage-subscriptions", expectedTestId: "storefront-mypage-subscriptions" },
+ ];
+ 
+ const adminUrls = [
+@@ -62,8 +69,12 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+ 
+         await page.goto(`${target.path}?crawl=${Date.now()}`, { waitUntil: "networkidle" });
+         await expect(page.locator("body")).not.toContainText("ページが見つかりません");
++        await expect(page.locator("body")).not.toContainText("Not Found");
+         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
++        if ("expectedTestId" in target && target.expectedTestId) {
++          await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
++        }
+ 
+         const bodyBox = await page.locator("body").boundingBox();
+         expect(bodyBox?.width ?? 0, `${target.path} should render a styled page body`).toBeGreaterThan(300);
