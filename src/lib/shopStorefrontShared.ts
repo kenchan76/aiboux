@@ -137,6 +137,62 @@ export function buildShopSupportRailQuickLinks(tenantRoot: string): ShopStorefro
   ];
 }
 
+export function buildShopSeoHubGroups(tenantRoot: string): ShopStorefrontLinkGroup[] {
+  return [
+    {
+      title: "人気カテゴリ",
+      links: [
+        { label: "食品・飲料を比較する", href: `${tenantRoot}/products?category=food-drink` },
+        { label: "コーヒー・お茶を見る", href: `${tenantRoot}/products?category=coffee-tea` },
+        { label: "キッチン用品を探す", href: `${tenantRoot}/products?category=kitchen` },
+        { label: "日用品をまとめ買いする", href: `${tenantRoot}/products?category=daily-goods` },
+        { label: "ギフト商品を選ぶ", href: `${tenantRoot}/products?category=gift` },
+      ],
+    },
+    {
+      title: "購入前ガイド",
+      links: [
+        { label: "送料と配送予定を確認する", href: `${tenantRoot}/shipping` },
+        { label: "返品・交換条件を確認する", href: `${tenantRoot}/returns` },
+        { label: "よくある質問を見る", href: `${tenantRoot}/faq` },
+        { label: "ストアへ問い合わせる", href: `${tenantRoot}/contact` },
+      ],
+    },
+    {
+      title: "購入後サポート",
+      links: [
+        { label: "注文履歴を確認する", href: `${tenantRoot}/orders` },
+        { label: "マイページを開く", href: `${tenantRoot}/mypage` },
+        { label: "お気に入り商品を見る", href: `${tenantRoot}/favorites` },
+        { label: "定期購入の状態を見る", href: `${tenantRoot}/mypage/subscriptions` },
+      ],
+    },
+  ];
+}
+
+export function buildShopSeoHubHighlights(tenantRoot: string): ShopStorefrontInfoCard[] {
+  return [
+    {
+      title: "商品比較",
+      body: "価格、税込、レビュー、在庫、配送目安を同じ商品カードで比較します。",
+      href: `${tenantRoot}/products`,
+      label: "商品一覧",
+    },
+    {
+      title: "購入条件",
+      body: "送料、返品、特商法、決済設定状態を注文前に確認できます。",
+      href: `${tenantRoot}/legal`,
+      label: "取引条件",
+    },
+    {
+      title: "アカウント",
+      body: "注文履歴、配送状況、定期購入、お気に入りを同じ導線で確認します。",
+      href: `${tenantRoot}/mypage`,
+      label: "マイページ",
+    },
+  ];
+}
+
 export function buildShopPurchaseGuideCards(): ShopStorefrontInfoCard[] {
   return [
     { title: "未発送", body: "注文後、発送準備前の変更や問い合わせに対応します。" },

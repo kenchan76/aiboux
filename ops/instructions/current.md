@@ -4,7 +4,28 @@ Status: WIP
 
 Active instruction file:
 
-- `ops/instructions/20260605_shop_seo_ui_common_support_rail.md`
+- `ops/instructions/20260605_shop_seo_ui_common_seo_hub.md`
+
+## 2026-06-05 Continuation: SEO/UI Common SEO Hub
+
+Continue the active 5-hour sales-quality sprint. The next concrete work unit is a shared storefront SEO hub that strengthens crawlable internal links, visible link affordance, and page-to-page topical structure across every public tenant page.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+
+Current additions required:
+
+- Add a reusable storefront SEO hub component.
+- Expose crawlable internal links to popular categories, product discovery, purchase support, account pages, and policy pages.
+- Keep blue link affordance and hover underline for SEO-relevant links.
+- Add visible Schema.org `SiteNavigationElement` microdata in the SEO hub.
+- Add public Playwright coverage so every public storefront page must render the shared SEO hub.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: SEO/UI Common Support Rail
 

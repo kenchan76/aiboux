@@ -6,6 +6,7 @@ import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
 import { StorefrontFooter } from "./StorefrontFooter";
+import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
 
 type StorefrontProduct = {
@@ -218,6 +219,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
       </main>
 
       <div className="mx-auto max-w-screen-xl px-4 pb-2">
+        <StorefrontSeoHub tenantRoot={tenantRoot} storeName={storeName} />
         <StorefrontSupportRail tenantRoot={tenantRoot} />
       </div>
       <StorefrontFooter storeName={storeName} tenantRoot={tenantRoot} />

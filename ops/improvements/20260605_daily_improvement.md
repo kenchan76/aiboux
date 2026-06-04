@@ -17,8 +17,10 @@ This makes the following easier to enforce with Playwright:
 - Every public storefront page has visible support/account/store links.
 - Links are crawlable `<a href>` anchors with descriptive text.
 - Link affordance remains visible.
-- Breadcrumb, footer, and support navigation remain consistent across TOP, product detail, cart, checkout, contact, legal, account, and subscription pages.
+- Breadcrumb, footer, support navigation, and SEO hub navigation remain consistent across TOP, product detail, cart, checkout, contact, legal, account, and subscription pages.
 
 ## Applied To Current Sprint
 
-Add a shared storefront support rail and require it in public crawl gates.
+- Added a shared storefront support rail and required it in public crawl gates.
+- Added a shared storefront SEO hub and required it in public crawl gates.
+- For each new shared SEO/UI part, require public DOM evidence, visible link affordance, and `/g/l68` publication before user reporting.

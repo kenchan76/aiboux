@@ -95,6 +95,14 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(supportRail, `${target.path} support rail should expose honest subscription state`).toContainText("定期購入");
         expect(await supportRail.locator("a").count(), `${target.path} support rail should expose crawlable support links`).toBeGreaterThanOrEqual(9);
         expect(await supportRail.locator("a").first().getAttribute("class"), `${target.path} support rail links should have visible link affordance`).toMatch(/text-|bg-amber/);
+        const seoHub = page.getByTestId("storefront-seo-hub");
+        await expect(seoHub, `${target.path} should include shared SEO hub`).toBeVisible();
+        await expect(seoHub, `${target.path} SEO hub should explain internal navigation`).toContainText("迷わず探す");
+        await expect(seoHub, `${target.path} SEO hub should expose product discovery`).toContainText("商品一覧へ");
+        await expect(seoHub, `${target.path} SEO hub should expose support/account links`).toContainText("定期購入の状態を見る");
+        expect(await seoHub.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} SEO hub should expose visible SiteNavigationElement microdata`).toBeGreaterThanOrEqual(1);
+        expect(await seoHub.locator("a").count(), `${target.path} SEO hub should expose dense crawlable links`).toBeGreaterThanOrEqual(14);
+        expect(await seoHub.locator("a").nth(1).getAttribute("class"), `${target.path} SEO hub links should be visibly link-colored`).toContain("text-blue-700");
         const breadcrumb = page.getByTestId("storefront-breadcrumb");
         await expect(breadcrumb, `${target.path} should include visible breadcrumb navigation`).toBeVisible();
         await expect(breadcrumb, `${target.path} breadcrumb should expose BreadcrumbList microdata`).toHaveAttribute(

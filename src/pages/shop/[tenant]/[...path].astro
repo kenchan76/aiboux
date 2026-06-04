@@ -2,6 +2,7 @@
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
+import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import {
   buildShopBreadcrumbItems,
@@ -1217,6 +1218,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               </section>
             </section>
           ) : null}
+          <StorefrontSeoHub tenantRoot={tenantRoot} storeName={storeName} />
           <StorefrontSupportRail tenantRoot={tenantRoot} />
         </main>
       ) : (
