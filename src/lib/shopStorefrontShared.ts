@@ -970,7 +970,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       title: "商品詳細で購入判断を完結する",
       summary: "商品名、画像、税込価格、在庫、配送、返品、定期購入状態を確認してカートへ進みます。",
       steps: [
-        { title: "商品情報を確認", body: "商品説明、仕様、レビュー、関連商品を確認します。", href: `${tenantRoot}/products`, label: "関連商品へ", badge: "情報" },
+        { title: "商品情報を確認", body: "説明本文、仕様、レビュー、関連商品を確認します。", href: `${tenantRoot}/products`, label: "関連商品へ", badge: "情報" },
         { title: "購入条件を確認", body: "送料、返品、決済未接続時の扱いを購入前に確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
         { title: "カートへ進む", body: "通常購入と定期購入状態を区別してカートへ追加します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
       ],
