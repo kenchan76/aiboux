@@ -1,0 +1,70 @@
+# Public /g verification 20260604T185635Z
+
+## headers
+### m68
+HTTP/2 200 
+date: Thu, 04 Jun 2026 18:56:35 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 157083
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ieqaPdOsjpXM2PVkNcYMCXu3W36EApWxNKJPLstF5npBE2twZocBuzXBasHvOhZ9h5AHsPsdx3RabRmD5yvNzqpMRNyxDC9%2BCutkgiukS5xBeLvGGY%2FvBir5fWE5fbcpu4k%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a069288c4ac48b0e-NRT
+alt-svc: h3=":443"; ma=86400
+
+### l68
+HTTP/2 200 
+date: Thu, 04 Jun 2026 18:56:36 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 135400
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=TVADPejztQfCmxZIdGGBM3Gg7b6RcgWYfZkkwGlzdwJMCwcnhdak1X6DOqxOTKBdSsasYiy3sIEFLXBm0W2s%2Bn%2FyChMc8jQqzk%2F7V9B%2FulmfKnc19XMflom7ilMSy6kFxao%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06928911a40e039-NRT
+alt-svc: h3=":443"; ma=86400
+
+### d68
+HTTP/2 200 
+date: Thu, 04 Jun 2026 18:56:37 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 92755
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=eiGw1JGYRPWzphlXWy5xfzh%2FIwTXpTi2EEPA1bsXqtUwd%2FvjZXx%2BnZSzE2FoJwAebrM%2BJDkAWzkIeaAp5SVOoUFLuifBnuIme6USpPCG2GT4WwKkuUJv6ftthdY10G2rgcQ%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0692894af77c4e9-NRT
+alt-svc: h3=":443"; ma=86400
+
+
+## sha256
+bc2c86a07a796e5b58563a45a083c5cad5b3a19878ae264f3f4a1dd8f0b504d7  public/g/m68.md
+a91ef309240c13a84b126dabc760a924d2a80ffe10f050698d359313fcdbcde5  /tmp/m68.body
+ff75003b686cc7f902cca11e50aef1aca8cea06988f2a4143e0d0658e878ee9d  public/g/l68.md
+697754bedf4cfb2a8644f35941a89c71eab95094ff3b09e7423e821aca44ffb2  /tmp/l68.body
+165b5e008a06e131947f908d46582c908c07cf1e977c982f1b857003eb7d59f0  public/g/d68.md
+793ce814a3aa43b35d50cab4da5126dadeb82a8a5508c96d41394bec2d8ca439  /tmp/d68.body
+
+## markers
+4805:## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+2286:## SHOP_10H_SHARED_SEO_META_MODEL_WIP
+1395:## SHOP_10H_SHARED_SEO_META_MODEL_WIP Screen Evidence

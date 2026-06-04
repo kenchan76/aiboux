@@ -4802,6 +4802,28 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_SHARED_SEO_META_MODEL_PUBLIC_EVIDENCE
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Public evidence Worker Version ID: `dda0942c-aa3d-4fa4-bd15-67b7ad7f2263`
+- Evidence commit before publication: `352d358`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Public verification log: `all_log/public-g/20260604T185635Z_shared_seo_meta_public_g_verification.txt`
+
+Current active Shop SEO meta rule:
+- Storefront page metadata must be produced through `buildShopStorefrontSeoMeta`.
+- TOP, search, category, public utility, account, and product-detail pages must not use thin placeholder titles or descriptions.
+- Canonical URLs, Open Graph URLs, Twitter descriptions, robots policy, breadcrumb structured data, and product structured data remain public-gate checked.
+- Search pages are noindex with canonical `/products`.
+- Category pages are indexable with self-canonical URLs.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- `FINAL_ACCEPTED` remains prohibited.
+
 ## SHOP_10H_SHARED_SEO_META_MODEL_WIP
 
 Status: `WIP_DEPLOYED_NOT_FINAL`

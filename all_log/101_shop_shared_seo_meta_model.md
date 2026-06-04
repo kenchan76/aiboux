@@ -86,3 +86,24 @@ The shared metadata model follows the sprint references from Google Search Centr
 - Provider-backed recurring billing remains unverified.
 - `gate:shop-subscriptions` remains non-final until remote schema and provider behavior are verified.
 - This is not `FINAL_ACCEPTED`.
+
+## Public Evidence Publication
+
+Timestamp: 2026-06-04T18:56:35Z
+
+- Public evidence Worker Version ID: `dda0942c-aa3d-4fa4-bd15-67b7ad7f2263`
+- Evidence commit before publication: `352d358`
+- Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8`
+- Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8`
+- Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- Public marker check: `SHOP_10H_SHARED_SEO_META_MODEL_WIP` present in m68, l68, and d68.
+- Verification file: `all_log/public-g/20260604T185635Z_shared_seo_meta_public_g_verification.txt`
+
+SHA note:
+- Source and fetched `/g/*` body SHA values differ because public Markdown responses substitute runtime Worker Version ID values such as `__WORKER_VERSION_ID__`.
+- The public bodies show runtime Worker Version ID `dda0942c-aa3d-4fa4-bd15-67b7ad7f2263`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.
