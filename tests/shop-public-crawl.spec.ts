@@ -53,6 +53,18 @@ const noIndexPublicPageNames = new Set([
   "shop-mypage-subscriptions",
 ]);
 
+const sharedProductCardPageNames = new Set([
+  "shop-products-page",
+  "shop-cart-page",
+  "shop-mypage",
+  "shop-account",
+  "shop-orders",
+  "shop-favorites",
+  "shop-login",
+  "shop-register",
+  "shop-mypage-subscriptions",
+]);
+
 async function saveScreenshot(page: Page, filename: string) {
   const outputPath = path.join(outputDir, filename);
   const publicPath = path.join(publicDir, filename);
@@ -136,6 +148,38 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
           expect(await pageHeader.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} page header should expose SiteNavigationElement microdata`).toBeGreaterThanOrEqual(1);
           const secondaryLinkClass = await pageHeader.locator("a").last().getAttribute("class");
           expect(secondaryLinkClass ?? "", `${target.path} page header secondary links should be visibly blue`).toContain("text-blue-700");
+        }
+
+        if (sharedProductCardPageNames.has(target.name)) {
+          const cards = page.getByTestId("storefront-product-card");
+          expect(await cards.count(), `${target.path} should use the shared storefront product card component`).toBeGreaterThanOrEqual(
+            target.name === "shop-favorites" ? 10 : 5,
+          );
+          const firstCard = cards.first();
+          await expect(firstCard, `${target.path} shared product card should expose Product microdata`).toHaveAttribute(
+            "itemtype",
+            "https://schema.org/Product",
+          );
+          await expect(
+            firstCard.locator('[itemtype="https://schema.org/Offer"]'),
+            `${target.path} shared product card should expose Offer microdata`,
+          ).toHaveCount(1);
+          await expect(
+            firstCard.getByTestId("storefront-product-card-link"),
+            `${target.path} shared product card should link to product detail`,
+          ).toHaveAttribute("href", /\/s\/aiboux\/product\//);
+          await expect(
+            firstCard.getByTestId("storefront-product-card-category"),
+            `${target.path} shared product card category should be crawlable`,
+          ).toHaveAttribute("href", /\/s\/aiboux\/products\?category=/);
+          expect(
+            (await firstCard.getByTestId("storefront-product-card-title").getAttribute("class")) ?? "",
+            `${target.path} shared product card title should be visibly link-colored`,
+          ).toContain("text-blue-800");
+          expect(
+            (await firstCard.getByTestId("storefront-product-card-image").getAttribute("alt")) ?? "",
+            `${target.path} shared product card image alt should describe the product`,
+          ).toMatch(/商品画像/);
         }
 
         const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();

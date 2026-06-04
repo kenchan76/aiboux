@@ -53,6 +53,29 @@ Current additions required:
 - Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 - `ops/instructions/20260605_shop_category_url_seo_ui.md`
+- `ops/instructions/20260605_shop_shared_product_card_seo_ui.md`
+
+## 2026-06-05 Continuation: Shared Product Card SEO/UI Hardening
+
+Continue the active sales-quality sprint. The next concrete work unit is replacing duplicated public storefront product-card markup with one shared SEO/UI component.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+
+Current additions required:
+
+- Add a shared storefront product card component.
+- Use crawlable product and category links with visible link colors.
+- Add Product and Offer microdata to shared product cards.
+- Standardize image ratio, title height, rating, review count, price, tax label, CTA placement, and cart data attributes.
+- Replace duplicated product-card markup on public subpages where safe.
+- Add public Playwright coverage for shared product cards.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Category URL SEO/UI Hardening
 

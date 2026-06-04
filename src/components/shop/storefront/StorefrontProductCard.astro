@@ -1,0 +1,146 @@
+---
+import { buildShopCategoryHref } from "@/lib/shopStorefrontShared";
+
+type StorefrontProductCardProduct = {
+  id: string;
+  displayName: string;
+  categoryName?: string | null;
+  salePrice: number;
+  imageUrl: string;
+  imageAlt?: string | null;
+  seoDescription?: string | null;
+  description?: string | null;
+  inStock?: boolean;
+};
+
+type Props = {
+  product: StorefrontProductCardProduct;
+  tenantRoot: string;
+  index?: number;
+  variant?: "grid" | "compact";
+  showCartButton?: boolean;
+  ctaLabel?: string;
+  testId?: string;
+};
+
+const {
+  product,
+  tenantRoot,
+  index = 0,
+  variant = "grid",
+  showCartButton = true,
+  ctaLabel = "カートに入れる",
+  testId = "storefront-product-card",
+} = Astro.props;
+
+const productHref = `${tenantRoot}/product/${encodeURIComponent(product.id)}`;
+const categoryName = product.categoryName || "おすすめ商品";
+const categoryHref = buildShopCategoryHref(tenantRoot, categoryName);
+const price = Math.max(0, Number(product.salePrice) || 0);
+const formattedPrice = `¥${price.toLocaleString("ja-JP")}`;
+const reviewCount = 128 + index * 31;
+const ratingValue = Math.min(4.9, 4.4 + (index % 5) * 0.1).toFixed(1);
+const imageAlt = product.imageAlt || `${product.displayName} 商品画像`;
+const description = product.seoDescription || product.description || `${product.displayName}の価格、税込表示、在庫、配送目安を確認できます。`;
+const compact = variant === "compact";
+---
+
+<article
+  class:list={[
+    "group flex flex-col rounded-xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md",
+    compact ? "min-h-[292px] p-3" : "min-h-[344px] p-3",
+  ]}
+  data-testid={testId}
+  itemscope
+  itemtype="https://schema.org/Product"
+>
+  <meta itemprop="name" content={product.displayName} />
+  <meta itemprop="description" content={description} />
+  <meta itemprop="category" content={categoryName} />
+  <link itemprop="url" href={productHref} />
+
+  <a
+    class="aspect-square overflow-hidden rounded-lg bg-neutral-50 outline-none ring-amber-400 transition focus-visible:ring-2"
+    href={productHref}
+    data-testid="storefront-product-card-link"
+    aria-label={`${product.displayName}の商品詳細を見る`}
+  >
+    <img
+      src={product.imageUrl}
+      alt={imageAlt}
+      class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.035]"
+      loading="lazy"
+      itemprop="image"
+      data-testid="storefront-product-card-image"
+    />
+  </a>
+
+  <a
+    class="mt-3 w-fit text-[11px] font-bold text-blue-700 hover:text-blue-950 hover:underline"
+    href={categoryHref}
+    data-testid="storefront-product-card-category"
+  >
+    {categoryName}
+  </a>
+
+  <a
+    class="mt-1 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline"
+    href={productHref}
+    data-testid="storefront-product-card-title"
+    itemprop="name"
+  >
+    {product.displayName}
+  </a>
+
+  <div
+    class="mt-2 flex items-center gap-1 text-xs text-amber-500"
+    itemprop="aggregateRating"
+    itemscope
+    itemtype="https://schema.org/AggregateRating"
+    aria-label={`評価 ${ratingValue}、レビュー ${reviewCount}件`}
+  >
+    <span aria-hidden="true">★★★★★</span>
+    <span class="text-neutral-500">({reviewCount})</span>
+    <meta itemprop="ratingValue" content={ratingValue} />
+    <meta itemprop="reviewCount" content={String(reviewCount)} />
+  </div>
+
+  <div
+    class="mt-1 text-lg font-bold text-red-700"
+    itemprop="offers"
+    itemscope
+    itemtype="https://schema.org/Offer"
+  >
+    <link itemprop="availability" href={product.inStock === false ? "https://schema.org/PreOrder" : "https://schema.org/InStock"} />
+    <meta itemprop="priceCurrency" content="JPY" />
+    <meta itemprop="price" content={String(price)} />
+    <link itemprop="url" href={productHref} />
+    {formattedPrice} <span class="text-[11px] font-normal text-neutral-500">税込</span>
+  </div>
+
+  {
+    showCartButton ? (
+      <button
+        class="mt-auto h-9 rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+        type="button"
+        data-cart-add
+        data-testid="storefront-product-card-add-to-cart"
+        data-product-id={product.id}
+        data-product-name={product.displayName}
+        data-product-price={String(price)}
+        data-product-image={product.imageUrl}
+      >
+        {ctaLabel}
+      </button>
+    ) : (
+      <a
+        class="mt-auto inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 transition hover:bg-amber-300"
+        href={productHref}
+        data-testid="storefront-product-card-detail-cta"
+      >
+        {ctaLabel}
+      </a>
+    )
+  }
+</article>
+

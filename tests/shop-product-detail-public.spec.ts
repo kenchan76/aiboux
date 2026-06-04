@@ -52,6 +52,20 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       const thumbnailImages = page.locator("[data-testid='product-thumbnail'] img");
       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
       await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
+      const relatedCards = page.getByTestId("storefront-product-card");
+      expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
+      await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/Product",
+      );
+      await expect(
+        relatedCards.first().locator('[itemtype="https://schema.org/Offer"]'),
+        "related product card should expose Offer microdata",
+      ).toHaveCount(1);
+      await expect(
+        relatedCards.first().getByTestId("storefront-product-card-link"),
+        "related product card should link to product detail",
+      ).toHaveAttribute("href", /\/s\/aiboux\/product\//);
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
       const breadcrumb = page.getByTestId("storefront-breadcrumb");
       await expect(breadcrumb).toBeVisible();
