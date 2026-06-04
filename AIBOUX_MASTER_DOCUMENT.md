@@ -29,6 +29,32 @@ Still unresolved:
 
 This sprint status does not override the requirement that subscription support must pass after D1 permission is restored.
 
+## Current Active Operating Override: AIBOUX Shop Shared Page Entity And FAQ SEO Parts
+
+Status: `SHOP_10H_SHARED_PAGE_ENTITY_FAQ_SEO_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens public storefront SEO structure and shared parts beyond generic metadata.
+
+Implemented WIP direction:
+
+- Public storefront pages must emit a shared page entity JSON-LD:
+  - `WebPage` for ordinary storefront pages;
+  - `ItemPage` for product detail;
+  - `ContactPage` for contact;
+  - `FAQPage` for FAQ.
+- Public storefront pages must emit `SiteNavigationElement` JSON-LD from the same shared footer/navigation model.
+- FAQ visible content and FAQ structured data must come from the same shared FAQ source.
+- Public tests must verify `SiteNavigationElement`, page entity JSON-LD, FAQ `Question` / `acceptedAnswer`, and `ContactPage`.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Social Robots SEO And Shared Head Meta
 
 Status: `SHOP_10H_SOCIAL_ROBOTS_SEO_WIP`

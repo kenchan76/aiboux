@@ -6,10 +6,15 @@ import {
   buildShopItemListJsonLd,
   buildShopOrganizationJsonLd,
   buildShopRobotsContent,
+  buildShopSiteNavigationJsonLd,
   buildShopSocialMeta,
+  buildShopWebPageJsonLd,
   buildShopWebsiteJsonLd,
 } from "@/lib/shopSeo";
 import { getShopStorefrontLayout, getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
+import {
+  buildShopFooterColumns,
+} from "@/lib/shopStorefrontShared";
 import "@/styles/global.css";
 
 export const prerender = false;
@@ -44,8 +49,10 @@ const publicProductCards = products.map((product) => ({
   id: product.id,
   displayName: product.displayName,
 }));
+const breadcrumbItems = [{ name: "TOP", href: "", url: canonicalUrl }];
+const footerColumns = buildShopFooterColumns(tenantRoot);
 const structuredData = JSON.stringify([
-  buildShopBreadcrumbJsonLd([{ name: "TOP", href: "", url: canonicalUrl }]),
+  buildShopBreadcrumbJsonLd(breadcrumbItems),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
   buildShopOrganizationJsonLd({
     storeName,
@@ -62,6 +69,18 @@ const structuredData = JSON.stringify([
     categoryCards: [],
     accountCards: [],
     policySupportCards: [],
+  }),
+  buildShopWebPageJsonLd({
+    page: "",
+    name: title,
+    description: metaDescription,
+    canonicalUrl,
+    breadcrumbItems,
+  }),
+  buildShopSiteNavigationJsonLd({
+    canonicalUrl,
+    storeName,
+    links: footerColumns.flatMap((column) => column.links),
   }),
 ].filter(Boolean));
 

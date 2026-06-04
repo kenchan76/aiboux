@@ -221,6 +221,28 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## 2026-06-04 User Escalation: Shared Page Entity And FAQ SEO Parts
+
+User required all pages to be inspected for strongest SEO and reusable common parts.
+
+Additional active requirements:
+- Public storefront pages must expose a shared page entity JSON-LD, not only breadcrumb/product/list JSON-LD.
+- Public storefront pages must expose `SiteNavigationElement` JSON-LD from the same shared footer/navigation link model.
+- FAQ visible content and `FAQPage` JSON-LD must come from the same shared FAQ data model.
+- Contact page must expose `ContactPage` JSON-LD.
+- Tests must verify these public SEO structures on `https://shop.aiboux.com` URLs.
+
+Implementation direction:
+- Add shared FAQ data to `src/lib/shopStorefrontShared.ts`.
+- Add `buildShopWebPageJsonLd`, `buildShopSiteNavigationJsonLd`, and `buildShopFaqPageJsonLd` to `src/lib/shopSeo.ts`.
+- Use the new shared JSON-LD helpers on TOP and subpage/product routes.
+- Strengthen `tests/shop-public-crawl.spec.ts` to verify `SiteNavigationElement`, page entity JSON-LD, FAQPage questions/answers, and ContactPage.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## 2026-06-04 User Escalation: Shared Storefront Navigation And Support Parts
 
 User required all pages to be audited for reusable parts and made SEO/UI strongest.

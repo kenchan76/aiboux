@@ -3,11 +3,14 @@ import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import {
   buildShopBreadcrumbItems,
   buildShopBreadcrumbJsonLd,
+  buildShopFaqPageJsonLd,
   buildShopItemListJsonLd,
   buildShopOrganizationJsonLd,
   buildShopProductJsonLd,
   buildShopRobotsContent,
+  buildShopSiteNavigationJsonLd,
   buildShopSocialMeta,
+  buildShopWebPageJsonLd,
   buildShopWebsiteJsonLd,
 } from "@/lib/shopSeo";
 import {
@@ -23,6 +26,7 @@ import {
 import {
   buildShopAccountCards,
   buildShopCuratedCategoryCards,
+  buildShopFaqItems,
   buildShopFooterAssurances,
   buildShopFooterColumns,
   buildShopPolicySupportCards,
@@ -144,6 +148,9 @@ const policyBlocks = policyText ? splitPolicyText(policyText) : [];
 const accountCards = buildShopAccountCards(tenantRoot);
 const purchaseGuideCards = buildShopPurchaseGuideCards();
 const policySupportCards = buildShopPolicySupportCards(tenantRoot);
+const footerColumns = buildShopFooterColumns(tenantRoot);
+const footerAssurances = buildShopFooterAssurances();
+const faqItems = buildShopFaqItems();
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const curatedCategoryCards = buildShopCuratedCategoryCards();
 const categoryCards = [...curatedCategoryCards, ...categories.filter((category) => Number(category.productCount ?? 0) > 0)]
@@ -168,9 +175,23 @@ const itemListJsonLd = buildShopItemListJsonLd({
   accountCards,
   policySupportCards,
 });
-const structuredDataItems: any[] = [breadcrumbJsonLd, websiteJsonLd, organizationJsonLd];
+const webPageJsonLd = buildShopWebPageJsonLd({
+  page,
+  name: title,
+  description: meta.description,
+  canonicalUrl,
+  breadcrumbItems,
+});
+const navigationJsonLd = buildShopSiteNavigationJsonLd({
+  canonicalUrl: absoluteTenantRoot,
+  storeName,
+  links: footerColumns.flatMap((column) => column.links),
+});
+const faqJsonLd = page === "faq" ? buildShopFaqPageJsonLd({ canonicalUrl, faqItems }) : null;
+const structuredDataItems: any[] = [breadcrumbJsonLd, websiteJsonLd, organizationJsonLd, webPageJsonLd, navigationJsonLd];
 if (productJsonLd) structuredDataItems.push(productJsonLd);
 if (itemListJsonLd) structuredDataItems.push(itemListJsonLd);
+if (faqJsonLd) structuredDataItems.push(faqJsonLd);
 const structuredData = JSON.stringify(structuredDataItems);
 const socialMeta = buildShopSocialMeta({
   title,
@@ -180,9 +201,6 @@ const socialMeta = buildShopSocialMeta({
   storeName,
   type: page === "product" ? "product" : "website",
 });
-const footerColumns = buildShopFooterColumns(tenantRoot);
-const footerAssurances = buildShopFooterAssurances();
-
 function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number): string {
   const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
   if (unit === "week") return safeCount === 1 ? "毎週" : `${safeCount}週間ごと`;
@@ -967,22 +985,12 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               </div>
               <div class="grid gap-3 lg:grid-cols-[minmax(0,1fr)_320px]">
                 <div class="grid gap-3 rounded-lg border border-neutral-200 bg-white p-4">
-                  <details class="rounded-md border border-neutral-200 px-4 py-3" open>
-                    <summary class="cursor-pointer text-sm font-bold text-neutral-950">注文後に内容を変更できますか。</summary>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">発送準備前であれば、問い合わせフォームから変更希望内容を送信してください。発送準備後は変更できない場合があります。</p>
-                  </details>
-                  <details class="rounded-md border border-neutral-200 px-4 py-3">
-                    <summary class="cursor-pointer text-sm font-bold text-neutral-950">定期購入は利用できますか。</summary>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">定期購入は本番接続後に有効化します。商品詳細に表示される購入条件と、チェックアウトの決済設定状態を確認してください。</p>
-                  </details>
-                  <details class="rounded-md border border-neutral-200 px-4 py-3">
-                    <summary class="cursor-pointer text-sm font-bold text-neutral-950">送料や返品条件はどこで確認できますか。</summary>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">配送について、返品について、特定商取引法に基づく表示の各ページで確認できます。</p>
-                  </details>
-                  <details class="rounded-md border border-neutral-200 px-4 py-3">
-                    <summary class="cursor-pointer text-sm font-bold text-neutral-950">決済が未接続の場合はどうなりますか。</summary>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">購入者に誤解を与えないため、決済未接続時は注文確定や支払い完了のような表示を出さず、設定が必要であることを表示します。</p>
-                  </details>
+                  {faqItems.map((item, index) => (
+                    <details class="rounded-md border border-neutral-200 px-4 py-3" open={index === 0 ? true : undefined}>
+                      <summary class="cursor-pointer text-sm font-bold text-neutral-950">{item.question}</summary>
+                      <p class="mt-2 text-sm leading-6 text-neutral-600">{item.answer}</p>
+                    </details>
+                  ))}
                 </div>
                 <aside class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
                   <h3 class="font-bold text-neutral-950">すぐ確認する</h3>

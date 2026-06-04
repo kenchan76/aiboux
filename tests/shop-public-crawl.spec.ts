@@ -94,8 +94,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(jsonLdText ?? "", `${target.path} should include BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
         expect(jsonLdText ?? "", `${target.path} should include WebSite JSON-LD`).toContain("WebSite");
         expect(jsonLdText ?? "", `${target.path} should include Organization JSON-LD`).toContain("Organization");
+        expect(jsonLdText ?? "", `${target.path} should include shared site navigation JSON-LD`).toContain("SiteNavigationElement");
+        expect(jsonLdText ?? "", `${target.path} should expose a page entity JSON-LD`).toMatch(/WebPage|ContactPage|FAQPage|ItemPage/);
         if (target.name === "shop-top") {
           expect(jsonLdText ?? "", `${target.path} should expose TOP product discovery ItemList JSON-LD`).toContain("ItemList");
+        }
+        if (target.name === "shop-faq-page") {
+          expect(jsonLdText ?? "", `${target.path} should expose FAQPage JSON-LD`).toContain("FAQPage");
+          expect(jsonLdText ?? "", `${target.path} should expose FAQ question entities`).toContain("Question");
+          expect(jsonLdText ?? "", `${target.path} should expose FAQ accepted answers`).toContain("acceptedAnswer");
+        }
+        if (target.name === "shop-contact-page") {
+          expect(jsonLdText ?? "", `${target.path} should expose ContactPage JSON-LD`).toContain("ContactPage");
         }
         if ([
           "shop-products-page",

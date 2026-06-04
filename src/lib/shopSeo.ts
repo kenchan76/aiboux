@@ -16,6 +16,16 @@ export type ShopSeoProduct = {
   inStock?: boolean;
 };
 
+export type ShopSeoLink = {
+  label: string;
+  href: string;
+};
+
+export type ShopSeoFaqItem = {
+  question: string;
+  answer: string;
+};
+
 const SHOP_ORIGIN = "https://shop.aiboux.com";
 const DEFAULT_SHOP_OG_IMAGE =
   "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=1200&h=630&q=84";
@@ -194,6 +204,73 @@ export function buildShopWebsiteJsonLd({
   };
 }
 
+export function buildShopWebPageJsonLd({
+  page,
+  name,
+  description,
+  canonicalUrl,
+  breadcrumbItems,
+}: {
+  page: string;
+  name: string;
+  description: string;
+  canonicalUrl: string;
+  breadcrumbItems: ShopBreadcrumbItem[];
+}) {
+  const type =
+    page === "contact"
+      ? "ContactPage"
+      : page === "faq"
+        ? "FAQPage"
+        : page === "product"
+          ? "ItemPage"
+          : "WebPage";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    name,
+    description: normalizeShopSeoDescription(description, name),
+    url: canonicalUrl,
+    inLanguage: "ja-JP",
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    },
+  };
+}
+
+export function buildShopSiteNavigationJsonLd({
+  canonicalUrl,
+  storeName,
+  links,
+}: {
+  canonicalUrl: string;
+  storeName: string;
+  links: ShopSeoLink[];
+}) {
+  const deduped = links.filter(
+    (link, index, array) => link.href && array.findIndex((item) => item.href === link.href && item.label === link.label) === index,
+  );
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: `${storeName} 主要ナビゲーション`,
+    url: canonicalUrl,
+    hasPart: deduped.slice(0, 40).map((link) => ({
+      "@type": "WebPage",
+      name: link.label,
+      url: absoluteShopUrl(link.href),
+    })),
+  };
+}
+
 export function buildShopOrganizationJsonLd({
   storeName,
   absoluteTenantRoot,
@@ -229,6 +306,30 @@ export function buildShopOrganizationJsonLd({
       returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
       merchantReturnLink: absoluteShopUrl(`${tenantRoot}/returns`),
     },
+  };
+}
+
+export function buildShopFaqPageJsonLd({
+  canonicalUrl,
+  faqItems,
+}: {
+  canonicalUrl: string;
+  faqItems: ShopSeoFaqItem[];
+}) {
+  if (!faqItems.length) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: canonicalUrl,
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 }
 
@@ -317,8 +418,8 @@ export function buildShopItemListJsonLd({
   tenantRoot: string;
   publicProductCards: Array<{ id: string; displayName: string }>;
   categoryCards: Array<{ name: string; slug?: string }>;
-  accountCards: Array<{ title: string; href: string }>;
-  policySupportCards: Array<{ title: string; href: string }>;
+  accountCards: Array<{ title: string; href?: string }>;
+  policySupportCards: Array<{ title: string; href?: string }>;
 }) {
   const listItems =
     page === "" || page === "products" || page === "favorites"
@@ -334,13 +435,13 @@ export function buildShopItemListJsonLd({
         : ["mypage", "account", "login", "register"].includes(page)
           ? accountCards.map((item) => ({
               name: item.title,
-              url: absoluteShopUrl(item.href),
-            }))
+              url: item.href ? absoluteShopUrl(item.href) : "",
+            })).filter((item) => item.url)
           : ["contact", "legal", "privacy", "shipping", "returns", "faq"].includes(page)
             ? policySupportCards.map((item) => ({
                 name: item.title,
-                url: absoluteShopUrl(item.href),
-              }))
+                url: item.href ? absoluteShopUrl(item.href) : "",
+              })).filter((item) => item.url)
             : [];
 
   if (!listItems.length) return null;

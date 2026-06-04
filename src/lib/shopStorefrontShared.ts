@@ -20,6 +20,11 @@ export type ShopStorefrontCategorySeed = {
   productCount: number;
 };
 
+export type ShopStorefrontFaqItem = {
+  question: string;
+  answer: string;
+};
+
 export function buildShopFooterColumns(tenantRoot: string): ShopStorefrontLinkGroup[] {
   return [
     {
@@ -111,5 +116,30 @@ export function buildShopCuratedCategoryCards(): ShopStorefrontCategorySeed[] {
     { name: "本・文具", slug: "books-stationery", productCount: 7 },
     { name: "セール", slug: "sale", productCount: 15 },
     { name: "ランキング", slug: "ranking", productCount: 20 },
+  ];
+}
+
+export function buildShopFaqItems(): ShopStorefrontFaqItem[] {
+  return [
+    {
+      question: "注文後に内容を変更できますか。",
+      answer:
+        "発送準備前であれば、問い合わせフォームから変更希望内容を送信してください。発送準備後は変更できない場合があります。",
+    },
+    {
+      question: "定期購入は利用できますか。",
+      answer:
+        "定期購入は本番接続後に有効化します。商品詳細に表示される購入条件と、チェックアウトの決済設定状態を確認してください。",
+    },
+    {
+      question: "送料や返品条件はどこで確認できますか。",
+      answer:
+        "配送について、返品について、特定商取引法に基づく表示の各ページで確認できます。",
+    },
+    {
+      question: "決済が未接続の場合はどうなりますか。",
+      answer:
+        "購入者に誤解を与えないため、決済未接続時は注文確定や支払い完了のような表示を出さず、設定が必要であることを表示します。",
+    },
   ];
 }
