@@ -27,6 +27,27 @@ Current additions required:
 - Add public Playwright coverage so every public storefront page must render the shared SEO hub.
 - Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
+## 2026-06-05 Continuation: Breadcrumb And Product Detail SEO Cleanup
+
+Continue the active 5-hour sales-quality sprint. The next concrete work unit is the common breadcrumb and product detail SEO cleanup.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+
+Current additions required:
+
+- Keep one shared `StorefrontBreadcrumb` component for all public tenant storefront pages.
+- Keep visible breadcrumb links blue and crawlable with real `<a href>`.
+- Preserve `BreadcrumbList` structured data from the same breadcrumb model.
+- On product detail, do not show the product title twice above the gallery. The full product name must appear as the single visible product `h1`.
+- Use a short visible current breadcrumb label on product detail while preserving the full product name in structured breadcrumb data.
+- Add public Playwright coverage for the visible breadcrumb, current crumb label, full product H1 uniqueness, and product structured data.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+
 ## 2026-06-05 Continuation: SEO/UI Common Support Rail
 
 Continue the active 5-hour sales-quality sprint. The next concrete work unit is a shared storefront support rail that strengthens SEO-critical internal links and purchase-support density across all public tenant pages.

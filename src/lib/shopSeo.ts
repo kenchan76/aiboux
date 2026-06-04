@@ -1,5 +1,6 @@
 export type ShopBreadcrumbItem = {
   name: string;
+  visibleName?: string;
   href: string;
   url: string;
 };
@@ -173,7 +174,7 @@ export function buildShopBreadcrumbItems({
       href: `${tenantRoot}/products?category=${encodeURIComponent(categoryName)}`,
       url: absoluteShopUrl(`${tenantRoot}/products?category=${encodeURIComponent(categoryName)}`),
     });
-    items.push({ name: product.displayName, href: "", url: canonicalUrl });
+    items.push({ name: product.displayName, visibleName: "商品詳細", href: "", url: canonicalUrl });
     return items;
   }
 

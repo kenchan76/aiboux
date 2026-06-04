@@ -59,9 +59,13 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await breadcrumb.locator('[itemtype="https://schema.org/ListItem"]').count(), "product breadcrumb should expose visible ListItem microdata").toBeGreaterThanOrEqual(3);
       expect(await breadcrumb.locator("a").first().getAttribute("class"), "product breadcrumb links should be visibly link-colored").toContain("text-blue-700");
       await expect(page.locator("h1")).toHaveCount(1);
+      const productTitle = (await page.locator("h1").innerText()).trim();
+      await expect(page.getByTestId("storefront-breadcrumb-current"), "product breadcrumb current label should not duplicate the full product title above the gallery").toHaveText("商品詳細");
+      expect(await page.getByText(productTitle, { exact: true }).count(), "product title should be visible only as the primary product h1").toBe(1);
 
       const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
       expect(jsonLdText ?? "", "product detail should include BreadcrumbList JSON-LD").toContain("BreadcrumbList");
+      expect(jsonLdText ?? "", "product breadcrumb JSON-LD should preserve the full product title").toContain(productTitle);
       expect(jsonLdText ?? "", "product detail should include Product JSON-LD").toContain("Product");
       expect(jsonLdText ?? "", "product detail should include Offer JSON-LD").toContain("Offer");
       expect(jsonLdText ?? "", "product detail should include Organization return policy JSON-LD").toContain("MerchantReturnPolicy");

@@ -31,9 +31,10 @@ export function StorefrontBreadcrumb({ items, className }: StorefrontBreadcrumbP
             {index > 0 ? <span className="px-1 text-neutral-300" aria-hidden="true">/</span> : null}
             {isCurrent ? (
               <>
-                <span className="font-semibold text-neutral-700" aria-current="page" itemProp="name">
-                  {item.name}
+                <span className="font-semibold text-neutral-700" aria-current="page" data-testid="storefront-breadcrumb-current">
+                  {item.visibleName ?? item.name}
                 </span>
+                <meta itemProp="name" content={item.name} />
                 <meta itemProp="item" content={item.url} />
               </>
             ) : (
