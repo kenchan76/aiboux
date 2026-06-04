@@ -1,0 +1,38 @@
+# AIBOUX Shop SEO/UI WIP Report
+
+## Status
+DEPLOYED_NOT_FINAL
+
+## Summary
+- 全公開ストアページ向けに共通の購入前チェックUIを追加し、ページ別の購入判断テキスト、青色のクロール可能リンク、SiteNavigationElement microdataを共通化しました。
+- TOP、商品詳細、商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務、プライバシー、配送、返品、FAQ、マイページ系、ログイン系まで同じ構造で案内を出すようにしました。
+- 商品詳細は可視H1を1つに維持し、画像上の不要な二重タイトルは戻していません。
+- 公開デプロイ済みですが、定期購入レーンが未合格のためFINAL_ACCEPTEDではありません。
+
+## Verification
+- npm run check:control-chars: PASS
+- npm run check:mojibake: PASS
+- npm run astro check: PASS, 0 errors
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts: PASS, 9 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-product-detail-public.spec.ts: PASS, 3 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-contact-legal-public.spec.ts: PASS, 2 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality: PASS
+- 公開 /g/m68 /g/l68 /g/d68: HTTP 200 / text/markdown; charset=utf-8
+- https://shop.aiboux.com/s/aiboux/ と商品詳細ページ: HTTP 200 / Worker Version ID 1d1cc8f3-eba6-4628-8d3f-6c0e7b40b50b
+
+## Bark
+- notification: progress delivered
+- reason: Progress Bark returned delivered=true, skipped=false, secretLogged=false. This is not the final acceptance Bark gate.
+
+## Notes
+- Latest Worker Version ID: 1d1cc8f3-eba6-4628-8d3f-6c0e7b40b50b
+- WIP commits: 3c0693b, 63d9ede, 69881a2, 2355eb9, 2ccf159
+- gate:shop-subscriptions remains blocked because the public subscription plan seed did not persist an active test plan in the response.
+- Remote D1 subscription migration and provider-backed recurring billing are still not accepted.
+- Source markdown SHA and public body SHA differ where /g routes replace __WORKER_VERSION_ID__ at runtime; the public marker and Worker ID were verified.
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
