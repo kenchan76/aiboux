@@ -1,0 +1,23 @@
+timestamp=20260604T002350Z
+commit_status=0
+head_after=eccceb54df58cbe166b31379eb76f1e141b993db
+commit_stdout:
+[main eccceb5] WIP shop aiboux tenant deploy checkpoint 20260604T002350Z
+ 19 files changed, 1660 insertions(+), 2 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T002135Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T002350Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T002350Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T002350Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T002350Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T002135Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T002900Z_deploy_shop_public_admin_global_ai_placeholder_fix.txt
+ create mode 100644 all_log/patches/20260604T002350Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T002350Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-checks/20260604T002135Z_admin_after.headers
+ create mode 100644 all_log/public-checks/20260604T002135Z_admin_after.html
+ create mode 100644 all_log/public-checks/20260604T002135Z_admin_after_grep.txt
+ create mode 100644 all_log/public-checks/20260604T002135Z_admin_after_playwright_content.html
+ create mode 100644 all_log/public-checks/20260604T002135Z_admin_after_playwright_result.json
+ create mode 100644 all_log/public-checks/20260604T002135Z_admin_after_playwright_text.txt
+
+commit_stderr:

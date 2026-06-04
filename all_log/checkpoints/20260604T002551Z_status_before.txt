@@ -1,0 +1,13 @@
+ M all_log/deploys/20260604T002900Z_deploy_shop_public_admin_global_ai_placeholder_fix.txt
+ M public/g/d68.md
+ M public/g/l68.md
+?? all_log/checkpoints/20260604T002350Z_wip_commit.txt
+?? all_log/deploys/20260604T002350Z_deployments_before.txt
+?? all_log/deploys/20260604T003600Z_deploy_shop_public_admin_final_evidence_log.txt
+?? all_log/public-checks/20260604T002350Z_admin_after_global_fix.headers
+?? all_log/public-checks/20260604T002350Z_admin_after_global_fix.html
+?? all_log/public-checks/20260604T002350Z_admin_after_global_fix_grep.txt
+?? all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_content.html
+?? all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_result.json
+?? all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_text.txt
+?? all_log/public-checks/20260604T002350Z_shop_public_admin_demo_value_recheck_summary.md
