@@ -459,7 +459,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   ) : null}
                   {productDesign?.purchaseBox.showSubscriptionOptions !== false && subscriptionSchemaPending ? (
                     <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900" data-testid="subscription-schema-pending">
-                      <div class="font-bold">定期購入は準備中です。</div>
+                      <div class="font-bold">定期購入は本番接続後に有効化します。</div>
                       <p class="mt-1 text-xs leading-5">DB migrationが未適用のため、現在は申し込みできません。通常購入と商品閲覧は利用できます。</p>
                     </div>
                   ) : null}
@@ -654,7 +654,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               </details>
               <details class="rounded-md border border-neutral-200 px-4 py-3">
                 <summary class="cursor-pointer text-sm font-bold text-neutral-950">定期購入は利用できますか。</summary>
-                <p class="mt-2 text-sm leading-6 text-neutral-600">定期購入は対応準備中です。商品詳細に表示される購入条件と、チェックアウトの決済設定状態を確認してください。</p>
+                <p class="mt-2 text-sm leading-6 text-neutral-600">定期購入は本番接続後に有効化します。商品詳細に表示される購入条件と、チェックアウトの決済設定状態を確認してください。</p>
               </details>
               <details class="rounded-md border border-neutral-200 px-4 py-3">
                 <summary class="cursor-pointer text-sm font-bold text-neutral-950">送料や返品条件はどこで確認できますか。</summary>
@@ -718,7 +718,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h2 class="text-2xl font-bold text-neutral-950">注文履歴</h2>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文番号、配送状況、領収書、問い合わせを確認するページです。現在は本番注文作成を停止しているため、注文データは表示しません。</p>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文番号、配送状況、領収書、問い合わせを確認するページです。注文が作成されると配送状況、領収書、問い合わせ導線がここに整理されます。</p>
                   </div>
                   <a class="inline-flex h-10 items-center justify-center rounded-full bg-neutral-950 px-5 text-sm font-bold text-white" href={`${tenantRoot}/products`}>買い物を続ける</a>
                 </div>
@@ -798,7 +798,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="mt-5 grid gap-3">
                   <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="email" placeholder="name@example.com" disabled /></label>
                   <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="本番認証接続後に入力" disabled /></label>
-                  <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "ログインは準備中" : "登録は準備中"}</button>
+                  <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "認証接続後にログイン" : "認証接続後に登録"}</button>
                 </div>
               </div>
               <aside class="rounded-xl border border-neutral-200 bg-white p-5 text-sm leading-6 text-neutral-700 shadow-sm">

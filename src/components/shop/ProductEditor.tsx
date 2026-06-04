@@ -245,7 +245,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
                     </SelectContent>
                   </Select>
                 </Field>
-                <Field label="販売状態" help="販売する=購入可能、下書き=準備中、販売停止=購入者に表示しません。保存後に反映します。">
+                <Field label="販売状態" help="販売する=購入可能、下書き=公開前、販売停止=購入者に表示しません。保存後に反映します。">
                   <div className="grid grid-cols-3 gap-1 rounded-md border border-neutral-200 bg-neutral-50 p-1">
                     {[
                       ["公開中", "販売する"],

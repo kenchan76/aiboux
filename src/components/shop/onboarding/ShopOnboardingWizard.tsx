@@ -371,7 +371,7 @@ export function ShopOnboardingWizard() {
                 公開URL候補: <span className="font-medium text-neutral-950">https://{subdomain || "store"}.mall.aiboux.com</span>
               </div>
             </div>
-            <StatusPanel icon={Globe2} title="店舗URL" rows={[storeName, `${subdomain || "store"}.mall.aiboux.com`, "SSL: 自動", "Mall連携: 準備中"]} />
+            <StatusPanel icon={Globe2} title="店舗URL" rows={[storeName, `${subdomain || "store"}.mall.aiboux.com`, "SSL: 自動", "Mall連携: 接続前"]} />
           </div>
         ) : null}
 
@@ -399,7 +399,7 @@ export function ShopOnboardingWizard() {
                   </div>
                   <Button className="mt-3 gap-2" onClick={connectStripe} disabled={stripeLoading}>
                     {stripeLoading ? <Loader2 className="size-4 animate-spin" /> : stripeState === "active" ? <Check className="size-4" /> : <CreditCard className="size-4" />}
-                    {stripeLoading ? "連携を準備中..." : stripeState === "active" ? "決済受付準備済み" : "決済連携を開始"}
+                    {stripeLoading ? "連携状態を確認中..." : stripeState === "active" ? "決済受付準備済み" : "決済連携を開始"}
                   </Button>
                 </div>
               </div>
