@@ -252,6 +252,9 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
           expect(jsonLdText ?? "", `${target.path} TOP ItemList should expose a stable entity id`).toContain("#itemlist");
           expect(jsonLdText ?? "", `${target.path} TOP ItemList should declare numberOfItems`).toContain("numberOfItems");
           expect(jsonLdText ?? "", `${target.path} TOP ItemList should link back to the WebPage entity`).toContain("mainEntityOfPage");
+          expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include breadcrumb support links`).toContain("タイムセール");
+          expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include page quality links`).toContain("配送条件");
+          expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include buying guide links`).toContain("送料と配送を見る");
         }
         if (target.name === "shop-faq-page") {
           expect(jsonLdText ?? "", `${target.path} should expose FAQPage JSON-LD`).toContain("FAQPage");

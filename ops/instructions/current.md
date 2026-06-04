@@ -5,6 +5,7 @@ Status: WIP
 Active instruction file:
 
 - `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+- `ops/instructions/20260605_shop_all_pages_seo_common_parts_continuation.md`
 - `ops/instructions/20260605_shop_page_quality_summary_seo_ui.md`
 - `ops/instructions/20260605_shop_page_buying_guide_seo_ui.md`
 - `ops/instructions/20260605_shop_commerce_facts_seo_ui.md`
@@ -32,6 +33,26 @@ Current additions required:
 - Render the support links on TOP, product detail, and every public storefront subpage.
 - Keep product detail single H1 and current breadcrumb label `商品詳細`.
 - Strengthen public Playwright checks.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+
+## 2026-06-05 Continuation: All Pages SEO Common Parts Finalization
+
+Continue the active sales-quality sprint. The current work unit is making TOP page structured navigation use the same shared SEO/UI link sources already rendered visibly on the page.
+
+Google Search Central references checked for this continuation:
+
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Product/Merchant structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+
+Current additions required:
+
+- Add TOP breadcrumb support links, page quality links, and buying guide links into TOP `SiteNavigationElement` JSON-LD.
+- Keep all links crawlable and visibly blue in the rendered UI.
+- Keep shared components as the source of truth for breadcrumbs, support links, buying guides, commerce facts, context links, SEO hub, support rail, and footer.
+- Keep product detail single-H1 and no duplicate product title above the gallery.
 - Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Page Quality Summary SEO/UI Commonization
