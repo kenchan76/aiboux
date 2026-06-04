@@ -1,5 +1,31 @@
 # AIBOUX Current Task
 
+## Active Override: Shop Public Storefront Slider And Interaction Fix
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_public_storefront_slider_interaction_fix.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+Required work:
+
+1. Make the public TOP hero a real working carousel.
+2. Verify next/prev/dot/autoplay changes main slide, side previews, and active dot.
+3. Verify product card click opens product detail where a real product detail href exists.
+4. Verify add-to-cart updates public TOP cart state.
+5. Add `gate:shop-storefront-interaction`.
+6. Publish interaction screenshots and evidence to `/g/l68` and `/g/d68`.
+
+Do not report `FINAL_ACCEPTED`.
+
 ## Active Override: Shop Public Storefront Visual Quality Fix
 
 Instruction source:

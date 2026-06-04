@@ -1,0 +1,28 @@
+200 https://mail.aiboux.com/g/m68 | content-type: text/markdown; charset=utf-8 | bytes=116341 | sha256=d791b569349eb2a2ca458737219a98cc04ad7d3f19d96bd78d4a6bb84196150a
+200 https://mail.aiboux.com/g/l68 | content-type: text/markdown; charset=utf-8 | bytes=45914 | sha256=83fdd2ada86833344044760873fcd12ed5738e145d870a91e0514810f8541a00
+200 https://mail.aiboux.com/g/d68 | content-type: text/markdown; charset=utf-8 | bytes=25471 | sha256=0f3192bf2ace8fdd62d259e166a8277ccfef580ed7bef69ae89dcb120fe18a72
+200 https://mail.aiboux.com/g/screens/public-storefront-after-quality-fix-1365.png | content-type: image/png | bytes=1905408 | sha256=5fd9e7adfc4c0ce327a2b21021d266937e59d910afdfd19e144f62aa65b6e133
+200 https://mail.aiboux.com/g/screens/public-storefront-after-quality-fix-1980.png | content-type: image/png | bytes=1957491 | sha256=2e0d015da99a6fbd4573b0aa0cbd4045cc2228356d780f736b0acbff57a2e7fb
+200 https://mail.aiboux.com/g/screens/public-storefront-after-quality-fix-mobile.png | content-type: image/png | bytes=967733 | sha256=3328e1e5a2a2fa0b22c3af452e11815642a271cc99c4dfdcef821d5a5c70cc77
+200 https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png | content-type: image/png | bytes=1172036 | sha256=74e26a67cd6073da201bc35e5100514d3b010c8854ad92749d220d3b38246bb4
+200 https://shop.aiboux.com/s/aiboux/ | content-type: text/html | bytes=315724 | sha256=2899c3f61b016259a6b1391a3e7651b12ab3606e71776c3313f37eed5f4a3215
+200 https://shop.aiboux.com/s/aiboux/admin/design | content-type: text/html | bytes=330994 | sha256=72fb254c7fbb6dcae3d65ee9be28eda1340e4267bbd3b981dd3253f0e9a1110e
+
+--- published log markers ---
+marker_present=PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP
+marker_present=d26b3694
+marker_present=d6403e1f
+marker_present=hero-slide-prev
+
+--- storefront assertions ---
+hero_main_img=true
+hero_prev_img=true
+hero_next_img=true
+product_card_count=10
+ranking_card_count=5
+time_sale_card_count=5
+category_card_count=8
+recommended_img_count=10
+recommended_unique_img_count=10
+public_test_product_matches=0
+weak_img_src_matches=0

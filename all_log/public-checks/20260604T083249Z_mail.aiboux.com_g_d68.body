@@ -203,9 +203,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `27be7cf3-7d1c-4c72-b205-3c95c5494104` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `27be7cf3-7d1c-4c72-b205-3c95c5494104` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `27be7cf3-7d1c-4c72-b205-3c95c5494104` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -260,7 +260,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `27be7cf3-7d1c-4c72-b205-3c95c5494104`
 
 Screen evidence policy:
 
@@ -349,7 +349,7 @@ Verified route:
 - `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `27be7cf3-7d1c-4c72-b205-3c95c5494104`
 
 Current visual evidence:
 
@@ -506,7 +506,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `27be7cf3-7d1c-4c72-b205-3c95c5494104`.
 
 Design editor screen evidence:
 

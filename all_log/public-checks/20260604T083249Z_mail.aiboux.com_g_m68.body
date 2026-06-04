@@ -226,7 +226,7 @@ MASTER_REWRITE_REQUIRED
 ### 2.2 現在の確定情報
 
 - 対象Worker名: aiboux
-- Worker Version ID: __WORKER_VERSION_ID__
+- Worker Version ID: 27be7cf3-7d1c-4c72-b205-3c95c5494104
 - Remote repository: https://github.com/kenchan76/aiboux.git
 - gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
 - Bark通知方針修正: 完了
@@ -2373,7 +2373,7 @@ AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に
 ### 21.1 Worker
 
 Worker name: aiboux
-Worker Version ID: __WORKER_VERSION_ID__
+Worker Version ID: 27be7cf3-7d1c-4c72-b205-3c95c5494104
 Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
 Deployment created_on: 2026-05-31T14:22:16.574248Z
 Version percentage: 100

@@ -29,6 +29,7 @@
     "gate:design:legacy": "node scripts/aiboux-design-gate.mjs",
     "gate:shop-design": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-design-editor-public.spec.ts",
     "gate:shop-storefront-visual": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-storefront-visual-public.spec.ts",
+    "gate:shop-storefront-interaction": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-storefront-interaction-public.spec.ts",
     "gate:shop-subscriptions": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-subscriptions-public.spec.ts",
     "gate:deploy": "node scripts/aiboux-gate-check.mjs --stage deploy",
     "gate:final": "node scripts/aiboux-gate-check.mjs --stage final",

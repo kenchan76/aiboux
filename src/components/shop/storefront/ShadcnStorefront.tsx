@@ -98,44 +98,66 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
 
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
-        <section className="grid gap-3 pt-3 md:grid-cols-[12%_minmax(0,1fr)_12%] xl:grid-cols-[140px_minmax(0,1fr)_140px]" data-testid="storefront-hero-slider">
+        <section
+          className="pt-3"
+          data-testid="hero-carousel"
+          data-hero-carousel
+          data-slides={JSON.stringify(slides)}
+          data-autoplay={hero.autoplay ? "true" : "false"}
+          data-interval-ms={String(Math.max(3, hero.intervalSeconds || 5) * 1000)}
+          data-loop={hero.loop ? "true" : "false"}
+          tabIndex={0}
+          aria-label="TOPヒーロースライダー"
+        >
+          <div className="grid gap-3 md:grid-cols-[12%_minmax(0,1fr)_12%] xl:grid-cols-[140px_minmax(0,1fr)_140px]" data-testid="storefront-hero-slider">
           <SideHeroCard slide={previous} direction="prev" />
-          <div className="relative min-h-[330px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main">
+          <div className="relative min-h-[330px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main" data-slide-id={main.id}>
             {main.imageUrl ? (
-              <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" />
+              <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
             ) : (
               <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
             )}
             <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
             <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
               <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
-              <h1 className="text-3xl font-black leading-tight md:text-5xl">{main.title}</h1>
-              <p className="mt-3 text-sm leading-6 text-white/90 md:text-base">{main.subtitle}</p>
+              <h1 className="text-3xl font-black leading-tight md:text-5xl" data-hero-title>{main.title}</h1>
+              <p className="mt-3 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{main.subtitle}</p>
               {main.ctaText ? (
-                <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`}>
+                <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`} data-hero-cta>
                   {main.ctaText}
                 </a>
               ) : null}
             </div>
             {hero.showArrows ? (
               <>
-                <button className="absolute left-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="前のスライド">
+                <button className="absolute left-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="前のスライド" data-testid="hero-prev-button" data-hero-prev-button>
                   <ChevronLeft className="size-5" />
                 </button>
-                <button className="absolute right-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="次のスライド">
+                <button className="absolute right-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="次のスライド" data-testid="hero-next-button" data-hero-next-button>
                   <ChevronRight className="size-5" />
                 </button>
               </>
             ) : null}
           </div>
           <SideHeroCard slide={next} direction="next" />
-        </section>
+          </div>
 
         {hero.showDots ? (
           <div className="flex justify-center gap-3 py-3">
-            {slides.slice(0, 6).map((slide, index) => <span key={slide.id} className={cn("size-2 rounded-full", index === 0 ? "bg-slate-900" : "bg-slate-300")} />)}
+            {slides.slice(0, 6).map((slide, index) => (
+              <button
+                key={slide.id}
+                className={cn("size-2 rounded-full", index === 0 ? "bg-slate-900" : "bg-slate-300")}
+                type="button"
+                aria-label={`スライド${index + 1}へ移動`}
+                aria-current={index === 0 ? "true" : "false"}
+                data-testid={`hero-dot-${index}`}
+                data-hero-dot={String(index)}
+              />
+            ))}
           </div>
         ) : null}
+        </section>
 
         {recommended.enabled ? (
           <section id="products" className="rounded-md bg-white p-4 shadow-sm" data-testid="recommended-products">
@@ -180,6 +202,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
           <a href={`${tenantRoot}/contact`}>問い合わせ</a>
         </nav>
       </footer>
+      <StorefrontInteractionScript />
     </div>
   );
 }
@@ -214,7 +237,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
         </div>
         <a href={`${tenantRoot}/contact`} className="hidden text-xs md:block">アカウント<br /><b>ログイン</b></a>
         <a href={`${tenantRoot}/checkout`} className="hidden text-xs md:block">注文履歴</a>
-        <a href={`${tenantRoot}/cart`} className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート</a>
+        <a href={`${tenantRoot}/cart`} className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート <span className="rounded bg-amber-400 px-1.5 py-0.5 text-[11px] font-bold text-neutral-950" data-testid="storefront-cart-count" data-cart-count>0</span></a>
       </div>
       <nav className="mx-auto flex max-w-screen-xl items-center gap-6 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
         <a className="shrink-0 font-bold" href={`${tenantRoot}/categories`}>すべてのカテゴリー</a>
@@ -230,10 +253,10 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
 
 function SideHeroCard({ slide, direction }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number]; direction: "prev" | "next" }) {
   return (
-    <div className="relative hidden min-h-[330px] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`}>
+    <div className="relative hidden min-h-[330px] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`} data-slide-id={slide.id}>
       <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
       <div className="absolute inset-0 bg-black/25" />
-      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow">{slide.title}</div>
+      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow" data-hero-side-title>{slide.title}</div>
     </div>
   );
 }
@@ -292,10 +315,177 @@ function ProductCard({ product, index, showTaxLabel, showRating }: { product: St
         {showRating ? <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({860 + index * 47})</span></div> : null}
         <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-neutral-950">{product.name}</h3>
         <p className="mt-1 text-lg font-bold tracking-tight text-red-700">¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}</p>
-        <span className="mt-2 inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950">カートに追加</span>
       </a>
+      <button
+        className="mt-2 inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950 hover:bg-[#F7CA00]"
+        type="button"
+        data-cart-add
+        data-testid="storefront-product-add-to-cart"
+        data-product-id={product.id}
+        data-product-name={product.name}
+        data-product-price={String(product.price).replace(/[^\d]/g, "")}
+        data-product-image={product.image}
+      >
+        カートに追加
+      </button>
     </article>
   );
+}
+
+function StorefrontInteractionScript() {
+  const script = `
+(() => {
+  const cartKey = "aiboux:shop:aiboux:cart";
+  const readCart = () => {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(cartKey) || "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+  const writeCart = (items) => {
+    localStorage.setItem(cartKey, JSON.stringify(items));
+    updateCartCount();
+  };
+  const updateCartCount = () => {
+    const total = readCart().reduce((sum, item) => sum + Math.max(1, Number(item.quantity || 1)), 0);
+    document.querySelectorAll("[data-cart-count]").forEach((node) => {
+      node.textContent = String(total);
+    });
+  };
+  const addToCart = (button) => {
+    const id = button.getAttribute("data-product-id") || "";
+    if (!id) return;
+    const items = readCart();
+    const existing = items.find((item) => item.id === id);
+    if (existing) {
+      existing.quantity = Math.min(99, Number(existing.quantity || 1) + 1);
+    } else {
+      items.push({
+        id,
+        productId: id,
+        name: button.getAttribute("data-product-name") || "",
+        price: Number(button.getAttribute("data-product-price") || 0),
+        image: button.getAttribute("data-product-image") || "",
+        purchaseMode: "normal",
+        quantity: 1,
+      });
+    }
+    writeCart(items);
+    button.setAttribute("data-cart-added", "true");
+    button.textContent = "カートに追加済み";
+  };
+
+  document.querySelectorAll("[data-cart-add]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      addToCart(button);
+    });
+  });
+  updateCartCount();
+
+  document.querySelectorAll("[data-hero-carousel]").forEach((carousel) => {
+    let slides = [];
+    try {
+      slides = JSON.parse(carousel.getAttribute("data-slides") || "[]");
+    } catch {
+      slides = [];
+    }
+    slides = slides.filter((slide) => slide && slide.id);
+    if (slides.length < 2) return;
+
+    const loop = carousel.getAttribute("data-loop") !== "false";
+    const autoplay = carousel.getAttribute("data-autoplay") === "true";
+    const intervalMs = Math.max(3000, Number(carousel.getAttribute("data-interval-ms") || 5000));
+    const main = carousel.querySelector("[data-testid='hero-slide-main']");
+    const prev = carousel.querySelector("[data-testid='hero-slide-prev']");
+    const next = carousel.querySelector("[data-testid='hero-slide-next']");
+    const mainImg = carousel.querySelector("[data-hero-main-img]");
+    const title = carousel.querySelector("[data-hero-title]");
+    const subtitle = carousel.querySelector("[data-hero-subtitle]");
+    const cta = carousel.querySelector("[data-hero-cta]");
+    const dots = [...carousel.querySelectorAll("[data-hero-dot]")];
+    const prevButton = carousel.querySelector("[data-hero-prev-button]");
+    const nextButton = carousel.querySelector("[data-hero-next-button]");
+    let index = 0;
+    let timer = 0;
+    let paused = false;
+
+    const slideAt = (position) => slides[(position + slides.length) % slides.length];
+    const setSide = (node, slide) => {
+      if (!node || !slide) return;
+      node.setAttribute("data-slide-id", slide.id);
+      const image = node.querySelector("img");
+      const sideTitle = node.querySelector("[data-hero-side-title]");
+      if (image) image.setAttribute("src", slide.imageUrl || "");
+      if (sideTitle) sideTitle.textContent = slide.title || "";
+    };
+    const render = () => {
+      const current = slideAt(index);
+      const previous = slideAt(index - 1);
+      const following = slideAt(index + 1);
+      if (main) main.setAttribute("data-slide-id", current.id);
+      if (mainImg) mainImg.setAttribute("src", current.imageUrl || "");
+      if (title) title.textContent = current.title || "";
+      if (subtitle) subtitle.textContent = current.subtitle || "";
+      if (cta) {
+        cta.textContent = current.ctaText || "詳しく見る";
+        cta.setAttribute("href", current.ctaHref || "/s/aiboux/products");
+      }
+      setSide(prev, previous);
+      setSide(next, following);
+      dots.forEach((dot, dotIndex) => {
+        const active = dotIndex === index;
+        dot.setAttribute("aria-current", active ? "true" : "false");
+        dot.classList.toggle("bg-slate-900", active);
+        dot.classList.toggle("bg-slate-300", !active);
+      });
+    };
+    const move = (delta) => {
+      const nextIndex = index + delta;
+      if (!loop && (nextIndex < 0 || nextIndex >= slides.length)) return;
+      index = (nextIndex + slides.length) % slides.length;
+      render();
+    };
+    const restart = () => {
+      window.clearInterval(timer);
+      if (!autoplay) return;
+      timer = window.setInterval(() => {
+        if (!paused) move(1);
+      }, intervalMs);
+    };
+
+    prevButton?.addEventListener("click", () => {
+      move(-1);
+      restart();
+    });
+    nextButton?.addEventListener("click", () => {
+      move(1);
+      restart();
+    });
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        index = Number(dot.getAttribute("data-hero-dot") || 0) % slides.length;
+        render();
+        restart();
+      });
+    });
+    carousel.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") move(-1);
+      if (event.key === "ArrowRight") move(1);
+    });
+    carousel.addEventListener("mouseenter", () => { paused = true; });
+    carousel.addEventListener("mouseleave", () => { paused = false; });
+    carousel.addEventListener("focusin", () => { paused = true; });
+    carousel.addEventListener("focusout", () => { paused = false; });
+    render();
+    restart();
+  });
+})();
+`;
+  return <script dangerouslySetInnerHTML={{ __html: script }} />;
 }
 
 function normalizeHeroSlides(slides: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"]) {

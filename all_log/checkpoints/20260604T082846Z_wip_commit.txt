@@ -1,0 +1,67 @@
+timestamp=20260604T082846Z
+commit_status=0
+head_after=d6403e1f1348032cd3d44200ccb8a17584e5aa1f
+commit_stdout:
+[main d6403e1] WIP shop aiboux tenant deploy checkpoint 20260604T082846Z
+ 72 files changed, 9151 insertions(+), 6 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T081945Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T082707Z_head_before_hero_prev_next_dom_fix.txt
+ create mode 100644 all_log/checkpoints/20260604T082707Z_status_before_hero_prev_next_dom_fix.txt
+ create mode 100644 all_log/checkpoints/20260604T082846Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T082846Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T082846Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T082846Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T081945Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T082426Z_shop_storefront_quality_evidence_deploy.txt
+ create mode 100644 all_log/patches/20260604T082707Z_before_hero_prev_next_dom_fix.patch
+ create mode 100644 all_log/patches/20260604T082846Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T082846Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_quality_fix_content_assertions.txt
+ create mode 100644 all_log/public-checks/20260604T082222Z_quality_fix_public_url_status.txt
+ create mode 100644 all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_admin_design.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_admin_design.headers
+ create mode 100644 all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.body
+ create mode 100644 all_log/public-checks/20260604T082222Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_d68.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_d68.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_l68.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_l68.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_m68.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_m68.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1365.png.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_public-storefront-after-quality-fix-mobile.png.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_quality_fix_after_evidence_public_verify.txt
+ create mode 100644 all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_.headers
+ create mode 100644 all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_admin_design.body
+ create mode 100644 all_log/public-checks/20260604T082637Z_shop.aiboux.com_s_aiboux_admin_design.headers
+ create mode 100644 output/playwright/shop-storefront-visual/public-storefront-after-quality-fix-1365.png
+ create mode 100644 output/playwright/shop-storefront-visual/public-storefront-after-quality-fix-1980.png
+ create mode 100644 output/playwright/shop-storefront-visual/public-storefront-after-quality-fix-mobile.png
+ create mode 100644 public/g/screens/public-storefront-after-quality-fix-1365.png
+ create mode 100644 public/g/screens/public-storefront-after-quality-fix-1980.png
+ create mode 100644 public/g/screens/public-storefront-after-quality-fix-mobile.png
+ create mode 100644 test-results/shop-storefront-visual-pub-bc538-dy-visual-density-at-1365px/error-context.md
+ create mode 100644 test-results/shop-storefront-visual-pub-bc538-dy-visual-density-at-1365px/test-failed-1.png
+ create mode 100644 test-results/shop-storefront-visual-pub-bc538-dy-visual-density-at-1365px/trace.zip
+ create mode 100644 test-results/shop-storefront-visual-pub-bc538-dy-visual-density-at-1365px/video.webm
+
+commit_stderr:
