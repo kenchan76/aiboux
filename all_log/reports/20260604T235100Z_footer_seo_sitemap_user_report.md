@@ -1,0 +1,40 @@
+# AIBOUX Shop Footer SEO Sitemap WIP Report
+
+## Status
+SHOP_5H_FOOTER_SEO_SITEMAP_WIP_DEPLOYED_NOT_FINAL
+
+## Summary
+- 全公開Shopページ向けの共通フッターSEOサイトマップを追加しました。
+- Footer内にcrawlableな内部リンク、ItemList/ListItem microdata、visible sky-blue link stylingを追加しました。
+- TOPと商品詳細のSiteNavigationElement JSON-LDにも同じ共通リンクソースを展開しました。
+- 公開Shop TOPと商品詳細でstorefront-footer-seo-sitemap、SEO site map、ItemList、text-sky-200を確認しました。
+- FINAL_ACCEPTEDではありません。定期購入レーンはremote D1 subscription migration/provider-backed recurring billing未完了のためBLOCKED_NOT_FINALです。
+
+## Verification
+- npm run check:control-chars: PASS
+- npm run check:mojibake: PASS
+- npm run astro -- check: PASS with pre-existing hints only
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl: PASS, 9 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail: PASS, 3 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions: BLOCKED_NOT_FINAL
+- Public /g/m68, /g/l68, /g/d68: HTTP 200 / text/markdown; charset=utf-8
+- Public Shop TOP and product detail: HTTP 200 / x-aiboux-worker-version 90847e9b-6cd9-418b-a2ec-96300c113a99
+
+## Bark
+- notification: progress delivered
+- reason: Bark progress notification was sent after URL Bundle publication; final acceptance Bark is not claimed because FINAL_ACCEPTED is prohibited.
+
+## Notes
+- Implementation commit: dd23f4d
+- Gate assertion commit: 62e7799
+- Evidence commits: d22083e, 2e441d1, 9b388b3, 97200cf
+- Latest public Worker Version ID: 90847e9b-6cd9-418b-a2ec-96300c113a99
+- Progress Bark delivered=true, skipped=false, secretLogged=false, finalGate=false
+- Google Search Central references checked: SEO Starter Guide, Breadcrumb structured data, Product structured data, Merchant Listing structured data, Page Experience
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
