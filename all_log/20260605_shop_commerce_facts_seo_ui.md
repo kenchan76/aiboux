@@ -83,3 +83,14 @@ Strengthen all public AIBOUX Shop tenant pages with shared SEO/UI purchase facts
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - This is a WIP SEO/UI hardening cycle, not full Shop completion.
+
+## Progress Bark
+
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID at send time: `722630cb-2669-44d2-a616-f2bcca1c2f5d`
+- Evidence file: `all_log/bark/20260604T200749Z_commerce_facts_progress_bark.json`
