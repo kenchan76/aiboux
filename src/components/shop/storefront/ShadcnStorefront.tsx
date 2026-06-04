@@ -130,10 +130,10 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
             </div>
             {hero.showArrows ? (
               <>
-                <button className="absolute left-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="前のスライド" data-testid="hero-prev-button" data-hero-prev-button>
+                <button className="absolute left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="前のスライド" data-testid="hero-prev-button" data-hero-prev-button>
                   <ChevronLeft className="size-5" />
                 </button>
-                <button className="absolute right-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="次のスライド" data-testid="hero-next-button" data-hero-next-button>
+                <button className="absolute right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow" type="button" aria-label="次のスライド" data-testid="hero-next-button" data-hero-next-button>
                   <ChevronRight className="size-5" />
                 </button>
               </>
@@ -166,7 +166,10 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
                 <h2 className="text-lg font-semibold tracking-tight">{recommended.title}</h2>
                 <p className="mt-1 text-sm text-muted-foreground">ヒーロースライダーの直下に公開商品を表示します。</p>
               </div>
-              <Badge variant="secondary">{products.length}件</Badge>
+              <div className="flex items-center gap-3">
+                <Badge variant="secondary">{products.length}件</Badge>
+                <a className="text-xs text-muted-foreground" href={`${tenantRoot}/products`}>もっと見る</a>
+              </div>
             </div>
             <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:gap-4", columnClass)}>
               {visualProducts.slice(0, Math.max(recommended.limit ?? 10, 10)).map((product, index) => (

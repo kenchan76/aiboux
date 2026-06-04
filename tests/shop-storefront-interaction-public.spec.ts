@@ -62,6 +62,7 @@ test.describe("AIBOUX Shop public storefront interactions", () => {
     await expect(main).not.toHaveAttribute("data-slide-id", dotMainId ?? "");
 
     const beforeAutoplay = await main.getAttribute("data-slide-id");
+    await page.locator("body").click({ position: { x: 12, y: 12 } });
     await page.waitForTimeout(6200);
     await expect(main).not.toHaveAttribute("data-slide-id", beforeAutoplay ?? "");
     await saveScreenshot(page, "shop-hero-after-autoplay-1365.png");
