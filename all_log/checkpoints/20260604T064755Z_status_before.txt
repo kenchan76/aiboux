@@ -1,0 +1,7 @@
+ M src/pages/shop/[tenant]/[...path].astro
+ M test-results/.last-run.json
+?? all_log/checkpoints/20260604T064542Z_wip_commit.txt
+?? all_log/deploys/20260604T064542Z_deployments_before.txt
+?? output/playwright/shop-design-editor/
+?? public/g/screens/
+?? test-results/shop-design-editor-public--30a3b-on-and-purchase-box-columns/

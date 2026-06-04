@@ -1,0 +1,27 @@
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index f01213e..d79fde1 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -118,7 +118,7 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+     </header>
+     {
+       isKnownTenant && isAllowedPath ? (
+-        <main class="mx-auto max-w-6xl px-4 py-8">
++        <main class="mx-auto max-w-screen-xl px-4 py-8">
+           <div class="mb-6">
+             <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
+             <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
+diff --git a/test-results/.last-run.json b/test-results/.last-run.json
+index cbcc1fb..a1b0ace 100644
+--- a/test-results/.last-run.json
++++ b/test-results/.last-run.json
+@@ -1,4 +1,6 @@
+ {
+-  "status": "passed",
+-  "failedTests": []
++  "status": "failed",
++  "failedTests": [
++    "bac4f67671dbfa05c194-0cb1df6fd1aaa76139d9"
++  ]
+ }
+\ No newline at end of file
