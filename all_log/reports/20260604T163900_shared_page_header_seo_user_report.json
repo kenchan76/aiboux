@@ -1,0 +1,35 @@
+{
+  "title": "AIBOUX Shop Shared Page Header SEO/UI WIP Report",
+  "status": "WIP_DEPLOYED_NOT_FINAL",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "非商品ページ向けの共通StorefrontPageHeaderを追加し、H1、説明、ストア文脈、内部リンク、青いリンク導線、SiteNavigationElementを共通化しました。",
+    "商品詳細ページは重複タイトルを戻さず、可視H1を1つに維持しています。",
+    "Google Search CentralのEC SEO、商品構造化データ、URL/リンク、Schema.orgのBreadcrumbList/WebPage/SiteNavigationElementを確認し、日次改善へ反映しました。",
+    "WIP deploy済みですが、remote D1 subscription migration未適用とprovider-backed recurring billing未検証のためFINAL_ACCEPTEDではありません。"
+  ],
+  "verification": [
+    "npm run check:control-chars: PASS",
+    "npm run check:mojibake: PASS",
+    "npm run astro -- check: PASS with existing hints only",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS",
+    "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl: PASS, 6 passed",
+    "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops",
+    "16 public non-product tenant URLs returned HTTP 200 and included StorefrontPageHeader, storefront-page-title, and SiteNavigationElement",
+    "Public /g/m68, /g/l68, /g/d68 returned HTTP 200 and text/markdown; charset=utf-8",
+    "Progress Bark: delivered=true, skipped=false, secretLogged=false"
+  ],
+  "bark": {
+    "notification": "progress sent",
+    "reason": "Progress Bark succeeded for WIP_DEPLOYED_NOT_FINAL. Final Acceptance Bark is not applicable because FINAL_ACCEPTED is still prohibited."
+  },
+  "notes": [
+    "Latest deployed Worker Version ID observed after final log alignment deploy: c1e785e2-1b71-47f7-8728-79e8e46096f0",
+    "Implementation commit: 4b90bb0",
+    "Evidence commits: 683b487, c78750f, cbdbc62, 28723b6",
+    "Published public log contains SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP and SHOP_10H_SHARED_PAGE_HEADER_SEO_PUBLICATION_AND_BARK markers.",
+    "No git push was performed."
+  ]
+}
