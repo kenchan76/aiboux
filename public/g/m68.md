@@ -1,6 +1,37 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Shared Category Link Parts
+
+Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override centralizes category link generation so UI navigation, product breadcrumbs, sitemap entries, footer links, and SEO hub links use the same stable category slug URLs.
+
+Implemented WIP direction:
+
+- Category display names and stable slugs are sourced from the shared curated category model.
+- Header category navigation uses stable URLs such as `/s/aiboux/products?category=daily-goods`, `/s/aiboux/products?category=sale`, and `/s/aiboux/products?category=ranking`.
+- Footer commerce links use stable sale/ranking category URLs instead of generic `/products`.
+- Product detail breadcrumb category links resolve to stable slug URLs such as `/s/aiboux/products?category=coffee-tea` instead of ad hoc Japanese query values.
+- Sitemap category URLs and visible category navigation now share the same category source.
+
+Latest WIP evidence:
+
+- WIP commit: `9728617 WIP centralize shop category SEO links`
+- Implementation Worker Version ID: `3b551bcd-da16-4307-9a36-0d6189e26e37`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- Added gate coverage for shared header category links, footer sale/ranking links, and product breadcrumb category slug URL.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Stable Category URL SEO And UI
 
 Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`

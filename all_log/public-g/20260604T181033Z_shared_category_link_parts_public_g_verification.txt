@@ -1,0 +1,76 @@
+Timestamp: 20260604T181033Z
+Publication Worker Version ID: 2509548b-b345-49a6-aa39-514703740f97
+/tmp/m68.headers:HTTP/2 200 
+/tmp/m68.headers:content-type: text/markdown; charset=utf-8
+/tmp/m68.headers:cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+/tmp/m68.headers:cdn-cache-control: no-store
+/tmp/m68.headers:cloudflare-cdn-cache-control: no-store
+/tmp/m68.headers:x-content-type-options: nosniff
+/tmp/l68.headers:HTTP/2 200 
+/tmp/l68.headers:content-type: text/markdown; charset=utf-8
+/tmp/l68.headers:cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+/tmp/l68.headers:cdn-cache-control: no-store
+/tmp/l68.headers:cloudflare-cdn-cache-control: no-store
+/tmp/l68.headers:x-content-type-options: nosniff
+/tmp/d68.headers:HTTP/2 200 
+/tmp/d68.headers:content-type: text/markdown; charset=utf-8
+/tmp/d68.headers:cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+/tmp/d68.headers:cdn-cache-control: no-store
+/tmp/d68.headers:cloudflare-cdn-cache-control: no-store
+/tmp/d68.headers:x-content-type-options: nosniff
+ad257b14f6015fb34935aad82d7c3c5bebff2925b93a2276b5af72ed695d48c7  public/g/m68.md
+69f80d3457db4a7fb90e90500318a5869f530c5a54b88380f7ccb27e9d9090ea  /tmp/m68.body
+75bf90c7e31ef631a8dcdce113ccc932d1f75d607e668256625fbdc7f46ab7b6  public/g/l68.md
+a8c6e437e8b5da6681cc8bb8eab8de4a5745366a90b8cabee4652fdd00ea66ff  /tmp/l68.body
+6bf8ae4b14036cac5c9e85f7cb6a6eb433e171336502d39045da513212caa5e8  public/g/d68.md
+837126f1fe82930717f3111ab7b33da36de4b43475a2ee2391bd4eaf354fdbbe  /tmp/d68.body
+/tmp/m68.body:6:Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`
+/tmp/m68.body:16:- Header category navigation uses stable URLs such as `/s/aiboux/products?category=daily-goods`, `/s/aiboux/products?category=sale`, and `/s/aiboux/products?category=ranking`.
+/tmp/m68.body:18:- Product detail breadcrumb category links resolve to stable slug URLs such as `/s/aiboux/products?category=coffee-tea` instead of ad hoc Japanese query values.
+/tmp/m68.body:24:- Implementation Worker Version ID: `3b551bcd-da16-4307-9a36-0d6189e26e37`
+/tmp/m68.body:57:- `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`: HTTP 200
+/tmp/m68.body:59:- category canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/m68.body:62:- sitemap includes category URLs such as `coffee-tea`, `kitchen`, and `daily-goods`.
+/tmp/m68.body:124:- Worker Version ID: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/m68.body:421:- Worker Version ID: 2509548b-b345-49a6-aa39-514703740f97
+/tmp/m68.body:2568:Worker Version ID: 2509548b-b345-49a6-aa39-514703740f97
+/tmp/l68.body:5:Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`
+/tmp/l68.body:41:- Implementation Worker Version ID: `3b551bcd-da16-4307-9a36-0d6189e26e37`
+/tmp/l68.body:47:- Header `日用品`: `/s/aiboux/products?category=daily-goods`
+/tmp/l68.body:51:- Footer `売れ筋ランキング`: `/s/aiboux/products?category=ranking`
+/tmp/l68.body:52:- Product breadcrumb `コーヒー・お茶`: `/s/aiboux/products?category=coffee-tea`
+/tmp/l68.body:77:  - `buildShopSitemapEntries()` now emits category URLs such as `/s/aiboux/products?category=coffee-tea`.
+/tmp/l68.body:86:  - Added public category page test for `coffee-tea`, including H1, self canonical, indexable robots, visible category badge, filtered product links, and JSON-LD.
+/tmp/l68.body:90:- URL: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/l68.body:95:- canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/l68.body:203:  - Keeps hero as center main slide with real side previews and coherent daily-goods/gift theme.
+/tmp/l68.body:541:- Latest Worker Version ID: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:645:Runtime placeholders such as `2509548b-b345-49a6-aa39-514703740f97` are replaced in the public response.
+/tmp/l68.body:655:The SHA mismatch is expected for files containing `2509548b-b345-49a6-aa39-514703740f97`.
+/tmp/l68.body:662:| `https://shop.aiboux.com/` | 200 | `2509548b-b345-49a6-aa39-514703740f97` | `AIBOUX SHOP | サービスサイト` |
+/tmp/l68.body:663:| `https://shop.aiboux.com/s/aiboux/` | 200 | `2509548b-b345-49a6-aa39-514703740f97` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/l68.body:664:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `2509548b-b345-49a6-aa39-514703740f97` | `AIBOUX SHOP Dashboard` |
+/tmp/l68.body:752:- `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:771:- `/g/*` responses replace `2509548b-b345-49a6-aa39-514703740f97` at runtime.
+/tmp/l68.body:1207:- Public log publication Worker Version ID: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:1213:- `x-aiboux-worker-version`: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:1243:- `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:1254:- `x-aiboux-worker-version`: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:1300:- `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/l68.body:1755:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 2509548b-b345-49a6-aa39-514703740f97
+/tmp/l68.body:2220:- Worker Version ID: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/d68.body:5:Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`
+/tmp/d68.body:13:- implementation Worker Version ID: `3b551bcd-da16-4307-9a36-0d6189e26e37`
+/tmp/d68.body:17:- Public TOP header `日用品`: `/s/aiboux/products?category=daily-goods`
+/tmp/d68.body:21:- Shared footer `売れ筋ランキング`: `/s/aiboux/products?category=ranking`
+/tmp/d68.body:22:- Product detail breadcrumb `コーヒー・お茶`: `/s/aiboux/products?category=coffee-tea`
+/tmp/d68.body:47:- URL: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/d68.body:59:- Self canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/d68.body:338:| `https://shop.aiboux.com/` | 200 | `2509548b-b345-49a6-aa39-514703740f97` | `AIBOUX SHOP | サービスサイト` |
+/tmp/d68.body:339:| `https://shop.aiboux.com/s/aiboux/` | 200 | `2509548b-b345-49a6-aa39-514703740f97` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/d68.body:340:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `2509548b-b345-49a6-aa39-514703740f97` | `AIBOUX SHOP Dashboard` |
+/tmp/d68.body:395:- `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/d68.body:484:- `x-aiboux-worker-version`: `2509548b-b345-49a6-aa39-514703740f97`
+/tmp/d68.body:641:- All checked responses were served by Worker Version ID `2509548b-b345-49a6-aa39-514703740f97`.
+/tmp/d68.body:1116:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 2509548b-b345-49a6-aa39-514703740f97
+/tmp/d68.body:1820:- Worker Version ID: `2509548b-b345-49a6-aa39-514703740f97`
