@@ -1,0 +1,36 @@
+{
+  "title": "AIBOUX Shop Shared Product Card SEO/UI WIP Report",
+  "status": "WIP_DEPLOYED_NOT_FINAL",
+  "masterUrl": "https://mail.aiboux.com/g/m68",
+  "logUrl": "https://mail.aiboux.com/g/l68",
+  "screenUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "Shop公開ストアの複数ページで重複していた商品カードを StorefrontProductCard.astro に共通化しました。",
+    "商品カードへ Product / Offer / AggregateRating microdata、商品詳細リンク、カテゴリリンク、SEO向けaltを追加しました。",
+    "products、商品詳細関連商品、cart、mypage、orders、favorites、login/register、mypage/subscriptions の商品カード構造を共通化しました。",
+    "WIP deploy済みです。FINAL_ACCEPTEDではありません。remote D1 subscription migration と決済プロバイダ連携は未完了です。"
+  ],
+  "verification": [
+    "check:control-chars PASS",
+    "check:mojibake PASS",
+    "astro check PASS",
+    "build PASS",
+    "gate:shop-seo-meta PASS",
+    "gate:shop-product-detail PASS",
+    "gate:shop-public-crawl PASS",
+    "gate:shop-sales-quality PASS",
+    "public /g/m68 /g/l68 /g/d68 HTTP 200 and text/markdown confirmed",
+    "Progress Bark delivered=true, skipped=false, secretLogged=false"
+  ],
+  "notes": [
+    "Implementation WIP Worker Version ID: ec4df0de-75ea-4976-b185-c06e2c7f16d8",
+    "Public evidence Worker Version ID: bae28cdc-e2a6-470b-950f-208eaf387e52",
+    "Commits: 6090368, 8f43942, 990a442",
+    "Changed code includes src/components/shop/storefront/StorefrontProductCard.astro, src/pages/shop/[tenant]/[...path].astro, tests/shop-public-crawl.spec.ts, tests/shop-product-detail-public.spec.ts",
+    "Unresolved: recurring billing FINAL gate remains blocked until remote D1 subscription migration and provider-backed subscription flow are verified."
+  ],
+  "bark": {
+    "notification": "progress delivered",
+    "reason": "Progress Bark sent after public URL bundle verification; final acceptance Bark is not applicable because status is WIP_DEPLOYED_NOT_FINAL."
+  }
+}
