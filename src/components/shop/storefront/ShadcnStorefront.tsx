@@ -106,27 +106,36 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
           data-autoplay={hero.autoplay ? "true" : "false"}
           data-interval-ms={String(Math.max(3, hero.intervalSeconds || 5) * 1000)}
           data-loop={hero.loop ? "true" : "false"}
+          data-current-slide-id={main.id}
           tabIndex={0}
           aria-label="TOPヒーロースライダー"
         >
-          <div className="grid gap-3 md:grid-cols-[12%_minmax(0,1fr)_12%] xl:grid-cols-[140px_minmax(0,1fr)_140px]" data-testid="storefront-hero-slider">
-          <SideHeroCard slide={previous} direction="prev" />
-          <div className="relative min-h-[330px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main" data-slide-id={main.id}>
-            {main.imageUrl ? (
-              <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
-            ) : (
-              <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
-            <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
-              <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
-              <h1 className="text-3xl font-black leading-tight md:text-5xl" data-hero-title>{main.title}</h1>
-              <p className="mt-3 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{main.subtitle}</p>
-              {main.ctaText ? (
-                <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`} data-hero-cta>
-                  {main.ctaText}
-                </a>
-              ) : null}
+          <div className="relative overflow-hidden" data-testid="storefront-hero-slider">
+            <div
+              className="flex gap-3 transition-transform duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              data-testid="hero-carousel-track"
+              data-hero-track
+            >
+              <SideHeroCard slide={previous} direction="prev" />
+              <div className="relative min-h-[330px] shrink-0 basis-full overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm md:basis-[72%]" data-testid="hero-slide-main" data-slide-id={main.id}>
+                {main.imageUrl ? (
+                  <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
+                ) : (
+                  <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
+                <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
+                  <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
+                  <h1 className="text-3xl font-black leading-tight md:text-5xl" data-hero-title>{main.title}</h1>
+                  <p className="mt-3 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{main.subtitle}</p>
+                  {main.ctaText ? (
+                    <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`} data-hero-cta>
+                      {main.ctaText}
+                    </a>
+                  ) : null}
+                </div>
+              </div>
+              <SideHeroCard slide={next} direction="next" />
             </div>
             {hero.showArrows ? (
               <>
@@ -138,8 +147,6 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
                 </button>
               </>
             ) : null}
-          </div>
-          <SideHeroCard slide={next} direction="next" />
           </div>
 
         {hero.showDots ? (
@@ -256,7 +263,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
 
 function SideHeroCard({ slide, direction }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number]; direction: "prev" | "next" }) {
   return (
-    <div className="relative hidden min-h-[330px] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`} data-slide-id={slide.id}>
+    <div className="relative hidden min-h-[330px] shrink-0 basis-[14%] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid={`hero-slide-${direction}`} data-slide-id={slide.id}>
       <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
       <div className="absolute inset-0 bg-black/25" />
       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow" data-hero-side-title>{slide.title}</div>
@@ -402,6 +409,10 @@ function StorefrontInteractionScript() {
     const loop = carousel.getAttribute("data-loop") !== "false";
     const autoplay = carousel.getAttribute("data-autoplay") === "true";
     const intervalMs = Math.max(3000, Number(carousel.getAttribute("data-interval-ms") || 5000));
+    const transitionMs = 560;
+    const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
+    const offset = "calc(14% + 12px)";
+    const track = carousel.querySelector("[data-hero-track]");
     const main = carousel.querySelector("[data-testid='hero-slide-main']");
     const prev = carousel.querySelector("[data-testid='hero-slide-prev']");
     const next = carousel.querySelector("[data-testid='hero-slide-next']");
@@ -415,8 +426,24 @@ function StorefrontInteractionScript() {
     let index = 0;
     let timer = 0;
     let paused = false;
+    let transitioning = false;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let pointerTracking = false;
 
     const slideAt = (position) => slides[(position + slides.length) % slides.length];
+    const setTrackTransition = (enabled) => {
+      if (!track) return;
+      track.style.transition = enabled ? "transform " + transitionMs + "ms " + easing : "none";
+    };
+    const resetTrack = () => {
+      if (!track) return;
+      setTrackTransition(false);
+      track.style.transform = "translate3d(0, 0, 0)";
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => setTrackTransition(true));
+      });
+    };
     const setSide = (node, slide) => {
       if (!node || !slide) return;
       node.setAttribute("data-slide-id", slide.id);
@@ -429,6 +456,7 @@ function StorefrontInteractionScript() {
       const current = slideAt(index);
       const previous = slideAt(index - 1);
       const following = slideAt(index + 1);
+      carousel.setAttribute("data-current-slide-id", current.id);
       if (main) main.setAttribute("data-slide-id", current.id);
       if (mainImg) mainImg.setAttribute("src", current.imageUrl || "");
       if (title) title.textContent = current.title || "";
@@ -446,11 +474,34 @@ function StorefrontInteractionScript() {
         dot.classList.toggle("bg-slate-300", !active);
       });
     };
-    const move = (delta) => {
-      const nextIndex = index + delta;
-      if (!loop && (nextIndex < 0 || nextIndex >= slides.length)) return;
+    const completeMove = (nextIndex) => {
       index = (nextIndex + slides.length) % slides.length;
       render();
+      resetTrack();
+      transitioning = false;
+      carousel.setAttribute("data-hero-animating", "false");
+    };
+    const move = (delta, animate = true) => {
+      if (transitioning) return;
+      const nextIndex = index + delta;
+      if (!loop && (nextIndex < 0 || nextIndex >= slides.length)) return;
+      if (!animate || !track) {
+        completeMove(nextIndex);
+        return;
+      }
+      transitioning = true;
+      carousel.setAttribute("data-hero-animating", "true");
+      setTrackTransition(true);
+      track.style.transform = delta > 0 ? "translate3d(calc(-1 * " + offset + "), 0, 0)" : "translate3d(" + offset + ", 0, 0)";
+      window.setTimeout(() => completeMove(nextIndex), transitionMs);
+    };
+    const goTo = (targetIndex) => {
+      if (transitioning) return;
+      const normalized = ((targetIndex % slides.length) + slides.length) % slides.length;
+      if (normalized === index) return;
+      const forward = (normalized - index + slides.length) % slides.length;
+      const backward = (index - normalized + slides.length) % slides.length;
+      move(forward <= backward ? forward : -backward);
     };
     const restart = () => {
       window.clearInterval(timer);
@@ -470,8 +521,7 @@ function StorefrontInteractionScript() {
     });
     dots.forEach((dot) => {
       dot.addEventListener("click", () => {
-        index = Number(dot.getAttribute("data-hero-dot") || 0) % slides.length;
-        render();
+        goTo(Number(dot.getAttribute("data-hero-dot") || 0) % slides.length);
         restart();
       });
     });
@@ -479,10 +529,28 @@ function StorefrontInteractionScript() {
       if (event.key === "ArrowLeft") move(-1);
       if (event.key === "ArrowRight") move(1);
     });
+    carousel.addEventListener("pointerdown", (event) => {
+      pointerTracking = true;
+      pointerStartX = event.clientX;
+      pointerStartY = event.clientY;
+    });
+    carousel.addEventListener("pointerup", (event) => {
+      if (!pointerTracking) return;
+      pointerTracking = false;
+      const dx = event.clientX - pointerStartX;
+      const dy = event.clientY - pointerStartY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+      move(dx < 0 ? 1 : -1);
+      restart();
+    });
+    carousel.addEventListener("pointercancel", () => {
+      pointerTracking = false;
+    });
     carousel.addEventListener("mouseenter", () => { paused = true; });
     carousel.addEventListener("mouseleave", () => { paused = false; });
     carousel.addEventListener("focusin", () => { paused = true; });
     carousel.addEventListener("focusout", () => { paused = false; });
+    setTrackTransition(true);
     render();
     restart();
   });

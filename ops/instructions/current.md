@@ -1,5 +1,29 @@
 # AIBOUX Current Task
 
+## Active Override: Shop Public Storefront Carousel Smoothness And Visual Polish
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_public_storefront_carousel_smoothness_visual_polish.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+Required work:
+
+1. Replace the current public TOP hero state swap with a real sliding carousel track.
+2. Verify transform transition, transition duration, easing, data-slide-id changes, active dot changes, autoplay, swipe/drag, and keyboard arrows.
+3. Keep sale-ready product/card density and public TOP interaction gates passing.
+4. Publish `/g/l68`, `/g/d68`, and `/g/m68` before reporting.
+
+Do not report `FINAL_ACCEPTED`.
+
 ## Active Override: Shop Public Storefront Slider And Interaction Fix
 
 Instruction source:
