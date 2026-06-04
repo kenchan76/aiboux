@@ -7,6 +7,7 @@ import {
   buildShopPageActionMap,
   buildShopPageBuyingGuide,
   buildShopPageQualitySummary,
+  buildShopSeoChecklist,
   type ShopStorefrontContextLinkSection,
 } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,7 @@ import { StorefrontFooter } from "./StorefrontFooter";
 import { StorefrontPageActionMap } from "./StorefrontPageActionMap";
 import { StorefrontPageQualitySummary } from "./StorefrontPageQualitySummary";
 import { StorefrontSearchForm } from "./StorefrontSearchForm";
+import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
 
@@ -113,6 +115,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const saleProducts = rotateProducts(visualProducts, 3);
   const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
   const actionMap = buildShopPageActionMap("", tenantRoot);
+  const seoChecklist = buildShopSeoChecklist("", tenantRoot);
   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
   const columnClass = {
@@ -226,6 +229,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
         />
         <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
         <StorefrontPageActionMap actionMap={actionMap} />
+        <StorefrontSeoChecklist checklist={seoChecklist} />
 
         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />

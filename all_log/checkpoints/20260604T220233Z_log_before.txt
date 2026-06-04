@@ -1,0 +1,10 @@
+93f286e WIP publish shop action map SEO evidence
+86773c8 WIP fix product action map text collision
+fc75f02 WIP shop aiboux tenant deploy checkpoint 20260604T213916Z
+88ab5e4 WIP add shop page action map SEO links
+c05c2cf WIP record final shop SEO public verification
+7679732 WIP record shop SEO common parts public evidence
+67096d3 WIP publish shop SEO common parts evidence
+881e7e3 WIP strengthen shop shared SEO navigation graph
+93aeb31 WIP add shop breadcrumb support SEO links
+5bf7b1d WIP render shop page quality summary user report

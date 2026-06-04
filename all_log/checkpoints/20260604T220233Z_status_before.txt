@@ -1,0 +1,13 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M ops/instructions/20260605_shop_page_action_map_seo_ui.md
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/20260604T220101_shop_seo_checklist_common_parts_wip.md
+?? src/components/shop/storefront/StorefrontSeoChecklist.tsx

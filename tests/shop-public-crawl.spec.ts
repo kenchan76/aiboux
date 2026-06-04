@@ -145,6 +145,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} action map should expose visible ListItem microdata`).toBeGreaterThanOrEqual(3);
         expect(await actionMap.locator("a").count(), `${target.path} action map should expose crawlable internal links`).toBeGreaterThanOrEqual(3);
         expect(await actionMap.locator("a").first().getAttribute("class"), `${target.path} action map links should be visibly blue`).toContain("text-blue-700");
+        const seoChecklist = page.getByTestId("storefront-seo-checklist");
+        await expect(seoChecklist, `${target.path} should include shared SEO/UI checklist`).toBeVisible();
+        await expect(seoChecklist, `${target.path} SEO checklist should expose ItemList microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/ItemList",
+        );
+        await expect(seoChecklist, `${target.path} SEO checklist should name the common SEO checks`).toContainText("SEO / UI checklist");
+        await expect(seoChecklist, `${target.path} SEO checklist should expose page-specific checks`).toContainText(/SEO\/UIチェック|H1|パンくず|内部リンク/);
+        await expect(seoChecklist.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO checklist should declare numberOfItems`).toHaveCount(1);
+        expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO checklist should expose ListItem microdata`).toBeGreaterThanOrEqual(3);
+        expect(await seoChecklist.locator("a").count(), `${target.path} SEO checklist should expose crawlable links`).toBeGreaterThanOrEqual(3);
+        expect(await seoChecklist.locator("a").first().getAttribute("class"), `${target.path} SEO checklist links should be visibly blue and underlined`).toContain("text-blue-700");
         const buyingGuide = page.getByTestId("storefront-buying-guide");
         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");

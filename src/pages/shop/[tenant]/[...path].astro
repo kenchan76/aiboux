@@ -10,6 +10,7 @@ import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPag
 import { StorefrontPageQualitySummary } from "@/components/shop/storefront/StorefrontPageQualitySummary";
 import StorefrontProductCard from "@/components/shop/storefront/StorefrontProductCard.astro";
 import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSearchForm";
+import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import {
@@ -49,6 +50,7 @@ import {
   buildShopPageBuyingGuide,
   buildShopPageHeaderActions,
   buildShopPageQualitySummary,
+  buildShopSeoChecklist,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
 } from "@/lib/shopStorefrontShared";
@@ -190,6 +192,8 @@ const buyingGuideItems = buildShopPageBuyingGuide(page, tenantRoot);
 const buyingGuideLinks = buyingGuideItems.map((item) => ({ label: item.label, href: item.href }));
 const actionMap = buildShopPageActionMap(page, tenantRoot);
 const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
+const seoChecklist = buildShopSeoChecklist(page, tenantRoot);
+const seoChecklistLinks = seoChecklist.items.map((item) => ({ label: item.label, href: item.href }));
 const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
 const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
@@ -238,6 +242,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
     ...pageHeaderActions,
     ...pageQualityLinks,
     ...actionMapLinks,
+    ...seoChecklistLinks,
     ...buyingGuideLinks,
     ...contextualLinks,
     ...footerColumns.flatMap((column) => column.links),
@@ -668,6 +673,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           ) : null}
           <StorefrontPageQualitySummary summary={pageQualitySummary} />
           <StorefrontPageActionMap actionMap={actionMap} />
+          <StorefrontSeoChecklist checklist={seoChecklist} />
 
           {page === "products" ? (
             <section class="grid gap-5" data-testid="storefront-products">

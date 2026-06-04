@@ -1,0 +1,592 @@
+diff --git a/AIBOUX_MASTER_DOCUMENT.md b/AIBOUX_MASTER_DOCUMENT.md
+index 9990779..367856c 100644
+--- a/AIBOUX_MASTER_DOCUMENT.md
++++ b/AIBOUX_MASTER_DOCUMENT.md
+@@ -1,6 +1,37 @@
+ # AIBOUX 正本マスター
+ # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+ 
++## Current Active Operating Override: AIBOUX Shop Shared SEO/UI Checklist
++
++Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
++
++The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
++`https://shop.aiboux.com/` remains the Shop service site.
++
++This override strengthens every public tenant storefront page with a shared SEO/UI checklist.
++
++Implemented WIP direction:
++
++- `buildShopSeoChecklist(page, tenantRoot)` is the shared source for page-specific SEO/UI checks.
++- `StorefrontSeoChecklist` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
++- The checklist uses crawlable `<a href>` links with visible blue/underlined link affordance.
++- The checklist exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
++- Subpage `SiteNavigationElement` JSON-LD source links include SEO checklist links.
++- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
++
++Latest local evidence before the next WIP deploy:
++
++- `npm run check:control-chars`: PASS.
++- `npm run check:mojibake`: PASS.
++- `npm run astro check`: PASS with existing warnings only, 0 errors.
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
++
++Not final:
++
++- `FINAL_ACCEPTED` is prohibited.
++- `gate:shop-subscriptions` remains blocked in the subscription lane.
++- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
++
+ ## Current Active Operating Override: AIBOUX Shop Page Action Map SEO/UI Commonization
+ 
+ Status: `SHOP_5H_PAGE_ACTION_MAP_SEO_UI_WIP`
+diff --git a/ops/instructions/20260605_shop_page_action_map_seo_ui.md b/ops/instructions/20260605_shop_page_action_map_seo_ui.md
+index 0222206..e82dafe 100644
+--- a/ops/instructions/20260605_shop_page_action_map_seo_ui.md
++++ b/ops/instructions/20260605_shop_page_action_map_seo_ui.md
+@@ -33,6 +33,11 @@ Do not move the tenant storefront to `shop.aiboux.com/`.
+ - Use visible link-color affordance.
+ - Expose visible `ItemList` microdata for action steps.
+ - Include action-map links in TOP and subpage `SiteNavigationElement` JSON-LD sources.
++- Add a shared storefront SEO/UI checklist model in `src/lib/shopStorefrontShared.ts`.
++- Add a shared visible SEO checklist component under `src/components/shop/storefront/`.
++- Render the SEO checklist on TOP, product detail, and every public storefront subpage.
++- Use visible `ItemList` / `ListItem` microdata for SEO checklist items.
++- Include SEO checklist links in subpage `SiteNavigationElement` JSON-LD sources.
+ - Do not add duplicate product title above the gallery.
+ - Do not claim `FINAL_ACCEPTED`.
+ - Keep subscription lane as `BLOCKED_NOT_FINAL` until remote D1 migration and provider-backed recurring billing pass.
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 1cc5be8..f2ede14 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -704,3 +704,22 @@ Not final:
+ - Remote D1 subscription migration remains unapplied.
+ - Provider-backed recurring billing remains unverified.
+ - FINAL_ACCEPTED remains prohibited.
++
++## 2026-06-05 Continuation: Shared SEO/UI Checklist
++
++Active instruction file:
++
++- `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
++
++Additional active requirements:
++- Every public tenant storefront page must expose a shared SEO/UI checklist component.
++- The checklist must explain page-specific H1, breadcrumb, internal link, purchase-condition, and structured-data expectations.
++- The checklist must use visible crawlable links with blue/underlined link affordance.
++- The checklist must expose visible `ItemList` / `ListItem` microdata.
++- Subpage `SiteNavigationElement` JSON-LD source links must include the checklist links.
++- Product detail must keep only one visible product `h1`; do not add a duplicate title above the image.
++
++Not final:
++- Remote D1 subscription migration remains unapplied.
++- Provider-backed recurring billing remains unverified.
++- FINAL_ACCEPTED remains prohibited.
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 6cdf3e1..f5ca7a0 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -1,5 +1,52 @@
+ # AIBOUX Shop Sales Tenant Screen Artifact
+ 
++## 2026-06-04T22:01:01Z Shared SEO/UI Checklist Evidence
++
++Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
++
++This is WIP DOM/screen evidence, not `FINAL_ACCEPTED`.
++
++### Verified Intended Structure
++
++- Every public storefront page must render `data-testid="storefront-seo-checklist"` after the shared action map.
++- The checklist must expose visible `ItemList` microdata.
++- Each checklist item must expose visible `ListItem` microdata and a crawlable `<a href>` link.
++- Links must use visible blue/underlined link affordance.
++- Subpage `SiteNavigationElement` JSON-LD source links must include SEO checklist links.
++- Product detail must keep one visible product `h1`; no duplicate product title above the gallery may be reintroduced.
++
++### Verification Before Deploy
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run astro check`: PASS, 0 errors, existing warnings only
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++
++### Screen Evidence To Refresh After WIP Deploy
++
++Updated screenshots remain expected under `/g/screens/`, including:
++
++- `/g/screens/shop-top-1365.png`
++- `/g/screens/shop-top-1980.png`
++- `/g/screens/shop-top-mobile.png`
++- `/g/screens/shop-product-detail-1365.png`
++- `/g/screens/shop-product-detail-1980.png`
++- `/g/screens/shop-product-detail-mobile.png`
++- `/g/screens/shop-products-page-1980.png`
++- `/g/screens/shop-categories-page-1980.png`
++- `/g/screens/shop-cart-page.png`
++- `/g/screens/shop-checkout-page.png`
++- `/g/screens/shop-contact-page.png`
++- `/g/screens/shop-legal-page.png`
++- `/g/screens/shop-privacy-page.png`
++- `/g/screens/shop-shipping-page.png`
++- `/g/screens/shop-returns-page.png`
++- `/g/screens/shop-faq-page.png`
++
++### Non-Final Condition
++
++`FINAL_ACCEPTED` remains prohibited until remote D1 subscription migration and provider-backed subscription creation are verified.
++
+ ## 2026-06-04T21:37:04Z Page Action Map SEO/UI Evidence
+ 
+ Status: `SHOP_5H_PAGE_ACTION_MAP_SEO_UI_WIP`
+diff --git a/public/g/l68.md b/public/g/l68.md
+index b9a8058..e2ec723 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -1,5 +1,53 @@
+ # AIBOUX Shop Sales Tenant Execution Log
+ 
++## 2026-06-04T22:01:01Z Shared SEO/UI Checklist Commonization WIP
++
++Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
++
++This is not `FINAL_ACCEPTED`.
++
++### Purpose
++
++The user required every storefront page structure to be SEO-strong and UI-strong, and asked whether more shared parts can be extracted. This work unit adds a shared page-specific SEO/UI checklist so every public page visibly declares H1, breadcrumb, internal-link, purchase-condition, and structured-data expectations.
++
++### Implementation
++
++- `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
++  - Added the shared SEO/UI checklist requirements.
++- `ops/instructions/current.md`
++  - Reflected the current SEO checklist continuation.
++- `AIBOUX_MASTER_DOCUMENT.md`
++- `public/g/m68.md`
++  - Added the active override for `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`.
++- `src/lib/shopStorefrontShared.ts`
++  - Added `ShopStorefrontSeoChecklist`, `ShopStorefrontSeoChecklistItem`, and `buildShopSeoChecklist(page, tenantRoot)`.
++- `src/components/shop/storefront/StorefrontSeoChecklist.tsx`
++  - Added the shared visible SEO/UI checklist component.
++  - Uses crawlable `<a href>` links with visible blue/underlined link affordance.
++  - Exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
++- `src/components/shop/storefront/ShadcnStorefront.tsx`
++  - Renders the TOP SEO checklist after the shared action map.
++- `src/pages/shop/[tenant]/[...path].astro`
++  - Renders the SEO checklist on every public storefront subpage and product detail.
++  - Adds SEO checklist links into the subpage `SiteNavigationElement` JSON-LD source links.
++- Tests strengthened:
++  - `tests/shop-public-crawl.spec.ts`
++  - `tests/shop-product-detail-public.spec.ts`
++
++### Verification Before Deploy
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run astro check`: PASS, 0 errors, existing warnings only
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++
++### Non-Final Conditions
++
++- This is a WIP SEO/UI commonization checkpoint.
++- Remote D1 subscription migration is not accepted.
++- Provider-backed recurring subscription creation is not accepted.
++- `FINAL_ACCEPTED` remains prohibited.
++
+ ## 2026-06-04T21:37:04Z Page Action Map SEO/UI Commonization WIP
+ 
+ Status: `SHOP_5H_PAGE_ACTION_MAP_SEO_UI_WIP`
+diff --git a/public/g/m68.md b/public/g/m68.md
+index 8accdbf..d9221b7 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -1,6 +1,37 @@
+ # AIBOUX 正本マスター
+ # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+ 
++## Current Active Operating Override: AIBOUX Shop Shared SEO/UI Checklist
++
++Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
++
++The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
++`https://shop.aiboux.com/` remains the Shop service site.
++
++This override strengthens every public tenant storefront page with a shared SEO/UI checklist.
++
++Implemented WIP direction:
++
++- `buildShopSeoChecklist(page, tenantRoot)` is the shared source for page-specific SEO/UI checks.
++- `StorefrontSeoChecklist` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
++- The checklist uses crawlable `<a href>` links with visible blue/underlined link affordance.
++- The checklist exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
++- Subpage `SiteNavigationElement` JSON-LD source links include SEO checklist links.
++- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
++
++Latest local evidence before the next WIP deploy:
++
++- `npm run check:control-chars`: PASS.
++- `npm run check:mojibake`: PASS.
++- `npm run astro check`: PASS with existing warnings only, 0 errors.
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
++
++Not final:
++
++- `FINAL_ACCEPTED` is prohibited.
++- `gate:shop-subscriptions` remains blocked in the subscription lane.
++- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
++
+ ## Current Active Operating Override: AIBOUX Shop Page Action Map SEO/UI Commonization
+ 
+ Status: `SHOP_5H_PAGE_ACTION_MAP_SEO_UI_WIP`
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index 97ad1ff..c3fb582 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -7,6 +7,7 @@ import {
+   buildShopPageActionMap,
+   buildShopPageBuyingGuide,
+   buildShopPageQualitySummary,
++  buildShopSeoChecklist,
+   type ShopStorefrontContextLinkSection,
+ } from "@/lib/shopStorefrontShared";
+ import { cn } from "@/lib/utils";
+@@ -18,6 +19,7 @@ import { StorefrontFooter } from "./StorefrontFooter";
+ import { StorefrontPageActionMap } from "./StorefrontPageActionMap";
+ import { StorefrontPageQualitySummary } from "./StorefrontPageQualitySummary";
+ import { StorefrontSearchForm } from "./StorefrontSearchForm";
++import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
+ import { StorefrontSeoHub } from "./StorefrontSeoHub";
+ import { StorefrontSupportRail } from "./StorefrontSupportRail";
+ 
+@@ -113,6 +115,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+   const saleProducts = rotateProducts(visualProducts, 3);
+   const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
+   const actionMap = buildShopPageActionMap("", tenantRoot);
++  const seoChecklist = buildShopSeoChecklist("", tenantRoot);
+   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
+   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
+   const columnClass = {
+@@ -226,6 +229,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+         />
+         <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
+         <StorefrontPageActionMap actionMap={actionMap} />
++        <StorefrontSeoChecklist checklist={seoChecklist} />
+ 
+         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
+         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
+diff --git a/src/lib/shopStorefrontShared.ts b/src/lib/shopStorefrontShared.ts
+index ef4877d..26e6951 100644
+--- a/src/lib/shopStorefrontShared.ts
++++ b/src/lib/shopStorefrontShared.ts
+@@ -68,6 +68,20 @@ export type ShopStorefrontActionMap = {
+   steps: ShopStorefrontActionMapStep[];
+ };
+ 
++export type ShopStorefrontSeoChecklistItem = {
++  title: string;
++  body: string;
++  href: string;
++  label: string;
++  badge: string;
++};
++
++export type ShopStorefrontSeoChecklist = {
++  title: string;
++  summary: string;
++  items: ShopStorefrontSeoChecklistItem[];
++};
++
+ export type ShopStorefrontPageQualitySignal = {
+   title: string;
+   body: string;
+@@ -1123,6 +1137,198 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+   return { ...specific, steps };
+ }
+ 
++export function buildShopSeoChecklist(page: string, tenantRoot: string): ShopStorefrontSeoChecklist {
++  const sharedItems: ShopStorefrontSeoChecklistItem[] = [
++    {
++      title: "H1とパンくず",
++      body: "可視H1を1つに保ち、パンくずと補助リンクでTOP、カテゴリ、商品一覧へ戻れる構造にします。",
++      href: page === "product" ? `${tenantRoot}/products` : tenantRoot,
++      label: page === "product" ? "商品一覧へ" : "TOPへ",
++      badge: "構造",
++    },
++    {
++      title: "クロール可能な内部リンク",
++      body: "主要導線はhref付きリンクに統一し、商品、カテゴリ、配送、返品、問い合わせへ確実に移動できます。",
++      href: `${tenantRoot}/categories`,
++      label: "カテゴリ",
++      badge: "リンク",
++    },
++    {
++      title: "購入前の信頼情報",
++      body: "税込価格、配送目安、返品条件、決済未接続状態を隠さず表示します。",
++      href: `${tenantRoot}/shipping`,
++      label: "配送条件",
++      badge: "信頼",
++    },
++  ];
++
++  const specific: Record<string, ShopStorefrontSeoChecklist> = {
++    "": {
++      title: "TOPページSEO/UIチェック",
++      summary: "商品発見、カテゴリ回遊、購入前確認を同じ売り場構造に揃えます。",
++      items: [
++        { title: "ヒーロー直下の商品導線", body: "おすすめ商品、ランキング、セールへつなぎ、商品詳細へ迷わず移動します。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "TOP" },
++        { title: "カテゴリ階層", body: "食品、日用品、キッチン、ギフトなどの安定カテゴリURLへ内部リンクします。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "階層" },
++      ],
++    },
++    products: {
++      title: "商品一覧SEO/UIチェック",
++      summary: "商品カードの画像、商品名、価格、レビュー、CTAを揃え、検索とカテゴリを分離します。",
++      items: [
++        { title: "商品カード共通化", body: "画像alt、税込価格、レビュー、商品詳細リンク、カートCTAを同じ構造にします。", href: `${tenantRoot}/products`, label: "比較する", badge: "商品" },
++        { title: "カテゴリURL", body: "任意検索はnoindex対象、カテゴリは安定URLとしてItemListと内部リンクを揃えます。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "URL" },
++      ],
++    },
++    categories: {
++      title: "カテゴリ一覧SEO/UIチェック",
++      summary: "カテゴリ画像、商品件数、売り場説明、商品一覧への導線を共通化します。",
++      items: [
++        { title: "カテゴリカード", body: "カテゴリ名、画像、説明、商品件数を揃え、商品一覧の絞り込みURLへ進みます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "分類" },
++        { title: "主要売り場", body: "ランキング、セール、ギフトなど回遊の強い売り場へリンクを残します。", href: buildShopCategoryHref(tenantRoot, "ranking"), label: "ランキング", badge: "回遊" },
++      ],
++    },
++    product: {
++      title: "商品詳細SEO/UIチェック",
++      summary: "商品名H1、Product/Offer、画像ギャラリー、購入ボックス、配送返品を1商品に集中させます。",
++      items: [
++        { title: "商品名H1は1つ", body: "画像上の不要な二重タイトルを出さず、商品名、価格、購入条件を正しい順序で見せます。", href: `${tenantRoot}/products`, label: "関連商品", badge: "H1" },
++        { title: "Product/Offer", body: "商品画像、SKU、カテゴリ、税込価格、在庫、配送、返品をProduct文脈で揃えます。", href: `${tenantRoot}/cart`, label: "カート", badge: "構造化" },
++      ],
++    },
++    cart: {
++      title: "カートSEO/UIチェック",
++      summary: "購入直前でも商品追加、数量、配送、返品、checkoutへ戻れる導線を残します。",
++      items: [
++        { title: "数量と小計", body: "通常商品と定期購入商品を区別し、数量変更、削除、小計を確認できます。", href: `${tenantRoot}/checkout`, label: "checkout", badge: "購入" },
++        { title: "空カート回遊", body: "空状態でも商品一覧、カテゴリ、配送返品へ戻れるようにします。", href: `${tenantRoot}/products`, label: "商品追加", badge: "回遊" },
++      ],
++    },
++    checkout: {
++      title: "checkout SEO/UIチェック",
++      summary: "決済未接続なら成功したふりをせず、販売条件、個人情報、問い合わせへ戻します。",
++      items: [
++        { title: "決済状態", body: "決済未設定時は注文確定を停止し、原因と次の導線を提示します。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
++        { title: "個人情報", body: "配送先、メール、支払い情報の扱いをプライバシー導線で確認します。", href: `${tenantRoot}/privacy`, label: "個人情報", badge: "保護" },
++      ],
++    },
++    contact: {
++      title: "問い合わせSEO/UIチェック",
++      summary: "FAQ、注文履歴、配送返品を確認してから、商品名や注文番号付きで問い合わせます。",
++      items: [
++        { title: "FAQ先行", body: "よくある質問で配送、返品、決済、定期購入の状態を確認します。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "支援" },
++        { title: "注文番号", body: "注文後問い合わせは注文履歴で番号を確認してから送信します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
++      ],
++    },
++    legal: {
++      title: "特商法SEO/UIチェック",
++      summary: "販売者、支払い、配送、返品、問い合わせ先を注文前に確認する共通テンプレートです。",
++      items: [
++        { title: "販売者情報", body: "会社名、連絡先、販売条件、更新日を薄いテキストだけにせず整理します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "信頼" },
++        { title: "配送返品連携", body: "特商法から配送、返品、プライバシーへ相互リンクします。", href: `${tenantRoot}/returns`, label: "返品条件", badge: "条件" },
++      ],
++    },
++    privacy: {
++      title: "プライバシーSEO/UIチェック",
++      summary: "注文、問い合わせ、ログイン、定期購入で扱う情報をユーザーに説明します。",
++      items: [
++        { title: "取得項目", body: "氏名、メール、住所、注文番号などの扱いを問い合わせ・注文導線とつなげます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "保護" },
++        { title: "アカウント状態", body: "ログイン未接続時も保存済みのように見せず、状態を明確にします。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "状態" },
++      ],
++    },
++    shipping: {
++      title: "配送SEO/UIチェック",
++      summary: "送料、配送目安、追跡、発送条件を商品詳細やカートから確認できます。",
++      items: [
++        { title: "配送目安", body: "通常2〜4営業日、送料、追跡条件を購入前導線で表示します。", href: `${tenantRoot}/products`, label: "商品へ戻る", badge: "配送" },
++        { title: "返品連携", body: "配送条件と返品条件を相互リンクし、購入前の不安を減らします。", href: `${tenantRoot}/returns`, label: "返品条件", badge: "返品" },
++      ],
++    },
++    returns: {
++      title: "返品SEO/UIチェック",
++      summary: "返品可否、初期不良、期限、問い合わせ条件を注文履歴と接続します。",
++      items: [
++        { title: "返品期限", body: "到着後7日以内などの条件を購入前に確認できるようにします。", href: `${tenantRoot}/contact`, label: "相談する", badge: "返品" },
++        { title: "注文確認", body: "返品対象の注文番号と商品を注文履歴で確認します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
++      ],
++    },
++    faq: {
++      title: "FAQ SEO/UIチェック",
++      summary: "FAQPage構造化データと実本文を一致させ、商品・配送・返品・問い合わせへ戻します。",
++      items: [
++        { title: "FAQPage限定", body: "FAQ構造化データはFAQ本文のあるページだけに限定します。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "FAQ" },
++        { title: "問い合わせ連携", body: "解決しない場合は問い合わせへ進める導線を残します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
++      ],
++    },
++    mypage: {
++      title: "マイページSEO/UIチェック",
++      summary: "購入後導線はnoindex想定でも、注文、定期購入、お気に入り、問い合わせを明確にします。",
++      items: [
++        { title: "注文導線", body: "注文履歴、配送状況、返品相談へ移動できます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
++        { title: "定期購入状態", body: "D1/決済未接続時は準備中として正直に表示します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入", badge: "定期" },
++      ],
++    },
++    account: {
++      title: "アカウントSEO/UIチェック",
++      summary: "ログイン、登録、注文履歴、お気に入り、問い合わせを同じ購入者導線へまとめます。",
++      items: [
++        { title: "認証状態", body: "認証未接続時にログイン成功のふりをせず、利用できる導線を示します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
++        { title: "購入後サポート", body: "注文履歴と問い合わせを購入後の主要導線として残します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "支援" },
++      ],
++    },
++    orders: {
++      title: "注文履歴SEO/UIチェック",
++      summary: "注文がない状態でも商品、配送、返品、問い合わせへ戻れる購入後サポートページです。",
++      items: [
++        { title: "配送確認", body: "配送条件と注文番号を合わせて確認します。", href: `${tenantRoot}/shipping`, label: "配送条件", badge: "配送" },
++        { title: "返品相談", body: "返品対象の商品と条件を確認し、問い合わせへ進みます。", href: `${tenantRoot}/returns`, label: "返品条件", badge: "返品" },
++      ],
++    },
++    favorites: {
++      title: "お気に入りSEO/UIチェック",
++      summary: "保存候補、商品一覧、カテゴリ、カートへ移動して購入判断を続けます。",
++      items: [
++        { title: "保存候補", body: "お気に入り候補から商品詳細へ戻り、価格と配送を確認します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "比較" },
++        { title: "購入へ戻る", body: "購入候補をカートで確認できます。", href: `${tenantRoot}/cart`, label: "カート", badge: "購入" },
++      ],
++    },
++    login: {
++      title: "ログインSEO/UIチェック",
++      summary: "認証未接続時は成功したふりをせず、注文履歴、登録、商品導線へ戻します。",
++      items: [
++        { title: "登録導線", body: "新規登録と既存ログインの入口を分けます。", href: `${tenantRoot}/register`, label: "会員登録", badge: "登録" },
++        { title: "商品へ戻る", body: "認証未接続でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "商品" },
++      ],
++    },
++    register: {
++      title: "会員登録SEO/UIチェック",
++      summary: "登録前に個人情報と購入条件を確認し、ログインと商品導線へ戻します。",
++      items: [
++        { title: "個人情報", body: "登録や注文で扱う情報を確認します。", href: `${tenantRoot}/privacy`, label: "プライバシー", badge: "保護" },
++        { title: "ログイン", body: "既存アカウント導線を確認します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
++      ],
++    },
++    "mypage/subscriptions": {
++      title: "定期購入SEO/UIチェック",
++      summary: "DB migration未適用時は契約済みのように見せず、商品、checkout、問い合わせへ案内します。",
++      items: [
++        { title: "対象商品", body: "定期購入に向く商品候補を商品詳細で確認します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "商品" },
++        { title: "状態表示", body: "schema pendingと決済未接続を明示し、申込み成功のふりをしません。", href: `${tenantRoot}/checkout`, label: "checkout", badge: "正直" },
++      ],
++    },
++  };
++
++  const fallback = {
++    title: "ページSEO/UIチェック",
++    summary: "商品、購入条件、サポート、アカウントへの導線を共通化します。",
++    items: [],
++  };
++  const base = specific[page] ?? fallback;
++  const items = [...base.items, ...sharedItems]
++    .filter((item, index, array) => array.findIndex((candidate) => candidate.title === item.title || candidate.href === item.href) === index)
++    .slice(0, 5);
++  return { ...base, items };
++}
++
+ export function buildShopPageQualitySummary(page: string, tenantRoot: string): ShopStorefrontPageQualitySummary {
+   const sharedSignals: ShopStorefrontPageQualitySignal[] = [
+     {
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index d77e5fb..97ff126 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -10,6 +10,7 @@ import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPag
+ import { StorefrontPageQualitySummary } from "@/components/shop/storefront/StorefrontPageQualitySummary";
+ import StorefrontProductCard from "@/components/shop/storefront/StorefrontProductCard.astro";
+ import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSearchForm";
++import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
+ import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
+ import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
+ import {
+@@ -49,6 +50,7 @@ import {
+   buildShopPageBuyingGuide,
+   buildShopPageHeaderActions,
+   buildShopPageQualitySummary,
++  buildShopSeoChecklist,
+   buildShopPolicySupportCards,
+   buildShopPurchaseGuideCards,
+ } from "@/lib/shopStorefrontShared";
+@@ -190,6 +192,8 @@ const buyingGuideItems = buildShopPageBuyingGuide(page, tenantRoot);
+ const buyingGuideLinks = buyingGuideItems.map((item) => ({ label: item.label, href: item.href }));
+ const actionMap = buildShopPageActionMap(page, tenantRoot);
+ const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
++const seoChecklist = buildShopSeoChecklist(page, tenantRoot);
++const seoChecklistLinks = seoChecklist.items.map((item) => ({ label: item.label, href: item.href }));
+ const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
+ const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
+ const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
+@@ -238,6 +242,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
+     ...pageHeaderActions,
+     ...pageQualityLinks,
+     ...actionMapLinks,
++    ...seoChecklistLinks,
+     ...buyingGuideLinks,
+     ...contextualLinks,
+     ...footerColumns.flatMap((column) => column.links),
+@@ -668,6 +673,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+           ) : null}
+           <StorefrontPageQualitySummary summary={pageQualitySummary} />
+           <StorefrontPageActionMap actionMap={actionMap} />
++          <StorefrontSeoChecklist checklist={seoChecklist} />
+ 
+           {page === "products" ? (
+             <section class="grid gap-5" data-testid="storefront-products">
+diff --git a/tests/shop-product-detail-public.spec.ts b/tests/shop-product-detail-public.spec.ts
+index 3963a97..3a69d28 100644
+--- a/tests/shop-product-detail-public.spec.ts
++++ b/tests/shop-product-detail-public.spec.ts
+@@ -82,6 +82,17 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail action map should expose ListItem microdata").toBeGreaterThanOrEqual(3);
+       expect(await actionMap.locator("a").count(), "product detail action map should expose crawlable internal links").toBeGreaterThanOrEqual(3);
+       expect(await actionMap.locator("a").first().getAttribute("class"), "product detail action map links should be visibly blue").toContain("text-blue-700");
++      const seoChecklist = page.getByTestId("storefront-seo-checklist");
++      await expect(seoChecklist, "product detail should include shared SEO/UI checklist").toBeVisible();
++      await expect(seoChecklist, "product detail SEO checklist should expose ItemList microdata").toHaveAttribute(
++        "itemtype",
++        "https://schema.org/ItemList",
++      );
++      await expect(seoChecklist, "product detail SEO checklist should reinforce single H1").toContainText("商品名H1は1つ");
++      await expect(seoChecklist, "product detail SEO checklist should reinforce Product/Offer context").toContainText("Product/Offer");
++      expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO checklist should expose visible ListItems").toBeGreaterThanOrEqual(3);
++      expect(await seoChecklist.locator("a").count(), "product detail SEO checklist should expose crawlable links").toBeGreaterThanOrEqual(3);
++      expect(await seoChecklist.locator("a").first().getAttribute("class"), "product detail SEO checklist links should be visibly blue").toContain("text-blue-700");
+       const buyingGuide = page.getByTestId("storefront-buying-guide");
+       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
+       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index 1f5a8a4..d8b2c04 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -145,6 +145,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} action map should expose visible ListItem microdata`).toBeGreaterThanOrEqual(3);
+         expect(await actionMap.locator("a").count(), `${target.path} action map should expose crawlable internal links`).toBeGreaterThanOrEqual(3);
+         expect(await actionMap.locator("a").first().getAttribute("class"), `${target.path} action map links should be visibly blue`).toContain("text-blue-700");
++        const seoChecklist = page.getByTestId("storefront-seo-checklist");
++        await expect(seoChecklist, `${target.path} should include shared SEO/UI checklist`).toBeVisible();
++        await expect(seoChecklist, `${target.path} SEO checklist should expose ItemList microdata`).toHaveAttribute(
++          "itemtype",
++          "https://schema.org/ItemList",
++        );
++        await expect(seoChecklist, `${target.path} SEO checklist should name the common SEO checks`).toContainText("SEO / UI checklist");
++        await expect(seoChecklist, `${target.path} SEO checklist should expose page-specific checks`).toContainText(/SEO\/UIチェック|H1|パンくず|内部リンク/);
++        await expect(seoChecklist.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO checklist should declare numberOfItems`).toHaveCount(1);
++        expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO checklist should expose ListItem microdata`).toBeGreaterThanOrEqual(3);
++        expect(await seoChecklist.locator("a").count(), `${target.path} SEO checklist should expose crawlable links`).toBeGreaterThanOrEqual(3);
++        expect(await seoChecklist.locator("a").first().getAttribute("class"), `${target.path} SEO checklist links should be visibly blue and underlined`).toContain("text-blue-700");
+         const buyingGuide = page.getByTestId("storefront-buying-guide");
+         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
+         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");

@@ -704,3 +704,22 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+
+## 2026-06-05 Continuation: Shared SEO/UI Checklist
+
+Active instruction file:
+
+- `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
+
+Additional active requirements:
+- Every public tenant storefront page must expose a shared SEO/UI checklist component.
+- The checklist must explain page-specific H1, breadcrumb, internal link, purchase-condition, and structured-data expectations.
+- The checklist must use visible crawlable links with blue/underlined link affordance.
+- The checklist must expose visible `ItemList` / `ListItem` microdata.
+- Subpage `SiteNavigationElement` JSON-LD source links must include the checklist links.
+- Product detail must keep only one visible product `h1`; do not add a duplicate title above the image.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.

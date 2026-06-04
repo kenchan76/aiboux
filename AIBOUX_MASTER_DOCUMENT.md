@@ -1,6 +1,37 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Shared SEO/UI Checklist
+
+Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens every public tenant storefront page with a shared SEO/UI checklist.
+
+Implemented WIP direction:
+
+- `buildShopSeoChecklist(page, tenantRoot)` is the shared source for page-specific SEO/UI checks.
+- `StorefrontSeoChecklist` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
+- The checklist uses crawlable `<a href>` links with visible blue/underlined link affordance.
+- The checklist exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- Subpage `SiteNavigationElement` JSON-LD source links include SEO checklist links.
+- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
+
+Latest local evidence before the next WIP deploy:
+
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro check`: PASS with existing warnings only, 0 errors.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- `gate:shop-subscriptions` remains blocked in the subscription lane.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Page Action Map SEO/UI Commonization
 
 Status: `SHOP_5H_PAGE_ACTION_MAP_SEO_UI_WIP`

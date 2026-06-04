@@ -82,6 +82,17 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail action map should expose ListItem microdata").toBeGreaterThanOrEqual(3);
       expect(await actionMap.locator("a").count(), "product detail action map should expose crawlable internal links").toBeGreaterThanOrEqual(3);
       expect(await actionMap.locator("a").first().getAttribute("class"), "product detail action map links should be visibly blue").toContain("text-blue-700");
+      const seoChecklist = page.getByTestId("storefront-seo-checklist");
+      await expect(seoChecklist, "product detail should include shared SEO/UI checklist").toBeVisible();
+      await expect(seoChecklist, "product detail SEO checklist should expose ItemList microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/ItemList",
+      );
+      await expect(seoChecklist, "product detail SEO checklist should reinforce single H1").toContainText("商品名H1は1つ");
+      await expect(seoChecklist, "product detail SEO checklist should reinforce Product/Offer context").toContainText("Product/Offer");
+      expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO checklist should expose visible ListItems").toBeGreaterThanOrEqual(3);
+      expect(await seoChecklist.locator("a").count(), "product detail SEO checklist should expose crawlable links").toBeGreaterThanOrEqual(3);
+      expect(await seoChecklist.locator("a").first().getAttribute("class"), "product detail SEO checklist links should be visibly blue").toContain("text-blue-700");
       const buyingGuide = page.getByTestId("storefront-buying-guide");
       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");

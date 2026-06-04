@@ -33,6 +33,11 @@ Do not move the tenant storefront to `shop.aiboux.com/`.
 - Use visible link-color affordance.
 - Expose visible `ItemList` microdata for action steps.
 - Include action-map links in TOP and subpage `SiteNavigationElement` JSON-LD sources.
+- Add a shared storefront SEO/UI checklist model in `src/lib/shopStorefrontShared.ts`.
+- Add a shared visible SEO checklist component under `src/components/shop/storefront/`.
+- Render the SEO checklist on TOP, product detail, and every public storefront subpage.
+- Use visible `ItemList` / `ListItem` microdata for SEO checklist items.
+- Include SEO checklist links in subpage `SiteNavigationElement` JSON-LD sources.
 - Do not add duplicate product title above the gallery.
 - Do not claim `FINAL_ACCEPTED`.
 - Keep subscription lane as `BLOCKED_NOT_FINAL` until remote D1 migration and provider-backed recurring billing pass.

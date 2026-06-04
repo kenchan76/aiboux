@@ -68,6 +68,20 @@ export type ShopStorefrontActionMap = {
   steps: ShopStorefrontActionMapStep[];
 };
 
+export type ShopStorefrontSeoChecklistItem = {
+  title: string;
+  body: string;
+  href: string;
+  label: string;
+  badge: string;
+};
+
+export type ShopStorefrontSeoChecklist = {
+  title: string;
+  summary: string;
+  items: ShopStorefrontSeoChecklistItem[];
+};
+
 export type ShopStorefrontPageQualitySignal = {
   title: string;
   body: string;
@@ -1121,6 +1135,198 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
     .filter((step, index, array) => array.findIndex((candidate) => candidate.title === step.title || candidate.href === step.href) === index)
     .slice(0, 5);
   return { ...specific, steps };
+}
+
+export function buildShopSeoChecklist(page: string, tenantRoot: string): ShopStorefrontSeoChecklist {
+  const sharedItems: ShopStorefrontSeoChecklistItem[] = [
+    {
+      title: "H1とパンくず",
+      body: "可視H1を1つに保ち、パンくずと補助リンクでTOP、カテゴリ、商品一覧へ戻れる構造にします。",
+      href: page === "product" ? `${tenantRoot}/products` : tenantRoot,
+      label: page === "product" ? "商品一覧へ" : "TOPへ",
+      badge: "構造",
+    },
+    {
+      title: "クロール可能な内部リンク",
+      body: "主要導線はhref付きリンクに統一し、商品、カテゴリ、配送、返品、問い合わせへ確実に移動できます。",
+      href: `${tenantRoot}/categories`,
+      label: "カテゴリ",
+      badge: "リンク",
+    },
+    {
+      title: "購入前の信頼情報",
+      body: "税込価格、配送目安、返品条件、決済未接続状態を隠さず表示します。",
+      href: `${tenantRoot}/shipping`,
+      label: "配送条件",
+      badge: "信頼",
+    },
+  ];
+
+  const specific: Record<string, ShopStorefrontSeoChecklist> = {
+    "": {
+      title: "TOPページSEO/UIチェック",
+      summary: "商品発見、カテゴリ回遊、購入前確認を同じ売り場構造に揃えます。",
+      items: [
+        { title: "ヒーロー直下の商品導線", body: "おすすめ商品、ランキング、セールへつなぎ、商品詳細へ迷わず移動します。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "TOP" },
+        { title: "カテゴリ階層", body: "食品、日用品、キッチン、ギフトなどの安定カテゴリURLへ内部リンクします。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "階層" },
+      ],
+    },
+    products: {
+      title: "商品一覧SEO/UIチェック",
+      summary: "商品カードの画像、商品名、価格、レビュー、CTAを揃え、検索とカテゴリを分離します。",
+      items: [
+        { title: "商品カード共通化", body: "画像alt、税込価格、レビュー、商品詳細リンク、カートCTAを同じ構造にします。", href: `${tenantRoot}/products`, label: "比較する", badge: "商品" },
+        { title: "カテゴリURL", body: "任意検索はnoindex対象、カテゴリは安定URLとしてItemListと内部リンクを揃えます。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "URL" },
+      ],
+    },
+    categories: {
+      title: "カテゴリ一覧SEO/UIチェック",
+      summary: "カテゴリ画像、商品件数、売り場説明、商品一覧への導線を共通化します。",
+      items: [
+        { title: "カテゴリカード", body: "カテゴリ名、画像、説明、商品件数を揃え、商品一覧の絞り込みURLへ進みます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "分類" },
+        { title: "主要売り場", body: "ランキング、セール、ギフトなど回遊の強い売り場へリンクを残します。", href: buildShopCategoryHref(tenantRoot, "ranking"), label: "ランキング", badge: "回遊" },
+      ],
+    },
+    product: {
+      title: "商品詳細SEO/UIチェック",
+      summary: "商品名H1、Product/Offer、画像ギャラリー、購入ボックス、配送返品を1商品に集中させます。",
+      items: [
+        { title: "商品名H1は1つ", body: "画像上の不要な二重タイトルを出さず、商品名、価格、購入条件を正しい順序で見せます。", href: `${tenantRoot}/products`, label: "関連商品", badge: "H1" },
+        { title: "Product/Offer", body: "商品画像、SKU、カテゴリ、税込価格、在庫、配送、返品をProduct文脈で揃えます。", href: `${tenantRoot}/cart`, label: "カート", badge: "構造化" },
+      ],
+    },
+    cart: {
+      title: "カートSEO/UIチェック",
+      summary: "購入直前でも商品追加、数量、配送、返品、checkoutへ戻れる導線を残します。",
+      items: [
+        { title: "数量と小計", body: "通常商品と定期購入商品を区別し、数量変更、削除、小計を確認できます。", href: `${tenantRoot}/checkout`, label: "checkout", badge: "購入" },
+        { title: "空カート回遊", body: "空状態でも商品一覧、カテゴリ、配送返品へ戻れるようにします。", href: `${tenantRoot}/products`, label: "商品追加", badge: "回遊" },
+      ],
+    },
+    checkout: {
+      title: "checkout SEO/UIチェック",
+      summary: "決済未接続なら成功したふりをせず、販売条件、個人情報、問い合わせへ戻します。",
+      items: [
+        { title: "決済状態", body: "決済未設定時は注文確定を停止し、原因と次の導線を提示します。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
+        { title: "個人情報", body: "配送先、メール、支払い情報の扱いをプライバシー導線で確認します。", href: `${tenantRoot}/privacy`, label: "個人情報", badge: "保護" },
+      ],
+    },
+    contact: {
+      title: "問い合わせSEO/UIチェック",
+      summary: "FAQ、注文履歴、配送返品を確認してから、商品名や注文番号付きで問い合わせます。",
+      items: [
+        { title: "FAQ先行", body: "よくある質問で配送、返品、決済、定期購入の状態を確認します。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "支援" },
+        { title: "注文番号", body: "注文後問い合わせは注文履歴で番号を確認してから送信します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+      ],
+    },
+    legal: {
+      title: "特商法SEO/UIチェック",
+      summary: "販売者、支払い、配送、返品、問い合わせ先を注文前に確認する共通テンプレートです。",
+      items: [
+        { title: "販売者情報", body: "会社名、連絡先、販売条件、更新日を薄いテキストだけにせず整理します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "信頼" },
+        { title: "配送返品連携", body: "特商法から配送、返品、プライバシーへ相互リンクします。", href: `${tenantRoot}/returns`, label: "返品条件", badge: "条件" },
+      ],
+    },
+    privacy: {
+      title: "プライバシーSEO/UIチェック",
+      summary: "注文、問い合わせ、ログイン、定期購入で扱う情報をユーザーに説明します。",
+      items: [
+        { title: "取得項目", body: "氏名、メール、住所、注文番号などの扱いを問い合わせ・注文導線とつなげます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "保護" },
+        { title: "アカウント状態", body: "ログイン未接続時も保存済みのように見せず、状態を明確にします。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "状態" },
+      ],
+    },
+    shipping: {
+      title: "配送SEO/UIチェック",
+      summary: "送料、配送目安、追跡、発送条件を商品詳細やカートから確認できます。",
+      items: [
+        { title: "配送目安", body: "通常2〜4営業日、送料、追跡条件を購入前導線で表示します。", href: `${tenantRoot}/products`, label: "商品へ戻る", badge: "配送" },
+        { title: "返品連携", body: "配送条件と返品条件を相互リンクし、購入前の不安を減らします。", href: `${tenantRoot}/returns`, label: "返品条件", badge: "返品" },
+      ],
+    },
+    returns: {
+      title: "返品SEO/UIチェック",
+      summary: "返品可否、初期不良、期限、問い合わせ条件を注文履歴と接続します。",
+      items: [
+        { title: "返品期限", body: "到着後7日以内などの条件を購入前に確認できるようにします。", href: `${tenantRoot}/contact`, label: "相談する", badge: "返品" },
+        { title: "注文確認", body: "返品対象の注文番号と商品を注文履歴で確認します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+      ],
+    },
+    faq: {
+      title: "FAQ SEO/UIチェック",
+      summary: "FAQPage構造化データと実本文を一致させ、商品・配送・返品・問い合わせへ戻します。",
+      items: [
+        { title: "FAQPage限定", body: "FAQ構造化データはFAQ本文のあるページだけに限定します。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "FAQ" },
+        { title: "問い合わせ連携", body: "解決しない場合は問い合わせへ進める導線を残します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
+      ],
+    },
+    mypage: {
+      title: "マイページSEO/UIチェック",
+      summary: "購入後導線はnoindex想定でも、注文、定期購入、お気に入り、問い合わせを明確にします。",
+      items: [
+        { title: "注文導線", body: "注文履歴、配送状況、返品相談へ移動できます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+        { title: "定期購入状態", body: "D1/決済未接続時は準備中として正直に表示します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入", badge: "定期" },
+      ],
+    },
+    account: {
+      title: "アカウントSEO/UIチェック",
+      summary: "ログイン、登録、注文履歴、お気に入り、問い合わせを同じ購入者導線へまとめます。",
+      items: [
+        { title: "認証状態", body: "認証未接続時にログイン成功のふりをせず、利用できる導線を示します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
+        { title: "購入後サポート", body: "注文履歴と問い合わせを購入後の主要導線として残します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "支援" },
+      ],
+    },
+    orders: {
+      title: "注文履歴SEO/UIチェック",
+      summary: "注文がない状態でも商品、配送、返品、問い合わせへ戻れる購入後サポートページです。",
+      items: [
+        { title: "配送確認", body: "配送条件と注文番号を合わせて確認します。", href: `${tenantRoot}/shipping`, label: "配送条件", badge: "配送" },
+        { title: "返品相談", body: "返品対象の商品と条件を確認し、問い合わせへ進みます。", href: `${tenantRoot}/returns`, label: "返品条件", badge: "返品" },
+      ],
+    },
+    favorites: {
+      title: "お気に入りSEO/UIチェック",
+      summary: "保存候補、商品一覧、カテゴリ、カートへ移動して購入判断を続けます。",
+      items: [
+        { title: "保存候補", body: "お気に入り候補から商品詳細へ戻り、価格と配送を確認します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "比較" },
+        { title: "購入へ戻る", body: "購入候補をカートで確認できます。", href: `${tenantRoot}/cart`, label: "カート", badge: "購入" },
+      ],
+    },
+    login: {
+      title: "ログインSEO/UIチェック",
+      summary: "認証未接続時は成功したふりをせず、注文履歴、登録、商品導線へ戻します。",
+      items: [
+        { title: "登録導線", body: "新規登録と既存ログインの入口を分けます。", href: `${tenantRoot}/register`, label: "会員登録", badge: "登録" },
+        { title: "商品へ戻る", body: "認証未接続でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "商品" },
+      ],
+    },
+    register: {
+      title: "会員登録SEO/UIチェック",
+      summary: "登録前に個人情報と購入条件を確認し、ログインと商品導線へ戻します。",
+      items: [
+        { title: "個人情報", body: "登録や注文で扱う情報を確認します。", href: `${tenantRoot}/privacy`, label: "プライバシー", badge: "保護" },
+        { title: "ログイン", body: "既存アカウント導線を確認します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
+      ],
+    },
+    "mypage/subscriptions": {
+      title: "定期購入SEO/UIチェック",
+      summary: "DB migration未適用時は契約済みのように見せず、商品、checkout、問い合わせへ案内します。",
+      items: [
+        { title: "対象商品", body: "定期購入に向く商品候補を商品詳細で確認します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "商品" },
+        { title: "状態表示", body: "schema pendingと決済未接続を明示し、申込み成功のふりをしません。", href: `${tenantRoot}/checkout`, label: "checkout", badge: "正直" },
+      ],
+    },
+  };
+
+  const fallback = {
+    title: "ページSEO/UIチェック",
+    summary: "商品、購入条件、サポート、アカウントへの導線を共通化します。",
+    items: [],
+  };
+  const base = specific[page] ?? fallback;
+  const items = [...base.items, ...sharedItems]
+    .filter((item, index, array) => array.findIndex((candidate) => candidate.title === item.title || candidate.href === item.href) === index)
+    .slice(0, 5);
+  return { ...base, items };
 }
 
 export function buildShopPageQualitySummary(page: string, tenantRoot: string): ShopStorefrontPageQualitySummary {
