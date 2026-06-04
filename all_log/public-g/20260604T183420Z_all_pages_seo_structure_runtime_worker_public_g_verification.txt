@@ -1,0 +1,46 @@
+timestamp=20260604T183420Z
+--- status-content-type
+m68 HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+l68 HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+d68 HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+--- markers
+/tmp/m68.body:4808:- Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
+/tmp/m68.body:4811:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+/tmp/l68.body:2291:- Marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in public m68/l68/d68.
+/tmp/l68.body:2302:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+/tmp/d68.body:1395:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP Screen Evidence
+/tmp/d68.body:1440:- Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
+/tmp/m68.body:124:- Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/m68.body:421:- Worker Version ID: ecfa0bde-a083-4712-bcc0-76416527c80a
+/tmp/m68.body:2568:Worker Version ID: ecfa0bde-a083-4712-bcc0-76416527c80a
+/tmp/m68.body:4806:- Public evidence Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:541:- Latest Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:645:Runtime placeholders such as `ecfa0bde-a083-4712-bcc0-76416527c80a` are replaced in the public response.
+/tmp/l68.body:655:The SHA mismatch is expected for files containing `ecfa0bde-a083-4712-bcc0-76416527c80a`.
+/tmp/l68.body:662:| `https://shop.aiboux.com/` | 200 | `ecfa0bde-a083-4712-bcc0-76416527c80a` | `AIBOUX SHOP | サービスサイト` |
+/tmp/l68.body:663:| `https://shop.aiboux.com/s/aiboux/` | 200 | `ecfa0bde-a083-4712-bcc0-76416527c80a` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/l68.body:664:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `ecfa0bde-a083-4712-bcc0-76416527c80a` | `AIBOUX SHOP Dashboard` |
+/tmp/l68.body:752:- `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:771:- `/g/*` responses replace `ecfa0bde-a083-4712-bcc0-76416527c80a` at runtime.
+/tmp/l68.body:1207:- Public log publication Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:1213:- `x-aiboux-worker-version`: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:1243:- `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:1254:- `x-aiboux-worker-version`: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:1300:- `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:1755:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: ecfa0bde-a083-4712-bcc0-76416527c80a
+/tmp/l68.body:2220:- Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:2287:- Public evidence Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/d68.body:338:| `https://shop.aiboux.com/` | 200 | `ecfa0bde-a083-4712-bcc0-76416527c80a` | `AIBOUX SHOP | サービスサイト` |
+/tmp/d68.body:339:| `https://shop.aiboux.com/s/aiboux/` | 200 | `ecfa0bde-a083-4712-bcc0-76416527c80a` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/d68.body:340:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `ecfa0bde-a083-4712-bcc0-76416527c80a` | `AIBOUX SHOP Dashboard` |
+/tmp/d68.body:395:- `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/d68.body:484:- `x-aiboux-worker-version`: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/d68.body:641:- All checked responses were served by Worker Version ID `ecfa0bde-a083-4712-bcc0-76416527c80a`.
+/tmp/d68.body:1116:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: ecfa0bde-a083-4712-bcc0-76416527c80a
+/tmp/d68.body:1438:- Public evidence Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/d68.body:1876:- Worker Version ID: `ecfa0bde-a083-4712-bcc0-76416527c80a`
+/tmp/l68.body:2300:- Evidence file: `all_log/bark/20260604T183003Z_all_pages_seo_structure_progress_bark.json`
+/tmp/d68.body:1449:- Evidence file: `all_log/bark/20260604T183003Z_all_pages_seo_structure_progress_bark.json`

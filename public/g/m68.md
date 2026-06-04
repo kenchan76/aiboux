@@ -4803,7 +4803,7 @@ Not final:
 - FINAL_ACCEPTED remains prohibited.
 
 Public evidence publication:
-- Public evidence Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`
 - Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
 - Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
 - Progress Bark notification delivered with `delivered=true`, `skipped=false`, `secretLogged=false`.
