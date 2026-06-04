@@ -1,0 +1,400 @@
+diff --git a/ops/instructions/20260604_shop_store_design_editor_top_product_only.md b/ops/instructions/20260604_shop_store_design_editor_top_product_only.md
+index 4f19bb3..9847771 100644
+--- a/ops/instructions/20260604_shop_store_design_editor_top_product_only.md
++++ b/ops/instructions/20260604_shop_store_design_editor_top_product_only.md
+@@ -44,6 +44,28 @@ The image shows a 3-column editor:
+ 
+ ## Required UI
+ 
++`/s/aiboux/admin/design` must be a dedicated full-screen editor.
++It must not be rendered inside the normal Shop admin sidebar/header layout.
++
++Forbidden structure:
++
++- normal Shop admin sidebar
++- normal Shop admin header
++- store design editor nested inside the regular admin shell
++
++Required structure:
++
++- top editor bar
++- left editor pane
++- center live preview
++- right settings pane
++
++At 1980px viewport:
++
++- left pane: 300px to 340px
++- center preview column: at least 1100px
++- right pane: 340px to 380px
++
+ Left pane:
+ 
+ - TOPページ
+@@ -61,6 +83,8 @@ Center preview:
+ 
+ - Amazon-like TOP preview with delivery bar, logo, search, account, order history, cart, category navigation, center-large hero carousel with side previews, recommended products directly below hero.
+ - Amazon-like product detail preview with image gallery left, product information center, purchase box right.
++- Category navigation must not wrap into vertical Japanese text.
++- Hero side previews must show previous/next slide images, not gray placeholders.
+ 
+ Right pane:
+ 
+@@ -98,6 +122,7 @@ Run:
+ - `npm run check:shop-ui-protection`
+ - `ESBUILD_WORKER_THREADS=0 npm run build`
+ - public Playwright or targeted public URL checks
++- visual layout check: no normal admin sidebar, preview width >= 1100px, nav items do not wrap vertically, hero side images are visible
+ 
+ Before reporting:
+ 
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 20bdb53..f883458 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -151,7 +151,7 @@ Public execution log publication is mandatory and must not be skipped.
+ 
+ ## Fix Cycle 05: Focused Store Design Editor For TOP And Product Detail
+ 
+-Status: WIP_IMPLEMENTATION
++Status: WIP_REPAIR_AFTER_DESIGN_REJECTION
+ 
+ Instruction file:
+ 
+@@ -178,6 +178,16 @@ Implementation constraints:
+ 8. WIP deploy is allowed after build passes.
+ 9. Report only after `/g/m68`, `/g/l68`, and `/g/d68` are publicly deployed and curl-verified.
+ 
++Rejection repair requirements:
++
++1. `/s/aiboux/admin/design` must not use the normal Shop admin sidebar or normal admin header.
++2. `/s/aiboux/admin/design` must be a dedicated full-screen editor.
++3. The editor layout must be top editor bar plus left pane, center preview, and right pane.
++4. At 1980px viewport, the center preview column must be at least 1100px wide.
++5. Category navigation must not wrap into vertical Japanese text.
++6. Hero side previews must show previous and next slide images, not gray placeholder panels.
++7. Playwright must check these visual/layout conditions, not only HTTP 200 and text presence.
++
+ ## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
+ 
+ Status: WIP_FIXING
+diff --git a/src/components/shop/StorefrontDesignBuilder.tsx b/src/components/shop/StorefrontDesignBuilder.tsx
+index 041eee4..d928e9b 100644
+--- a/src/components/shop/StorefrontDesignBuilder.tsx
++++ b/src/components/shop/StorefrontDesignBuilder.tsx
+@@ -4,6 +4,7 @@ import * as React from "react";
+ import {
+   ChevronLeft,
+   ChevronRight,
++  ExternalLink,
+   Eye,
+   GripVertical,
+   ImageIcon,
+@@ -17,6 +18,7 @@ import {
+   Smartphone,
+   Trash2,
+   Type,
++  Undo2,
+   Upload,
+ } from "lucide-react";
+ import { toast } from "sonner";
+@@ -217,20 +219,50 @@ export function StorefrontDesignBuilder() {
+     }
+   };
+ 
+-  const openPublicUrl = activePage === "top" ? "/s/aiboux/" : "/s/aiboux/products";
++  const openPublicUrl = activePage === "top" ? "/s/aiboux/" : "/s/aiboux/product/shopprod_tenant_001_4580000232621";
+ 
+   return (
+-    <section className="flex min-h-0 flex-1 flex-col overflow-hidden bg-[#f7f8fb]">
+-      <div className="flex h-14 shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-4">
+-        <div>
+-          <h1 className="text-lg font-semibold tracking-tight text-neutral-950">AIBOUX SHOP ストアデザインエディタ</h1>
+-          <p className="text-xs text-neutral-500">編集できるのはTOPページと商品詳細ページだけです。その他ページは共通テンプレートで固定します。</p>
++    <section className="grid h-screen w-screen overflow-hidden bg-[#f6f7f9] [grid-template-rows:56px_1fr]" data-shop-design-editor-shell>
++      <div className="flex h-14 min-w-0 shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-4">
++        <div className="flex min-w-0 items-center gap-5">
++          <div className="min-w-[270px]">
++            <h1 className="truncate text-base font-semibold tracking-tight text-neutral-950">AIBOUX SHOP ストアデザインエディタ</h1>
++            <p className="truncate text-xs text-neutral-500">TOPページと商品詳細ページだけを編集します。</p>
++          </div>
++          <div className="flex rounded-md border border-neutral-200 bg-neutral-50 p-1 text-sm">
++            <button
++              type="button"
++              className={cn("h-8 rounded px-3 font-semibold", activePage === "top" ? "bg-white text-blue-700 shadow-sm" : "text-neutral-600")}
++              onClick={() => {
++                setActivePage("top");
++                setSelectedSection("top.heroSlider");
++              }}
++            >
++              TOPページ
++            </button>
++            <button
++              type="button"
++              className={cn("h-8 rounded px-3 font-semibold", activePage === "productDetail" ? "bg-white text-blue-700 shadow-sm" : "text-neutral-600")}
++              onClick={() => {
++                setActivePage("productDetail");
++                setSelectedSection("product.purchaseBox");
++              }}
++            >
++              商品詳細ページ
++            </button>
++          </div>
+         </div>
+-        <div className="flex items-center gap-2">
++        <div className="flex shrink-0 items-center gap-2">
++          <Button type="button" variant="outline" size="icon" aria-label="undo" disabled>
++            <Undo2 className="size-4" />
++          </Button>
++          <Button type="button" variant="outline" size="icon" aria-label="redo" disabled>
++            <Undo2 className="size-4 rotate-180" />
++          </Button>
+           <Button asChild variant="outline" size="sm" className="gap-2">
+             <a href={openPublicUrl} target="_blank" rel="noreferrer">
+-              <Eye className="size-4" />
+-              公開サイトを開く
++              <ExternalLink className="size-4" />
++              公開サイト
+             </a>
+           </Button>
+           <Button type="button" variant="outline" size="icon" aria-label="desktop preview">
+@@ -246,7 +278,7 @@ export function StorefrontDesignBuilder() {
+         </div>
+       </div>
+ 
+-      <div className="grid min-h-0 flex-1 grid-cols-[300px_minmax(640px,1fr)_340px] overflow-hidden">
++      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
+         <LeftPane
+           activePage={activePage}
+           selectedSection={selectedSection}
+@@ -256,14 +288,14 @@ export function StorefrontDesignBuilder() {
+           }}
+           onSection={(section) => setSelectedSection(section)}
+         />
+-        <main className="min-w-0 overflow-auto border-x border-neutral-200 bg-[#eef1f6] p-4">
++        <main className="min-w-0 overflow-auto rounded-lg border border-neutral-200 bg-[#eef1f6] p-4" data-shop-design-preview>
+           {loading ? (
+             <div className="flex h-full min-h-[640px] items-center justify-center rounded-md border border-dashed border-neutral-300 bg-white text-sm text-neutral-500">
+               <Loader2 className="mr-2 size-4 animate-spin" />
+               読み込み中
+             </div>
+           ) : (
+-            <div className="mx-auto w-full max-w-[1120px]">
++            <div className="mx-auto w-full max-w-[1280px]" data-store-preview-frame>
+               {activePage === "top" ? (
+                 <TopPreview layout={layout} selectedSection={selectedSection} onSelect={setSelectedSection} />
+               ) : (
+@@ -302,7 +334,7 @@ function LeftPane({
+ }) {
+   const sections = activePage === "top" ? topSections : productSections;
+   return (
+-    <aside className="min-h-0 overflow-auto bg-white">
++    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-left-pane>
+       <div className="border-b border-neutral-200 px-4 py-3">
+         <div className="grid grid-cols-2 gap-2 text-sm">
+           <button
+@@ -416,8 +448,8 @@ function TopPreview({
+ }) {
+   const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled);
+   const main = slides[0] ?? defaultStorefrontLayout.pages.top.heroSlider.slides[0];
+-  const previous = slides[1] ?? main;
+-  const next = slides[2] ?? main;
++  const previous = slides[slides.length - 1] ?? slides[1] ?? main;
++  const next = slides[1] ?? slides[0] ?? main;
+   const products = ["バックパック", "サーキュレーター", "フレグランス", "コーヒーメーカー", "腕時計"];
+ 
+   return (
+@@ -427,7 +459,7 @@ function TopPreview({
+         type="button"
+         onClick={() => onSelect("top.heroSlider")}
+         className={cn(
+-          "grid w-full gap-2 bg-white p-3 text-left md:grid-cols-[16%_1fr_16%]",
++          "grid w-full gap-3 bg-white p-3 text-left [grid-template-columns:180px_minmax(0,1fr)_180px]",
+           selectedSection === "top.heroSlider" && "ring-2 ring-inset ring-blue-500",
+         )}
+       >
+@@ -495,9 +527,9 @@ function AmazonHeader({ layout, onSelect, selectedSection }: { layout: Storefron
+         <span className="text-xs">注文履歴</span>
+         <span className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート</span>
+       </div>
+-      <button type="button" onClick={() => onSelect("global.navigation")} className={cn("flex w-full gap-7 overflow-hidden border-t border-white/10 px-5 py-2 text-left text-xs", selectedSection === "global.navigation" && "ring-2 ring-inset ring-blue-500")}>
+-        <span className="font-bold">すべてのカテゴリー</span>
+-        {navItems.map((item) => <span key={item} className={item === "セール" ? "font-bold text-red-400" : ""}>{item}</span>)}
++      <button type="button" onClick={() => onSelect("global.navigation")} className={cn("flex w-full min-w-0 gap-5 overflow-x-auto whitespace-nowrap border-t border-white/10 px-5 py-2 text-left text-xs [scrollbar-width:none]", selectedSection === "global.navigation" && "ring-2 ring-inset ring-blue-500")}>
++        <span className="shrink-0 font-bold">すべてのカテゴリー</span>
++        {navItems.map((item) => <span key={item} data-shop-nav-item className={cn("shrink-0", item === "セール" ? "font-bold text-red-400" : "")}>{item}</span>)}
+       </button>
+     </div>
+   );
+@@ -519,9 +551,10 @@ function LogoMark({ layout }: { layout: StorefrontLayout }) {
+ 
+ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSlider"]["slides"][number]; direction: "left" | "right" }) {
+   return (
+-    <div className="relative hidden min-h-[220px] overflow-hidden rounded-md bg-neutral-200 md:block">
+-      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full bg-[linear-gradient(135deg,#d5d1c8,#756b5a)]" />}
++    <div className="relative min-h-[220px] overflow-hidden rounded-md bg-neutral-200" data-hero-side={direction}>
++      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#f4d7a2,#8b6b37_55%,#475569)]" />}
+       <div className="absolute inset-0 bg-black/10" />
++      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
+       <span className={cn("absolute top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow", direction === "left" ? "left-4" : "right-4")}>
+         {direction === "left" ? <ChevronLeft className="size-5" /> : <ChevronRight className="size-5" />}
+       </span>
+@@ -662,7 +695,7 @@ function RightPane({
+   uploadLogo: (file: File | undefined, target: "light" | "dark") => void;
+ }) {
+   return (
+-    <aside className="min-h-0 overflow-auto bg-white">
++    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-right-pane>
+       <div className="border-b border-neutral-200 px-4 py-3">
+         <p className="text-xs font-bold text-neutral-600">編集中のセクション</p>
+         <h2 className="mt-1 text-lg font-semibold text-neutral-950">{sectionTitle(selectedSection)}</h2>
+diff --git a/src/lib/shopStorefrontLayout.ts b/src/lib/shopStorefrontLayout.ts
+index 7a41e88..be7916f 100644
+--- a/src/lib/shopStorefrontLayout.ts
++++ b/src/lib/shopStorefrontLayout.ts
+@@ -163,7 +163,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
+             id: "slide-main",
+             title: "上質な暮らしを、もっと身近に。",
+             subtitle: "こだわりのアイテムをお届けします。",
+-            imageUrl: "",
++            imageUrl: "/shop/design/hero-lifestyle.svg",
+             ctaText: "今すぐ見る",
+             ctaHref: "/s/aiboux/products",
+             enabled: true,
+@@ -172,7 +172,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
+             id: "slide-daily",
+             title: "毎日の暮らしに、ちょっとした贅沢を。",
+             subtitle: "使いやすい日用品を選びやすく。",
+-            imageUrl: "",
++            imageUrl: "/shop/design/hero-daily.svg",
+             ctaText: "商品を見る",
+             ctaHref: "/s/aiboux/products",
+             enabled: true,
+@@ -181,7 +181,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
+             id: "slide-season",
+             title: "新しい季節を、心地よく。",
+             subtitle: "人気商品と定番商品をまとめて確認できます。",
+-            imageUrl: "",
++            imageUrl: "/shop/design/hero-season.svg",
+             ctaText: "おすすめへ",
+             ctaHref: "/s/aiboux/products",
+             enabled: true,
+@@ -277,7 +277,7 @@ function legacyToLayout(blocks: unknown[]): StorefrontLayout {
+       ...layout.pages.top.heroSlider.slides[0],
+       title: sanitizeText(legacyHero.title, layout.pages.top.heroSlider.slides[0].title, 90),
+       subtitle: sanitizeText(legacyHero.subtitle, layout.pages.top.heroSlider.slides[0].subtitle, 160),
+-      imageUrl: sanitizeImageUrl(legacyHero.imageUrl),
++      imageUrl: sanitizeImageUrl(legacyHero.imageUrl) || layout.pages.top.heroSlider.slides[0].imageUrl,
+       ctaText: sanitizeText(legacyHero.ctaLabel, layout.pages.top.heroSlider.slides[0].ctaText, 32),
+       ctaHref: sanitizeHref(legacyHero.ctaHref, layout.pages.top.heroSlider.slides[0].ctaHref),
+     };
+@@ -409,8 +409,8 @@ function sanitizeSlide(value: unknown, index: number): TopPageDesignConfig["hero
+     id: sanitizeId(value.id, fallback.id || `slide-${index + 1}`),
+     title: sanitizeText(value.title, fallback.title, 90),
+     subtitle: sanitizeText(value.subtitle, fallback.subtitle, 160),
+-    imageUrl: sanitizeImageUrl(value.imageUrl),
+-    mobileImageUrl: sanitizeImageUrl(value.mobileImageUrl),
++    imageUrl: sanitizeImageUrl(value.imageUrl) || fallback.imageUrl,
++    mobileImageUrl: sanitizeImageUrl(value.mobileImageUrl) || fallback.mobileImageUrl,
+     ctaText: sanitizeText(value.ctaText, fallback.ctaText, 32),
+     ctaHref: sanitizeHref(value.ctaHref, fallback.ctaHref),
+     enabled: sanitizeBoolean(value.enabled, true),
+@@ -450,7 +450,7 @@ function sanitizeImageUrl(value: unknown): string {
+ function sanitizeNullableImageUrl(value: unknown): string | null {
+   const text = typeof value === "string" ? value.trim() : "";
+   if (!text) return null;
+-  if (text.startsWith("/shop/api/assets/") || text.startsWith("https://")) return text.slice(0, 500);
++  if (text.startsWith("/shop/api/assets/") || text.startsWith("/shop/design/") || text.startsWith("https://")) return text.slice(0, 500);
+   return null;
+ }
+ 
+diff --git a/src/pages/shop/settings/design.astro b/src/pages/shop/settings/design.astro
+index 16e93fa..92beeb0 100644
+--- a/src/pages/shop/settings/design.astro
++++ b/src/pages/shop/settings/design.astro
+@@ -1,6 +1,24 @@
+ ---
+-import ShopPage from "../_ShopPage.astro";
++import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
++import { StorefrontDesignBuilder } from "@/components/shop/StorefrontDesignBuilder";
++import "@/styles/global.css";
++
+ export const prerender = false;
+ ---
+ 
+-<ShopPage section="design" title="AIBOUX SHOP Store Design" />
++<!doctype html>
++<html lang="ja" class="h-full bg-[#f6f7f9]">
++  <head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <NotoSansJpHead />
++    <meta name="color-scheme" content="light" />
++    <meta name="robots" content="noindex,nofollow" />
++    <meta property="og:site_name" content="shop.aiboux.com" />
++    <link rel="icon" href="/brand/aiboux-logo.svg" type="image/svg+xml" />
++    <title>AIBOUX SHOP ストアデザインエディタ</title>
++  </head>
++  <body class="h-full overflow-hidden bg-[#f6f7f9] text-neutral-950 antialiased">
++    <StorefrontDesignBuilder client:load />
++  </body>
++</html>
+diff --git a/tests/shop-functional-public.spec.ts b/tests/shop-functional-public.spec.ts
+index 371fe37..9cc961b 100644
+--- a/tests/shop-functional-public.spec.ts
++++ b/tests/shop-functional-public.spec.ts
+@@ -113,6 +113,9 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+     await page.setViewportSize({ width: 1980, height: 1080 });
+     await page.goto("/s/aiboux/admin/design");
+     await expect(page.getByText("AIBOUX SHOP ストアデザインエディタ")).toBeVisible();
++    await expect(page.getByText("注文管理")).toHaveCount(0);
++    await expect(page.getByText("商品管理")).toHaveCount(0);
++    await expect(page.getByText("在庫", { exact: true })).toHaveCount(0);
+     await expect(page.getByText("TOPページ").first()).toBeVisible();
+     await expect(page.getByText("商品詳細ページ").first()).toBeVisible();
+     await expect(page.getByText("編集できるのは「TOPページ」と「商品詳細ページ」のみです。")).toBeVisible();
+@@ -122,6 +125,44 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+     await expect(page.getByText("カートページ")).toHaveCount(0);
+     await expect(page.getByText("チェックアウトページ")).toHaveCount(0);
+     await expect(page.getByText("404ページ")).toHaveCount(0);
++
++    const shell = page.locator("[data-shop-design-editor-shell]");
++    const preview = page.locator("[data-shop-design-preview]");
++    const previewFrame = page.locator("[data-store-preview-frame]");
++    const leftPane = page.locator("[data-shop-design-left-pane]");
++    const rightPane = page.locator("[data-shop-design-right-pane]");
++    await expect(shell).toBeVisible();
++    await expect(leftPane).toBeVisible();
++    await expect(preview).toBeVisible();
++    await expect(rightPane).toBeVisible();
++
++    const previewBox = await preview.boundingBox();
++    const frameBox = await previewFrame.boundingBox();
++    const leftBox = await leftPane.boundingBox();
++    const rightBox = await rightPane.boundingBox();
++    expect(previewBox?.width ?? 0, "center preview column should be at least 1100px at 1980px viewport").toBeGreaterThanOrEqual(1100);
++    expect(frameBox?.width ?? 0, "store preview frame should be at least 1100px at 1980px viewport").toBeGreaterThanOrEqual(1100);
++    expect(leftBox?.width ?? 0, "left editor pane width").toBeGreaterThanOrEqual(300);
++    expect(leftBox?.width ?? 0, "left editor pane width").toBeLessThanOrEqual(340);
++    expect(rightBox?.width ?? 0, "right editor pane width").toBeGreaterThanOrEqual(340);
++    expect(rightBox?.width ?? 0, "right editor pane width").toBeLessThanOrEqual(380);
++
++    const navItems = page.locator("[data-shop-nav-item]");
++    await expect(navItems.first()).toBeVisible();
++    const navCount = await navItems.count();
++    expect(navCount, "category nav items should exist").toBeGreaterThanOrEqual(8);
++    for (let index = 0; index < Math.min(navCount, 8); index += 1) {
++      const box = await navItems.nth(index).boundingBox();
++      expect(box?.height ?? 999, `category nav item ${index} should not wrap vertically`).toBeLessThanOrEqual(24);
++    }
++
++    const sideImages = page.locator("[data-hero-side-image]");
++    await expect(sideImages).toHaveCount(2);
++    for (let index = 0; index < 2; index += 1) {
++      const src = await sideImages.nth(index).getAttribute("src");
++      expect(src ?? "", `side hero ${index} should use a real preview image`).toContain("/shop/design/hero-");
++    }
++
+     await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });
+   });
+ 

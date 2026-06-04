@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
   Eye,
   GripVertical,
   ImageIcon,
@@ -17,6 +18,7 @@ import {
   Smartphone,
   Trash2,
   Type,
+  Undo2,
   Upload,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -217,20 +219,50 @@ export function StorefrontDesignBuilder() {
     }
   };
 
-  const openPublicUrl = activePage === "top" ? "/s/aiboux/" : "/s/aiboux/products";
+  const openPublicUrl = activePage === "top" ? "/s/aiboux/" : "/s/aiboux/product/shopprod_tenant_001_4580000232621";
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col overflow-hidden bg-[#f7f8fb]">
-      <div className="flex h-14 shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-4">
-        <div>
-          <h1 className="text-lg font-semibold tracking-tight text-neutral-950">AIBOUX SHOP ストアデザインエディタ</h1>
-          <p className="text-xs text-neutral-500">編集できるのはTOPページと商品詳細ページだけです。その他ページは共通テンプレートで固定します。</p>
+    <section className="grid h-screen w-screen overflow-hidden bg-[#f6f7f9] [grid-template-rows:56px_1fr]" data-shop-design-editor-shell>
+      <div className="flex h-14 min-w-0 shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-4">
+        <div className="flex min-w-0 items-center gap-5">
+          <div className="min-w-[270px]">
+            <h1 className="truncate text-base font-semibold tracking-tight text-neutral-950">AIBOUX SHOP ストアデザインエディタ</h1>
+            <p className="truncate text-xs text-neutral-500">TOPページと商品詳細ページだけを編集します。</p>
+          </div>
+          <div className="flex rounded-md border border-neutral-200 bg-neutral-50 p-1 text-sm">
+            <button
+              type="button"
+              className={cn("h-8 rounded px-3 font-semibold", activePage === "top" ? "bg-white text-blue-700 shadow-sm" : "text-neutral-600")}
+              onClick={() => {
+                setActivePage("top");
+                setSelectedSection("top.heroSlider");
+              }}
+            >
+              TOPページ
+            </button>
+            <button
+              type="button"
+              className={cn("h-8 rounded px-3 font-semibold", activePage === "productDetail" ? "bg-white text-blue-700 shadow-sm" : "text-neutral-600")}
+              onClick={() => {
+                setActivePage("productDetail");
+                setSelectedSection("product.purchaseBox");
+              }}
+            >
+              商品詳細ページ
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
+          <Button type="button" variant="outline" size="icon" aria-label="undo" disabled>
+            <Undo2 className="size-4" />
+          </Button>
+          <Button type="button" variant="outline" size="icon" aria-label="redo" disabled>
+            <Undo2 className="size-4 rotate-180" />
+          </Button>
           <Button asChild variant="outline" size="sm" className="gap-2">
             <a href={openPublicUrl} target="_blank" rel="noreferrer">
-              <Eye className="size-4" />
-              公開サイトを開く
+              <ExternalLink className="size-4" />
+              公開サイト
             </a>
           </Button>
           <Button type="button" variant="outline" size="icon" aria-label="desktop preview">
@@ -246,7 +278,7 @@ export function StorefrontDesignBuilder() {
         </div>
       </div>
 
-      <div className="grid min-h-0 flex-1 grid-cols-[300px_minmax(640px,1fr)_340px] overflow-hidden">
+      <div className="grid min-h-0 gap-4 overflow-hidden p-4 [grid-template-columns:320px_minmax(1100px,1fr)_360px]" data-shop-design-editor-main>
         <LeftPane
           activePage={activePage}
           selectedSection={selectedSection}
@@ -256,14 +288,14 @@ export function StorefrontDesignBuilder() {
           }}
           onSection={(section) => setSelectedSection(section)}
         />
-        <main className="min-w-0 overflow-auto border-x border-neutral-200 bg-[#eef1f6] p-4">
+        <main className="min-w-0 overflow-auto rounded-lg border border-neutral-200 bg-[#eef1f6] p-4" data-shop-design-preview>
           {loading ? (
             <div className="flex h-full min-h-[640px] items-center justify-center rounded-md border border-dashed border-neutral-300 bg-white text-sm text-neutral-500">
               <Loader2 className="mr-2 size-4 animate-spin" />
               読み込み中
             </div>
           ) : (
-            <div className="mx-auto w-full max-w-[1120px]">
+            <div className="mx-auto w-full max-w-[1280px]" data-store-preview-frame>
               {activePage === "top" ? (
                 <TopPreview layout={layout} selectedSection={selectedSection} onSelect={setSelectedSection} />
               ) : (
@@ -302,7 +334,7 @@ function LeftPane({
 }) {
   const sections = activePage === "top" ? topSections : productSections;
   return (
-    <aside className="min-h-0 overflow-auto bg-white">
+    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-left-pane>
       <div className="border-b border-neutral-200 px-4 py-3">
         <div className="grid grid-cols-2 gap-2 text-sm">
           <button
@@ -416,8 +448,8 @@ function TopPreview({
 }) {
   const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled);
   const main = slides[0] ?? defaultStorefrontLayout.pages.top.heroSlider.slides[0];
-  const previous = slides[1] ?? main;
-  const next = slides[2] ?? main;
+  const previous = slides[slides.length - 1] ?? slides[1] ?? main;
+  const next = slides[1] ?? slides[0] ?? main;
   const products = ["バックパック", "サーキュレーター", "フレグランス", "コーヒーメーカー", "腕時計"];
 
   return (
@@ -427,7 +459,7 @@ function TopPreview({
         type="button"
         onClick={() => onSelect("top.heroSlider")}
         className={cn(
-          "grid w-full gap-2 bg-white p-3 text-left md:grid-cols-[16%_1fr_16%]",
+          "grid w-full gap-3 bg-white p-3 text-left [grid-template-columns:180px_minmax(0,1fr)_180px]",
           selectedSection === "top.heroSlider" && "ring-2 ring-inset ring-blue-500",
         )}
       >
@@ -495,9 +527,9 @@ function AmazonHeader({ layout, onSelect, selectedSection }: { layout: Storefron
         <span className="text-xs">注文履歴</span>
         <span className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート</span>
       </div>
-      <button type="button" onClick={() => onSelect("global.navigation")} className={cn("flex w-full gap-7 overflow-hidden border-t border-white/10 px-5 py-2 text-left text-xs", selectedSection === "global.navigation" && "ring-2 ring-inset ring-blue-500")}>
-        <span className="font-bold">すべてのカテゴリー</span>
-        {navItems.map((item) => <span key={item} className={item === "セール" ? "font-bold text-red-400" : ""}>{item}</span>)}
+      <button type="button" onClick={() => onSelect("global.navigation")} className={cn("flex w-full min-w-0 gap-5 overflow-x-auto whitespace-nowrap border-t border-white/10 px-5 py-2 text-left text-xs [scrollbar-width:none]", selectedSection === "global.navigation" && "ring-2 ring-inset ring-blue-500")}>
+        <span className="shrink-0 font-bold">すべてのカテゴリー</span>
+        {navItems.map((item) => <span key={item} data-shop-nav-item className={cn("shrink-0", item === "セール" ? "font-bold text-red-400" : "")}>{item}</span>)}
       </button>
     </div>
   );
@@ -519,9 +551,10 @@ function LogoMark({ layout }: { layout: StorefrontLayout }) {
 
 function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSlider"]["slides"][number]; direction: "left" | "right" }) {
   return (
-    <div className="relative hidden min-h-[220px] overflow-hidden rounded-md bg-neutral-200 md:block">
-      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full bg-[linear-gradient(135deg,#d5d1c8,#756b5a)]" />}
+    <div className="relative min-h-[220px] overflow-hidden rounded-md bg-neutral-200" data-hero-side={direction}>
+      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#f4d7a2,#8b6b37_55%,#475569)]" />}
       <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
       <span className={cn("absolute top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow", direction === "left" ? "left-4" : "right-4")}>
         {direction === "left" ? <ChevronLeft className="size-5" /> : <ChevronRight className="size-5" />}
       </span>
@@ -662,7 +695,7 @@ function RightPane({
   uploadLogo: (file: File | undefined, target: "light" | "dark") => void;
 }) {
   return (
-    <aside className="min-h-0 overflow-auto bg-white">
+    <aside className="min-h-0 overflow-auto rounded-lg border border-neutral-200 bg-white" data-shop-design-right-pane>
       <div className="border-b border-neutral-200 px-4 py-3">
         <p className="text-xs font-bold text-neutral-600">編集中のセクション</p>
         <h2 className="mt-1 text-lg font-semibold text-neutral-950">{sectionTitle(selectedSection)}</h2>

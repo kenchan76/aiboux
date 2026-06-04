@@ -163,7 +163,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
             id: "slide-main",
             title: "上質な暮らしを、もっと身近に。",
             subtitle: "こだわりのアイテムをお届けします。",
-            imageUrl: "",
+            imageUrl: "/shop/design/hero-lifestyle.svg",
             ctaText: "今すぐ見る",
             ctaHref: "/s/aiboux/products",
             enabled: true,
@@ -172,7 +172,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
             id: "slide-daily",
             title: "毎日の暮らしに、ちょっとした贅沢を。",
             subtitle: "使いやすい日用品を選びやすく。",
-            imageUrl: "",
+            imageUrl: "/shop/design/hero-daily.svg",
             ctaText: "商品を見る",
             ctaHref: "/s/aiboux/products",
             enabled: true,
@@ -181,7 +181,7 @@ export const defaultStorefrontLayout: StorefrontLayout = {
             id: "slide-season",
             title: "新しい季節を、心地よく。",
             subtitle: "人気商品と定番商品をまとめて確認できます。",
-            imageUrl: "",
+            imageUrl: "/shop/design/hero-season.svg",
             ctaText: "おすすめへ",
             ctaHref: "/s/aiboux/products",
             enabled: true,
@@ -277,7 +277,7 @@ function legacyToLayout(blocks: unknown[]): StorefrontLayout {
       ...layout.pages.top.heroSlider.slides[0],
       title: sanitizeText(legacyHero.title, layout.pages.top.heroSlider.slides[0].title, 90),
       subtitle: sanitizeText(legacyHero.subtitle, layout.pages.top.heroSlider.slides[0].subtitle, 160),
-      imageUrl: sanitizeImageUrl(legacyHero.imageUrl),
+      imageUrl: sanitizeImageUrl(legacyHero.imageUrl) || layout.pages.top.heroSlider.slides[0].imageUrl,
       ctaText: sanitizeText(legacyHero.ctaLabel, layout.pages.top.heroSlider.slides[0].ctaText, 32),
       ctaHref: sanitizeHref(legacyHero.ctaHref, layout.pages.top.heroSlider.slides[0].ctaHref),
     };
@@ -409,8 +409,8 @@ function sanitizeSlide(value: unknown, index: number): TopPageDesignConfig["hero
     id: sanitizeId(value.id, fallback.id || `slide-${index + 1}`),
     title: sanitizeText(value.title, fallback.title, 90),
     subtitle: sanitizeText(value.subtitle, fallback.subtitle, 160),
-    imageUrl: sanitizeImageUrl(value.imageUrl),
-    mobileImageUrl: sanitizeImageUrl(value.mobileImageUrl),
+    imageUrl: sanitizeImageUrl(value.imageUrl) || fallback.imageUrl,
+    mobileImageUrl: sanitizeImageUrl(value.mobileImageUrl) || fallback.mobileImageUrl,
     ctaText: sanitizeText(value.ctaText, fallback.ctaText, 32),
     ctaHref: sanitizeHref(value.ctaHref, fallback.ctaHref),
     enabled: sanitizeBoolean(value.enabled, true),
@@ -450,7 +450,7 @@ function sanitizeImageUrl(value: unknown): string {
 function sanitizeNullableImageUrl(value: unknown): string | null {
   const text = typeof value === "string" ? value.trim() : "";
   if (!text) return null;
-  if (text.startsWith("/shop/api/assets/") || text.startsWith("https://")) return text.slice(0, 500);
+  if (text.startsWith("/shop/api/assets/") || text.startsWith("/shop/design/") || text.startsWith("https://")) return text.slice(0, 500);
   return null;
 }
 

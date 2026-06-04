@@ -1,0 +1,21 @@
+ M ops/instructions/20260604_shop_store_design_editor_top_product_only.md
+ M ops/instructions/current.md
+ M src/components/shop/StorefrontDesignBuilder.tsx
+ M src/lib/shopStorefrontLayout.ts
+ M src/pages/shop/settings/design.astro
+ M tests/shop-functional-public.spec.ts
+?? all_log/checkpoints/20260604T053544Z_wip_commit.txt
+?? all_log/deploys/20260604T053544Z_deployments_before.txt
+?? all_log/public-g/20260604T053703Z_d68.body
+?? all_log/public-g/20260604T053703Z_d68.headers
+?? all_log/public-g/20260604T053703Z_l68.body
+?? all_log/public-g/20260604T053703Z_l68.headers
+?? all_log/public-g/20260604T053703Z_m68.body
+?? all_log/public-g/20260604T053703Z_m68.headers
+?? all_log/shop-design-editor/20260604T053703Z_https___shop.aiboux.com_s_aiboux_.headers
+?? all_log/shop-design-editor/20260604T053703Z_https___shop.aiboux.com_s_aiboux_.html
+?? all_log/shop-design-editor/20260604T053703Z_https___shop.aiboux.com_s_aiboux_admin_design.headers
+?? all_log/shop-design-editor/20260604T053703Z_https___shop.aiboux.com_s_aiboux_admin_design.html
+?? all_log/shop-design-editor/20260604T053703Z_https___shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+?? all_log/shop-design-editor/20260604T053703Z_https___shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.html
+?? public/shop/

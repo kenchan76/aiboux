@@ -44,6 +44,28 @@ The image shows a 3-column editor:
 
 ## Required UI
 
+`/s/aiboux/admin/design` must be a dedicated full-screen editor.
+It must not be rendered inside the normal Shop admin sidebar/header layout.
+
+Forbidden structure:
+
+- normal Shop admin sidebar
+- normal Shop admin header
+- store design editor nested inside the regular admin shell
+
+Required structure:
+
+- top editor bar
+- left editor pane
+- center live preview
+- right settings pane
+
+At 1980px viewport:
+
+- left pane: 300px to 340px
+- center preview column: at least 1100px
+- right pane: 340px to 380px
+
 Left pane:
 
 - TOPページ
@@ -61,6 +83,8 @@ Center preview:
 
 - Amazon-like TOP preview with delivery bar, logo, search, account, order history, cart, category navigation, center-large hero carousel with side previews, recommended products directly below hero.
 - Amazon-like product detail preview with image gallery left, product information center, purchase box right.
+- Category navigation must not wrap into vertical Japanese text.
+- Hero side previews must show previous/next slide images, not gray placeholders.
 
 Right pane:
 
@@ -98,6 +122,7 @@ Run:
 - `npm run check:shop-ui-protection`
 - `ESBUILD_WORKER_THREADS=0 npm run build`
 - public Playwright or targeted public URL checks
+- visual layout check: no normal admin sidebar, preview width >= 1100px, nav items do not wrap vertically, hero side images are visible
 
 Before reporting:
 

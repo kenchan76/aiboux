@@ -1,0 +1,728 @@
+# AIBOUX Shop Sales Tenant Execution Log
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Status: `WIP_LOG_RULE_READY_TO_DEPLOY`
+
+Codex must publish execution logs to public `/g/*` URLs before every user-facing report.
+
+Required report header:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Prohibited:
+
+- reporting only `all_log/...`;
+- reporting only that `public/g/*.md` was updated locally;
+- reporting that the next deploy will publish the log;
+- reporting only SHA values;
+- reporting PASS results without public URL evidence.
+
+Before reporting, Codex must curl `m68`, `l68`, and `d68` from the public URLs and record HTTP status, content-type, and SHA256.
+
+Shop UI protection can remain warn-only for WIP deploy.
+Public execution log publication is mandatory.
+
+Evidence:
+
+- `all_log/public-g/20260604T000724Z_public_log_required_rule.md`
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+## Current Meaning
+
+This log is the execution evidence destination for the AIBOUX Shop sales tenant work.
+It is not final acceptance evidence.
+
+## Policy Fixed On 2026-06-04
+
+The operating policy has changed.
+
+Wrong:
+
+- Stop deploy only because dirty UI exists.
+- Hide WIP from public visual confirmation.
+- Make UI protection a hard deploy gate.
+
+Correct:
+
+- Create rollback checkpoint first.
+- Save patch and deployment state.
+- Create WIP commit.
+- Deploy WIP when build passes.
+- Verify through public URLs.
+- List and fix problems.
+- Roll back to previous Worker Version or git checkpoint when WIP is bad.
+- Block only final acceptance until strict checks pass.
+
+## Implemented Local Changes
+
+Added:
+
+- `scripts/create-shop-wip-checkpoint.mjs`
+
+Updated:
+
+- `scripts/check-shop-ui-protection.mjs`
+- `package.json`
+- `scripts/aiboux-gate-check.mjs`
+- `AIBOUX_MASTER_DOCUMENT.md`
+- `public/g/m68.md`
+- `public/g/l68.md`
+- `public/g/d68.md`
+- `ops/instructions/current.md`
+- `ops/instructions/20260604_shop_aiboux_production_tenant_with_ui_protection.md`
+- `all_log/91_shop_wip_deploy_checkpoint_policy_update.md`
+
+## WIP Deploy Flow
+
+```text
+1. Create checkpoint.
+2. Save git status, HEAD, origin/main, diff, staged diff, git log.
+3. Save Wrangler deployments list.
+4. Create WIP commit.
+5. Run control-character check.
+6. Run mojibake check.
+7. Build.
+8. Run Shop UI protection in warn mode.
+9. Deploy.
+10. Verify public URL.
+11. Update m68/l68/d68 as WIP_DEPLOYED, not FINAL_ACCEPTED.
+```
+
+## Scripts
+
+```bash
+npm run shop:checkpoint
+npm run deploy:shop:wip
+npm run verify:shop:final
+npm run check:shop-ui-protection
+npm run check:shop-ui-protection:strict
+```
+
+## Current Check Results
+
+```text
+npm run check:control-chars: PASS
+npm run check:mojibake: PASS
+npm run check:shop-ui-protection: WARN mode, exits 0
+npm run check:shop-ui-protection:strict: expected NG while dirty Shop UI paths remain
+npm run gate:deploy: AIBOUX_GATE_DEPLOYED
+ESBUILD_WORKER_THREADS=0 npm run build: PASS
+npm run deploy:shop:wip: PASS
+```
+
+## WIP Deploy Evidence
+
+- Latest verified WIP commit hash: `3fea25cee2769c5e0f42d148f4596586bfb51972`
+- Latest Worker Version ID: `be127328-7f57-43e4-872a-4cc81f06fe65`
+- Latest checkpoint timestamp: `20260603T232211Z`
+- Latest checkpoint evidence: `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
+- Latest deploy output: `all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt`
+- Reflection log: `all_log/92_shop_wip_deploy_public_reflection.md`
+
+## WIP Log Route Fix
+
+`/g/l68` and `/g/d68` are served through `src/lib/server/tempLogShares.ts`.
+The route was updated so `l68` returns `public/g/l68.md` content and `d68` returns `public/g/d68.md` content.
+Runtime placeholders such as `be127328-7f57-43e4-872a-4cc81f06fe65` are replaced in the public response.
+
+### Public `/g/*` verification after WIP deploy
+
+| URL | HTTP | Content-Type | Local SHA256 | Remote SHA256 | Match |
+| --- | --- | --- | --- | --- | --- |
+| `https://mail.aiboux.com/g/m68` | 200 | `text/markdown; charset=utf-8` | `c15961469f0b44df0bcfdae02f3bc69072e4a8608c1a460ca51a12f62d917e72` | `c67c44fce776881b4ddffe51942ea98abdd3b957f7b1a1df838421f4145ba939` | no |
+| `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `c0319e74cf59f99eded51156509f2c719c4aea4c3c14bdac66596add30187483` | `2ab82b664777aac8c179c70eb66d2ec3b1b959b1014718f344be5a0925f8d527` | no |
+| `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `e9598f11b69485f967f72300fc3b81fb6e8e2c7c68e9219b6025ebe42e6e9e4a` | no |
+
+The SHA mismatch is expected for files containing `be127328-7f57-43e4-872a-4cc81f06fe65`.
+The `/g/*` route replaces that placeholder at runtime, so public body hashes differ from source markdown hashes while the content remains the intended WIP evidence document.
+
+### Public Shop URL verification after WIP deploy
+
+| URL | HTTP | Worker Version ID | Title |
+| --- | --- | --- | --- |
+| `https://shop.aiboux.com/` | 200 | `be127328-7f57-43e4-872a-4cc81f06fe65` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `be127328-7f57-43e4-872a-4cc81f06fe65` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `be127328-7f57-43e4-872a-4cc81f06fe65` | `AIBOUX SHOP Dashboard` |
+
+## Current Completion Status
+
+Not complete.
+Current status is `WIP_DEPLOYED`, not `FINAL_ACCEPTED`.
+
+## Shop Fix Cycle 01
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260603T233309Z`
+
+Cycle 01 removes visible fake Shop admin values and repairs tenant routes without broad visual redesign.
+
+Implemented in this cycle:
+
+- Shop sample products, orders, customers, discounts, collections, inventory, and analytics arrays now resolve to production-safe empty arrays.
+- Fake KPI values are replaced with `0` or honest `未集計` states.
+- Visible fake admin account name is replaced with `ストア管理者`.
+- Default fixed date range is removed from Shop admin topbar.
+- Empty states were added for products, orders, inventory, customers, analytics, best sellers, inventory alerts, and content.
+- Shop admin links are normalized to `/s/aiboux/admin/...`.
+- Storefront links are normalized to `/s/aiboux/...`.
+- `src/pages/shop/[tenant]/[...path].astro` was added so storefront child routes can return HTTP 200.
+- Shop storefront `href="#"` links were removed.
+- Old `/shop/products`, `/shop/settings`, and `/shop/storefront` UI links were removed from Shop UI.
+
+Local verification before WIP deploy:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run check:shop-ui-protection`: WARN mode, exit 0
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+
+Cycle 01 WIP deploy evidence:
+
+- Worker Version ID: `ed331907-7c17-4135-8184-746d9989c229`
+- WIP commit: `a1ed8048235fbeefa24f1427693eb60e94b8d4b2`
+- `all_log/shop-ui/20260603T233309Z_shop_fix_01.md`
+- `all_log/shop-ui/20260603T233309Z_public_url_status_before_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_public_url_status_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_admin_fixed_value_check_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_playwright_text_check_after_fix_01.json`
+
+Cycle 01 public result:
+
+- Admin and storefront target URLs returned HTTP 200.
+- Storefront child routes that were 404 before this cycle now return HTTP 200.
+- Public admin HTML no longer contains the specified fake fixed values.
+- Playwright rendered text check found zero specified fake fixed values on admin, storefront, products, cart, and checkout.
+
+Current latest Worker Version ID after cycle 01:
+
+- `ed331907-7c17-4135-8184-746d9989c229`
+
+The following remain required before FINAL_ACCEPTED:
+
+- commit hash
+- Worker Version ID
+- deploy timestamp
+- migration names and results
+- changed file list
+- all admin URLs HTTP 200
+- all storefront URLs HTTP 200
+- Playwright result
+- product create -> edit -> list -> storefront reflection
+- settings save -> public page reflection
+- cart add -> quantity change -> delete -> checkout transition
+- contact form verification
+- legal/privacy/shipping/returns settings reflection
+- dead link zero
+- `href="#"` zero
+- old route leakage zero
+- `shop.aboux.com` zero
+- sample fixed values zero
+- unresolved items zero
+
+## Public Execution Log Required Rule Deployment
+
+Status: `WIP_LOG_RULE_PUBLISHED`
+
+Latest WIP commit:
+
+- `c3a4689970102059d9545ebbd2cf2067d6b9db68`
+
+Latest Worker Version ID:
+
+- `be127328-7f57-43e4-872a-4cc81f06fe65`
+
+What changed:
+
+- Reports must begin with the public URL bundle.
+- Execution logs must be published to `https://mail.aiboux.com/g/l68` before user-facing reports.
+- Screen evidence must be published to `https://mail.aiboux.com/g/d68` before user-facing reports.
+- Master evidence remains `https://mail.aiboux.com/g/m68`.
+- Local-only evidence such as `all_log/...` is not a valid user-facing report.
+- `public/g/*.md updated locally` without deploy and public curl verification is not a valid user-facing report.
+
+Required public verification before every report:
+
+- `https://mail.aiboux.com/g/m68`: HTTP 200, `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/l68`: HTTP 200, `text/markdown; charset=utf-8`
+- `https://mail.aiboux.com/g/d68`: HTTP 200, `text/markdown; charset=utf-8`
+
+Runtime note:
+
+- `/g/*` responses replace `be127328-7f57-43e4-872a-4cc81f06fe65` at runtime.
+- Source markdown SHA and public response SHA can differ when that placeholder exists.
+- This SHA difference is expected and must be recorded honestly.
+
+Safety for this policy deployment:
+
+- No DB write was run.
+- No migration apply was run.
+- Bark was not sent.
+- `git reset --hard` was not run.
+- `git clean -fd` was not run.
+- force push was not run.
+- secrets were not printed.
+
+## Shop Fix Cycle 02: Public Admin Demo Value Recheck
+
+Status: `WIP_FIXING_PENDING_DEPLOY`
+
+Reason:
+
+- The user reported that public `https://shop.aiboux.com/s/aiboux/admin` still displayed fixed demo values.
+- Product/settings/cart work is paused until the public admin fixed-value check is handled first.
+
+Public admin target:
+
+- `https://shop.aiboux.com/s/aiboux/admin`
+
+Current direct public checks before this deploy:
+
+- curl public admin HTML with no-cache headers: HTTP 200
+- The following patterns were not found in the fetched public HTML: `2024/05`, `山田`, `¥2,340,000`, `245件`, `2.35%`, `¥9,551`, `28.7%`, `TSH-001`, `BAG-001`, `BTL-500`, `#10085`, `#10084`, `#10083`, `佐藤`, `鈴木`, `田中`.
+- Playwright public rendered DOM check: HTTP 200; visible text did not include the fixed demo values.
+
+Source fix in this cycle:
+
+- `src/components/ai/ShopAIAssistantPanel.tsx` no longer contains fixed Shop sales values such as `¥2,340,000`, `245件`, or `¥9,551`.
+- The Shop AI panel now shows honest `未集計` / `0件` states for unavailable live data.
+- `src/components/ai/GlobalAIAssistant.tsx` no longer uses the person-name example `佐藤さん...` in the Shop admin HTML path; the placeholder now uses a generic `取引先` example.
+
+Scope control:
+
+- Core and Mail sample data were not changed.
+- Shop page layout and CSS were not redesigned.
+- No DB write or migration was run.
+
+Next evidence to publish after deploy:
+
+- public admin curl HTML grep result
+- public admin Playwright rendered DOM result
+- Worker Version ID
+- `/g/*` HTTP and SHA verification
+
+### Cycle 02 public verification after deploy
+
+Status: `WIP_PUBLIC_ADMIN_DEMO_VALUES_ZERO`
+
+Fix deploy Worker Version ID:
+
+- `117ac4a0-68c2-4807-b650-8c793599f73d`
+
+Changed files in the fix scope:
+
+- `src/components/ai/ShopAIAssistantPanel.tsx`
+- `src/components/ai/GlobalAIAssistant.tsx`
+- `ops/instructions/20260604_shop_public_admin_demo_value_recheck.md`
+- `ops/instructions/current.md`
+- `public/g/l68.md`
+- `public/g/d68.md`
+
+Public admin curl target:
+
+- `https://shop.aiboux.com/s/aiboux/admin?codex_nocache=20260604T002350Z`
+
+Public admin curl result:
+
+- HTTP 200
+- content-type: `text/html`
+- `2024/05`: not found
+- `山田`: not found
+- `¥2,340,000`: not found
+- `245件`: not found
+- `2.35%`: not found
+- `¥9,551`: not found
+- `28.7%`: not found
+- `TSH-001`: not found
+- `BAG-001`: not found
+- `BTL-500`: not found
+- `#10085`: not found
+- `#10084`: not found
+- `#10083`: not found
+- `佐藤`: not found
+- `鈴木`: not found
+- `田中`: not found
+
+Public Playwright target:
+
+- `https://shop.aiboux.com/s/aiboux/admin?codex_nocache=20260604T002350Z`
+
+Public Playwright result:
+
+- HTTP 200
+- title: `AIBOUX SHOP Dashboard`
+- all listed fixed demo values were false in visible text
+- all listed fixed demo values were false in rendered HTML
+
+Shop smoke:
+
+- `https://shop.aiboux.com/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200
+
+Local checks:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS through `npm run deploy:shop:wip`
+- `npm run check:shop-ui-protection`: PASS in warn mode
+
+Evidence files:
+
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_grep.txt`
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_result.json`
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_text.txt`
+- `all_log/public-checks/20260604T002350Z_admin_after_global_fix_playwright_content.html`
+
+Completion note:
+
+- This cycle proves the fixed demo values are absent from the public admin HTML and rendered DOM from this execution environment.
+- This is still WIP evidence, not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Fix Cycle 03: Public Admin Route And Cache Mismatch
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIX_PENDING_DEPLOY`
+
+Reason:
+
+- The user reports that another external fetch path still sees the old fixed demo values on `https://shop.aiboux.com/s/aiboux/admin`.
+- Codex curl and Playwright from the deployment environment see fixed values absent.
+- A web fetch path reproduced the stale old content, so this is treated as a public route/cache mismatch, not as a completed Shop fix.
+
+Current deployed route headers observed before this cycle:
+
+- URL: `https://shop.aiboux.com/s/aiboux/admin?verify=20260604T011751Z`
+- HTTP 200
+- `cache-control: no-store, max-age=0`
+- `x-aiboux-original-path: /s/aiboux/admin`
+- `x-aiboux-rewritten-path: /shop/dashboard`
+- `x-aiboux-route-source: worker-entry`
+- `x-aiboux-worker-version: 496937a0-cf76-48e4-ba58-37a08e77a06b`
+- `server: cloudflare`
+- public HTML grep in this environment: no matches for the reported fixed values
+
+Cloudflare purge attempt:
+
+- A targeted purge was attempted for the admin/dashboard URLs.
+- Result: failed with Cloudflare API authentication error.
+- Secrets were not printed.
+- Wrangler deploy authentication still works; purge permission/auth is treated separately.
+
+Code changes for this cycle:
+
+- `src/worker.ts` now sets stronger no-store headers for service-routed pages:
+  - `cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0`
+  - `cdn-cache-control: no-store`
+  - `cloudflare-cdn-cache-control: no-store`
+  - `pragma: no-cache`
+  - `expires: 0`
+- Shop admin paths also receive:
+  - `clear-site-data: "cache"`
+  - `x-aiboux-admin-cache-policy: no-store-clear-cache`
+- `src/middleware.ts` also applies no-store headers for Shop admin pass-through responses.
+
+Next evidence to publish after deploy:
+
+- public admin response headers with the stronger cache policy
+- public admin fixed-value grep
+- public Playwright rendered DOM fixed-value grep
+- public `/g/*` HTTP, content-type, sha256
+
+### Cycle 03 public verification after cache header deploy
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIXED_FOR_VERIFIED_PATHS`
+
+Cache-header deploy Worker Version ID:
+
+- `9f28a3bb-99e5-4655-9caf-999263b016f4`
+
+Public admin URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin?verify=20260604T012024Z`
+
+Public response headers:
+
+- HTTP 200
+- `cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0`
+- `cdn-cache-control: no-store`
+- `cloudflare-cdn-cache-control: no-store`
+- `pragma: no-cache`
+- `expires: 0`
+- `clear-site-data: "cache"`
+- `x-aiboux-admin-cache-policy: no-store-clear-cache`
+- `x-aiboux-worker-version: 9f28a3bb-99e5-4655-9caf-999263b016f4`
+- `x-aiboux-original-path: /s/aiboux/admin`
+- `x-aiboux-rewritten-path: /shop/dashboard`
+- `server: cloudflare`
+
+Public curl HTML grep:
+
+- `2024/05`: absent
+- `山田`: absent
+- `¥2,340,000`: absent
+- `245件`: absent
+- `2.35%`: absent
+- `¥9,551`: absent
+- `28.7%`: absent
+- `TSH-001`: absent
+- `BAG-001`: absent
+- `BTL-500`: absent
+- `#10085`: absent
+- `#10084`: absent
+- `#10083`: absent
+- `佐藤`: absent
+- `鈴木`: absent
+- `田中`: absent
+
+Public Playwright rendered DOM:
+
+- HTTP 200
+- title: `AIBOUX SHOP Dashboard`
+- all listed fixed demo values were absent from visible text
+- all listed fixed demo values were absent from rendered HTML
+
+External web fetch path:
+
+- `https://shop.aiboux.com/s/aiboux/admin` returned the updated admin content after the cache-header deploy.
+- The old values were no longer present in the web fetch result.
+- The visible public result showed `¥0`, `0件`, `未集計`, and `ストア管理者`.
+
+Cloudflare purge note:
+
+- Targeted purge was attempted before the header deploy.
+- It failed with Cloudflare API authentication error.
+- The token value was not printed.
+- The issue was mitigated by stronger no-store/cache-clear headers plus redeploy.
+
+This is still WIP evidence and not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Fix Cycle 04: Functional Hardening Pending Deploy
+
+Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
+
+Started at:
+
+- `2026-06-04T01:52:05Z`
+
+Instruction source:
+
+- User accepted that public admin fixed demo value zero passed.
+- Next scope is product/settings/cart/checkout/contact/legal functional hardening.
+- FINAL_ACCEPTED remains forbidden.
+
+Implementation changes prepared:
+
+- Added D1 storefront reader helper:
+  - `src/lib/server/shopStorefront.ts`
+- Switched Shop admin product rows to load from the product API:
+  - `src/components/shop/ShopClientShell.tsx`
+  - `src/pages/api/shop/products/index.ts`
+- Added product-save refresh event after product edit or wizard save:
+  - `src/components/shop/ProductEditor.tsx`
+  - `src/components/shop/products/ShopProductWizard.tsx`
+- Kept product table layout and added an honest image-missing placeholder:
+  - `src/components/shop/ProductsTable.tsx`
+- Switched storefront pages from `shop-sample-data` to D1 published products and shop settings:
+  - `src/pages/shop/storefront/[tenant].astro`
+  - `src/pages/shop/[tenant]/[...path].astro`
+- Added browser cart behavior for add, quantity change, remove, subtotal, and checkout transition.
+- Added honest checkout state when payment is not connected.
+- Added contact form validation without pretending to submit when storage/notification is not connected.
+- Added legal/privacy/shipping/returns rendering from saved/generated shop profile text.
+- Added public Playwright coverage:
+  - `tests/shop-functional-public.spec.ts`
+
+Verification before deploy:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS with 0 errors; existing repository hints only
+- `npm run check:shop-ui-protection`: WARN only as expected for dirty protected Shop UI paths
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+
+WIP deploy required next:
+
+- run checkpointed `npm run deploy:shop:wip`
+- run public URL status checks
+- run public Playwright with `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com`
+- publish post-deploy `/g/*` HTTP/content-type/sha256 evidence
+
+This is not FINAL_ACCEPTED.
+
+### Cycle 04 Route Correction Before Second WIP Deploy
+
+Status: `WIP_FUNCTIONAL_ROUTE_FIX_PENDING_DEPLOY`
+
+Public URL check after the first Cycle 04 deploy showed:
+
+- admin URLs: HTTP 200
+- storefront root and child pages: HTTP 404
+
+Cause:
+
+- The new storefront reader required `tenants.slug = aiboux`.
+- The admin/API side can use host/default tenant fallback, but the storefront pages could not.
+- This made `/s/aiboux/` and `/s/aiboux/...` return 404 before the functional UI could be verified.
+
+Fix prepared:
+
+- `src/lib/server/shopStorefront.ts` now uses the active tenant fallback for the reserved `aiboux` slug.
+- If tenant lookup fails, public storefront pages still render an honest AIBOUX Store empty state instead of returning 404.
+
+This is still not FINAL_ACCEPTED.
+
+### Cycle 04 Public Verification After Route Fix
+
+Status: `WIP_FUNCTIONAL_HARDENING_DEPLOYED_NOT_FINAL`
+
+WIP deploy:
+
+- WIP commit: `cf22820d7aaf5c8fe08a005bae1b0caa55eaeb48`
+- Worker Version ID: `99725905-9dd6-4263-a7a6-c098f0372ff7`
+
+Public URL status after route fix:
+
+- `https://shop.aiboux.com/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/products`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/orders`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/inventory`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/categories`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/customers`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/content`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/analytics`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/apps`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/settings`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/categories`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/privacy`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/shipping`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/returns`: HTTP 200
+
+Public Playwright:
+
+- Command: `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
+- Result: 4 passed
+- Covered:
+  - all target URLs return usable HTML
+  - public admin fixed demo values remain absent
+  - cart quantity change, remove, subtotal, and checkout transition
+  - checkout shows honest payment-not-connected state
+  - contact validation works and does not fake send success
+  - legal/privacy/shipping/returns render configured or generated policy text
+  - published product add-to-cart works when published products exist; otherwise honest empty state is accepted
+
+Remaining non-final items:
+
+- Product creation through public admin UI has not been executed against production in this cycle to avoid creating unmanaged storefront data.
+- Payment provider connection is still not final; checkout correctly blocks false completion.
+- Strict Shop final gate has not been run.
+
+This is WIP_DEPLOYED_NOT_FINAL.
+
+## Shop Fix Cycle 05 Focused Store Design Editor
+
+Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260604T052958Z`
+
+Confirmed design-editor specification:
+
+- Editable pages are limited to `TOPページ` and `商品詳細ページ`.
+- Product list, category, cart, checkout, contact, legal, privacy, shipping, returns, mypage, orders, FAQ, and 404 are not page-level design-editor targets.
+- Other storefront pages use tenant-wide fixed templates while still inheriting global header/logo/navigation/theme settings.
+- The Shop service root remains `https://shop.aiboux.com/`.
+- The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+- The design editor is `https://shop.aiboux.com/s/aiboux/admin/design`.
+
+Implementation summary:
+
+- Added a typed `StoreDesignConfig`-style schema under `src/lib/shopStorefrontLayout.ts`.
+- Added global logo/header/navigation/theme/product-card config.
+- Added `pages.top` and `pages.productDetail` only.
+- Added backward conversion for existing legacy `blocks` layout rows.
+- Rebuilt the store design editor as a three-column editor:
+  - left pane: TOP page, product detail page, common settings;
+  - center pane: Amazon-like live preview;
+  - right pane: selected section settings.
+- Added TOP preview with Amazon-like header, category navigation, center hero slide with side previews, and recommended products directly below the hero.
+- Added product detail preview with image gallery, product information column, and purchase box column.
+- Added logo upload/change/delete/alt/display/size/alignment/link controls in common logo settings.
+- Reflected layout config on the public tenant storefront and product detail page.
+- Fixed tenant admin design routing so `/s/aiboux/admin/design` rewrites to `/shop/settings/design`.
+
+Changed files in this cycle include:
+
+- `ops/instructions/20260604_shop_store_design_editor_top_product_only.md`
+- `ops/instructions/current.md`
+- `src/lib/shopStorefrontLayout.ts`
+- `src/lib/server/shopStorefront.ts`
+- `src/components/shop/StorefrontDesignBuilder.tsx`
+- `src/components/shop/storefront/ShadcnStorefront.tsx`
+- `src/pages/shop/storefront/[tenant].astro`
+- `src/pages/shop/[tenant]/[...path].astro`
+- `src/pages/shop/[tenant]/product/[id].astro`
+- `src/worker.ts`
+- `src/middleware.ts`
+- `tests/shop-functional-public.spec.ts`
+
+Verification before this evidence publication:
+
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro check`: PASS, 0 errors
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `npm run check:shop-ui-protection`: PASS in warn mode
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`: PASS, 5 passed
+
+WIP deploy evidence:
+
+- WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
+- Implementation WIP deploy Worker Version ID before public log publication: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
+- Public log publication Worker Version ID: `be127328-7f57-43e4-872a-4cc81f06fe65`
+
+Public route evidence after public log publication:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `x-aiboux-rewritten-path`: `/shop/settings/design`
+- `x-aiboux-worker-version`: `be127328-7f57-43e4-872a-4cc81f06fe65`
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+
+Public Playwright evidence:
+
+- all target public URLs return usable HTML: PASS
+- cart, checkout, and contact honest behavior: PASS
+- legal pages render policy text: PASS
+- store design editor exposes only top and product detail page editing: PASS
+- published product add-to-cart works when published products exist: PASS
+
+Artifacts:
+
+- `output/playwright/shop-functional/design-editor-1980.png`
+- `all_log/shop-design-editor/20260604T052958Z_design_editor_wip_evidence.md`
+
+Remaining non-final items:
+
+- This is WIP evidence, not `FINAL_ACCEPTED`.
+- Production DB save through the public design-editor UI was not executed in this cycle.
+- Logo upload persistence was not exercised against production storage in this cycle.
+- Full final Shop sales-tenant completion criteria remain open.

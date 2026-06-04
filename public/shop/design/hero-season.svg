@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-label="AIBOUX seasonal selection hero">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="0.45" stop-color="#fed7aa"/>
+      <stop offset="1" stop-color="#431407"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="560" fill="url(#bg)"/>
+  <rect x="704" y="112" width="360" height="318" rx="36" fill="#ffffff" opacity="0.9"/>
+  <path d="M770 354c40-132 114-178 220-192-28 78-88 150-220 192Z" fill="#fb923c"/>
+  <path d="M830 374c42-78 96-112 174-124-18 58-68 102-174 124Z" fill="#16a34a" opacity="0.86"/>
+  <rect x="748" y="396" width="278" height="18" rx="9" fill="#7c2d12" opacity="0.7"/>
+  <text x="92" y="178" fill="#431407" font-family="Arial, sans-serif" font-size="54" font-weight="700">Seasonal Picks</text>
+  <text x="96" y="236" fill="#7c2d12" font-family="Arial, sans-serif" font-size="25">Fresh selections for the new season.</text>
+  <rect x="96" y="296" width="190" height="52" rx="26" fill="#ea580c"/>
+  <text x="136" y="330" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="700">See picks</text>
+</svg>

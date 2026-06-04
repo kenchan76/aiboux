@@ -1,6 +1,24 @@
 ---
-import ShopPage from "../_ShopPage.astro";
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import { StorefrontDesignBuilder } from "@/components/shop/StorefrontDesignBuilder";
+import "@/styles/global.css";
+
 export const prerender = false;
 ---
 
-<ShopPage section="design" title="AIBOUX SHOP Store Design" />
+<!doctype html>
+<html lang="ja" class="h-full bg-[#f6f7f9]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <NotoSansJpHead />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta property="og:site_name" content="shop.aiboux.com" />
+    <link rel="icon" href="/brand/aiboux-logo.svg" type="image/svg+xml" />
+    <title>AIBOUX SHOP ストアデザインエディタ</title>
+  </head>
+  <body class="h-full overflow-hidden bg-[#f6f7f9] text-neutral-950 antialiased">
+    <StorefrontDesignBuilder client:load />
+  </body>
+</html>

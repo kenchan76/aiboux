@@ -113,6 +113,9 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/design");
     await expect(page.getByText("AIBOUX SHOP ストアデザインエディタ")).toBeVisible();
+    await expect(page.getByText("注文管理")).toHaveCount(0);
+    await expect(page.getByText("商品管理")).toHaveCount(0);
+    await expect(page.getByText("在庫", { exact: true })).toHaveCount(0);
     await expect(page.getByText("TOPページ").first()).toBeVisible();
     await expect(page.getByText("商品詳細ページ").first()).toBeVisible();
     await expect(page.getByText("編集できるのは「TOPページ」と「商品詳細ページ」のみです。")).toBeVisible();
@@ -122,6 +125,44 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.getByText("カートページ")).toHaveCount(0);
     await expect(page.getByText("チェックアウトページ")).toHaveCount(0);
     await expect(page.getByText("404ページ")).toHaveCount(0);
+
+    const shell = page.locator("[data-shop-design-editor-shell]");
+    const preview = page.locator("[data-shop-design-preview]");
+    const previewFrame = page.locator("[data-store-preview-frame]");
+    const leftPane = page.locator("[data-shop-design-left-pane]");
+    const rightPane = page.locator("[data-shop-design-right-pane]");
+    await expect(shell).toBeVisible();
+    await expect(leftPane).toBeVisible();
+    await expect(preview).toBeVisible();
+    await expect(rightPane).toBeVisible();
+
+    const previewBox = await preview.boundingBox();
+    const frameBox = await previewFrame.boundingBox();
+    const leftBox = await leftPane.boundingBox();
+    const rightBox = await rightPane.boundingBox();
+    expect(previewBox?.width ?? 0, "center preview column should be at least 1100px at 1980px viewport").toBeGreaterThanOrEqual(1100);
+    expect(frameBox?.width ?? 0, "store preview frame should be at least 1100px at 1980px viewport").toBeGreaterThanOrEqual(1100);
+    expect(leftBox?.width ?? 0, "left editor pane width").toBeGreaterThanOrEqual(300);
+    expect(leftBox?.width ?? 0, "left editor pane width").toBeLessThanOrEqual(340);
+    expect(rightBox?.width ?? 0, "right editor pane width").toBeGreaterThanOrEqual(340);
+    expect(rightBox?.width ?? 0, "right editor pane width").toBeLessThanOrEqual(380);
+
+    const navItems = page.locator("[data-shop-nav-item]");
+    await expect(navItems.first()).toBeVisible();
+    const navCount = await navItems.count();
+    expect(navCount, "category nav items should exist").toBeGreaterThanOrEqual(8);
+    for (let index = 0; index < Math.min(navCount, 8); index += 1) {
+      const box = await navItems.nth(index).boundingBox();
+      expect(box?.height ?? 999, `category nav item ${index} should not wrap vertically`).toBeLessThanOrEqual(24);
+    }
+
+    const sideImages = page.locator("[data-hero-side-image]");
+    await expect(sideImages).toHaveCount(2);
+    for (let index = 0; index < 2; index += 1) {
+      const src = await sideImages.nth(index).getAttribute("src");
+      expect(src ?? "", `side hero ${index} should use a real preview image`).toContain("/shop/design/hero-");
+    }
+
     await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });
   });
 

@@ -151,7 +151,7 @@ Public execution log publication is mandatory and must not be skipped.
 
 ## Fix Cycle 05: Focused Store Design Editor For TOP And Product Detail
 
-Status: WIP_IMPLEMENTATION
+Status: WIP_REPAIR_AFTER_DESIGN_REJECTION
 
 Instruction file:
 
@@ -177,6 +177,16 @@ Implementation constraints:
 7. Reflect product detail design on `/s/aiboux/product/{id}`.
 8. WIP deploy is allowed after build passes.
 9. Report only after `/g/m68`, `/g/l68`, and `/g/d68` are publicly deployed and curl-verified.
+
+Rejection repair requirements:
+
+1. `/s/aiboux/admin/design` must not use the normal Shop admin sidebar or normal admin header.
+2. `/s/aiboux/admin/design` must be a dedicated full-screen editor.
+3. The editor layout must be top editor bar plus left pane, center preview, and right pane.
+4. At 1980px viewport, the center preview column must be at least 1100px wide.
+5. Category navigation must not wrap into vertical Japanese text.
+6. Hero side previews must show previous and next slide images, not gray placeholder panels.
+7. Playwright must check these visual/layout conditions, not only HTTP 200 and text presence.
 
 ## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
 
