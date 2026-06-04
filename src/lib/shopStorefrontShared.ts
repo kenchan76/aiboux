@@ -12,6 +12,7 @@ export type ShopStorefrontInfoCard = {
   title: string;
   body: string;
   href?: string;
+  label?: string;
 };
 
 export type ShopStorefrontCategorySeed = {
@@ -91,6 +92,48 @@ export function buildShopPolicySupportCards(tenantRoot: string): ShopStorefrontI
     { title: "購入前チェック", body: "価格、税込表示、送料、返品条件、決済設定状態を確認してから注文へ進みます。", href: `${tenantRoot}/checkout` },
     { title: "配送・返品", body: "配送目安、送料、返品受付条件、不良品時の問い合わせ導線をまとめて確認できます。", href: `${tenantRoot}/shipping` },
     { title: "問い合わせ", body: "注文番号、商品名、確認したい内容を添えてストアへ問い合わせできます。", href: `${tenantRoot}/contact` },
+  ];
+}
+
+export function buildShopSupportRailCards(tenantRoot: string): ShopStorefrontInfoCard[] {
+  return [
+    {
+      title: "商品を探す",
+      body: "商品一覧、カテゴリ、ランキングから価格・税込・在庫・レビューを比較できます。",
+      href: `${tenantRoot}/products`,
+      label: "商品一覧へ",
+    },
+    {
+      title: "購入前に確認",
+      body: "送料、返品条件、決済設定状態、特定商取引法の表示を注文前に確認できます。",
+      href: `${tenantRoot}/shipping`,
+      label: "配送条件を見る",
+    },
+    {
+      title: "注文後の確認",
+      body: "注文履歴、配送状況、問い合わせ、領収書導線を同じマイページ導線で確認します。",
+      href: `${tenantRoot}/orders`,
+      label: "注文履歴へ",
+    },
+    {
+      title: "定期購入",
+      body: "定期購入は本番DB migrationと決済接続が完了するまで、準備中として正直に表示します。",
+      href: `${tenantRoot}/mypage/subscriptions`,
+      label: "定期購入を見る",
+    },
+  ];
+}
+
+export function buildShopSupportRailQuickLinks(tenantRoot: string): ShopStorefrontLink[] {
+  return [
+    { label: "カテゴリから探す", href: `${tenantRoot}/categories` },
+    { label: "カートを見る", href: `${tenantRoot}/cart` },
+    { label: "チェックアウト", href: `${tenantRoot}/checkout` },
+    { label: "問い合わせ", href: `${tenantRoot}/contact` },
+    { label: "よくある質問", href: `${tenantRoot}/faq` },
+    { label: "返品について", href: `${tenantRoot}/returns` },
+    { label: "マイページ", href: `${tenantRoot}/mypage` },
+    { label: "お気に入り", href: `${tenantRoot}/favorites` },
   ];
 }
 

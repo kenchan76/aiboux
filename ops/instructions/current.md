@@ -2,6 +2,30 @@
 
 Status: WIP
 
+Active instruction file:
+
+- `ops/instructions/20260605_shop_seo_ui_common_support_rail.md`
+
+## 2026-06-05 Continuation: SEO/UI Common Support Rail
+
+Continue the active 5-hour sales-quality sprint. The next concrete work unit is a shared storefront support rail that strengthens SEO-critical internal links and purchase-support density across all public tenant pages.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+- Crawlable link best practices: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+
+Current additions required:
+
+- Add a reusable storefront support rail component.
+- Expose crawlable internal links to products, categories, cart, checkout, contact, shipping, returns, FAQ, account, orders, favorites, login/register, and subscription pages.
+- Keep blue link affordance and hover underline for SEO-relevant links.
+- Add public Playwright coverage so every public storefront page must render the shared support rail.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+
 ## Objective
 AIBOUX Shop must be improved toward Amazon-quality sales experience across all public storefront and relevant admin pages, not only passing gates.
 

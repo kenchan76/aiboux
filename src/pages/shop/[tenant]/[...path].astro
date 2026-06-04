@@ -2,6 +2,7 @@
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
+import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import {
   buildShopBreadcrumbItems,
   buildShopBreadcrumbJsonLd,
@@ -1216,6 +1217,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               </section>
             </section>
           ) : null}
+          <StorefrontSupportRail tenantRoot={tenantRoot} />
         </main>
       ) : (
         <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">

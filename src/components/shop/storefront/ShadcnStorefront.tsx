@@ -6,6 +6,7 @@ import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
 import { StorefrontFooter } from "./StorefrontFooter";
+import { StorefrontSupportRail } from "./StorefrontSupportRail";
 
 type StorefrontProduct = {
   id: string;
@@ -216,6 +217,9 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
         ) : null}
       </main>
 
+      <div className="mx-auto max-w-screen-xl px-4 pb-2">
+        <StorefrontSupportRail tenantRoot={tenantRoot} />
+      </div>
       <StorefrontFooter storeName={storeName} tenantRoot={tenantRoot} />
       <StorefrontInteractionScript />
     </div>
