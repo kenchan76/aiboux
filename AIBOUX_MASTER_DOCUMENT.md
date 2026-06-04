@@ -4461,3 +4461,9 @@ Status: `WIP_DEPLOYED_NOT_FINAL`
 - Screen evidence is published under `/g/screens/`.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## Current WIP Evidence: Shop SEO Breadcrumb And Carousel Smoothness
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+The Shop Amazon-quality sprint now includes visible breadcrumbs, BreadcrumbList JSON-LD, Product JSON-LD, WebSite SearchAction JSON-LD, duplicate product title removal, and smoother TOP hero carousel behavior. This is not FINAL_ACCEPTED because D1 subscription migration and provider-backed recurring billing remain unverified.

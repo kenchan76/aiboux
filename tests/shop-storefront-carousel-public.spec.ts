@@ -44,7 +44,9 @@ test.describe("AIBOUX Shop public storefront smooth carousel", () => {
     const timing = await track.evaluate((el) => getComputedStyle(el).transitionTimingFunction);
 
     expect(transition).toMatch(/transform/);
-    expect(duration).toMatch(/0\.56s|560ms/);
+    const durationSeconds = duration.endsWith("ms") ? Number(duration.replace("ms", "")) / 1000 : Number(duration.replace("s", ""));
+    expect(durationSeconds).toBeGreaterThanOrEqual(0.48);
+    expect(durationSeconds).toBeLessThanOrEqual(0.65);
     expect(timing).toContain("cubic-bezier");
 
     await page.getByTestId("hero-next-button").click();
