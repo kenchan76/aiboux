@@ -1,6 +1,38 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Page Action Map SEO/UI Commonization
+
+Status: `SHOP_5H_PAGE_ACTION_MAP_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens every public tenant storefront page with a shared, page-specific action map.
+
+Implemented WIP direction:
+
+- `buildShopPageActionMap(page, tenantRoot)` is the shared source for page-specific next actions.
+- `StorefrontPageActionMap` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
+- The action map uses crawlable `<a href>` links with visible blue link affordance.
+- The action map exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- TOP and subpage `SiteNavigationElement` JSON-LD source links include action-map links.
+- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
+- Google Search Central references checked for this WIP include Breadcrumb structured data, ecommerce structured data, URL structure best practices, and Product structured data.
+
+Latest WIP evidence before deploy:
+
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- WIP commit, Worker Version ID, public Playwright, and public `/g/*` verification are pending in the deploy cycle.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- `gate:shop-subscriptions` remains blocked in the subscription lane.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop All Pages SEO Common Parts
 
 Status: `SHOP_5H_ALL_PAGES_SEO_COMMON_PARTS_WIP`

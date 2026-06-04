@@ -54,6 +54,20 @@ export type ShopStorefrontBuyingGuideItem = {
   label: string;
 };
 
+export type ShopStorefrontActionMapStep = {
+  title: string;
+  body: string;
+  href: string;
+  label: string;
+  badge: string;
+};
+
+export type ShopStorefrontActionMap = {
+  title: string;
+  summary: string;
+  steps: ShopStorefrontActionMapStep[];
+};
+
 export type ShopStorefrontPageQualitySignal = {
   title: string;
   body: string;
@@ -897,6 +911,216 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
 
   const merged = [...(pageItems[page] ?? []), ...defaultItems];
   return merged.filter((item, index, array) => array.findIndex((candidate) => candidate.question === item.question) === index).slice(0, 6);
+}
+
+export function buildShopPageActionMap(page: string, tenantRoot: string): ShopStorefrontActionMap {
+  const defaultSteps: ShopStorefrontActionMapStep[] = [
+    {
+      title: "商品を比較する",
+      body: "税込価格、画像、レビュー、カテゴリ、在庫を同じ商品カードで比較します。",
+      href: `${tenantRoot}/products`,
+      label: "商品一覧へ",
+      badge: "探す",
+    },
+    {
+      title: "購入条件を確認する",
+      body: "送料、配送予定、返品条件、決済設定状態を注文前に確認します。",
+      href: `${tenantRoot}/shipping`,
+      label: "配送条件を見る",
+      badge: "確認",
+    },
+    {
+      title: "不明点を解消する",
+      body: "FAQと問い合わせ導線を使い、商品名や注文番号を添えて確認できます。",
+      href: `${tenantRoot}/faq`,
+      label: "FAQを見る",
+      badge: "支援",
+    },
+  ];
+
+  const map: Record<string, ShopStorefrontActionMap> = {
+    "": {
+      title: "TOPページから迷わず購入へ進む",
+      summary: "おすすめ、ランキング、セール、カテゴリから商品詳細へ進み、購入前条件を確認します。",
+      steps: [
+        { title: "おすすめを見る", body: "ヒーロー直下の商品カードから商品詳細へ進みます。", href: `${tenantRoot}/products`, label: "おすすめ商品へ", badge: "01" },
+        { title: "カテゴリで絞る", body: "食品、日用品、キッチン、ギフトなどの安定カテゴリURLへ移動します。", href: `${tenantRoot}/categories`, label: "カテゴリを見る", badge: "02" },
+        { title: "購入前条件を見る", body: "送料、返品、決済状態を確認してからカートへ進みます。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "03" },
+      ],
+    },
+    products: {
+      title: "商品一覧で比較して詳細へ進む",
+      summary: "一覧は商品発見の中心です。検索、カテゴリ、ランキングから商品詳細とカートへつなげます。",
+      steps: [
+        { title: "商品カードを比較", body: "画像、商品名、税込価格、レビュー、カテゴリを同じカード構造で確認します。", href: `${tenantRoot}/products`, label: "比較を続ける", badge: "比較" },
+        { title: "カテゴリURLへ移動", body: "検索語ページとカテゴリページを分け、カテゴリは安定URLで確認します。", href: `${tenantRoot}/categories`, label: "カテゴリ一覧へ", badge: "URL" },
+        { title: "カートへ進む", body: "購入候補を追加したら、数量や配送条件をカートで確認します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
+      ],
+    },
+    categories: {
+      title: "カテゴリ階層から売り場へ移動する",
+      summary: "カテゴリ一覧は検索エンジンと利用者へ売り場構造を伝える入口です。",
+      steps: [
+        { title: "主要カテゴリを選ぶ", body: "食品、日用品、キッチン、ギフトなどの売り場へ移動します。", href: buildShopCategoryHref(tenantRoot, "food-drink"), label: "食品・飲料へ", badge: "階層" },
+        { title: "売れ筋を見る", body: "ランキングカテゴリから人気商品を確認します。", href: buildShopCategoryHref(tenantRoot, "ranking"), label: "ランキングへ", badge: "人気" },
+        { title: "条件を確認", body: "配送・返品条件を見て購入前の不安を減らします。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+      ],
+    },
+    product: {
+      title: "商品詳細で購入判断を完結する",
+      summary: "商品名、画像、税込価格、在庫、配送、返品、定期購入状態を確認してカートへ進みます。",
+      steps: [
+        { title: "商品情報を確認", body: "商品説明、仕様、レビュー、関連商品を確認します。", href: `${tenantRoot}/products`, label: "関連商品へ", badge: "情報" },
+        { title: "購入条件を確認", body: "送料、返品、決済未接続時の扱いを購入前に確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+        { title: "カートへ進む", body: "通常購入と定期購入状態を区別してカートへ追加します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
+      ],
+    },
+    cart: {
+      title: "カートで数量と条件を確認する",
+      summary: "商品小計、数量、定期購入頻度、送料見込みを確認してcheckoutへ進みます。",
+      steps: [
+        { title: "商品を追加する", body: "不足商品があれば商品一覧へ戻って追加します。", href: `${tenantRoot}/products`, label: "商品を追加", badge: "追加" },
+        { title: "配送・返品を見る", body: "送料、配送予定、返品条件を確認します。", href: `${tenantRoot}/returns`, label: "返品条件へ", badge: "条件" },
+        { title: "checkoutへ進む", body: "決済未接続時は注文確定せず、確認画面として表示します。", href: `${tenantRoot}/checkout`, label: "checkoutへ", badge: "確認" },
+      ],
+    },
+    checkout: {
+      title: "checkoutで注文前チェックを行う",
+      summary: "決済未接続時は成功したふりをせず、販売条件と個人情報の扱いを確認します。",
+      steps: [
+        { title: "カートへ戻る", body: "数量、商品、定期購入頻度を再確認します。", href: `${tenantRoot}/cart`, label: "カートへ戻る", badge: "戻る" },
+        { title: "販売条件を確認", body: "特定商取引法、配送、返品条件を注文前に確認します。", href: `${tenantRoot}/legal`, label: "特商法へ", badge: "条件" },
+        { title: "問い合わせる", body: "決済や配送で不明点があれば問い合わせへ進みます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
+      ],
+    },
+    contact: {
+      title: "問い合わせ前に必要情報を揃える",
+      summary: "FAQ、配送、返品、注文履歴を確認し、商品名や注文番号を添えて問い合わせます。",
+      steps: [
+        { title: "FAQを確認", body: "よくある質問で配送、返品、決済、定期購入の状態を確認します。", href: `${tenantRoot}/faq`, label: "FAQへ", badge: "確認" },
+        { title: "注文番号を確認", body: "注文後の問い合わせは注文履歴で番号を確認します。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
+        { title: "購入条件を見る", body: "配送や返品条件を見たうえで問い合わせ内容を整理します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+      ],
+    },
+    legal: {
+      title: "取引条件を確認して購入へ戻る",
+      summary: "販売者、支払い、配送、返品、問い合わせ先を確認し、商品比較へ戻ります。",
+      steps: [
+        { title: "配送条件を見る", body: "送料、配送目安、追跡条件を確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "配送" },
+        { title: "返品条件を見る", body: "返品、交換、キャンセル条件を確認します。", href: `${tenantRoot}/returns`, label: "返品条件へ", badge: "返品" },
+        { title: "商品へ戻る", body: "条件を確認したら商品一覧へ戻って比較します。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+      ],
+    },
+    privacy: {
+      title: "個人情報の扱いを確認する",
+      summary: "注文、問い合わせ、ログイン、定期購入で扱う情報を確認します。",
+      steps: [
+        { title: "問い合わせ情報", body: "問い合わせフォームで扱う氏名、メール、注文番号の扱いを確認します。", href: `${tenantRoot}/contact`, label: "問い合わせへ", badge: "連絡" },
+        { title: "アカウント状態", body: "ログイン未接続時の保存範囲をマイページで確認します。", href: `${tenantRoot}/mypage`, label: "マイページへ", badge: "状態" },
+        { title: "販売条件", body: "個人情報と合わせて販売者情報も確認します。", href: `${tenantRoot}/legal`, label: "特商法へ", badge: "取引" },
+      ],
+    },
+    shipping: {
+      title: "配送条件を確認して商品へ戻る",
+      summary: "送料、配送予定、追跡条件を確認し、カートや返品条件へ進みます。",
+      steps: [
+        { title: "商品を選ぶ", body: "配送条件を見たあと、商品一覧へ戻ります。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+        { title: "返品条件も確認", body: "配送と返品は購入前に合わせて確認します。", href: `${tenantRoot}/returns`, label: "返品条件へ", badge: "返品" },
+        { title: "カートへ進む", body: "購入候補の小計と配送前提を確認します。", href: `${tenantRoot}/cart`, label: "カートへ", badge: "購入" },
+      ],
+    },
+    returns: {
+      title: "返品条件を確認して手続きへ進む",
+      summary: "返品可否、初期不良、問い合わせ期限を確認し、注文履歴や問い合わせへ移動します。",
+      steps: [
+        { title: "注文を確認", body: "返品対象の注文番号と商品を注文履歴で確認します。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
+        { title: "配送条件を見る", body: "配送状況や到着日を確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "配送" },
+        { title: "問い合わせる", body: "返品相談は商品名と注文番号を添えて連絡します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
+      ],
+    },
+    faq: {
+      title: "FAQから解決し、次のページへ進む",
+      summary: "FAQPage本文と実装状態を一致させ、商品、配送、返品、問い合わせへ戻します。",
+      steps: [
+        { title: "商品へ戻る", body: "疑問が解消したら商品一覧へ戻ります。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+        { title: "配送・返品を見る", body: "FAQから配送と返品の詳細へ移動します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+        { title: "問い合わせる", body: "解決しない場合は問い合わせページへ進みます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
+      ],
+    },
+    mypage: {
+      title: "マイページから購入後導線へ進む",
+      summary: "注文履歴、お気に入り、定期購入、問い合わせを同じアカウント導線にまとめます。",
+      steps: [
+        { title: "注文を確認", body: "注文番号、配送、返品相談の入口へ進みます。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
+        { title: "保存商品を見る", body: "お気に入り候補から商品詳細へ戻ります。", href: `${tenantRoot}/favorites`, label: "お気に入りへ", badge: "保存" },
+        { title: "定期購入を見る", body: "D1 migration未適用時は準備中表示で状態を確認します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入へ", badge: "定期" },
+      ],
+    },
+    account: {
+      title: "アカウント導線を整理する",
+      summary: "マイページ、注文履歴、お気に入り、定期購入へ移動します。",
+      steps: [
+        { title: "マイページへ", body: "アカウント機能の状態と導線を確認します。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "入口" },
+        { title: "注文履歴へ", body: "注文と配送状況を確認します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+        { title: "問い合わせへ", body: "アカウント未接続時の確認事項を連絡します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
+      ],
+    },
+    orders: {
+      title: "注文履歴から購入後サポートへ進む",
+      summary: "注文がない状態でも、商品、配送、返品、問い合わせへ移動できます。",
+      steps: [
+        { title: "買い物を続ける", body: "注文前なら商品一覧へ戻ります。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+        { title: "配送を見る", body: "配送予定や追跡条件を確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "配送" },
+        { title: "問い合わせる", body: "注文番号がある場合は添えて相談します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
+      ],
+    },
+    favorites: {
+      title: "お気に入りから比較と購入へ戻る",
+      summary: "保存候補、商品一覧、カテゴリ、カートへ移動して購入判断を続けます。",
+      steps: [
+        { title: "商品を比較", body: "お気に入り候補から商品詳細へ進みます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "比較" },
+        { title: "カテゴリを見る", body: "カテゴリ別に候補を探し直します。", href: `${tenantRoot}/categories`, label: "カテゴリへ", badge: "分類" },
+        { title: "カートへ", body: "購入候補をカートで確認します。", href: `${tenantRoot}/cart`, label: "カートへ", badge: "購入" },
+      ],
+    },
+    login: {
+      title: "ログイン前に利用可能範囲を確認する",
+      summary: "本番認証未接続時は保存済みのように見せず、商品や注文導線へ戻します。",
+      steps: [
+        { title: "会員登録へ", body: "登録導線の状態を確認します。", href: `${tenantRoot}/register`, label: "会員登録へ", badge: "登録" },
+        { title: "注文履歴へ", body: "注文番号確認の入口へ進みます。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
+        { title: "商品へ戻る", body: "認証未接続でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+      ],
+    },
+    register: {
+      title: "登録前に個人情報と購入条件を確認する",
+      summary: "本番認証未接続時は登録成功扱いにせず、プライバシーと商品導線を示します。",
+      steps: [
+        { title: "プライバシーを見る", body: "登録や注文で扱う情報を確認します。", href: `${tenantRoot}/privacy`, label: "プライバシーへ", badge: "情報" },
+        { title: "ログインへ", body: "既存アカウント導線を確認します。", href: `${tenantRoot}/login`, label: "ログインへ", badge: "認証" },
+        { title: "商品へ戻る", body: "認証未接続でも商品比較へ戻れます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+      ],
+    },
+    "mypage/subscriptions": {
+      title: "定期購入の状態と次の行動を確認する",
+      summary: "DB migration未適用時は申込み済みのように見せず、商品、checkout、問い合わせへ案内します。",
+      steps: [
+        { title: "対象商品を見る", body: "定期購入に向く商品候補を商品詳細で確認します。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+        { title: "注文前に確認", body: "定期決済未接続時はcheckoutで正直に停止します。", href: `${tenantRoot}/checkout`, label: "checkoutへ", badge: "確認" },
+        { title: "相談する", body: "スキップ、一時停止、解約条件を問い合わせます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
+      ],
+    },
+  };
+
+  const specific = map[page] ?? {
+    title: "このページから次に進む",
+    summary: "商品、購入条件、サポート、アカウント導線へ移動できます。",
+    steps: [],
+  };
+  const steps = [...specific.steps, ...defaultSteps]
+    .filter((step, index, array) => array.findIndex((candidate) => candidate.title === step.title || candidate.href === step.href) === index)
+    .slice(0, 5);
+  return { ...specific, steps };
 }
 
 export function buildShopPageQualitySummary(page: string, tenantRoot: string): ShopStorefrontPageQualitySummary {

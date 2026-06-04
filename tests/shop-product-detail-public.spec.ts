@@ -70,6 +70,18 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(qualitySummary, "product detail quality summary should mention product structured data").toContainText("Product/Offer");
       expect(await qualitySummary.locator("a").count(), "product detail quality summary should expose crawlable links").toBeGreaterThanOrEqual(4);
       expect(await qualitySummary.locator("a").first().getAttribute("class"), "product detail quality summary links should be visibly blue").toContain("text-blue-700");
+      const actionMap = page.getByTestId("storefront-page-action-map");
+      await expect(actionMap, "product detail should include shared page action map").toBeVisible();
+      await expect(actionMap, "product detail action map should expose ItemList microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/ItemList",
+      );
+      await expect(actionMap, "product detail action map should explain product purchase actions").toContainText("商品詳細で購入判断を完結する");
+      await expect(actionMap, "product detail action map should link to cart or shipping context").toContainText(/カート|配送条件/);
+      await expect(actionMap.locator('meta[itemprop="numberOfItems"]'), "product detail action map should declare numberOfItems").toHaveCount(1);
+      expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail action map should expose ListItem microdata").toBeGreaterThanOrEqual(3);
+      expect(await actionMap.locator("a").count(), "product detail action map should expose crawlable internal links").toBeGreaterThanOrEqual(3);
+      expect(await actionMap.locator("a").first().getAttribute("class"), "product detail action map links should be visibly blue").toContain("text-blue-700");
       const buyingGuide = page.getByTestId("storefront-buying-guide");
       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");

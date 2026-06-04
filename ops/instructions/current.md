@@ -12,6 +12,31 @@ Active instruction file:
 - `ops/instructions/20260605_shop_shared_seo_meta_model.md`
 - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
 - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+- `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
+
+
+## 2026-06-05 Continuation: Page Action Map SEO/UI Commonization
+
+Continue the active sales-quality sprint. The current work unit is adding a shared page-specific action map to every public tenant storefront page.
+
+Google Search Central references checked for this continuation:
+
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- JavaScript SEO basics: `https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics`
+- Pagination and incremental page loading for ecommerce: `https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading`
+
+Current additions required:
+
+- Add shared page action map data in `shopStorefrontShared.ts`.
+- Add `StorefrontPageActionMap`.
+- Render it on TOP, product detail, and every public storefront subpage.
+- Keep links crawlable and visibly blue.
+- Expose visible `ItemList` microdata for action steps.
+- Add action-map links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
+- Keep product detail single-H1 and no duplicate product title above the gallery.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 
 ## 2026-06-05 Continuation: Breadcrumb Support SEO/UI Commonization

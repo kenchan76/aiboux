@@ -5,6 +5,7 @@ import { StorefrontBuyingGuide } from "@/components/shop/storefront/StorefrontBu
 import { StorefrontCommerceFacts } from "@/components/shop/storefront/StorefrontCommerceFacts";
 import { StorefrontContextLinks } from "@/components/shop/storefront/StorefrontContextLinks";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
+import { StorefrontPageActionMap } from "@/components/shop/storefront/StorefrontPageActionMap";
 import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPageHeader";
 import { StorefrontPageQualitySummary } from "@/components/shop/storefront/StorefrontPageQualitySummary";
 import StorefrontProductCard from "@/components/shop/storefront/StorefrontProductCard.astro";
@@ -44,6 +45,7 @@ import {
   buildShopFaqItems,
   buildShopFooterColumns,
   buildShopHeaderCategoryLinks,
+  buildShopPageActionMap,
   buildShopPageBuyingGuide,
   buildShopPageHeaderActions,
   buildShopPageQualitySummary,
@@ -186,6 +188,8 @@ const contextualLinkSections = buildShopContextualLinkSections(page, tenantRoot)
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
 const buyingGuideItems = buildShopPageBuyingGuide(page, tenantRoot);
 const buyingGuideLinks = buyingGuideItems.map((item) => ({ label: item.label, href: item.href }));
+const actionMap = buildShopPageActionMap(page, tenantRoot);
+const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
 const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
 const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
@@ -233,6 +237,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
     ...headerCategoryLinks,
     ...pageHeaderActions,
     ...pageQualityLinks,
+    ...actionMapLinks,
     ...buyingGuideLinks,
     ...contextualLinks,
     ...footerColumns.flatMap((column) => column.links),
@@ -662,6 +667,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
             />
           ) : null}
           <StorefrontPageQualitySummary summary={pageQualitySummary} />
+          <StorefrontPageActionMap actionMap={actionMap} />
 
           {page === "products" ? (
             <section class="grid gap-5" data-testid="storefront-products">

@@ -19,6 +19,7 @@ import {
   buildShopContextualLinkSections,
   buildShopFooterColumns,
   buildShopHeaderCategoryLinks,
+  buildShopPageActionMap,
   buildShopPageBuyingGuide,
   buildShopPageQualitySummary,
 } from "@/lib/shopStorefrontShared";
@@ -66,6 +67,8 @@ const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections("", tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
 const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
+const actionMap = buildShopPageActionMap("", tenantRoot);
+const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
 const buyingGuideLinks = buildShopPageBuyingGuide("", tenantRoot).map((item) => ({ label: item.label, href: item.href }));
 const pageQualityLinks = buildShopPageQualitySummary("", tenantRoot).signals.map((item) => ({ label: item.label, href: item.href }));
 const structuredData = JSON.stringify(buildShopStructuredDataGraph([
@@ -103,6 +106,7 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
       ...headerCategoryLinks,
       ...breadcrumbSupportLinks,
       ...pageQualityLinks,
+      ...actionMapLinks,
       ...buyingGuideLinks,
       ...contextualLinks,
       ...footerColumns.flatMap((column) => column.links),

@@ -133,6 +133,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         );
         expect(await qualitySummary.locator("a").count(), `${target.path} quality summary should expose crawlable links`).toBeGreaterThanOrEqual(4);
         expect(await qualitySummary.locator("a").first().getAttribute("class"), `${target.path} quality summary links should be visibly blue`).toContain("text-blue-700");
+        const actionMap = page.getByTestId("storefront-page-action-map");
+        await expect(actionMap, `${target.path} should include shared page action map`).toBeVisible();
+        await expect(actionMap, `${target.path} action map should expose ItemList microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/ItemList",
+        );
+        await expect(actionMap, `${target.path} action map should name next actions`).toContainText("Next actions");
+        await expect(actionMap, `${target.path} action map should expose page-specific SEO action links`).toContainText(/商品|購入|配送|問い合わせ|注文|定期購入/);
+        await expect(actionMap.locator('meta[itemprop="numberOfItems"]'), `${target.path} action map should declare numberOfItems`).toHaveCount(1);
+        expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} action map should expose visible ListItem microdata`).toBeGreaterThanOrEqual(3);
+        expect(await actionMap.locator("a").count(), `${target.path} action map should expose crawlable internal links`).toBeGreaterThanOrEqual(3);
+        expect(await actionMap.locator("a").first().getAttribute("class"), `${target.path} action map links should be visibly blue`).toContain("text-blue-700");
         const buyingGuide = page.getByTestId("storefront-buying-guide");
         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");
@@ -255,6 +267,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
           expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include breadcrumb support links`).toContain("タイムセール");
           expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include page quality links`).toContain("配送条件");
           expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include buying guide links`).toContain("送料と配送を見る");
+          expect(jsonLdText ?? "", `${target.path} TOP navigation graph should include action map links`).toContain("おすすめ商品へ");
         }
         if (target.name === "shop-faq-page") {
           expect(jsonLdText ?? "", `${target.path} should expose FAQPage JSON-LD`).toContain("FAQPage");

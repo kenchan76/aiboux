@@ -14,3 +14,7 @@ Google Search Central emphasizes crawlable links, clear ecommerce site structure
 - Render shared breadcrumb support, page quality, buying guide, contextual links, SEO hub, support rail, and footer visibly.
 - Include the same shared sources in `SiteNavigationElement` JSON-LD where applicable.
 - Strengthen public Playwright checks instead of relying on HTTP 200 or screenshot-only evidence.
+
+## Additional Improvement
+
+For ecommerce SEO/UI work, each public page should expose a visible page-specific action map built from a shared model. The same action links should be crawlable in rendered HTML and included in structured navigation sources where appropriate, so thin account, policy, support, cart, and checkout pages still provide clear user actions and internal-link context.
