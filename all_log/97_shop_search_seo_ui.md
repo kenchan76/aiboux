@@ -99,3 +99,31 @@ Public `/g/*` verification:
 SHA note:
 - Public `/g/*` responses include runtime Worker Version ID substitution.
 - SHA mismatch between `public/g/*.md` and fetched `/g/*` bodies is expected when runtime substitution changes the response body.
+
+## Progress Bark and Runtime Publication Verification
+
+Timestamp: 2026-06-04T17:38:54Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Runtime public `/g/*` verification:
+- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- Verification file: `all_log/public-g/20260604T173842Z_search_seo_publication_runtime_verification.txt`
+
+Progress Bark notification:
+- purpose: progress
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID in notification: `1895a01c-5311-49e6-b647-38f087d56747`
+- Evidence file: `all_log/bark/20260604T173854Z_search_seo_progress_bark.json`
+
+Not final:
+- This is a progress notification only.
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- This is not `FINAL_ACCEPTED`.

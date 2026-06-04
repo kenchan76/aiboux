@@ -1,0 +1,75 @@
+Timestamp: 20260604T174159Z
+
+[m68 headers]
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+
+[l68 headers]
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+
+[d68 headers]
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+
+[sha256]
+eee814a55c3609c04d03806ec7c8903f0bfdea83b8ee4a4c3d9ac143f8957ae5  public/g/m68.md
+9eaf37b53ba21b66f7901fc9f3268f5fc5f5c0093bab5abf5214c203830c1a44  /tmp/m68.body
+0f5af0fa1405602b175cd8bca48c3b3a0e81b8748ca4a46a6acf401322e273fb  public/g/l68.md
+f7a8ca5a2e56dd21cc6396cffa7b5e18a05073dc0503fcd08a62febaecad2b1e  /tmp/l68.body
+1ac7db8e73564e414e770d2fea0c661b9d8865a21eb2382fc08771c88332ab06  public/g/d68.md
+c0ca9af11b13ce904f421202657e54ab0aa2cf55cb8a070d5eb3f589079abb3a  /tmp/d68.body
+
+[markers]
+/tmp/m68.body:55:- Worker Version ID: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/m68.body:352:- Worker Version ID: 3133b293-f34c-4ef7-8843-bab3f647b7fd
+/tmp/m68.body:2499:Worker Version ID: 3133b293-f34c-4ef7-8843-bab3f647b7fd
+/tmp/m68.body:4736:## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK
+/tmp/m68.body:4741:- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+/tmp/m68.body:4767:- `SHOP_10H_SEARCH_SEO_UI_WIP` visible in public m68/l68/d68.
+/tmp/m68.body:4774:## SHOP_10H_SEARCH_SEO_UI_WIP
+/tmp/l68.body:428:- Latest Worker Version ID: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:532:Runtime placeholders such as `3133b293-f34c-4ef7-8843-bab3f647b7fd` are replaced in the public response.
+/tmp/l68.body:542:The SHA mismatch is expected for files containing `3133b293-f34c-4ef7-8843-bab3f647b7fd`.
+/tmp/l68.body:549:| `https://shop.aiboux.com/` | 200 | `3133b293-f34c-4ef7-8843-bab3f647b7fd` | `AIBOUX SHOP | サービスサイト` |
+/tmp/l68.body:550:| `https://shop.aiboux.com/s/aiboux/` | 200 | `3133b293-f34c-4ef7-8843-bab3f647b7fd` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/l68.body:551:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `3133b293-f34c-4ef7-8843-bab3f647b7fd` | `AIBOUX SHOP Dashboard` |
+/tmp/l68.body:639:- `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:658:- `/g/*` responses replace `3133b293-f34c-4ef7-8843-bab3f647b7fd` at runtime.
+/tmp/l68.body:1094:- Public log publication Worker Version ID: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:1100:- `x-aiboux-worker-version`: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:1130:- `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:1141:- `x-aiboux-worker-version`: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:1187:- `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:1642:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 3133b293-f34c-4ef7-8843-bab3f647b7fd
+/tmp/l68.body:2107:- Worker Version ID: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/l68.body:2173:## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK
+/tmp/l68.body:2179:- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+/tmp/l68.body:2192:- Worker Version ID in notification: `1895a01c-5311-49e6-b647-38f087d56747`
+/tmp/l68.body:2214:- Markers present in public m68/l68/d68: `SHOP_10H_SEARCH_SEO_UI_WIP`
+/tmp/l68.body:2226:## SHOP_10H_SEARCH_SEO_UI_WIP
+/tmp/d68.body:263:| `https://shop.aiboux.com/` | 200 | `3133b293-f34c-4ef7-8843-bab3f647b7fd` | `AIBOUX SHOP | サービスサイト` |
+/tmp/d68.body:264:| `https://shop.aiboux.com/s/aiboux/` | 200 | `3133b293-f34c-4ef7-8843-bab3f647b7fd` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/d68.body:265:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `3133b293-f34c-4ef7-8843-bab3f647b7fd` | `AIBOUX SHOP Dashboard` |
+/tmp/d68.body:320:- `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/d68.body:409:- `x-aiboux-worker-version`: `3133b293-f34c-4ef7-8843-bab3f647b7fd`
+/tmp/d68.body:566:- All checked responses were served by Worker Version ID `3133b293-f34c-4ef7-8843-bab3f647b7fd`.
+/tmp/d68.body:1041:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 3133b293-f34c-4ef7-8843-bab3f647b7fd
+/tmp/d68.body:1320:## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK Screen Evidence
+/tmp/d68.body:1326:- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+/tmp/d68.body:1339:- Worker Version ID in notification: `1895a01c-5311-49e6-b647-38f087d56747`
+/tmp/d68.body:1348:## SHOP_10H_SEARCH_SEO_UI_WIP Screen Evidence
+/tmp/d68.body:1404:- `SHOP_10H_SEARCH_SEO_UI_WIP` visible in public m68/l68/d68.
+/tmp/d68.body:1745:- Worker Version ID: `3133b293-f34c-4ef7-8843-bab3f647b7fd`

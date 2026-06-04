@@ -4733,6 +4733,20 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current evidence:
+- Runtime Worker Version ID visible in public `/g/*` bodies: `1895a01c-5311-49e6-b647-38f087d56747`
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_SEARCH_SEO_PUBLICATION_WIP
 
 Status: `WIP_DEPLOYED_NOT_FINAL`

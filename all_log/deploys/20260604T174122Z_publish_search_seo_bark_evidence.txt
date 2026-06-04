@@ -1,0 +1,8 @@
+
+ ⛅️ wrangler 4.94.0 (update available 4.98.0)
+─────────────────────────────────────────────
+Using redirected Wrangler configuration.
+ - Configuration being used: "dist/server/wrangler.json"
+ - Original user's configuration: "wrangler.toml"
+ - Deploy configuration file: ".wrangler/deploy/config.json"
+
