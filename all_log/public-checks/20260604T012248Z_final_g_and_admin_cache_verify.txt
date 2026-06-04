@@ -1,0 +1,81 @@
+m68 status=200 sha=f3b88b95e07be5d91679b47e833afec225fd601d51b7de434c2511ba0c4d95d0 content-type: text/markdown; charset=utf-8
+l68 status=200 sha=560564c4c400ff3485ae7774a7935bf13ed2caf62b8126771febbf4e92f830b6 content-type: text/markdown; charset=utf-8
+d68 status=200 sha=e45456a25886857361bcb62472098edab4242c2bc11cf52367fa53c54e6d4439 content-type: text/markdown; charset=utf-8
+--- admin headers ---
+status=200
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+pragma: no-cache
+expires: 0
+clear-site-data: "cache"
+x-aiboux-admin-cache-policy: no-store-clear-cache
+x-aiboux-worker-version: 04cca32c-7d2c-4ea9-96cb-ff3a083b268d
+x-aiboux-original-path: /s/aiboux/admin
+x-aiboux-rewritten-path: /shop/dashboard
+server: cloudflare
+--- admin grep ---
+OK 2024/05
+OK 山田
+OK ¥2,340,000
+OK 245件
+OK 2.35%
+OK ¥9,551
+OK 28.7%
+OK TSH-001
+OK BAG-001
+OK BTL-500
+OK #10085
+OK #10084
+OK #10083
+OK 佐藤
+OK 鈴木
+OK 田中
+--- l68 cycle lines ---
+432:  - `clear-site-data: "cache"`
+445:Status: `WIP_ROUTE_CACHE_MISMATCH_FIXED_FOR_VERIFIED_PATHS`
+449:- `9f28a3bb-99e5-4655-9caf-999263b016f4`
+463:- `clear-site-data: "cache"`
+465:- `x-aiboux-worker-version: 9f28a3bb-99e5-4655-9caf-999263b016f4`
+--- l68 first20 ---
+# AIBOUX Shop Sales Tenant Execution Log
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Status: `WIP_LOG_RULE_READY_TO_DEPLOY`
+
+Codex must publish execution logs to public `/g/*` URLs before every user-facing report.
+
+Required report header:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Prohibited:
+
+--- d68 first20 ---
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Every user-facing report must start with the public URL Bundle:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Screen evidence is not valid if it exists only under `all_log/...`.
+Before reporting, this `d68` public URL must be deployed and verified with curl.
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`

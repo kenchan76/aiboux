@@ -1,0 +1,1494 @@
+diff --git a/all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt b/all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt
+index 7d18c6d..c249e3d 100644
+--- a/all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt
++++ b/all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt
+@@ -6,3 +6,619 @@
+ > aiboux@0.0.1 shop:checkpoint
+ > node scripts/create-shop-wip-checkpoint.mjs --commit
+ 
++SHOP_WIP_CHECKPOINT_CREATED timestamp=20260604T012248Z
++statusBefore=all_log/checkpoints/20260604T012248Z_status_before.txt
++headBefore=all_log/checkpoints/20260604T012248Z_head_before.txt
++originMainBefore=all_log/checkpoints/20260604T012248Z_origin_main_before.txt
++diffBefore=all_log/patches/20260604T012248Z_before_deploy.patch
++diffStagedBefore=all_log/patches/20260604T012248Z_before_deploy_staged.patch
++logBefore=all_log/checkpoints/20260604T012248Z_log_before.txt
++wipCommit=all_log/checkpoints/20260604T012248Z_wip_commit.txt
++deploymentsBefore=all_log/deploys/20260604T012248Z_deployments_before.txt
++
++> aiboux@0.0.1 check:control-chars
++> node scripts/check-control-chars.mjs
++
++CONTROL_CHAR_CHECK_OK
++
++> aiboux@0.0.1 check:mojibake
++> node scripts/check-mojibake.mjs
++
++MOJIBAKE_CHECK_OK files=424
++
++> aiboux@0.0.1 build
++> astro build
++
++10:22:53 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
++10:22:53 [WARN] [vite] Default inspector port 9229 not available, using 9230 instead
++
++10:22:55 [vite]   ➜  Tunnel closed
++10:22:55 [types] Generated 2.04s
++10:22:55 [build] output: "server"
++10:22:55 [build] mode: "server"
++10:22:55 [build] directory: /home/pkkatsu/aiboux/dist/
++10:22:55 [build] adapter: @astrojs/cloudflare
++10:22:55 [build] Collecting build info...
++10:22:55 [build] ✓ Completed in 2.10s.
++10:22:55 [build] Building server entrypoints...
++10:23:03 [vite]   ➜  Tunnel closed
++10:23:04 [vite] ✓ built in 8.46s
++10:23:14 [vite]   ➜  Tunnel closed
++10:23:16 [vite] ✓ built in 11.63s
++10:23:21 [vite]   ➜  Tunnel closed
++10:23:22 [WARN] [vite] 
++(!) Some chunks are larger than 500 kB after minification. Consider:
++- Using dynamic import() to code-split the application
++- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
++- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
++10:23:22 [vite] ✓ built in 6.46s
++Default inspector port 9229 not available, using 9231 instead
++
++
++ prerendering static routes 
++10:23:23   ├─ /biz/commercial/index.html (+134ms) 
++10:23:23   ├─ /biz/dashboard/index.html (+98ms) 
++10:23:23   ├─ /biz/editor/index.html (+95ms) 
++10:23:23   ├─ /biz/help/index.html (+76ms) 
++10:23:23   ├─ /biz/pricing/index.html (+29ms) 
++10:23:23   ├─ /biz/privacy/index.html (+30ms) 
++10:23:23   ├─ /biz/templates/accounting/index.html (+35ms) 
++10:23:23   ├─ /biz/templates/contracts/index.html (+32ms) 
++10:23:23   ├─ /biz/templates/estimates/index.html (+42ms) 
++10:23:23   ├─ /biz/templates/hr/index.html (+129ms) 
++10:23:24   ├─ /biz/templates/invoices/index.html (+29ms) 
++10:23:24   ├─ /biz/templates/proposals/index.html (+55ms) 
++10:23:24   ├─ /biz/templates/reports/index.html (+34ms) 
++10:23:24   ├─ /biz/templates/simple-estimate/index.html (+30ms) 
++10:23:24   ├─ /biz/templates/invoice-qualified/index.html (+36ms) 
++10:23:24   ├─ /biz/templates/outsourcing-contract/index.html (+30ms) 
++10:23:24   ├─ /biz/templates/nda-basic/index.html (+36ms) 
++10:23:24   ├─ /biz/templates/employment-contract/index.html (+38ms) 
++10:23:24   ├─ /biz/templates/resignation-letter/index.html (+28ms) 
++10:23:24   ├─ /biz/templates/meeting-minutes/index.html (+49ms) 
++10:23:24   ├─ /biz/templates/business-report/index.html (+24ms) 
++10:23:24   ├─ /biz/templates/sales-proposal/index.html (+78ms) 
++10:23:24   ├─ /biz/templates/planning-sheet/index.html (+24ms) 
++10:23:24   ├─ /biz/templates/approval-request/index.html (+39ms) 
++10:23:24   ├─ /biz/templates/expense-report/index.html (+62ms) 
++10:23:24   ├─ /biz/templates/customer-list/index.html (+30ms) 
++10:23:24   ├─ /biz/templates/inventory-sheet/index.html (+49ms) 
++10:23:24   ├─ /biz/templates/purchase-order/index.html (+26ms) 
++10:23:24   ├─ /biz/templates/delivery-note/index.html (+24ms) 
++10:23:24   ├─ /biz/templates/receipt-basic/index.html (+30ms) 
++10:23:24   ├─ /biz/templates/index.html (+41ms) 
++10:23:24   ├─ /biz/terms/index.html (+21ms) 
++10:23:24   ├─ /biz/index.html (+68ms) 
++10:23:24   ├─ /file/abuse/index.html (+42ms) 
++10:23:25   ├─ /file/barcode/index.html (+72ms) 
++10:23:25   ├─ /file/dashboard/index.html (+38ms) 
++10:23:25   ├─ /file/help/index.html (+28ms) 
++10:23:25   ├─ /file/image/background-remover/index.html (+51ms) 
++10:23:25   ├─ /file/image/index.html (+28ms) 
++10:23:25   ├─ /file/pdf/index.html (+36ms) 
++10:23:25   ├─ /file/pricing/index.html (+33ms) 
++10:23:25   ├─ /file/privacy/index.html (+22ms) 
++10:23:25   ├─ /file/terms/index.html (+22ms) 
++10:23:25   ├─ /file/tools/index.html (+69ms) 
++10:23:25   ├─ /file/transfer/index.html (+95ms) 
++10:23:25   ├─ /file/index.html (+74ms) 
++10:23:25   ├─ /office/csv/index.html (+28ms) 
++10:23:25   ├─ /office/disclaimer/index.html (+39ms) 
++10:23:25   ├─ /office/editor/index.html (+213ms) 
++10:23:25   ├─ /office/excel/index.html (+64ms) 
++10:23:25   ├─ /office/help/index.html (+25ms) 
++10:23:25   ├─ /office/history/index.html (+26ms) 
++10:23:25   ├─ /office/pdf/index.html (+26ms) 
++10:23:26   ├─ /office/powerpoint/index.html (+29ms) 
++10:23:26   ├─ /office/privacy/index.html (+31ms) 
++10:23:26   ├─ /office/security/index.html (+30ms) 
++10:23:26   ├─ /office/terms/index.html (+27ms) 
++10:23:26   ├─ /office/word/index.html (+30ms) 
++10:23:26   ├─ /office/index.html (+48ms) 
++10:23:26   ├─ /rirekisho/career/new/index.html (+204ms) 
++10:23:26   ├─ /rirekisho/career/index.html (+48ms) 
++10:23:26   ├─ /rirekisho/checklists/interview/index.html (+47ms) 
++10:23:26   ├─ /rirekisho/checklists/onboarding/index.html (+28ms) 
++10:23:26   ├─ /rirekisho/checklists/resignation/index.html (+122ms) 
++10:23:26   ├─ /rirekisho/commercial/index.html (+44ms) 
++10:23:26   ├─ /rirekisho/cover-letter/index.html (+74ms) 
++10:23:26   ├─ /rirekisho/dashboard/index.html (+33ms) 
++10:23:26   ├─ /rirekisho/help/index.html (+30ms) 
++10:23:26   ├─ /rirekisho/job-scan/index.html (+25ms) 
++10:23:26   ├─ /rirekisho/photo/print/index.html (+27ms) 
++10:23:26   ├─ /rirekisho/photo/index.html (+58ms) 
++10:23:26   ├─ /rirekisho/pricing/index.html (+27ms) 
++10:23:26   ├─ /rirekisho/privacy/index.html (+24ms) 
++10:23:26   ├─ /rirekisho/resignation/index.html (+66ms) 
++10:23:27   ├─ /rirekisho/resume/new/index.html (+26ms) 
++10:23:27   ├─ /rirekisho/resume/index.html (+24ms) 
++10:23:27   ├─ /rirekisho/self-pr/index.html (+52ms) 
++10:23:27   ├─ /rirekisho/templates/index.html (+35ms) 
++10:23:27   ├─ /rirekisho/terms/index.html (+23ms) 
++10:23:27   ├─ /rirekisho/index.html (+46ms) 
++10:23:27 [vite]   ➜  Tunnel closed
++10:23:27 ✓ Completed in 4.79s.
++
++10:23:27 [build] Rearranging server assets...
++10:23:27 [build] ✓ Completed in 31.46s.
++10:23:27 [build] Server built in 33.59s
++10:23:27 [build] Complete!
++10:23:27 [vite]   ➜  Tunnel closed
++
++> aiboux@0.0.1 check:shop-ui-protection
++> node scripts/check-shop-ui-protection.mjs --mode=warn
++
++SHOP_UI_PROTECTION_OK mode=warn: protected Shop UI paths are clean
++
++ ⛅️ wrangler 4.94.0 (update available 4.97.0)
++─────────────────────────────────────────────
++Using redirected Wrangler configuration.
++ - Configuration being used: "dist/server/wrangler.json"
++ - Original user's configuration: "wrangler.toml"
++ - Deploy configuration file: ".wrangler/deploy/config.json"
++Attaching additional modules:
++┌───────────────────────────────────────────────────────────┬──────┬─────────────┐
++│ Name                                                      │ Type │ Size        │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/3________A2_dash_DlIBzgmM.mjs                      │ esm  │ 6.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/CoreLayout_C7hHgrUC.mjs                            │ esm  │ 418.70 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/GlobalAIAssistant_B47U8rGp.mjs                     │ esm  │ 16.50 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/MailClientShell_DNYJOjoZ.mjs                       │ esm  │ 153.83 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/NotoSansJpHead_C___lhEr.mjs                        │ esm  │ 0.64 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ShopLayout_D6rCHVcy.mjs                            │ esm  │ 1.62 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_.._B-k_uipL.mjs                                   │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_.._xVF9WYii.mjs                                   │ esm  │ 9.88 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_ShopPage_DObTgl8A.mjs                             │ esm  │ 1106.51 KiB │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_category__BkUXf6uB.mjs                            │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_code__BkBhC3qY.mjs                                │ esm  │ 1.89 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_code__xd_lJOni.mjs                                │ esm  │ 0.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__B0nGZzNR.mjs                                  │ esm  │ 11.91 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__BOeE7lMO.mjs                                  │ esm  │ 6.63 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__BPWAC_dJ.mjs                                  │ esm  │ 1.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__Bh7K7fhy.mjs                                  │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__CX9e38UA.mjs                                  │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__Ctnydbpl.mjs                                  │ esm  │ 0.73 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DgNTd70S.mjs                                  │ esm  │ 0.94 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__Dsm2zZRn.mjs                                  │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__DwBdZZHT.mjs                                  │ esm  │ 1.12 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__kIcm8GIt.mjs                                  │ esm  │ 15.57 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_id__qZ5QjgA4.mjs                                  │ esm  │ 6.03 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_provider__BlAqJF7q.mjs                            │ esm  │ 15.34 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_tenant__CrSysyp2.mjs                              │ esm  │ 10.86 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_tenant__DZLf05Bz.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_virtual_astro_server-island-manifest_CFl7y3Qj.mjs │ esm  │ 0.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/_virtual_astro_session-driver_Csu6PJY6.mjs         │ esm  │ 2.92 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ai-generate_ub8WP5gD.mjs                           │ esm  │ 2.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ai_xSspzK_x.mjs                                    │ esm  │ 4.85 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/alerts_Ci2Pi-rc.mjs                                │ esm  │ 1.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/analytics_BXry63QR.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/approve_BkRn10G1.mjs                               │ esm  │ 1.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/apps_kRDmGf4r.mjs                                  │ esm  │ 0.94 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/archive_Oewu4pVV.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/astro-component_B8klg-BD.mjs                       │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/auto-match_C3o8O33_.mjs                            │ esm  │ 9.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/blocks_NZnnZ9L-.mjs                                │ esm  │ 1.32 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/bulk_DnhcMYJ8.mjs                                  │ esm  │ 3.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/button_C1wc-0qF.mjs                                │ esm  │ 114.93 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/calendar_PO0np9Pe.mjs                              │ esm  │ 172.72 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/cancel-refund_rwnYl8VN.mjs                         │ esm  │ 10.87 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/categories_DULLdE8Z.mjs                            │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/classify_DnahBKUH.mjs                              │ esm  │ 1.91 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/cloudflareAi_B_H7T79O.mjs                          │ esm  │ 2.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coerce_QNKuR2o0.mjs                                │ esm  │ 0.37 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/collections_Dc8SW0pb.mjs                           │ esm  │ 0.83 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/compose_B4ShmdNO.mjs                               │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/content_eDHh-P1Y.mjs                               │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreDocumentUiConfig_BCIncEfx.mjs                  │ esm  │ 10.00 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreInventorySync_BOu0Z_J6.mjs                     │ esm  │ 9.08 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/coreProductMasterFormSchema_CBw1RmDr.mjs           │ esm  │ 2.61 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/corporate_B7ny-Fpk.mjs                             │ esm  │ 1.42 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/create-session_CNRRwXU1.mjs                        │ esm  │ 7.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/createLucideIcon_DWIGoXnp.mjs                      │ esm  │ 2.91 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/csv_YLp-Gq_k.mjs                                   │ esm  │ 1.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/customers_B8CtO9O-.mjs                             │ esm  │ 1.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/customers_DY5HGjRh.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/dashboard_D-MMUtHf.mjs                             │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/dashboard_D2NT5575.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/deliveries_DJvuMy-q.mjs                            │ esm  │ 1.58 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/delivery-destinations_UheTdaNb.mjs                 │ esm  │ 0.99 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design-management_IRtH_HlD.mjs                     │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_CvlGEH1D.mjs                                │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_DP9jRf-9.mjs                                │ esm  │ 1.26 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/design_edG9mYRa.mjs                                │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/discounts_CjcD1wE6.mjs                             │ esm  │ 0.82 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/drafts_DPy_Ivfa.mjs                                │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/email-logs_BJsQNDDR.mjs                            │ esm  │ 1.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/estimates_BiF_Of-i.mjs                             │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/events_DIT0alIH.mjs                                │ esm  │ 1.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/execute-voice-command_CX48aUql.mjs                 │ esm  │ 11.08 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/export-csv_BGjIAXTc.mjs                            │ esm  │ 2.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/export-journal_jYp_kLhd.mjs                        │ esm  │ 5.49 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/final-log-a2_s14YeUO6.mjs                          │ esm  │ 1.42 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/gemini_DnGTbmBL.mjs                                │ esm  │ 5.04 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/generate-labels_eBYT945G.mjs                       │ esm  │ 3.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/google-suggest_jl3ghH1T.mjs                        │ esm  │ 1.78 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/health_DC9nq5p2.mjs                                │ esm  │ 2.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/health_UVxVufdf.mjs                                │ esm  │ 0.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/help_DGwE6OIy.mjs                                  │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/history_CpeSVWOb.mjs                               │ esm  │ 1.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/history_DFg5kKkb.mjs                               │ esm  │ 1.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/hub_BMzwk_fd.mjs                                   │ esm  │ 3.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/image-passthrough-endpoint_DcnuyZaQ.mjs            │ esm  │ 73.57 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/import-history_CHB1kvB5.mjs                        │ esm  │ 8.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inbox_Rb1qRU3p.mjs                                 │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_2mzo_w8v.mjs                                 │ esm  │ 6.31 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_7expyaug.mjs                                 │ esm  │ 0.98 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CS7zwkrh.mjs                                 │ esm  │ 6.35 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CT8q8Wal.mjs                                 │ esm  │ 2.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_C_FzlBS8.mjs                                 │ esm  │ 5.39 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CofmaqFo.mjs                                 │ esm  │ 2.50 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_CtWVVgJ8.mjs                                 │ esm  │ 11.03 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_D4fC-a5J.mjs                                 │ esm  │ 245.99 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DWv2aJti.mjs                                 │ esm  │ 1.44 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DgHQ4AU7.mjs                                 │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_DsdQ1PZT.mjs                                 │ esm  │ 2.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/index_E92DJXq2.mjs                                 │ esm  │ 2.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ingress_DwGVwBTL.mjs                               │ esm  │ 8.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/input_C9YBrn_K.mjs                                 │ esm  │ 3.31 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/integration_B7-UU84r.mjs                           │ esm  │ 17.46 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/intent-router_CYlAwzf8.mjs                         │ esm  │ 5.00 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/intent_DSs2Wk24.mjs                                │ esm  │ 1.48 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inventory_1Cne2baP.mjs                             │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/inventory_CyIx2TRR.mjs                             │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/invoices_Bn221x3z.mjs                              │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/jsx-runtime_Bo14_ato.mjs                           │ esm  │ 1.51 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/layout_DuiYUc_Z.mjs                                │ esm  │ 2.34 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/list_D1tCA_2p.mjs                                  │ esm  │ 1.43 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/listing-draft_P4loPPc0.mjs                         │ esm  │ 4.70 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/mall-sync_k7pwAQsR.mjs                             │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/mark-shipped_DOBNXZK0.mjs                          │ esm  │ 4.16 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_Br9xFsQT.mjs                                   │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_CDt-YKjp.mjs                                   │ esm  │ 0.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/new_Dp9ZGG_q.mjs                                   │ esm  │ 0.97 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/noop-entrypoint_DsBX4kaI.mjs                       │ esm  │ 0.10 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/noop_kBU4luVC.mjs                                  │ esm  │ 0.69 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/omnichannel_tgK9Syww.mjs                           │ esm  │ 3.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/onboard_B_awkb-h.mjs                               │ esm  │ 6.63 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/onboarding_uEv0wSPb.mjs                            │ esm  │ 3.23 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/order_BuUuY4uN.mjs                                 │ esm  │ 4.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/orders_ddiYoSyi.mjs                                │ esm  │ 0.95 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/orders_lEWiunG_.mjs                                │ esm  │ 1.19 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/params-and-props_TxpTdKXw.mjs                      │ esm  │ 234.82 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/partners_BbVOaQ11.mjs                              │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/payments_KO1nv7kU.mjs                              │ esm  │ 1.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/popover_BV6lg0IT.mjs                               │ esm  │ 111.71 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/price-schedules_P9IzysFO.mjs                       │ esm  │ 2.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/prices_D3mBjdss.mjs                                │ esm  │ 2.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/process-image_Bj9o70mO.mjs                         │ esm  │ 1.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/process_Bymv5imz.mjs                               │ esm  │ 5.81 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-enrichment_IFaUHe8q.mjs                    │ esm  │ 7.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-master-data_B9vCsFVn.mjs                   │ esm  │ 13.33 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/product-master_fPOlDdi_.mjs                        │ esm  │ 4.84 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/productMasterApi_TVTgBCqw.mjs                      │ esm  │ 3.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_BDx_crp-.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_DHDN4RcV.mjs                              │ esm  │ 1.22 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/products_jO710BOn.mjs                              │ esm  │ 2.59 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/profile_mN87dBfp.mjs                               │ esm  │ 11.27 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/purchase-orders_BBRBH7-K.mjs                       │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/receive_KkKaOyhS.mjs                               │ esm  │ 1.86 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/remove_ygJ5nRBN.mjs                                │ esm  │ 1.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/restore_lLAF18nD.mjs                               │ esm  │ 1.95 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_BsBoaGhn.mjs                                  │ esm  │ 3.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_CU-6mUOl.mjs                                  │ esm  │ 18.04 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_Qa9Ne0WZ.mjs                                  │ esm  │ 9.61 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/save_vBEZQemn.mjs                                  │ esm  │ 12.33 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/select_aqP71PNE.mjs                                │ esm  │ 137.23 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/send_By4N-sy_.mjs                                  │ esm  │ 7.07 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sent_ClMehfGi.mjs                                  │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/separator_uCzVvlm5.mjs                             │ esm  │ 1.59 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_CSRhUnBe.mjs                              │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_CsWuKr7m.mjs                              │ esm  │ 0.96 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_DZnm70cG.mjs                              │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/settings_DjSSRGfU.mjs                              │ esm  │ 1.15 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shippingCsv_C0vjzGuI.mjs                           │ esm  │ 2.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shop-sample-data_CRAYR-Fy.mjs                      │ esm  │ 6.73 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopNotificationEmail_CPG6A-aS.mjs                 │ esm  │ 1.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStorefrontLayout_Dcv7Lm8Q.mjs                  │ esm  │ 4.70 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/shopStripeConnect_4pL_6CVT.mjs                     │ esm  │ 4.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sidebar_C9KvRJaK.mjs                               │ esm  │ 16.14 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/simulate-stock_N0bo-JRn.mjs                        │ esm  │ 1.38 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/skeleton_D-lbdSZw.mjs                              │ esm  │ 2.55 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/snoozed_DSaD5adH.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/social_D0l7pgDv.mjs                                │ esm  │ 4.67 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sonner_D2fidJ_H.mjs                                │ esm  │ 204.87 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/spam_b2CIDoao.mjs                                  │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/ssoSession_yWa8ddq_.mjs                            │ esm  │ 4.52 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/starred_CtIyhfyb.mjs                               │ esm  │ 1.29 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/status_DboRQbyD.mjs                                │ esm  │ 1.64 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/status_sfhQrheT.mjs                                │ esm  │ 3.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/storageQuota_CBN4KDRQ.mjs                          │ esm  │ 1.47 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/stripe.esm.worker_B6dUhoSD.mjs                     │ esm  │ 620.22 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/sync_DWt80cYC.mjs                                  │ esm  │ 3.57 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/table_DeOSWm19.mjs                                 │ esm  │ 2.71 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tempImageShares_D9Pibe2K.mjs                       │ esm  │ 1.28 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tempLogShares_Dvw_vedb.mjs                         │ esm  │ 584.87 KiB  │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/temp_TECxt_t0.mjs                                  │ esm  │ 2.72 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/templates_CkycN454.mjs                             │ esm  │ 1.30 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tenantContext_BlOEaOuW.mjs                         │ esm  │ 3.06 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/tenant_De_pbStJ.mjs                                │ esm  │ 1.49 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/testStockConcurrency_D07eitii.mjs                  │ esm  │ 4.92 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/timeline_DVf_jkC5.mjs                              │ esm  │ 4.89 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/trash_cjVtjbB0.mjs                                 │ esm  │ 1.27 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/unread_1rnnMwMZ.mjs                                │ esm  │ 1.24 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/unsubscribe_BTTWULzi.mjs                           │ esm  │ 1.68 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-shipping_BopG28-k.mjs                       │ esm  │ 3.05 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-stock_CN-dqGd8.mjs                          │ esm  │ 3.25 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/update-stock_G8eaNYZu.mjs                          │ esm  │ 2.74 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_DiZ3Yn0I.mjs                                │ esm  │ 3.21 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_DrznlYMK.mjs                                │ esm  │ 4.48 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/upload_YvZgROpc.mjs                                │ esm  │ 8.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/users_BEPYU-4i.mjs                                 │ esm  │ 1.53 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/users_BLbWanu6.mjs                                 │ esm  │ 1.20 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/variants_BQUJmTD9.mjs                              │ esm  │ 2.86 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/voice-draft_D8SO4ZBB.mjs                           │ esm  │ 2.17 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook-stripe_RkDSSzcD.mjs                        │ esm  │ 5.16 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_C3yETFrH.mjs                               │ esm  │ 3.12 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_CoDgRPWE.mjs                               │ esm  │ 18.45 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/webhook_DvjeU3LI.mjs                               │ esm  │ 8.33 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/worker-entry_BtvNU2-G.mjs                          │ esm  │ 1092.64 KiB │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ chunks/zipcode_Dj3E2mu5.mjs                               │ esm  │ 1.50 KiB    │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ virtual_astro_middleware.mjs                              │ esm  │ 10.23 KiB   │
++├───────────────────────────────────────────────────────────┼──────┼─────────────┤
++│ Total (204 modules)                                       │      │ 5956.63 KiB │
++└───────────────────────────────────────────────────────────┴──────┴─────────────┘
++🌀 Building list of assets...
++✨ Read 217 files from the assets directory /home/pkkatsu/aiboux/dist/client
++🌀 Starting asset upload...
++🌀 Found 2 new or modified static assets to upload. Proceeding with upload...
+++ /g/d68.md
+++ /g/l68.md
++Uploaded 1 of 2 assets
++Uploaded 2 of 2 assets
++✨ Success! Uploaded 2 files (128 already uploaded) (1.57 sec)
++
++Total Upload: 5956.79 KiB / gzip: 1177.85 KiB
++Worker Startup Time: 11 ms
++Your Worker has access to the following bindings:
++Binding                                                                      Resource                     
++env.SESSION (inherited)                                                      KV Namespace                 
++env.EMAIL (unrestricted)                                                     Send Email                   
++env.SHOP_FEED_SYNC_QUEUE (shop-feed-sync-queue)                              Queue                        
++env.DB (aiboux-b2b-db)                                                       D1 Database                  
++env.STORAGE (aiboux-mail-assets)                                             R2 Bucket                    
++env.SHOP_STORAGE (aiboux-shop-assets)                                        R2 Bucket                    
++env.AI                                                                       AI                           
++env.ASSETS                                                                   Assets                       
++env.CF_VERSION_METADATA                                                      Worker Version Metadata      
++env.AIBOUX_PUBLIC_URL ("https://mail.aiboux.com")                            Environment Variable         
++env.DEFAULT_FROM_EMAIL ("noreply@aiboux.com")                                Environment Variable         
++env.MAIL_RETENTION_FREE_DAYS ("7")                                           Environment Variable         
++env.MAIL_RETENTION_STANDARD_DAYS ("7")                                       Environment Variable         
++env.MAIL_RETENTION_PREMIUM_DAYS ("365")                                      Environment Variable         
++env.MAX_FREE_MAIL_ADDRESSES ("5")                                            Environment Variable         
++env.MAX_STANDARD_MAIL_ADDRESSES ("10")                                       Environment Variable         
++env.GEMINI_MODEL ("gemini-2.5-flash")                                        Environment Variable         
++env.WORKERS_AI_TEXT_MODEL ("@cf/meta/llama-3.1-8b-instruct-fp8")             Environment Variable         
++env.RESEND_FROM_EMAIL ("AIBOUX Shop <info@aiboux.com>")                      Environment Variable         
++
++Uploaded aiboux (13.15 sec)
++Deployed aiboux triggers (7.46 sec)
++  https://aiboux.kenchan-7648.workers.dev
++  core.aiboux.com (custom domain)
++  mail.aiboux.com (custom domain)
++  file.aiboux.com (custom domain)
++  biz.aiboux.com (custom domain)
++  office.aiboux.com (custom domain)
++  rirekisho.aiboux.com (custom domain)
++  docs.aiboux.com (custom domain)
++  shop.aiboux.com (custom domain)
++  mall.aiboux.com (custom domain)
++  schedule: * * * * *
++  schedule: */15 * * * *
++  schedule: 17 18 * * *
++  Producer for shop-feed-sync-queue
++  Consumer for shop-feed-sync-queue
++Current Version ID: 04cca32c-7d2c-4ea9-96cb-ff3a083b268d
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 278090a..27b719e 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -219,6 +219,32 @@ Required direct public checks:
+ 
+ Do not use localhost, preview-only URLs, or alternate routes as proof.
+ 
++## Fix Cycle 04: Shop Functional Hardening
++
++Status: WIP_FUNCTIONAL_HARDENING
++
++Instruction file:
++
++- `ops/instructions/20260604_shop_functional_hardening_cycle.md`
++
++Reason:
++
++The public admin fixed demo value zero gate is accepted by the user.
++The next scope is product/settings/cart/checkout/contact/legal functional hardening.
++
++Cycle 04 goals:
++
++1. Keep existing Shop UI layout stable and avoid broad visual changes.
++2. Connect public storefront product list and product detail to D1 published shop products.
++3. Connect public legal/privacy/shipping/returns pages to saved or generated shop profile text.
++4. Make cart add, quantity change, remove, subtotal, and checkout transition usable without fake payment completion.
++5. Make contact validation explicit and avoid fake send success when storage/notification is not connected.
++6. Make admin product list read product API data and refresh after product save.
++7. Add public Playwright coverage for all target URLs, demo-value absence, cart, checkout, contact, and legal pages.
++8. Publish `/g/l68` and `/g/d68` before reporting.
++
++Completion remains WIP only until public deployment, public URL checks, public Playwright, and `/g/*` sha256 evidence are recorded.
++
+ Cycle 02 fixed values to remove or prove absent from Shop public admin:
+ 
+ - `2024/05/13 - 2024/05/19`
+@@ -273,3 +299,29 @@ Cycle 03 scope:
+ - Verify public admin headers, Worker Version ID, route rewrite headers, HTML grep, and Playwright rendered DOM.
+ 
+ Cycle 03 must not redesign the Shop UI.
++
++## Fix Cycle 04: Shop Functional Hardening
++
++Status: WIP_FIXING
++
++Instruction file:
++
++- `ops/instructions/20260604_shop_functional_hardening_cycle.md`
++
++Accepted prior gate:
++
++- Public admin fixed demo value zero is accepted by the user.
++- Route/cache mismatch is resolved for verified paths.
++
++Scope:
++
++- Product create/edit/save/public storefront reflection.
++- Settings save and legal/privacy/shipping/returns reflection.
++- Cart add, quantity update, delete.
++- Checkout transition and honest payment-not-configured state.
++- Contact validation and honest submit state.
++- Public URL status checks.
++- Dead link and old route checks.
++
++Do not redesign the Shop UI.
++Do not report FINAL_ACCEPTED for the whole Shop tenant unless all final gates pass.
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 649558f..ebc417f 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -216,6 +216,42 @@ Visual scope:
+ 
+ This is not FINAL_ACCEPTED for the whole Shop tenant.
+ 
++## Shop Fix Cycle 04 Functional Screen Evidence Pending Deploy
++
++Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
++
++Prepared public screen targets:
++
++- `https://shop.aiboux.com/s/aiboux/products`
++- `https://shop.aiboux.com/s/aiboux/product/{id}`
++- `https://shop.aiboux.com/s/aiboux/cart`
++- `https://shop.aiboux.com/s/aiboux/checkout`
++- `https://shop.aiboux.com/s/aiboux/contact`
++- `https://shop.aiboux.com/s/aiboux/legal`
++- `https://shop.aiboux.com/s/aiboux/privacy`
++- `https://shop.aiboux.com/s/aiboux/shipping`
++- `https://shop.aiboux.com/s/aiboux/returns`
++- `https://shop.aiboux.com/s/aiboux/admin/products`
++- `https://shop.aiboux.com/s/aiboux/admin/settings`
++
++Prepared screen behavior:
++
++- Public products page reads published D1 shop products instead of `shop-sample-data`.
++- Product detail page reads the selected published D1 shop product.
++- Empty product/category pages show honest empty states.
++- Cart page can render local cart items, update quantity, remove items, and show subtotal.
++- Checkout page shows cart contents and blocks false payment completion when payment is not connected.
++- Contact page validates name, email, and message, then reports that storage/notification is not connected rather than pretending success.
++- Legal and privacy pages render saved/generated shop profile text.
++- Shipping and returns pages render generated policy text based on shop profile contact data.
++
++Prepared Playwright artifact:
++
++- `tests/shop-functional-public.spec.ts`
++- screenshot target: `output/playwright/shop-functional/admin-demo-free-1980.png`
++
++This evidence still requires WIP deploy and public URL verification before it can be treated as deployed screen evidence.
++
+ ## Shop Fix Cycle 03 Route And Cache Screen Evidence
+ 
+ Status: `WIP_ROUTE_CACHE_MISMATCH_FIX_PENDING_DEPLOY`
+diff --git a/public/g/l68.md b/public/g/l68.md
+index c8fd095..a915320 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -507,3 +507,56 @@ Cloudflare purge note:
+ - The issue was mitigated by stronger no-store/cache-clear headers plus redeploy.
+ 
+ This is still WIP evidence and not FINAL_ACCEPTED for the whole Shop tenant.
++
++## Shop Fix Cycle 04: Functional Hardening Pending Deploy
++
++Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
++
++Started at:
++
++- `2026-06-04T01:52:05Z`
++
++Instruction source:
++
++- User accepted that public admin fixed demo value zero passed.
++- Next scope is product/settings/cart/checkout/contact/legal functional hardening.
++- FINAL_ACCEPTED remains forbidden.
++
++Implementation changes prepared:
++
++- Added D1 storefront reader helper:
++  - `src/lib/server/shopStorefront.ts`
++- Switched Shop admin product rows to load from the product API:
++  - `src/components/shop/ShopClientShell.tsx`
++  - `src/pages/api/shop/products/index.ts`
++- Added product-save refresh event after product edit or wizard save:
++  - `src/components/shop/ProductEditor.tsx`
++  - `src/components/shop/products/ShopProductWizard.tsx`
++- Kept product table layout and added an honest image-missing placeholder:
++  - `src/components/shop/ProductsTable.tsx`
++- Switched storefront pages from `shop-sample-data` to D1 published products and shop settings:
++  - `src/pages/shop/storefront/[tenant].astro`
++  - `src/pages/shop/[tenant]/[...path].astro`
++- Added browser cart behavior for add, quantity change, remove, subtotal, and checkout transition.
++- Added honest checkout state when payment is not connected.
++- Added contact form validation without pretending to submit when storage/notification is not connected.
++- Added legal/privacy/shipping/returns rendering from saved/generated shop profile text.
++- Added public Playwright coverage:
++  - `tests/shop-functional-public.spec.ts`
++
++Verification before deploy:
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `npm run astro check`: PASS with 0 errors; existing repository hints only
++- `npm run check:shop-ui-protection`: WARN only as expected for dirty protected Shop UI paths
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++
++WIP deploy required next:
++
++- run checkpointed `npm run deploy:shop:wip`
++- run public URL status checks
++- run public Playwright with `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com`
++- publish post-deploy `/g/*` HTTP/content-type/sha256 evidence
++
++This is not FINAL_ACCEPTED.
+diff --git a/src/components/shop/ProductEditor.tsx b/src/components/shop/ProductEditor.tsx
+index e57dd7b..4ae0a53 100644
+--- a/src/components/shop/ProductEditor.tsx
++++ b/src/components/shop/ProductEditor.tsx
+@@ -46,6 +46,23 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+   const [isDragging, setIsDragging] = React.useState(false);
+   const [status, setStatus] = React.useState<ShopProduct["status"]>(product.status);
+ 
++  React.useEffect(() => {
++    setImages([
++      ...(product.image ? [
++        { id: `${product.id}-main`, url: product.image, alt: product.name, isMain: true },
++        { id: `${product.id}-detail-1`, url: product.image, alt: `${product.name} 詳細`, isMain: false },
++      ] : []),
++    ]);
++    setName(mode === "new" ? "" : product.name);
++    setSku(product.sku);
++    setCategory(product.category);
++    setPrice(String(product.price));
++    setStock(String(product.stock));
++    setTags(product.tags.join(", "));
++    setStatus(product.status);
++    setIsDirty(false);
++  }, [mode, product]);
++
+   React.useEffect(() => {
+     const handler = (event: BeforeUnloadEvent) => {
+       if (!isDirty) return;
+@@ -91,6 +108,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+         throw new Error(result.error || "商品を保存できませんでした");
+       }
+       setIsDirty(false);
++      window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
+       toast.success("商品を保存し、検索連携キューへ反映しました");
+     } catch (error) {
+       toast.error(error instanceof Error ? error.message : "商品を保存できませんでした");
+diff --git a/src/components/shop/ProductsTable.tsx b/src/components/shop/ProductsTable.tsx
+index 6e6b821..df0cd84 100644
+--- a/src/components/shop/ProductsTable.tsx
++++ b/src/components/shop/ProductsTable.tsx
+@@ -113,7 +113,13 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
+               )}
+               <TableCell>
+                 <div className="flex items-center gap-2">
+-                  <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
++                  {product.image ? (
++                    <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
++                  ) : (
++                    <div className="flex size-9 items-center justify-center rounded-md border border-dashed border-neutral-200 bg-neutral-50 text-[10px] text-neutral-400">
++                      画像
++                    </div>
++                  )}
+                   <div className="min-w-0">
+                     <div className="truncate font-medium">{product.name}</div>
+                     <div className="truncate text-xs text-neutral-500">{product.tags.join(" / ")}</div>
+diff --git a/src/components/shop/ShopClientShell.tsx b/src/components/shop/ShopClientShell.tsx
+index a727a23..dba81c8 100644
+--- a/src/components/shop/ShopClientShell.tsx
++++ b/src/components/shop/ShopClientShell.tsx
+@@ -62,6 +62,23 @@ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShel
+   const [searchQuery, setSearchQuery] = React.useState("");
+   const [dateRange, setDateRange] = React.useState("今月");
+   const [hasUnsavedInventory, setHasUnsavedInventory] = React.useState(false);
++  const [products, setProducts] = React.useState<ShopProduct[]>(shopProducts);
++
++  const loadProducts = React.useCallback(() => {
++    let cancelled = false;
++    fetch("/api/shop/products?tenant=aiboux")
++      .then(async (response) => (response.ok ? ((await response.json()) as ShopProductsResponse) : null))
++      .then((data) => {
++        if (cancelled || !data?.success || !Array.isArray(data.shopProducts)) return;
++        setProducts(data.shopProducts.map(mapApiProduct));
++      })
++      .catch(() => {
++        // Keep the current rows. The table itself has an honest empty state.
++      });
++    return () => {
++      cancelled = true;
++    };
++  }, []);
+ 
+   const changeSection = React.useCallback((section: ShopSection) => {
+     if (hasUnsavedInventory && activeSection === "inventory" && section !== "inventory") {
+@@ -103,6 +120,18 @@ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShel
+     return () => window.removeEventListener("aiboux:unsaved-inventory", handler);
+   }, []);
+ 
++  React.useEffect(() => {
++    return loadProducts();
++  }, [loadProducts]);
++
++  React.useEffect(() => {
++    const handler = () => {
++      loadProducts();
++    };
++    window.addEventListener("aiboux:shop-products-changed", handler);
++    return () => window.removeEventListener("aiboux:shop-products-changed", handler);
++  }, [loadProducts]);
++
+   const openOrder = (order: ShopOrder) => {
+     setActiveSection("order-detail");
+     if (typeof window !== "undefined") {
+@@ -137,7 +166,7 @@ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShel
+           />
+           <main className="flex min-h-0 flex-1">
+             <div className="min-w-0 flex-1">
+-              {renderSection(activeSection, changeSection, openOrder, openProduct, searchQuery)}
++              {renderSection(activeSection, changeSection, openOrder, openProduct, searchQuery, products)}
+             </div>
+           </main>
+         </SidebarInset>
+@@ -167,9 +196,10 @@ function renderSection(
+   onOpenOrder: (order: ShopOrder) => void,
+   onOpenProduct: (product: ShopProduct) => void,
+   searchQuery: string,
++  products: ShopProduct[],
+ ) {
+   const filteredOrders = filterOrders(shopOrders, searchQuery);
+-  const filteredProducts = filterProducts(shopProducts, searchQuery);
++  const filteredProducts = filterProducts(products, searchQuery);
+   const filteredInventory = inventoryItems.filter((item) =>
+     matchesSearch(searchQuery, [item.name, item.sku, item.location, item.status]),
+   );
+@@ -211,7 +241,7 @@ function renderSection(
+     case "product-new":
+       return <ShopProductWizard onComplete={() => onSectionChange("products")} />;
+     case "product-detail":
+-      return <ProductEditor product={getProductFromPath()} mode="edit" />;
++      return <ProductEditor product={getProductFromPath(products)} mode="edit" />;
+     case "inventory":
+       return (
+         <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
+@@ -222,7 +252,7 @@ function renderSection(
+           <InventoryTable
+             items={filteredInventory}
+             onOpenProduct={(productId) => {
+-              const product = shopProducts.find((candidate) => candidate.id === productId);
++              const product = products.find((candidate) => candidate.id === productId);
+               if (product) onOpenProduct(product);
+             }}
+           />
+@@ -289,10 +319,10 @@ function filterProducts(products: ShopProduct[], query: string) {
+   );
+ }
+ 
+-function getProductFromPath() {
++function getProductFromPath(products: ShopProduct[]) {
+   if (typeof window === "undefined") return shopProducts[0] ?? createEmptyProduct();
+   const productId = window.location.pathname.split("/").filter(Boolean).at(-1);
+-  return shopProducts.find((product) => product.id === productId) ?? shopProducts[0] ?? createEmptyProduct();
++  return products.find((product) => product.id === productId) ?? products[0] ?? shopProducts[0] ?? createEmptyProduct();
+ }
+ 
+ function getOrderFromPath() {
+@@ -300,3 +330,56 @@ function getOrderFromPath() {
+   const orderId = window.location.pathname.split("/").filter(Boolean).at(-1);
+   return shopOrders.find((order) => order.id.replace("#", "") === orderId || order.id === orderId) ?? shopOrders[0];
+ }
++
++type ShopProductsResponse = {
++  success?: boolean;
++  shopProducts?: Array<Record<string, unknown>>;
++};
++
++function mapApiProduct(row: Record<string, unknown>): ShopProduct {
++  const id = stringValue(row.id) || "shop-product";
++  const name = stringValue(row.display_name) || stringValue(row.product_name) || "名称未設定の商品";
++  const sku = stringValue(row.jan_code) || id;
++  const category = stringValue(row.category_name) || stringValue(row.google_category_id) || stringValue(row.category_id) || "未分類";
++  const price = numberValue(row.sale_price);
++  const stock = numberValue(row.stock_quantity);
++  const tags = parseStringArray(row.ai_keywords_json);
++  const imageKeys = parseStringArray(row.image_r2_keys);
++  const publishState = stringValue(row.publish_state);
++  return {
++    id,
++    name,
++    sku,
++    category,
++    price,
++    stock,
++    reserved: 0,
++    incoming: 0,
++    status: publishState === "published" ? "公開中" : publishState === "paused" || publishState === "archived" ? "非公開" : "下書き",
++    sales: 0,
++    image: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : "",
++    tags,
++    variants: [{ id: `${id}-default`, name, sku, stock, price }],
++    feedSync: { google: "unsynced", bing: "unsynced" },
++  };
++}
++
++function stringValue(value: unknown): string {
++  return typeof value === "string" ? value.trim() : "";
++}
++
++function numberValue(value: unknown): number {
++  const number = typeof value === "number" ? value : Number(value ?? 0);
++  return Number.isFinite(number) ? Math.max(Math.trunc(number), 0) : 0;
++}
++
++function parseStringArray(value: unknown): string[] {
++  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
++  if (typeof value !== "string" || !value.trim()) return [];
++  try {
++    const parsed = JSON.parse(value);
++    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : [];
++  } catch {
++    return value.split(",").map((item) => item.trim()).filter(Boolean);
++  }
++}
+diff --git a/src/components/shop/products/ShopProductWizard.tsx b/src/components/shop/products/ShopProductWizard.tsx
+index 1bf1ef9..012de51 100644
+--- a/src/components/shop/products/ShopProductWizard.tsx
++++ b/src/components/shop/products/ShopProductWizard.tsx
+@@ -252,6 +252,7 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
+ 
+       if (publishState === "published") {
+         setPublishedProductId(data.productId ?? "published-product");
++        window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
+         toast.success("商品を公開しました");
+         if (data.feedSync?.queued) {
+           toast.info("Google/Bingへの送信を開始しました。反映まで数分かかる場合があります。");
+@@ -260,6 +261,7 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
+       }
+ 
+       toast.success("下書き保存しました");
++      window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
+       if (data.feedSync?.queued) {
+         toast.info("商品情報の自動送信準備を記録しました。公開後に送信状態を確認できます。");
+       }
+diff --git a/src/pages/api/shop/products/index.ts b/src/pages/api/shop/products/index.ts
+index 84fe7ac..e1aaa98 100644
+--- a/src/pages/api/shop/products/index.ts
++++ b/src/pages/api/shop/products/index.ts
+@@ -8,9 +8,16 @@ export const GET: APIRoute = async ({ request }) => {
+   try {
+     const tenant = await withTenant(request);
+     const rows = await env.DB.prepare(
+-      `SELECT sp.*, cp.product_name, cp.jan_code
++      `SELECT
++         sp.*,
++         cp.product_name,
++         cp.jan_code,
++         cp.stock_quantity,
++         cp.status AS core_status,
++         sc.name AS category_name
+        FROM shop_products sp
+        JOIN core_products cp ON cp.id = sp.core_product_id AND cp.tenant_id = sp.tenant_id
++       LEFT JOIN shop_categories sc ON sc.id = sp.category_id AND sc.tenant_id = sp.tenant_id AND sc.deleted_at IS NULL
+        WHERE sp.tenant_id = ? AND sp.deleted_at IS NULL
+        ORDER BY sp.updated_at DESC`,
+     )
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index b780c25..996d938 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -1,6 +1,14 @@
+ ---
+ import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+-import { shopProducts } from "@/data/shop-sample-data";
++import {
++  buildReturnsText,
++  buildShippingText,
++  formatShopPrice,
++  getShopStorefrontProduct,
++  getShopStorefrontProfile,
++  listShopStorefrontCategories,
++  listShopStorefrontProducts,
++} from "@/lib/server/shopStorefront";
+ import "@/styles/global.css";
+ 
+ export const prerender = false;
+@@ -8,6 +16,7 @@ export const prerender = false;
+ const tenantParam = String(Astro.params.tenant ?? "").trim();
+ const pathParam = String(Astro.params.path ?? "").replace(/^\/+|\/+$/g, "");
+ const isKnownTenant = tenantParam === "aiboux";
++const profile = isKnownTenant ? await getShopStorefrontProfile(tenantParam) : null;
+ 
+ const allowedPaths = new Set([
+   "products",
+@@ -22,18 +31,21 @@ const allowedPaths = new Set([
+ ]);
+ 
+ const productMatch = pathParam.match(/^product\/([^/]+)$/);
+-const isAllowedPath = allowedPaths.has(pathParam) || Boolean(productMatch);
++const isAllowedPath = Boolean(profile) && (allowedPaths.has(pathParam) || Boolean(productMatch));
+ 
+ if (!isKnownTenant || !isAllowedPath) {
+   Astro.response.status = 404;
+ }
+ 
+-Astro.response.headers.set("Cache-Control", isKnownTenant && isAllowedPath ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
++Astro.response.headers.set("Cache-Control", isKnownTenant && isAllowedPath ? "public, max-age=30, s-maxage=60, stale-while-revalidate=30" : "no-store");
+ 
+ const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
+ const page = productMatch ? "product" : pathParam;
+ const productId = productMatch?.[1] ?? "";
+-const product = productId ? shopProducts.find((item) => item.id === productId) : undefined;
++const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
++const categories = profile ? await listShopStorefrontCategories(profile.tenantId) : [];
++const product = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
++const storeName = profile?.storeName ?? "AIBOUX Store";
+ 
+ const pageMeta: Record<string, { title: string; description: string }> = {
+   products: { title: "商品一覧", description: "公開中の商品を表示します。" },
+@@ -45,7 +57,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
+   privacy: { title: "プライバシーポリシー", description: "個人情報の取り扱いを表示します。" },
+   shipping: { title: "配送について", description: "配送方法と送料の情報を表示します。" },
+   returns: { title: "返品について", description: "返品・交換条件を表示します。" },
+-  product: { title: product?.name || "商品詳細", description: product ? `${product.name} の商品詳細です。` : "商品が見つかりません。" },
++  product: { title: product?.displayName || "商品詳細", description: product ? `${product.displayName} の商品詳細です。` : "商品が見つかりません。" },
+ };
+ 
+ const meta = pageMeta[page] ?? { title: "ストアページ", description: "AIBOUX Storeの公開ページです。" };
+@@ -69,7 +81,7 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+   <body class="min-h-screen bg-white text-neutral-950">
+     <header class="border-b border-neutral-200 bg-white">
+       <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+-        <a href={`${tenantRoot}/`} class="text-lg font-bold tracking-tight">AIBOUX Store</a>
++        <a href={`${tenantRoot}/`} class="text-lg font-bold tracking-tight">{storeName}</a>
+         <nav class="flex flex-wrap gap-4 text-sm text-neutral-600">
+           <a class="hover:text-neutral-950" href={`${tenantRoot}/products`}>商品一覧</a>
+           <a class="hover:text-neutral-950" href={`${tenantRoot}/categories`}>カテゴリ</a>
+@@ -82,24 +94,35 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+       isKnownTenant && isAllowedPath ? (
+         <main class="mx-auto max-w-6xl px-4 py-8">
+           <div class="mb-6">
+-            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">AIBOUX Store</p>
++            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
+             <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
+             <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
+           </div>
+ 
+           {page === "products" ? (
+             <section class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+-              {shopProducts.length === 0 ? (
++              {products.length === 0 ? (
+                 <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+                   公開商品はまだありません。管理画面で商品を公開すると、この一覧に表示されます。
+                 </div>
+-              ) : shopProducts.map((item) => (
++              ) : products.map((item) => (
+                 <article class="rounded-lg border border-neutral-200 bg-white p-4">
+                   <div class="flex aspect-square items-center justify-center rounded-md bg-neutral-50">
+-                    {item.image ? <img src={item.image} alt={item.name} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
++                    {item.imageUrl ? <img src={item.imageUrl} alt={item.imageAlt} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
+                   </div>
+-                  <h2 class="mt-3 text-sm font-semibold text-neutral-950"><a href={`${tenantRoot}/product/${item.id}`}>{item.name}</a></h2>
+-                  <p class="mt-1 text-sm font-bold text-red-700">¥{item.price.toLocaleString("ja-JP")}</p>
++                  <h2 class="mt-3 text-sm font-semibold text-neutral-950"><a href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a></h2>
++                  <p class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</p>
++                  <button
++                    class="mt-3 h-9 rounded-md border border-neutral-300 bg-white px-3 text-xs font-semibold hover:bg-neutral-50"
++                    type="button"
++                    data-cart-add
++                    data-product-id={item.id}
++                    data-product-name={item.displayName}
++                    data-product-price={String(item.salePrice)}
++                    data-product-image={item.imageUrl}
++                  >
++                    カートに追加
++                  </button>
+                 </article>
+               ))}
+             </section>
+@@ -109,14 +132,27 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+             product ? (
+               <section class="grid gap-6 lg:grid-cols-[420px_1fr]">
+                 <div class="flex aspect-square items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+-                  {product.image ? <img src={product.image} alt={product.name} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
++                  {product.imageUrl ? <img src={product.imageUrl} alt={product.imageAlt} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
+                 </div>
+                 <div>
+-                  <p class="text-sm text-neutral-500">{product.category}</p>
+-                  <h1 class="mt-2 text-2xl font-bold text-neutral-950">{product.name}</h1>
+-                  <p class="mt-4 text-2xl font-bold text-red-700">¥{product.price.toLocaleString("ja-JP")}</p>
+-                  <p class="mt-4 text-sm leading-6 text-neutral-600">商品説明は管理画面で保存された公開情報を表示します。</p>
+-                  <a class="mt-6 inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/cart`}>カートへ進む</a>
++                  <p class="text-sm text-neutral-500">{product.categoryName}</p>
++                  <h1 class="mt-2 text-2xl font-bold text-neutral-950">{product.displayName}</h1>
++                  <p class="mt-4 text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</p>
++                  <p class="mt-4 whitespace-pre-line text-sm leading-6 text-neutral-600">{product.description || product.seoDescription || "商品説明は管理画面で保存された公開情報を表示します。"}</p>
++                  <div class="mt-6 flex flex-wrap gap-2">
++                    <button
++                      class="inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white"
++                      type="button"
++                      data-cart-add
++                      data-product-id={product.id}
++                      data-product-name={product.displayName}
++                      data-product-price={String(product.salePrice)}
++                      data-product-image={product.imageUrl}
++                    >
++                      カートに追加
++                    </button>
++                    <a class="inline-flex h-10 items-center rounded-md border border-neutral-300 bg-white px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/cart`}>カートを見る</a>
++                  </div>
+                 </div>
+               </section>
+             ) : (
+@@ -127,36 +163,67 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+           ) : null}
+ 
+           {page === "categories" ? (
+-            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+-              公開カテゴリはまだありません。管理画面でカテゴリを作成すると表示されます。
+-            </div>
++            <section class="grid gap-3 md:grid-cols-3">
++              {categories.length === 0 ? (
++                <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
++                  公開カテゴリはまだありません。管理画面でカテゴリを作成すると表示されます。
++                </div>
++              ) : categories.map((category) => (
++                <a class="rounded-lg border border-neutral-200 bg-white p-4 hover:bg-neutral-50" href={`${tenantRoot}/products?category=${encodeURIComponent(category.slug)}`}>
++                  <div class="text-sm font-semibold text-neutral-950">{category.name}</div>
++                  <div class="mt-1 text-xs text-neutral-500">{category.productCount}件の商品</div>
++                </a>
++              ))}
++            </section>
+           ) : null}
+ 
+           {page === "cart" ? (
+-            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+-              カートは空です。商品を追加するとここに表示されます。
++            <div class="rounded-lg border border-neutral-200 bg-white p-4">
++              <div data-cart-empty class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
++                カートは空です。商品を追加するとここに表示されます。
++              </div>
++              <div data-cart-list class="hidden space-y-3"></div>
++              <div data-cart-summary class="hidden mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 pt-4">
++                <div class="text-sm text-neutral-600">小計: <strong data-cart-subtotal class="text-neutral-950">¥0</strong></div>
++                <a class="inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/checkout`}>チェックアウトへ進む</a>
++              </div>
+             </div>
+           ) : null}
+ 
+           {page === "checkout" ? (
+-            <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-8 text-sm leading-6 text-amber-900">
+-              決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済画面は表示しません。
++            <div class="grid gap-4 lg:grid-cols-[1fr_340px]">
++              <section class="rounded-lg border border-neutral-200 bg-white p-4">
++                <h2 class="text-base font-bold text-neutral-950">注文内容</h2>
++                <div data-checkout-items class="mt-3 text-sm text-neutral-600">カート内容を読み込んでいます。</div>
++              </section>
++              <aside class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-900">
++                <div class="font-bold">決済設定が必要です</div>
++                <p class="mt-2">決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済完了風の画面は表示しません。</p>
++                <a class="mt-3 inline-flex h-9 items-center rounded-md border border-amber-300 bg-white px-3 text-xs font-semibold text-amber-900" href={`${tenantRoot}/cart`}>カートへ戻る</a>
++              </aside>
+             </div>
+           ) : null}
+ 
+           {page === "contact" ? (
+-            <form class="grid max-w-2xl gap-4 rounded-lg border border-neutral-200 bg-white p-4">
+-              <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" /></label>
+-              <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" /></label>
++            <form data-contact-form class="grid max-w-2xl gap-4 rounded-lg border border-neutral-200 bg-white p-4" novalidate>
++              <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" autocomplete="name" /></label>
++              <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" autocomplete="email" /></label>
+               <label class="grid gap-1 text-sm font-medium">内容<textarea class="min-h-32 rounded-md border border-neutral-200 px-3 py-2 font-normal" name="message"></textarea></label>
+-              <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="button">入力内容を確認</button>
++              <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="submit">入力内容を確認</button>
++              <p data-contact-status class="hidden rounded-md border px-3 py-2 text-sm"></p>
+             </form>
+           ) : null}
+ 
+-          {["legal", "privacy", "shipping", "returns"].includes(page) ? (
+-            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-sm leading-6 text-neutral-600">
+-              このページの公開文面はまだ設定されていません。管理画面の設定保存後に、販売者情報・配送条件・返品条件・個人情報の取り扱いを表示します。
+-            </div>
++          {["legal", "privacy", "shipping", "returns"].includes(page) && profile ? (
++            <pre class="whitespace-pre-wrap rounded-lg border border-neutral-200 bg-white px-4 py-5 text-sm leading-7 text-neutral-700">{
++              page === "legal"
++                ? profile.tokushohoText
++                : page === "privacy"
++                  ? profile.privacyPolicyText
++                  : page === "shipping"
++                    ? buildShippingText(profile)
++                    : buildReturnsText(profile)
++            }</pre>
+           ) : null}
+         </main>
+       ) : (
+@@ -167,5 +234,150 @@ const canonicalUrl = isKnownTenant && isAllowedPath
+         </main>
+       )
+     }
++    <script is:inline define:vars={{ tenantRoot }}>
++      const CART_KEY = "aiboux:shop:aiboux:cart";
++
++      function readCart() {
++        try {
++          const parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
++          return Array.isArray(parsed) ? parsed : [];
++        } catch {
++          return [];
++        }
++      }
++
++      function writeCart(items) {
++        localStorage.setItem(CART_KEY, JSON.stringify(items));
++      }
++
++      function formatYen(value) {
++        return `¥${Math.max(0, Number(value) || 0).toLocaleString("ja-JP")}`;
++      }
++
++      function addToCart(product) {
++        const items = readCart();
++        const existing = items.find((item) => item.id === product.id);
++        if (existing) {
++          existing.quantity = Math.min(99, Number(existing.quantity || 0) + 1);
++        } else {
++          items.push({ ...product, quantity: 1 });
++        }
++        writeCart(items);
++        window.location.href = `${tenantRoot}/cart`;
++      }
++
++      function renderCart() {
++        const list = document.querySelector("[data-cart-list]");
++        const empty = document.querySelector("[data-cart-empty]");
++        const summary = document.querySelector("[data-cart-summary]");
++        const subtotalNode = document.querySelector("[data-cart-subtotal]");
++        if (!list || !empty || !summary || !subtotalNode) return;
++        const items = readCart();
++        if (!items.length) {
++          list.classList.add("hidden");
++          summary.classList.add("hidden");
++          empty.classList.remove("hidden");
++          list.innerHTML = "";
++          return;
++        }
++        empty.classList.add("hidden");
++        list.classList.remove("hidden");
++        summary.classList.remove("hidden");
++        list.innerHTML = items.map((item) => `
++          <div class="grid gap-3 rounded-lg border border-neutral-200 p-3 sm:grid-cols-[64px_1fr_auto]">
++            <div class="flex size-16 items-center justify-center rounded-md bg-neutral-50">
++              ${item.image ? `<img src="${escapeHtml(item.image)}" alt="" class="h-full w-full rounded-md object-contain" />` : `<span class="text-[11px] text-neutral-500">画像</span>`}
++            </div>
++            <div>
++              <div class="text-sm font-semibold text-neutral-950">${escapeHtml(item.name)}</div>
++              <div class="mt-1 text-sm text-neutral-600">${formatYen(item.price)}</div>
++              <label class="mt-2 inline-flex items-center gap-2 text-xs text-neutral-600">数量
++                <input class="h-8 w-20 rounded-md border border-neutral-200 px-2" data-cart-qty="${escapeHtml(item.id)}" inputmode="numeric" value="${Number(item.quantity || 1)}" />
++              </label>
++            </div>
++            <button class="h-8 rounded-md border border-neutral-300 px-3 text-xs font-semibold" data-cart-remove="${escapeHtml(item.id)}" type="button">削除</button>
++          </div>
++        `).join("");
++        subtotalNode.textContent = formatYen(items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0));
++      }
++
++      function renderCheckout() {
++        const node = document.querySelector("[data-checkout-items]");
++        if (!node) return;
++        const items = readCart();
++        if (!items.length) {
++          node.textContent = "カートは空です。商品を追加してからチェックアウトへ進んでください。";
++          return;
++        }
++        node.innerHTML = `
++          <div class="space-y-2">
++            ${items.map((item) => `<div class="flex justify-between gap-3 border-b border-neutral-100 pb-2"><span>${escapeHtml(item.name)} x ${Number(item.quantity || 1)}</span><strong>${formatYen(Number(item.price || 0) * Number(item.quantity || 0))}</strong></div>`).join("")}
++            <div class="flex justify-between pt-2 text-neutral-950"><span>小計</span><strong>${formatYen(items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0))}</strong></div>
++          </div>
++        `;
++      }
++
++      function escapeHtml(value) {
++        return String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
++      }
++
++      document.querySelectorAll("[data-cart-add]").forEach((button) => {
++        button.addEventListener("click", () => {
++          addToCart({
++            id: button.getAttribute("data-product-id") || "",
++            name: button.getAttribute("data-product-name") || "",
++            price: Number(button.getAttribute("data-product-price") || 0),
++            image: button.getAttribute("data-product-image") || "",
++          });
++        });
++      });
++
++      document.addEventListener("input", (event) => {
++        const input = event.target;
++        if (!(input instanceof HTMLInputElement) || !input.matches("[data-cart-qty]")) return;
++        const id = input.getAttribute("data-cart-qty");
++        const nextQuantity = Math.min(99, Math.max(1, Number.parseInt(input.value, 10) || 1));
++        const items = readCart().map((item) => item.id === id ? { ...item, quantity: nextQuantity } : item);
++        writeCart(items);
++        renderCart();
++      });
++
++      document.addEventListener("click", (event) => {
++        const target = event.target;
++        if (!(target instanceof HTMLElement) || !target.matches("[data-cart-remove]")) return;
++        const id = target.getAttribute("data-cart-remove");
++        writeCart(readCart().filter((item) => item.id !== id));
++        renderCart();
++      });
++
++      const contactForm = document.querySelector("[data-contact-form]");
++      if (contactForm instanceof HTMLFormElement) {
++        contactForm.addEventListener("submit", (event) => {
++          event.preventDefault();
++          const status = contactForm.querySelector("[data-contact-status]");
++          const form = new FormData(contactForm);
++          const name = String(form.get("name") || "").trim();
++          const email = String(form.get("email") || "").trim();
++          const message = String(form.get("message") || "").trim();
++          const errors = [];
++          if (!name) errors.push("お名前を入力してください。");
++          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("正しいメールアドレスを入力してください。");
++          if (!message) errors.push("内容を入力してください。");
++          if (status instanceof HTMLElement) {
++            status.classList.remove("hidden", "border-emerald-200", "bg-emerald-50", "text-emerald-700", "border-red-200", "bg-red-50", "text-red-700", "border-amber-200", "bg-amber-50", "text-amber-800");
++            if (errors.length) {
++              status.classList.add("border-red-200", "bg-red-50", "text-red-700");
++              status.textContent = errors.join(" ");
++            } else {
++              status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
++              status.textContent = "入力内容は確認できました。問い合わせ保存またはメール通知の接続は未完了のため、送信完了扱いにはしません。";
++            }
++          }
++        });
++      }
++
++      renderCart();
++      renderCheckout();
++    </script>
+   </body>
+ </html>
+diff --git a/src/pages/shop/storefront/[tenant].astro b/src/pages/shop/storefront/[tenant].astro
+index 7e2f030..5a85af9 100644
+--- a/src/pages/shop/storefront/[tenant].astro
++++ b/src/pages/shop/storefront/[tenant].astro
+@@ -1,33 +1,35 @@
+ ---
+ import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+ import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront";
+-import { shopProducts } from "@/data/shop-sample-data";
++import { getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
+ import "@/styles/global.css";
+ 
+ export const prerender = false;
+ 
+ const tenantParam = String(Astro.params.tenant ?? "").trim();
+ const isKnownTenant = tenantParam === "aiboux";
++const profile = isKnownTenant ? await getShopStorefrontProfile(tenantParam) : null;
++const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
+ 
+-if (!isKnownTenant) {
++if (!isKnownTenant || !profile) {
+   Astro.response.status = 404;
+ }
+ 
+-Astro.response.headers.set("Cache-Control", isKnownTenant ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
++Astro.response.headers.set("Cache-Control", isKnownTenant && profile ? "public, max-age=30, s-maxage=60, stale-while-revalidate=30" : "no-store");
+ 
+-const storeName = "AIBOUX Store";
+-const title = isKnownTenant ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
+-const canonicalUrl = isKnownTenant
++const storeName = profile?.storeName ?? "AIBOUX Store";
++const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
++const canonicalUrl = isKnownTenant && profile
+   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
+   : Astro.url.toString();
+ 
+-const storefrontProducts = shopProducts.map((product) => ({
++const storefrontProducts = products.map((product) => ({
+   id: product.id,
+-  image: product.image,
+-  name: product.name,
+-  price: product.price.toLocaleString("ja-JP"),
+-  category: product.category,
+-  inStock: product.stock > 0,
++  image: product.imageUrl,
++  name: product.displayName,
++  price: product.salePrice.toLocaleString("ja-JP"),
++  category: product.categoryName,
++  inStock: product.inStock,
+   href: `/s/${encodeURIComponent(tenantParam)}/product/${product.id}`,
+ }));
+ ---
+@@ -45,7 +47,7 @@ const storefrontProducts = shopProducts.map((product) => ({
+   </head>
+   <body>
+     {
+-      isKnownTenant ? (
++      isKnownTenant && profile ? (
+         <ShadcnStorefront storeName={storeName} products={storefrontProducts} />
+       ) : (
+         <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">

@@ -1,33 +1,35 @@
 ---
 import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
 import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront";
-import { shopProducts } from "@/data/shop-sample-data";
+import { getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
 import "@/styles/global.css";
 
 export const prerender = false;
 
 const tenantParam = String(Astro.params.tenant ?? "").trim();
 const isKnownTenant = tenantParam === "aiboux";
+const profile = isKnownTenant ? await getShopStorefrontProfile(tenantParam) : null;
+const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
 
-if (!isKnownTenant) {
+if (!isKnownTenant || !profile) {
   Astro.response.status = 404;
 }
 
-Astro.response.headers.set("Cache-Control", isKnownTenant ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
+Astro.response.headers.set("Cache-Control", isKnownTenant && profile ? "public, max-age=30, s-maxage=60, stale-while-revalidate=30" : "no-store");
 
-const storeName = "AIBOUX Store";
-const title = isKnownTenant ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
-const canonicalUrl = isKnownTenant
+const storeName = profile?.storeName ?? "AIBOUX Store";
+const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
+const canonicalUrl = isKnownTenant && profile
   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
 
-const storefrontProducts = shopProducts.map((product) => ({
+const storefrontProducts = products.map((product) => ({
   id: product.id,
-  image: product.image,
-  name: product.name,
-  price: product.price.toLocaleString("ja-JP"),
-  category: product.category,
-  inStock: product.stock > 0,
+  image: product.imageUrl,
+  name: product.displayName,
+  price: product.salePrice.toLocaleString("ja-JP"),
+  category: product.categoryName,
+  inStock: product.inStock,
   href: `/s/${encodeURIComponent(tenantParam)}/product/${product.id}`,
 }));
 ---
@@ -45,7 +47,7 @@ const storefrontProducts = shopProducts.map((product) => ({
   </head>
   <body>
     {
-      isKnownTenant ? (
+      isKnownTenant && profile ? (
         <ShadcnStorefront storeName={storeName} products={storefrontProducts} />
       ) : (
         <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">

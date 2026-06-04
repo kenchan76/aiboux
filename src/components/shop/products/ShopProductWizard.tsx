@@ -252,6 +252,7 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
 
       if (publishState === "published") {
         setPublishedProductId(data.productId ?? "published-product");
+        window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
         toast.success("商品を公開しました");
         if (data.feedSync?.queued) {
           toast.info("Google/Bingへの送信を開始しました。反映まで数分かかる場合があります。");
@@ -260,6 +261,7 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
       }
 
       toast.success("下書き保存しました");
+      window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
       if (data.feedSync?.queued) {
         toast.info("商品情報の自動送信準備を記録しました。公開後に送信状態を確認できます。");
       }

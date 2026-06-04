@@ -113,7 +113,13 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
               )}
               <TableCell>
                 <div className="flex items-center gap-2">
-                  <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
+                  {product.image ? (
+                    <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
+                  ) : (
+                    <div className="flex size-9 items-center justify-center rounded-md border border-dashed border-neutral-200 bg-neutral-50 text-[10px] text-neutral-400">
+                      画像
+                    </div>
+                  )}
                   <div className="min-w-0">
                     <div className="truncate font-medium">{product.name}</div>
                     <div className="truncate text-xs text-neutral-500">{product.tags.join(" / ")}</div>

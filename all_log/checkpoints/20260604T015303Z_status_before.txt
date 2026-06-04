@@ -1,0 +1,19 @@
+ M all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M src/components/shop/ProductEditor.tsx
+ M src/components/shop/ProductsTable.tsx
+ M src/components/shop/ShopClientShell.tsx
+ M src/components/shop/products/ShopProductWizard.tsx
+ M src/pages/api/shop/products/index.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+?? all_log/checkpoints/20260604T012248Z_wip_commit.txt
+?? all_log/deploys/20260604T012248Z_deployments_before.txt
+?? all_log/public-checks/20260604T012248Z_final_admin_cache_playwright_result.json
+?? all_log/public-checks/20260604T012248Z_final_g_and_admin_cache_verify.txt
+?? all_log/shop-functional/
+?? ops/instructions/20260604_shop_functional_hardening_cycle.md
+?? src/lib/server/shopStorefront.ts
+?? tests/shop-functional-public.spec.ts

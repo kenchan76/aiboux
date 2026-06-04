@@ -47,6 +47,23 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
   const [status, setStatus] = React.useState<ShopProduct["status"]>(product.status);
 
   React.useEffect(() => {
+    setImages([
+      ...(product.image ? [
+        { id: `${product.id}-main`, url: product.image, alt: product.name, isMain: true },
+        { id: `${product.id}-detail-1`, url: product.image, alt: `${product.name} 詳細`, isMain: false },
+      ] : []),
+    ]);
+    setName(mode === "new" ? "" : product.name);
+    setSku(product.sku);
+    setCategory(product.category);
+    setPrice(String(product.price));
+    setStock(String(product.stock));
+    setTags(product.tags.join(", "));
+    setStatus(product.status);
+    setIsDirty(false);
+  }, [mode, product]);
+
+  React.useEffect(() => {
     const handler = (event: BeforeUnloadEvent) => {
       if (!isDirty) return;
       event.preventDefault();
@@ -91,6 +108,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
         throw new Error(result.error || "商品を保存できませんでした");
       }
       setIsDirty(false);
+      window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
       toast.success("商品を保存し、検索連携キューへ反映しました");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "商品を保存できませんでした");

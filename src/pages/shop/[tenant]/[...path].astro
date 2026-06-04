@@ -1,6 +1,14 @@
 ---
 import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
-import { shopProducts } from "@/data/shop-sample-data";
+import {
+  buildReturnsText,
+  buildShippingText,
+  formatShopPrice,
+  getShopStorefrontProduct,
+  getShopStorefrontProfile,
+  listShopStorefrontCategories,
+  listShopStorefrontProducts,
+} from "@/lib/server/shopStorefront";
 import "@/styles/global.css";
 
 export const prerender = false;
@@ -8,6 +16,7 @@ export const prerender = false;
 const tenantParam = String(Astro.params.tenant ?? "").trim();
 const pathParam = String(Astro.params.path ?? "").replace(/^\/+|\/+$/g, "");
 const isKnownTenant = tenantParam === "aiboux";
+const profile = isKnownTenant ? await getShopStorefrontProfile(tenantParam) : null;
 
 const allowedPaths = new Set([
   "products",
@@ -22,18 +31,21 @@ const allowedPaths = new Set([
 ]);
 
 const productMatch = pathParam.match(/^product\/([^/]+)$/);
-const isAllowedPath = allowedPaths.has(pathParam) || Boolean(productMatch);
+const isAllowedPath = Boolean(profile) && (allowedPaths.has(pathParam) || Boolean(productMatch));
 
 if (!isKnownTenant || !isAllowedPath) {
   Astro.response.status = 404;
 }
 
-Astro.response.headers.set("Cache-Control", isKnownTenant && isAllowedPath ? "public, max-age=60, s-maxage=300, stale-while-revalidate=60" : "no-store");
+Astro.response.headers.set("Cache-Control", isKnownTenant && isAllowedPath ? "public, max-age=30, s-maxage=60, stale-while-revalidate=30" : "no-store");
 
 const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
 const page = productMatch ? "product" : pathParam;
 const productId = productMatch?.[1] ?? "";
-const product = productId ? shopProducts.find((item) => item.id === productId) : undefined;
+const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
+const categories = profile ? await listShopStorefrontCategories(profile.tenantId) : [];
+const product = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
+const storeName = profile?.storeName ?? "AIBOUX Store";
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   products: { title: "商品一覧", description: "公開中の商品を表示します。" },
@@ -45,7 +57,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   privacy: { title: "プライバシーポリシー", description: "個人情報の取り扱いを表示します。" },
   shipping: { title: "配送について", description: "配送方法と送料の情報を表示します。" },
   returns: { title: "返品について", description: "返品・交換条件を表示します。" },
-  product: { title: product?.name || "商品詳細", description: product ? `${product.name} の商品詳細です。` : "商品が見つかりません。" },
+  product: { title: product?.displayName || "商品詳細", description: product ? `${product.displayName} の商品詳細です。` : "商品が見つかりません。" },
 };
 
 const meta = pageMeta[page] ?? { title: "ストアページ", description: "AIBOUX Storeの公開ページです。" };
@@ -69,7 +81,7 @@ const canonicalUrl = isKnownTenant && isAllowedPath
   <body class="min-h-screen bg-white text-neutral-950">
     <header class="border-b border-neutral-200 bg-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-        <a href={`${tenantRoot}/`} class="text-lg font-bold tracking-tight">AIBOUX Store</a>
+        <a href={`${tenantRoot}/`} class="text-lg font-bold tracking-tight">{storeName}</a>
         <nav class="flex flex-wrap gap-4 text-sm text-neutral-600">
           <a class="hover:text-neutral-950" href={`${tenantRoot}/products`}>商品一覧</a>
           <a class="hover:text-neutral-950" href={`${tenantRoot}/categories`}>カテゴリ</a>
@@ -82,24 +94,35 @@ const canonicalUrl = isKnownTenant && isAllowedPath
       isKnownTenant && isAllowedPath ? (
         <main class="mx-auto max-w-6xl px-4 py-8">
           <div class="mb-6">
-            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">AIBOUX Store</p>
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
             <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
             <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
           </div>
 
           {page === "products" ? (
             <section class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-              {shopProducts.length === 0 ? (
+              {products.length === 0 ? (
                 <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
                   公開商品はまだありません。管理画面で商品を公開すると、この一覧に表示されます。
                 </div>
-              ) : shopProducts.map((item) => (
+              ) : products.map((item) => (
                 <article class="rounded-lg border border-neutral-200 bg-white p-4">
                   <div class="flex aspect-square items-center justify-center rounded-md bg-neutral-50">
-                    {item.image ? <img src={item.image} alt={item.name} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
+                    {item.imageUrl ? <img src={item.imageUrl} alt={item.imageAlt} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
                   </div>
-                  <h2 class="mt-3 text-sm font-semibold text-neutral-950"><a href={`${tenantRoot}/product/${item.id}`}>{item.name}</a></h2>
-                  <p class="mt-1 text-sm font-bold text-red-700">¥{item.price.toLocaleString("ja-JP")}</p>
+                  <h2 class="mt-3 text-sm font-semibold text-neutral-950"><a href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a></h2>
+                  <p class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</p>
+                  <button
+                    class="mt-3 h-9 rounded-md border border-neutral-300 bg-white px-3 text-xs font-semibold hover:bg-neutral-50"
+                    type="button"
+                    data-cart-add
+                    data-product-id={item.id}
+                    data-product-name={item.displayName}
+                    data-product-price={String(item.salePrice)}
+                    data-product-image={item.imageUrl}
+                  >
+                    カートに追加
+                  </button>
                 </article>
               ))}
             </section>
@@ -109,14 +132,27 @@ const canonicalUrl = isKnownTenant && isAllowedPath
             product ? (
               <section class="grid gap-6 lg:grid-cols-[420px_1fr]">
                 <div class="flex aspect-square items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  {product.image ? <img src={product.image} alt={product.name} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
+                  {product.imageUrl ? <img src={product.imageUrl} alt={product.imageAlt} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
                 </div>
                 <div>
-                  <p class="text-sm text-neutral-500">{product.category}</p>
-                  <h1 class="mt-2 text-2xl font-bold text-neutral-950">{product.name}</h1>
-                  <p class="mt-4 text-2xl font-bold text-red-700">¥{product.price.toLocaleString("ja-JP")}</p>
-                  <p class="mt-4 text-sm leading-6 text-neutral-600">商品説明は管理画面で保存された公開情報を表示します。</p>
-                  <a class="mt-6 inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/cart`}>カートへ進む</a>
+                  <p class="text-sm text-neutral-500">{product.categoryName}</p>
+                  <h1 class="mt-2 text-2xl font-bold text-neutral-950">{product.displayName}</h1>
+                  <p class="mt-4 text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</p>
+                  <p class="mt-4 whitespace-pre-line text-sm leading-6 text-neutral-600">{product.description || product.seoDescription || "商品説明は管理画面で保存された公開情報を表示します。"}</p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <button
+                      class="inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white"
+                      type="button"
+                      data-cart-add
+                      data-product-id={product.id}
+                      data-product-name={product.displayName}
+                      data-product-price={String(product.salePrice)}
+                      data-product-image={product.imageUrl}
+                    >
+                      カートに追加
+                    </button>
+                    <a class="inline-flex h-10 items-center rounded-md border border-neutral-300 bg-white px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/cart`}>カートを見る</a>
+                  </div>
                 </div>
               </section>
             ) : (
@@ -127,36 +163,67 @@ const canonicalUrl = isKnownTenant && isAllowedPath
           ) : null}
 
           {page === "categories" ? (
-            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
-              公開カテゴリはまだありません。管理画面でカテゴリを作成すると表示されます。
-            </div>
+            <section class="grid gap-3 md:grid-cols-3">
+              {categories.length === 0 ? (
+                <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+                  公開カテゴリはまだありません。管理画面でカテゴリを作成すると表示されます。
+                </div>
+              ) : categories.map((category) => (
+                <a class="rounded-lg border border-neutral-200 bg-white p-4 hover:bg-neutral-50" href={`${tenantRoot}/products?category=${encodeURIComponent(category.slug)}`}>
+                  <div class="text-sm font-semibold text-neutral-950">{category.name}</div>
+                  <div class="mt-1 text-xs text-neutral-500">{category.productCount}件の商品</div>
+                </a>
+              ))}
+            </section>
           ) : null}
 
           {page === "cart" ? (
-            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
-              カートは空です。商品を追加するとここに表示されます。
+            <div class="rounded-lg border border-neutral-200 bg-white p-4">
+              <div data-cart-empty class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
+                カートは空です。商品を追加するとここに表示されます。
+              </div>
+              <div data-cart-list class="hidden space-y-3"></div>
+              <div data-cart-summary class="hidden mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 pt-4">
+                <div class="text-sm text-neutral-600">小計: <strong data-cart-subtotal class="text-neutral-950">¥0</strong></div>
+                <a class="inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/checkout`}>チェックアウトへ進む</a>
+              </div>
             </div>
           ) : null}
 
           {page === "checkout" ? (
-            <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-8 text-sm leading-6 text-amber-900">
-              決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済画面は表示しません。
+            <div class="grid gap-4 lg:grid-cols-[1fr_340px]">
+              <section class="rounded-lg border border-neutral-200 bg-white p-4">
+                <h2 class="text-base font-bold text-neutral-950">注文内容</h2>
+                <div data-checkout-items class="mt-3 text-sm text-neutral-600">カート内容を読み込んでいます。</div>
+              </section>
+              <aside class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-900">
+                <div class="font-bold">決済設定が必要です</div>
+                <p class="mt-2">決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済完了風の画面は表示しません。</p>
+                <a class="mt-3 inline-flex h-9 items-center rounded-md border border-amber-300 bg-white px-3 text-xs font-semibold text-amber-900" href={`${tenantRoot}/cart`}>カートへ戻る</a>
+              </aside>
             </div>
           ) : null}
 
           {page === "contact" ? (
-            <form class="grid max-w-2xl gap-4 rounded-lg border border-neutral-200 bg-white p-4">
-              <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" /></label>
-              <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" /></label>
+            <form data-contact-form class="grid max-w-2xl gap-4 rounded-lg border border-neutral-200 bg-white p-4" novalidate>
+              <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" autocomplete="name" /></label>
+              <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" autocomplete="email" /></label>
               <label class="grid gap-1 text-sm font-medium">内容<textarea class="min-h-32 rounded-md border border-neutral-200 px-3 py-2 font-normal" name="message"></textarea></label>
-              <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="button">入力内容を確認</button>
+              <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="submit">入力内容を確認</button>
+              <p data-contact-status class="hidden rounded-md border px-3 py-2 text-sm"></p>
             </form>
           ) : null}
 
-          {["legal", "privacy", "shipping", "returns"].includes(page) ? (
-            <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-sm leading-6 text-neutral-600">
-              このページの公開文面はまだ設定されていません。管理画面の設定保存後に、販売者情報・配送条件・返品条件・個人情報の取り扱いを表示します。
-            </div>
+          {["legal", "privacy", "shipping", "returns"].includes(page) && profile ? (
+            <pre class="whitespace-pre-wrap rounded-lg border border-neutral-200 bg-white px-4 py-5 text-sm leading-7 text-neutral-700">{
+              page === "legal"
+                ? profile.tokushohoText
+                : page === "privacy"
+                  ? profile.privacyPolicyText
+                  : page === "shipping"
+                    ? buildShippingText(profile)
+                    : buildReturnsText(profile)
+            }</pre>
           ) : null}
         </main>
       ) : (
@@ -167,5 +234,150 @@ const canonicalUrl = isKnownTenant && isAllowedPath
         </main>
       )
     }
+    <script is:inline define:vars={{ tenantRoot }}>
+      const CART_KEY = "aiboux:shop:aiboux:cart";
+
+      function readCart() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function writeCart(items) {
+        localStorage.setItem(CART_KEY, JSON.stringify(items));
+      }
+
+      function formatYen(value) {
+        return `¥${Math.max(0, Number(value) || 0).toLocaleString("ja-JP")}`;
+      }
+
+      function addToCart(product) {
+        const items = readCart();
+        const existing = items.find((item) => item.id === product.id);
+        if (existing) {
+          existing.quantity = Math.min(99, Number(existing.quantity || 0) + 1);
+        } else {
+          items.push({ ...product, quantity: 1 });
+        }
+        writeCart(items);
+        window.location.href = `${tenantRoot}/cart`;
+      }
+
+      function renderCart() {
+        const list = document.querySelector("[data-cart-list]");
+        const empty = document.querySelector("[data-cart-empty]");
+        const summary = document.querySelector("[data-cart-summary]");
+        const subtotalNode = document.querySelector("[data-cart-subtotal]");
+        if (!list || !empty || !summary || !subtotalNode) return;
+        const items = readCart();
+        if (!items.length) {
+          list.classList.add("hidden");
+          summary.classList.add("hidden");
+          empty.classList.remove("hidden");
+          list.innerHTML = "";
+          return;
+        }
+        empty.classList.add("hidden");
+        list.classList.remove("hidden");
+        summary.classList.remove("hidden");
+        list.innerHTML = items.map((item) => `
+          <div class="grid gap-3 rounded-lg border border-neutral-200 p-3 sm:grid-cols-[64px_1fr_auto]">
+            <div class="flex size-16 items-center justify-center rounded-md bg-neutral-50">
+              ${item.image ? `<img src="${escapeHtml(item.image)}" alt="" class="h-full w-full rounded-md object-contain" />` : `<span class="text-[11px] text-neutral-500">画像</span>`}
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-neutral-950">${escapeHtml(item.name)}</div>
+              <div class="mt-1 text-sm text-neutral-600">${formatYen(item.price)}</div>
+              <label class="mt-2 inline-flex items-center gap-2 text-xs text-neutral-600">数量
+                <input class="h-8 w-20 rounded-md border border-neutral-200 px-2" data-cart-qty="${escapeHtml(item.id)}" inputmode="numeric" value="${Number(item.quantity || 1)}" />
+              </label>
+            </div>
+            <button class="h-8 rounded-md border border-neutral-300 px-3 text-xs font-semibold" data-cart-remove="${escapeHtml(item.id)}" type="button">削除</button>
+          </div>
+        `).join("");
+        subtotalNode.textContent = formatYen(items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0));
+      }
+
+      function renderCheckout() {
+        const node = document.querySelector("[data-checkout-items]");
+        if (!node) return;
+        const items = readCart();
+        if (!items.length) {
+          node.textContent = "カートは空です。商品を追加してからチェックアウトへ進んでください。";
+          return;
+        }
+        node.innerHTML = `
+          <div class="space-y-2">
+            ${items.map((item) => `<div class="flex justify-between gap-3 border-b border-neutral-100 pb-2"><span>${escapeHtml(item.name)} x ${Number(item.quantity || 1)}</span><strong>${formatYen(Number(item.price || 0) * Number(item.quantity || 0))}</strong></div>`).join("")}
+            <div class="flex justify-between pt-2 text-neutral-950"><span>小計</span><strong>${formatYen(items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0))}</strong></div>
+          </div>
+        `;
+      }
+
+      function escapeHtml(value) {
+        return String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+      }
+
+      document.querySelectorAll("[data-cart-add]").forEach((button) => {
+        button.addEventListener("click", () => {
+          addToCart({
+            id: button.getAttribute("data-product-id") || "",
+            name: button.getAttribute("data-product-name") || "",
+            price: Number(button.getAttribute("data-product-price") || 0),
+            image: button.getAttribute("data-product-image") || "",
+          });
+        });
+      });
+
+      document.addEventListener("input", (event) => {
+        const input = event.target;
+        if (!(input instanceof HTMLInputElement) || !input.matches("[data-cart-qty]")) return;
+        const id = input.getAttribute("data-cart-qty");
+        const nextQuantity = Math.min(99, Math.max(1, Number.parseInt(input.value, 10) || 1));
+        const items = readCart().map((item) => item.id === id ? { ...item, quantity: nextQuantity } : item);
+        writeCart(items);
+        renderCart();
+      });
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement) || !target.matches("[data-cart-remove]")) return;
+        const id = target.getAttribute("data-cart-remove");
+        writeCart(readCart().filter((item) => item.id !== id));
+        renderCart();
+      });
+
+      const contactForm = document.querySelector("[data-contact-form]");
+      if (contactForm instanceof HTMLFormElement) {
+        contactForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const status = contactForm.querySelector("[data-contact-status]");
+          const form = new FormData(contactForm);
+          const name = String(form.get("name") || "").trim();
+          const email = String(form.get("email") || "").trim();
+          const message = String(form.get("message") || "").trim();
+          const errors = [];
+          if (!name) errors.push("お名前を入力してください。");
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("正しいメールアドレスを入力してください。");
+          if (!message) errors.push("内容を入力してください。");
+          if (status instanceof HTMLElement) {
+            status.classList.remove("hidden", "border-emerald-200", "bg-emerald-50", "text-emerald-700", "border-red-200", "bg-red-50", "text-red-700", "border-amber-200", "bg-amber-50", "text-amber-800");
+            if (errors.length) {
+              status.classList.add("border-red-200", "bg-red-50", "text-red-700");
+              status.textContent = errors.join(" ");
+            } else {
+              status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
+              status.textContent = "入力内容は確認できました。問い合わせ保存またはメール通知の接続は未完了のため、送信完了扱いにはしません。";
+            }
+          }
+        });
+      }
+
+      renderCart();
+      renderCheckout();
+    </script>
   </body>
 </html>

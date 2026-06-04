@@ -8,9 +8,16 @@ export const GET: APIRoute = async ({ request }) => {
   try {
     const tenant = await withTenant(request);
     const rows = await env.DB.prepare(
-      `SELECT sp.*, cp.product_name, cp.jan_code
+      `SELECT
+         sp.*,
+         cp.product_name,
+         cp.jan_code,
+         cp.stock_quantity,
+         cp.status AS core_status,
+         sc.name AS category_name
        FROM shop_products sp
        JOIN core_products cp ON cp.id = sp.core_product_id AND cp.tenant_id = sp.tenant_id
+       LEFT JOIN shop_categories sc ON sc.id = sp.category_id AND sc.tenant_id = sp.tenant_id AND sc.deleted_at IS NULL
        WHERE sp.tenant_id = ? AND sp.deleted_at IS NULL
        ORDER BY sp.updated_at DESC`,
     )

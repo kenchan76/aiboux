@@ -1,0 +1,22 @@
+timestamp=20260604T012248Z
+commit_status=0
+head_after=e6ebe2605405cec6f949b7bf17814e12f1591ef8
+commit_stdout:
+[main e6ebe26] WIP shop aiboux tenant deploy checkpoint 20260604T012248Z
+ 17 files changed, 1854 insertions(+)
+ create mode 100644 all_log/checkpoints/20260604T012024Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T012248Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T012248Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T012248Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T012248Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T012024Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T013000Z_deploy_shop_admin_cache_evidence_log.txt
+ create mode 100644 all_log/patches/20260604T012248Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T012248Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-checks/20260604T012024Z_admin_cache_headers.headers
+ create mode 100644 all_log/public-checks/20260604T012024Z_admin_cache_headers.html
+ create mode 100644 all_log/public-checks/20260604T012024Z_admin_cache_headers_grep.txt
+ create mode 100644 all_log/public-checks/20260604T012024Z_admin_cache_headers_playwright_result.json
+ create mode 100644 all_log/public-checks/20260604T012024Z_shop_admin_route_cache_mismatch_summary.md
+
+commit_stderr:

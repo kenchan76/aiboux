@@ -62,6 +62,23 @@ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShel
   const [searchQuery, setSearchQuery] = React.useState("");
   const [dateRange, setDateRange] = React.useState("今月");
   const [hasUnsavedInventory, setHasUnsavedInventory] = React.useState(false);
+  const [products, setProducts] = React.useState<ShopProduct[]>(shopProducts);
+
+  const loadProducts = React.useCallback(() => {
+    let cancelled = false;
+    fetch("/api/shop/products?tenant=aiboux")
+      .then(async (response) => (response.ok ? ((await response.json()) as ShopProductsResponse) : null))
+      .then((data) => {
+        if (cancelled || !data?.success || !Array.isArray(data.shopProducts)) return;
+        setProducts(data.shopProducts.map(mapApiProduct));
+      })
+      .catch(() => {
+        // Keep the current rows. The table itself has an honest empty state.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const changeSection = React.useCallback((section: ShopSection) => {
     if (hasUnsavedInventory && activeSection === "inventory" && section !== "inventory") {
@@ -103,6 +120,18 @@ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShel
     return () => window.removeEventListener("aiboux:unsaved-inventory", handler);
   }, []);
 
+  React.useEffect(() => {
+    return loadProducts();
+  }, [loadProducts]);
+
+  React.useEffect(() => {
+    const handler = () => {
+      loadProducts();
+    };
+    window.addEventListener("aiboux:shop-products-changed", handler);
+    return () => window.removeEventListener("aiboux:shop-products-changed", handler);
+  }, [loadProducts]);
+
   const openOrder = (order: ShopOrder) => {
     setActiveSection("order-detail");
     if (typeof window !== "undefined") {
@@ -137,7 +166,7 @@ export function ShopClientShell({ initialSection = "dashboard" }: ShopClientShel
           />
           <main className="flex min-h-0 flex-1">
             <div className="min-w-0 flex-1">
-              {renderSection(activeSection, changeSection, openOrder, openProduct, searchQuery)}
+              {renderSection(activeSection, changeSection, openOrder, openProduct, searchQuery, products)}
             </div>
           </main>
         </SidebarInset>
@@ -167,9 +196,10 @@ function renderSection(
   onOpenOrder: (order: ShopOrder) => void,
   onOpenProduct: (product: ShopProduct) => void,
   searchQuery: string,
+  products: ShopProduct[],
 ) {
   const filteredOrders = filterOrders(shopOrders, searchQuery);
-  const filteredProducts = filterProducts(shopProducts, searchQuery);
+  const filteredProducts = filterProducts(products, searchQuery);
   const filteredInventory = inventoryItems.filter((item) =>
     matchesSearch(searchQuery, [item.name, item.sku, item.location, item.status]),
   );
@@ -211,7 +241,7 @@ function renderSection(
     case "product-new":
       return <ShopProductWizard onComplete={() => onSectionChange("products")} />;
     case "product-detail":
-      return <ProductEditor product={getProductFromPath()} mode="edit" />;
+      return <ProductEditor product={getProductFromPath(products)} mode="edit" />;
     case "inventory":
       return (
         <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
@@ -222,7 +252,7 @@ function renderSection(
           <InventoryTable
             items={filteredInventory}
             onOpenProduct={(productId) => {
-              const product = shopProducts.find((candidate) => candidate.id === productId);
+              const product = products.find((candidate) => candidate.id === productId);
               if (product) onOpenProduct(product);
             }}
           />
@@ -289,14 +319,67 @@ function filterProducts(products: ShopProduct[], query: string) {
   );
 }
 
-function getProductFromPath() {
+function getProductFromPath(products: ShopProduct[]) {
   if (typeof window === "undefined") return shopProducts[0] ?? createEmptyProduct();
   const productId = window.location.pathname.split("/").filter(Boolean).at(-1);
-  return shopProducts.find((product) => product.id === productId) ?? shopProducts[0] ?? createEmptyProduct();
+  return products.find((product) => product.id === productId) ?? products[0] ?? shopProducts[0] ?? createEmptyProduct();
 }
 
 function getOrderFromPath() {
   if (typeof window === "undefined") return shopOrders[0];
   const orderId = window.location.pathname.split("/").filter(Boolean).at(-1);
   return shopOrders.find((order) => order.id.replace("#", "") === orderId || order.id === orderId) ?? shopOrders[0];
+}
+
+type ShopProductsResponse = {
+  success?: boolean;
+  shopProducts?: Array<Record<string, unknown>>;
+};
+
+function mapApiProduct(row: Record<string, unknown>): ShopProduct {
+  const id = stringValue(row.id) || "shop-product";
+  const name = stringValue(row.display_name) || stringValue(row.product_name) || "名称未設定の商品";
+  const sku = stringValue(row.jan_code) || id;
+  const category = stringValue(row.category_name) || stringValue(row.google_category_id) || stringValue(row.category_id) || "未分類";
+  const price = numberValue(row.sale_price);
+  const stock = numberValue(row.stock_quantity);
+  const tags = parseStringArray(row.ai_keywords_json);
+  const imageKeys = parseStringArray(row.image_r2_keys);
+  const publishState = stringValue(row.publish_state);
+  return {
+    id,
+    name,
+    sku,
+    category,
+    price,
+    stock,
+    reserved: 0,
+    incoming: 0,
+    status: publishState === "published" ? "公開中" : publishState === "paused" || publishState === "archived" ? "非公開" : "下書き",
+    sales: 0,
+    image: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : "",
+    tags,
+    variants: [{ id: `${id}-default`, name, sku, stock, price }],
+    feedSync: { google: "unsynced", bing: "unsynced" },
+  };
+}
+
+function stringValue(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function numberValue(value: unknown): number {
+  const number = typeof value === "number" ? value : Number(value ?? 0);
+  return Number.isFinite(number) ? Math.max(Math.trunc(number), 0) : 0;
+}
+
+function parseStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
+  if (typeof value !== "string" || !value.trim()) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : [];
+  } catch {
+    return value.split(",").map((item) => item.trim()).filter(Boolean);
+  }
 }

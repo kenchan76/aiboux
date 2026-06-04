@@ -219,6 +219,32 @@ Required direct public checks:
 
 Do not use localhost, preview-only URLs, or alternate routes as proof.
 
+## Fix Cycle 04: Shop Functional Hardening
+
+Status: WIP_FUNCTIONAL_HARDENING
+
+Instruction file:
+
+- `ops/instructions/20260604_shop_functional_hardening_cycle.md`
+
+Reason:
+
+The public admin fixed demo value zero gate is accepted by the user.
+The next scope is product/settings/cart/checkout/contact/legal functional hardening.
+
+Cycle 04 goals:
+
+1. Keep existing Shop UI layout stable and avoid broad visual changes.
+2. Connect public storefront product list and product detail to D1 published shop products.
+3. Connect public legal/privacy/shipping/returns pages to saved or generated shop profile text.
+4. Make cart add, quantity change, remove, subtotal, and checkout transition usable without fake payment completion.
+5. Make contact validation explicit and avoid fake send success when storage/notification is not connected.
+6. Make admin product list read product API data and refresh after product save.
+7. Add public Playwright coverage for all target URLs, demo-value absence, cart, checkout, contact, and legal pages.
+8. Publish `/g/l68` and `/g/d68` before reporting.
+
+Completion remains WIP only until public deployment, public URL checks, public Playwright, and `/g/*` sha256 evidence are recorded.
+
 Cycle 02 fixed values to remove or prove absent from Shop public admin:
 
 - `2024/05/13 - 2024/05/19`
@@ -273,3 +299,29 @@ Cycle 03 scope:
 - Verify public admin headers, Worker Version ID, route rewrite headers, HTML grep, and Playwright rendered DOM.
 
 Cycle 03 must not redesign the Shop UI.
+
+## Fix Cycle 04: Shop Functional Hardening
+
+Status: WIP_FIXING
+
+Instruction file:
+
+- `ops/instructions/20260604_shop_functional_hardening_cycle.md`
+
+Accepted prior gate:
+
+- Public admin fixed demo value zero is accepted by the user.
+- Route/cache mismatch is resolved for verified paths.
+
+Scope:
+
+- Product create/edit/save/public storefront reflection.
+- Settings save and legal/privacy/shipping/returns reflection.
+- Cart add, quantity update, delete.
+- Checkout transition and honest payment-not-configured state.
+- Contact validation and honest submit state.
+- Public URL status checks.
+- Dead link and old route checks.
+
+Do not redesign the Shop UI.
+Do not report FINAL_ACCEPTED for the whole Shop tenant unless all final gates pass.

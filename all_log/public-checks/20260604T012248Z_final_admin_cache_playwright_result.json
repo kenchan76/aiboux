@@ -1,0 +1,93 @@
+{
+  "url": "https://shop.aiboux.com/s/aiboux/admin?verify=20260604T012248Z",
+  "status": 200,
+  "headers": {
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cache-control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0",
+    "cdn-cache-control": "no-store",
+    "cf-ray": "a063236c6e140400-NRT",
+    "clear-site-data": "\"cache\"",
+    "cloudflare-cdn-cache-control": "no-store",
+    "content-encoding": "zstd",
+    "content-type": "text/html",
+    "date": "Thu, 04 Jun 2026 01:24:31 GMT",
+    "expires": "0",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "pragma": "no-cache",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LHbBY7GeCFyo%2FgLQWAezeHBvfdKj2RI5ssM0snDcYdi%2FsjHddX1f52de2SW1NtwqjlwPjqQYznTOSutq3I6zkRdJ3Kz2TpCZ4xdzcQZlbA10ajZEa34JfzZQvvYdXD0QlLo%3D\"}]}",
+    "server": "cloudflare",
+    "server-timing": "cfEdge;dur=141,cfOrigin;dur=0,cfWorker;dur=74",
+    "x-aiboux-admin-cache-policy": "no-store-clear-cache",
+    "x-aiboux-original-path": "/s/aiboux/admin",
+    "x-aiboux-rewritten-path": "/shop/dashboard",
+    "x-aiboux-route-source": "worker-entry",
+    "x-aiboux-worker-version": "04cca32c-7d2c-4ea9-96cb-ff3a083b268d"
+  },
+  "title": "AIBOUX SHOP Dashboard",
+  "checks": {
+    "2024/05": {
+      "text": false,
+      "html": false
+    },
+    "山田": {
+      "text": false,
+      "html": false
+    },
+    "¥2,340,000": {
+      "text": false,
+      "html": false
+    },
+    "245件": {
+      "text": false,
+      "html": false
+    },
+    "2.35%": {
+      "text": false,
+      "html": false
+    },
+    "¥9,551": {
+      "text": false,
+      "html": false
+    },
+    "28.7%": {
+      "text": false,
+      "html": false
+    },
+    "TSH-001": {
+      "text": false,
+      "html": false
+    },
+    "BAG-001": {
+      "text": false,
+      "html": false
+    },
+    "BTL-500": {
+      "text": false,
+      "html": false
+    },
+    "#10085": {
+      "text": false,
+      "html": false
+    },
+    "#10084": {
+      "text": false,
+      "html": false
+    },
+    "#10083": {
+      "text": false,
+      "html": false
+    },
+    "佐藤": {
+      "text": false,
+      "html": false
+    },
+    "鈴木": {
+      "text": false,
+      "html": false
+    },
+    "田中": {
+      "text": false,
+      "html": false
+    }
+  }
+}
