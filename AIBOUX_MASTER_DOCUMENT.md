@@ -4526,3 +4526,20 @@ Status: `WIP_DEPLOYED_NOT_FINAL`
 Status: WIP_DEPLOYED_NOT_FINAL
 
 The Shop Amazon-quality sprint now includes visible breadcrumbs, BreadcrumbList JSON-LD, Product JSON-LD, WebSite SearchAction JSON-LD, duplicate product title removal, and smoother TOP hero carousel behavior. This is not FINAL_ACCEPTED because D1 subscription migration and provider-backed recurring billing remain unverified.
+
+## 2026-06-04T13:57:00Z Current Evidence Note: Shop Robots And Sitemap SEO Discovery
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+- Target robots: `https://shop.aiboux.com/robots.txt`
+- Target sitemap: `https://shop.aiboux.com/sitemap.xml`
+- WIP commit: `b8142e0`
+- Worker Version ID: `90cbebfd-c9f4-418f-a8f7-d72e7f6df6cf`
+- `/sitemap.xml` was added to Worker and middleware static pass-through so it is not rewritten into Shop HTML.
+- `robots.txt` is HTTP 200 and points to the sitemap.
+- `sitemap.xml` is HTTP 200 and `application/xml; charset=utf-8`.
+- Sitemap includes public indexable Shop tenant discovery/content URLs and excludes cart, checkout, and admin URLs.
+- `gate:shop-public-crawl`: PASS, 6 passed on public URLs including robots/sitemap.
+- `gate:shop-sales-quality`: PASS on public URLs after sitemap route fix.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.

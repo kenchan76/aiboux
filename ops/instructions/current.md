@@ -179,3 +179,11 @@ Additional active requirements:
   - FAQ
 - `sitemap.xml` must not include cart, checkout, mypage, orders, favorites, login, register, admin, or subscription self-service pages.
 - Public Playwright must verify robots and sitemap behavior.
+
+## 2026-06-04 User Escalation: Sitemap Route Fix
+
+- `/sitemap.xml` must be treated as a static/public SEO file by Worker and Astro middleware routing.
+- `shop.aiboux.com/sitemap.xml` must not rewrite to `/shop/sitemap.xml`.
+- Public sitemap response must be XML with `content-type: application/xml; charset=utf-8`.
+- Public sitemap must include `/s/aiboux/`, `/s/aiboux/products`, `/s/aiboux/categories`, `/s/aiboux/product/setsuka-coffee`, and legal/support pages.
+- Public sitemap must exclude cart, checkout, and admin paths.
