@@ -4376,3 +4376,22 @@ Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
 - Public TOP side hero cards now expose `hero-slide-prev` and `hero-slide-next` with real images.
 - `npm run gate:shop-storefront-visual`: PASS, 3 passed.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T08:53:40Z Current Evidence Note: Public Storefront Slider And Interaction
+
+Status: `PUBLIC_STOREFRONT_SLIDER_AND_INTERACTION_FIX_WIP`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- WIP commit: `53c1fee`
+- Code WIP Worker Version ID: `4c77ab87-dffa-46b3-a764-10545da399e9`
+- Public TOP hero now changes slides by next, previous, dot click, and autoplay.
+- Public TOP side previews update as previous/next slide cards.
+- Product cards open product detail pages.
+- Cart add updates local cart count and button state.
+- Recommended and category `もっと見る` links route to tenant storefront pages.
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed.
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed.
+- Screen evidence is published under `/g/screens/`.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
