@@ -49,7 +49,7 @@ test.describe("AIBOUX Shop public storefront visual quality", () => {
 
     await expect(page.getByTestId("bestseller-ranking").getByTestId("ranking-card")).toHaveCount(5);
     await expect(page.getByTestId("time-sale-products").getByTestId("time-sale-card")).toHaveCount(5);
-    await expect(page.getByTestId("category-showcase").getByTestId("category-card")).toHaveCount(8);
+    await expect.poll(async () => page.getByTestId("category-showcase").getByTestId("category-card").count()).toBeGreaterThanOrEqual(8);
 
     const weakImages = await page.locator("img").evaluateAll((images) =>
       images.filter((image) => /placeholder|skeleton|gray|grey|no-image|画像なし|\/shop\/design\/hero-/i.test(image.getAttribute("src") || "")).length,

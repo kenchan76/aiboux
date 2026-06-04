@@ -135,7 +135,7 @@ const curatedCategoryCards = [
   { name: "セール", slug: "sale", productCount: 15 },
   { name: "ランキング", slug: "ranking", productCount: 20 },
 ];
-const categoryCards = [...curatedCategoryCards, ...categories]
+const categoryCards = [...curatedCategoryCards, ...categories.filter((category) => Number(category.productCount ?? 0) > 0)]
   .filter((category, index, array) => array.findIndex((item) => item.name === category.name || item.slug === category.slug) === index)
   .map((category, index) => ({
   ...category,
@@ -252,6 +252,20 @@ function buildCuratedPublicProduct(id: string) {
 
 function imageForSalesProduct(name: string, category: string, index: number): string {
   const source = `${name} ${category}`.toLowerCase();
+  const directMatch = /ゆめぴりか|米|rice/.test(source)
+    ? "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=920&h=920&q=84"
+    : /保存容器|クロス|キッチン/.test(source)
+      ? "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=920&h=920&q=84"
+      : /文具|本|stationery|book/.test(source)
+        ? "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=920&h=920&q=84"
+        : /スポーツ|アウトドア|sports|outdoor/.test(source)
+          ? "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=920&h=920&q=84"
+          : /セール|sale/.test(source)
+            ? "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=920&h=920&q=84"
+            : /ランキング|ranking/.test(source)
+              ? "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=920&h=920&q=84"
+              : "";
+  if (directMatch) return `${directMatch}&sig=${encodeURIComponent(`direct-${index}-${name}`)}`;
   const groups: Record<string, string[]> = {
     coffee: [
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=920&h=920&q=84",
@@ -275,7 +289,7 @@ function imageForSalesProduct(name: string, category: string, index: number): st
     kitchen: [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=920&h=920&q=84",
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=920&h=920&q=84",
-      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=920&h=920&q=84",
     ],
     daily: [
       "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=920&h=920&q=84",

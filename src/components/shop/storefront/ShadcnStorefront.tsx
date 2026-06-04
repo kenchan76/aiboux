@@ -685,6 +685,20 @@ function inferCategory(product: StorefrontProduct) {
 
 function imageForProduct(name: string, category: string, index: number) {
   const source = `${name} ${category}`.toLowerCase();
+  const directMatch = /ゆめぴりか|米|rice/.test(source)
+    ? "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&h=720&q=82"
+    : /保存容器|クロス|キッチン/.test(source)
+      ? "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82"
+      : /文具|本|stationery|book/.test(source)
+        ? "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=720&h=720&q=82"
+        : /スポーツ|アウトドア|sports|outdoor/.test(source)
+          ? "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=720&h=720&q=82"
+          : /セール|sale/.test(source)
+            ? "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=720&h=720&q=82"
+            : /ランキング|ranking/.test(source)
+              ? "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=720&h=720&q=82"
+              : "";
+  if (directMatch) return `${directMatch}&sig=${encodeURIComponent(`direct-${index}-${name}`)}`;
   const images = {
     coffee: [
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82",
