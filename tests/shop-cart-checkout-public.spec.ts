@@ -29,8 +29,8 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
           { id: "sprint-subscription", name: "軽量ステンレスボトル 500ml", price: 2232, image: "", quantity: 1, purchaseMode: "subscription", subscriptionPlanName: "毎月便", subscriptionInterval: "毎月" },
         ]),
       );
-      window.location.reload();
     });
+    await page.goto(`/s/aiboux/cart?cartGate=${Date.now()}`, { waitUntil: "networkidle" });
 
     await expect(page.getByText("雪花セレクト ドリップコーヒー 20袋")).toBeVisible();
     await expect(page.getByText("定期購入:")).toBeVisible();

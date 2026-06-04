@@ -56,6 +56,11 @@ const logoHref = logo?.linkType === "custom" && logo.customUrl ? logo.customUrl 
 const activeSubscriptionPlans = product?.subscriptionPlans ?? [];
 const primarySubscriptionPlan = activeSubscriptionPlans[0] ?? null;
 const subscriptionSchemaPending = Boolean(product?.subscriptionSchemaPending);
+const salesProduct = product ? toSalesProductDetail(product, 0) : null;
+const salesProductThumbnails = salesProduct ? buildProductThumbnails(salesProduct) : [];
+const relatedProductCards = salesProduct
+  ? buildRelatedSalesProducts(products, salesProduct).slice(0, 4)
+  : [];
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   products: { title: "商品一覧", description: "公開中の商品を表示します。" },
@@ -68,7 +73,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   shipping: { title: "配送について", description: "配送方法と送料の情報を表示します。" },
   returns: { title: "返品について", description: "返品・交換条件を表示します。" },
   faq: { title: "よくある質問", description: "ストア利用前によく確認される項目を表示します。" },
-  product: { title: product?.displayName || "商品詳細", description: product ? `${product.displayName} の商品詳細です。` : "商品が見つかりません。" },
+  product: { title: salesProduct?.displayName || "商品詳細", description: salesProduct ? `${salesProduct.displayName} の商品詳細です。` : "商品が見つかりません。" },
 };
 
 const meta = pageMeta[page] ?? { title: "ストアページ", description: "AIBOUX Storeの公開ページです。" };
@@ -77,11 +82,6 @@ const canonicalUrl = isKnownTenant && isAllowedPath
   ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
 
-const salesProduct = product ? toSalesProductDetail(product, 0) : null;
-const salesProductThumbnails = salesProduct ? buildProductThumbnails(salesProduct) : [];
-const relatedProductCards = salesProduct
-  ? buildRelatedSalesProducts(products, salesProduct).slice(0, 4)
-  : [];
 const policyText = profile && ["legal", "privacy", "shipping", "returns"].includes(page)
   ? page === "legal"
     ? profile.tokushohoText
