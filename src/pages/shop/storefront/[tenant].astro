@@ -1,6 +1,11 @@
 ---
 import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
 import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront";
+import {
+  buildShopBreadcrumbJsonLd,
+  buildShopOrganizationJsonLd,
+  buildShopWebsiteJsonLd,
+} from "@/lib/shopSeo";
 import { getShopStorefrontLayout, getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
 import "@/styles/global.css";
 
@@ -23,53 +28,17 @@ const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "�
 const canonicalUrl = isKnownTenant && profile
   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
-const breadcrumbJsonLd = JSON.stringify([
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "TOP",
-        item: canonicalUrl,
-      },
-    ],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: storeName,
-    url: canonicalUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${canonicalUrl}products?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: storeName,
-    url: canonicalUrl,
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer support",
-      email: profile?.contactEmail || undefined,
-      telephone: profile?.phone || undefined,
-      areaServed: "JP",
-      availableLanguage: ["ja"],
-    },
-    hasMerchantReturnPolicy: {
-      "@type": "MerchantReturnPolicy",
-      applicableCountry: "JP",
-      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-      merchantReturnDays: 7,
-      returnMethod: "https://schema.org/ReturnByMail",
-      returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
-      merchantReturnLink: new URL(`/s/${encodeURIComponent(tenantParam)}/returns`, "https://shop.aiboux.com").toString(),
-    },
-  },
+const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
+const structuredData = JSON.stringify([
+  buildShopBreadcrumbJsonLd([{ name: "TOP", href: "", url: canonicalUrl }]),
+  buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
+  buildShopOrganizationJsonLd({
+    storeName,
+    absoluteTenantRoot: canonicalUrl,
+    tenantRoot,
+    contactEmail: profile?.contactEmail,
+    phone: profile?.phone,
+  }),
 ]);
 
 const storefrontProducts = products.map((product) => ({
@@ -93,7 +62,7 @@ const storefrontProducts = products.map((product) => ({
     <title>{title}</title>
     <meta name="description" content={`${storeName}の公開ストアです。`} />
     <link rel="canonical" href={canonicalUrl} />
-    <script type="application/ld+json" set:html={breadcrumbJsonLd}></script>
+    <script type="application/ld+json" set:html={structuredData}></script>
   </head>
   <body>
     {

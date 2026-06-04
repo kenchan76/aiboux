@@ -109,6 +109,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
         <nav className="flex items-center gap-1 py-3 text-xs text-neutral-500" aria-label="パンくず" data-testid="storefront-breadcrumb">
           <span className="font-semibold text-neutral-700" aria-current="page">TOP</span>
         </nav>
+        <h1 className="sr-only">{storeName}</h1>
         <section
           className="pt-0"
           data-testid="hero-carousel"
@@ -335,6 +336,8 @@ function HeroCarouselSlide({
   trackIndex: number;
   testId: string;
 }) {
+  const isSidePreview = testId === "hero-slide-prev" || testId === "hero-slide-next";
+
   return (
     <article
       className="relative min-h-[330px] shrink-0 basis-[72%] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm transition-[filter,opacity,transform] duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
@@ -345,14 +348,20 @@ function HeroCarouselSlide({
       data-slide-id={slide.id}
     >
       {slide.imageUrl ? (
-        <img src={slide.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" data-hero-main-img />
+        <img
+          src={slide.imageUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-90"
+          data-hero-main-img
+          data-hero-side-image={isSidePreview ? "true" : undefined}
+        />
       ) : (
         <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
       )}
       <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
       <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
         <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
-        <h1 className="line-clamp-2 text-3xl font-black leading-tight md:text-5xl" data-hero-title>{slide.title}</h1>
+        <h2 className="line-clamp-2 text-3xl font-black leading-tight md:text-5xl" data-hero-title>{slide.title}</h2>
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/90 md:text-base" data-hero-subtitle>{slide.subtitle}</p>
         {slide.ctaText ? (
           <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={slide.ctaHref || `${tenantRoot}/products`} data-hero-cta>

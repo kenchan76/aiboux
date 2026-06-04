@@ -1,6 +1,14 @@
 ---
 import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
 import {
+  buildShopBreadcrumbItems,
+  buildShopBreadcrumbJsonLd,
+  buildShopItemListJsonLd,
+  buildShopOrganizationJsonLd,
+  buildShopProductJsonLd,
+  buildShopWebsiteJsonLd,
+} from "@/lib/shopSeo";
+import {
   buildReturnsText,
   buildShippingText,
   formatShopPrice,
@@ -105,85 +113,14 @@ const breadcrumbItems = buildShopBreadcrumbItems({
   canonicalUrl,
   product: salesProduct,
 });
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: breadcrumbItems.map((item, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    name: item.name,
-    item: item.url,
-  })),
-};
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: storeName,
-  url: absoluteTenantRoot,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${absoluteTenantRoot}products?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
-};
-const productJsonLd = salesProduct
-  ? {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: salesProduct.displayName,
-      image: [salesProduct.imageUrl],
-      description: salesProduct.description || salesProduct.seoDescription || meta.description,
-      sku: salesProduct.sku,
-      category: salesProduct.categoryName,
-      brand: {
-        "@type": "Brand",
-        name: storeName,
-      },
-      offers: {
-        "@type": "Offer",
-        url: canonicalUrl,
-        priceCurrency: "JPY",
-        price: String(salesProduct.salePrice),
-        availability: salesProduct.inStock ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
-        itemCondition: "https://schema.org/NewCondition",
-        shippingDetails: {
-          "@type": "OfferShippingDetails",
-          shippingDestination: {
-            "@type": "DefinedRegion",
-            addressCountry: "JP",
-          },
-          deliveryTime: {
-            "@type": "ShippingDeliveryTime",
-            handlingTime: {
-              "@type": "QuantitativeValue",
-              minValue: 1,
-              maxValue: 2,
-              unitCode: "DAY",
-            },
-            transitTime: {
-              "@type": "QuantitativeValue",
-              minValue: 2,
-              maxValue: 4,
-              unitCode: "DAY",
-            },
-          },
-        },
-        hasMerchantReturnPolicy: {
-          "@type": "MerchantReturnPolicy",
-          applicableCountry: "JP",
-          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-          merchantReturnDays: 7,
-          returnMethod: "https://schema.org/ReturnByMail",
-          returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
-        },
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.7",
-        reviewCount: "128",
-      },
-    }
-  : null;
+const breadcrumbJsonLd = buildShopBreadcrumbJsonLd(breadcrumbItems);
+const websiteJsonLd = buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot });
+const productJsonLd = buildShopProductJsonLd({
+  product: salesProduct,
+  canonicalUrl,
+  storeName,
+  fallbackDescription: meta.description,
+});
 const policyText = profile && ["legal", "privacy", "shipping", "returns"].includes(page)
   ? page === "legal"
     ? profile.tokushohoText
@@ -233,29 +170,13 @@ const categoryCards = [...curatedCategoryCards, ...categories.filter((category) 
   ...category,
   imageUrl: imageForSalesProduct(category.name, category.name, index),
 }));
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: storeName,
-  url: absoluteTenantRoot,
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer support",
-    email: profile?.contactEmail || undefined,
-    telephone: profile?.phone || undefined,
-    areaServed: "JP",
-    availableLanguage: ["ja"],
-  },
-  hasMerchantReturnPolicy: {
-    "@type": "MerchantReturnPolicy",
-    applicableCountry: "JP",
-    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-    merchantReturnDays: 7,
-    returnMethod: "https://schema.org/ReturnByMail",
-    returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
-    merchantReturnLink: new URL(`${tenantRoot}/returns`, "https://shop.aiboux.com").toString(),
-  },
-};
+const organizationJsonLd = buildShopOrganizationJsonLd({
+  storeName,
+  absoluteTenantRoot,
+  tenantRoot,
+  contactEmail: profile?.contactEmail,
+  phone: profile?.phone,
+});
 const itemListJsonLd = buildShopItemListJsonLd({
   page,
   canonicalUrl,
@@ -611,91 +532,6 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
   return blocks;
 }
 
-function buildShopBreadcrumbItems({
-  page,
-  metaTitle,
-  tenantRoot,
-  absoluteTenantRoot,
-  canonicalUrl,
-  product,
-}: {
-  page: string;
-  metaTitle: string;
-  tenantRoot: string;
-  absoluteTenantRoot: string;
-  canonicalUrl: string;
-  product: ReturnType<typeof toSalesProductDetail> | null;
-}) {
-  const items = [
-    { name: "TOP", href: `${tenantRoot}/`, url: absoluteTenantRoot },
-  ];
-  if (page === "product" && product) {
-    items.push({ name: "商品一覧", href: `${tenantRoot}/products`, url: new URL(`${tenantRoot}/products`, "https://shop.aiboux.com").toString() });
-    items.push({ name: product.categoryName || "商品", href: `${tenantRoot}/products?category=${encodeURIComponent(product.categoryName || "")}`, url: new URL(`${tenantRoot}/products?category=${encodeURIComponent(product.categoryName || "")}`, "https://shop.aiboux.com").toString() });
-    items.push({ name: product.displayName, href: "", url: canonicalUrl });
-    return items;
-  }
-  if (page !== "") {
-    items.push({ name: metaTitle, href: "", url: canonicalUrl });
-  }
-  return items;
-}
-
-function buildShopItemListJsonLd({
-  page,
-  canonicalUrl,
-  tenantRoot,
-  publicProductCards,
-  categoryCards,
-  accountCards,
-  policySupportCards,
-}: {
-  page: string;
-  canonicalUrl: string;
-  tenantRoot: string;
-  publicProductCards: any[];
-  categoryCards: any[];
-  accountCards: Array<{ title: string; body: string; href: string }>;
-  policySupportCards: Array<{ title: string; body: string; href: string }>;
-}) {
-  const base = "https://shop.aiboux.com";
-  const toAbsolute = (href: string) => new URL(href, base).toString();
-  const listItems =
-    page === "products" || page === "favorites"
-      ? publicProductCards.slice(0, 20).map((item) => ({
-          name: item.displayName,
-          url: toAbsolute(`${tenantRoot}/product/${item.id}`),
-        }))
-      : page === "categories"
-        ? categoryCards.slice(0, 20).map((item) => ({
-            name: item.name,
-            url: toAbsolute(`${tenantRoot}/products?category=${encodeURIComponent(item.slug ?? item.name)}`),
-          }))
-        : ["mypage", "account", "login", "register"].includes(page)
-          ? accountCards.map((item) => ({
-              name: item.title,
-              url: toAbsolute(item.href),
-            }))
-          : ["contact", "legal", "privacy", "shipping", "returns", "faq"].includes(page)
-            ? policySupportCards.map((item) => ({
-                name: item.title,
-                url: toAbsolute(item.href),
-              }))
-            : [];
-
-  if (!listItems.length) return null;
-  return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    url: canonicalUrl,
-    itemListElement: listItems.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      url: item.url,
-    })),
-  };
-}
 ---
 
 <!doctype html>
