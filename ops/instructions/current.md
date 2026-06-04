@@ -13,6 +13,31 @@ Active instruction file:
 - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
 - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
 - `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
+- `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
+
+## 2026-06-05 Continuation: Trust Matrix SEO/UI Commonization
+
+Continue the active sales-quality sprint. The current work unit is adding a shared trust and proof matrix to every public tenant storefront page so purchase confidence, seller information, shipping, returns, payment honesty, subscription status, privacy, and support are visible and crawlable.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+
+Current additions required:
+
+- Add shared trust matrix data in `shopStorefrontShared.ts`.
+- Add `StorefrontTrustMatrix`.
+- Render it on TOP, product detail, and every public storefront subpage.
+- Keep links crawlable and visibly blue.
+- Expose visible `ItemList` microdata for trust signals.
+- Add trust-matrix links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
+- Keep product detail single-H1 and no duplicate product title above the gallery.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 
 ## 2026-06-05 Continuation: Page Action Map SEO/UI Commonization

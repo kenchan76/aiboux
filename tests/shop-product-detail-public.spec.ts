@@ -63,6 +63,18 @@ test.describe("AIBOUX Shop product detail public quality", () => {
         "https://schema.org/SiteNavigationElement",
       );
       expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
+      const trustMatrix = page.getByTestId("storefront-trust-matrix");
+      await expect(trustMatrix, "product detail should include shared trust/proof matrix").toBeVisible();
+      await expect(trustMatrix, "product detail trust matrix should expose ItemList microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/ItemList",
+      );
+      await expect(trustMatrix, "product detail trust matrix should mention product-specific purchase trust").toContainText("購入前の信頼");
+      await expect(trustMatrix, "product detail trust matrix should reinforce seller/payment/returns/subscription context").toContainText(/販売者|決済|返品|定期購入|個人情報/);
+      await expect(trustMatrix.locator('meta[itemprop="numberOfItems"]'), "product detail trust matrix should declare numberOfItems").toHaveCount(1);
+      expect(await trustMatrix.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail trust matrix should expose ListItem microdata").toBeGreaterThanOrEqual(4);
+      expect(await trustMatrix.locator("a").count(), "product detail trust matrix should expose crawlable proof links").toBeGreaterThanOrEqual(4);
+      expect(await trustMatrix.locator("a").first().getAttribute("class"), "product detail trust matrix links should be visibly blue").toContain("text-blue-700");
       const qualitySummary = page.getByTestId("storefront-page-quality-summary");
       await expect(qualitySummary, "product detail should include shared page quality summary").toBeVisible();
       await expect(qualitySummary, "product detail quality summary should identify page role").toContainText("商品詳細で確認できること");

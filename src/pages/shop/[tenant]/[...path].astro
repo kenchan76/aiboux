@@ -13,6 +13,7 @@ import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSea
 import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
+import { StorefrontTrustMatrix } from "@/components/shop/storefront/StorefrontTrustMatrix";
 import {
   buildShopBreadcrumbItems,
   buildShopBreadcrumbJsonLd,
@@ -53,6 +54,7 @@ import {
   buildShopSeoChecklist,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
+  buildShopTrustMatrix,
 } from "@/lib/shopStorefrontShared";
 import "@/styles/global.css";
 
@@ -196,6 +198,13 @@ const seoChecklist = buildShopSeoChecklist(page, tenantRoot);
 const seoChecklistLinks = seoChecklist.items.map((item) => ({ label: item.label, href: item.href }));
 const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
 const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
+const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
+  productName: salesProduct?.displayName,
+  priceLabel: salesProduct ? formatShopPrice(salesProduct.salePrice) : undefined,
+  inStock: salesProduct?.inStock,
+  subscriptionSchemaPending,
+});
+const trustMatrixLinks = trustMatrix.signals.map((item) => ({ label: item.label, href: item.href }));
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const normalizedSearchNeedle = searchQuery.toLowerCase();
 const visibleProductCards = page === "products" && normalizedSearchNeedle
@@ -242,6 +251,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
     ...pageHeaderActions,
     ...pageQualityLinks,
     ...actionMapLinks,
+    ...trustMatrixLinks,
     ...seoChecklistLinks,
     ...buyingGuideLinks,
     ...contextualLinks,
@@ -671,6 +681,9 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               subscriptionSchemaPending={true}
             />
           ) : null}
+          {page !== "product" ? (
+            <StorefrontTrustMatrix trustMatrix={trustMatrix} />
+          ) : null}
           <StorefrontPageQualitySummary summary={pageQualitySummary} />
           <StorefrontPageActionMap actionMap={actionMap} />
           <StorefrontSeoChecklist checklist={seoChecklist} />
@@ -759,6 +772,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     inStock={salesProduct.inStock}
                     subscriptionSchemaPending={subscriptionSchemaPending}
                   />
+                  <StorefrontTrustMatrix trustMatrix={trustMatrix} />
                   {productDesign?.content.showPoints ? <p class="mt-2 text-sm text-neutral-600">ポイント付与対象商品です。</p> : null}
                   {productDesign?.content.showVariations ? (
                     <div class="mt-5">

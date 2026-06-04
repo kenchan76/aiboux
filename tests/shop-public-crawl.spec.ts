@@ -122,6 +122,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         );
         expect(await commerceFacts.locator("a").count(), `${target.path} purchase facts should have crawlable internal links`).toBeGreaterThanOrEqual(5);
         expect(await commerceFacts.locator("a").first().getAttribute("class"), `${target.path} purchase fact links should be visibly styled`).toMatch(/border-|bg-/);
+        const trustMatrix = page.getByTestId("storefront-trust-matrix");
+        await expect(trustMatrix, `${target.path} should include shared trust/proof matrix`).toBeVisible();
+        await expect(trustMatrix, `${target.path} trust matrix should expose ItemList microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/ItemList",
+        );
+        await expect(trustMatrix, `${target.path} trust matrix should name purchase confidence context`).toContainText("購入前の信頼");
+        await expect(trustMatrix, `${target.path} trust matrix should mention payment or subscription honesty`).toContainText(/決済|定期購入/);
+        await expect(trustMatrix.locator('meta[itemprop="numberOfItems"]'), `${target.path} trust matrix should declare numberOfItems`).toHaveCount(1);
+        expect(await trustMatrix.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} trust matrix should expose visible ListItem microdata`).toBeGreaterThanOrEqual(4);
+        expect(await trustMatrix.locator("a").count(), `${target.path} trust matrix should expose crawlable proof links`).toBeGreaterThanOrEqual(4);
+        expect(await trustMatrix.locator("a").first().getAttribute("class"), `${target.path} trust matrix links should be visibly blue and underlined`).toContain("text-blue-700");
         const qualitySummary = page.getByTestId("storefront-page-quality-summary");
         await expect(qualitySummary, `${target.path} should include shared page quality summary`).toBeVisible();
         await expect(qualitySummary, `${target.path} quality summary should explain page intent`).toContainText("検索意図");

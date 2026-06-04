@@ -1,0 +1,814 @@
+diff --git a/AIBOUX_MASTER_DOCUMENT.md b/AIBOUX_MASTER_DOCUMENT.md
+index 83b6045..1e1fb71 100644
+--- a/AIBOUX_MASTER_DOCUMENT.md
++++ b/AIBOUX_MASTER_DOCUMENT.md
+@@ -1,6 +1,38 @@
+ # AIBOUX 正本マスター
+ # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+ 
++## Current Active Operating Override: AIBOUX Shop Trust Matrix SEO/UI Commonization
++
++Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`
++
++The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
++`https://shop.aiboux.com/` remains the Shop service site.
++
++This override strengthens every public tenant storefront page with a shared trust and proof matrix.
++
++Implemented WIP direction:
++
++- `buildShopTrustMatrix(page, tenantRoot, input)` is the shared source for seller, shipping, returns, payment, subscription, privacy, and support proof.
++- `StorefrontTrustMatrix` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
++- The trust matrix uses crawlable `<a href>` links with visible blue/underlined link affordance.
++- The trust matrix exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
++- TOP and subpage `SiteNavigationElement` JSON-LD source links include trust-matrix links.
++- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
++- Google Search Central references checked for this WIP include the SEO Starter Guide, crawlable links, Product structured data, Merchant listing structured data, ecommerce structured data, and Breadcrumb structured data.
++
++Latest WIP evidence:
++
++- `npm run check:control-chars`: PASS.
++- `npm run check:mojibake`: PASS.
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
++- Public deploy, public URL verification, public Playwright, and Bark progress evidence are recorded in `https://mail.aiboux.com/g/l68`.
++
++Not final:
++
++- `FINAL_ACCEPTED` is prohibited.
++- `gate:shop-subscriptions` remains blocked in the subscription lane.
++- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
++
+ ## Current Active Operating Override: AIBOUX Shop Shared SEO/UI Checklist
+ 
+ Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
+diff --git a/ops/improvements/20260605_daily_improvement.md b/ops/improvements/20260605_daily_improvement.md
+index c373708..e596b7e 100644
+--- a/ops/improvements/20260605_daily_improvement.md
++++ b/ops/improvements/20260605_daily_improvement.md
+@@ -18,3 +18,7 @@ Google Search Central emphasizes crawlable links, clear ecommerce site structure
+ ## Additional Improvement
+ 
+ For ecommerce SEO/UI work, each public page should expose a visible page-specific action map built from a shared model. The same action links should be crawlable in rendered HTML and included in structured navigation sources where appropriate, so thin account, policy, support, cart, and checkout pages still provide clear user actions and internal-link context.
++
++## Additional Improvement 2
++
++Every public ecommerce page should expose a shared trust matrix that makes seller identity, shipping, returns, payment state, subscription state, privacy, and support crawlable and visible. This prevents policy/support pages from becoming thin content and gives product, cart, checkout, and account pages the same purchase-confidence model.
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index f2ede14..4dcfec5 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -13,6 +13,31 @@ Active instruction file:
+ - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
+ - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+ - `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
++- `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
++
++## 2026-06-05 Continuation: Trust Matrix SEO/UI Commonization
++
++Continue the active sales-quality sprint. The current work unit is adding a shared trust and proof matrix to every public tenant storefront page so purchase confidence, seller information, shipping, returns, payment honesty, subscription status, privacy, and support are visible and crawlable.
++
++Google Search Central references checked for this continuation:
++
++- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
++- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
++- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
++- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
++- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
++- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
++
++Current additions required:
++
++- Add shared trust matrix data in `shopStorefrontShared.ts`.
++- Add `StorefrontTrustMatrix`.
++- Render it on TOP, product detail, and every public storefront subpage.
++- Keep links crawlable and visibly blue.
++- Expose visible `ItemList` microdata for trust signals.
++- Add trust-matrix links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
++- Keep product detail single-H1 and no duplicate product title above the gallery.
++- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+ 
+ 
+ ## 2026-06-05 Continuation: Page Action Map SEO/UI Commonization
+diff --git a/public/g/d68.md b/public/g/d68.md
+index 97dc34f..62bcf04 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -1,5 +1,45 @@
+ # AIBOUX Shop Sales Tenant Screen Artifact
+ 
++## 2026-06-04T22:27:44Z Trust Matrix SEO/UI Evidence
++
++Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`
++
++This is WIP DOM/screen evidence, not `FINAL_ACCEPTED`.
++
++### Verified Intended Structure
++
++- Every public storefront page must render `data-testid="storefront-trust-matrix"` after the shared purchase facts.
++- The trust matrix must expose visible `ItemList` microdata.
++- Each trust signal must expose visible `ListItem` microdata and a crawlable `<a href>` link.
++- Links must use visible blue/underlined link affordance.
++- TOP and subpage `SiteNavigationElement` JSON-LD source links must include trust matrix links.
++- Product detail must keep one visible product `h1`; no duplicate product title above the gallery may be reintroduced.
++
++### Verification Before Deploy
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++
++### Public DOM Evidence
++
++Pending WIP deploy and public verification in this work unit.
++
++### Screen Evidence To Refresh After WIP Deploy
++
++Updated screenshots remain expected under `/g/screens/`, including:
++
++- `/g/screens/shop-top-1365.png`
++- `/g/screens/shop-top-1980.png`
++- `/g/screens/shop-top-mobile.png`
++- `/g/screens/shop-product-detail-1365.png`
++- `/g/screens/shop-product-detail-1980.png`
++- `/g/screens/shop-product-detail-mobile.png`
++
++### Non-Final Condition
++
++`FINAL_ACCEPTED` remains prohibited until remote D1 subscription migration and provider-backed subscription creation are verified.
++
+ ## 2026-06-04T22:01:01Z Shared SEO/UI Checklist Evidence
+ 
+ Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
+diff --git a/public/g/l68.md b/public/g/l68.md
+index ebf62fa..0c83f6f 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -1,5 +1,64 @@
+ # AIBOUX Shop Sales Tenant Execution Log
+ 
++## 2026-06-04T22:27:44Z Trust Matrix SEO/UI Commonization WIP
++
++Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`
++
++This is not `FINAL_ACCEPTED`.
++
++### Purpose
++
++The user required every page structure to become SEO-strong and UI-strong, and asked to identify shared parts that can be commonized. This work unit adds a shared trust/proof matrix so every public page visibly exposes seller identity, shipping, returns, payment honesty, subscription state, privacy, and support.
++
++### Official SEO References Checked
++
++- Google Search Central SEO Starter Guide
++- Google Search Central crawlable links guidance
++- Google Search Central Product structured data
++- Google Search Central Merchant listing structured data
++- Google Search Central ecommerce structured data guidance
++- Google Search Central Breadcrumb structured data
++
++### Implementation
++
++- `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
++  - Added the active trust matrix SEO/UI instruction.
++- `ops/instructions/current.md`
++  - Reflected this continuation.
++- `AIBOUX_MASTER_DOCUMENT.md`
++- `public/g/m68.md`
++  - Added the active override for `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`.
++- `src/lib/shopStorefrontShared.ts`
++  - Added `ShopStorefrontTrustMatrix`, `ShopStorefrontTrustMatrixSignal`, and `buildShopTrustMatrix(page, tenantRoot, input)`.
++- `src/components/shop/storefront/StorefrontTrustMatrix.tsx`
++  - Added the shared visible trust/proof matrix component.
++  - Uses crawlable `<a href>` links with visible blue/underlined link affordance.
++  - Exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
++- `src/components/shop/storefront/ShadcnStorefront.tsx`
++  - Renders the TOP trust matrix after purchase facts.
++- `src/pages/shop/[tenant]/[...path].astro`
++  - Renders the trust matrix on every public storefront subpage and product detail.
++  - Adds trust matrix links into `SiteNavigationElement` JSON-LD source links.
++- `src/pages/shop/storefront/[tenant].astro`
++  - Adds TOP trust matrix links into `SiteNavigationElement` JSON-LD source links.
++- Tests strengthened:
++  - `tests/shop-public-crawl.spec.ts`
++  - `tests/shop-product-detail-public.spec.ts`
++
++### Verification Before Deploy
++
++- `npm run check:control-chars`: PASS
++- `npm run check:mojibake`: PASS
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
++
++### Public Verification
++
++Pending WIP deploy and public verification in this work unit.
++
++### Non-Final Condition
++
++`FINAL_ACCEPTED` remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
++
+ ## 2026-06-04T22:01:01Z Shared SEO/UI Checklist Commonization WIP
+ 
+ Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
+diff --git a/public/g/m68.md b/public/g/m68.md
+index 1dd0a15..e2b0e06 100644
+--- a/public/g/m68.md
++++ b/public/g/m68.md
+@@ -1,6 +1,38 @@
+ # AIBOUX 正本マスター
+ # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+ 
++## Current Active Operating Override: AIBOUX Shop Trust Matrix SEO/UI Commonization
++
++Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`
++
++The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
++`https://shop.aiboux.com/` remains the Shop service site.
++
++This override strengthens every public tenant storefront page with a shared trust and proof matrix.
++
++Implemented WIP direction:
++
++- `buildShopTrustMatrix(page, tenantRoot, input)` is the shared source for seller, shipping, returns, payment, subscription, privacy, and support proof.
++- `StorefrontTrustMatrix` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
++- The trust matrix uses crawlable `<a href>` links with visible blue/underlined link affordance.
++- The trust matrix exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
++- TOP and subpage `SiteNavigationElement` JSON-LD source links include trust-matrix links.
++- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
++- Google Search Central references checked for this WIP include the SEO Starter Guide, crawlable links, Product structured data, Merchant listing structured data, ecommerce structured data, and Breadcrumb structured data.
++
++Latest WIP evidence:
++
++- `npm run check:control-chars`: PASS.
++- `npm run check:mojibake`: PASS.
++- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
++- Public deploy, public URL verification, public Playwright, and Bark progress evidence are recorded in `https://mail.aiboux.com/g/l68`.
++
++Not final:
++
++- `FINAL_ACCEPTED` is prohibited.
++- `gate:shop-subscriptions` remains blocked in the subscription lane.
++- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
++
+ ## Current Active Operating Override: AIBOUX Shop Shared SEO/UI Checklist
+ 
+ Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index c3fb582..547f701 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -8,6 +8,7 @@ import {
+   buildShopPageBuyingGuide,
+   buildShopPageQualitySummary,
+   buildShopSeoChecklist,
++  buildShopTrustMatrix,
+   type ShopStorefrontContextLinkSection,
+ } from "@/lib/shopStorefrontShared";
+ import { cn } from "@/lib/utils";
+@@ -22,6 +23,7 @@ import { StorefrontSearchForm } from "./StorefrontSearchForm";
+ import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
+ import { StorefrontSeoHub } from "./StorefrontSeoHub";
+ import { StorefrontSupportRail } from "./StorefrontSupportRail";
++import { StorefrontTrustMatrix } from "./StorefrontTrustMatrix";
+ 
+ type StorefrontProduct = {
+   id: string;
+@@ -117,6 +119,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+   const actionMap = buildShopPageActionMap("", tenantRoot);
+   const seoChecklist = buildShopSeoChecklist("", tenantRoot);
+   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
++  const trustMatrix = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true });
+   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
+   const columnClass = {
+     3: "lg:grid-cols-3",
+@@ -227,6 +230,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+           page=""
+           subscriptionSchemaPending
+         />
++        <StorefrontTrustMatrix trustMatrix={trustMatrix} />
+         <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
+         <StorefrontPageActionMap actionMap={actionMap} />
+         <StorefrontSeoChecklist checklist={seoChecklist} />
+diff --git a/src/lib/shopStorefrontShared.ts b/src/lib/shopStorefrontShared.ts
+index 26e6951..52653e3 100644
+--- a/src/lib/shopStorefrontShared.ts
++++ b/src/lib/shopStorefrontShared.ts
+@@ -98,6 +98,22 @@ export type ShopStorefrontPageQualitySummary = {
+   signals: ShopStorefrontPageQualitySignal[];
+ };
+ 
++export type ShopStorefrontTrustMatrixSignal = {
++  title: string;
++  body: string;
++  href: string;
++  label: string;
++  badge: string;
++  proof: string;
++};
++
++export type ShopStorefrontTrustMatrix = {
++  title: string;
++  summary: string;
++  pageContext: string;
++  signals: ShopStorefrontTrustMatrixSignal[];
++};
++
+ export type ShopStorefrontBreadcrumbSupportLink = {
+   label: string;
+   href: string;
+@@ -1549,6 +1565,363 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+   };
+ }
+ 
++export function buildShopTrustMatrix(
++  page: string,
++  tenantRoot: string,
++  input: {
++    productName?: string | null;
++    priceLabel?: string | null;
++    inStock?: boolean | null;
++    subscriptionSchemaPending?: boolean;
++  } = {},
++): ShopStorefrontTrustMatrix {
++  const productName = String(input.productName || "商品").replace(/\s+/g, " ").trim();
++  const priceLabel = String(input.priceLabel || "税込価格").replace(/\s+/g, " ").trim();
++  const stockProof = input.inStock === false ? "在庫状態は商品詳細と問い合わせで確認" : "在庫あり表示と配送目安を購入前に確認";
++  const subscriptionProof = input.subscriptionSchemaPending
++    ? "定期購入DB migration未適用時は申込み不可として明示"
++    : "通常購入と定期購入の条件を購入前に分離";
++
++  const sharedSignals: ShopStorefrontTrustMatrixSignal[] = [
++    {
++      title: "販売者と連絡先",
++      body: "販売者情報、問い合わせ先、特商法を確認できる状態にし、薄い匿名ストアにしません。",
++      href: `${tenantRoot}/legal`,
++      label: "販売者情報",
++      badge: "Seller",
++      proof: "特商法・問い合わせへクロール可能なリンク",
++    },
++    {
++      title: "配送と在庫",
++      body: `${stockProof}。送料、発送目安、追跡条件を配送ページへ集約します。`,
++      href: `${tenantRoot}/shipping`,
++      label: "配送条件",
++      badge: "Shipping",
++      proof: "配送ページと商品詳細の購入条件を接続",
++    },
++    {
++      title: "返品とキャンセル",
++      body: "返品期限、初期不良、未開封条件、キャンセル相談先を注文前に確認できます。",
++      href: `${tenantRoot}/returns`,
++      label: "返品条件",
++      badge: "Return",
++      proof: "返品・特商法・問い合わせを相互リンク",
++    },
++    {
++      title: "決済と定期購入",
++      body: `${subscriptionProof}。決済未接続時は成功したふりをせず、checkoutで正直に止めます。`,
++      href: `${tenantRoot}/checkout`,
++      label: "注文前確認",
++      badge: "Payment",
++      proof: "決済未接続と定期購入状態を明示",
++    },
++    {
++      title: "個人情報とサポート",
++      body: "注文、問い合わせ、アカウント、定期購入で扱う情報をプライバシーとFAQへつなげます。",
++      href: `${tenantRoot}/privacy`,
++      label: "個人情報",
++      badge: "Privacy",
++      proof: "プライバシー・FAQ・問い合わせを同一導線に配置",
++    },
++  ];
++
++  const specific: Record<string, Omit<ShopStorefrontTrustMatrix, "signals"> & { signals: ShopStorefrontTrustMatrixSignal[] }> = {
++    "": {
++      title: "TOPページ購入前の信頼マトリクス",
++      summary: "初回訪問でも、ストアの販売者、配送、返品、決済、サポートにすぐ到達できるようにします。",
++      pageContext: "TOPから商品、カテゴリ、購入条件へ進む前の安心材料です。",
++      signals: [
++        {
++          title: "売り場全体の信頼導線",
++          body: "おすすめ、ランキング、タイムセールから商品詳細へ進む前に、配送返品と問い合わせへ戻れます。",
++          href: `${tenantRoot}/products`,
++          label: "商品一覧",
++          badge: "Store",
++          proof: "TOP、商品一覧、カテゴリ、フッターの内部リンクを統一",
++        },
++      ],
++    },
++    products: {
++      title: "商品一覧購入前の信頼マトリクス",
++      summary: "商品比較中に、税込価格、配送、返品、在庫、サポートの確認先を見失わない構造にします。",
++      pageContext: "一覧から詳細、カテゴリ、カートへ進む前の購入判断です。",
++      signals: [
++        {
++          title: "一覧カードの比較根拠",
++          body: "画像、商品名、カテゴリ、価格、レビュー、CTAを共通カードで揃えます。",
++          href: `${tenantRoot}/categories`,
++          label: "カテゴリ",
++          badge: "Compare",
++          proof: "商品カードとカテゴリURLを同じデータから生成",
++        },
++      ],
++    },
++    categories: {
++      title: "カテゴリ購入前の信頼マトリクス",
++      summary: "カテゴリごとの商品件数、画像、安定URL、購入条件を同じページ構造で確認できます。",
++      pageContext: "カテゴリから商品一覧へ進む前の階層確認です。",
++      signals: [
++        {
++          title: "カテゴリ階層の明確化",
++          body: "カテゴリカードから安定した商品一覧URLへつなげ、任意検索ページと分けます。",
++          href: `${tenantRoot}/products`,
++          label: "商品一覧",
++          badge: "Category",
++          proof: "カテゴリカードとcanonical対象URLを分離",
++        },
++      ],
++    },
++    product: {
++      title: `${productName} 購入前の信頼マトリクス`,
++      summary: `${priceLabel}、在庫、配送、返品、決済、定期購入、問い合わせを1商品に集中させます。`,
++      pageContext: "商品詳細で購入判断を完結させるための確認表です。",
++      signals: [
++        {
++          title: "単一商品ページの根拠",
++          body: "商品名H1、画像、価格、在庫、SKU、配送返品をProduct/Offer文脈に揃えます。",
++          href: `${tenantRoot}/cart`,
++          label: "カートで確認",
++          badge: "Product",
++          proof: "二重タイトルなし・Product/Offer JSON-LDあり",
++        },
++      ],
++    },
++    cart: {
++      title: "カート購入前の信頼マトリクス",
++      summary: "数量、小計、配送、返品、通常購入と定期購入の違いを注文前に確認します。",
++      pageContext: "checkoutへ進む前の注文確認です。",
++      signals: [
++        {
++          title: "注文前の合計確認",
++          body: "数量変更、削除、小計、定期購入頻度を分けて表示します。",
++          href: `${tenantRoot}/checkout`,
++          label: "checkout",
++          badge: "Cart",
++          proof: "カート操作とcheckout導線を同じページで確認",
++        },
++      ],
++    },
++    checkout: {
++      title: "checkout購入前の信頼マトリクス",
++      summary: "顧客情報、配送先、決済状態、定期購入規約、販売条件を注文確定前に確認します。",
++      pageContext: "決済未接続なら成功扱いにせず、原因と戻り先を示します。",
++      signals: [
++        {
++          title: "注文確定の正直な停止",
++          body: "決済未接続や定期購入DB未適用時は完了風UIを出さず、必要な設定を案内します。",
++          href: `${tenantRoot}/contact`,
++          label: "問い合わせ",
++          badge: "Checkout",
++          proof: "決済未接続時は注文確定をブロック",
++        },
++      ],
++    },
++    contact: {
++      title: "問い合わせ前の信頼マトリクス",
++      summary: "FAQ、注文履歴、配送返品を確認してから、商品名や注文番号付きで問い合わせできます。",
++      pageContext: "問い合わせ本文を送る前の確認先です。",
++      signals: [
++        {
++          title: "問い合わせ前確認",
++          body: "よくある質問と注文履歴へ戻り、必要な情報を整理できます。",
++          href: `${tenantRoot}/faq`,
++          label: "FAQ",
++          badge: "Support",
++          proof: "FAQ・注文履歴・問い合わせを相互接続",
++        },
++      ],
++    },
++    legal: {
++      title: "特商法ページの信頼マトリクス",
++      summary: "販売者、支払い、配送、返品、問い合わせ先を取引条件としてまとめます。",
++      pageContext: "注文前の販売条件確認です。",
++      signals: [
++        {
++          title: "販売条件の確認",
++          body: "支払い、配送、返品、連絡先を同じ取引条件として確認できます。",
++          href: `${tenantRoot}/shipping`,
++          label: "配送条件",
++          badge: "Legal",
++          proof: "販売条件から配送返品へ相互リンク",
++        },
++      ],
++    },
++    privacy: {
++      title: "プライバシーページの信頼マトリクス",
++      summary: "注文、問い合わせ、アカウント、定期購入で扱う情報を購入導線と接続します。",
++      pageContext: "個人情報を入力する前の確認です。",
++      signals: [
++        {
++          title: "個人情報の利用範囲",
++          body: "問い合わせ、配送、注文履歴で使う情報をプライバシー文脈にまとめます。",
++          href: `${tenantRoot}/contact`,
++          label: "問い合わせ",
++          badge: "Privacy",
++          proof: "個人情報ページから相談導線へ接続",
++        },
++      ],
++    },
++    shipping: {
++      title: "配送ページの信頼マトリクス",
++      summary: "送料、発送目安、追跡、返品条件を商品詳細とカートへ戻せる形で整理します。",
++      pageContext: "注文前の配送確認です。",
++      signals: [
++        {
++          title: "配送から購入へ戻る",
++          body: "配送条件を確認後、商品一覧や返品条件へ移動できます。",
++          href: `${tenantRoot}/products`,
++          label: "商品を見る",
++          badge: "Delivery",
++          proof: "配送ページから商品・返品・問い合わせへ内部リンク",
++        },
++      ],
++    },
++    returns: {
++      title: "返品ページの信頼マトリクス",
++      summary: "返品可否、初期不良、キャンセル、問い合わせ条件を注文履歴と接続します。",
++      pageContext: "購入前後の返品確認です。",
++      signals: [
++        {
++          title: "返品と注文確認",
++          body: "返品対象の商品、注文番号、問い合わせ条件を確認できます。",
++          href: `${tenantRoot}/orders`,
++          label: "注文履歴",
++          badge: "Return",
++          proof: "返品ページから注文履歴と問い合わせへ接続",
++        },
++      ],
++    },
++    faq: {
++      title: "FAQページの信頼マトリクス",
++      summary: "FAQ本文と購入導線を一致させ、解決しない場合の問い合わせ先を明確にします。",
++      pageContext: "質問から商品、配送、返品、問い合わせへ戻る導線です。",
++      signals: [
++        {
++          title: "FAQから次の行動へ",
++          body: "FAQで解決しない場合は問い合わせへ進み、商品比較にも戻れます。",
++          href: `${tenantRoot}/contact`,
++          label: "問い合わせ",
++          badge: "FAQ",
++          proof: "FAQPage本文とサポート導線を一致",
++        },
++      ],
++    },
++    mypage: {
++      title: "マイページの信頼マトリクス",
++      summary: "注文、定期購入、お気に入り、問い合わせを購入後サポートとしてまとめます。",
++      pageContext: "購入後に次の操作を探すための確認表です。",
++      signals: [
++        {
++          title: "購入後の状態確認",
++          body: "注文履歴、定期購入、返品、問い合わせへすぐ移動できます。",
++          href: `${tenantRoot}/orders`,
++          label: "注文履歴",
++          badge: "Account",
++          proof: "購入後ページでも商品・サポートへ戻れる",
++        },
++      ],
++    },
++    account: {
++      title: "アカウントページの信頼マトリクス",
++      summary: "ログイン、会員登録、注文履歴、定期購入、問い合わせを同じ認証導線で整理します。",
++      pageContext: "認証未接続時も成功したふりをしない確認表です。",
++      signals: [
++        {
++          title: "認証状態の明示",
++          body: "ログイン未接続時は注文履歴や商品一覧へ戻れるようにします。",
++          href: `${tenantRoot}/login`,
++          label: "ログイン",
++          badge: "Account",
++          proof: "認証導線と購入後導線を分離",
++        },
++      ],
++    },
++    orders: {
++      title: "注文履歴の信頼マトリクス",
++      summary: "注文がない状態でも、商品、配送、返品、問い合わせへ進める購入後ページにします。",
++      pageContext: "注文番号を探す前後の確認表です。",
++      signals: [
++        {
++          title: "注文後サポート",
++          body: "注文番号、配送、返品、問い合わせを購入後サポートとしてまとめます。",
++          href: `${tenantRoot}/contact`,
++          label: "問い合わせ",
++          badge: "Orders",
++          proof: "注文履歴とサポート導線を接続",
++        },
++      ],
++    },
++    favorites: {
++      title: "お気に入りの信頼マトリクス",
++      summary: "保存候補から商品詳細、カテゴリ、カート、問い合わせへ戻れるようにします。",
++      pageContext: "保存候補を購入判断へ戻す確認表です。",
++      signals: [
++        {
++          title: "比較候補から購入へ",
++          body: "保存商品を商品一覧や商品詳細へ戻し、価格と配送を再確認できます。",
++          href: `${tenantRoot}/products`,
++          label: "商品一覧",
++          badge: "Favorite",
++          proof: "お気に入りから商品比較へ内部リンク",
++        },
++      ],
++    },
++    login: {
++      title: "ログインページの信頼マトリクス",
++      summary: "ログイン未接続時に成功扱いにせず、登録、注文履歴、商品導線へ戻します。",
++      pageContext: "認証前の利用可能範囲を示す確認表です。",
++      signals: [
++        {
++          title: "認証前の回遊",
++          body: "ログイン前でも商品一覧、登録、問い合わせへ移動できます。",
++          href: `${tenantRoot}/register`,
++          label: "会員登録",
++          badge: "Login",
++          proof: "認証未接続状態を明示",
++        },
++      ],
++    },
++    register: {
++      title: "会員登録ページの信頼マトリクス",
++      summary: "登録前に個人情報、購入条件、ログイン、商品導線を確認します。",
++      pageContext: "登録前の個人情報確認です。",
++      signals: [
++        {
++          title: "登録前の個人情報確認",
++          body: "登録に使う情報と購入時の扱いをプライバシーへ接続します。",
++          href: `${tenantRoot}/privacy`,
++          label: "プライバシー",
++          badge: "Register",
++          proof: "登録導線と個人情報ページを接続",
++        },
++      ],
++    },
++    "mypage/subscriptions": {
++      title: "定期購入ページの信頼マトリクス",
++      summary: "D1/決済未接続時は契約済みのように見せず、商品、checkout、問い合わせへ案内します。",
++      pageContext: "定期購入の申込み・状態確認前の確認表です。",
++      signals: [
++        {
++          title: "定期購入の正直な状態",
++          body: "schema pending時は申込み不可として表示し、停止・解約導線は本番接続後に検証します。",
++          href: `${tenantRoot}/checkout`,
++          label: "checkout",
++          badge: "Subscription",
++          proof: "DB未適用時はSUBSCRIPTION_SCHEMA_PENDING",
++        },
++      ],
++    },
++  };
++
++  const selected = specific[page] ?? specific[""];
++  return {
++    ...selected,
++    signals: [...selected.signals, ...sharedSignals]
++      .filter((item, index, array) => array.findIndex((candidate) => candidate.title === item.title || candidate.href === item.href) === index)
++      .slice(0, 6),
++  };
++}
++
+ export function buildShopPageHeaderActions(page: string, tenantRoot: string): ShopStorefrontPageHeaderAction[] {
+   const defaultActions: ShopStorefrontPageHeaderAction[] = [
+     { label: "商品一覧を見る", href: `${tenantRoot}/products`, tone: "primary" },
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index 97ff126..045f461 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -13,6 +13,7 @@ import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSea
+ import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
+ import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
+ import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
++import { StorefrontTrustMatrix } from "@/components/shop/storefront/StorefrontTrustMatrix";
+ import {
+   buildShopBreadcrumbItems,
+   buildShopBreadcrumbJsonLd,
+@@ -53,6 +54,7 @@ import {
+   buildShopSeoChecklist,
+   buildShopPolicySupportCards,
+   buildShopPurchaseGuideCards,
++  buildShopTrustMatrix,
+ } from "@/lib/shopStorefrontShared";
+ import "@/styles/global.css";
+ 
+@@ -196,6 +198,13 @@ const seoChecklist = buildShopSeoChecklist(page, tenantRoot);
+ const seoChecklistLinks = seoChecklist.items.map((item) => ({ label: item.label, href: item.href }));
+ const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
+ const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
++const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
++  productName: salesProduct?.displayName,
++  priceLabel: salesProduct ? formatShopPrice(salesProduct.salePrice) : undefined,
++  inStock: salesProduct?.inStock,
++  subscriptionSchemaPending,
++});
++const trustMatrixLinks = trustMatrix.signals.map((item) => ({ label: item.label, href: item.href }));
+ const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
+ const normalizedSearchNeedle = searchQuery.toLowerCase();
+ const visibleProductCards = page === "products" && normalizedSearchNeedle
+@@ -242,6 +251,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
+     ...pageHeaderActions,
+     ...pageQualityLinks,
+     ...actionMapLinks,
++    ...trustMatrixLinks,
+     ...seoChecklistLinks,
+     ...buyingGuideLinks,
+     ...contextualLinks,
+@@ -671,6 +681,9 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+               subscriptionSchemaPending={true}
+             />
+           ) : null}
++          {page !== "product" ? (
++            <StorefrontTrustMatrix trustMatrix={trustMatrix} />
++          ) : null}
+           <StorefrontPageQualitySummary summary={pageQualitySummary} />
+           <StorefrontPageActionMap actionMap={actionMap} />
+           <StorefrontSeoChecklist checklist={seoChecklist} />
+@@ -759,6 +772,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                     inStock={salesProduct.inStock}
+                     subscriptionSchemaPending={subscriptionSchemaPending}
+                   />
++                  <StorefrontTrustMatrix trustMatrix={trustMatrix} />
+                   {productDesign?.content.showPoints ? <p class="mt-2 text-sm text-neutral-600">ポイント付与対象商品です。</p> : null}
+                   {productDesign?.content.showVariations ? (
+                     <div class="mt-5">
+diff --git a/src/pages/shop/storefront/[tenant].astro b/src/pages/shop/storefront/[tenant].astro
+index 9b0ab19..3f05c69 100644
+--- a/src/pages/shop/storefront/[tenant].astro
++++ b/src/pages/shop/storefront/[tenant].astro
+@@ -22,6 +22,7 @@ import {
+   buildShopPageActionMap,
+   buildShopPageBuyingGuide,
+   buildShopPageQualitySummary,
++  buildShopTrustMatrix,
+ } from "@/lib/shopStorefrontShared";
+ import "@/styles/global.css";
+ 
+@@ -71,6 +72,7 @@ const actionMap = buildShopPageActionMap("", tenantRoot);
+ const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
+ const buyingGuideLinks = buildShopPageBuyingGuide("", tenantRoot).map((item) => ({ label: item.label, href: item.href }));
+ const pageQualityLinks = buildShopPageQualitySummary("", tenantRoot).signals.map((item) => ({ label: item.label, href: item.href }));
++const trustMatrixLinks = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true }).signals.map((item) => ({ label: item.label, href: item.href }));
+ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
+   buildShopBreadcrumbJsonLd(breadcrumbItems),
+   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
+@@ -107,6 +109,7 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
+       ...breadcrumbSupportLinks,
+       ...pageQualityLinks,
+       ...actionMapLinks,
++      ...trustMatrixLinks,
+       ...buyingGuideLinks,
+       ...contextualLinks,
+       ...footerColumns.flatMap((column) => column.links),
+diff --git a/tests/shop-product-detail-public.spec.ts b/tests/shop-product-detail-public.spec.ts
+index 3a69d28..5db7a42 100644
+--- a/tests/shop-product-detail-public.spec.ts
++++ b/tests/shop-product-detail-public.spec.ts
+@@ -63,6 +63,18 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+         "https://schema.org/SiteNavigationElement",
+       );
+       expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
++      const trustMatrix = page.getByTestId("storefront-trust-matrix");
++      await expect(trustMatrix, "product detail should include shared trust/proof matrix").toBeVisible();
++      await expect(trustMatrix, "product detail trust matrix should expose ItemList microdata").toHaveAttribute(
++        "itemtype",
++        "https://schema.org/ItemList",
++      );
++      await expect(trustMatrix, "product detail trust matrix should mention product-specific purchase trust").toContainText("購入前の信頼");
++      await expect(trustMatrix, "product detail trust matrix should reinforce seller/payment/returns/subscription context").toContainText(/販売者|決済|返品|定期購入|個人情報/);
++      await expect(trustMatrix.locator('meta[itemprop="numberOfItems"]'), "product detail trust matrix should declare numberOfItems").toHaveCount(1);
++      expect(await trustMatrix.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail trust matrix should expose ListItem microdata").toBeGreaterThanOrEqual(4);
++      expect(await trustMatrix.locator("a").count(), "product detail trust matrix should expose crawlable proof links").toBeGreaterThanOrEqual(4);
++      expect(await trustMatrix.locator("a").first().getAttribute("class"), "product detail trust matrix links should be visibly blue").toContain("text-blue-700");
+       const qualitySummary = page.getByTestId("storefront-page-quality-summary");
+       await expect(qualitySummary, "product detail should include shared page quality summary").toBeVisible();
+       await expect(qualitySummary, "product detail quality summary should identify page role").toContainText("商品詳細で確認できること");
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index d8b2c04..d74ff7c 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -122,6 +122,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         );
+         expect(await commerceFacts.locator("a").count(), `${target.path} purchase facts should have crawlable internal links`).toBeGreaterThanOrEqual(5);
+         expect(await commerceFacts.locator("a").first().getAttribute("class"), `${target.path} purchase fact links should be visibly styled`).toMatch(/border-|bg-/);
++        const trustMatrix = page.getByTestId("storefront-trust-matrix");
++        await expect(trustMatrix, `${target.path} should include shared trust/proof matrix`).toBeVisible();
++        await expect(trustMatrix, `${target.path} trust matrix should expose ItemList microdata`).toHaveAttribute(
++          "itemtype",
++          "https://schema.org/ItemList",
++        );
++        await expect(trustMatrix, `${target.path} trust matrix should name purchase confidence context`).toContainText("購入前の信頼");
++        await expect(trustMatrix, `${target.path} trust matrix should mention payment or subscription honesty`).toContainText(/決済|定期購入/);
++        await expect(trustMatrix.locator('meta[itemprop="numberOfItems"]'), `${target.path} trust matrix should declare numberOfItems`).toHaveCount(1);
++        expect(await trustMatrix.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} trust matrix should expose visible ListItem microdata`).toBeGreaterThanOrEqual(4);
++        expect(await trustMatrix.locator("a").count(), `${target.path} trust matrix should expose crawlable proof links`).toBeGreaterThanOrEqual(4);
++        expect(await trustMatrix.locator("a").first().getAttribute("class"), `${target.path} trust matrix links should be visibly blue and underlined`).toContain("text-blue-700");
+         const qualitySummary = page.getByTestId("storefront-page-quality-summary");
+         await expect(qualitySummary, `${target.path} should include shared page quality summary`).toBeVisible();
+         await expect(qualitySummary, `${target.path} quality summary should explain page intent`).toContainText("検索意図");

@@ -1,0 +1,15 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M ops/improvements/20260605_daily_improvement.md
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260604T222837Z_status_before_trust_matrix_deploy.txt
+?? ops/instructions/20260605_shop_trust_matrix_seo_ui.md
+?? src/components/shop/storefront/StorefrontTrustMatrix.tsx

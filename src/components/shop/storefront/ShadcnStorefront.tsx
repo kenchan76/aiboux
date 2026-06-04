@@ -8,6 +8,7 @@ import {
   buildShopPageBuyingGuide,
   buildShopPageQualitySummary,
   buildShopSeoChecklist,
+  buildShopTrustMatrix,
   type ShopStorefrontContextLinkSection,
 } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
@@ -22,6 +23,7 @@ import { StorefrontSearchForm } from "./StorefrontSearchForm";
 import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
+import { StorefrontTrustMatrix } from "./StorefrontTrustMatrix";
 
 type StorefrontProduct = {
   id: string;
@@ -117,6 +119,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const actionMap = buildShopPageActionMap("", tenantRoot);
   const seoChecklist = buildShopSeoChecklist("", tenantRoot);
   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
+  const trustMatrix = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true });
   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
   const columnClass = {
     3: "lg:grid-cols-3",
@@ -227,6 +230,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
           page=""
           subscriptionSchemaPending
         />
+        <StorefrontTrustMatrix trustMatrix={trustMatrix} />
         <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
         <StorefrontPageActionMap actionMap={actionMap} />
         <StorefrontSeoChecklist checklist={seoChecklist} />

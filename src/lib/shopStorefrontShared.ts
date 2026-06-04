@@ -98,6 +98,22 @@ export type ShopStorefrontPageQualitySummary = {
   signals: ShopStorefrontPageQualitySignal[];
 };
 
+export type ShopStorefrontTrustMatrixSignal = {
+  title: string;
+  body: string;
+  href: string;
+  label: string;
+  badge: string;
+  proof: string;
+};
+
+export type ShopStorefrontTrustMatrix = {
+  title: string;
+  summary: string;
+  pageContext: string;
+  signals: ShopStorefrontTrustMatrixSignal[];
+};
+
 export type ShopStorefrontBreadcrumbSupportLink = {
   label: string;
   href: string;
@@ -1546,6 +1562,363 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     signals: [...selected.signals, ...sharedSignals]
       .filter((item, index, array) => array.findIndex((candidate) => candidate.title === item.title) === index)
       .slice(0, 4),
+  };
+}
+
+export function buildShopTrustMatrix(
+  page: string,
+  tenantRoot: string,
+  input: {
+    productName?: string | null;
+    priceLabel?: string | null;
+    inStock?: boolean | null;
+    subscriptionSchemaPending?: boolean;
+  } = {},
+): ShopStorefrontTrustMatrix {
+  const productName = String(input.productName || "商品").replace(/\s+/g, " ").trim();
+  const priceLabel = String(input.priceLabel || "税込価格").replace(/\s+/g, " ").trim();
+  const stockProof = input.inStock === false ? "在庫状態は商品詳細と問い合わせで確認" : "在庫あり表示と配送目安を購入前に確認";
+  const subscriptionProof = input.subscriptionSchemaPending
+    ? "定期購入DB migration未適用時は申込み不可として明示"
+    : "通常購入と定期購入の条件を購入前に分離";
+
+  const sharedSignals: ShopStorefrontTrustMatrixSignal[] = [
+    {
+      title: "販売者と連絡先",
+      body: "販売者情報、問い合わせ先、特商法を確認できる状態にし、薄い匿名ストアにしません。",
+      href: `${tenantRoot}/legal`,
+      label: "販売者情報",
+      badge: "Seller",
+      proof: "特商法・問い合わせへクロール可能なリンク",
+    },
+    {
+      title: "配送と在庫",
+      body: `${stockProof}。送料、発送目安、追跡条件を配送ページへ集約します。`,
+      href: `${tenantRoot}/shipping`,
+      label: "配送条件",
+      badge: "Shipping",
+      proof: "配送ページと商品詳細の購入条件を接続",
+    },
+    {
+      title: "返品とキャンセル",
+      body: "返品期限、初期不良、未開封条件、キャンセル相談先を注文前に確認できます。",
+      href: `${tenantRoot}/returns`,
+      label: "返品条件",
+      badge: "Return",
+      proof: "返品・特商法・問い合わせを相互リンク",
+    },
+    {
+      title: "決済と定期購入",
+      body: `${subscriptionProof}。決済未接続時は成功したふりをせず、checkoutで正直に止めます。`,
+      href: `${tenantRoot}/checkout`,
+      label: "注文前確認",
+      badge: "Payment",
+      proof: "決済未接続と定期購入状態を明示",
+    },
+    {
+      title: "個人情報とサポート",
+      body: "注文、問い合わせ、アカウント、定期購入で扱う情報をプライバシーとFAQへつなげます。",
+      href: `${tenantRoot}/privacy`,
+      label: "個人情報",
+      badge: "Privacy",
+      proof: "プライバシー・FAQ・問い合わせを同一導線に配置",
+    },
+  ];
+
+  const specific: Record<string, Omit<ShopStorefrontTrustMatrix, "signals"> & { signals: ShopStorefrontTrustMatrixSignal[] }> = {
+    "": {
+      title: "TOPページ購入前の信頼マトリクス",
+      summary: "初回訪問でも、ストアの販売者、配送、返品、決済、サポートにすぐ到達できるようにします。",
+      pageContext: "TOPから商品、カテゴリ、購入条件へ進む前の安心材料です。",
+      signals: [
+        {
+          title: "売り場全体の信頼導線",
+          body: "おすすめ、ランキング、タイムセールから商品詳細へ進む前に、配送返品と問い合わせへ戻れます。",
+          href: `${tenantRoot}/products`,
+          label: "商品一覧",
+          badge: "Store",
+          proof: "TOP、商品一覧、カテゴリ、フッターの内部リンクを統一",
+        },
+      ],
+    },
+    products: {
+      title: "商品一覧購入前の信頼マトリクス",
+      summary: "商品比較中に、税込価格、配送、返品、在庫、サポートの確認先を見失わない構造にします。",
+      pageContext: "一覧から詳細、カテゴリ、カートへ進む前の購入判断です。",
+      signals: [
+        {
+          title: "一覧カードの比較根拠",
+          body: "画像、商品名、カテゴリ、価格、レビュー、CTAを共通カードで揃えます。",
+          href: `${tenantRoot}/categories`,
+          label: "カテゴリ",
+          badge: "Compare",
+          proof: "商品カードとカテゴリURLを同じデータから生成",
+        },
+      ],
+    },
+    categories: {
+      title: "カテゴリ購入前の信頼マトリクス",
+      summary: "カテゴリごとの商品件数、画像、安定URL、購入条件を同じページ構造で確認できます。",
+      pageContext: "カテゴリから商品一覧へ進む前の階層確認です。",
+      signals: [
+        {
+          title: "カテゴリ階層の明確化",
+          body: "カテゴリカードから安定した商品一覧URLへつなげ、任意検索ページと分けます。",
+          href: `${tenantRoot}/products`,
+          label: "商品一覧",
+          badge: "Category",
+          proof: "カテゴリカードとcanonical対象URLを分離",
+        },
+      ],
+    },
+    product: {
+      title: `${productName} 購入前の信頼マトリクス`,
+      summary: `${priceLabel}、在庫、配送、返品、決済、定期購入、問い合わせを1商品に集中させます。`,
+      pageContext: "商品詳細で購入判断を完結させるための確認表です。",
+      signals: [
+        {
+          title: "単一商品ページの根拠",
+          body: "商品名H1、画像、価格、在庫、SKU、配送返品をProduct/Offer文脈に揃えます。",
+          href: `${tenantRoot}/cart`,
+          label: "カートで確認",
+          badge: "Product",
+          proof: "二重タイトルなし・Product/Offer JSON-LDあり",
+        },
+      ],
+    },
+    cart: {
+      title: "カート購入前の信頼マトリクス",
+      summary: "数量、小計、配送、返品、通常購入と定期購入の違いを注文前に確認します。",
+      pageContext: "checkoutへ進む前の注文確認です。",
+      signals: [
+        {
+          title: "注文前の合計確認",
+          body: "数量変更、削除、小計、定期購入頻度を分けて表示します。",
+          href: `${tenantRoot}/checkout`,
+          label: "checkout",
+          badge: "Cart",
+          proof: "カート操作とcheckout導線を同じページで確認",
+        },
+      ],
+    },
+    checkout: {
+      title: "checkout購入前の信頼マトリクス",
+      summary: "顧客情報、配送先、決済状態、定期購入規約、販売条件を注文確定前に確認します。",
+      pageContext: "決済未接続なら成功扱いにせず、原因と戻り先を示します。",
+      signals: [
+        {
+          title: "注文確定の正直な停止",
+          body: "決済未接続や定期購入DB未適用時は完了風UIを出さず、必要な設定を案内します。",
+          href: `${tenantRoot}/contact`,
+          label: "問い合わせ",
+          badge: "Checkout",
+          proof: "決済未接続時は注文確定をブロック",
+        },
+      ],
+    },
+    contact: {
+      title: "問い合わせ前の信頼マトリクス",
+      summary: "FAQ、注文履歴、配送返品を確認してから、商品名や注文番号付きで問い合わせできます。",
+      pageContext: "問い合わせ本文を送る前の確認先です。",
+      signals: [
+        {
+          title: "問い合わせ前確認",
+          body: "よくある質問と注文履歴へ戻り、必要な情報を整理できます。",
+          href: `${tenantRoot}/faq`,
+          label: "FAQ",
+          badge: "Support",
+          proof: "FAQ・注文履歴・問い合わせを相互接続",
+        },
+      ],
+    },
+    legal: {
+      title: "特商法ページの信頼マトリクス",
+      summary: "販売者、支払い、配送、返品、問い合わせ先を取引条件としてまとめます。",
+      pageContext: "注文前の販売条件確認です。",
+      signals: [
+        {
+          title: "販売条件の確認",
+          body: "支払い、配送、返品、連絡先を同じ取引条件として確認できます。",
+          href: `${tenantRoot}/shipping`,
+          label: "配送条件",
+          badge: "Legal",
+          proof: "販売条件から配送返品へ相互リンク",
+        },
+      ],
+    },
+    privacy: {
+      title: "プライバシーページの信頼マトリクス",
+      summary: "注文、問い合わせ、アカウント、定期購入で扱う情報を購入導線と接続します。",
+      pageContext: "個人情報を入力する前の確認です。",
+      signals: [
+        {
+          title: "個人情報の利用範囲",
+          body: "問い合わせ、配送、注文履歴で使う情報をプライバシー文脈にまとめます。",
+          href: `${tenantRoot}/contact`,
+          label: "問い合わせ",
+          badge: "Privacy",
+          proof: "個人情報ページから相談導線へ接続",
+        },
+      ],
+    },
+    shipping: {
+      title: "配送ページの信頼マトリクス",
+      summary: "送料、発送目安、追跡、返品条件を商品詳細とカートへ戻せる形で整理します。",
+      pageContext: "注文前の配送確認です。",
+      signals: [
+        {
+          title: "配送から購入へ戻る",
+          body: "配送条件を確認後、商品一覧や返品条件へ移動できます。",
+          href: `${tenantRoot}/products`,
+          label: "商品を見る",
+          badge: "Delivery",
+          proof: "配送ページから商品・返品・問い合わせへ内部リンク",
+        },
+      ],
+    },
+    returns: {
+      title: "返品ページの信頼マトリクス",
+      summary: "返品可否、初期不良、キャンセル、問い合わせ条件を注文履歴と接続します。",
+      pageContext: "購入前後の返品確認です。",
+      signals: [
+        {
+          title: "返品と注文確認",
+          body: "返品対象の商品、注文番号、問い合わせ条件を確認できます。",
+          href: `${tenantRoot}/orders`,
+          label: "注文履歴",
+          badge: "Return",
+          proof: "返品ページから注文履歴と問い合わせへ接続",
+        },
+      ],
+    },
+    faq: {
+      title: "FAQページの信頼マトリクス",
+      summary: "FAQ本文と購入導線を一致させ、解決しない場合の問い合わせ先を明確にします。",
+      pageContext: "質問から商品、配送、返品、問い合わせへ戻る導線です。",
+      signals: [
+        {
+          title: "FAQから次の行動へ",
+          body: "FAQで解決しない場合は問い合わせへ進み、商品比較にも戻れます。",
+          href: `${tenantRoot}/contact`,
+          label: "問い合わせ",
+          badge: "FAQ",
+          proof: "FAQPage本文とサポート導線を一致",
+        },
+      ],
+    },
+    mypage: {
+      title: "マイページの信頼マトリクス",
+      summary: "注文、定期購入、お気に入り、問い合わせを購入後サポートとしてまとめます。",
+      pageContext: "購入後に次の操作を探すための確認表です。",
+      signals: [
+        {
+          title: "購入後の状態確認",
+          body: "注文履歴、定期購入、返品、問い合わせへすぐ移動できます。",
+          href: `${tenantRoot}/orders`,
+          label: "注文履歴",
+          badge: "Account",
+          proof: "購入後ページでも商品・サポートへ戻れる",
+        },
+      ],
+    },
+    account: {
+      title: "アカウントページの信頼マトリクス",
+      summary: "ログイン、会員登録、注文履歴、定期購入、問い合わせを同じ認証導線で整理します。",
+      pageContext: "認証未接続時も成功したふりをしない確認表です。",
+      signals: [
+        {
+          title: "認証状態の明示",
+          body: "ログイン未接続時は注文履歴や商品一覧へ戻れるようにします。",
+          href: `${tenantRoot}/login`,
+          label: "ログイン",
+          badge: "Account",
+          proof: "認証導線と購入後導線を分離",
+        },
+      ],
+    },
+    orders: {
+      title: "注文履歴の信頼マトリクス",
+      summary: "注文がない状態でも、商品、配送、返品、問い合わせへ進める購入後ページにします。",
+      pageContext: "注文番号を探す前後の確認表です。",
+      signals: [
+        {
+          title: "注文後サポート",
+          body: "注文番号、配送、返品、問い合わせを購入後サポートとしてまとめます。",
+          href: `${tenantRoot}/contact`,
+          label: "問い合わせ",
+          badge: "Orders",
+          proof: "注文履歴とサポート導線を接続",
+        },
+      ],
+    },
+    favorites: {
+      title: "お気に入りの信頼マトリクス",
+      summary: "保存候補から商品詳細、カテゴリ、カート、問い合わせへ戻れるようにします。",
+      pageContext: "保存候補を購入判断へ戻す確認表です。",
+      signals: [
+        {
+          title: "比較候補から購入へ",
+          body: "保存商品を商品一覧や商品詳細へ戻し、価格と配送を再確認できます。",
+          href: `${tenantRoot}/products`,
+          label: "商品一覧",
+          badge: "Favorite",
+          proof: "お気に入りから商品比較へ内部リンク",
+        },
+      ],
+    },
+    login: {
+      title: "ログインページの信頼マトリクス",
+      summary: "ログイン未接続時に成功扱いにせず、登録、注文履歴、商品導線へ戻します。",
+      pageContext: "認証前の利用可能範囲を示す確認表です。",
+      signals: [
+        {
+          title: "認証前の回遊",
+          body: "ログイン前でも商品一覧、登録、問い合わせへ移動できます。",
+          href: `${tenantRoot}/register`,
+          label: "会員登録",
+          badge: "Login",
+          proof: "認証未接続状態を明示",
+        },
+      ],
+    },
+    register: {
+      title: "会員登録ページの信頼マトリクス",
+      summary: "登録前に個人情報、購入条件、ログイン、商品導線を確認します。",
+      pageContext: "登録前の個人情報確認です。",
+      signals: [
+        {
+          title: "登録前の個人情報確認",
+          body: "登録に使う情報と購入時の扱いをプライバシーへ接続します。",
+          href: `${tenantRoot}/privacy`,
+          label: "プライバシー",
+          badge: "Register",
+          proof: "登録導線と個人情報ページを接続",
+        },
+      ],
+    },
+    "mypage/subscriptions": {
+      title: "定期購入ページの信頼マトリクス",
+      summary: "D1/決済未接続時は契約済みのように見せず、商品、checkout、問い合わせへ案内します。",
+      pageContext: "定期購入の申込み・状態確認前の確認表です。",
+      signals: [
+        {
+          title: "定期購入の正直な状態",
+          body: "schema pending時は申込み不可として表示し、停止・解約導線は本番接続後に検証します。",
+          href: `${tenantRoot}/checkout`,
+          label: "checkout",
+          badge: "Subscription",
+          proof: "DB未適用時はSUBSCRIPTION_SCHEMA_PENDING",
+        },
+      ],
+    },
+  };
+
+  const selected = specific[page] ?? specific[""];
+  return {
+    ...selected,
+    signals: [...selected.signals, ...sharedSignals]
+      .filter((item, index, array) => array.findIndex((candidate) => candidate.title === item.title || candidate.href === item.href) === index)
+      .slice(0, 6),
   };
 }
 

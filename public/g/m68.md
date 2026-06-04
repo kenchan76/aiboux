@@ -1,6 +1,38 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Trust Matrix SEO/UI Commonization
+
+Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens every public tenant storefront page with a shared trust and proof matrix.
+
+Implemented WIP direction:
+
+- `buildShopTrustMatrix(page, tenantRoot, input)` is the shared source for seller, shipping, returns, payment, subscription, privacy, and support proof.
+- `StorefrontTrustMatrix` renders the shared model on TOP, product detail, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, account, orders, favorites, login, register, and mypage/subscriptions.
+- The trust matrix uses crawlable `<a href>` links with visible blue/underlined link affordance.
+- The trust matrix exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- TOP and subpage `SiteNavigationElement` JSON-LD source links include trust-matrix links.
+- Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
+- Google Search Central references checked for this WIP include the SEO Starter Guide, crawlable links, Product structured data, Merchant listing structured data, ecommerce structured data, and Breadcrumb structured data.
+
+Latest WIP evidence:
+
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- Public deploy, public URL verification, public Playwright, and Bark progress evidence are recorded in `https://mail.aiboux.com/g/l68`.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- `gate:shop-subscriptions` remains blocked in the subscription lane.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Shared SEO/UI Checklist
 
 Status: `SHOP_5H_SEO_CHECKLIST_COMMON_PARTS_WIP`

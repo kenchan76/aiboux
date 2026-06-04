@@ -18,3 +18,7 @@ Google Search Central emphasizes crawlable links, clear ecommerce site structure
 ## Additional Improvement
 
 For ecommerce SEO/UI work, each public page should expose a visible page-specific action map built from a shared model. The same action links should be crawlable in rendered HTML and included in structured navigation sources where appropriate, so thin account, policy, support, cart, and checkout pages still provide clear user actions and internal-link context.
+
+## Additional Improvement 2
+
+Every public ecommerce page should expose a shared trust matrix that makes seller identity, shipping, returns, payment state, subscription state, privacy, and support crawlable and visible. This prevents policy/support pages from becoming thin content and gives product, cart, checkout, and account pages the same purchase-confidence model.
