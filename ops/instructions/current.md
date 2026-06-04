@@ -367,3 +367,21 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+
+## 2026-06-05 Continuation: Shared Page Header SEO/UI
+
+Active instruction file:
+
+- `ops/instructions/20260605_shop_shared_page_header_seo_ui.md`
+
+Additional active requirements:
+- Public storefront non-product pages must use a shared `StorefrontPageHeader` component.
+- The shared page header must provide one page `h1`, page description, store context, and two or more crawlable internal links.
+- Page header links must be visibly clickable, using blue link affordance and hover/focus treatment.
+- Product detail must keep only one visible product `h1`; do not reintroduce the duplicate title above the image.
+- Public crawl gates must verify the shared page header on `https://shop.aiboux.com` URLs.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.

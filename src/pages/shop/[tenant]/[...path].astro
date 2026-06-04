@@ -2,6 +2,7 @@
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
+import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPageHeader";
 import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import {
@@ -32,6 +33,7 @@ import {
   buildShopCuratedCategoryCards,
   buildShopFaqItems,
   buildShopFooterColumns,
+  buildShopPageHeaderActions,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
 } from "@/lib/shopStorefrontShared";
@@ -153,6 +155,7 @@ const purchaseGuideCards = buildShopPurchaseGuideCards();
 const policySupportCards = buildShopPolicySupportCards(tenantRoot);
 const footerColumns = buildShopFooterColumns(tenantRoot);
 const faqItems = buildShopFaqItems();
+const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const curatedCategoryCards = buildShopCuratedCategoryCards();
 const categoryCards = [...curatedCategoryCards, ...categories.filter((category) => Number(category.productCount ?? 0) > 0)]
@@ -552,11 +555,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
         <main class="mx-auto max-w-screen-xl px-4 py-8">
           <StorefrontBreadcrumb className="mb-4" items={breadcrumbItems} />
           {page !== "product" ? (
-            <div class="mb-6">
-              <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>
-              <h1 class="mt-2 text-2xl font-bold tracking-tight text-neutral-950">{meta.title}</h1>
-              <p class="mt-2 text-sm leading-6 text-neutral-600">{meta.description}</p>
-            </div>
+            <StorefrontPageHeader storeName={storeName} title={meta.title} description={meta.description} actions={pageHeaderActions} />
           ) : null}
 
           {page === "products" ? (

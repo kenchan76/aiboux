@@ -15,6 +15,12 @@ export type ShopStorefrontInfoCard = {
   label?: string;
 };
 
+export type ShopStorefrontPageHeaderAction = {
+  label: string;
+  href: string;
+  tone?: "primary" | "secondary";
+};
+
 export type ShopStorefrontCategorySeed = {
   name: string;
   slug: string;
@@ -191,6 +197,104 @@ export function buildShopSeoHubHighlights(tenantRoot: string): ShopStorefrontInf
       label: "マイページ",
     },
   ];
+}
+
+export function buildShopPageHeaderActions(page: string, tenantRoot: string): ShopStorefrontPageHeaderAction[] {
+  const defaultActions: ShopStorefrontPageHeaderAction[] = [
+    { label: "商品一覧を見る", href: `${tenantRoot}/products`, tone: "primary" },
+    { label: "配送・返品を確認", href: `${tenantRoot}/shipping`, tone: "secondary" },
+    { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+  ];
+
+  const actionMap: Record<string, ShopStorefrontPageHeaderAction[]> = {
+    products: [
+      { label: "カテゴリから探す", href: `${tenantRoot}/categories`, tone: "primary" },
+      { label: "カートを見る", href: `${tenantRoot}/cart`, tone: "secondary" },
+      { label: "配送条件", href: `${tenantRoot}/shipping`, tone: "secondary" },
+    ],
+    categories: [
+      { label: "商品一覧へ", href: `${tenantRoot}/products`, tone: "primary" },
+      { label: "タイムセールを見る", href: `${tenantRoot}/products?category=sale`, tone: "secondary" },
+      { label: "購入前ガイド", href: `${tenantRoot}/faq`, tone: "secondary" },
+    ],
+    cart: [
+      { label: "商品を追加する", href: `${tenantRoot}/products`, tone: "primary" },
+      { label: "チェックアウトへ", href: `${tenantRoot}/checkout`, tone: "secondary" },
+      { label: "返品条件", href: `${tenantRoot}/returns`, tone: "secondary" },
+    ],
+    checkout: [
+      { label: "カートへ戻る", href: `${tenantRoot}/cart`, tone: "primary" },
+      { label: "配送条件", href: `${tenantRoot}/shipping`, tone: "secondary" },
+      { label: "特商法を確認", href: `${tenantRoot}/legal`, tone: "secondary" },
+    ],
+    contact: [
+      { label: "よくある質問", href: `${tenantRoot}/faq`, tone: "primary" },
+      { label: "配送について", href: `${tenantRoot}/shipping`, tone: "secondary" },
+      { label: "返品について", href: `${tenantRoot}/returns`, tone: "secondary" },
+    ],
+    legal: [
+      { label: "配送条件", href: `${tenantRoot}/shipping`, tone: "primary" },
+      { label: "返品条件", href: `${tenantRoot}/returns`, tone: "secondary" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+    ],
+    privacy: [
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "primary" },
+      { label: "特商法", href: `${tenantRoot}/legal`, tone: "secondary" },
+      { label: "FAQ", href: `${tenantRoot}/faq`, tone: "secondary" },
+    ],
+    shipping: [
+      { label: "返品条件", href: `${tenantRoot}/returns`, tone: "primary" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, tone: "secondary" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+    ],
+    returns: [
+      { label: "配送条件", href: `${tenantRoot}/shipping`, tone: "primary" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+      { label: "特商法", href: `${tenantRoot}/legal`, tone: "secondary" },
+    ],
+    faq: [
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "primary" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, tone: "secondary" },
+      { label: "配送・返品", href: `${tenantRoot}/shipping`, tone: "secondary" },
+    ],
+    mypage: [
+      { label: "注文履歴", href: `${tenantRoot}/orders`, tone: "primary" },
+      { label: "お気に入り", href: `${tenantRoot}/favorites`, tone: "secondary" },
+      { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions`, tone: "secondary" },
+    ],
+    account: [
+      { label: "注文履歴", href: `${tenantRoot}/orders`, tone: "primary" },
+      { label: "お気に入り", href: `${tenantRoot}/favorites`, tone: "secondary" },
+      { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions`, tone: "secondary" },
+    ],
+    orders: [
+      { label: "マイページ", href: `${tenantRoot}/mypage`, tone: "primary" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, tone: "secondary" },
+    ],
+    favorites: [
+      { label: "商品一覧", href: `${tenantRoot}/products`, tone: "primary" },
+      { label: "カート", href: `${tenantRoot}/cart`, tone: "secondary" },
+      { label: "カテゴリ", href: `${tenantRoot}/categories`, tone: "secondary" },
+    ],
+    login: [
+      { label: "会員登録", href: `${tenantRoot}/register`, tone: "primary" },
+      { label: "注文履歴", href: `${tenantRoot}/orders`, tone: "secondary" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+    ],
+    register: [
+      { label: "ログイン", href: `${tenantRoot}/login`, tone: "primary" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, tone: "secondary" },
+      { label: "プライバシー", href: `${tenantRoot}/privacy`, tone: "secondary" },
+    ],
+    "mypage/subscriptions": [
+      { label: "マイページ", href: `${tenantRoot}/mypage`, tone: "primary" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, tone: "secondary" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, tone: "secondary" },
+    ],
+  };
+
+  return actionMap[page] ?? defaultActions;
 }
 
 export function buildShopPurchaseGuideCards(): ShopStorefrontInfoCard[] {

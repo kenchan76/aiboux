@@ -117,6 +117,15 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         if ("expectedTestId" in target && target.expectedTestId) {
           await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
         }
+        if (target.name !== "shop-top") {
+          const pageHeader = page.getByTestId("storefront-page-header");
+          await expect(pageHeader, `${target.path} should include the shared page header`).toBeVisible();
+          await expect(pageHeader.locator("h1"), `${target.path} shared page header should own the page h1`).toHaveCount(1);
+          expect(await pageHeader.locator("a").count(), `${target.path} shared page header should expose crawlable action links`).toBeGreaterThanOrEqual(2);
+          expect(await pageHeader.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} page header should expose SiteNavigationElement microdata`).toBeGreaterThanOrEqual(1);
+          const secondaryLinkClass = await pageHeader.locator("a").last().getAttribute("class");
+          expect(secondaryLinkClass ?? "", `${target.path} page header secondary links should be visibly blue`).toContain("text-blue-700");
+        }
 
         const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
         expect(jsonLdText ?? "", `${target.path} should include BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
