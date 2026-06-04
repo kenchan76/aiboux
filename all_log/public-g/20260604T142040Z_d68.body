@@ -260,9 +260,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `916c0355-27b4-43e0-b4fd-6f2d7a107b46` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `916c0355-27b4-43e0-b4fd-6f2d7a107b46` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `916c0355-27b4-43e0-b4fd-6f2d7a107b46` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -317,7 +317,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 Screen evidence policy:
 
@@ -406,7 +406,7 @@ Verified route:
 - `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 Current visual evidence:
 
@@ -563,7 +563,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `916c0355-27b4-43e0-b4fd-6f2d7a107b46`.
 
 Design editor screen evidence:
 
@@ -1038,7 +1038,7 @@ Cycle 4 visual checks:
 Not FINAL_ACCEPTED.
 
 Evidence publication note:
-- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: __WORKER_VERSION_ID__
+- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 916c0355-27b4-43e0-b4fd-6f2d7a107b46
 
 ---
 
@@ -1280,47 +1280,6 @@ Screen evidence retained:
 - Contact page: https://mail.aiboux.com/g/screens/shop-contact-page.png
 - Legal page: https://mail.aiboux.com/g/screens/shop-legal-page.png
 - Admin design: https://mail.aiboux.com/g/screens/shop-admin-design.png
-
-Not final:
-- Subscription remote D1 migration and provider-backed recurring contract flow remain blocked/unverified.
-
----
-
-## Shop Shared Navigation And Support Parts Evidence
-
-Timestamp: 2026-06-04T14:27:00Z
-Status: CODE_READY_WIP_NOT_FINAL
-
-Common parts added:
-- `src/lib/shopStorefrontShared.ts`
-
-Commonized structures:
-- Footer link groups
-- Footer assurance cards
-- Account cards
-- Policy support cards
-- Purchase guide cards
-- Curated category seeds
-
-Affected public surfaces:
-- TOP footer: `src/components/shop/storefront/ShadcnStorefront.tsx`
-- Public subpages: `src/pages/shop/[tenant]/[...path].astro`
-- ItemList JSON-LD input data for account/support/category pages
-- Visible footer/support/account navigation cards
-
-Public gate evidence before WIP deploy:
-- `gate:shop-public-crawl`: PASS, 6 public tests.
-- `gate:shop-sales-quality`: PASS on public URLs.
-
-Screen evidence retained:
-- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
-- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
-- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
-- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
-- Cart page: https://mail.aiboux.com/g/screens/shop-cart-page.png
-- Checkout page: https://mail.aiboux.com/g/screens/shop-checkout-page.png
-- Contact page: https://mail.aiboux.com/g/screens/shop-contact-page.png
-- Legal page: https://mail.aiboux.com/g/screens/shop-legal-page.png
 
 Not final:
 - Subscription remote D1 migration and provider-backed recurring contract flow remain blocked/unverified.

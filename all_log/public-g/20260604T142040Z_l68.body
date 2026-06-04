@@ -425,7 +425,7 @@ npm run deploy:shop:wip: PASS
 ## WIP Deploy Evidence
 
 - Latest verified WIP commit hash: `3fea25cee2769c5e0f42d148f4596586bfb51972`
-- Latest Worker Version ID: `__WORKER_VERSION_ID__`
+- Latest Worker Version ID: `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 - Latest checkpoint timestamp: `20260603T232211Z`
 - Latest checkpoint evidence: `all_log/checkpoints/20260603T232211Z_wip_commit.txt`
 - Latest deploy output: `all_log/deploys/20260603T232211Z_deploy_shop_wip_short_route_fix_command.txt`
@@ -529,7 +529,7 @@ This cycle is WIP evidence and not `FINAL_ACCEPTED`.
 
 `/g/l68` and `/g/d68` are served through `src/lib/server/tempLogShares.ts`.
 The route was updated so `l68` returns `public/g/l68.md` content and `d68` returns `public/g/d68.md` content.
-Runtime placeholders such as `__WORKER_VERSION_ID__` are replaced in the public response.
+Runtime placeholders such as `916c0355-27b4-43e0-b4fd-6f2d7a107b46` are replaced in the public response.
 
 ### Public `/g/*` verification after WIP deploy
 
@@ -539,16 +539,16 @@ Runtime placeholders such as `__WORKER_VERSION_ID__` are replaced in the public 
 | `https://mail.aiboux.com/g/l68` | 200 | `text/markdown; charset=utf-8` | `c0319e74cf59f99eded51156509f2c719c4aea4c3c14bdac66596add30187483` | `2ab82b664777aac8c179c70eb66d2ec3b1b959b1014718f344be5a0925f8d527` | no |
 | `https://mail.aiboux.com/g/d68` | 200 | `text/markdown; charset=utf-8` | `0c50a6dc221cd384591a060e308548ecac6c67cf6288486fd615b3272d1ba7b0` | `e9598f11b69485f967f72300fc3b81fb6e8e2c7c68e9219b6025ebe42e6e9e4a` | no |
 
-The SHA mismatch is expected for files containing `__WORKER_VERSION_ID__`.
+The SHA mismatch is expected for files containing `916c0355-27b4-43e0-b4fd-6f2d7a107b46`.
 The `/g/*` route replaces that placeholder at runtime, so public body hashes differ from source markdown hashes while the content remains the intended WIP evidence document.
 
 ### Public Shop URL verification after WIP deploy
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `916c0355-27b4-43e0-b4fd-6f2d7a107b46` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `916c0355-27b4-43e0-b4fd-6f2d7a107b46` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `916c0355-27b4-43e0-b4fd-6f2d7a107b46` | `AIBOUX SHOP Dashboard` |
 
 ## Current Completion Status
 
@@ -636,7 +636,7 @@ Latest WIP commit:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 What changed:
 
@@ -655,7 +655,7 @@ Required public verification before every report:
 
 Runtime note:
 
-- `/g/*` responses replace `__WORKER_VERSION_ID__` at runtime.
+- `/g/*` responses replace `916c0355-27b4-43e0-b4fd-6f2d7a107b46` at runtime.
 - Source markdown SHA and public response SHA can differ when that placeholder exists.
 - This SHA difference is expected and must be recorded honestly.
 
@@ -1091,13 +1091,13 @@ WIP deploy evidence:
 
 - WIP commit before this evidence publication: `d9309a1dd288683a246d9d1eefc4cc5ba4e02895`
 - Implementation WIP deploy Worker Version ID before public log publication: `42ebe1ab-db4d-4152-8462-4dc26e97d7f1`
-- Public log publication Worker Version ID: `__WORKER_VERSION_ID__`
+- Public log publication Worker Version ID: `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 Public route evidence after public log publication:
 
 - `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 - `https://shop.aiboux.com/s/aiboux/`: HTTP 200
 - `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
 
@@ -1127,7 +1127,7 @@ Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
 
 Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 WIP commit:
 
@@ -1138,7 +1138,7 @@ Public design editor route:
 - URL: `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 Public Playwright after deploy:
 
@@ -1184,7 +1184,7 @@ Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
 
 Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `916c0355-27b4-43e0-b4fd-6f2d7a107b46`
 
 Target URLs:
 
@@ -1639,7 +1639,7 @@ Not FINAL_ACCEPTED:
 - Provider-backed recurring billing remains unverified.
 
 Evidence publication note:
-- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: __WORKER_VERSION_ID__
+- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 916c0355-27b4-43e0-b4fd-6f2d7a107b46
 - The immediately preceding code deploy Version ID remains recorded above for traceability.
 
 ---
@@ -2008,54 +2008,3 @@ Blocked lane:
 Not FINAL_ACCEPTED:
 - This is an SEO/common-parts WIP deployment and evidence update.
 - AIBOUX Shop remains WIP until subscription D1/provider-backed recurring billing and final external acceptance gates are complete.
-
----
-
-## SHOP_10H_SHARED_STOREFRONT_NAV_SUPPORT_PARTS_WIP
-
-Timestamp: 2026-06-04T14:27:00Z
-Status: CODE_READY_WIP_NOT_FINAL
-
-User requirement:
-- 全ページ構造をSEO最強にする。
-- 共通化できるパーツを徹底的に共通化する。
-- マイページ、注文履歴、定期購入、法務、配送、返品、FAQまでリンク先が分かる導線にする。
-
-Implemented:
-- Added shared storefront navigation/support helper: `src/lib/shopStorefrontShared.ts`.
-- Shared data now includes:
-  - footer link groups
-  - footer assurance cards
-  - account cards
-  - policy support cards
-  - purchase guide cards
-  - curated category seed data
-- TOP React storefront now uses `buildShopFooterColumns`.
-- Astro subpage route now uses:
-  - `buildShopAccountCards`
-  - `buildShopPolicySupportCards`
-  - `buildShopPurchaseGuideCards`
-  - `buildShopCuratedCategoryCards`
-  - `buildShopFooterColumns`
-  - `buildShopFooterAssurances`
-- This reduces duplicated public storefront link structures and keeps SEO-critical anchors consistent across TOP, account/support pages, and footer navigation.
-
-Verification before WIP deploy:
-- `npm run check:control-chars`: PASS
-- `npm run check:mojibake`: PASS
-- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
-- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
-- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
-  - public crawl: PASS, 6 tests
-  - carousel: PASS, 2 tests
-  - storefront interaction: PASS, 2 tests
-  - storefront visual: PASS, 3 tests
-  - product detail: PASS, 3 tests
-  - cart/checkout: PASS, 1 test
-  - contact/legal: PASS, 2 tests
-  - admin ops: PASS, 2 tests
-
-Not FINAL_ACCEPTED:
-- This is a common-parts WIP.
-- Remote D1 subscription migration remains unapplied.
-- Provider-backed recurring billing remains unverified.

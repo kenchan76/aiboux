@@ -220,3 +220,25 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+
+## 2026-06-04 User Escalation: Shared Storefront Navigation And Support Parts
+
+User required all pages to be audited for reusable parts and made SEO/UI strongest.
+
+Additional common-parts implementation:
+- Shared footer link groups, footer assurances, account cards, policy support cards, purchase guide cards, and curated category seeds are centralized in `src/lib/shopStorefrontShared.ts`.
+- TOP React storefront and Astro subpage route both use shared footer link groups.
+- Astro subpages use shared account/support/category data for ItemList JSON-LD and visible page cards.
+- This keeps SEO-critical anchors, footer links, and support/account discovery paths consistent across tenant public pages.
+
+Verification before WIP deploy:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.

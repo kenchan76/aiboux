@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
+import { buildShopFooterColumns } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 
 type StorefrontProduct = {
@@ -264,44 +265,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
 }
 
 function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot: string }) {
-  const columns = [
-    {
-      title: "お買い物",
-      links: [
-        ["商品一覧", `${tenantRoot}/products`],
-        ["カテゴリ", `${tenantRoot}/categories`],
-        ["タイムセール", `${tenantRoot}/products`],
-        ["お気に入り", `${tenantRoot}/favorites`],
-      ],
-    },
-    {
-      title: "アカウント",
-      links: [
-        ["マイページ", `${tenantRoot}/mypage`],
-        ["注文履歴", `${tenantRoot}/orders`],
-        ["定期購入", `${tenantRoot}/mypage/subscriptions`],
-        ["ログイン", `${tenantRoot}/login`],
-      ],
-    },
-    {
-      title: "サポート",
-      links: [
-        ["問い合わせ", `${tenantRoot}/contact`],
-        ["よくある質問", `${tenantRoot}/faq`],
-        ["配送について", `${tenantRoot}/shipping`],
-        ["返品について", `${tenantRoot}/returns`],
-      ],
-    },
-    {
-      title: "ストア情報",
-      links: [
-        ["特定商取引法", `${tenantRoot}/legal`],
-        ["プライバシーポリシー", `${tenantRoot}/privacy`],
-        ["カート", `${tenantRoot}/cart`],
-        ["チェックアウト", `${tenantRoot}/checkout`],
-      ],
-    },
-  ];
+  const columns = buildShopFooterColumns(tenantRoot);
   return (
     <footer className="mt-8 bg-[#17212f] text-white" data-testid="storefront-footer">
       <a className="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold hover:bg-[#2e4058]" href="#top">ページ上部へ戻る</a>
@@ -309,8 +273,8 @@ function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot:
         {columns.map((column) => (
           <nav key={column.title} className="grid gap-2 text-sm">
             <h2 className="mb-2 text-base font-bold">{column.title}</h2>
-            {column.links.map(([label, href]) => (
-              <a key={label} className="text-white/82 underline-offset-4 hover:text-white hover:underline" href={href}>{label}</a>
+            {column.links.map((link) => (
+              <a key={link.label} className="text-white/82 underline-offset-4 hover:text-white hover:underline" href={link.href}>{link.label}</a>
             ))}
           </nav>
         ))}
