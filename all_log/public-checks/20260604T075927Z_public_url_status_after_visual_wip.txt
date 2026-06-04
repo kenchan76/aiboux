@@ -1,0 +1,11 @@
+200 content-type: text/markdown; charset=utf-8 https://mail.aiboux.com/g/m68
+200 content-type: text/markdown; charset=utf-8 https://mail.aiboux.com/g/l68
+200 content-type: text/markdown; charset=utf-8 https://mail.aiboux.com/g/d68
+200 content-type: image/png https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png
+200 content-type: image/png https://mail.aiboux.com/g/screens/shop-design-editor-product-1980.png
+200 content-type: image/png https://mail.aiboux.com/g/screens/shop-storefront-top-1980.png
+200 content-type: image/png https://mail.aiboux.com/g/screens/shop-storefront-top-1365.png
+200 content-type: image/png https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+200 content-type: text/html https://shop.aiboux.com/s/aiboux/
+200 content-type: text/html https://shop.aiboux.com/s/aiboux/admin/design
+200 content-type: text/html https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621

@@ -95,17 +95,34 @@ const productSections: Array<{ id: EditorSection; label: string }> = [
 ];
 
 const editorHeroDefaults = [
-  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1500&h=620&q=86",
-  "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1500&h=620&q=86",
-  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1500&h=620&q=86",
+  {
+    title: "毎日の暮らしを整える、雪花セレクト市",
+    subtitle: "飲料、日用品、キッチン雑貨まで。今日ほしいものを見つけやすい売り場にまとめました。",
+    imageUrl: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1500&h=620&q=86",
+  },
+  {
+    title: "キッチンと食卓の定番をまとめ買い",
+    subtitle: "保温ボトル、コーヒー、保存容器。日々の使いやすさで選べる定番アイテム。",
+    imageUrl: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1500&h=620&q=86",
+  },
+  {
+    title: "贈り物にも使える暮らしのギフト",
+    subtitle: "タオル、ケア用品、食品ギフトを、価格とレビューで比較しながら選べます。",
+    imageUrl: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1500&h=620&q=86",
+  },
 ];
 
 const editorProductShowcase = [
-  { name: "食品・飲料セット", price: 3980, image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82" },
-  { name: "日用品パック", price: 2480, image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=720&h=720&q=82" },
-  { name: "便利家電セット", price: 12800, image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=720&h=720&q=82" },
-  { name: "ビューティーケア", price: 4280, image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82" },
-  { name: "季節のギフト", price: 5980, image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "雪花セレクト ドリップコーヒー 20袋", price: 1980, category: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "軽量ステンレスボトル 500ml", price: 2480, category: "キッチン用品", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "雪花セレクト ギフトタオル 2枚セット", price: 2980, category: "タオル・寝具", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "キッチン保存容器 6点セット", price: 3280, category: "キッチン用品", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "毎日使えるホームケア洗剤セット", price: 1680, category: "日用品", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "ナチュラルスキンケア 3点セット", price: 4280, category: "ビューティー", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "焼き菓子アソートボックス", price: 2380, category: "食品・飲料", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "ペットケアおでかけセット", price: 3480, category: "ペット用品", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "季節のギフトボックス", price: 5980, category: "ギフト", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "国産茶葉ティーバッグ 30包", price: 1780, category: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82" },
 ];
 
 const globalSections: Array<{ id: EditorSection; label: string; icon: React.ComponentType<{ className?: string }> }> = [
@@ -475,9 +492,11 @@ function TopPreview({
 }) {
   const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled).map((slide, index) => ({
     ...slide,
-    imageUrl: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length] : slide.imageUrl,
+    imageUrl: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length].imageUrl : slide.imageUrl,
+    title: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length].title : slide.title,
+    subtitle: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length].subtitle : slide.subtitle,
   }));
-  const main = slides[0] ?? { ...defaultStorefrontLayout.pages.top.heroSlider.slides[0], imageUrl: editorHeroDefaults[0] };
+  const main = slides[0] ?? { ...defaultStorefrontLayout.pages.top.heroSlider.slides[0], ...editorHeroDefaults[0] };
   const previous = slides[slides.length - 1] ?? slides[1] ?? main;
   const next = slides[1] ?? slides[0] ?? main;
 
@@ -525,10 +544,10 @@ function TopPreview({
         onClick={() => onSelect("top.recommendedProducts")}
         products={editorProductShowcase}
       />
-      <div className="grid gap-3 p-3 md:grid-cols-3">
-        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} products={editorProductShowcase.slice(1)} />
-        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} products={editorProductShowcase.slice(2)} accent="red" />
-        <CompactSection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} products={editorProductShowcase.slice(0, 3)} />
+      <div className="space-y-3 p-3">
+        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} products={editorProductShowcase.slice(1)} ranking />
+        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} products={editorProductShowcase.slice(2)} accent="red" sale />
+        <EditorCategorySection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} />
       </div>
       <CompactBrandSection selected={selectedSection === "top.brands"} onClick={() => onSelect("top.brands")} />
     </div>
@@ -586,7 +605,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
       data-hero-side={direction}
       data-testid={direction === "left" ? "hero-slide-prev" : "hero-slide-next"}
     >
-      <img src={isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[0] : slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
+      <img src={isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[0].imageUrl : slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
       <span className={cn("absolute top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow", direction === "left" ? "left-4" : "right-4")}>
@@ -606,8 +625,9 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
       <div className="grid grid-cols-5 gap-3">
         {products.map((product, index) => (
           <div key={product.name} className="rounded-md border border-neutral-200 bg-white p-3">
-            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
-            <div className="mt-2 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({800 + index * 87})</span></div>
+            <img src={product.image} alt={product.name} className="h-36 w-full rounded object-cover" />
+            <div className="mt-2 text-[11px] font-semibold text-neutral-500">{product.category}</div>
+            <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({800 + index * 87})</span></div>
             <div className="mt-1 line-clamp-2 min-h-8 text-xs font-semibold text-neutral-800">{product.name}</div>
             <div className="mt-1 text-sm font-bold text-neutral-950">¥{product.price.toLocaleString("ja-JP")} <span className="text-[11px] font-normal text-neutral-500">税込</span></div>
           </div>
@@ -617,15 +637,44 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
   );
 }
 
-function CompactSection({ title, selected, onClick, products, accent = "neutral" }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase; accent?: "neutral" | "red" }) {
+function CompactSection({ title, selected, onClick, products, accent = "neutral", ranking, sale }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase; accent?: "neutral" | "red"; ranking?: boolean; sale?: boolean }) {
   return (
-    <button type="button" onClick={onClick} className={cn("rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
+    <button type="button" onClick={onClick} className={cn("block w-full rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
       <div className="mb-2 flex justify-between text-sm font-bold">{title}<span className="text-xs font-normal text-neutral-500">もっと見る</span></div>
-      <div className="grid grid-cols-3 gap-2">
-        {products.slice(0, 3).map((product) => (
-          <div key={`${title}-${product.name}`} className="rounded border border-neutral-100 p-2">
-            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
+      <div className="grid grid-cols-5 gap-2">
+        {products.slice(0, 5).map((product, index) => (
+          <div key={`${title}-${product.name}`} className="relative rounded border border-neutral-100 p-2">
+            {ranking ? <span className="absolute left-2 top-2 z-10 rounded bg-amber-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{index + 1}</span> : null}
+            {sale ? <span className="absolute left-2 top-2 z-10 rounded bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">SALE</span> : null}
+            <img src={product.image} alt={product.name} className="h-24 w-full rounded object-cover" />
+            <div className="mt-1 line-clamp-1 text-[11px] font-semibold text-neutral-700">{product.name}</div>
             <div className={cn("mt-1 text-xs font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price.toLocaleString("ja-JP")}</div>
+          </div>
+        ))}
+      </div>
+    </button>
+  );
+}
+
+function EditorCategorySection({ title, selected, onClick }: { title: string; selected: boolean; onClick: () => void }) {
+  const categories = [
+    ["食品・飲料", "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["コーヒー・お茶", "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["キッチン用品", "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["日用品", "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["タオル・寝具", "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["ビューティー", "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["ペット用品", "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=420&h=280&q=82"],
+    ["ギフト", "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82"],
+  ];
+  return (
+    <button type="button" onClick={onClick} className={cn("block w-full rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
+      <div className="mb-2 flex justify-between text-sm font-bold">{title}<span className="text-xs font-normal text-neutral-500">もっと見る</span></div>
+      <div className="grid grid-cols-4 gap-2">
+        {categories.map(([name, image]) => (
+          <div key={name} className="rounded border border-neutral-100 p-2 text-center text-[11px] font-semibold text-neutral-700">
+            <img src={image} alt={name} className="mb-1 h-16 w-full rounded object-cover" />
+            {name}
           </div>
         ))}
       </div>

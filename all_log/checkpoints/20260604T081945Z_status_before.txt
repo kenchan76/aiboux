@@ -1,0 +1,40 @@
+ M ops/instructions/current.md
+ M package.json
+ M src/components/shop/StorefrontDesignBuilder.tsx
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/lib/shopStorefrontLayout.ts
+?? all_log/bark/20260604T075927Z_shop_public_storefront_visual_wip_bark.json
+?? all_log/checkpoints/20260604T075639Z_wip_commit.txt
+?? all_log/checkpoints/20260604T081149Z_head_before_storefront_quality_fix.txt
+?? all_log/checkpoints/20260604T081149Z_origin_main_before_storefront_quality_fix.txt
+?? all_log/checkpoints/20260604T081149Z_status_before_storefront_quality_fix.txt
+?? all_log/deploys/20260604T075639Z_deployments_before.txt
+?? all_log/deploys/20260604T081149Z_deployments_before_storefront_quality_fix.txt
+?? all_log/patches/20260604T081149Z_before_storefront_quality_fix.patch
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_d68.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_d68.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_l68.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_l68.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_m68.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_m68.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-product-1980.png.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-product-1980.png.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-design-editor-top-1980.png.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-product-detail-1980.png.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1365.png.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1365.png.headers
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1980.png.body
+?? all_log/public-checks/20260604T075927Z_mail.aiboux.com_g_screens_shop-storefront-top-1980.png.headers
+?? all_log/public-checks/20260604T075927Z_public_url_status_after_visual_wip.txt
+?? all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_.body
+?? all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_.headers
+?? all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_admin_design.body
+?? all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_admin_design.headers
+?? all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.body
+?? all_log/public-checks/20260604T075927Z_shop.aiboux.com_s_aiboux_product_shopprod_tenant_001_4580000232621.headers
+?? all_log/public-checks/20260604T075927Z_visual_content_assertions.txt
+?? all_log/reports/
+?? ops/instructions/20260604_shop_public_storefront_visual_quality_fix.md
+?? tests/shop-storefront-visual-public.spec.ts

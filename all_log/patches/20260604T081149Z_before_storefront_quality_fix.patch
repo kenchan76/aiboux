@@ -1,0 +1,39 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 429fe76..8792ece 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -1,5 +1,34 @@
+ # AIBOUX Current Task
+ 
++## Active Override: Shop Public Storefront Visual Quality Fix
++
++Instruction source:
++
++- `ops/instructions/20260604_shop_public_storefront_visual_quality_fix.md`
++
++Current status:
++
++- `ACTIVE_WIP`
++
++Current target URLs:
++
++- `https://shop.aiboux.com/s/aiboux/`
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++- `https://shop.aiboux.com/s/aiboux/product/{id}`
++
++Required work:
++
++1. Do not treat image existence or placeholder-zero alone as enough.
++2. Make product names and images coherent.
++3. Avoid excessive duplicate product images.
++4. Remove public test product names from TOP.
++5. Increase public TOP density with at least 5 recommended products, 5 ranking items, 5 time-sale items, and 8 categories.
++6. Add `gate:shop-storefront-visual`.
++7. Publish 1980px, 1365px, and mobile screenshots to `/g/d68`.
++8. WIP deploy and publicly verify `/g/m68`, `/g/l68`, `/g/d68`.
++
++Do not report `FINAL_ACCEPTED`.
++
+ ## Active Override: Shop Public Storefront Visual Mismatch Fix
+ 
+ Instruction source:

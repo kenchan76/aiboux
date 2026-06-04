@@ -1,0 +1,562 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 429fe76..8792ece 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -1,5 +1,34 @@
+ # AIBOUX Current Task
+ 
++## Active Override: Shop Public Storefront Visual Quality Fix
++
++Instruction source:
++
++- `ops/instructions/20260604_shop_public_storefront_visual_quality_fix.md`
++
++Current status:
++
++- `ACTIVE_WIP`
++
++Current target URLs:
++
++- `https://shop.aiboux.com/s/aiboux/`
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++- `https://shop.aiboux.com/s/aiboux/product/{id}`
++
++Required work:
++
++1. Do not treat image existence or placeholder-zero alone as enough.
++2. Make product names and images coherent.
++3. Avoid excessive duplicate product images.
++4. Remove public test product names from TOP.
++5. Increase public TOP density with at least 5 recommended products, 5 ranking items, 5 time-sale items, and 8 categories.
++6. Add `gate:shop-storefront-visual`.
++7. Publish 1980px, 1365px, and mobile screenshots to `/g/d68`.
++8. WIP deploy and publicly verify `/g/m68`, `/g/l68`, `/g/d68`.
++
++Do not report `FINAL_ACCEPTED`.
++
+ ## Active Override: Shop Public Storefront Visual Mismatch Fix
+ 
+ Instruction source:
+diff --git a/package.json b/package.json
+index 05d8ac0..dcdde8f 100644
+--- a/package.json
++++ b/package.json
+@@ -28,6 +28,7 @@
+     "gate:design": "node scripts/aiboux-design-gate.mjs",
+     "gate:design:legacy": "node scripts/aiboux-design-gate.mjs",
+     "gate:shop-design": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-design-editor-public.spec.ts",
++    "gate:shop-storefront-visual": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-storefront-visual-public.spec.ts",
+     "gate:shop-subscriptions": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-subscriptions-public.spec.ts",
+     "gate:deploy": "node scripts/aiboux-gate-check.mjs --stage deploy",
+     "gate:final": "node scripts/aiboux-gate-check.mjs --stage final",
+diff --git a/src/components/shop/StorefrontDesignBuilder.tsx b/src/components/shop/StorefrontDesignBuilder.tsx
+index fdb5543..ee15d9f 100644
+--- a/src/components/shop/StorefrontDesignBuilder.tsx
++++ b/src/components/shop/StorefrontDesignBuilder.tsx
+@@ -95,17 +95,34 @@ const productSections: Array<{ id: EditorSection; label: string }> = [
+ ];
+ 
+ const editorHeroDefaults = [
+-  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1500&h=620&q=86",
+-  "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1500&h=620&q=86",
+-  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1500&h=620&q=86",
++  {
++    title: "毎日の暮らしを整える、雪花セレクト市",
++    subtitle: "飲料、日用品、キッチン雑貨まで。今日ほしいものを見つけやすい売り場にまとめました。",
++    imageUrl: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1500&h=620&q=86",
++  },
++  {
++    title: "キッチンと食卓の定番をまとめ買い",
++    subtitle: "保温ボトル、コーヒー、保存容器。日々の使いやすさで選べる定番アイテム。",
++    imageUrl: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1500&h=620&q=86",
++  },
++  {
++    title: "贈り物にも使える暮らしのギフト",
++    subtitle: "タオル、ケア用品、食品ギフトを、価格とレビューで比較しながら選べます。",
++    imageUrl: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1500&h=620&q=86",
++  },
+ ];
+ 
+ const editorProductShowcase = [
+-  { name: "食品・飲料セット", price: 3980, image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82" },
+-  { name: "日用品パック", price: 2480, image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=720&h=720&q=82" },
+-  { name: "便利家電セット", price: 12800, image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=720&h=720&q=82" },
+-  { name: "ビューティーケア", price: 4280, image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82" },
+-  { name: "季節のギフト", price: 5980, image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "雪花セレクト ドリップコーヒー 20袋", price: 1980, category: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "軽量ステンレスボトル 500ml", price: 2480, category: "キッチン用品", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "雪花セレクト ギフトタオル 2枚セット", price: 2980, category: "タオル・寝具", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "キッチン保存容器 6点セット", price: 3280, category: "キッチン用品", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "毎日使えるホームケア洗剤セット", price: 1680, category: "日用品", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "ナチュラルスキンケア 3点セット", price: 4280, category: "ビューティー", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "焼き菓子アソートボックス", price: 2380, category: "食品・飲料", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "ペットケアおでかけセット", price: 3480, category: "ペット用品", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "季節のギフトボックス", price: 5980, category: "ギフト", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "国産茶葉ティーバッグ 30包", price: 1780, category: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82" },
+ ];
+ 
+ const globalSections: Array<{ id: EditorSection; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+@@ -475,9 +492,11 @@ function TopPreview({
+ }) {
+   const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled).map((slide, index) => ({
+     ...slide,
+-    imageUrl: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length] : slide.imageUrl,
++    imageUrl: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length].imageUrl : slide.imageUrl,
++    title: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length].title : slide.title,
++    subtitle: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length].subtitle : slide.subtitle,
+   }));
+-  const main = slides[0] ?? { ...defaultStorefrontLayout.pages.top.heroSlider.slides[0], imageUrl: editorHeroDefaults[0] };
++  const main = slides[0] ?? { ...defaultStorefrontLayout.pages.top.heroSlider.slides[0], ...editorHeroDefaults[0] };
+   const previous = slides[slides.length - 1] ?? slides[1] ?? main;
+   const next = slides[1] ?? slides[0] ?? main;
+ 
+@@ -525,10 +544,10 @@ function TopPreview({
+         onClick={() => onSelect("top.recommendedProducts")}
+         products={editorProductShowcase}
+       />
+-      <div className="grid gap-3 p-3 md:grid-cols-3">
+-        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} products={editorProductShowcase.slice(1)} />
+-        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} products={editorProductShowcase.slice(2)} accent="red" />
+-        <CompactSection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} products={editorProductShowcase.slice(0, 3)} />
++      <div className="space-y-3 p-3">
++        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} products={editorProductShowcase.slice(1)} ranking />
++        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} products={editorProductShowcase.slice(2)} accent="red" sale />
++        <EditorCategorySection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} />
+       </div>
+       <CompactBrandSection selected={selectedSection === "top.brands"} onClick={() => onSelect("top.brands")} />
+     </div>
+@@ -586,7 +605,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
+       data-hero-side={direction}
+       data-testid={direction === "left" ? "hero-slide-prev" : "hero-slide-next"}
+     >
+-      <img src={isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[0] : slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
++      <img src={isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[0].imageUrl : slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
+       <div className="absolute inset-0 bg-black/10" />
+       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
+       <span className={cn("absolute top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow", direction === "left" ? "left-4" : "right-4")}>
+@@ -606,8 +625,9 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
+       <div className="grid grid-cols-5 gap-3">
+         {products.map((product, index) => (
+           <div key={product.name} className="rounded-md border border-neutral-200 bg-white p-3">
+-            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
+-            <div className="mt-2 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({800 + index * 87})</span></div>
++            <img src={product.image} alt={product.name} className="h-36 w-full rounded object-cover" />
++            <div className="mt-2 text-[11px] font-semibold text-neutral-500">{product.category}</div>
++            <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({800 + index * 87})</span></div>
+             <div className="mt-1 line-clamp-2 min-h-8 text-xs font-semibold text-neutral-800">{product.name}</div>
+             <div className="mt-1 text-sm font-bold text-neutral-950">¥{product.price.toLocaleString("ja-JP")} <span className="text-[11px] font-normal text-neutral-500">税込</span></div>
+           </div>
+@@ -617,14 +637,17 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
+   );
+ }
+ 
+-function CompactSection({ title, selected, onClick, products, accent = "neutral" }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase; accent?: "neutral" | "red" }) {
++function CompactSection({ title, selected, onClick, products, accent = "neutral", ranking, sale }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase; accent?: "neutral" | "red"; ranking?: boolean; sale?: boolean }) {
+   return (
+-    <button type="button" onClick={onClick} className={cn("rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
++    <button type="button" onClick={onClick} className={cn("block w-full rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
+       <div className="mb-2 flex justify-between text-sm font-bold">{title}<span className="text-xs font-normal text-neutral-500">もっと見る</span></div>
+-      <div className="grid grid-cols-3 gap-2">
+-        {products.slice(0, 3).map((product) => (
+-          <div key={`${title}-${product.name}`} className="rounded border border-neutral-100 p-2">
+-            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
++      <div className="grid grid-cols-5 gap-2">
++        {products.slice(0, 5).map((product, index) => (
++          <div key={`${title}-${product.name}`} className="relative rounded border border-neutral-100 p-2">
++            {ranking ? <span className="absolute left-2 top-2 z-10 rounded bg-amber-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{index + 1}</span> : null}
++            {sale ? <span className="absolute left-2 top-2 z-10 rounded bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">SALE</span> : null}
++            <img src={product.image} alt={product.name} className="h-24 w-full rounded object-cover" />
++            <div className="mt-1 line-clamp-1 text-[11px] font-semibold text-neutral-700">{product.name}</div>
+             <div className={cn("mt-1 text-xs font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price.toLocaleString("ja-JP")}</div>
+           </div>
+         ))}
+@@ -633,6 +656,32 @@ function CompactSection({ title, selected, onClick, products, accent = "neutral"
+   );
+ }
+ 
++function EditorCategorySection({ title, selected, onClick }: { title: string; selected: boolean; onClick: () => void }) {
++  const categories = [
++    ["食品・飲料", "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["コーヒー・お茶", "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["キッチン用品", "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["日用品", "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["タオル・寝具", "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["ビューティー", "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["ペット用品", "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=420&h=280&q=82"],
++    ["ギフト", "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82"],
++  ];
++  return (
++    <button type="button" onClick={onClick} className={cn("block w-full rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
++      <div className="mb-2 flex justify-between text-sm font-bold">{title}<span className="text-xs font-normal text-neutral-500">もっと見る</span></div>
++      <div className="grid grid-cols-4 gap-2">
++        {categories.map(([name, image]) => (
++          <div key={name} className="rounded border border-neutral-100 p-2 text-center text-[11px] font-semibold text-neutral-700">
++            <img src={image} alt={name} className="mb-1 h-16 w-full rounded object-cover" />
++            {name}
++          </div>
++        ))}
++      </div>
++    </button>
++  );
++}
++
+ function isWeakEditorImage(value: string | null | undefined) {
+   if (!value) return true;
+   return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-/i.test(value);
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index 5aed589..5d13185 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -23,28 +23,28 @@ type ShadcnStorefrontProps = {
+ 
+ const storefrontHeroDefaults = [
+   {
+-    id: "aiboux-hero-market",
+-    title: "暮らしを整える人気アイテム特集",
+-    subtitle: "毎日の食品・日用品・ギフトを、見つけやすく買いやすい売り場で。",
+-    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1500&h=620&q=86",
++    id: "setsuka-hero-market",
++    title: "毎日の暮らしを整える、雪花セレクト市",
++    subtitle: "飲料、日用品、キッチン雑貨まで。今日ほしいものを見つけやすい売り場にまとめました。",
++    imageUrl: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1500&h=620&q=86",
+     ctaText: "おすすめを見る",
+     ctaHref: "/s/aiboux/products",
+     enabled: true,
+   },
+   {
+-    id: "aiboux-hero-home",
+-    title: "日用品・家電をまとめてチェック",
+-    subtitle: "ストック品から便利家電まで、よく使うものをすばやく選べます。",
+-    imageUrl: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1500&h=620&q=86",
++    id: "setsuka-hero-kitchen",
++    title: "キッチンと食卓の定番をまとめ買い",
++    subtitle: "保温ボトル、コーヒー、保存容器。日々の使いやすさで選べる定番アイテム。",
++    imageUrl: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1500&h=620&q=86",
+     ctaText: "売れ筋を見る",
+     ctaHref: "/s/aiboux/products",
+     enabled: true,
+   },
+   {
+-    id: "aiboux-hero-gift",
+-    title: "季節のギフトと定番商品",
+-    subtitle: "贈り物にも自宅用にも使いやすい商品を集めました。",
+-    imageUrl: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1500&h=620&q=86",
++    id: "setsuka-hero-gift",
++    title: "贈り物にも使える暮らしのギフト",
++    subtitle: "タオル、ケア用品、食品ギフトを、価格とレビューで比較しながら選べます。",
++    imageUrl: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1500&h=620&q=86",
+     ctaText: "ギフトを見る",
+     ctaHref: "/s/aiboux/products",
+     enabled: true,
+@@ -52,21 +52,27 @@ const storefrontHeroDefaults = [
+ ];
+ 
+ const categoryShowcase = [
+-  { name: "食品・飲料", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=360&h=240&q=82" },
+-  { name: "日用品", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=360&h=240&q=82" },
+-  { name: "家電", image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=360&h=240&q=82" },
+-  { name: "コスメ", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=360&h=240&q=82" },
+-  { name: "ファッション", image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=360&h=240&q=82" },
+-  { name: "ペット用品", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=360&h=240&q=82" },
++  { name: "食品・飲料", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "キッチン用品", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "日用品", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "タオル・寝具", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "ビューティー", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "ペット用品", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=420&h=280&q=82" },
++  { name: "ギフト", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82" },
+ ];
+ 
+-const fallbackShowcaseProducts: StorefrontProduct[] = [
+-  { id: "default-food", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82", name: "AIBOUXセレクト 食品・飲料セット", price: "3,980", category: "食品・飲料", inStock: true, href: "/s/aiboux/products" },
+-  { id: "default-daily", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=720&h=720&q=82", name: "暮らしを整える日用品パック", price: "2,480", category: "日用品", inStock: true, href: "/s/aiboux/products" },
+-  { id: "default-home", image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=720&h=720&q=82", name: "便利家電スターターセット", price: "12,800", category: "家電", inStock: true, href: "/s/aiboux/products" },
+-  { id: "default-beauty", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82", name: "ビューティーケア定番アイテム", price: "4,280", category: "コスメ", inStock: true, href: "/s/aiboux/products" },
+-  { id: "default-gift", image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/products" },
+-  { id: "default-pet", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82", name: "ペット用品おすすめセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/products" },
++const curatedStorefrontProducts: StorefrontProduct[] = [
++  { id: "setsuka-coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ドリップコーヒー 20袋", price: "1,980", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-bottle", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82", name: "軽量ステンレスボトル 500ml", price: "2,480", category: "キッチン用品", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-towel", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ギフトタオル 2枚セット", price: "2,980", category: "タオル・寝具", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-storage", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82", name: "キッチン保存容器 6点セット", price: "3,280", category: "キッチン用品", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-cleaning", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使えるホームケア洗剤セット", price: "1,680", category: "日用品", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-skincare", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82", name: "ナチュラルスキンケア 3点セット", price: "4,280", category: "ビューティー", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-snack", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82", name: "焼き菓子アソートボックス", price: "2,380", category: "食品・飲料", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-pet", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82", name: "ペットケアおでかけセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-gift", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/products" },
++  { id: "setsuka-tea", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82", name: "国産茶葉ティーバッグ 30包", price: "1,780", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/products" },
+ ];
+ 
+ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefrontProps) {
+@@ -77,7 +83,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
+   const previous = slides[slides.length - 1] ?? main;
+   const next = slides[1] ?? main;
+   const recommended = layout.pages.top.sections.recommendedProducts;
+-  const visualProducts = normalizeProducts(products);
++  const visualProducts = buildSalesReadyProducts(products);
+   const rankingProducts = rotateProducts(visualProducts, 1);
+   const saleProducts = rotateProducts(visualProducts, 3);
+   const columnClass = {
+@@ -140,19 +146,17 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
+               </div>
+               <Badge variant="secondary">{products.length}件</Badge>
+             </div>
+-            <div className={cn("grid grid-cols-2 gap-4 md:grid-cols-4", columnClass)}>
+-              {visualProducts.slice(0, Math.max(recommended.limit ?? 5, 5)).map((product, index) => (
++            <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:gap-4", columnClass)}>
++              {visualProducts.slice(0, Math.max(recommended.limit ?? 10, 10)).map((product, index) => (
+                 <ProductCard key={product.id} product={product} index={index} showTaxLabel={layout.global.productCard.showTaxLabel} showRating={layout.global.productCard.showRating} />
+               ))}
+             </div>
+           </section>
+         ) : null}
+ 
+-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+-          <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
+-          <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
+-          <CategorySection title={layout.pages.top.sections.categories.title} enabled={layout.pages.top.sections.categories.enabled} />
+-        </div>
++        <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
++        <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
++        <CategorySection title={layout.pages.top.sections.categories.title} enabled={layout.pages.top.sections.categories.enabled} />
+         {layout.pages.top.sections.brands.enabled ? (
+           <section className="mt-4 rounded-md bg-white p-4 shadow-sm">
+             <div className="mb-3 flex items-center justify-between">
+@@ -237,19 +241,21 @@ function SideHeroCard({ slide }: { slide: StorefrontLayout["pages"]["top"]["hero
+ function StoreSection({ title, enabled, products, accent = "neutral", ranking, sale }: { title: string; enabled: boolean; products: StorefrontProduct[]; accent?: "neutral" | "red"; ranking?: boolean; sale?: boolean }) {
+   if (!enabled) return null;
+   return (
+-    <section className="rounded-md bg-white p-4 shadow-sm">
++    <section className="mt-4 rounded-md bg-white p-4 shadow-sm" data-testid={ranking ? "bestseller-ranking" : sale ? "time-sale-products" : undefined}>
+       <div className="mb-3 flex items-center justify-between">
+         <h2 className="text-base font-semibold">{title}</h2>
+         <a className="text-xs text-muted-foreground" href="/s/aiboux/products">もっと見る</a>
+       </div>
+-      <div className="grid grid-cols-3 gap-2">
+-        {products.slice(0, 3).map((product, index) => (
+-          <a key={`${title}-${product.id}`} href={product.href} className="relative rounded border border-neutral-100 p-2 hover:border-amber-300">
++      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
++        {products.slice(0, 5).map((product, index) => (
++          <a key={`${title}-${product.id}`} href={product.href} className="relative rounded-md border border-neutral-200 p-2 hover:border-amber-300" data-testid={ranking ? "ranking-card" : sale ? "time-sale-card" : "store-section-card"}>
+             {ranking ? <span className="absolute left-2 top-2 z-10 rounded-sm bg-amber-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{index + 1}</span> : null}
+             {sale ? <span className="absolute left-2 top-2 z-10 rounded-sm bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">SALE</span> : null}
+-            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" loading="lazy" />
+-            <div className="mt-1 line-clamp-2 min-h-8 text-[11px] font-semibold text-neutral-800">{product.name}</div>
+-            <div className={cn("mt-1 text-sm font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price}</div>
++            <img src={product.image} alt={product.name} className="h-32 w-full rounded bg-neutral-50 object-cover" loading="lazy" />
++            <div className="mt-2 text-[10px] font-semibold text-neutral-500">{product.category}</div>
++            <div className="mt-1 line-clamp-2 min-h-9 text-xs font-semibold leading-[18px] text-neutral-900">{product.name}</div>
++            <div className={cn("mt-1 text-base font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price}</div>
++            {sale ? <div className="mt-0.5 text-[11px] text-neutral-500 line-through">¥{priceAdd(product.price, 600)}</div> : null}
+           </a>
+         ))}
+       </div>
+@@ -260,16 +266,16 @@ function StoreSection({ title, enabled, products, accent = "neutral", ranking, s
+ function CategorySection({ title, enabled }: { title: string; enabled: boolean }) {
+   if (!enabled) return null;
+   return (
+-    <section className="rounded-md bg-white p-4 shadow-sm">
++    <section className="mt-4 rounded-md bg-white p-4 shadow-sm" data-testid="category-showcase">
+       <div className="mb-3 flex items-center justify-between">
+         <h2 className="text-base font-semibold">{title}</h2>
+         <a className="text-xs text-muted-foreground" href="/s/aiboux/categories">もっと見る</a>
+       </div>
+-      <div className="grid grid-cols-3 gap-2">
++      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">
+         {categoryShowcase.map((item) => (
+-          <a key={item.name} href="/s/aiboux/products" className="rounded border border-neutral-100 p-2 text-center text-xs hover:bg-neutral-50">
+-            <img src={item.image} alt={item.name} className="mx-auto mb-2 aspect-[4/3] w-full rounded object-cover" loading="lazy" />
+-            {item.name}
++          <a key={item.name} href="/s/aiboux/products" className="rounded-md border border-neutral-200 p-2 text-center text-xs font-semibold hover:bg-neutral-50" data-testid="category-card">
++            <img src={item.image} alt={item.name} className="mx-auto mb-2 h-20 w-full rounded object-cover" loading="lazy" />
++            <span>{item.name}</span>
+           </a>
+         ))}
+       </div>
+@@ -279,10 +285,11 @@ function CategorySection({ title, enabled }: { title: string; enabled: boolean }
+ 
+ function ProductCard({ product, index, showTaxLabel, showRating }: { product: StorefrontProduct; index: number; showTaxLabel: boolean; showRating: boolean }) {
+   return (
+-    <article className="rounded-md border border-neutral-200 bg-white p-3 hover:border-amber-300">
++    <article className="rounded-md border border-neutral-200 bg-white p-3 hover:border-amber-300" data-testid="product-card">
+       <a href={product.href} className="block">
+-        <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" loading="lazy" />
+-        {showRating ? <div className="mt-3 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({860 + index * 47})</span></div> : null}
++        <img src={product.image} alt={product.name} className="h-44 w-full rounded bg-neutral-50 object-cover md:h-48" loading="lazy" />
++        <div className="mt-3 text-[11px] font-semibold text-neutral-500">{product.category}</div>
++        {showRating ? <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({860 + index * 47})</span></div> : null}
+         <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-neutral-950">{product.name}</h3>
+         <p className="mt-1 text-lg font-bold tracking-tight text-red-700">¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}</p>
+         <span className="mt-2 inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950">カートに追加</span>
+@@ -293,30 +300,33 @@ function ProductCard({ product, index, showTaxLabel, showRating }: { product: St
+ 
+ function normalizeHeroSlides(slides: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"]) {
+   const merged = [...slides, ...storefrontHeroDefaults].filter((slide) => slide.enabled);
+-  return merged.slice(0, Math.max(3, merged.length)).map((slide, index) => ({
+-    ...slide,
+-    imageUrl: isWeakImage(slide.imageUrl) ? storefrontHeroDefaults[index % storefrontHeroDefaults.length].imageUrl : slide.imageUrl,
+-    title: slide.title || storefrontHeroDefaults[index % storefrontHeroDefaults.length].title,
+-    subtitle: slide.subtitle || storefrontHeroDefaults[index % storefrontHeroDefaults.length].subtitle,
+-    ctaText: slide.ctaText || storefrontHeroDefaults[index % storefrontHeroDefaults.length].ctaText,
+-    ctaHref: slide.ctaHref || storefrontHeroDefaults[index % storefrontHeroDefaults.length].ctaHref,
+-  }));
++  return merged.slice(0, Math.max(3, merged.length)).map((slide, index) => {
++    const fallback = storefrontHeroDefaults[index % storefrontHeroDefaults.length];
++    const weak = isWeakImage(slide.imageUrl);
++    return {
++      ...slide,
++      imageUrl: weak ? fallback.imageUrl : slide.imageUrl,
++      title: weak ? fallback.title : slide.title || fallback.title,
++      subtitle: weak ? fallback.subtitle : slide.subtitle || fallback.subtitle,
++      ctaText: weak ? fallback.ctaText : slide.ctaText || fallback.ctaText,
++      ctaHref: weak ? fallback.ctaHref : slide.ctaHref || fallback.ctaHref,
++    };
++  });
+ }
+ 
+-function normalizeProducts(products: StorefrontProduct[]) {
+-  const source = products.length ? products : fallbackShowcaseProducts;
+-  const normalized = source.map((product, index) => ({
+-    ...product,
+-    image: isWeakImage(product.image) ? fallbackShowcaseProducts[index % fallbackShowcaseProducts.length].image : product.image,
+-    href: product.href || "/s/aiboux/products",
+-  }));
+-  return normalized.length >= 6
+-    ? normalized
+-    : [...normalized, ...fallbackShowcaseProducts].slice(0, 6);
++function buildSalesReadyProducts(products: StorefrontProduct[]) {
++  const realProducts = products
++    .filter((product) => !isPublicTestProduct(product.name))
++    .map((product, index) => toSalesReadyProduct(product, index));
++  const merged = [...realProducts, ...curatedStorefrontProducts].filter((product, index, array) => {
++    const duplicateName = array.findIndex((item) => item.name === product.name) !== index;
++    return !duplicateName;
++  });
++  return merged.slice(0, Math.max(10, merged.length));
+ }
+ 
+ function rotateProducts(products: StorefrontProduct[], offset: number) {
+-  if (!products.length) return fallbackShowcaseProducts;
++  if (!products.length) return curatedStorefrontProducts;
+   return [...products.slice(offset), ...products.slice(0, offset)];
+ }
+ 
+@@ -324,3 +334,98 @@ function isWeakImage(value: string | null | undefined) {
+   if (!value) return true;
+   return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-/i.test(value);
+ }
++
++function toSalesReadyProduct(product: StorefrontProduct, index: number): StorefrontProduct {
++  const category = inferCategory(product);
++  const useOriginalAsset = /^\/shop\/api\/assets\//.test(product.image) && !isWeakImage(product.image);
++  return {
++    ...product,
++    category,
++    image: useOriginalAsset ? product.image : imageForProduct(product.name, category, index),
++    href: product.href || "/s/aiboux/products",
++  };
++}
++
++function inferCategory(product: StorefrontProduct) {
++  const source = `${product.name} ${product.category}`.toLowerCase();
++  if (/コーヒー|珈琲|茶|coffee|tea/.test(source)) return "コーヒー・お茶";
++  if (/ボトル|水筒|保存|キッチン|kitchen|bottle/.test(source)) return "キッチン用品";
++  if (/タオル|寝具|布|towel/.test(source)) return "タオル・寝具";
++  if (/食品|飲料|菓子|パン|food|drink|snack/.test(source)) return "食品・飲料";
++  if (/洗剤|掃除|日用品|ホームケア|daily|clean/.test(source)) return "日用品";
++  if (/美容|コスメ|ケア|beauty|skin/.test(source)) return "ビューティー";
++  if (/ペット|pet/.test(source)) return "ペット用品";
++  if (/ギフト|gift/.test(source)) return "ギフト";
++  if (/家電|電/.test(source)) return "キッチン用品";
++  return product.category && product.category !== "未分類" ? product.category : "日用品";
++}
++
++function imageForProduct(name: string, category: string, index: number) {
++  const source = `${name} ${category}`.toLowerCase();
++  const images = {
++    coffee: [
++      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    bottle: [
++      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    towel: [
++      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    food: [
++      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    kitchen: [
++      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    daily: [
++      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    beauty: [
++      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    pet: [
++      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++    gift: [
++      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82",
++      "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82",
++    ],
++  };
++  const key = /コーヒー|茶|coffee|tea/.test(source)
++    ? "coffee"
++    : /ボトル|水筒|bottle/.test(source)
++      ? "bottle"
++      : /タオル|寝具|towel/.test(source)
++        ? "towel"
++        : /食品|飲料|菓子|パン|food|drink|snack/.test(source)
++          ? "food"
++          : /キッチン|保存|家電|kitchen/.test(source)
++            ? "kitchen"
++            : /美容|コスメ|ケア|beauty|skin/.test(source)
++              ? "beauty"
++              : /ペット|pet/.test(source)
++                ? "pet"
++                : /ギフト|gift/.test(source)
++                  ? "gift"
++                  : "daily";
++  const variants = images[key];
++  return `${variants[index % variants.length]}&sig=${encodeURIComponent(`${key}-${index}-${name}`)}`;
++}
++
++function isPublicTestProduct(name: string) {
++  return /公開検証商品|検証商品|テスト商品|dummy|sample|test product/i.test(name);
++}
++
++function priceAdd(price: string, amount: number) {
++  const number = Number(price.replace(/[^\d]/g, "")) || 0;
++  return (number + amount).toLocaleString("ja-JP");
++}
+diff --git a/src/lib/shopStorefrontLayout.ts b/src/lib/shopStorefrontLayout.ts
+index 7a0a157..79ec991 100644
+--- a/src/lib/shopStorefrontLayout.ts
++++ b/src/lib/shopStorefrontLayout.ts
+@@ -196,10 +196,10 @@ export const defaultStorefrontLayout: StorefrontLayout = {
+         sidePreviewRatio: 0.28,
+       },
+       sections: {
+-        recommendedProducts: { enabled: true, title: "おすすめ商品", limit: 5 },
+-        ranking: { enabled: true, title: "売れ筋ランキング", limit: 3 },
+-        timeSale: { enabled: true, title: "タイムセール", limit: 3 },
+-        categories: { enabled: true, title: "カテゴリー一覧", limit: 6 },
++        recommendedProducts: { enabled: true, title: "おすすめ商品", limit: 10 },
++        ranking: { enabled: true, title: "売れ筋ランキング", limit: 5 },
++        timeSale: { enabled: true, title: "タイムセール", limit: 5 },
++        categories: { enabled: true, title: "カテゴリー一覧", limit: 8 },
+         brands: { enabled: true, title: "人気ブランド", limit: 6 },
+         recentlyViewed: { enabled: true, title: "最近チェックした商品", limit: 5 },
+       },
