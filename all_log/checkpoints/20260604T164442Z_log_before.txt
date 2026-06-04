@@ -1,0 +1,10 @@
+b6ba295 WIP strengthen shop entity graph SEO
+eebeeb6 WIP update shared page header SEO user report input
+7cbf227 WIP store shared page header SEO user report input
+28723b6 WIP store shared page header SEO final alignment deploy log
+cbdbc62 WIP align shared page header SEO publication evidence
+c78750f WIP record shared page header SEO bark evidence
+683b487 WIP publish shared page header SEO evidence
+4b90bb0 WIP add shared storefront page header SEO UI
+9526a96 WIP record breadcrumb SEO final publication deploy logs
+f5672d7 WIP publish breadcrumb SEO bark evidence
