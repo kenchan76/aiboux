@@ -4733,6 +4733,32 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_SEARCH_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Active Shop SEO/UI structure update:
+- Public tenant storefront headers must expose a real crawlable search form, not a decorative input.
+- Shared search component: `src/components/shop/storefront/StorefrontSearchForm.tsx`
+- Search route: `GET /s/{tenant}/products?q=<term>`
+- Query result pages must show query context to users.
+- Query result pages must keep canonical `/s/{tenant}/products`.
+- Query result pages must use `noindex,follow,noarchive` to avoid arbitrary internal-search index bloat while preserving product discovery links.
+- `WebSite` structured data `SearchAction` must match the actual public form target.
+- Search form must remain visible and usable on desktop, tablet, and mobile.
+
+Current public evidence:
+- WIP commits: `30f4f07`, `23e556d`
+- Latest Worker Version ID: `dad7c13e-c940-4a25-9fd8-0f484bce01d3`
+- `gate:shop-public-crawl`: PASS, 7 passed
+- `gate:shop-sales-quality`: PASS
+- Public search verification URL: `https://shop.aiboux.com/s/aiboux/products?q=%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_PAGE_TYPE_SEO_PUBLICATION_AND_BARK
 
 Status: `WIP_DEPLOYED_NOT_FINAL`
