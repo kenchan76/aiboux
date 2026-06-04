@@ -21,7 +21,7 @@ export function StorefrontSearchForm({
       method="get"
       role="search"
       aria-label="ストア内商品検索"
-      className={`flex h-10 min-w-0 flex-1 overflow-hidden rounded bg-white text-neutral-900 ${className}`.trim()}
+      className={`order-3 flex h-10 w-full flex-none overflow-hidden rounded bg-white text-neutral-900 sm:order-none sm:min-w-[260px] sm:flex-1 ${className}`.trim()}
       data-testid="storefront-search-form"
     >
       <span className="hidden items-center border-r border-neutral-200 bg-neutral-100 px-3 text-xs md:flex">

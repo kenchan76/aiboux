@@ -237,7 +237,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
         <span>{layout.global.header.shippingText}</span>
         <span className="flex gap-5"><span>{layout.global.header.helpText}</span><span>{layout.global.header.noticeText}</span></span>
       </div>
-      <div className="mx-auto flex max-w-screen-xl items-center gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center gap-3 px-4 py-3 sm:gap-4">
         <a href={logoHref} className={cn("shrink-0 text-2xl font-bold tracking-tight", logo.alignment === "center" && "text-center")}>
           {logo.displayMode !== "storeNameOnly" && logo.imageUrl ? (
             <span className="inline-flex items-center gap-2">
