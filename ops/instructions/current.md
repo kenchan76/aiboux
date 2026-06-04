@@ -156,3 +156,26 @@ Additional active requirements:
 - Every public storefront page must expose canonical, robots, Open Graph, Twitter Card, and `ja-JP` alternate metadata.
 - Product detail Open Graph must use product image and product title, without a duplicated product title above the gallery.
 - Tests must verify meta tags on public URLs, not only JSON-LD.
+
+## 2026-06-04 User Escalation: Robots Txt And Sitemap
+
+SEO strongest structure must include crawler discovery files, not only per-page meta.
+
+Additional active requirements:
+- Add `https://shop.aiboux.com/robots.txt`.
+- Add `https://shop.aiboux.com/sitemap.xml`.
+- `robots.txt` must point to the sitemap and disallow transactional/private/admin paths.
+- `sitemap.xml` must include only indexable discovery/content URLs:
+  - Shop service site
+  - tenant TOP
+  - products
+  - categories
+  - product detail URLs
+  - contact
+  - legal
+  - privacy
+  - shipping
+  - returns
+  - FAQ
+- `sitemap.xml` must not include cart, checkout, mypage, orders, favorites, login, register, admin, or subscription self-service pages.
+- Public Playwright must verify robots and sitemap behavior.

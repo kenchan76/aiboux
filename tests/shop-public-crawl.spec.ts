@@ -199,4 +199,27 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
       expect(body, pathname).not.toContain("Not Found");
     }
   });
+
+  test("shop robots and sitemap expose only indexable tenant discovery pages", async ({ request }) => {
+    const robots = await request.get("/robots.txt", { headers: { host: "shop.aiboux.com", "cache-control": "no-cache" } });
+    expect(robots.status(), "robots.txt should be public").toBe(200);
+    const robotsText = await robots.text();
+    expect(robotsText).toContain("Sitemap: https://shop.aiboux.com/sitemap.xml");
+    expect(robotsText).toContain("Disallow: /s/aiboux/cart");
+    expect(robotsText).toContain("Disallow: /s/aiboux/checkout");
+    expect(robotsText).toContain("Disallow: /s/aiboux/admin");
+
+    const sitemap = await request.get("/sitemap.xml", { headers: { host: "shop.aiboux.com", "cache-control": "no-cache" } });
+    expect(sitemap.status(), "sitemap.xml should be public").toBe(200);
+    const sitemapXml = await sitemap.text();
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/products</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/categories</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/product/setsuka-coffee</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/returns</loc>");
+    expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/cart</loc>");
+    expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/checkout</loc>");
+    expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/mypage</loc>");
+    expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/admin");
+  });
 });

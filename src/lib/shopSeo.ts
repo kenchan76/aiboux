@@ -81,6 +81,50 @@ export function buildShopSocialMeta({
   };
 }
 
+export function buildShopSitemapEntries(tenantSlug = "aiboux") {
+  const tenantRoot = `/s/${encodeURIComponent(tenantSlug)}`;
+  const publicPages = [
+    { path: "/", changefreq: "daily", priority: "0.80" },
+    { path: `${tenantRoot}/`, changefreq: "daily", priority: "1.00" },
+    { path: `${tenantRoot}/products`, changefreq: "daily", priority: "0.90" },
+    { path: `${tenantRoot}/categories`, changefreq: "weekly", priority: "0.80" },
+    { path: `${tenantRoot}/contact`, changefreq: "monthly", priority: "0.55" },
+    { path: `${tenantRoot}/legal`, changefreq: "monthly", priority: "0.50" },
+    { path: `${tenantRoot}/privacy`, changefreq: "monthly", priority: "0.50" },
+    { path: `${tenantRoot}/shipping`, changefreq: "monthly", priority: "0.60" },
+    { path: `${tenantRoot}/returns`, changefreq: "monthly", priority: "0.60" },
+    { path: `${tenantRoot}/faq`, changefreq: "monthly", priority: "0.65" },
+  ];
+  const productIds = [
+    "setsuka-coffee",
+    "setsuka-bottle",
+    "setsuka-towel",
+    "setsuka-storage",
+    "setsuka-cleaning",
+    "setsuka-skincare",
+    "setsuka-snack",
+    "setsuka-pet",
+    "setsuka-gift",
+    "setsuka-tea",
+    "setsuka-rice",
+    "setsuka-pan",
+    "setsuka-dishcloth",
+    "setsuka-laundry",
+    "setsuka-candle",
+    "setsuka-stationery",
+  ];
+  const productPages = productIds.map((id) => ({
+    path: `${tenantRoot}/product/${id}`,
+    changefreq: "weekly",
+    priority: "0.75",
+  }));
+
+  return [...publicPages, ...productPages].map((entry) => ({
+    ...entry,
+    url: absoluteShopUrl(entry.path),
+  }));
+}
+
 export function buildShopBreadcrumbJsonLd(items: ShopBreadcrumbItem[]) {
   return {
     "@context": "https://schema.org",
