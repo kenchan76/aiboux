@@ -49,6 +49,16 @@ Implemented WIP direction:
 - FAQ visible content and FAQ structured data must come from the same shared FAQ source.
 - Public tests must verify `SiteNavigationElement`, page entity JSON-LD, FAQ `Question` / `acceptedAnswer`, and `ContactPage`.
 
+Latest WIP evidence:
+
+- WIP commit: `82c4f6b WIP strengthen shop page entity FAQ SEO parts`
+- Worker Version ID: `__WORKER_VERSION_ID__`
+- TOP `/s/aiboux/`: `SiteNavigationElement` and page entity JSON-LD verified on public HTML.
+- FAQ `/s/aiboux/faq`: `FAQPage`, `Question`, and `acceptedAnswer` verified on public HTML.
+- Contact `/s/aiboux/contact`: `ContactPage` verified on public HTML.
+- `gate:shop-public-crawl`: PASS on public URLs.
+- `gate:shop-sales-quality`: PASS on public URLs.
+
 Not final:
 
 - `FINAL_ACCEPTED` is prohibited.

@@ -1,0 +1,18 @@
+timestamp=20260604T144228Z
+commit_status=0
+head_after=e6cba320b1944784e33b514b859b67a58f9d1d2a
+commit_stdout:
+[main e6cba32] WIP shop aiboux tenant deploy checkpoint 20260604T144228Z
+ 11 files changed, 189 insertions(+), 141 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T144228Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T144228Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T144228Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T144228Z_status_before.txt
+ create mode 100644 all_log/patches/20260604T144228Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T144228Z_before_deploy_staged.patch
+ delete mode 100644 test-results/shop-subscriptions-public--c7da3-se-honest-subscription-flow/error-context.md
+ delete mode 100644 test-results/shop-subscriptions-public--c7da3-se-honest-subscription-flow/test-failed-1.png
+ delete mode 100644 test-results/shop-subscriptions-public--c7da3-se-honest-subscription-flow/trace.zip
+ delete mode 100644 test-results/shop-subscriptions-public--c7da3-se-honest-subscription-flow/video.webm
+
+commit_stderr:
