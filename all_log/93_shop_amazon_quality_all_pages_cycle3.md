@@ -35,6 +35,7 @@ Timestamp: `2026-06-04T11:03:50Z`
 - `npm run gate:shop-public-crawl` after internal-link gate expansion: PASS, 5 passed
 - `npm run gate:shop-sales-quality`: PASS
 - `npm run gate:shop-subscriptions`: FAIL as expected with `SUBSCRIPTION_SCHEMA_PENDING`
+- Legacy `/shop/collections` and `/shop/collections/new` redirect target normalized to `/s/aiboux/admin/categories`.
 
 ## Public URL Status
 
@@ -62,3 +63,4 @@ Timestamp: `2026-06-04T11:03:50Z`
 - Remote D1 subscription migration is not applied.
 - Provider-backed recurring billing is not verified.
 - Internal storefront links under `/s/aiboux` are now extracted by Playwright and verified to return HTTP 200.
+- Legacy collections redirects no longer point at old `/shop/categories`.
