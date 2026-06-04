@@ -43,6 +43,21 @@ const NOINDEX_STOREFRONT_PAGES = new Set([
   "account",
 ]);
 
+const CURATED_SHOP_CATEGORY_SITEMAP_ENTRIES = [
+  "food-drink",
+  "coffee-tea",
+  "kitchen",
+  "daily-goods",
+  "towels",
+  "beauty",
+  "pet",
+  "gift",
+  "sports-outdoor",
+  "books-stationery",
+  "sale",
+  "ranking",
+];
+
 export function absoluteShopUrl(path: string): string {
   return new URL(path, SHOP_ORIGIN).toString();
 }
@@ -126,6 +141,11 @@ export function buildShopSitemapEntries(tenantSlug = "aiboux") {
     { path: `${tenantRoot}/returns`, changefreq: "monthly", priority: "0.60" },
     { path: `${tenantRoot}/faq`, changefreq: "monthly", priority: "0.65" },
   ];
+  const categoryPages = CURATED_SHOP_CATEGORY_SITEMAP_ENTRIES.map((slug) => ({
+    path: `${tenantRoot}/products?category=${encodeURIComponent(slug)}`,
+    changefreq: "weekly",
+    priority: "0.70",
+  }));
   const productIds = [
     "setsuka-coffee",
     "setsuka-bottle",
@@ -150,7 +170,7 @@ export function buildShopSitemapEntries(tenantSlug = "aiboux") {
     priority: "0.75",
   }));
 
-  return [...publicPages, ...productPages].map((entry) => ({
+  return [...publicPages, ...categoryPages, ...productPages].map((entry) => ({
     ...entry,
     url: absoluteShopUrl(entry.path),
   }));

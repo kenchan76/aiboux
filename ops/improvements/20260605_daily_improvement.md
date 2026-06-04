@@ -40,3 +40,17 @@ Applied file targets:
 - `src/lib/shopStorefrontShared.ts`
 - `src/pages/shop/[tenant]/[...path].astro`
 - `tests/shop-public-crawl.spec.ts`
+
+## Additional Improvement: Stable Category URL Treatment
+
+After checking Google Search Central ecommerce URL structure guidance, category links should not be emitted as meaningless query URLs.
+
+Practical process improvement:
+
+- Stable curated category URLs may be indexable if they are used consistently in internal links, canonical tags, sitemap entries, and visible page content.
+- Arbitrary free-text search URLs remain `noindex,follow,noarchive`.
+- Tests should distinguish stable category discovery pages from arbitrary search pages.
+
+Applied target:
+
+- `/s/aiboux/products?category={slug}` must filter products, show category context, emit a self canonical, remain indexable, and expose an `ItemList` for the visible products.

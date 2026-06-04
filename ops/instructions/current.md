@@ -4,7 +4,30 @@ Status: WIP
 
 Active instruction file:
 
-- `ops/instructions/20260605_shop_seo_ui_common_seo_hub.md`
+- `ops/instructions/20260605_shop_category_url_seo_ui.md`
+
+## 2026-06-05 Continuation: Category URL SEO/UI Hardening
+
+Continue the active 5-hour sales-quality sprint. The next concrete work unit is making stable category discovery links real SEO surfaces instead of unhandled query parameters.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+
+Current additions required:
+
+- Treat curated `category` URLs as stable category discovery pages.
+- Filter `/s/aiboux/products?category={slug}` by category.
+- Show visible category context and crawlable reset/support links.
+- Keep category URLs indexable with self canonical URLs.
+- Keep arbitrary `q` search URLs noindex.
+- Reflect visible category products in `ItemList` JSON-LD.
+- Add category URLs to sitemap.
+- Add public Playwright coverage for category URLs.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: SEO/UI Common SEO Hub
 

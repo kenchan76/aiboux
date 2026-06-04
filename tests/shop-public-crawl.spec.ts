@@ -288,6 +288,9 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
     const sitemapXml = await sitemap.text();
     expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/</loc>");
     expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/products</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/products?category=coffee-tea</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/products?category=kitchen</loc>");
+    expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/products?category=daily-goods</loc>");
     expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/categories</loc>");
     expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/product/setsuka-coffee</loc>");
     expect(sitemapXml).toContain("<loc>https://shop.aiboux.com/s/aiboux/returns</loc>");
@@ -323,5 +326,37 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
     expect(html).toContain('name="q"');
     expect(html).toContain("検索語:");
     expect(html).toContain("noindex,follow");
+  });
+
+  test("stable category product URLs are meaningful indexable discovery pages", async ({ page, request }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto("/s/aiboux/products?category=coffee-tea", { waitUntil: "networkidle" });
+
+    await expect(page.getByTestId("storefront-category-query")).toContainText("コーヒー・お茶");
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("h1")).toContainText("コーヒー・お茶");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      "https://shop.aiboux.com/s/aiboux/products?category=coffee-tea",
+    );
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /index,follow/);
+    await expect(page.locator('[data-testid="storefront-products"] a[href*="/s/aiboux/product/"]')).not.toHaveCount(0);
+    await expect(page.locator('[data-testid="storefront-products"]')).toContainText("コーヒー");
+
+    const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
+    expect(jsonLdText ?? "").toContain("CollectionPage");
+    expect(jsonLdText ?? "").toContain("ItemList");
+    expect(jsonLdText ?? "").toContain("#itemlist");
+    expect(jsonLdText ?? "").toContain("numberOfItems");
+
+    const response = await request.get("/s/aiboux/products?category=coffee-tea", {
+      headers: { "cache-control": "no-cache" },
+    });
+    expect(response.status()).toBe(200);
+    const html = await response.text();
+    expect(html).toContain("カテゴリ: コーヒー・お茶");
+    expect(html).toContain("index,follow,max-image-preview:large");
+    expect(html).toContain("https://shop.aiboux.com/s/aiboux/products?category=coffee-tea");
+    expect(html).not.toContain("noindex,follow,noarchive");
   });
 });

@@ -81,6 +81,8 @@ const page = productMatch ? "product" : pathParam;
 const productId = productMatch?.[1] ?? "";
 const rawSearchQuery = Astro.url.searchParams.get("q") ?? "";
 const searchQuery = rawSearchQuery.replace(/\s+/g, " ").trim().slice(0, 80);
+const rawCategoryParam = Astro.url.searchParams.get("category") ?? "";
+const categoryQuery = rawCategoryParam.replace(/\s+/g, " ").trim().slice(0, 80);
 const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
 const categories = profile ? await listShopStorefrontCategories(profile.tenantId) : [];
 const fetchedProduct = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
@@ -99,6 +101,18 @@ const salesProductThumbnails = salesProduct ? buildProductThumbnails(salesProduc
 const relatedProductCards = salesProduct
   ? buildRelatedSalesProducts(products, salesProduct).slice(0, 4)
   : [];
+const curatedCategoryCards = buildShopCuratedCategoryCards();
+const categoryCards = [...curatedCategoryCards, ...categories.filter((category) => Number(category.productCount ?? 0) > 0)]
+  .filter((category, index, array) => array.findIndex((item) => item.name === category.name || item.slug === category.slug) === index)
+  .map((category, index) => ({
+    ...category,
+    imageUrl: imageForSalesProduct(category.name, category.name, index),
+  }));
+const activeCategory = page === "products" && !searchQuery && categoryQuery
+  ? findPublicCategory(categoryQuery, categoryCards)
+  : null;
+const activeCategorySlug = activeCategory?.slug ?? "";
+const activeCategoryName = activeCategory?.name ?? "";
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   products: { title: "商品一覧", description: "公開中の商品を表示します。" },
@@ -127,9 +141,18 @@ const meta = page === "products" && searchQuery
       title: `「${searchQuery}」の検索結果`,
       description: `${storeName}で「${searchQuery}」に関連する商品を検索します。商品名、カテゴリ、価格、レビュー、在庫を比較できます。`,
     }
+  : page === "products" && activeCategory
+    ? {
+        title: `${activeCategoryName}の商品一覧`,
+        description: `${storeName}の${activeCategoryName}カテゴリ商品を比較できます。価格、レビュー、税込表示、在庫、配送条件、カート導線を確認できます。`,
+      }
   : baseMeta;
 const title = isKnownTenant && isAllowedPath ? `${meta.title} | AIBOUX Store` : "ページが見つかりません | AIBOUX Store";
-const canonicalPath = page === "products" && searchQuery ? `${tenantRoot}/products` : `${tenantRoot}/${pathParam}`;
+const canonicalPath = page === "products" && searchQuery
+  ? `${tenantRoot}/products`
+  : page === "products" && activeCategorySlug
+    ? `${tenantRoot}/products?category=${encodeURIComponent(activeCategorySlug)}`
+    : `${tenantRoot}/${pathParam}`;
 const canonicalUrl = isKnownTenant && isAllowedPath
   ? new URL(canonicalPath, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
@@ -169,19 +192,17 @@ const faqItems = buildShopFaqItems();
 const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const normalizedSearchNeedle = searchQuery.toLowerCase();
-const searchedProductCards = page === "products" && normalizedSearchNeedle
+const visibleProductCards = page === "products" && normalizedSearchNeedle
   ? publicProductCards.filter((item) => {
       const source = `${item.displayName} ${item.categoryName ?? ""} ${item.seoDescription ?? ""} ${item.description ?? ""}`.toLowerCase();
       return source.includes(normalizedSearchNeedle);
     })
+  : page === "products" && activeCategory
+    ? publicProductCards.filter((item) => productMatchesPublicCategory(item, activeCategory))
   : publicProductCards;
-const curatedCategoryCards = buildShopCuratedCategoryCards();
-const categoryCards = [...curatedCategoryCards, ...categories.filter((category) => Number(category.productCount ?? 0) > 0)]
-  .filter((category, index, array) => array.findIndex((item) => item.name === category.name || item.slug === category.slug) === index)
-  .map((category, index) => ({
-  ...category,
-  imageUrl: imageForSalesProduct(category.name, category.name, index),
-}));
+const productGridCards = page === "products" && (searchQuery || activeCategory)
+  ? visibleProductCards
+  : publicProductCards;
 const organizationJsonLd = buildShopOrganizationJsonLd({
   storeName,
   absoluteTenantRoot,
@@ -193,7 +214,7 @@ const itemListJsonLd = buildShopItemListJsonLd({
   page,
   canonicalUrl,
   tenantRoot,
-  publicProductCards: page === "products" ? searchedProductCards : publicProductCards,
+  publicProductCards: page === "products" ? visibleProductCards : publicProductCards,
   categoryCards,
   accountCards,
   policySupportCards,
@@ -234,6 +255,60 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
 
 function isPublicTestProductName(value: string | null | undefined): boolean {
   return /公開検証商品|検証商品|テスト商品|dummy|sample|test product/i.test(String(value ?? ""));
+}
+
+function normalizePublicCategoryToken(value: string): string {
+  const source = String(value || "")
+    .toLowerCase()
+    .replace(/[・\s_]+/g, "-")
+    .replace(/[^\p{L}\p{N}-]+/gu, "-");
+  if (/coffee-tea|コーヒー|珈琲|お茶|茶|coffee|tea/.test(source)) return "coffee-tea";
+  if (/food-drink|食品|飲料|food|drink|菓子|米|パン/.test(source)) return "food-drink";
+  if (/daily-goods|日用品|ホームケア|daily|clean|掃除|洗剤|ランドリー/.test(source)) return "daily-goods";
+  if (/sports-outdoor|スポーツ|アウトドア|sports|outdoor/.test(source)) return "sports-outdoor";
+  if (/books-stationery|本|文具|stationery|book/.test(source)) return "books-stationery";
+  if (/towels|タオル|寝具|towel/.test(source)) return "towels";
+  if (/kitchen|キッチン|台所|保存|ボトル|水筒|クロス/.test(source)) return "kitchen";
+  if (/beauty|ビューティー|美容|コスメ|skin|スキン/.test(source)) return "beauty";
+  if (/pet|ペット/.test(source)) return "pet";
+  if (/gift|ギフト|贈り物|キャンドル|candle|box|ボックス/.test(source)) return "gift";
+  if (/sale|セール/.test(source)) return "sale";
+  if (/ranking|ランキング/.test(source)) return "ranking";
+  return source;
+}
+
+function findPublicCategory(
+  value: string,
+  categoryValues: Array<{ name: string; slug?: string }>,
+): { name: string; slug: string } | null {
+  const needle = normalizePublicCategoryToken(value);
+  const matched = categoryValues.find((category) => {
+    const slug = normalizePublicCategoryToken(category.slug ?? "");
+    const name = normalizePublicCategoryToken(category.name);
+    return needle === slug || needle === name || slug.includes(needle) || name.includes(needle);
+  });
+  if (!matched?.slug) return null;
+  return { name: matched.name, slug: matched.slug };
+}
+
+function productMatchesPublicCategory(
+  productValue: { displayName?: string; categoryName?: string },
+  categoryValue: { name: string; slug: string },
+): boolean {
+  const categoryToken = normalizePublicCategoryToken(`${categoryValue.slug} ${categoryValue.name}`);
+  const productToken = normalizePublicCategoryToken(`${productValue.displayName ?? ""} ${productValue.categoryName ?? ""}`);
+  if (categoryToken.includes("ranking") || categoryToken.includes("sale")) return true;
+  if (categoryToken.includes("gift")) return /gift|ギフト|candle|キャンドル|box|ボックス/.test(productToken);
+  if (categoryToken.includes("food-drink")) return /food-drink|snack|rice|pan|食品|飲料|菓子|米|パン/.test(productToken);
+  if (categoryToken.includes("coffee-tea")) return /coffee-tea|coffee|tea|コーヒー|茶/.test(productToken);
+  if (categoryToken.includes("kitchen")) return /kitchen|bottle|dishcloth|キッチン|保存|ボトル|水筒|クロス/.test(productToken);
+  if (categoryToken.includes("daily-goods")) return /daily-goods|clean|laundry|日用品|洗剤|掃除|ランドリー|ホームケア/.test(productToken);
+  if (categoryToken.includes("towels")) return /towels|towel|タオル|寝具/.test(productToken);
+  if (categoryToken.includes("beauty")) return /beauty|skin|ビューティー|美容|スキン/.test(productToken);
+  if (categoryToken.includes("pet")) return /pet|ペット/.test(productToken);
+  if (categoryToken.includes("books-stationery")) return /books-stationery|stationery|book|文具|本/.test(productToken);
+  if (categoryToken.includes("sports-outdoor")) return /sports-outdoor|sports|outdoor|スポーツ|アウトドア/.test(productToken);
+  return productToken.includes(categoryToken);
 }
 
 function inferSalesCategory(name: string, category: string): string {
@@ -578,22 +653,25 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                 <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                   <div>
-                    <h2 class="text-xl font-bold text-neutral-950">{searchQuery ? `「${searchQuery}」の検索結果` : "すべての商品"}</h2>
+                    <h2 class="text-xl font-bold text-neutral-950">{searchQuery ? `「${searchQuery}」の検索結果` : activeCategory ? `${activeCategoryName}の商品一覧` : "すべての商品"}</h2>
                     <p class="mt-2 text-sm leading-6 text-neutral-600">
                       {searchQuery
                         ? "検索結果は任意キーワードページとしてnoindexにし、商品発見と内部回遊を優先します。価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"
+                        : activeCategory
+                          ? "安定カテゴリURLとしてindex可能にし、カテゴリに合う商品だけを表示します。内部リンク、canonical、sitemap、ItemListを同じURLへ揃えます。"
                         : "価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"}
                     </p>
                   </div>
                   <div class="flex flex-wrap gap-2 text-xs">
                     {searchQuery ? <span class="rounded-full bg-blue-100 px-3 py-1 font-semibold text-blue-900" data-testid="storefront-search-query">検索語: {searchQuery}</span> : null}
+                    {activeCategory ? <span class="rounded-full bg-blue-100 px-3 py-1 font-semibold text-blue-900" data-testid="storefront-category-query">カテゴリ: {activeCategoryName}</span> : null}
                     <span class="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-900">税込表示</span>
                     <span class="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-800">在庫あり</span>
                     <span class="rounded-full bg-neutral-100 px-3 py-1 font-semibold text-neutral-700">最短2〜4営業日</span>
                   </div>
                 </div>
               </div>
-              {searchQuery && !searchedProductCards.length ? (
+              {searchQuery && !visibleProductCards.length ? (
                 <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-search-empty">
                   <strong>一致する商品がありません。</strong>
                   <p class="mt-2">カテゴリや別のキーワードから探してください。検索結果ページは任意語句の重複を避けるため、検索エンジンにはnoindexで出します。</p>
@@ -604,8 +682,19 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </div>
                 </div>
               ) : null}
+              {activeCategory && !visibleProductCards.length ? (
+                <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-category-empty">
+                  <strong>{activeCategoryName}の商品は現在準備中です。</strong>
+                  <p class="mt-2">安定カテゴリURLは維持しつつ、商品が未公開の場合は関連カテゴリや商品一覧へ案内します。</p>
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/products`}>すべての商品</a>
+                    <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/categories`}>カテゴリ一覧</a>
+                    <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/contact`}>問い合わせ</a>
+                  </div>
+                </div>
+              ) : null}
               <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                {(searchedProductCards.length ? searchedProductCards : publicProductCards).map((item, index) => (
+                {productGridCards.map((item, index) => (
                   <article class="flex min-h-[340px] flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md">
                     <a class="aspect-square overflow-hidden rounded-lg bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                       <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
