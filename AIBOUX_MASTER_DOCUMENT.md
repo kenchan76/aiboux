@@ -1,6 +1,42 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop SEO Sitemap Panel Public Evidence
+
+Status: `SHOP_5H_SEO_SITEMAP_PANEL_WIP_DEPLOYED_NOT_FINAL`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override records the public verification state for the shared SEO site map panel commonization.
+
+Current public WIP evidence:
+
+- WIP implementation commit: `912978c42733e0ed6f88ba811d0f42fb920ee2d5`.
+- WIP deploy Worker Version ID: `3b710f35-a295-492c-a303-a8cf2ba3226f`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- Public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops sub-gates passed.
+- TOP and product detail render `StorefrontSeoSiteMapPanel`.
+- The SEO site map panel uses crawlable `<a href>` links with visible blue/underlined link affordance.
+- The SEO site map panel exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- The SEO site map panel displays canonical URL, robots policy, and sitemap status.
+- Product detail keeps one visible product `h1`; duplicate product title above the image gallery remains prohibited.
+
+Google Search Central references checked for this WIP include:
+
+- SEO Starter Guide.
+- Breadcrumb structured data.
+- Product structured data.
+- Merchant Listing structured data.
+- Page Experience.
+
+Not final:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- The subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
 ## Current Active Operating Override: AIBOUX Shop Trust Matrix Public Evidence
 
 Status: `SHOP_5H_TRUST_MATRIX_SEO_UI_WIP_DEPLOYED_NOT_FINAL`
