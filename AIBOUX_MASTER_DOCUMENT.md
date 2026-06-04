@@ -4395,3 +4395,21 @@ Status: `PUBLIC_STOREFRONT_SLIDER_AND_INTERACTION_FIX_WIP`
 - `npm run gate:shop-storefront-visual`: PASS, 3 passed.
 - Screen evidence is published under `/g/screens/`.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T09:51:40Z Current Evidence Note: Public Storefront Carousel Smoothness
+
+Status: `PUBLIC_STOREFRONT_CAROUSEL_SMOOTHNESS_AND_VISUAL_POLISH_WIP`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- WIP commit: `afb7187`
+- Code WIP Worker Version ID: `dcc6bae5-b1e6-4628-af00-5d0fdc5baa92`
+- Public TOP hero now uses a transform-based carousel track instead of immediate state replacement.
+- Transition: `transform 560ms cubic-bezier(0.22, 1, 0.36, 1)`.
+- `npm run gate:shop-storefront-carousel`: PASS, 2 passed.
+- `npm run gate:shop-storefront-interaction`: PASS, 2 passed.
+- `npm run gate:shop-storefront-visual`: PASS, 3 passed.
+- Verified: next, previous, dot click, autoplay, side preview sync, keyboard arrows, swipe/drag, and transform during animation.
+- Smooth carousel screenshots are published under `/g/screens/`.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
