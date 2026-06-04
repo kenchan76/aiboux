@@ -4802,6 +4802,51 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+Public evidence publication:
+- Public evidence Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+- Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
+- Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
+- Progress Bark notification delivered with `delivered=true`, `skipped=false`, `secretLogged=false`.
+
+## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must expose crawlable, visible internal links.
+- Important shopping and support links must use real `<a href>` anchors and visible blue link affordance.
+- Shared reusable parts must be preferred over page-specific duplicate SEO blocks.
+- TOP storefront and dynamic storefront pages must share contextual SEO navigation.
+- Public pages should include `SiteNavigationElement` navigation semantics.
+- Public pages should include `ItemList` structured data where useful, including contextual links as fallback when the page has no product/category item list.
+- Product detail pages must keep one visible product `h1` and must not reintroduce a duplicate title above the image gallery.
+
+Shared parts:
+- Contextual links component: `src/components/shop/storefront/StorefrontContextLinks.tsx`
+- Link builder: `buildShopContextualLinkSections()` in `src/lib/shopStorefrontShared.ts`
+- TOP integration: `src/pages/shop/storefront/[tenant].astro` and `src/components/shop/storefront/ShadcnStorefront.tsx`
+- Dynamic public page integration: `src/pages/shop/[tenant]/[...path].astro`
+- Structured data integration: `src/lib/shopSeo.ts`
+
+Reference SEO basis:
+- Google Search Central SEO Starter Guide.
+- Google Search Central crawlable links guidance.
+- Google Search Central ecommerce URL guidance.
+- Google Search Central breadcrumb structured data guidance.
+- Google Search Central product structured data guidance.
+
+Latest evidence:
+- First deploy Worker Version ID: `1c6fde84-5225-4469-bdd1-9fd1a0f19ef6`
+- Fix deploy Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+- `gate:shop-public-crawl`: PASS, 9 passed
+- `gate:shop-sales-quality`: PASS
+- Evidence file: `all_log/100_shop_all_pages_seo_structure_ui.md`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_SEARCH_SEO_RUNTIME_PUBLICATION_AND_BARK
 
 Status: `WIP_DEPLOYED_NOT_FINAL`

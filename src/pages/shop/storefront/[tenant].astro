@@ -13,7 +13,9 @@ import {
 } from "@/lib/shopSeo";
 import { getShopStorefrontLayout, getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
 import {
+  buildShopContextualLinkSections,
   buildShopFooterColumns,
+  buildShopHeaderCategoryLinks,
 } from "@/lib/shopStorefrontShared";
 import "@/styles/global.css";
 
@@ -51,6 +53,9 @@ const publicProductCards = products.map((product) => ({
 }));
 const breadcrumbItems = [{ name: "TOP", href: "", url: canonicalUrl }];
 const footerColumns = buildShopFooterColumns(tenantRoot);
+const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
+const contextualLinkSections = buildShopContextualLinkSections("", tenantRoot);
+const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
 const structuredData = JSON.stringify([
   buildShopBreadcrumbJsonLd(breadcrumbItems),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
@@ -69,6 +74,7 @@ const structuredData = JSON.stringify([
     categoryCards: [],
     accountCards: [],
     policySupportCards: [],
+    contextualLinks,
   }),
   buildShopWebPageJsonLd({
     page: "",
@@ -81,7 +87,11 @@ const structuredData = JSON.stringify([
   buildShopSiteNavigationJsonLd({
     canonicalUrl,
     storeName,
-    links: footerColumns.flatMap((column) => column.links),
+    links: [
+      ...headerCategoryLinks,
+      ...contextualLinks,
+      ...footerColumns.flatMap((column) => column.links),
+    ],
   }),
 ].filter(Boolean));
 
@@ -111,7 +121,7 @@ const storefrontProducts = products.map((product) => ({
   <body>
     {
       isKnownTenant && profile ? (
-        <ShadcnStorefront storeName={storeName} products={storefrontProducts} layout={layout!} />
+        <ShadcnStorefront storeName={storeName} products={storefrontProducts} layout={layout!} contextualLinkSections={contextualLinkSections} />
       ) : (
         <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">
           <p class="text-sm font-bold text-neutral-500">404</p>

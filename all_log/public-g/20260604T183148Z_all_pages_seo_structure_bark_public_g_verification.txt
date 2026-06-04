@@ -1,0 +1,28 @@
+timestamp=20260604T183148Z
+--- status-content-type
+m68 HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+l68 HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+d68 HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+--- sha256
+a26df999dbc29b233bc5281ca6ed3c7ebd6b2089e7cd91eee6ab8766e9bd9764  public/g/m68.md
+d876b3cc8af5597b3502688ed46b007c3e3d8941b3d873694dbe4acc02466f21  /tmp/m68.body
+77d0831228d6726ca63a86522e2f192272e39e4fbaa5f21bddc302acd2bf6417  public/g/l68.md
+d496a90b23cd1bf87036f618ad4469900afe73365c14fcb12d1d8dcc087cdbe6  /tmp/l68.body
+0ecd15ef49fbeddde6947106726a9263ce7abf59ee7d87c99c30a3714dc9fdd1  public/g/d68.md
+70e1554ad3b931f25cfbfa081678e106bfa43d8edbb8efb6e9d12b8d20e20ef2  /tmp/d68.body
+--- markers
+/tmp/m68.body:4808:- Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
+/tmp/m68.body:4811:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+/tmp/l68.body:2291:- Marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in public m68/l68/d68.
+/tmp/l68.body:2302:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP
+/tmp/d68.body:1395:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP Screen Evidence
+/tmp/d68.body:1440:- Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
+/tmp/m68.body:4806:- Public evidence Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+/tmp/l68.body:2287:- Public evidence Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+/tmp/l68.body:2299:- Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+/tmp/d68.body:1438:- Public evidence Worker Version ID: `dce27ebd-6fe4-4801-8976-aefee00b14d0`
+/tmp/l68.body:2300:- Evidence file: `all_log/bark/20260604T183003Z_all_pages_seo_structure_progress_bark.json`
+/tmp/d68.body:1449:- Evidence file: `all_log/bark/20260604T183003Z_all_pages_seo_structure_progress_bark.json`

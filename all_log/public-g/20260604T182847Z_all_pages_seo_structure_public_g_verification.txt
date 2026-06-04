@@ -1,0 +1,116 @@
+timestamp=20260604T182847Z
+--- m68 headers
+HTTP/2 200 
+date: Thu, 04 Jun 2026 18:28:47 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 153273
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=mmpojc0sxV49F6q50%2BqMNV9%2B0ZFqoFIeORpNZVF2RWs4703%2FkHMXO06Xpn9xHxn87DUoeD%2BDXInriNi6s0VAqR4unPsaBTT41OYRCnKXYPN7%2FC7uJ%2BEtSsr9KQV%2B90pRjXc%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a068ffd37e44e3b7-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- l68 headers
+HTTP/2 200 
+date: Thu, 04 Jun 2026 18:28:47 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 129138
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=jOwDxXRFFXTZI0dsu63Pd1%2FyQ75oDrok72C%2Fs37dTTrKwNyQB%2BMsunP6r9fXLXU5nYU3w7sx%2BgjjdduJt1SmFJHy3CLZkYnc646VR%2F6IkKM6CE0FplAZiJy2NDZQxtLq%2B%2F8%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a068ffd5a9af4e13-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- d68 headers
+HTTP/2 200 
+date: Thu, 04 Jun 2026 18:28:48 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 90499
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=UIDvKpHlK%2FkbDfniLGsqFl3Xqv1lBkYWHOxQ1K2nnuRmrfEkDsCK9Rvy0GP40j%2FFR8wI8l2%2B6QVdKoEi%2Fk6DOqa6BmkVHVvyyOZV9pafWapSQfXnTDBsIa2HXPkMGHdF%2FgQ%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a068ffd64b1b57c0-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- sha256
+11b72dd19a58cc2915c81a2cb51ce964db5149966cbc167af37abcf114d55d34  public/g/m68.md
+abffbd36458b0560fce43b9a14972116bb5f75891b51b6e22678b381b2ee1b84  /tmp/m68.body
+aa26ba85976c5e42449ecf58e6bd3b1386edaca13c2b14df8145ef7d526cb2f7  public/g/l68.md
+f2a2945ac993a9378493d20ade409cda4abe29907e05be7aa88faaab20eea664  /tmp/l68.body
+52656e4d2c5b732e12d282db77fa8de58f37bf3c3456e0909bd7bda8a2e41acf  public/g/d68.md
+0ef8fd8b7f59dae9878b1eb5a554d62180546fe3cb077700716f54ac6c552fbf  /tmp/d68.body
+--- markers
+/tmp/d68.body:1395:## SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP Screen Evidence
+/tmp/m68.body:124:- Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/m68.body:421:- Worker Version ID: 5e4d836d-50f6-41cb-aee2-894a02fbaa94
+/tmp/m68.body:2568:Worker Version ID: 5e4d836d-50f6-41cb-aee2-894a02fbaa94
+/tmp/l68.body:541:- Latest Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:645:Runtime placeholders such as `5e4d836d-50f6-41cb-aee2-894a02fbaa94` are replaced in the public response.
+/tmp/l68.body:655:The SHA mismatch is expected for files containing `5e4d836d-50f6-41cb-aee2-894a02fbaa94`.
+/tmp/l68.body:662:| `https://shop.aiboux.com/` | 200 | `5e4d836d-50f6-41cb-aee2-894a02fbaa94` | `AIBOUX SHOP | サービスサイト` |
+/tmp/l68.body:663:| `https://shop.aiboux.com/s/aiboux/` | 200 | `5e4d836d-50f6-41cb-aee2-894a02fbaa94` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/l68.body:664:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `5e4d836d-50f6-41cb-aee2-894a02fbaa94` | `AIBOUX SHOP Dashboard` |
+/tmp/l68.body:752:- `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:771:- `/g/*` responses replace `5e4d836d-50f6-41cb-aee2-894a02fbaa94` at runtime.
+/tmp/l68.body:1207:- Public log publication Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:1213:- `x-aiboux-worker-version`: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:1243:- `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:1254:- `x-aiboux-worker-version`: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:1300:- `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:1755:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 5e4d836d-50f6-41cb-aee2-894a02fbaa94
+/tmp/l68.body:2220:- Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/d68.body:1402:- Fix deploy Worker Version ID: `5e4d836d-50f6-41cb-aee2-894a02fbaa94`
+/tmp/l68.body:43:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:107:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:146:- `npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:1502:- `npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:1569:  - `gate:shop-sales-quality`
+/tmp/l68.body:1586:- `npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:1740:- gate:shop-sales-quality: PASS.
+/tmp/l68.body:1924:- gate:shop-sales-quality: PASS
+/tmp/l68.body:1989:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2040:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2106:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2161:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2227:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2386:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2469:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, interaction, visual, product detail, cart/checkout, contact/legal, and admin ops.
+/tmp/l68.body:2523:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+/tmp/l68.body:2685:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+/tmp/l68.body:2737:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across all configured sales-quality lanes.
+/tmp/l68.body:2773:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across all configured sales-quality lanes.
+/tmp/l68.body:2883:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+/tmp/l68.body:2941:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+/tmp/l68.body:3028:- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+/tmp/d68.body:12:- `gate:shop-sales-quality`: PASS
+/tmp/d68.body:70:- `gate:shop-sales-quality`: PASS
+/tmp/d68.body:1345:- `gate:shop-sales-quality`: PASS after sitemap route fix.
+/tmp/d68.body:1496:- `gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+/tmp/d68.body:1585:- `gate:shop-sales-quality`: PASS.
+/tmp/d68.body:1669:- `gate:shop-sales-quality`: PASS.
+/tmp/d68.body:1747:- `gate:shop-sales-quality`: PASS across configured sales-quality lanes.
+/tmp/d68.body:1906:- `gate:shop-sales-quality`: PASS on public URLs.
+/tmp/d68.body:1969:- `gate:shop-sales-quality`: PASS on public URLs.
+/tmp/d68.body:2126:- `gate:shop-sales-quality`: PASS.
+/tmp/d68.body:2157:- `gate:shop-sales-quality`: PASS across configured sales-quality lanes.

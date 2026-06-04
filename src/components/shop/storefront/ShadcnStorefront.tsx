@@ -1,9 +1,10 @@
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
-import { buildShopHeaderCategoryLinks } from "@/lib/shopStorefrontShared";
+import { buildShopHeaderCategoryLinks, type ShopStorefrontContextLinkSection } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
+import { StorefrontContextLinks } from "./StorefrontContextLinks";
 import { StorefrontFooter } from "./StorefrontFooter";
 import { StorefrontSearchForm } from "./StorefrontSearchForm";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
@@ -23,6 +24,7 @@ type ShadcnStorefrontProps = {
   storeName: string;
   products: StorefrontProduct[];
   layout: StorefrontLayout;
+  contextualLinkSections: ShopStorefrontContextLinkSection[];
 };
 
 const storefrontHeroDefaults = [
@@ -88,7 +90,7 @@ const curatedStorefrontProducts: StorefrontProduct[] = [
   { id: "setsuka-stationery", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使える文具スターターセット", price: "1,680", category: "本・文具", inStock: true, href: "/s/aiboux/product/setsuka-stationery" },
 ];
 
-export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefrontProps) {
+export function ShadcnStorefront({ storeName, products, layout, contextualLinkSections }: ShadcnStorefrontProps) {
   const tenantRoot = "/s/aiboux";
   const hero = layout.pages.top.heroSlider;
   const slides = normalizeHeroSlides(hero.slides.filter((slide) => slide.enabled));
@@ -219,6 +221,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
       </main>
 
       <div className="mx-auto max-w-screen-xl px-4 pb-2">
+        <StorefrontContextLinks sections={contextualLinkSections} />
         <StorefrontSeoHub tenantRoot={tenantRoot} storeName={storeName} />
         <StorefrontSupportRail tenantRoot={tenantRoot} />
       </div>
