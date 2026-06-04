@@ -1,0 +1,1918 @@
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## 2026-06-04T10:48:00Z Shop 5H Sales Quality Sprint Cycle 2 Evidence
+
+Status: `SHOP_5H_SALES_QUALITY_SPRINT_CYCLE2_WIP`
+
+This is WIP screen evidence, not `FINAL_ACCEPTED`.
+
+### Deployment Evidence
+
+- WIP commit: `7b68bf11e35e671c545379f58efa711ad44b87ba`
+- Worker Version ID: `50b53609-d572-4f93-9ce6-0558d4b5022b`
+
+### Public Screen Evidence
+
+| Evidence | Public URL |
+| --- | --- |
+| Public storefront TOP 1365px | `/g/screens/shop-top-1365.png` |
+| Public storefront TOP 1980px | `/g/screens/shop-top-1980.png` |
+| Public storefront TOP mobile | `/g/screens/shop-top-mobile.png` |
+| Hero during animation | `/g/screens/shop-hero-during-animation-1365.png` |
+| Product detail 1365px | `/g/screens/shop-product-detail-1365.png` |
+| Product detail 1980px | `/g/screens/shop-product-detail-1980.png` |
+| Product detail mobile | `/g/screens/shop-product-detail-mobile.png` |
+| Cart page | `/g/screens/shop-cart-page.png` |
+| Checkout page | `/g/screens/shop-checkout-page.png` |
+| Contact page | `/g/screens/shop-contact-page.png` |
+| Legal page | `/g/screens/shop-legal-page.png` |
+| Privacy page | `/g/screens/shop-privacy-page.png` |
+| Shipping page | `/g/screens/shop-shipping-page.png` |
+| Returns page | `/g/screens/shop-returns-page.png` |
+| Admin products | `/g/screens/shop-admin-products.png` |
+| Admin design | `/g/screens/shop-admin-design.png` |
+
+### Visual / Behavior Checks
+
+- Public crawl across storefront pages: PASS
+- Admin shell crawl and demo-value absence: PASS
+- Smooth carousel next/preview/dot/keyboard/swipe/autoplay checks: PASS
+- Storefront product card, add-to-cart, and more-link checks: PASS
+- Storefront visual density at 1365px, 1980px, and mobile: PASS
+- Product detail gallery/purchase-box/thumbnail/return checks: PASS
+- Cart quantity/remove and checkout honest payment blocker: PASS
+- Contact validation and non-fake-success behavior: PASS
+- Legal/privacy/shipping/returns shared templates: PASS
+- Design editor remains focused on TOP page and product detail only: PASS
+
+### Subscription Evidence
+
+- Subscription plan API returns `SUBSCRIPTION_SCHEMA_PENDING`.
+- Public response is HTTP 503 with no fake success.
+- Evidence context saved in `all_log/shop-5h-sprint/20260604T104232Z_subscription_schema_pending_error_context.md`.
+
+### Non-Final Condition
+
+This sprint evidence does not complete Shop overall acceptance.
+
+`FINAL_ACCEPTED` remains prohibited until remote D1 subscription migration and provider-backed subscription creation are verified.
+
+## 2026-06-04T08:22:22Z Public Storefront Visual Quality Fix Evidence
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+This is WIP visual evidence, not `FINAL_ACCEPTED`.
+
+### Public Screen Evidence
+
+| Evidence | Public URL |
+| --- | --- |
+| Public storefront after quality fix 1365px | `/g/screens/public-storefront-after-quality-fix-1365.png` |
+| Public storefront after quality fix 1980px | `/g/screens/public-storefront-after-quality-fix-1980.png` |
+| Public storefront after quality fix mobile | `/g/screens/public-storefront-after-quality-fix-mobile.png` |
+| TOP editor after quality fix 1980px | `/g/screens/shop-design-editor-top-1980.png` |
+| Public product detail after quality fix 1980px | `/g/screens/shop-product-detail-1980.png` |
+
+### Visual Quality Checks
+
+- Public storefront TOP URL: `https://shop.aiboux.com/s/aiboux/`
+- Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- recommended product cards: 10
+- ranking cards: 5
+- time-sale cards: 5
+- category cards: 8
+- public test product name matches: 0
+- weak image URL matches: 0
+- Unsplash image references in public TOP HTML: 31
+- unique sales image references: 21
+- `npm run gate:shop-storefront-visual`: 3 passed
+- `npm run gate:shop-design`: 5 passed
+
+### Non-Final Condition
+
+This fixes the public storefront visual quality as WIP evidence only.
+
+Shop overall `FINAL_ACCEPTED` is still prohibited because remote D1 subscription migration and `gate:shop-subscriptions` remain unresolved.
+
+## 2026-06-04T07:55:00Z Public Storefront Visual Repair Evidence
+
+Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
+
+This is WIP visual evidence, not `FINAL_ACCEPTED`.
+
+### Public Screen Evidence
+
+| Evidence | Public URL |
+| --- | --- |
+| TOP editor 1980px | `/g/screens/shop-design-editor-top-1980.png` |
+| Product editor 1980px | `/g/screens/shop-design-editor-product-1980.png` |
+| Public storefront TOP 1980px | `/g/screens/shop-storefront-top-1980.png` |
+| Public storefront TOP 1365px | `/g/screens/shop-storefront-top-1365.png` |
+| Public product detail 1980px | `/g/screens/shop-product-detail-1980.png` |
+
+### Visual Checks
+
+- Normal Shop admin sidebar is not used in the design editor.
+- TOP and Product Detail are the only editable pages.
+- Public storefront TOP uses real sales-oriented images.
+- Hero main slide is visible.
+- Hero previous and next previews use real image URLs.
+- Recommended products show at least five images.
+- Weak image URLs containing `placeholder`, `skeleton`, `gray`, `grey`, `no-image`, `画像なし`, or `/shop/design/hero-` are rejected by Playwright.
+- Ranking and time sale cards use product images.
+- Category cards use images.
+- Public 1365px storefront screenshot was captured.
+
+### Public URL Evidence
+
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This screen artifact records the intended WIP evidence for the AIBOUX Shop subscription flow.
+
+### Subscription Screens Added Locally
+
+- Product admin subscription-plan editor.
+- Product detail purchase box with:
+  - normal purchase;
+  - subscription purchase;
+  - subscription price;
+  - delivery frequency;
+  - notice text;
+  - minimum cycle note.
+- Product detail schema-pending message:
+  - `定期購入は本番接続後に有効化します。`
+  - `DB migrationが未適用のため、現在は申し込みできません。`
+- Cart subscription item display.
+- Checkout subscription blocker:
+  - `定期決済設定が未完了です。`
+- Checkout subscription submit result area.
+- Admin subscription list:
+  - customer;
+  - product / plan;
+  - amount;
+  - next billing;
+  - next delivery;
+  - status;
+  - pause / resume / skip / cancel actions.
+
+### Screenshot Evidence Pending
+
+The following public screenshot evidence still requires remote D1 migration and WIP deploy:
+
+- `/g/screens/shop-subscription-product-1980.png`
+- `/g/screens/shop-subscription-cart-1980.png`
+- `/g/screens/shop-subscription-checkout-1980.png`
+- `/g/screens/shop-subscription-admin-1980.png`
+
+### Non-Final Condition
+
+This is not final visual acceptance.
+
+Remote D1 migration is blocked by Cloudflare authorization error 7403, so the public subscription flow cannot yet prove persisted remote subscription records.
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Every user-facing report must start with the public URL Bundle:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Screen evidence is not valid if it exists only under `all_log/...`.
+Before reporting, this `d68` public URL must be deployed and verified with curl.
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+## Current Screen Meaning
+
+This screen artifact URL is reserved for AIBOUX Shop sales tenant visual evidence.
+It is not final acceptance evidence yet.
+
+## Required Public Screen Evidence
+
+The final `d68` artifact must record public visual evidence for:
+
+- `https://shop.aiboux.com/`
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin`
+- `https://shop.aiboux.com/s/aiboux/admin/orders`
+- `https://shop.aiboux.com/s/aiboux/admin/products`
+- `https://shop.aiboux.com/s/aiboux/admin/inventory`
+- `https://shop.aiboux.com/s/aiboux/admin/categories`
+- `https://shop.aiboux.com/s/aiboux/admin/customers`
+- `https://shop.aiboux.com/s/aiboux/admin/content`
+- `https://shop.aiboux.com/s/aiboux/admin/analytics`
+- `https://shop.aiboux.com/s/aiboux/admin/apps`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/admin/settings`
+- storefront product list
+- product detail
+- cart
+- checkout
+- contact
+- legal
+- privacy
+- shipping
+- returns
+
+## Required Interaction Evidence
+
+- Product create opens and saves.
+- Product edit saves.
+- Product list updates.
+- Product appears on storefront.
+- Cart add works.
+- Cart quantity change works.
+- Cart delete works.
+- Checkout transition works.
+- Contact form validates and submits.
+- Settings save reflects on public legal/privacy/shipping/returns pages.
+
+## Current Policy Evidence
+
+Shop UI protection is warn-only for WIP deploy.
+Strict Shop UI protection is final-only.
+
+WIP deploy must be preceded by checkpoint evidence under:
+
+- `all_log/checkpoints/`
+- `all_log/patches/`
+- `all_log/deploys/`
+
+## WIP Public Screen Targets
+
+The following public URLs are currently available for visual inspection after WIP deploy:
+
+| URL | HTTP | Worker Version ID | Title |
+| --- | --- | --- | --- |
+| `https://shop.aiboux.com/` | 200 | `586b6770-7983-42e1-99cc-67502a648aac` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `586b6770-7983-42e1-99cc-67502a648aac` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `586b6770-7983-42e1-99cc-67502a648aac` | `AIBOUX SHOP Dashboard` |
+
+## WIP Evidence Log
+
+- `all_log/92_shop_wip_deploy_public_reflection.md`
+
+## Shop Fix Cycle 01 Screen Evidence
+
+Cycle timestamp: `20260603T233309Z`
+
+WIP deploy Worker Version ID:
+
+- `ed331907-7c17-4135-8184-746d9989c229`
+
+Public screen/text verification after cycle 01:
+
+- public admin no longer displays fake fixed values such as fixed sales, fixed order counts, fixed order numbers, fixed customer names, fixed SKUs, or fixed date ranges;
+- admin dashboard displays honest empty states where real data is unavailable;
+- storefront child routes return styled HTTP 200 pages;
+- storefront pages do not show fake checkout or fake payment completion UI;
+- Shop UI links stay under `/s/aiboux/` and `/s/aiboux/admin/`;
+- no `href="#"` remains in Shop public UI.
+
+Evidence files:
+
+- `all_log/shop-ui/20260603T233309Z_public_url_status_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_admin_fixed_value_check_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_playwright_text_check_after_fix_01.json`
+
+Playwright rendered text check:
+
+- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200, forbidden fixed values 0
+
+## Safety
+
+- This artifact is WIP.
+- Do not treat this as FINAL_ACCEPTED.
+- Do not claim visual completion until public screenshots and Playwright evidence are attached.
+
+## Public Execution Log Required Rule Screen Evidence
+
+Status: `WIP_LOG_RULE_PUBLISHED`
+
+Public URL bundle that must appear at the top of every report:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Latest Worker Version ID:
+
+- `586b6770-7983-42e1-99cc-67502a648aac`
+
+Screen evidence policy:
+
+- Local screenshots or `all_log/...` paths alone are not sufficient for user-facing reporting.
+- The public screen evidence URL must be curl-verified before reporting.
+- WIP evidence is allowed, but it must be labeled WIP and must not be called FINAL_ACCEPTED.
+
+## Shop Fix Cycle 02 Screen Evidence Pending
+
+Status: `WIP_FIXING_PENDING_DEPLOY`
+
+Target public screen:
+
+- `https://shop.aiboux.com/s/aiboux/admin`
+
+Required visible-value check:
+
+- The public admin screen must not show the fixed demo values reported by the user.
+- Checks must use public URL curl and public URL Playwright rendered DOM.
+
+Pre-deploy observation:
+
+- Public curl with no-cache headers returned HTTP 200 and did not find the reported fixed values in HTML.
+- Public Playwright rendered DOM returned HTTP 200 and did not show the reported fixed values in visible text.
+- A Shop AI assistant source component still contained fixed Shop sample values; that source has been changed to `未集計` / `0件` before deploy.
+- A Global AI assistant placeholder included a person-name example that caused `佐藤` to appear in rendered HTML, even though it was not visible text. That placeholder now uses a generic `取引先` example.
+
+This evidence is WIP and not FINAL_ACCEPTED.
+
+## Shop Fix Cycle 02 Public Screen Evidence
+
+Status: `WIP_PUBLIC_ADMIN_DEMO_VALUES_ZERO`
+
+Fix deploy Worker Version ID:
+
+- `117ac4a0-68c2-4807-b650-8c793599f73d`
+
+Verified public admin URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin?codex_nocache=20260604T002350Z`
+
+Public curl screen evidence:
+
+- HTTP 200
+- `2024/05`: absent
+- `山田`: absent
+- `¥2,340,000`: absent
+- `245件`: absent
+- `2.35%`: absent
+- `¥9,551`: absent
+- `28.7%`: absent
+- `TSH-001`: absent
+- `BAG-001`: absent
+- `BTL-500`: absent
+- `#10085`: absent
+- `#10084`: absent
+- `#10083`: absent
+- `佐藤`: absent
+- `鈴木`: absent
+- `田中`: absent
+
+Public Playwright rendered screen evidence:
+
+- HTTP 200
+- title: `AIBOUX SHOP Dashboard`
+- visible text: all listed fixed demo values absent
+- rendered HTML: all listed fixed demo values absent
+
+Visual scope:
+
+- No broad Shop layout redesign was done in this cycle.
+- This cycle only removed fixed demo values from delayed Shop/Global AI assistant sources and verified public admin output.
+
+This is not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Design Editor Post Deploy Screen Evidence
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+Public design editor URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+Verified route:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
+- HTTP status: `200`
+- `x-aiboux-rewritten-path`: `/shop/settings/design`
+- `x-aiboux-worker-version`: `586b6770-7983-42e1-99cc-67502a648aac`
+
+Current visual evidence:
+
+- the normal Shop admin sidebar is not used for the design editor screen;
+- the editor uses a dedicated top bar;
+- the editor uses left pane, central preview, and right settings pane;
+- editable page targets are limited to `TOPページ` and `商品詳細ページ`;
+- TOP preview keeps the Amazon-like category navigation horizontal;
+- the hero slider side previews use actual slide images, not gray placeholders;
+- public Playwright screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`.
+
+Public Playwright after deploy:
+
+- `tests/shop-functional-public.spec.ts`: `6 passed`
+
+Persistence screen behavior:
+
+- the TOP hero title was temporarily edited through the public design editor;
+- the public storefront rendered the temporary title;
+- the layout was restored after the test;
+- restored TOP hero title: `雪花セレクトを、わかりやすく。`
+
+Non-final note:
+
+- `npm run gate:design` is still configured for an older Core preview URL and is not a valid Shop design editor acceptance gate yet.
+- This must be split or replaced before final UI acceptance.
+
+## Shop Design Editor Visual Evidence URLs
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+Public screenshot URLs:
+
+- Editor TOP 1980px: `https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png`
+- Editor Product Detail 1980px: `https://mail.aiboux.com/g/screens/shop-design-editor-product-1980.png`
+- Public Storefront TOP 1980px: `https://mail.aiboux.com/g/screens/shop-storefront-top-1980.png`
+- Public Product Detail 1980px: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+Shop-specific visual gate:
+
+```bash
+npm run gate:shop-design
+```
+
+Result:
+
+```text
+4 passed
+```
+
+Visual status:
+
+- normal Shop admin sidebar absent from design editor: PASS
+- dedicated design editor top bar: PASS
+- left pane, central preview, right pane visible: PASS
+- editable page targets limited to `TOPページ` and `商品詳細ページ`: PASS
+- category navigation remains horizontal at 1980px: PASS
+- hero side previews use real slide images: PASS
+- public storefront TOP has hero and recommended products: PASS
+- public product detail has gallery, information, and purchase-box columns: PASS
+
+Known WIP visual note:
+
+- public product detail is now structurally Amazon-like, but spacing and polish can still be improved in a later visual refinement cycle.
+- This is not `FINAL_ACCEPTED`.
+
+## Shop Fix Cycle 04 Functional Screen Evidence Pending Deploy
+
+## Shop Design Editor Fullscreen Repair Screen Evidence
+
+Status: `WIP_DESIGN_EDITOR_FULLSCREEN_REPAIR_DEPLOYED_NOT_FINAL`
+
+Screen under repair:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+Rejected issue addressed:
+
+- The previous screen placed the design editor inside the normal Shop admin sidebar/header.
+- That compressed the central preview and caused the Amazon-style category navigation and hero preview to break.
+
+Current visual evidence:
+
+- The normal Shop management sidebar is absent on `/s/aiboux/admin/design`.
+- The normal Shop admin header is absent on `/s/aiboux/admin/design`.
+- A dedicated top editor bar is visible.
+- The left side is the editor pane for `ページ` and `共通設定`.
+- The central area is a wide live store preview.
+- The right side is the selected-section settings panel.
+- On a 1980px screenshot, the central preview is verified by Playwright as at least 1100px wide.
+- Category navigation labels remain horizontal.
+- Hero side previews use actual slide images, not gray placeholders.
+- Editable page targets are limited to `TOPページ` and `商品詳細ページ`.
+- Cart, checkout, legal, privacy, shipping, returns, and other common-template pages are not exposed as editable page targets.
+
+Screenshot artifact:
+
+- `output/playwright/shop-functional/design-editor-1980.png`
+
+Public Playwright evidence:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
+- Result: PASS, 5 passed
+
+This is WIP screen evidence and not `FINAL_ACCEPTED`.
+
+## Shop Design Editor Persistence Screen Evidence
+
+Status: `WIP_DESIGN_EDITOR_PERSISTENCE_VERIFIED_NOT_FINAL`
+
+Verified public screens:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/`
+
+Public Playwright behavior evidence:
+
+- The design editor loads as the dedicated fullscreen editor.
+- The first TOP hero title is edited through the visible right-pane input.
+- The exact top-bar `保存` button is clicked.
+- The layout API receives a save request.
+- The public storefront shows the temporary hero title.
+- The public storefront still shows the temporary title after reload/revisit.
+- The original layout is restored after the test.
+- The temporary marker is not left on the public storefront after restore.
+
+Screenshot artifacts:
+
+- `output/playwright/shop-functional/design-editor-1980.png`
+- `output/playwright/shop-functional/admin-demo-free-1980.png`
+
+Playwright results:
+
+- Full public Shop functional spec: PASS, 6 passed
+- Persistence-only spec selection: PASS, 1 passed
+
+This is WIP screen evidence and not `FINAL_ACCEPTED`.
+
+## Shop Fix Cycle 05 Store Design Editor Screen Evidence
+
+Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260604T052958Z`
+
+Target public screens:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
+
+Public route evidence after public log publication:
+
+- Design editor URL returned HTTP 200.
+- Design editor route rewrote to `/shop/settings/design`.
+- Tenant storefront URL returned HTTP 200.
+- Product detail URL returned HTTP 200.
+- All checked responses were served by Worker Version ID `586b6770-7983-42e1-99cc-67502a648aac`.
+
+Design editor screen evidence:
+
+- The left pane exposes `TOPページ` and `商品詳細ページ`.
+- The left pane does not expose product list, category, cart, checkout, contact, legal, privacy, shipping, returns, mypage, orders, FAQ, or 404 as page-level editing targets.
+- The editor includes the explicit note that only TOP page and product detail page are editable.
+- The editor includes `ヒーロースライダー` settings.
+- The editor includes common `ロゴ` settings.
+- The center preview uses a three-column editor layout matching the requested direction:
+  - left navigation/layers;
+  - center live preview;
+  - right selected-section settings.
+
+Storefront screen evidence:
+
+- The public TOP page uses the tenant URL `https://shop.aiboux.com/s/aiboux/`.
+- The public TOP page keeps the Shop service root separate from the tenant storefront.
+- The public TOP page renders an Amazon-like header, category navigation, hero area, and product sections.
+- The product detail page renders an Amazon-like product detail structure with image gallery, product information, and purchase box.
+
+Playwright result:
+
+- Command: `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
+- Result: 5 passed
+- Screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`
+
+This screen evidence is WIP only.
+It must not be treated as FINAL_ACCEPTED for the whole Shop tenant.
+
+Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
+
+Prepared public screen targets:
+
+- `https://shop.aiboux.com/s/aiboux/products`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/cart`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/contact`
+- `https://shop.aiboux.com/s/aiboux/legal`
+- `https://shop.aiboux.com/s/aiboux/privacy`
+- `https://shop.aiboux.com/s/aiboux/shipping`
+- `https://shop.aiboux.com/s/aiboux/returns`
+- `https://shop.aiboux.com/s/aiboux/admin/products`
+- `https://shop.aiboux.com/s/aiboux/admin/settings`
+
+Prepared screen behavior:
+
+- Public products page reads published D1 shop products instead of `shop-sample-data`.
+- Product detail page reads the selected published D1 shop product.
+- Empty product/category pages show honest empty states.
+- Cart page can render local cart items, update quantity, remove items, and show subtotal.
+- Checkout page shows cart contents and blocks false payment completion when payment is not connected.
+- Contact page validates name, email, and message, then reports that storage/notification is not connected rather than pretending success.
+- Legal and privacy pages render saved/generated shop profile text.
+- Shipping and returns pages render generated policy text based on shop profile contact data.
+
+Prepared Playwright artifact:
+
+- `tests/shop-functional-public.spec.ts`
+- screenshot target: `output/playwright/shop-functional/admin-demo-free-1980.png`
+
+This evidence still requires WIP deploy and public URL verification before it can be treated as deployed screen evidence.
+
+### Cycle 04 Public Functional Screen Evidence
+
+Status: `WIP_FUNCTIONAL_HARDENING_DEPLOYED_NOT_FINAL`
+
+Verified Worker Version ID:
+
+- `99725905-9dd6-4263-a7a6-c098f0372ff7`
+
+Verified public screens:
+
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/categories`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/privacy`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/shipping`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/returns`: HTTP 200
+- all listed admin pages: HTTP 200
+
+Playwright screen behavior result:
+
+- cart renders a stored item
+- cart quantity changes update subtotal
+- cart removal returns to empty state
+- checkout shows payment setup required
+- checkout does not show fake order/payment success text
+- contact empty submit shows required-field errors
+- contact invalid email shows email validation error
+- contact valid input reports storage/notification is not connected and does not fake send success
+- legal/privacy/shipping/returns render policy text in the page body
+
+Playwright artifact:
+
+- `output/playwright/shop-functional/admin-demo-free-1980.png`
+
+This is not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Fix Cycle 03 Route And Cache Screen Evidence
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIX_PENDING_DEPLOY`
+
+Reason:
+
+- The user's external fetch path still shows stale fixed demo values.
+- Codex's direct curl and Playwright path shows those values absent.
+- This cycle treats the issue as route/cache mismatch and does not advance to other Shop features.
+
+Required public screen evidence after deploy:
+
+- public admin response headers show stronger no-store policy
+- `x-aiboux-worker-version` is current
+- public admin HTML grep shows fixed values absent
+- public Playwright rendered DOM shows fixed values absent
+
+This is not FINAL_ACCEPTED.
+
+## Shop Fix Cycle 03 Public Screen Evidence
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIXED_FOR_VERIFIED_PATHS`
+
+Verified Worker Version ID:
+
+- `9f28a3bb-99e5-4655-9caf-999263b016f4`
+
+Verified public admin URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin?verify=20260604T012024Z`
+
+Visible public state after fix:
+
+- Admin account area shows `ストア管理者` instead of `山田 太郎 管理者`.
+- Sales KPI shows `¥0` instead of `¥2,340,000`.
+- Order count shows `0件` instead of `245件`.
+- CVR / AOV / repeat rate show `未集計` where data is unavailable.
+- Best sellers, recent orders, and inventory alerts show honest empty states.
+
+Public curl and Playwright evidence:
+
+- HTTP 200
+- fixed demo values absent from public HTML
+- fixed demo values absent from Playwright visible text
+- fixed demo values absent from Playwright rendered HTML
+
+Cache evidence:
+
+- `cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0`
+- `cdn-cache-control: no-store`
+- `cloudflare-cdn-cache-control: no-store`
+- `clear-site-data: "cache"`
+- `x-aiboux-admin-cache-policy: no-store-clear-cache`
+
+External web fetch evidence:
+
+- The external web fetch path returned the updated admin after the cache-header deploy.
+- The old fixed demo values were no longer present in that fetch result.
+
+This is not FINAL_ACCEPTED for the whole Shop tenant.
+
+---
+
+## 2026-06-04T08:30:30Z Public Storefront Visual Quality Screenshot Refresh
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+The public storefront visual gate was rerun after the side hero DOM was made explicit as previous and next slide cards.
+
+- Code WIP Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- WIP commit: `d6403e1f1348032cd3d44200ccb8a17584e5aa1f`
+- Public storefront 1365px: `/g/screens/public-storefront-after-quality-fix-1365.png`
+- Public storefront 1980px: `/g/screens/public-storefront-after-quality-fix-1980.png`
+- Public storefront mobile: `/g/screens/public-storefront-after-quality-fix-mobile.png`
+- Design editor TOP 1980px: `/g/screens/shop-design-editor-top-1980.png`
+
+Visual gate assertions:
+
+- `hero-slide-main img`: PASS
+- `hero-slide-prev img`: PASS
+- `hero-slide-next img`: PASS
+- recommended product cards >= 10: PASS
+- recommended product images >= 10: PASS
+- recommended unique image count >= 8: PASS
+- ranking cards = 5: PASS
+- time-sale cards = 5: PASS
+- category cards = 8: PASS
+- public test product names = 0: PASS
+- weak placeholder image URLs = 0: PASS
+
+This is not `FINAL_ACCEPTED` because subscription remote D1 migration and complete Shop sales flow verification remain open.
+
+---
+
+## 2026-06-04T08:53:40Z Shop Public Storefront Interaction Screen Evidence
+
+Status: `PUBLIC_STOREFRONT_SLIDER_AND_INTERACTION_FIX_WIP`
+
+Target:
+
+- `https://shop.aiboux.com/s/aiboux/`
+
+WIP commit:
+
+- `53c1fee`
+
+Code WIP Worker Version ID:
+
+- `4c77ab87-dffa-46b3-a764-10545da399e9`
+
+Published screenshots:
+
+- Hero initial: `https://mail.aiboux.com/g/screens/shop-hero-initial-1365.png`
+- Hero after next click: `https://mail.aiboux.com/g/screens/shop-hero-after-next-1365.png`
+- Hero after dot click: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-1365.png`
+- Hero after autoplay: `https://mail.aiboux.com/g/screens/shop-hero-after-autoplay-1365.png`
+- Product card click destination: `https://mail.aiboux.com/g/screens/shop-product-card-click-result.png`
+- Cart add result: `https://mail.aiboux.com/g/screens/shop-cart-add-result.png`
+
+Visual and interaction checks:
+
+- hero main image: PASS
+- hero previous image: PASS
+- hero next image: PASS
+- next button changes main slide: PASS
+- previous button changes main slide: PASS
+- dot click changes main slide: PASS
+- autoplay advances main slide: PASS
+- side preview slide ids update: PASS
+- recommended products image-backed density: PASS
+- product card opens product detail: PASS
+- cart button updates cart count and button state: PASS
+- public TOP dead placeholder audit: PASS
+
+This is WIP screen evidence only. Do not report `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T11:03:50Z Shop Amazon Quality All Pages Cycle 3 Screen Evidence
+
+Status: `SHOP_AMAZON_QUALITY_ALL_PAGES_CYCLE3_WIP`
+
+WIP commit:
+
+- `1b681098a868629bf52a2c1ccd58aef65c6b44f4`
+
+Code WIP Worker Version ID:
+
+- `9d20ebd3-bb07-493e-b3e7-56d85d742d10`
+
+New public account/link destination screenshots:
+
+- Mypage 1980px: `https://mail.aiboux.com/g/screens/shop-mypage-1980.png`
+- Account 1980px: `https://mail.aiboux.com/g/screens/shop-account-1980.png`
+- Orders 1980px: `https://mail.aiboux.com/g/screens/shop-orders-1980.png`
+- Favorites 1980px: `https://mail.aiboux.com/g/screens/shop-favorites-1980.png`
+- Login 1980px: `https://mail.aiboux.com/g/screens/shop-login-1980.png`
+- Register 1980px: `https://mail.aiboux.com/g/screens/shop-register-1980.png`
+- Mypage subscriptions 1980px: `https://mail.aiboux.com/g/screens/shop-mypage-subscriptions-1980.png`
+
+Retained storefront and admin evidence:
+
+- TOP 1365px: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP 1980px: `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Products 1980px: `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- Categories 1980px: `https://mail.aiboux.com/g/screens/shop-categories-page-1980.png`
+- Cart 1980px: `https://mail.aiboux.com/g/screens/shop-cart-page-1980.png`
+- Checkout 1980px: `https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png`
+- Contact 1980px: `https://mail.aiboux.com/g/screens/shop-contact-page-1980.png`
+- Legal 1980px: `https://mail.aiboux.com/g/screens/shop-legal-page-1980.png`
+- Privacy 1980px: `https://mail.aiboux.com/g/screens/shop-privacy-page-1980.png`
+- Shipping 1980px: `https://mail.aiboux.com/g/screens/shop-shipping-page-1980.png`
+- Returns 1980px: `https://mail.aiboux.com/g/screens/shop-returns-page-1980.png`
+- FAQ 1980px: `https://mail.aiboux.com/g/screens/shop-faq-page-1980.png`
+- Product detail 1980px: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- Admin design: `https://mail.aiboux.com/g/screens/shop-admin-design.png`
+- Admin subscriptions: `https://mail.aiboux.com/g/screens/shop-admin-subscriptions.png`
+
+Visual evidence checks:
+
+- New account pages are public URL screenshots, not localhost screenshots.
+- `mypage`, `orders`, `favorites`, `login`, `register`, and `mypage/subscriptions` no longer use the not-found page.
+- Public storefront internal links are extracted and checked by `tests/shop-public-crawl.spec.ts`; all discovered `/s/aiboux` links resolve to HTTP 200.
+- `href="#"`: checked by Playwright public crawl.
+- `javascript:void`: checked by Playwright public crawl.
+- `shop.aboux.com`: absent in public crawl.
+
+This is WIP screen evidence only. Do not report `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T10:20:00Z Shop 5H Sales Quality Sprint Screen Evidence
+
+Status: `SHOP_5H_SALES_QUALITY_SPRINT_WIP`
+
+Worker Version ID:
+
+- `c9c83766-c725-46fd-86cc-b408fdae4d8e`
+
+WIP commit:
+
+- `ab2bdc6`
+
+Public storefront screenshots:
+
+- TOP 1365px: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP 1980px: `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Products 1980px: `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- Categories 1980px: `https://mail.aiboux.com/g/screens/shop-categories-page-1980.png`
+- Cart 1365px: `https://mail.aiboux.com/g/screens/shop-cart-page.png`
+- Cart 1980px: `https://mail.aiboux.com/g/screens/shop-cart-page-1980.png`
+- Checkout 1365px: `https://mail.aiboux.com/g/screens/shop-checkout-page.png`
+- Checkout 1980px: `https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png`
+- Contact 1365px: `https://mail.aiboux.com/g/screens/shop-contact-page.png`
+- Contact 1980px: `https://mail.aiboux.com/g/screens/shop-contact-page-1980.png`
+- Legal 1365px: `https://mail.aiboux.com/g/screens/shop-legal-page.png`
+- Legal 1980px: `https://mail.aiboux.com/g/screens/shop-legal-page-1980.png`
+- Privacy 1365px: `https://mail.aiboux.com/g/screens/shop-privacy-page.png`
+- Privacy 1980px: `https://mail.aiboux.com/g/screens/shop-privacy-page-1980.png`
+- Shipping 1365px: `https://mail.aiboux.com/g/screens/shop-shipping-page.png`
+- Shipping 1980px: `https://mail.aiboux.com/g/screens/shop-shipping-page-1980.png`
+- Returns 1365px: `https://mail.aiboux.com/g/screens/shop-returns-page.png`
+- Returns 1980px: `https://mail.aiboux.com/g/screens/shop-returns-page-1980.png`
+- FAQ 1365px: `https://mail.aiboux.com/g/screens/shop-faq-page.png`
+- FAQ 1980px: `https://mail.aiboux.com/g/screens/shop-faq-page-1980.png`
+
+Product detail screenshots:
+
+- Product detail 1365px: `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
+- Product detail 1980px: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- Product detail mobile: `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
+
+Admin screenshots:
+
+- Admin products: `https://mail.aiboux.com/g/screens/shop-admin-products.png`
+- Admin orders: `https://mail.aiboux.com/g/screens/shop-admin-orders.png`
+- Admin settings: `https://mail.aiboux.com/g/screens/shop-admin-settings.png`
+- Admin design: `https://mail.aiboux.com/g/screens/shop-admin-design.png`
+- Admin subscriptions: `https://mail.aiboux.com/g/screens/shop-admin-subscriptions.png`
+
+Gate evidence:
+
+- Public crawl: PASS
+- Product detail: PASS
+- Cart and checkout: PASS
+- Contact and legal templates: PASS
+- Admin operation shells: PASS
+- Smooth carousel: PASS
+- Storefront interaction: PASS
+- Storefront visual density: PASS
+- Sales quality aggregate: PASS
+
+Subscription caveat:
+
+- `gate:shop-subscriptions` remains FAIL because remote D1 subscription schema returns HTTP 503.
+- This is recorded as `D1_PERMISSION_BLOCKED_NOT_FINAL`.
+
+This is WIP screen evidence only. Do not report `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T09:51:40Z Shop Public Storefront Smooth Carousel Screen Evidence
+
+Status: `PUBLIC_STOREFRONT_CAROUSEL_SMOOTHNESS_AND_VISUAL_POLISH_WIP`
+
+Target:
+
+- `https://shop.aiboux.com/s/aiboux/`
+
+WIP commit:
+
+- `afb7187`
+
+Code WIP Worker Version ID:
+
+- `dcc6bae5-b1e6-4628-af00-5d0fdc5baa92`
+
+Published screenshots:
+
+- Before click: `https://mail.aiboux.com/g/screens/shop-hero-before-click-1365.png`
+- During animation: `https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png`
+- After next click: `https://mail.aiboux.com/g/screens/shop-hero-after-next-smooth-1365.png`
+- After dot click: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-smooth-1365.png`
+- After autoplay: `https://mail.aiboux.com/g/screens/shop-hero-after-autoplay-smooth-1365.png`
+
+Hero Carousel Evidence:
+
+- next click changes main slide: PASS
+- next click updates side previews: PASS
+- dot click changes slide: PASS
+- autoplay changes slide: PASS
+- swipe/drag changes slide: PASS
+- keyboard ArrowLeft changes slide: PASS
+- transform transition detected: PASS
+- transition duration: `0.56s`
+- easing: `cubic-bezier(0.22, 1, 0.36, 1)`
+- during animation transform detected: PASS
+
+This is WIP screen evidence only. Do not report `FINAL_ACCEPTED`.
+
+---
+
+## Shop All Pages Amazon Quality Cycle 4 Screen Evidence Plan
+
+Timestamp: 2026-06-04T11:26:38Z
+Status: WIP_DEPLOY_PENDING_NOT_FINAL
+
+Screen evidence to refresh after WIP deploy:
+- `/g/screens/shop-top-1980.png`
+- `/g/screens/shop-products-page-1980.png`
+- `/g/screens/shop-categories-page-1980.png`
+- `/g/screens/shop-mypage-1980.png`
+- `/g/screens/shop-orders-1980.png`
+- `/g/screens/shop-favorites-1980.png`
+- `/g/screens/shop-login-1980.png`
+- `/g/screens/shop-register-1980.png`
+- `/g/screens/shop-mypage-subscriptions-1980.png`
+
+Cycle 4 visual gates strengthened:
+- every public page must have `storefront-footer`;
+- products page must be a dense image-backed sales grid;
+- categories page must be image-backed;
+- curated TOP cards must resolve to implemented product detail pages;
+- header account/order links must resolve to implemented tenant pages.
+
+Not FINAL_ACCEPTED.
+
+---
+
+## Shop All Pages Amazon Quality Cycle 4 Published Screen Evidence
+
+Timestamp: 2026-06-04T11:33:40Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 9b8b0a0a-9984-42b3-b20b-c973c6ae349f
+WIP commit: 981f2c8
+
+Published screen evidence refreshed:
+- https://mail.aiboux.com/g/screens/shop-top-1980.png
+- https://mail.aiboux.com/g/screens/shop-top-1365.png
+- https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- https://mail.aiboux.com/g/screens/shop-products-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-categories-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- https://mail.aiboux.com/g/screens/shop-cart-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-contact-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-legal-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-privacy-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-shipping-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-returns-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-faq-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-mypage-1980.png
+- https://mail.aiboux.com/g/screens/shop-orders-1980.png
+- https://mail.aiboux.com/g/screens/shop-favorites-1980.png
+- https://mail.aiboux.com/g/screens/shop-login-1980.png
+- https://mail.aiboux.com/g/screens/shop-register-1980.png
+- https://mail.aiboux.com/g/screens/shop-mypage-subscriptions-1980.png
+
+Cycle 4 visual checks:
+- storefront footer on all public pages: PASS
+- products page dense sales grid: PASS
+- categories page image-backed: PASS
+- curated product detail fallback routes: PASS through public internal-link crawl
+- account/order/header links: PASS
+- cart/checkout honest payment blocker: PASS
+
+Not FINAL_ACCEPTED.
+
+Evidence publication note:
+- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 586b6770-7983-42e1-99cc-67502a648aac
+
+---
+
+## Shop All Pages Amazon Quality Cycle 5 Image Match Evidence Plan
+
+Timestamp: 2026-06-04T11:45:00Z
+Status: `WIP_DEPLOY_PENDING_NOT_FINAL`
+
+Cycle 5 target:
+- TOP, products, categories, mypage, favorites, product detail, ranking, time sale, and related products must use sales-ready product images that match the product name and category.
+- Old DB/sample image URLs are no longer trusted for the public sales storefront when they create mismatched merchandise visuals.
+- Pet products classify as pet before generic care/beauty matching.
+
+Required refreshed screenshots after WIP deploy:
+
+- `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-mypage-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-favorites-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+Acceptance checks for this WIP lane:
+
+- Bottle products show bottle/kitchen product imagery.
+- Towel products show towels, not room/bathroom-only images.
+- Cleaning products show cleaning products.
+- Pet products show pet imagery, not beauty/cosmetics imagery.
+- Coffee/tea products show coffee/tea imagery.
+- Product card image/name mismatch examples are reduced before the next report.
+
+Worker Version ID:
+- Pending next WIP deploy.
+
+FINAL_ACCEPTED:
+- Prohibited.
+
+---
+
+## Shop All Pages Amazon Quality Cycle 6 Footer Cart Checkout Evidence
+
+Timestamp: 2026-06-04T12:45:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 522b3fdb-81d9-4d45-913b-112ce56372bd
+WIP commit: 5a74d3e
+
+Published screen evidence refreshed in this cycle:
+
+- https://mail.aiboux.com/g/screens/shop-cart-page.png
+- https://mail.aiboux.com/g/screens/shop-checkout-page.png
+- https://mail.aiboux.com/g/screens/shop-cart-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-contact-page.png
+- https://mail.aiboux.com/g/screens/shop-legal-page.png
+- https://mail.aiboux.com/g/screens/shop-privacy-page.png
+- https://mail.aiboux.com/g/screens/shop-shipping-page.png
+- https://mail.aiboux.com/g/screens/shop-returns-page.png
+- https://mail.aiboux.com/g/screens/shop-faq-page.png
+- https://mail.aiboux.com/g/screens/shop-products-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-categories-page-1980.png
+- https://mail.aiboux.com/g/screens/shop-mypage-1980.png
+- https://mail.aiboux.com/g/screens/shop-favorites-1980.png
+
+Cycle 6 visual checks:
+- shared footer on all crawled public pages: PASS
+- footer includes delivery, returns, payment, subscription assurance cards: PASS
+- cart has item panel plus order summary plus recommendations: PASS
+- checkout has order review, delivery/contact, support cards, and honest payment blocker: PASS
+- contact/legal/privacy/shipping/returns/FAQ templates still render with footer: PASS
+
+Not FINAL_ACCEPTED.
+
+## Shop 10H SEO Breadcrumb And Carousel Smoothness Evidence
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence URLs:
+- TOP 1980: /g/screens/shop-top-1980.png
+- TOP 1365: /g/screens/shop-top-1365.png
+- TOP mobile: /g/screens/shop-top-mobile.png
+- Hero before click: /g/screens/shop-hero-before-click-1365.png
+- Hero during animation: /g/screens/shop-hero-during-animation-1365.png
+- Hero after next: /g/screens/shop-hero-after-next-smooth-1365.png
+- Hero after dot: /g/screens/shop-hero-after-dot-smooth-1365.png
+- Hero after autoplay: /g/screens/shop-hero-after-autoplay-smooth-1365.png
+- Product detail 1980: /g/screens/shop-product-detail-1980.png
+- Product detail 1365: /g/screens/shop-product-detail-1365.png
+- Product detail mobile: /g/screens/shop-product-detail-mobile.png
+
+SEO verification:
+- Product detail visible breadcrumb: PASS
+- BreadcrumbList JSON-LD in public HTML: PASS
+- Product JSON-LD in public HTML: PASS
+- Product detail H1 count: PASS, exactly 1
+- Generic duplicated title above product image: PASS, absent
+
+Carousel verification:
+- transform transition detected: PASS
+- transition duration within 480-650ms: PASS
+- easing cubic-bezier detected: PASS
+- next click changes slide: PASS
+- side previews update: PASS
+- dot click changes slide: PASS
+- keyboard and swipe checks: PASS
+- autoplay advances slide: PASS
+
+Not final:
+- These are WIP visual and SEO improvements, not FINAL_ACCEPTED.
+
+---
+
+## Shop SEO Common Parts And All Page Gate Evidence
+
+Timestamp: 2026-06-04T13:29:06Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 985c06c4-3aba-491a-aa53-db516a6a8bd5
+
+Published screen evidence refreshed or retained:
+- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
+- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
+- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- Hero before click: https://mail.aiboux.com/g/screens/shop-hero-before-click-1365.png
+- Hero during animation: https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png
+- Hero after next: https://mail.aiboux.com/g/screens/shop-hero-after-next-smooth-1365.png
+- Hero after dot: https://mail.aiboux.com/g/screens/shop-hero-after-dot-smooth-1365.png
+- Hero after autoplay: https://mail.aiboux.com/g/screens/shop-hero-after-autoplay-smooth-1365.png
+- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- Product detail 1365: https://mail.aiboux.com/g/screens/shop-product-detail-1365.png
+- Product detail mobile: https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png
+- Products page: https://mail.aiboux.com/g/screens/shop-products-page-1980.png
+- Cart page: https://mail.aiboux.com/g/screens/shop-cart-page.png
+- Checkout page: https://mail.aiboux.com/g/screens/shop-checkout-page.png
+- Contact page: https://mail.aiboux.com/g/screens/shop-contact-page.png
+- Legal page: https://mail.aiboux.com/g/screens/shop-legal-page.png
+- Privacy page: https://mail.aiboux.com/g/screens/shop-privacy-page.png
+- Shipping page: https://mail.aiboux.com/g/screens/shop-shipping-page.png
+- Returns page: https://mail.aiboux.com/g/screens/shop-returns-page.png
+- FAQ page: https://mail.aiboux.com/g/screens/shop-faq-page.png
+- Admin design: https://mail.aiboux.com/g/screens/shop-admin-design.png
+
+SEO/UI evidence:
+- Common breadcrumb visible on public storefront pages: PASS
+- BreadcrumbList JSON-LD from shared helper: PASS
+- WebSite SearchAction JSON-LD from shared helper: PASS
+- Organization + return policy JSON-LD from shared helper: PASS
+- Product detail Product/Offer/shipping/return policy JSON-LD: PASS
+- Product detail H1 exactly one: PASS
+- TOP page H1 exactly one: PASS
+- Hero side preview images exposed for visual gate: PASS
+- Footer/support/account/store-info links retained: PASS
+
+Not final:
+- Subscription remote D1 and provider-backed recurring contract flow are still blocked.
+
+---
+
+## Shop Social Robots SEO Screen Evidence
+
+Timestamp: 2026-06-04T13:56:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: d9802610-8d8a-4958-b78c-d5b1c93ab8f7
+
+Published screen evidence refreshed by the public gates:
+- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
+- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
+- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- Products page 1980: https://mail.aiboux.com/g/screens/shop-products-page-1980.png
+- Categories page 1980: https://mail.aiboux.com/g/screens/shop-categories-page-1980.png
+- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- Product detail 1365: https://mail.aiboux.com/g/screens/shop-product-detail-1365.png
+- Product detail mobile: https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png
+- Cart page: https://mail.aiboux.com/g/screens/shop-cart-page.png
+- Checkout page: https://mail.aiboux.com/g/screens/shop-checkout-page.png
+- Contact page: https://mail.aiboux.com/g/screens/shop-contact-page.png
+- Legal page: https://mail.aiboux.com/g/screens/shop-legal-page.png
+- Privacy page: https://mail.aiboux.com/g/screens/shop-privacy-page.png
+- Shipping page: https://mail.aiboux.com/g/screens/shop-shipping-page.png
+- Returns page: https://mail.aiboux.com/g/screens/shop-returns-page.png
+- FAQ page: https://mail.aiboux.com/g/screens/shop-faq-page.png
+- Admin design: https://mail.aiboux.com/g/screens/shop-admin-design.png
+- Admin products: https://mail.aiboux.com/g/screens/shop-admin-products.png
+
+Public SEO head evidence:
+- TOP `/s/aiboux/`: robots index/follow, canonical self-reference, Open Graph website, Twitter Card.
+- Product `/s/aiboux/product/setsuka-coffee`: robots index/follow, canonical product URL, Open Graph product, Twitter Card product image.
+- Cart `/s/aiboux/cart`: robots noindex/follow/noarchive, canonical cart URL, Open Graph website, Twitter Card.
+
+Gate evidence:
+- Public crawl now checks canonical, robots, Open Graph, Twitter Card, `ja-JP` alternate metadata, one primary H1, visible breadcrumb, shared footer, and direct internal links.
+- Product detail gate now checks product canonical, indexable robots, `og:type=product`, Open Graph image, Twitter Card, `ja-JP` alternate, one product H1, and Product JSON-LD.
+
+Not final:
+- Subscription remote D1 migration and provider-backed recurring contract flow are still blocked.
+
+---
+
+## Shop Robots Sitemap SEO Discovery Evidence
+
+Timestamp: 2026-06-04T13:57:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: 90cbebfd-c9f4-418f-a8f7-d72e7f6df6cf
+
+Public discovery evidence:
+- Robots URL: `https://shop.aiboux.com/robots.txt`
+- Sitemap URL: `https://shop.aiboux.com/sitemap.xml`
+- `robots.txt`: HTTP 200, `text/plain; charset=utf-8`.
+- `sitemap.xml`: HTTP 200, `application/xml; charset=utf-8`.
+- `sitemap.xml` now returns XML instead of Shop HTML after `/sitemap.xml` was excluded from service-host rewrite.
+
+Robots evidence:
+- `Sitemap: https://shop.aiboux.com/sitemap.xml`
+- `Disallow: /s/aiboux/cart`
+- `Disallow: /s/aiboux/checkout`
+- `Disallow: /s/aiboux/admin`
+
+Sitemap includes:
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/products`
+- `https://shop.aiboux.com/s/aiboux/categories`
+- `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`
+- `https://shop.aiboux.com/s/aiboux/returns`
+
+Sitemap excludes:
+- `https://shop.aiboux.com/s/aiboux/cart`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/admin`
+
+Public gate evidence:
+- `gate:shop-public-crawl`: PASS, 6 tests including robots/sitemap.
+- `gate:shop-sales-quality`: PASS after sitemap route fix.
+
+Screen evidence retained:
+- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
+- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
+- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- Product detail mobile: https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png
+- Cart page: https://mail.aiboux.com/g/screens/shop-cart-page.png
+- Checkout page: https://mail.aiboux.com/g/screens/shop-checkout-page.png
+- Contact page: https://mail.aiboux.com/g/screens/shop-contact-page.png
+- Legal page: https://mail.aiboux.com/g/screens/shop-legal-page.png
+- Admin design: https://mail.aiboux.com/g/screens/shop-admin-design.png
+
+Not final:
+- Subscription remote D1 migration and provider-backed recurring contract flow remain blocked/unverified.
+
+---
+
+## Shop Shared Page Entity And FAQ SEO Evidence
+
+Timestamp: 2026-06-04T14:40:11Z
+Status: CODE_READY_WIP_NOT_FINAL
+
+Shared SEO artifacts added:
+- `src/lib/shopSeo.ts`
+  - `buildShopWebPageJsonLd`
+  - `buildShopSiteNavigationJsonLd`
+  - `buildShopFaqPageJsonLd`
+- `src/lib/shopStorefrontShared.ts`
+  - `buildShopFaqItems`
+
+Screen evidence retained:
+- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
+- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
+- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- FAQ page: https://mail.aiboux.com/g/screens/shop-faq-page-1980.png
+- Contact page: https://mail.aiboux.com/g/screens/shop-contact-page-1980.png
+
+Expected public SEO evidence after WIP deploy:
+- `/s/aiboux/`: `SiteNavigationElement` and page entity JSON-LD.
+- `/s/aiboux/faq`: `FAQPage`, `Question`, and `acceptedAnswer`.
+- `/s/aiboux/contact`: `ContactPage`.
+- All storefront subpages keep visible breadcrumb, self canonical, Open Graph, Twitter Card, and footer evidence.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_ENTITY_GRAPH_SEO_PUBLICATION_AND_BARK Screen Evidence
+
+Timestamp: 2026-06-04T16:56:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `2818d8c`
+- Public evidence Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
+- Public m68/l68/d68 verification files: `all_log/public-g/20260604T165437Z_*`
+
+Public screen links confirmed in d68:
+- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Product detail 1365: `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
+- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- Product detail mobile: `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
+- Hero during animation: `https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png`
+- Hero after next: `https://mail.aiboux.com/g/screens/shop-hero-after-next-smooth-1365.png`
+- Hero after dot: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-smooth-1365.png`
+- Cart add result: `https://mail.aiboux.com/g/screens/shop-cart-add-result.png`
+- Admin products: `https://mail.aiboux.com/g/screens/shop-admin-products.png`
+
+Progress Bark notification:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- Evidence file: `all_log/bark/20260604T165451Z_entity_graph_seo_progress_bark.json`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP Screen Evidence
+
+Timestamp: 2026-06-04T16:55:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Publication:
+- WIP commit: `b6ba295`
+- Worker Version ID: `d7617383-347a-43b5-ab4d-dc54ddab17d7`
+- Deploy log: `all_log/deploys/20260604T164621Z_entity_graph_seo_wrangler_deploy.txt`
+
+Public screen/artifact evidence:
+- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Product detail 1365: `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
+- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- Product detail mobile: `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
+- Hero during animation: `https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png`
+- Hero after next: `https://mail.aiboux.com/g/screens/shop-hero-after-next-smooth-1365.png`
+- Hero after dot: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-smooth-1365.png`
+- Cart add result: `https://mail.aiboux.com/g/screens/shop-cart-add-result.png`
+- Admin products: `https://mail.aiboux.com/g/screens/shop-admin-products.png`
+
+Direct HTML evidence:
+- TOP entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_top.html`
+- Products entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_products.html`
+- Contact entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_contact.html`
+- FAQ entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_faq.html`
+- Shipping entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_shipping.html`
+- Returns entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_returns.html`
+- Product detail entity graph HTML: `all_log/public-checks/20260604T164843Z_entity_graph_product_shopprod_tenant_001_4580000232621.html`
+- Summary: `all_log/public-checks/20260604T164843Z_entity_graph_summary.txt`
+
+Checked evidence:
+- `OnlineStore`: present on checked public pages.
+- `#store`: present on checked public pages.
+- `#website`: present on checked public pages.
+- `isPartOf`: present on checked public pages.
+- `publisher`: present on checked public pages.
+- `about`: present on checked public pages.
+- `MerchantReturnPolicy`: present on checked public pages.
+- Product detail `OfferShippingDetails`: present.
+- Product detail `mainEntityOfPage`: present.
+- Product detail `seller`: present.
+- `gate:shop-public-crawl`: PASS, 6 passed.
+- `gate:shop-product-detail`: PASS, 3 passed.
+- `gate:shop-sales-quality`: PASS.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_PUBLICATION_AND_BARK Screen Evidence
+
+Timestamp: 2026-06-04T16:40:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `683b487`
+- Public evidence Worker Version ID: `9b7fe5ca-9d1a-4ea2-a89a-cfd79c5ce4ab`
+- Publication deploy log: `all_log/deploys/20260604T163236Z_wrangler_publish_shared_page_header_seo_evidence.txt`
+- Bark evidence commit: `c78750f`
+- Bark evidence publication Worker Version ID: `a97cd55e-9531-467c-bf97-d45cae19cc71`
+- Bark evidence publication deploy log: `all_log/deploys/20260604T163455Z_wrangler_publish_shared_page_header_seo_bark_evidence.txt`
+
+Public URL verification:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- Public d68 includes shared page header screenshot links and direct HTML evidence summary.
+
+Progress Bark notification:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Evidence file: `all_log/bark/20260604T163322Z_shared_page_header_seo_progress_bark.json`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_PAGE_HEADER_SEO_UI_WIP Screen Evidence
+
+Timestamp: 2026-06-04T16:35:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Publication:
+- WIP commit: `4b90bb0`
+- Worker Version ID: `1bd147f4-517a-4703-974a-56198b05bd86`
+- Deploy log: `all_log/deploys/20260604T162618Z_wrangler_shared_page_header_seo_ui.txt`
+
+Public screen evidence refreshed by public Playwright:
+- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Products 1980: `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- Categories 1980: `https://mail.aiboux.com/g/screens/shop-categories-page-1980.png`
+- Cart 1980: `https://mail.aiboux.com/g/screens/shop-cart-page-1980.png`
+- Checkout 1980: `https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png`
+- Contact 1980: `https://mail.aiboux.com/g/screens/shop-contact-page-1980.png`
+- Legal 1980: `https://mail.aiboux.com/g/screens/shop-legal-page-1980.png`
+- Privacy 1980: `https://mail.aiboux.com/g/screens/shop-privacy-page-1980.png`
+- Shipping 1980: `https://mail.aiboux.com/g/screens/shop-shipping-page-1980.png`
+- Returns 1980: `https://mail.aiboux.com/g/screens/shop-returns-page-1980.png`
+- FAQ 1980: `https://mail.aiboux.com/g/screens/shop-faq-page-1980.png`
+- My page 1980: `https://mail.aiboux.com/g/screens/shop-mypage-1980.png`
+- My page subscriptions 1980: `https://mail.aiboux.com/g/screens/shop-mypage-subscriptions-1980.png`
+- Orders 1980: `https://mail.aiboux.com/g/screens/shop-orders-1980.png`
+- Favorites 1980: `https://mail.aiboux.com/g/screens/shop-favorites-1980.png`
+- Login 1980: `https://mail.aiboux.com/g/screens/shop-login-1980.png`
+- Register 1980: `https://mail.aiboux.com/g/screens/shop-register-1980.png`
+- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+Direct public HTML evidence:
+- Summary file: `all_log/public-checks/20260604T163007Z_page_header_summary.txt`
+- Checked pages: products, categories, cart, checkout, contact, legal, privacy, shipping, returns, faq, mypage, orders, favorites, login, register, mypage/subscriptions.
+- Result: all HTTP 200, all include the shared page header, page title id, and `SiteNavigationElement`.
+
+Checked evidence:
+- Shared page header is present on non-product public tenant pages.
+- Product detail still keeps one product `h1`; the duplicate title above the image gallery was not reintroduced.
+- Public crawl gate verifies the shared page header, h1 count, crawlable links, navigation microdata, and blue secondary link affordance.
+- `gate:shop-public-crawl`: PASS, 6 passed.
+- `gate:shop-sales-quality`: PASS across configured sales-quality lanes.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_SEO_HUB_PROGRESS_BARK
+
+Timestamp: 2026-06-04T16:00:40Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark evidence:
+- Purpose: progress notification only.
+- Result: `delivered=true`, `skipped=false`, `secretLogged=false`.
+- Evidence file: `all_log/bark/20260604T160040Z_seo_hub_progress_bark.json`
+- URL Bundle included: m68 / l68 / d68.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_SUPPORT_RAIL_SEO_UI_WIP Screen Evidence
+
+Timestamp: 2026-06-05T00:34:50+09:00
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Worker Version ID:
+- `ada2e58f-775c-448f-b051-302c13048866`
+
+WIP commit:
+- `3984217 WIP add shared storefront support rail SEO UI`
+
+Screen evidence refreshed by public Playwright:
+- `/g/screens/shop-top-1365.png`
+- `/g/screens/shop-top-1980.png`
+- `/g/screens/shop-top-mobile.png`
+- `/g/screens/shop-products-page-1980.png`
+- `/g/screens/shop-categories-page-1980.png`
+- `/g/screens/shop-cart-page-1980.png`
+- `/g/screens/shop-checkout-page-1980.png`
+- `/g/screens/shop-contact-page-1980.png`
+- `/g/screens/shop-legal-page-1980.png`
+- `/g/screens/shop-privacy-page-1980.png`
+- `/g/screens/shop-shipping-page-1980.png`
+- `/g/screens/shop-returns-page-1980.png`
+- `/g/screens/shop-faq-page-1980.png`
+- `/g/screens/shop-mypage-1980.png`
+- `/g/screens/shop-orders-1980.png`
+- `/g/screens/shop-favorites-1980.png`
+- `/g/screens/shop-login-1980.png`
+- `/g/screens/shop-register-1980.png`
+- `/g/screens/shop-mypage-subscriptions-1980.png`
+
+Direct public HTML evidence:
+- TOP: `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux.html`
+- Cart: `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_cart.html`
+- Checkout: `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_checkout.html`
+- My page: `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_mypage.html`
+- Legal: `all_log/public-checks/20260604T153450Z_support_rail_s_aiboux_legal.html`
+
+Confirmed:
+- `data-testid="storefront-support-rail"` is present on checked public pages.
+- Support rail contains crawlable internal links to products, categories, cart, checkout, contact, FAQ, returns, mypage, favorites, and subscriptions.
+- Support rail keeps blue link affordance and hover underline for SEO-critical links.
+- Public crawl gate requires the support rail across public tenant storefront pages.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed subscription creation remains unverified.
+- This is not `FINAL_ACCEPTED`.
+
+## SHOP_10H_SHARED_FOOTER_PROGRESS_BARK
+
+Timestamp: 2026-06-04T15:22:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification evidence:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- Worker Version ID: `04337ed3-fa17-4f73-889d-1fd42a236019`
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
+
+## SHOP_10H_SHARED_FOOTER_PUBLIC_VERIFICATION_WIP Screen Evidence
+
+Timestamp: 2026-06-04T15:18:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public screenshots refreshed by public gates:
+- TOP 1980: `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Products 1980: `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- Categories 1980: `https://mail.aiboux.com/g/screens/shop-categories-page-1980.png`
+- Cart 1980: `https://mail.aiboux.com/g/screens/shop-cart-page-1980.png`
+- Checkout 1980: `https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png`
+- Contact 1980: `https://mail.aiboux.com/g/screens/shop-contact-page-1980.png`
+- FAQ 1980: `https://mail.aiboux.com/g/screens/shop-faq-page-1980.png`
+- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+Public shared footer evidence:
+- TOP direct HTML check: `all_log/public-checks/20260604T151550Z_shared_footer_top.html`
+- Cart direct HTML check: `all_log/public-checks/20260604T151550Z_shared_footer_cart.html`
+- Visible footer: PASS.
+- `SiteNavigationElement` visible microdata: PASS.
+- Footer internal link density: PASS.
+- Honest payment/subscription text: PASS.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+Public SEO structure verification after WIP deploy:
+- Worker Version ID: `586b6770-7983-42e1-99cc-67502a648aac`
+- TOP `/s/aiboux/`: HTTP 200 / `SiteNavigationElement` present / `WebPage` present.
+- FAQ `/s/aiboux/faq`: HTTP 200 / `FAQPage` present / `Question` count 4 / `acceptedAnswer` count 4.
+- Contact `/s/aiboux/contact`: HTTP 200 / `ContactPage` present.
+- Public crawl gate: PASS, 6 tests.
+- Public sales-quality gate: PASS.
+
+Public check artifacts:
+- `all_log/public-checks/20260604T144915Z_shop_top_shared_page_entity.headers`
+- `all_log/public-checks/20260604T144915Z_shop_top_shared_page_entity.html`
+- `all_log/public-checks/20260604T144915Z_shop_faq_shared_page_entity.headers`
+- `all_log/public-checks/20260604T144915Z_shop_faq_shared_page_entity.html`
+- `all_log/public-checks/20260604T144915Z_shop_contact_shared_page_entity.headers`
+- `all_log/public-checks/20260604T144915Z_shop_contact_shared_page_entity.html`
+
+Not final:
+- This screen/evidence update proves SEO shared structure on public URLs, not subscription final acceptance.
+
+---
+
+## Shop Shared Navigation And Support Parts Evidence
+
+Timestamp: 2026-06-04T14:27:00Z
+Status: CODE_READY_WIP_NOT_FINAL
+
+Common parts added:
+- `src/lib/shopStorefrontShared.ts`
+
+Commonized structures:
+- Footer link groups
+- Footer assurance cards
+- Account cards
+- Policy support cards
+- Purchase guide cards
+- Curated category seeds
+
+Affected public surfaces:
+- TOP footer: `src/components/shop/storefront/ShadcnStorefront.tsx`
+- Public subpages: `src/pages/shop/[tenant]/[...path].astro`
+- ItemList JSON-LD input data for account/support/category pages
+- Visible footer/support/account navigation cards
+
+Public gate evidence before WIP deploy:
+- `gate:shop-public-crawl`: PASS, 6 public tests.
+- `gate:shop-sales-quality`: PASS on public URLs.
+
+Screen evidence retained:
+- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
+- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
+- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- Cart page: https://mail.aiboux.com/g/screens/shop-cart-page.png
+- Checkout page: https://mail.aiboux.com/g/screens/shop-checkout-page.png
+- Contact page: https://mail.aiboux.com/g/screens/shop-contact-page.png
+- Legal page: https://mail.aiboux.com/g/screens/shop-legal-page.png
+
+Not final:
+- Subscription remote D1 migration and provider-backed recurring contract flow remain blocked/unverified.
+
+---
+
+## Shop Shared SEO Head And Common Parts Evidence
+
+Timestamp: 2026-06-04T14:16:04Z
+Status: WIP_DEPLOYED_NOT_FINAL
+Worker Version ID: e9aefc79-e737-4566-ba3e-50e4806a54a1
+WIP commit: 1be17b0 WIP centralize shop SEO head and top ItemList
+
+Public SEO head evidence:
+- TOP URL: https://shop.aiboux.com/s/aiboux/
+  - HTTP 200
+  - content-type: text/html
+  - worker version header: e9aefc79-e737-4566-ba3e-50e4806a54a1
+  - `ItemList`: present
+  - `hreflang="x-default"`: present
+  - `og:title`: present
+  - `twitter:card`: present
+- Product URL: https://shop.aiboux.com/s/aiboux/product/setsuka-coffee
+  - HTTP 200
+  - content-type: text/html
+  - worker version header: e9aefc79-e737-4566-ba3e-50e4806a54a1
+  - `og:type=product`: present
+  - `product:price:amount`: present
+  - `product:price:currency`: present
+  - `hreflang="x-default"`: present
+  - `og:title`: present
+  - `twitter:card`: present
+
+Common component evidence:
+- Shared SEO head: `src/components/shop/ShopSeoHead.astro`
+- Shared SEO helpers: `src/lib/shopSeo.ts`
+- TOP page now uses shared head component.
+- Subpage/product detail route now uses shared head component.
+- TOP product discovery `ItemList` is generated by `buildShopItemListJsonLd`.
+- Product price Open Graph metadata is emitted by the shared head component.
+
+Screen evidence retained:
+- TOP 1980: https://mail.aiboux.com/g/screens/shop-top-1980.png
+- TOP 1365: https://mail.aiboux.com/g/screens/shop-top-1365.png
+- TOP mobile: https://mail.aiboux.com/g/screens/shop-top-mobile.png
+- Product detail 1980: https://mail.aiboux.com/g/screens/shop-product-detail-1980.png
+- Product detail 1365: https://mail.aiboux.com/g/screens/shop-product-detail-1365.png
+- Product detail mobile: https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png
+
+Gate evidence:
+- `gate:shop-public-crawl`: PASS, 6 public tests.
+- `gate:shop-product-detail`: PASS, 3 public tests.
+- `gate:shop-sales-quality`: PASS on public URLs.
+
+Not final:
+- Subscription remote D1 migration and provider-backed recurring contract flow remain blocked/unverified.
+
+## SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP Screen Evidence
+
+Timestamp: 2026-06-04T14:55:42Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public screen/artifact targets after deploy:
+- TOP: `https://shop.aiboux.com/s/aiboux/`
+- Product detail: `https://shop.aiboux.com/s/aiboux/product/{id}`
+- Products: `https://shop.aiboux.com/s/aiboux/products`
+- FAQ: `https://shop.aiboux.com/s/aiboux/faq`
+- Contact: `https://shop.aiboux.com/s/aiboux/contact`
+
+Expected visible breadcrumb evidence:
+- `data-testid="storefront-breadcrumb"` is visible.
+- Visible breadcrumb DOM has `itemtype="https://schema.org/BreadcrumbList"`.
+- Breadcrumb items expose `itemtype="https://schema.org/ListItem"`.
+- Breadcrumb links use blue link styling and hover/focus affordance.
+- Product detail still has exactly one visible `h1`.
+
+Screenshots remain under:
+- `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
+- `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_BREADCRUMB_PUBLIC_VERIFICATION_WIP Screen Evidence
+
+Timestamp: 2026-06-04T15:00:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public screenshots refreshed by public gates:
+- TOP 1980: `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- Product detail 1365: `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
+- Product detail mobile: `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
+- Hero before click: `https://mail.aiboux.com/g/screens/shop-hero-before-click-1365.png`
+- Hero during animation: `https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png`
+- Hero after next: `https://mail.aiboux.com/g/screens/shop-hero-after-next-1365.png`
+- Hero after dot: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-1365.png`
+
+Public breadcrumb evidence:
+- TOP direct HTML check: `all_log/public-checks/20260604T145848Z_breadcrumb_top.html`
+- Product direct HTML check: `all_log/public-checks/20260604T145848Z_breadcrumb_product.html`
+- Visible breadcrumb microdata: PASS.
+- Link affordance class `text-blue-700`: PASS.
+- Product detail single `h1`: PASS.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_BREADCRUMB_PROGRESS_BARK
+
+Timestamp: 2026-06-04T15:08:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification evidence:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- Worker Version ID: `21ec387f-fa3a-41b3-9c73-51b53931f5cc`
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
+
+## SHOP_10H_SHARED_FOOTER_SEO_UI_WIP Screen Evidence
+
+Timestamp: 2026-06-04T15:12:15Z
+Status: WIP_NOT_FINAL
+
+Public screen/artifact targets after deploy:
+- TOP footer: `https://shop.aiboux.com/s/aiboux/`
+- Product detail footer: `https://shop.aiboux.com/s/aiboux/product/{id}`
+- Cart footer: `https://shop.aiboux.com/s/aiboux/cart`
+- Checkout footer: `https://shop.aiboux.com/s/aiboux/checkout`
+- FAQ/footer support links: `https://shop.aiboux.com/s/aiboux/faq`
+
+Expected shared footer evidence:
+- `data-testid="storefront-footer"` visible on every public tenant storefront page.
+- Footer navigation exposes Schema.org `SiteNavigationElement` microdata in the visible DOM.
+- Footer has at least 16 crawlable internal `<a href>` links.
+- Footer includes the honest payment/subscription message: `決済未接続時は注文確定しません`.
+- TOP and subpages use the same `StorefrontFooter` component.
+
+Screenshots remain under:
+- `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-cart-page-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png`
+- `https://mail.aiboux.com/g/screens/shop-faq-page-1980.png`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_SHARED_SUPPORT_RAIL_PROGRESS_BARK
+
+Timestamp: 2026-06-04T15:39:50Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Progress Bark notification evidence:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Worker Version ID: `e1357e15-5018-4aaa-8ea2-cf7b451da878`
+- Evidence file: `all_log/bark/20260604T153950Z_support_rail_progress_bark.json`
+
+This is a progress notification only. It is not FINAL_ACCEPTED.
+## SHOP_10H_SHARED_SEO_HUB_WIP Screen Evidence
+
+Timestamp: 2026-06-04T15:48:58Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Publication:
+- Implementation Worker Version ID: `89d685a7-8eb1-401c-8c6b-d92d29b9aa37`
+- Public evidence publication Worker Version ID: `08b5ddf3-dd69-43e6-9a62-c4187f97a803`
+- Evidence commit: `359311b`
+- Publication deploy log: `all_log/deploys/20260604T155748Z_wrangler_publish_seo_hub_evidence.txt`
+
+Public screen/artifact evidence:
+- TOP 1980: `https://mail.aiboux.com/g/screens/shop-top-1980.png`
+- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
+- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
+- Products 1980: `https://mail.aiboux.com/g/screens/shop-products-page-1980.png`
+- Cart 1980: `https://mail.aiboux.com/g/screens/shop-cart-page-1980.png`
+- Checkout 1980: `https://mail.aiboux.com/g/screens/shop-checkout-page-1980.png`
+- Legal 1980: `https://mail.aiboux.com/g/screens/shop-legal-page-1980.png`
+- My page 1980: `https://mail.aiboux.com/g/screens/shop-mypage-1980.png`
+
+Direct HTML evidence:
+- TOP: `all_log/public-checks/20260604T154858Z_seo_hub_top.html`
+- Cart: `all_log/public-checks/20260604T154858Z_seo_hub_cart.html`
+- Checkout: `all_log/public-checks/20260604T154858Z_seo_hub_checkout.html`
+- My page: `all_log/public-checks/20260604T154858Z_seo_hub_mypage.html`
+- Legal: `all_log/public-checks/20260604T154858Z_seo_hub_legal.html`
+
+Checked evidence:
+- `data-testid="storefront-seo-hub"` is present on checked public pages.
+- Visible `SiteNavigationElement` microdata is present.
+- Dense crawlable internal links are present.
+- Blue link affordance is required by `tests/shop-public-crawl.spec.ts`.
+- `gate:shop-public-crawl`: PASS, 6 passed.
+- `gate:shop-sales-quality`: PASS.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_CLEANUP_WIP Screen Evidence
+
+Timestamp: 2026-06-04T16:21:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Publication:
+- WIP commit: `6c3d010`
+- Worker Version ID: `f4073dab-a074-4cf3-a5c7-456f75e072c3`
+- Deploy log: `all_log/deploys/20260604T160856Z_wrangler_breadcrumb_seo_deploy.txt`
+
+Public screen/artifact evidence:
+- Product detail 1365: `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
+- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+- Product detail mobile: `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
+
+Direct HTML evidence:
+- Product detail breadcrumb HTML: `all_log/public-checks/20260604T161031Z_product_breadcrumb.html`
+- Product detail breadcrumb headers: `all_log/public-checks/20260604T161031Z_product_breadcrumb.headers`
+
+Checked evidence:
+- Visible breadcrumb current label: `商品詳細`
+- Product title remains a single visible `h1`.
+- Product title remains in structured `BreadcrumbList` data.
+- Shared SEO/UI parts remain active on product detail: header, breadcrumb, SEO hub, support rail, footer.
+- `gate:shop-product-detail`: PASS, 3 passed.
+- `gate:shop-public-crawl`: PASS, 6 passed.
+- `gate:shop-sales-quality`: PASS across configured sales-quality lanes.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_PUBLICATION_AND_BARK Screen Evidence
+
+Timestamp: 2026-06-04T16:30:00Z
+Status: WIP_DEPLOYED_NOT_FINAL
+
+Public evidence publication:
+- Evidence commit: `87862ac`
+- Public evidence Worker Version ID: `1dda6a0e-440d-4eaf-958a-b5adbb60f585`
+- Publication deploy log: `all_log/deploys/20260604T161631Z_wrangler_publish_breadcrumb_product_seo_evidence.txt`
+
+Public URL verification:
+- m68: HTTP 200 / `text/markdown; charset=utf-8`
+- l68: HTTP 200 / `text/markdown; charset=utf-8`
+- d68: HTTP 200 / `text/markdown; charset=utf-8`
+- Public d68 includes product detail screenshot links and breadcrumb/SEO evidence.
+
+Progress Bark notification:
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Evidence file: `all_log/bark/20260604T161711Z_breadcrumb_product_seo_progress_bark.json`
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
