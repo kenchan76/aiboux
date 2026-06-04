@@ -4732,3 +4732,40 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_CLEANUP_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must share SEO-critical parts wherever possible.
+- Shared parts include storefront header, breadcrumb, SEO hub, support rail, and footer.
+- Links that matter for shopping and SEO must be real crawlable `<a href>` anchors with visible blue link affordance.
+- Product detail pages must not show duplicate product titles above the image gallery.
+- Product detail pages must keep one visible product `h1`.
+- Product detail breadcrumb may use a short visible current label, but the full product title must remain in structured data.
+
+Current breadcrumb rule:
+- Shared component: `src/components/shop/storefront/StorefrontBreadcrumb.tsx`
+- Shared SEO builder: `src/lib/shopSeo.ts`
+- Product detail visible current crumb: `商品詳細`
+- Product detail structured breadcrumb item name: full product display name
+- Breadcrumb structured data: `BreadcrumbList`
+
+Reference SEO basis:
+- Google Search Central SEO Starter Guide: unique, clear, concise page titles and useful content.
+- Google Search Central ecommerce guidance: expose ecommerce-relevant structured data.
+- Google Search Central Breadcrumb structured data: use BreadcrumbList for page hierarchy.
+- Google Search Central Product structured data: expose product facts on product pages when eligible.
+
+Latest evidence:
+- WIP commit: `6c3d010`
+- Worker Version ID: `f4073dab-a074-4cf3-a5c7-456f75e072c3`
+- Product detail public verification URL: `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
+- `gate:shop-product-detail`: PASS
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-sales-quality`: PASS
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
