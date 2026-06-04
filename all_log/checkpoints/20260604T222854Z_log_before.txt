@@ -1,0 +1,10 @@
+75bfbce WIP add shop trust matrix SEO UI common part
+d715e30 WIP add rendered shop SEO checklist status report
+874175b WIP record shop SEO checklist final public URL verification
+f4f1dd8 WIP publish shop SEO checklist public verification and Bark evidence
+ef20149 WIP publish shop SEO checklist evidence 20260604T220233Z
+1fce168 WIP shop aiboux tenant deploy checkpoint 20260604T220233Z
+93f286e WIP publish shop action map SEO evidence
+86773c8 WIP fix product action map text collision
+fc75f02 WIP shop aiboux tenant deploy checkpoint 20260604T213916Z
+88ab5e4 WIP add shop page action map SEO links
