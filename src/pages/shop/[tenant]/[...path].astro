@@ -146,6 +146,36 @@ const productJsonLd = salesProduct
         price: String(salesProduct.salePrice),
         availability: salesProduct.inStock ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
         itemCondition: "https://schema.org/NewCondition",
+        shippingDetails: {
+          "@type": "OfferShippingDetails",
+          shippingDestination: {
+            "@type": "DefinedRegion",
+            addressCountry: "JP",
+          },
+          deliveryTime: {
+            "@type": "ShippingDeliveryTime",
+            handlingTime: {
+              "@type": "QuantitativeValue",
+              minValue: 1,
+              maxValue: 2,
+              unitCode: "DAY",
+            },
+            transitTime: {
+              "@type": "QuantitativeValue",
+              minValue: 2,
+              maxValue: 4,
+              unitCode: "DAY",
+            },
+          },
+        },
+        hasMerchantReturnPolicy: {
+          "@type": "MerchantReturnPolicy",
+          applicableCountry: "JP",
+          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+          merchantReturnDays: 7,
+          returnMethod: "https://schema.org/ReturnByMail",
+          returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+        },
       },
       aggregateRating: {
         "@type": "AggregateRating",
@@ -154,8 +184,6 @@ const productJsonLd = salesProduct
       },
     }
   : null;
-const structuredData = JSON.stringify(productJsonLd ? [breadcrumbJsonLd, websiteJsonLd, productJsonLd] : [breadcrumbJsonLd, websiteJsonLd]);
-
 const policyText = profile && ["legal", "privacy", "shipping", "returns"].includes(page)
   ? page === "legal"
     ? profile.tokushohoText
@@ -205,6 +233,42 @@ const categoryCards = [...curatedCategoryCards, ...categories.filter((category) 
   ...category,
   imageUrl: imageForSalesProduct(category.name, category.name, index),
 }));
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: storeName,
+  url: absoluteTenantRoot,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: profile?.contactEmail || undefined,
+    telephone: profile?.phone || undefined,
+    areaServed: "JP",
+    availableLanguage: ["ja"],
+  },
+  hasMerchantReturnPolicy: {
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: "JP",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 7,
+    returnMethod: "https://schema.org/ReturnByMail",
+    returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+    merchantReturnLink: new URL(`${tenantRoot}/returns`, "https://shop.aiboux.com").toString(),
+  },
+};
+const itemListJsonLd = buildShopItemListJsonLd({
+  page,
+  canonicalUrl,
+  tenantRoot,
+  publicProductCards,
+  categoryCards,
+  accountCards,
+  policySupportCards,
+});
+const structuredDataItems: any[] = [breadcrumbJsonLd, websiteJsonLd, organizationJsonLd];
+if (productJsonLd) structuredDataItems.push(productJsonLd);
+if (itemListJsonLd) structuredDataItems.push(itemListJsonLd);
+const structuredData = JSON.stringify(structuredDataItems);
 const footerColumns = [
   {
     title: "お買い物",
@@ -576,6 +640,62 @@ function buildShopBreadcrumbItems({
   }
   return items;
 }
+
+function buildShopItemListJsonLd({
+  page,
+  canonicalUrl,
+  tenantRoot,
+  publicProductCards,
+  categoryCards,
+  accountCards,
+  policySupportCards,
+}: {
+  page: string;
+  canonicalUrl: string;
+  tenantRoot: string;
+  publicProductCards: any[];
+  categoryCards: any[];
+  accountCards: Array<{ title: string; body: string; href: string }>;
+  policySupportCards: Array<{ title: string; body: string; href: string }>;
+}) {
+  const base = "https://shop.aiboux.com";
+  const toAbsolute = (href: string) => new URL(href, base).toString();
+  const listItems =
+    page === "products" || page === "favorites"
+      ? publicProductCards.slice(0, 20).map((item) => ({
+          name: item.displayName,
+          url: toAbsolute(`${tenantRoot}/product/${item.id}`),
+        }))
+      : page === "categories"
+        ? categoryCards.slice(0, 20).map((item) => ({
+            name: item.name,
+            url: toAbsolute(`${tenantRoot}/products?category=${encodeURIComponent(item.slug ?? item.name)}`),
+          }))
+        : ["mypage", "account", "login", "register"].includes(page)
+          ? accountCards.map((item) => ({
+              name: item.title,
+              url: toAbsolute(item.href),
+            }))
+          : ["contact", "legal", "privacy", "shipping", "returns", "faq"].includes(page)
+            ? policySupportCards.map((item) => ({
+                name: item.title,
+                url: toAbsolute(item.href),
+              }))
+            : [];
+
+  if (!listItems.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    url: canonicalUrl,
+    itemListElement: listItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+    })),
+  };
+}
 ---
 
 <!doctype html>
@@ -667,7 +787,7 @@ function buildShopBreadcrumbItems({
                       <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                     </a>
                     <div class="mt-3 text-[11px] font-semibold text-neutral-500">{item.categoryName}</div>
-                    <a class="mt-1 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                    <a class="mt-1 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
                     <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">({128 + index * 31})</span></div>
                     <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)} <span class="text-[11px] font-normal text-neutral-500">税込</span></div>
                     <button
@@ -895,7 +1015,7 @@ function buildShopBreadcrumbItems({
                       <a class="aspect-square overflow-hidden rounded-md bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                         <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                       </a>
-                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
                       <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
                       <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
                       <button
@@ -1180,7 +1300,7 @@ function buildShopBreadcrumbItems({
                       <div class="aspect-square overflow-hidden rounded-md bg-neutral-50">
                         <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                       </div>
-                      <div class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950">{item.displayName}</div>
+                      <div class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline">{item.displayName}</div>
                       <div class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
                     </a>
                   ))}
@@ -1201,7 +1321,7 @@ function buildShopBreadcrumbItems({
                     <a class="aspect-square overflow-hidden rounded-lg bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                       <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                     </a>
-                    <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                    <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
                     <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
                     <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
                     <button
@@ -1247,7 +1367,7 @@ function buildShopBreadcrumbItems({
                       <a class="aspect-square overflow-hidden rounded-md bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                         <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                       </a>
-                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
                       <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
                       <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
                       <a class="mt-auto inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>商品詳細で確認</a>
@@ -1304,7 +1424,7 @@ function buildShopBreadcrumbItems({
                       <a class="aspect-square overflow-hidden rounded-md bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                         <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                       </a>
-                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                      <a class="mt-3 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
                       <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">(128)</span></div>
                       <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
                       <a class="mt-auto inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>商品を見る</a>

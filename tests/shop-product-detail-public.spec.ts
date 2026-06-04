@@ -53,6 +53,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
       await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+      await expect(page.getByTestId("storefront-breadcrumb")).toBeVisible();
+      await expect(page.locator("h1")).toHaveCount(1);
+
+      const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
+      expect(jsonLdText ?? "", "product detail should include BreadcrumbList JSON-LD").toContain("BreadcrumbList");
+      expect(jsonLdText ?? "", "product detail should include Product JSON-LD").toContain("Product");
+      expect(jsonLdText ?? "", "product detail should include Offer JSON-LD").toContain("Offer");
+      expect(jsonLdText ?? "", "product detail should include Organization return policy JSON-LD").toContain("MerchantReturnPolicy");
+      expect(jsonLdText ?? "", "product detail should include shipping details for merchant listing").toContain("OfferShippingDetails");
 
       const purchaseBox = await page.getByTestId("public-product-purchase-box").boundingBox();
       expect(purchaseBox?.height ?? 0, "purchase box should not be collapsed").toBeGreaterThan(260);

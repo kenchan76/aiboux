@@ -180,7 +180,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
               </div>
               <div className="flex items-center gap-3">
                 <Badge variant="secondary">{products.length}件</Badge>
-                <a className="text-xs text-muted-foreground" href={`${tenantRoot}/products`}>もっと見る</a>
+                <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href={`${tenantRoot}/products`}>もっと見る</a>
               </div>
             </div>
             <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:gap-4", columnClass)}>
@@ -198,7 +198,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
           <section className="mt-4 rounded-md bg-white p-4 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-base font-semibold">{layout.pages.top.sections.brands.title}</h2>
-              <a className="text-xs text-muted-foreground" href={`${tenantRoot}/products`}>もっと見る</a>
+              <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href={`${tenantRoot}/products`}>もっと見る</a>
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-6">
               {["THERMOS", "Panasonic", "SHARP", "dyson", "IRIS OHYAMA", "KIRIN"].map((brand) => (
@@ -306,7 +306,7 @@ function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot:
           <nav key={column.title} className="grid gap-2 text-sm">
             <h2 className="mb-2 text-base font-bold">{column.title}</h2>
             {column.links.map(([label, href]) => (
-              <a key={label} className="text-white/78 hover:text-white" href={href}>{label}</a>
+              <a key={label} className="text-white/82 underline-offset-4 hover:text-white hover:underline" href={href}>{label}</a>
             ))}
           </nav>
         ))}
@@ -367,7 +367,7 @@ function StoreSection({ title, enabled, products, accent = "neutral", ranking, s
     <section className="mt-4 rounded-md bg-white p-4 shadow-sm" data-testid={ranking ? "bestseller-ranking" : sale ? "time-sale-products" : undefined}>
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-base font-semibold">{title}</h2>
-        <a className="text-xs text-muted-foreground" href="/s/aiboux/products">もっと見る</a>
+        <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href="/s/aiboux/products">もっと見る</a>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         {products.slice(0, 5).map((product, index) => (
@@ -376,7 +376,7 @@ function StoreSection({ title, enabled, products, accent = "neutral", ranking, s
             {sale ? <span className="absolute left-2 top-2 z-10 rounded-sm bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">SALE</span> : null}
             <img src={product.image} alt={product.name} className="h-32 w-full rounded bg-neutral-50 object-cover" loading="lazy" />
             <div className="mt-2 text-[10px] font-semibold text-neutral-500">{product.category}</div>
-            <div className="mt-1 line-clamp-2 min-h-9 text-xs font-semibold leading-[18px] text-neutral-900">{product.name}</div>
+            <div className="mt-1 line-clamp-2 min-h-9 text-xs font-semibold leading-[18px] text-blue-800 hover:underline">{product.name}</div>
             <div className={cn("mt-1 text-base font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price}</div>
             {sale ? <div className="mt-0.5 text-[11px] text-neutral-500 line-through">¥{priceAdd(product.price, 600)}</div> : null}
           </a>
@@ -392,7 +392,7 @@ function CategorySection({ title, enabled }: { title: string; enabled: boolean }
     <section className="mt-4 rounded-md bg-white p-4 shadow-sm" data-testid="category-showcase">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-base font-semibold">{title}</h2>
-        <a className="text-xs text-muted-foreground" href="/s/aiboux/categories">もっと見る</a>
+        <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href="/s/aiboux/categories">もっと見る</a>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">
         {categoryShowcase.map((item) => (
@@ -413,7 +413,7 @@ function ProductCard({ product, index, showTaxLabel, showRating }: { product: St
         <img src={product.image} alt={product.name} className="h-44 w-full rounded bg-neutral-50 object-cover md:h-48" loading="lazy" />
         <div className="mt-3 text-[11px] font-semibold text-neutral-500">{product.category}</div>
         {showRating ? <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({860 + index * 47})</span></div> : null}
-        <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-neutral-950">{product.name}</h3>
+        <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-blue-800 hover:underline">{product.name}</h3>
         <p className="mt-1 text-lg font-bold tracking-tight text-red-700">¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}</p>
       </a>
       <button

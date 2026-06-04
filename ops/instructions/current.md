@@ -120,3 +120,21 @@ Immediate active requirements:
 - Smooth the TOP hero carousel. Do not swap three nodes abruptly. Use a continuous transform-based track with 480-650ms natural easing, side previews, keyboard, swipe/drag, dots, arrows, autoplay, and no visual jump.
 - Public tests must verify breadcrumb visibility, JSON-LD presence, carousel transition/transform, active dot, side preview updates, product card links, cart addition, and all public pages with footer.
 - FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.
+
+## 2026-06-04 User Escalation: SEO Strongest Structure And Clear Links
+
+User explicitly required web-based SEO study before continuing, visibly understandable link colors, common breadcrumbs, and all pages to be SEO/UI strongest.
+
+Additional active requirements:
+
+- Use Google Search Central guidance as the current SEO baseline.
+- Keep visible breadcrumbs on every tenant storefront subpage.
+- Generate JSON-LD from the same breadcrumb model.
+- Add shared `Organization` structured data with standard store return-policy information.
+- Add page-specific `ItemList` JSON-LD for product/category/account/support listing pages where multiple internal targets are shown.
+- Keep product detail focused on one product and one product H1.
+- Use self-referencing canonical URLs.
+- Use real `<a href>` internal links with meaningful text. Do not rely on JavaScript-only navigation for SEO-critical paths.
+- Make text links visually identifiable using blue link color and hover underline on public storefront pages.
+- Keep footer links and support navigation complete on every public tenant storefront page.
+- Do not copy Amazon text, templates, or content. Use Amazon only as a structural benchmark for density, navigability, and purchase readiness.

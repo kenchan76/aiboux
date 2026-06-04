@@ -73,8 +73,31 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
         await expect(page.getByTestId("storefront-footer"), `${target.path} should include Amazon-like storefront footer`).toBeVisible();
+        await expect(page.getByTestId("storefront-breadcrumb"), `${target.path} should include visible breadcrumb navigation`).toBeVisible();
         if ("expectedTestId" in target && target.expectedTestId) {
           await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
+        }
+
+        const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();
+        expect(jsonLdText ?? "", `${target.path} should include BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
+        expect(jsonLdText ?? "", `${target.path} should include WebSite JSON-LD`).toContain("WebSite");
+        expect(jsonLdText ?? "", `${target.path} should include Organization JSON-LD`).toContain("Organization");
+        if ([
+          "shop-products-page",
+          "shop-categories-page",
+          "shop-contact-page",
+          "shop-legal-page",
+          "shop-privacy-page",
+          "shop-shipping-page",
+          "shop-returns-page",
+          "shop-faq-page",
+          "shop-mypage",
+          "shop-account",
+          "shop-login",
+          "shop-register",
+          "shop-favorites",
+        ].includes(target.name)) {
+          expect(jsonLdText ?? "", `${target.path} should include page-specific ItemList JSON-LD`).toContain("ItemList");
         }
 
         const bodyBox = await page.locator("body").boundingBox();
