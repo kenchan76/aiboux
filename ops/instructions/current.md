@@ -187,3 +187,36 @@ Additional active requirements:
 - Public sitemap response must be XML with `content-type: application/xml; charset=utf-8`.
 - Public sitemap must include `/s/aiboux/`, `/s/aiboux/products`, `/s/aiboux/categories`, `/s/aiboux/product/setsuka-coffee`, and legal/support pages.
 - Public sitemap must exclude cart, checkout, and admin paths.
+
+## 2026-06-04 User Escalation: Shared SEO Head And Common Parts Audit
+
+User required every page structure to be checked for strongest SEO and for reusable common parts.
+
+Google Search Central references checked for this cycle:
+- Ecommerce SEO: `https://developers.google.com/search/docs/specialty/ecommerce`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+- Sitemaps: `https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview`
+- robots.txt: `https://developers.google.com/search/docs/crawling-indexing/robots/intro`
+
+Implemented common-parts direction:
+- Tenant storefront SEO head metadata is centralized in `src/components/shop/ShopSeoHead.astro`.
+- TOP and subpage Astro templates must use the shared SEO head rather than duplicating meta tags.
+- TOP `/s/aiboux/` must emit `ItemList` JSON-LD for public product discovery.
+- Product detail pages must emit `product:price:amount` and `product:price:currency` Open Graph metadata.
+- Every public storefront page must keep canonical, robots, Open Graph, Twitter Card, `ja-JP`, and `x-default` metadata.
+- Public gates must verify these tags on `https://shop.aiboux.com` URLs.
+
+Current WIP evidence:
+- WIP commit: `1be17b0 WIP centralize shop SEO head and top ItemList`
+- Worker Version ID: `e9aefc79-e737-4566-ba3e-50e4806a54a1`
+- `gate:shop-public-crawl`: PASS on public URLs.
+- `gate:shop-product-detail`: PASS on public URLs.
+- `gate:shop-sales-quality`: PASS on public URLs.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.

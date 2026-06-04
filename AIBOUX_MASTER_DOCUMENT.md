@@ -4541,5 +4541,23 @@ Status: `WIP_DEPLOYED_NOT_FINAL`
 - Sitemap includes public indexable Shop tenant discovery/content URLs and excludes cart, checkout, and admin URLs.
 - `gate:shop-public-crawl`: PASS, 6 passed on public URLs including robots/sitemap.
 - `gate:shop-sales-quality`: PASS on public URLs after sitemap route fix.
+
+## 2026-06-04T14:16:04Z Current Evidence Note: Shop Shared SEO Head And Common Parts
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target product: `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`
+- Worker Version ID: `e9aefc79-e737-4566-ba3e-50e4806a54a1`
+- Shared SEO head component added: `src/components/shop/ShopSeoHead.astro`
+- Shared SEO helpers remain centralized in `src/lib/shopSeo.ts`.
+- TOP route and subpage/product route now use the shared SEO head component.
+- TOP `/s/aiboux/` emits product discovery `ItemList` JSON-LD.
+- Product detail pages emit `product:price:amount` and `product:price:currency=JPY` Open Graph metadata.
+- Public TOP HTML includes `ItemList`, `x-default`, Open Graph, and Twitter Card metadata.
+- Public product HTML includes `og:type=product`, product price Open Graph metadata, `x-default`, Open Graph, and Twitter Card metadata.
+- `gate:shop-public-crawl`: PASS, 6 public tests.
+- `gate:shop-product-detail`: PASS, 3 public tests.
+- `gate:shop-sales-quality`: PASS on public URLs.
+- Google Search Central references checked: ecommerce SEO, crawlable links, breadcrumb structured data, product structured data, merchant listing structured data, sitemaps, and robots.txt.
+- FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
