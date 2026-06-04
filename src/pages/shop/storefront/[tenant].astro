@@ -1,7 +1,7 @@
 ---
 import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
 import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront";
-import { getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
+import { getShopStorefrontLayout, getShopStorefrontProfile, listShopStorefrontProducts } from "@/lib/server/shopStorefront";
 import "@/styles/global.css";
 
 export const prerender = false;
@@ -10,6 +10,7 @@ const tenantParam = String(Astro.params.tenant ?? "").trim();
 const isKnownTenant = tenantParam === "aiboux";
 const profile = isKnownTenant ? await getShopStorefrontProfile(tenantParam) : null;
 const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
+const layout = profile ? await getShopStorefrontLayout(profile.tenantId) : null;
 
 if (!isKnownTenant || !profile) {
   Astro.response.status = 404;
@@ -48,7 +49,7 @@ const storefrontProducts = products.map((product) => ({
   <body>
     {
       isKnownTenant && profile ? (
-        <ShadcnStorefront storeName={storeName} products={storefrontProducts} />
+        <ShadcnStorefront storeName={storeName} products={storefrontProducts} layout={layout!} />
       ) : (
         <main class="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-8">
           <p class="text-sm font-bold text-neutral-500">404</p>

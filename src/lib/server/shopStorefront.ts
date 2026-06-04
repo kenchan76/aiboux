@@ -1,4 +1,5 @@
 import { env } from "cloudflare:workers";
+import { defaultStorefrontLayout, parseStorefrontLayoutJson, type StorefrontLayout } from "@/lib/shopStorefrontLayout";
 
 export type ShopStorefrontProfile = {
   tenantId: string;
@@ -79,6 +80,10 @@ type CategoryRow = {
   name: string;
   slug: string;
   product_count: number;
+};
+
+type LayoutRow = {
+  layout_json: string;
 };
 
 export async function getShopStorefrontProfile(tenantSlug: string): Promise<ShopStorefrontProfile | null> {
@@ -329,6 +334,26 @@ export async function listShopStorefrontCategories(tenantId: string): Promise<Sh
     }));
   } catch {
     return [];
+  }
+}
+
+export async function getShopStorefrontLayout(tenantId: string): Promise<StorefrontLayout> {
+  try {
+    const row = await env.DB.prepare(
+      `
+      SELECT layout_json
+      FROM shop_storefront_layouts
+      WHERE tenant_id = ?
+        AND status = 'published'
+      LIMIT 1
+      `,
+    )
+      .bind(tenantId)
+      .first<LayoutRow>();
+
+    return row ? parseStorefrontLayoutJson(row.layout_json) : defaultStorefrontLayout;
+  } catch {
+    return defaultStorefrontLayout;
   }
 }
 

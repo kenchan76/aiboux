@@ -4,6 +4,7 @@ import {
   buildReturnsText,
   buildShippingText,
   formatShopPrice,
+  getShopStorefrontLayout,
   getShopStorefrontProduct,
   getShopStorefrontProfile,
   listShopStorefrontCategories,
@@ -45,7 +46,12 @@ const productId = productMatch?.[1] ?? "";
 const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
 const categories = profile ? await listShopStorefrontCategories(profile.tenantId) : [];
 const product = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
+const layout = profile ? await getShopStorefrontLayout(profile.tenantId) : null;
 const storeName = profile?.storeName ?? "AIBOUX Store";
+const headerDesign = layout?.global.header;
+const logo = layout?.global.logo;
+const productDesign = layout?.pages.productDetail;
+const logoHref = logo?.linkType === "custom" && logo.customUrl ? logo.customUrl : `${tenantRoot}/`;
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   products: { title: "商品一覧", description: "公開中の商品を表示します。" },
@@ -79,16 +85,36 @@ const canonicalUrl = isKnownTenant && isAllowedPath
     <link rel="canonical" href={canonicalUrl} />
   </head>
   <body class="min-h-screen bg-white text-neutral-950">
-    <header class="border-b border-neutral-200 bg-white">
-      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-        <a href={`${tenantRoot}/`} class="text-lg font-bold tracking-tight">{storeName}</a>
-        <nav class="flex flex-wrap gap-4 text-sm text-neutral-600">
-          <a class="hover:text-neutral-950" href={`${tenantRoot}/products`}>商品一覧</a>
-          <a class="hover:text-neutral-950" href={`${tenantRoot}/categories`}>カテゴリ</a>
-          <a class="hover:text-neutral-950" href={`${tenantRoot}/cart`}>カート</a>
-          <a class="hover:text-neutral-950" href={`${tenantRoot}/contact`}>問い合わせ</a>
-        </nav>
+    <header class="border-b border-neutral-900 bg-[#0f1722] text-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-xs">
+        <span>{headerDesign?.deliveryText ?? "お届け先: 東京都 千代田区"}</span>
+        <span>{headerDesign?.shippingText ?? "送料無料は ¥2,000"}</span>
+        <span class="flex gap-5"><span>{headerDesign?.helpText ?? "ヘルプ・サポート"}</span><span>{headerDesign?.noticeText ?? "お知らせ"}</span></span>
       </div>
+      <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
+        <a href={logoHref} class="shrink-0 text-xl font-bold tracking-tight">
+          {
+            logo && logo.displayMode !== "storeNameOnly" && logo.imageUrl ? (
+              <span class="inline-flex items-center gap-2">
+                <img src={logo.imageUrl} alt={logo.alt} style={`width:${logo.desktopWidth}px`} class="max-h-10 object-contain" />
+                {logo.displayMode === "imageWithStoreName" ? <span>{storeName}</span> : null}
+              </span>
+            ) : storeName
+          }
+        </a>
+        <div class="flex h-10 min-w-0 flex-1 overflow-hidden rounded bg-white text-neutral-900">
+          <span class="hidden items-center border-r border-neutral-200 bg-neutral-100 px-3 text-xs md:flex">すべてのカテゴリ</span>
+          <input class="h-10 min-w-0 flex-1 border-0 px-4 text-sm outline-none" placeholder={headerDesign?.searchPlaceholder ?? "キーワード・商品名・ブランド名で検索"} />
+          <span class="flex w-12 items-center justify-center bg-amber-500 text-neutral-950">検索</span>
+        </div>
+        <a class="hidden text-xs md:block" href={`${tenantRoot}/contact`}>アカウント<br /><b>ログイン</b></a>
+        <a class="hidden text-xs md:block" href={`${tenantRoot}/checkout`}>注文履歴</a>
+        <a class="text-xs" href={`${tenantRoot}/cart`}>カート</a>
+      </div>
+      <nav class="mx-auto flex max-w-6xl gap-5 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
+        <a class="shrink-0 font-bold" href={`${tenantRoot}/categories`}>すべてのカテゴリー</a>
+        {(layout?.global.navigation.items ?? []).map((item) => <a class={item === "セール" ? "shrink-0 font-bold text-red-400" : "shrink-0"} href={`${tenantRoot}/products`}>{item}</a>)}
+      </nav>
     </header>
     {
       isKnownTenant && isAllowedPath ? (
@@ -130,18 +156,56 @@ const canonicalUrl = isKnownTenant && isAllowedPath
 
           {page === "product" ? (
             product ? (
-              <section class="grid gap-6 lg:grid-cols-[420px_1fr]">
-                <div class="flex aspect-square items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  {product.imageUrl ? <img src={product.imageUrl} alt={product.imageAlt} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
+              <section class="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)_300px]">
+                <div class={productDesign?.gallery.position === "top" ? "lg:col-span-3" : ""}>
+                  <div class={productDesign?.gallery.position === "top" ? "grid gap-3" : "flex gap-3"}>
+                    <div class={productDesign?.gallery.position === "top" ? "order-2 flex gap-2" : "grid h-fit gap-2"}>
+                      {Array.from({ length: productDesign?.gallery.thumbnailCount ?? 5 }).map((_, index) => (
+                        <div class="flex size-14 items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-[10px] text-neutral-400">{index + 1}</div>
+                      ))}
+                    </div>
+                    <div class="flex aspect-square flex-1 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                      {product.imageUrl ? <img src={product.imageUrl} alt={product.imageAlt} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <p class="text-sm text-neutral-500">{product.categoryName}</p>
-                  <h1 class="mt-2 text-2xl font-bold text-neutral-950">{product.displayName}</h1>
-                  <p class="mt-4 text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</p>
-                  <p class="mt-4 whitespace-pre-line text-sm leading-6 text-neutral-600">{product.description || product.seoDescription || "商品説明は管理画面で保存された公開情報を表示します。"}</p>
-                  <div class="mt-6 flex flex-wrap gap-2">
+                  {productDesign?.content.showBrand ? <p class="text-sm text-blue-700">{product.categoryName || "AIBOUX ブランド"}</p> : null}
+                  <h1 class="mt-2 text-2xl font-bold leading-tight text-neutral-950">{product.displayName}</h1>
+                  {productDesign?.content.showReviews ? <p class="mt-3 border-b border-neutral-200 pb-3 text-sm text-amber-500">★★★★★ <a class="text-blue-700" href="#reviews">(レビューを確認)</a></p> : null}
+                  <div class="mt-4 text-3xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</div>
+                  {productDesign?.content.showPoints ? <p class="mt-2 text-sm text-neutral-600">ポイント付与対象商品です。</p> : null}
+                  {productDesign?.content.showVariations ? (
+                    <div class="mt-5">
+                      <h2 class="text-sm font-bold text-neutral-950">バリエーション</h2>
+                      <div class="mt-2 flex flex-wrap gap-2">
+                        <span class="rounded-md border border-neutral-200 px-3 py-2 text-xs">標準</span>
+                        <span class="rounded-md border border-neutral-200 px-3 py-2 text-xs">ギフト対応</span>
+                      </div>
+                    </div>
+                  ) : null}
+                  <section class="mt-6 rounded-lg border border-neutral-200 bg-white p-4">
+                    <h2 class="text-base font-bold text-neutral-950">商品説明</h2>
+                    <p class="mt-3 whitespace-pre-line text-sm leading-7 text-neutral-600">{product.description || product.seoDescription || "商品説明は管理画面で保存された公開情報を表示します。"}</p>
+                  </section>
+                  {productDesign?.content.showSpecs ? (
+                    <section class="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
+                      <h2 class="text-base font-bold text-neutral-950">商品仕様</h2>
+                      <dl class="mt-3 grid gap-2 text-sm">
+                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">SKU</dt><dd>{product.sku}</dd></div>
+                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">カテゴリ</dt><dd>{product.categoryName}</dd></div>
+                      </dl>
+                    </section>
+                  ) : null}
+                </div>
+                <aside class={productDesign?.purchaseBox.sticky ? "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:sticky lg:top-28" : "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"}>
+                  <div class="text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</div>
+                  {productDesign?.content.showDeliveryEstimate ? <p class="mt-3 text-sm leading-6 text-neutral-600">配送予定はチェックアウト画面で確認します。</p> : null}
+                  {productDesign?.content.showStock ? <p class="mt-2 text-sm font-bold text-emerald-700">{product.inStock ? "在庫あり" : "在庫確認"}</p> : null}
+                  {productDesign?.purchaseBox.showQuantity ? <label class="mt-4 block text-xs font-semibold">数量<input class="mt-1 h-9 w-full rounded-md border border-neutral-200 px-3 font-normal" value="1" readonly /></label> : null}
+                  <div class="mt-4 grid gap-2">
                     <button
-                      class="inline-flex h-10 items-center rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white"
+                      class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-4 text-sm font-semibold text-neutral-950"
                       type="button"
                       data-cart-add
                       data-product-id={product.id}
@@ -149,11 +213,30 @@ const canonicalUrl = isKnownTenant && isAllowedPath
                       data-product-price={String(product.salePrice)}
                       data-product-image={product.imageUrl}
                     >
-                      カートに追加
+                      {productDesign?.purchaseBox.cartButtonText ?? "カートに入れる"}
                     </button>
-                    <a class="inline-flex h-10 items-center rounded-md border border-neutral-300 bg-white px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/cart`}>カートを見る</a>
+                    <a class="inline-flex h-10 items-center justify-center rounded-full bg-orange-500 px-4 text-sm font-semibold text-white" href={`${tenantRoot}/checkout`}>
+                      {productDesign?.purchaseBox.buyNowButtonText ?? "今すぐ購入"}
+                    </a>
+                    <a class="inline-flex h-9 items-center justify-center rounded-md border border-neutral-300 bg-white px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/cart`}>カートを見る</a>
                   </div>
-                </div>
+                </aside>
+                {productDesign?.content.showRelatedProducts ? (
+                  <section class="lg:col-span-3">
+                    <h2 class="mb-3 text-base font-bold text-neutral-950">関連商品</h2>
+                    <div class="grid gap-3 md:grid-cols-4">
+                      {products.filter((item) => item.id !== product.id).slice(0, 4).map((item) => (
+                        <a class="rounded-lg border border-neutral-200 bg-white p-3 hover:bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
+                          <div class="flex aspect-square items-center justify-center rounded-md bg-neutral-50">
+                            {item.imageUrl ? <img src={item.imageUrl} alt={item.imageAlt} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
+                          </div>
+                          <div class="mt-2 line-clamp-2 text-sm font-semibold">{item.displayName}</div>
+                          <div class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
+                        </a>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
               </section>
             ) : (
               <div class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">

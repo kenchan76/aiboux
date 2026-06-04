@@ -149,6 +149,35 @@ Before reporting, update `public/g/l68.md` and `public/g/d68.md`, build, deploy,
 Shop UI quality protection is warn-only for WIP deploys.
 Public execution log publication is mandatory and must not be skipped.
 
+## Fix Cycle 05: Focused Store Design Editor For TOP And Product Detail
+
+Status: WIP_IMPLEMENTATION
+
+Instruction file:
+
+- `ops/instructions/20260604_shop_store_design_editor_top_product_only.md`
+
+Confirmed specification:
+
+- Store design editor may edit only TOP page and product detail page.
+- All other storefront pages are fixed tenant-wide templates.
+- `shop.aiboux.com/` remains the Shop service site.
+- Tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+- Design editor is `https://shop.aiboux.com/s/aiboux/admin/design`.
+- Use the user reference image `https://tadaup.jp/6ivZDgjK.png` as the 3-column editor direction.
+
+Implementation constraints:
+
+1. Keep UI changes scoped to the design editor and required public storefront reflection.
+2. Do not broadly redesign admin pages.
+3. Do not expose products/categories/cart/checkout/contact/legal/privacy/shipping/returns as editable pages.
+4. Save only `global.*`, `pages.top`, and `pages.productDetail` under `shop_storefront_layouts.layout_json`.
+5. Reflect common logo settings across all tenant storefront pages.
+6. Reflect TOP design on `/s/aiboux/`.
+7. Reflect product detail design on `/s/aiboux/product/{id}`.
+8. WIP deploy is allowed after build passes.
+9. Report only after `/g/m68`, `/g/l68`, and `/g/d68` are publicly deployed and curl-verified.
+
 ## Fix Cycle 01: Remove Visible Shop Demo Values And Repair Tenant Links
 
 Status: WIP_FIXING

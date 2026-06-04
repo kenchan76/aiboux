@@ -109,6 +109,22 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.locator("pre").getByText("返品・交換")).toBeVisible();
   });
 
+  test("store design editor exposes only top and product detail page editing", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/design");
+    await expect(page.getByText("AIBOUX SHOP ストアデザインエディタ")).toBeVisible();
+    await expect(page.getByText("TOPページ").first()).toBeVisible();
+    await expect(page.getByText("商品詳細ページ").first()).toBeVisible();
+    await expect(page.getByText("編集できるのは「TOPページ」と「商品詳細ページ」のみです。")).toBeVisible();
+    await expect(page.getByText("ヒーロースライダー").first()).toBeVisible();
+    await expect(page.getByText("ロゴ").first()).toBeVisible();
+    await expect(page.getByText("商品一覧ページ")).toHaveCount(0);
+    await expect(page.getByText("カートページ")).toHaveCount(0);
+    await expect(page.getByText("チェックアウトページ")).toHaveCount(0);
+    await expect(page.getByText("404ページ")).toHaveCount(0);
+    await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });
+  });
+
   test("published product add-to-cart works when published products exist", async ({ page }) => {
     await page.goto("/s/aiboux/products");
     const addButtons = page.locator("[data-cart-add]");

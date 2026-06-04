@@ -1,0 +1,12 @@
+ M ops/instructions/current.md
+ M src/components/shop/StorefrontDesignBuilder.tsx
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/lib/server/shopStorefront.ts
+ M src/lib/shopStorefrontLayout.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+ M tests/shop-functional-public.spec.ts
+?? all_log/checkpoints/20260604T020021Z_wip_commit.txt
+?? all_log/checkpoints/20260604T052318Z_status_before_design_editor.txt
+?? all_log/deploys/20260604T020021Z_deployments_before.txt
+?? ops/instructions/20260604_shop_store_design_editor_top_product_only.md
