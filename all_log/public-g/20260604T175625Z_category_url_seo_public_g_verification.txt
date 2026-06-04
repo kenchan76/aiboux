@@ -1,0 +1,45 @@
+Timestamp: 20260604T175625Z
+## Headers
+/tmp/m68.headers:HTTP/2 200 
+/tmp/m68.headers:content-type: text/markdown; charset=utf-8
+/tmp/m68.headers:cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+/tmp/m68.headers:cdn-cache-control: no-store
+/tmp/m68.headers:cloudflare-cdn-cache-control: no-store
+/tmp/m68.headers:x-content-type-options: nosniff
+/tmp/l68.headers:HTTP/2 200 
+/tmp/l68.headers:content-type: text/markdown; charset=utf-8
+/tmp/l68.headers:cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+/tmp/l68.headers:cdn-cache-control: no-store
+/tmp/l68.headers:cloudflare-cdn-cache-control: no-store
+/tmp/l68.headers:x-content-type-options: nosniff
+/tmp/d68.headers:HTTP/2 200 
+/tmp/d68.headers:content-type: text/markdown; charset=utf-8
+/tmp/d68.headers:cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+/tmp/d68.headers:cdn-cache-control: no-store
+/tmp/d68.headers:cloudflare-cdn-cache-control: no-store
+/tmp/d68.headers:x-content-type-options: nosniff
+## SHA256
+ef193cd52deab771411d69b614cf04879e93dc6b5725d341949ca5adcd2908b4  public/g/m68.md
+83c7e47dd232f88cf4c0c910588b8fc24ad38ba785b105765d498f8ac8864f01  /tmp/m68.body
+ce0e45ae42b1b26d3fefb5a96194e1bd51b92ed8f8918288b49062e9d2c044ef  public/g/l68.md
+fdb10d0e0f790b69689ec0f03ba211382bcb28bdcd4e46ff3d677813c8c08605  /tmp/l68.body
+f3434d0d26273a5ed2c2a14fe8a6446b69dc93dce29b18c0482aedb7292cef21  public/g/d68.md
+e530004900f017656236f3c731111e697b1e47afea3674ece9d34b766885c6ac  /tmp/d68.body
+## Keyword checks
+/tmp/m68.body:6:Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
+/tmp/m68.body:25:- Implementation Worker Version ID: `4fbe75e7-3e56-4bcc-9cd3-f2560427db34`
+/tmp/m68.body:26:- `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`: HTTP 200
+/tmp/m68.body:28:- category canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/m68.body:31:- sitemap includes category URLs such as `coffee-tea`, `kitchen`, and `daily-goods`.
+/tmp/l68.body:5:Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
+/tmp/l68.body:19:  - `buildShopSitemapEntries()` now emits category URLs such as `/s/aiboux/products?category=coffee-tea`.
+/tmp/l68.body:28:  - Added public category page test for `coffee-tea`, including H1, self canonical, indexable robots, visible category badge, filtered product links, and JSON-LD.
+/tmp/l68.body:32:- URL: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/l68.body:34:- implementation Worker Version ID: `4fbe75e7-3e56-4bcc-9cd3-f2560427db34`
+/tmp/l68.body:37:- canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/l68.body:39:- verified visible UI: breadcrumb current text and `カテゴリ: コーヒー・お茶`
+/tmp/d68.body:5:Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
+/tmp/d68.body:11:- URL: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+/tmp/d68.body:13:- implementation Worker Version ID: `4fbe75e7-3e56-4bcc-9cd3-f2560427db34`
+/tmp/d68.body:22:- Visible category context: `カテゴリ: コーヒー・お茶`
+/tmp/d68.body:23:- Self canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`

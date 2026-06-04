@@ -1,6 +1,44 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Stable Category URL SEO And UI
+
+Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens all product discovery pages so category URLs are not thin duplicates and so common SEO/UI parts are shared.
+
+Implemented WIP direction:
+
+- Stable category URLs must use `/s/aiboux/products?category={slug}`.
+- Category URLs must filter visible products to that category.
+- Category URLs must have a category-specific H1, visible badge, self canonical URL, indexable robots meta, Open Graph URL, Twitter URL, breadcrumb, `CollectionPage`, and `ItemList`.
+- Search URLs remain crawlable GET URLs, but query result pages stay `noindex,follow,noarchive`.
+- Sitemap must include stable category URLs for public category discovery.
+- Category pages must reuse the same shared product grid, header, breadcrumb, navigation, and JSON-LD helpers rather than one-off templates.
+
+Latest WIP evidence:
+
+- WIP commit: `a534b5a WIP harden shop category URL SEO`
+- Implementation Worker Version ID: `4fbe75e7-3e56-4bcc-9cd3-f2560427db34`
+- `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`: HTTP 200
+- category page title: `コーヒー・お茶の商品一覧 | AIBOUX Store`
+- category canonical: `https://shop.aiboux.com/s/aiboux/products?category=coffee-tea`
+- robots: `index,follow,max-image-preview:large`
+- `CollectionPage`, `BreadcrumbList`, `ItemList`, `SiteNavigationElement`, and `SearchAction` verified in public HTML.
+- sitemap includes category URLs such as `coffee-tea`, `kitchen`, and `daily-goods`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 8 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+- This SEO/UI work does not change `shop.aiboux.com/` into a tenant storefront.
+
 ## Current Active Operating Override: AIBOUX Shop 5H Sales Quality Sprint
 
 Status: `SHOP_5H_SALES_QUALITY_SPRINT_WIP`
