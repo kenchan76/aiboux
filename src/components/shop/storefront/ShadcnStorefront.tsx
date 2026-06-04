@@ -63,16 +63,16 @@ const categoryShowcase = [
 ];
 
 const curatedStorefrontProducts: StorefrontProduct[] = [
-  { id: "setsuka-coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ドリップコーヒー 20袋", price: "1,980", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-bottle", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82", name: "軽量ステンレスボトル 500ml", price: "2,480", category: "キッチン用品", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-towel", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ギフトタオル 2枚セット", price: "2,980", category: "タオル・寝具", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-storage", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82", name: "キッチン保存容器 6点セット", price: "3,280", category: "キッチン用品", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-cleaning", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使えるホームケア洗剤セット", price: "1,680", category: "日用品", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-skincare", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82", name: "ナチュラルスキンケア 3点セット", price: "4,280", category: "ビューティー", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-snack", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82", name: "焼き菓子アソートボックス", price: "2,380", category: "食品・飲料", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-pet", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82", name: "ペットケアおでかけセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-gift", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/products" },
-  { id: "setsuka-tea", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82", name: "国産茶葉ティーバッグ 30包", price: "1,780", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/products" },
+  { id: "setsuka-coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ドリップコーヒー 20袋", price: "1,980", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/product/setsuka-coffee" },
+  { id: "setsuka-bottle", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=720&h=720&q=82", name: "軽量ステンレスボトル 500ml", price: "2,480", category: "キッチン用品", inStock: true, href: "/s/aiboux/product/setsuka-bottle" },
+  { id: "setsuka-towel", image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=720&h=720&q=82", name: "雪花セレクト ギフトタオル 2枚セット", price: "2,980", category: "タオル・寝具", inStock: true, href: "/s/aiboux/product/setsuka-towel" },
+  { id: "setsuka-storage", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82", name: "キッチン保存容器 6点セット", price: "3,280", category: "キッチン用品", inStock: true, href: "/s/aiboux/product/setsuka-storage" },
+  { id: "setsuka-cleaning", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82", name: "毎日使えるホームケア洗剤セット", price: "1,680", category: "日用品", inStock: true, href: "/s/aiboux/product/setsuka-cleaning" },
+  { id: "setsuka-skincare", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82", name: "ナチュラルスキンケア 3点セット", price: "4,280", category: "ビューティー", inStock: true, href: "/s/aiboux/product/setsuka-skincare" },
+  { id: "setsuka-snack", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=720&h=720&q=82", name: "焼き菓子アソートボックス", price: "2,380", category: "食品・飲料", inStock: true, href: "/s/aiboux/product/setsuka-snack" },
+  { id: "setsuka-pet", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82", name: "ペットケアおでかけセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/product/setsuka-pet" },
+  { id: "setsuka-gift", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/product/setsuka-gift" },
+  { id: "setsuka-tea", image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=720&h=720&q=82", name: "国産茶葉ティーバッグ 30包", price: "1,780", category: "コーヒー・お茶", inStock: true, href: "/s/aiboux/product/setsuka-tea" },
 ];
 
 export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefrontProps) {
@@ -94,7 +94,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
   }[Math.min(Math.max(layout.global.productCard.columnsDesktop, 3), 6)] ?? "lg:grid-cols-5";
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] text-foreground">
+    <div id="top" className="min-h-screen bg-[#f3f4f6] text-foreground">
       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
 
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
@@ -204,14 +204,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
         ) : null}
       </main>
 
-      <footer className="border-t bg-white">
-        <nav className="mx-auto flex max-w-screen-xl flex-wrap gap-4 px-4 py-5 text-sm text-muted-foreground">
-          <a href={`${tenantRoot}/privacy`}>プライバシーポリシー</a>
-          <a href={`${tenantRoot}/shipping`}>配送について</a>
-          <a href={`${tenantRoot}/returns`}>返品について</a>
-          <a href={`${tenantRoot}/contact`}>問い合わせ</a>
-        </nav>
-      </footer>
+      <StoreFooter storeName={storeName} tenantRoot={tenantRoot} />
       <StorefrontInteractionScript />
     </div>
   );
@@ -245,8 +238,8 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
             <Search className="size-5" />
           </Button>
         </div>
-        <a href={`${tenantRoot}/contact`} className="hidden text-xs md:block">アカウント<br /><b>ログイン</b></a>
-        <a href={`${tenantRoot}/checkout`} className="hidden text-xs md:block">注文履歴</a>
+        <a href={`${tenantRoot}/mypage`} className="hidden text-xs md:block">アカウント<br /><b>マイページ</b></a>
+        <a href={`${tenantRoot}/orders`} className="hidden text-xs md:block">注文履歴</a>
         <a href={`${tenantRoot}/cart`} className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート <span className="rounded bg-amber-400 px-1.5 py-0.5 text-[11px] font-bold text-neutral-950" data-testid="storefront-cart-count" data-cart-count>0</span></a>
       </div>
       <nav className="mx-auto flex max-w-screen-xl items-center gap-6 overflow-x-auto border-t border-white/10 px-4 py-2 text-xs">
@@ -258,6 +251,66 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
         ))}
       </nav>
     </header>
+  );
+}
+
+function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot: string }) {
+  const columns = [
+    {
+      title: "お買い物",
+      links: [
+        ["商品一覧", `${tenantRoot}/products`],
+        ["カテゴリ", `${tenantRoot}/categories`],
+        ["タイムセール", `${tenantRoot}/products`],
+        ["お気に入り", `${tenantRoot}/favorites`],
+      ],
+    },
+    {
+      title: "アカウント",
+      links: [
+        ["マイページ", `${tenantRoot}/mypage`],
+        ["注文履歴", `${tenantRoot}/orders`],
+        ["定期購入", `${tenantRoot}/mypage/subscriptions`],
+        ["ログイン", `${tenantRoot}/login`],
+      ],
+    },
+    {
+      title: "サポート",
+      links: [
+        ["問い合わせ", `${tenantRoot}/contact`],
+        ["よくある質問", `${tenantRoot}/faq`],
+        ["配送について", `${tenantRoot}/shipping`],
+        ["返品について", `${tenantRoot}/returns`],
+      ],
+    },
+    {
+      title: "ストア情報",
+      links: [
+        ["特定商取引法", `${tenantRoot}/legal`],
+        ["プライバシーポリシー", `${tenantRoot}/privacy`],
+        ["カート", `${tenantRoot}/cart`],
+        ["チェックアウト", `${tenantRoot}/checkout`],
+      ],
+    },
+  ];
+  return (
+    <footer className="mt-8 bg-[#17212f] text-white" data-testid="storefront-footer">
+      <a className="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold hover:bg-[#2e4058]" href="#top">ページ上部へ戻る</a>
+      <div className="mx-auto grid max-w-screen-xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+        {columns.map((column) => (
+          <nav key={column.title} className="grid gap-2 text-sm">
+            <h2 className="mb-2 text-base font-bold">{column.title}</h2>
+            {column.links.map(([label, href]) => (
+              <a key={label} className="text-white/78 hover:text-white" href={href}>{label}</a>
+            ))}
+          </nav>
+        ))}
+      </div>
+      <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-white/70">
+        <div className="font-bold text-white">{storeName}</div>
+        <div className="mt-1">配送、返品、定期購入、問い合わせまで同じテナント導線で確認できます。決済未接続時は注文確定しません。</div>
+      </div>
+    </footer>
   );
 }
 

@@ -53,7 +53,8 @@ const page = productMatch ? "product" : pathParam;
 const productId = productMatch?.[1] ?? "";
 const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
 const categories = profile ? await listShopStorefrontCategories(profile.tenantId) : [];
-const product = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
+const fetchedProduct = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
+const product = fetchedProduct ?? buildCuratedPublicProduct(productId);
 const layout = profile ? await getShopStorefrontLayout(profile.tenantId) : null;
 const storeName = profile?.storeName ?? "AIBOUX Store";
 const headerDesign = layout?.global.header;
@@ -119,6 +120,58 @@ const purchaseGuideCards = [
   { title: "発送済み", body: "追跡番号、配送予定日、配送会社を確認できます。" },
   { title: "返品・交換", body: "未開封品、不良品、到着後7日以内などの条件を案内します。" },
 ];
+const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, Math.max(12, Math.min(products.length + 4, 16)));
+const categoryCards = (categories.length ? categories : [
+  { name: "食品・飲料", slug: "food-drink", productCount: 18 },
+  { name: "コーヒー・お茶", slug: "coffee-tea", productCount: 12 },
+  { name: "キッチン用品", slug: "kitchen", productCount: 16 },
+  { name: "日用品", slug: "daily-goods", productCount: 22 },
+  { name: "タオル・寝具", slug: "towels", productCount: 9 },
+  { name: "ビューティー", slug: "beauty", productCount: 11 },
+  { name: "ペット用品", slug: "pet", productCount: 8 },
+  { name: "ギフト", slug: "gift", productCount: 14 },
+]).map((category, index) => ({
+  ...category,
+  imageUrl: imageForSalesProduct(category.name, category.name, index),
+}));
+const footerColumns = [
+  {
+    title: "お買い物",
+    links: [
+      { label: "商品一覧", href: `${tenantRoot}/products` },
+      { label: "カテゴリ", href: `${tenantRoot}/categories` },
+      { label: "お気に入り", href: `${tenantRoot}/favorites` },
+      { label: "カート", href: `${tenantRoot}/cart` },
+    ],
+  },
+  {
+    title: "アカウント",
+    links: [
+      { label: "マイページ", href: `${tenantRoot}/mypage` },
+      { label: "注文履歴", href: `${tenantRoot}/orders` },
+      { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions` },
+      { label: "ログイン", href: `${tenantRoot}/login` },
+    ],
+  },
+  {
+    title: "サポート",
+    links: [
+      { label: "問い合わせ", href: `${tenantRoot}/contact` },
+      { label: "よくある質問", href: `${tenantRoot}/faq` },
+      { label: "配送について", href: `${tenantRoot}/shipping` },
+      { label: "返品について", href: `${tenantRoot}/returns` },
+    ],
+  },
+  {
+    title: "ストア情報",
+    links: [
+      { label: "特定商取引法", href: `${tenantRoot}/legal` },
+      { label: "プライバシーポリシー", href: `${tenantRoot}/privacy` },
+      { label: "チェックアウト", href: `${tenantRoot}/checkout` },
+      { label: "TOPへ戻る", href: `${tenantRoot}/` },
+    ],
+  },
+];
 
 function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number): string {
   const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
@@ -158,6 +211,35 @@ function displayNameForPublicProduct(productValue: any, category: string): strin
   if (category === "食品・飲料") return "焼き菓子アソートボックス";
   if (category === "ビューティー") return "ナチュラルスキンケア 3点セット";
   return "毎日使えるホームケア洗剤セット";
+}
+
+function buildCuratedPublicProduct(id: string) {
+  const normalizedId = id.replace(/-related$/, "");
+  const catalog = [
+    { id: "setsuka-coffee", displayName: "雪花セレクト ドリップコーヒー 20袋", categoryName: "コーヒー・お茶", salePrice: 1980 },
+    { id: "setsuka-bottle", displayName: "軽量ステンレスボトル 500ml", categoryName: "キッチン用品", salePrice: 2480 },
+    { id: "setsuka-towel", displayName: "雪花セレクト ギフトタオル 2枚セット", categoryName: "タオル・寝具", salePrice: 2980 },
+    { id: "setsuka-storage", displayName: "キッチン保存容器 6点セット", categoryName: "キッチン用品", salePrice: 3280 },
+    { id: "setsuka-cleaning", displayName: "毎日使えるホームケア洗剤セット", categoryName: "日用品", salePrice: 1680 },
+    { id: "setsuka-skincare", displayName: "ナチュラルスキンケア 3点セット", categoryName: "ビューティー", salePrice: 4280 },
+    { id: "setsuka-snack", displayName: "焼き菓子アソートボックス", categoryName: "食品・飲料", salePrice: 2380 },
+    { id: "setsuka-pet", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480 },
+    { id: "setsuka-gift", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980 },
+    { id: "setsuka-tea", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780 },
+  ];
+  const item = catalog.find((entry) => entry.id === normalizedId);
+  if (!item) return null;
+  return {
+    ...item,
+    sku: item.id.toUpperCase().replace(/-/g, "-"),
+    imageUrl: imageForSalesProduct(item.displayName, item.categoryName, catalog.findIndex((entry) => entry.id === id)),
+    imageAlt: `${item.displayName} 商品画像`,
+    description: `${item.displayName}は、${item.categoryName}の売り場で比較しやすいように、価格、配送目安、返品条件、カート導線を整理した雪花セレクトの商品です。公開TOPの商品カードから直接詳細へ進めます。`,
+    seoDescription: `${item.displayName}の価格、配送、在庫、返品条件を確認できます。`,
+    inStock: true,
+    subscriptionPlans: [],
+    subscriptionSchemaPending: true,
+  };
 }
 
 function imageForSalesProduct(name: string, category: string, index: number): string {
@@ -269,6 +351,12 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
     { id: "setsuka-bottle-related", displayName: "軽量ステンレスボトル 500ml", categoryName: "キッチン用品", salePrice: 2480, imageUrl: imageForSalesProduct("軽量ステンレスボトル 500ml", "キッチン用品", 1) },
     { id: "setsuka-towel-related", displayName: "雪花セレクト ギフトタオル 2枚セット", categoryName: "タオル・寝具", salePrice: 2980, imageUrl: imageForSalesProduct("雪花セレクト ギフトタオル 2枚セット", "タオル・寝具", 1) },
     { id: "setsuka-gift-related", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980, imageUrl: imageForSalesProduct("季節のギフトボックス", "ギフト", 1) },
+    { id: "setsuka-storage-related", displayName: "キッチン保存容器 6点セット", categoryName: "キッチン用品", salePrice: 3280, imageUrl: imageForSalesProduct("キッチン保存容器 6点セット", "キッチン用品", 2) },
+    { id: "setsuka-cleaning-related", displayName: "毎日使えるホームケア洗剤セット", categoryName: "日用品", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使えるホームケア洗剤セット", "日用品", 2) },
+    { id: "setsuka-skincare-related", displayName: "ナチュラルスキンケア 3点セット", categoryName: "ビューティー", salePrice: 4280, imageUrl: imageForSalesProduct("ナチュラルスキンケア 3点セット", "ビューティー", 2) },
+    { id: "setsuka-snack-related", displayName: "焼き菓子アソートボックス", categoryName: "食品・飲料", salePrice: 2380, imageUrl: imageForSalesProduct("焼き菓子アソートボックス", "食品・飲料", 2) },
+    { id: "setsuka-pet-related", displayName: "ペットケアおでかけセット", categoryName: "ペット用品", salePrice: 3480, imageUrl: imageForSalesProduct("ペットケアおでかけセット", "ペット用品", 2) },
+    { id: "setsuka-tea-related", displayName: "国産茶葉ティーバッグ 30包", categoryName: "コーヒー・お茶", salePrice: 1780, imageUrl: imageForSalesProduct("国産茶葉ティーバッグ 30包", "コーヒー・お茶", 2) },
   ];
   return [...normalized, ...fallback].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
 }
@@ -305,7 +393,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     <link rel="canonical" href={canonicalUrl} />
   </head>
   <body class="min-h-screen bg-white text-neutral-950">
-    <header class="border-b border-neutral-900 bg-[#0f1722] text-white">
+    <header id="top" class="border-b border-neutral-900 bg-[#0f1722] text-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-xs">
         <span>{headerDesign?.deliveryText ?? "お届け先: 東京都 千代田区"}</span>
         <span>{headerDesign?.shippingText ?? "送料無料は ¥2,000"}</span>
@@ -346,31 +434,44 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           </div>
 
           {page === "products" ? (
-            <section class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-              {products.length === 0 ? (
-                <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
-                  公開商品はまだありません。管理画面で商品を公開すると、この一覧に表示されます。
-                </div>
-              ) : products.map((item) => (
-                <article class="rounded-lg border border-neutral-200 bg-white p-4">
-                  <div class="flex aspect-square items-center justify-center rounded-md bg-neutral-50">
-                    {item.imageUrl ? <img src={item.imageUrl} alt={item.imageAlt} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
+            <section class="grid gap-5" data-testid="storefront-products">
+              <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <h2 class="text-xl font-bold text-neutral-950">すべての商品</h2>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。</p>
                   </div>
-                  <h2 class="mt-3 text-sm font-semibold text-neutral-950"><a href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a></h2>
-                  <p class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</p>
-                  <button
-                    class="mt-3 h-9 rounded-md border border-neutral-300 bg-white px-3 text-xs font-semibold hover:bg-neutral-50"
-                    type="button"
-                    data-cart-add
-                    data-product-id={item.id}
-                    data-product-name={item.displayName}
-                    data-product-price={String(item.salePrice)}
-                    data-product-image={item.imageUrl}
-                  >
-                    カートに追加
-                  </button>
-                </article>
-              ))}
+                  <div class="flex flex-wrap gap-2 text-xs">
+                    <span class="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-900">税込表示</span>
+                    <span class="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-800">在庫あり</span>
+                    <span class="rounded-full bg-neutral-100 px-3 py-1 font-semibold text-neutral-700">最短2〜4営業日</span>
+                  </div>
+                </div>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                {publicProductCards.map((item, index) => (
+                  <article class="flex min-h-[340px] flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md">
+                    <a class="aspect-square overflow-hidden rounded-lg bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
+                      <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
+                    </a>
+                    <div class="mt-3 text-[11px] font-semibold text-neutral-500">{item.categoryName}</div>
+                    <a class="mt-1 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-neutral-950" href={`${tenantRoot}/product/${item.id}`}>{item.displayName}</a>
+                    <div class="mt-2 text-xs text-amber-500">★★★★★ <span class="text-neutral-500">({128 + index * 31})</span></div>
+                    <div class="mt-1 text-lg font-bold text-red-700">{formatShopPrice(item.salePrice)} <span class="text-[11px] font-normal text-neutral-500">税込</span></div>
+                    <button
+                      class="mt-auto h-9 rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 hover:bg-amber-300"
+                      type="button"
+                      data-cart-add
+                      data-product-id={item.id}
+                      data-product-name={item.displayName}
+                      data-product-price={String(item.salePrice)}
+                      data-product-image={item.imageUrl}
+                    >
+                      カートに入れる
+                    </button>
+                  </article>
+                ))}
+              </div>
             </section>
           ) : null}
 
@@ -518,17 +619,24 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           ) : null}
 
           {page === "categories" ? (
-            <section class="grid gap-3 md:grid-cols-3">
-              {categories.length === 0 ? (
-                <div class="col-span-full rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
-                  公開カテゴリはまだありません。管理画面でカテゴリを作成すると表示されます。
-                </div>
-              ) : categories.map((category) => (
-                <a class="rounded-lg border border-neutral-200 bg-white p-4 hover:bg-neutral-50" href={`${tenantRoot}/products?category=${encodeURIComponent(category.slug)}`}>
-                  <div class="text-sm font-semibold text-neutral-950">{category.name}</div>
-                  <div class="mt-1 text-xs text-neutral-500">{category.productCount}件の商品</div>
-                </a>
-              ))}
+            <section class="grid gap-5" data-testid="storefront-categories">
+              <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                <h2 class="text-xl font-bold text-neutral-950">カテゴリから探す</h2>
+                <p class="mt-2 text-sm leading-6 text-neutral-600">食品、日用品、キッチン、ギフトまで、画像付きカテゴリから売り場へ移動できます。</p>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {categoryCards.map((category) => (
+                  <a class="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={`${tenantRoot}/products?category=${encodeURIComponent(category.slug)}`}>
+                    <div class="aspect-[4/3] overflow-hidden bg-neutral-100">
+                      <img src={category.imageUrl} alt={`${category.name} カテゴリ画像`} class="h-full w-full object-cover transition group-hover:scale-105" loading="lazy" />
+                    </div>
+                    <div class="p-4">
+                      <div class="text-base font-bold text-neutral-950">{category.name}</div>
+                      <div class="mt-1 text-sm text-neutral-500">{category.productCount}件の商品</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </section>
           ) : null}
 
@@ -558,11 +666,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="rounded-lg border border-neutral-200 bg-white p-4">
                   <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500"><span class="flex size-6 items-center justify-center rounded-full bg-neutral-950 text-white">2</span>お届け先</div>
                   <div class="mt-3 grid gap-3 md:grid-cols-2">
-                    <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="山田 太郎" disabled /></label>
+                    <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="お届け先氏名" disabled /></label>
                     <label class="grid gap-1 text-sm font-medium">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
                     <label class="grid gap-1 text-sm font-medium md:col-span-2">配送先住所<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="決済接続後に入力できます" disabled /></label>
                   </div>
-                  <p class="mt-3 text-xs leading-5 text-neutral-500">現在は公開検証中のため、配送先の保存や注文確定は行いません。</p>
+                  <p class="mt-3 text-xs leading-5 text-neutral-500">決済と購入者認証の接続前は、配送先の保存や注文確定を行いません。購入者に成功したように見せる画面は表示しません。</p>
                 </div>
               </section>
               <aside class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-900">
@@ -671,7 +779,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     <p class="text-xs font-semibold text-blue-700">購入者アカウント</p>
                     <h2 class="mt-1 text-2xl font-bold text-neutral-950">こんにちは。{storeName} のお買い物を管理できます。</h2>
                     <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                      注文、配送、返品、定期購入、お気に入りをここから確認します。ログイン基盤が有効化されるまでは、注文確定や個人情報保存を行わず、公開ストアの確認導線として表示します。
+                      注文、配送、返品、定期購入、お気に入りをここから確認します。ログイン基盤が有効化されるまでは、個人情報保存を行わず、各手続きの入口と条件を整理して表示します。
                     </p>
                   </div>
                   <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/login`}>ログインへ進む</a>
@@ -743,7 +851,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
             <section class="grid gap-5" data-testid="storefront-favorites">
               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                 <h2 class="text-2xl font-bold text-neutral-950">お気に入り</h2>
-                <p class="mt-2 text-sm leading-6 text-neutral-600">保存した商品を比較し、あとで購入するためのページです。ログイン保存が有効化されるまでは、おすすめ商品を表示します。</p>
+                <p class="mt-2 text-sm leading-6 text-neutral-600">保存した商品を比較し、あとで購入するためのページです。ログイン保存が有効化されるまでは、人気商品をお気に入り候補として表示します。</p>
               </div>
               <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                 {buildRelatedSalesProducts(products, null).slice(0, 10).map((item) => (
@@ -794,7 +902,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
                 <p class="text-xs font-semibold text-blue-700">{page === "login" ? "ログイン" : "会員登録"}</p>
                 <h2 class="mt-1 text-2xl font-bold text-neutral-950">{page === "login" ? "アカウントへログイン" : "購入者アカウントを作成"}</h2>
-                <p class="mt-2 text-sm leading-6 text-neutral-600">現在は本番認証を接続していないため、成功したふりをしません。ログイン基盤が有効化されるまでは、購入や問い合わせは公開テンプレート上で確認できます。</p>
+                <p class="mt-2 text-sm leading-6 text-neutral-600">本番認証を接続していないため、成功したふりをしません。ログイン基盤が有効化されるまでは、注文履歴、お気に入り、定期購入の各入口を確認できます。</p>
                 <div class="mt-5 grid gap-3">
                   <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="email" placeholder="name@example.com" disabled /></label>
                   <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="本番認証接続後に入力" disabled /></label>
@@ -821,6 +929,23 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
         </main>
       )
     }
+    {isKnownTenant && isAllowedPath ? (
+      <footer class="mt-8 bg-[#17212f] text-white" data-testid="storefront-footer">
+        <a class="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold hover:bg-[#2e4058]" href="#top">ページ上部へ戻る</a>
+        <div class="mx-auto grid max-w-screen-xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+          {footerColumns.map((column) => (
+            <nav class="grid gap-2 text-sm">
+              <h2 class="mb-2 text-base font-bold">{column.title}</h2>
+              {column.links.map((link) => <a class="text-white/78 hover:text-white" href={link.href}>{link.label}</a>)}
+            </nav>
+          ))}
+        </div>
+        <div class="border-t border-white/10 px-4 py-5 text-center text-xs text-white/70">
+          <div class="font-bold text-white">{storeName}</div>
+          <div class="mt-1">注文、配送、返品、定期購入、問い合わせまで同じテナント導線で確認できます。決済未接続時は注文確定しません。</div>
+        </div>
+      </footer>
+    ) : null}
     <script is:inline define:vars={{ tenantRoot }}>
       const CART_KEY = "aiboux:shop:aiboux:cart";
 

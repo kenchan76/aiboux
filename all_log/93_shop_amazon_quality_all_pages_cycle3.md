@@ -64,3 +64,29 @@ Timestamp: `2026-06-04T11:03:50Z`
 - Provider-backed recurring billing is not verified.
 - Internal storefront links under `/s/aiboux` are now extracted by Playwright and verified to return HTTP 200.
 - Legacy collections redirects no longer point at old `/shop/categories`.
+
+## Cycle 4 Amazon Quality Expansion - 2026-06-04T11:26:38Z
+
+Status: SHOP_ALL_PAGES_AMAZON_QUALITY_WIP_NOT_FINAL
+
+What changed:
+- Added Amazon-like dense storefront footer requirement to all public storefront pages.
+- Added storefront footer to public TOP and lower storefront pages.
+- Header account/order links now point to `/s/aiboux/mypage` and `/s/aiboux/orders`.
+- Curated TOP product cards now link to implemented product detail fallback pages instead of thin product listing shortcuts.
+- Products page now renders a dense image-backed sales grid with rating, price, tax label, and cart CTA.
+- Categories page now renders image-backed category cards instead of a thin text list.
+- Checkout/account/auth copy was adjusted to avoid test/demo wording while still honestly blocking unconnected auth/payment.
+- `tests/shop-public-crawl.spec.ts` now requires `storefront-footer` on every public storefront page.
+
+Verification so far:
+- npm run check:control-chars: PASS
+- npm run check:mojibake: PASS
+- npm run astro check: PASS with existing warnings/hints only
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS
+- Pre-deploy public crawl intentionally failed because current production does not yet include the new footer. This confirms the strengthened gate catches footerless pages. It must pass after WIP deploy.
+
+Not FINAL_ACCEPTED:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- Further Amazon-quality polish continues across all public/admin-linked pages.

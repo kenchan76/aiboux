@@ -64,3 +64,18 @@ Improve sales quality and interaction quality for:
 3. Polish products/categories/cart/checkout/contact/legal/shared templates toward Amazon-quality.
 4. Rebuild, WIP deploy, rerun public gates.
 5. Update /g evidence and continue.
+
+## 2026-06-04 User Escalation: All Pages Must Reach Amazon-Like Sales Quality
+
+User explicitly expanded the target to every public and admin-linked page. No user-facing page may remain missing, thin, footerless, link-broken, or obviously unfinished.
+
+Additional active requirements:
+- Every public storefront page must include a dense Amazon-like footer with shopping, account, support, and store/legal links.
+- Header account and order links must route to implemented tenant pages, not contact/checkout shortcuts.
+- TOP curated product cards must link to implemented product detail pages.
+- Product detail fallback must exist for curated sales products used on TOP/products/favorites.
+- Products page must be a sales grid with images, ratings, prices, tax labels, and cart CTA, not a thin DB table/card list.
+- Categories page must be image-backed and dense, not a thin text list.
+- Checkout, mypage, auth, and subscription pages may honestly block unconnected auth/payment/subscription actions, but must still look like finished storefront pages.
+- `tests/shop-public-crawl.spec.ts` must require `storefront-footer` on all public pages.
+- FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.

@@ -72,6 +72,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("Not Found");
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
+        await expect(page.getByTestId("storefront-footer"), `${target.path} should include Amazon-like storefront footer`).toBeVisible();
         if ("expectedTestId" in target && target.expectedTestId) {
           await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
         }
