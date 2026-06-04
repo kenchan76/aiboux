@@ -1,6 +1,34 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop 5H Sales Quality Sprint
+
+Status: `SHOP_5H_SALES_QUALITY_SPRINT_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+The Shop sales-quality sprint broadens verification beyond a single passing gate.
+
+Current WIP evidence:
+
+- Worker Version ID: `c9c83766-c725-46fd-86cc-b408fdae4d8e`
+- `npm run gate:shop-sales-quality`: PASS
+- public crawl across storefront pages: PASS
+- admin shell crawl: PASS
+- product detail public quality: PASS
+- cart and checkout honest payment blocker: PASS
+- contact and legal shared templates: PASS
+- smooth carousel, storefront interaction, and storefront visual gates: PASS
+
+Still unresolved:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
+This sprint status does not override the requirement that subscription support must pass after D1 permission is restored.
+
 ## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Quality Fix
 
 Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
