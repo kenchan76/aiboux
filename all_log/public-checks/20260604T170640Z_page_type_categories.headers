@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Thu, 04 Jun 2026 17:06:41 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/categories
+x-aiboux-rewritten-path: /shop/aiboux/categories
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: bcb4177a-3d5e-4a77-a591-60a2ddf13d55
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ktnheox5XJt2lJa6ve%2F01acBsDfRG7J62e3shVe1YgKBr6OHS%2B043bNLPvqNWsTYpGLDIki4ehrKoSnO%2B0wQwY2lKu%2FucDTrY5EydVNe3aoh1GDKhZu5252GKFSvmiUiX60%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06887922af3f3d8-NRT
+alt-svc: h3=":443"; ma=86400
+

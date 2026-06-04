@@ -1,0 +1,7 @@
+200 /s/aiboux/ | #itemlist Product mainEntityOfPage numberOfItems 
+200 /s/aiboux/products | #itemlist CollectionPage Product mainEntityOfPage numberOfItems 
+200 /s/aiboux/categories | #itemlist CollectionPage mainEntityOfPage numberOfItems 
+200 /s/aiboux/favorites | #itemlist CollectionPage Product mainEntityOfPage numberOfItems 
+200 /s/aiboux/contact | #itemlist ContactPage mainEntityOfPage numberOfItems 
+200 /s/aiboux/faq | #itemlist FAQPage mainEntityOfPage numberOfItems 
+200 /s/aiboux/product/shopprod_tenant_001_4580000232621 | ItemPage Offer Product mainEntityOfPage 

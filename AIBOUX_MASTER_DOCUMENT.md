@@ -4733,6 +4733,39 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## SHOP_10H_PAGE_TYPE_SEO_UI_WIP
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Current active Shop SEO/UI structure:
+- Public tenant storefront pages must expose page-type-appropriate JSON-LD.
+- Products, categories, and favorites discovery pages use `CollectionPage`.
+- Contact uses `ContactPage`.
+- FAQ uses `FAQPage`.
+- Product detail uses `ItemPage` plus `Product` and `Offer`.
+- Product/list discovery pages expose stable `ItemList` entity IDs with `#itemlist`.
+- `ItemList` includes `numberOfItems` and `mainEntityOfPage`.
+- Product listing `ItemList` entries point at product entity IDs where possible.
+
+Reference SEO basis:
+- Google Search Central ecommerce SEO guidance: ecommerce pages should expose ecommerce-relevant structured data.
+- Google Search Central Product structured data guidance: merchant product pages should expose product facts in initial HTML when eligible.
+- Google Search Central Breadcrumb structured data guidance: breadcrumb markup should represent a useful user path.
+- Schema.org references for `CollectionPage`, `ContactPage`, `FAQPage`, `ItemList`, `Product`, and `Offer`.
+
+Latest evidence:
+- WIP commit: `6276c851b3127ec0c44a1542fde222a0267e6a74`
+- Worker Version ID: `bcb4177a-3d5e-4a77-a591-60a2ddf13d55`
+- `gate:shop-public-crawl`: PASS
+- `gate:shop-product-detail`: PASS
+- `gate:shop-sales-quality`: PASS
+- Direct public HTML checks verify `CollectionPage`, `ContactPage`, `FAQPage`, `ItemPage`, `Product`, `Offer`, `#itemlist`, `numberOfItems`, and `mainEntityOfPage` where applicable.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## SHOP_10H_ENTITY_GRAPH_SEO_PUBLICATION_AND_BARK
 
 Status: `WIP_DEPLOYED_NOT_FINAL`
