@@ -421,3 +421,21 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+
+## 2026-06-05 Continuation: Search SEO/UI
+
+Active instruction file:
+
+- `ops/instructions/20260605_shop_search_seo_ui.md`
+
+Additional active requirements:
+- Header search must be a real GET form targeting `/s/{tenant}/products` with `q`.
+- Search must work without client-side JavaScript.
+- Products page must show query context for `?q=` and retain SEO-safe canonical/robots metadata.
+- `WebSite` SearchAction must match the actual public query URL.
+- Public gates must verify the real search flow on `https://shop.aiboux.com`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.

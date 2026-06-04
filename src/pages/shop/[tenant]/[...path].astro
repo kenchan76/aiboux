@@ -3,6 +3,7 @@ import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
 import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPageHeader";
+import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSearchForm";
 import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import {
@@ -78,6 +79,8 @@ Astro.response.headers.set("Cache-Control", isKnownTenant && isAllowedPath ? "pu
 const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
 const page = productMatch ? "product" : pathParam;
 const productId = productMatch?.[1] ?? "";
+const rawSearchQuery = Astro.url.searchParams.get("q") ?? "";
+const searchQuery = rawSearchQuery.replace(/\s+/g, " ").trim().slice(0, 80);
 const products = profile ? await listShopStorefrontProducts(profile.tenantId) : [];
 const categories = profile ? await listShopStorefrontCategories(profile.tenantId) : [];
 const fetchedProduct = profile && productId ? await getShopStorefrontProduct(profile.tenantId, productId) : null;
@@ -118,10 +121,17 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   product: { title: salesProduct?.displayName || "商品詳細", description: salesProduct ? `${salesProduct.displayName} の商品詳細です。` : "商品が見つかりません。" },
 };
 
-const meta = pageMeta[page] ?? { title: "ストアページ", description: "AIBOUX Storeの公開ページです。" };
+const baseMeta = pageMeta[page] ?? { title: "ストアページ", description: "AIBOUX Storeの公開ページです。" };
+const meta = page === "products" && searchQuery
+  ? {
+      title: `「${searchQuery}」の検索結果`,
+      description: `${storeName}で「${searchQuery}」に関連する商品を検索します。商品名、カテゴリ、価格、レビュー、在庫を比較できます。`,
+    }
+  : baseMeta;
 const title = isKnownTenant && isAllowedPath ? `${meta.title} | AIBOUX Store` : "ページが見つかりません | AIBOUX Store";
+const canonicalPath = page === "products" && searchQuery ? `${tenantRoot}/products` : `${tenantRoot}/${pathParam}`;
 const canonicalUrl = isKnownTenant && isAllowedPath
-  ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
+  ? new URL(canonicalPath, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
 const absoluteTenantRoot = new URL(`${tenantRoot}/`, "https://shop.aiboux.com").toString();
 const breadcrumbItems = buildShopBreadcrumbItems({
@@ -158,6 +168,13 @@ const footerColumns = buildShopFooterColumns(tenantRoot);
 const faqItems = buildShopFaqItems();
 const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
+const normalizedSearchNeedle = searchQuery.toLowerCase();
+const searchedProductCards = page === "products" && normalizedSearchNeedle
+  ? publicProductCards.filter((item) => {
+      const source = `${item.displayName} ${item.categoryName ?? ""} ${item.seoDescription ?? ""} ${item.description ?? ""}`.toLowerCase();
+      return source.includes(normalizedSearchNeedle);
+    })
+  : publicProductCards;
 const curatedCategoryCards = buildShopCuratedCategoryCards();
 const categoryCards = [...curatedCategoryCards, ...categories.filter((category) => Number(category.productCount ?? 0) > 0)]
   .filter((category, index, array) => array.findIndex((item) => item.name === category.name || item.slug === category.slug) === index)
@@ -176,7 +193,7 @@ const itemListJsonLd = buildShopItemListJsonLd({
   page,
   canonicalUrl,
   tenantRoot,
-  publicProductCards,
+  publicProductCards: page === "products" ? searchedProductCards : publicProductCards,
   categoryCards,
   accountCards,
   policySupportCards,
@@ -513,7 +530,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     <ShopSeoHead
       title={title}
       description={socialMeta.description}
-      robots={buildShopRobotsContent(page)}
+      robots={page === "products" && searchQuery ? "noindex,follow,noarchive" : buildShopRobotsContent(page)}
       canonicalUrl={canonicalUrl}
       socialMeta={socialMeta}
       structuredData={structuredData}
@@ -538,11 +555,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
             ) : storeName
           }
         </a>
-        <div class="flex h-10 min-w-0 flex-1 overflow-hidden rounded bg-white text-neutral-900">
-          <span class="hidden items-center border-r border-neutral-200 bg-neutral-100 px-3 text-xs md:flex">すべてのカテゴリ</span>
-          <input class="h-10 min-w-0 flex-1 border-0 px-4 text-sm outline-none" placeholder={headerDesign?.searchPlaceholder ?? "キーワード・商品名・ブランド名で検索"} />
-          <span class="flex w-12 items-center justify-center bg-amber-500 text-neutral-950">検索</span>
-        </div>
+        <StorefrontSearchForm tenantRoot={tenantRoot} placeholder={headerDesign?.searchPlaceholder ?? "キーワード・商品名・ブランド名で検索"} defaultQuery={searchQuery} />
         <a class="hidden text-xs md:block" href={`${tenantRoot}/mypage`}>アカウント<br /><b>マイページ</b></a>
         <a class="hidden text-xs md:block" href={`${tenantRoot}/orders`}>注文履歴</a>
         <a class="text-xs" href={`${tenantRoot}/cart`}>カート</a>
@@ -565,18 +578,34 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                 <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                   <div>
-                    <h2 class="text-xl font-bold text-neutral-950">すべての商品</h2>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。</p>
+                    <h2 class="text-xl font-bold text-neutral-950">{searchQuery ? `「${searchQuery}」の検索結果` : "すべての商品"}</h2>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">
+                      {searchQuery
+                        ? "検索結果は任意キーワードページとしてnoindexにし、商品発見と内部回遊を優先します。価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"
+                        : "価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"}
+                    </p>
                   </div>
                   <div class="flex flex-wrap gap-2 text-xs">
+                    {searchQuery ? <span class="rounded-full bg-blue-100 px-3 py-1 font-semibold text-blue-900" data-testid="storefront-search-query">検索語: {searchQuery}</span> : null}
                     <span class="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-900">税込表示</span>
                     <span class="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-800">在庫あり</span>
                     <span class="rounded-full bg-neutral-100 px-3 py-1 font-semibold text-neutral-700">最短2〜4営業日</span>
                   </div>
                 </div>
               </div>
+              {searchQuery && !searchedProductCards.length ? (
+                <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-search-empty">
+                  <strong>一致する商品がありません。</strong>
+                  <p class="mt-2">カテゴリや別のキーワードから探してください。検索結果ページは任意語句の重複を避けるため、検索エンジンにはnoindexで出します。</p>
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/products`}>すべての商品</a>
+                    <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/categories`}>カテゴリから探す</a>
+                    <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/contact`}>問い合わせ</a>
+                  </div>
+                </div>
+              ) : null}
               <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                {publicProductCards.map((item, index) => (
+                {(searchedProductCards.length ? searchedProductCards : publicProductCards).map((item, index) => (
                   <article class="flex min-h-[340px] flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md">
                     <a class="aspect-square overflow-hidden rounded-lg bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
                       <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />

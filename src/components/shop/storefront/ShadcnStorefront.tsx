@@ -1,11 +1,10 @@
-import { ChevronLeft, ChevronRight, Search, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
 import { StorefrontFooter } from "./StorefrontFooter";
+import { StorefrontSearchForm } from "./StorefrontSearchForm";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
 
@@ -249,13 +248,7 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
             storeName
           )}
         </a>
-        <div className="flex h-10 min-w-0 flex-1 overflow-hidden rounded bg-white text-neutral-900">
-          <span className="hidden items-center border-r border-neutral-200 bg-neutral-100 px-3 text-xs md:flex">すべてのカテゴリ</span>
-          <Input className="h-10 flex-1 rounded-none border-0" placeholder={layout.global.header.searchPlaceholder} aria-label={layout.global.header.searchPlaceholder} />
-          <Button className="h-10 rounded-none bg-amber-500 px-4 text-neutral-950 hover:bg-amber-500" aria-label="検索">
-            <Search className="size-5" />
-          </Button>
-        </div>
+        <StorefrontSearchForm tenantRoot={tenantRoot} placeholder={layout.global.header.searchPlaceholder} />
         <a href={`${tenantRoot}/mypage`} className="hidden text-xs md:block">アカウント<br /><b>マイページ</b></a>
         <a href={`${tenantRoot}/orders`} className="hidden text-xs md:block">注文履歴</a>
         <a href={`${tenantRoot}/cart`} className="flex items-center gap-1 text-xs"><ShoppingCart className="size-6" />カート <span className="rounded bg-amber-400 px-1.5 py-0.5 text-[11px] font-bold text-neutral-950" data-testid="storefront-cart-count" data-cart-count>0</span></a>

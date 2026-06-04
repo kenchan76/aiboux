@@ -84,6 +84,11 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("Not Found");
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
+        const searchForm = page.getByTestId("storefront-search-form").first();
+        await expect(searchForm, `${target.path} should expose a crawlable store search form`).toBeVisible();
+        await expect(searchForm, `${target.path} search form should submit as GET`).toHaveAttribute("method", /get/i);
+        await expect(searchForm, `${target.path} search form should target products discovery page`).toHaveAttribute("action", /\/s\/aiboux\/products$/);
+        await expect(searchForm.locator('input[name="q"]'), `${target.path} search input should use q query parameter`).toHaveCount(1);
         const footer = page.getByTestId("storefront-footer");
         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
@@ -139,6 +144,8 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(jsonLdText ?? "", `${target.path} WebPage should describe the storefront entity it is about`).toContain("about");
         expect(jsonLdText ?? "", `${target.path} should include merchant return policy JSON-LD`).toContain("MerchantReturnPolicy");
         expect(jsonLdText ?? "", `${target.path} should include shared site navigation JSON-LD`).toContain("SiteNavigationElement");
+        expect(jsonLdText ?? "", `${target.path} should expose WebSite SearchAction matching storefront search`).toContain("SearchAction");
+        expect(jsonLdText ?? "", `${target.path} SearchAction should target the products query URL`).toContain("products?q={search_term_string}");
         expect(jsonLdText ?? "", `${target.path} should expose a page entity JSON-LD`).toMatch(/WebPage|ContactPage|FAQPage|ItemPage|CollectionPage/);
         if (["shop-products-page", "shop-categories-page", "shop-favorites"].includes(target.name)) {
           expect(jsonLdText ?? "", `${target.path} discovery page should expose CollectionPage JSON-LD`).toContain("CollectionPage");
@@ -288,5 +295,33 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
     expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/checkout</loc>");
     expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/mypage</loc>");
     expect(sitemapXml).not.toContain("<loc>https://shop.aiboux.com/s/aiboux/admin");
+  });
+
+  test("storefront search uses crawlable GET URL and keeps query pages noindex", async ({ page, request }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
+
+    const searchForm = page.getByTestId("storefront-search-form").first();
+    await expect(searchForm).toBeVisible();
+    await expect(searchForm).toHaveAttribute("action", /\/s\/aiboux\/products$/);
+    await searchForm.locator('input[name="q"]').fill("コーヒー");
+    await searchForm.locator('button[type="submit"]').click();
+
+    await expect(page).toHaveURL(/\/s\/aiboux\/products\?q=/);
+    await expect(page.getByTestId("storefront-search-query")).toContainText("コーヒー");
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("h1")).toContainText("コーヒー");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://shop.aiboux.com/s/aiboux/products");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('[data-testid="storefront-products"] a[href*="/s/aiboux/product/"]')).not.toHaveCount(0);
+
+    const response = await request.get("/s/aiboux/products?q=%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC", {
+      headers: { "cache-control": "no-cache" },
+    });
+    expect(response.status()).toBe(200);
+    const html = await response.text();
+    expect(html).toContain('name="q"');
+    expect(html).toContain("検索語:");
+    expect(html).toContain("noindex,follow");
   });
 });
