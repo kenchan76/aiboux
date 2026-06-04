@@ -1,6 +1,42 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop All Pages SEO Common Parts
+
+Status: `SHOP_5H_ALL_PAGES_SEO_COMMON_PARTS_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens all public storefront pages by keeping rendered shared SEO/UI parts and JSON-LD navigation aligned with the same common link sources.
+
+Implemented WIP direction:
+
+- TOP page `SiteNavigationElement` JSON-LD now includes the same shared sources used by visible TOP navigation:
+  - header category links;
+  - breadcrumb support links;
+  - page-quality links;
+  - buying-guide links;
+  - contextual links;
+  - footer links.
+- All public storefront pages continue to use shared components for breadcrumb, breadcrumb support links, commerce facts, page quality summary, buying guide, contextual links, SEO hub, support rail, and footer.
+- Links remain crawlable `<a href>` anchors with visible link-colored affordance.
+- Product detail still keeps one visible product `h1`; duplicate product title above the gallery remains prohibited.
+- Google Search Central references checked for this WIP include Breadcrumb structured data, ecommerce site structure, ecommerce URL structure, crawlable links, and Product/Merchant structured data.
+
+Latest WIP evidence:
+
+- WIP commit: `881e7e35e799caa2900ade531f0ab5e663a6f7ed`
+- WIP Worker Version ID: `08c51847-da75-4556-b094-e311c2dcb17a`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- `gate:shop-subscriptions` remains blocked in the subscription lane because the public subscription plan seed did not persist an active test plan.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Breadcrumb Support SEO/UI Commonization
 
 Status: `SHOP_5H_BREADCRUMB_SUPPORT_SEO_UI_WIP`
