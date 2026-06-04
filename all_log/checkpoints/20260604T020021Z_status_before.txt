@@ -1,0 +1,8 @@
+ M public/g/d68.md
+ M public/g/l68.md
+ M tests/shop-functional-public.spec.ts
+?? all_log/checkpoints/20260604T015650Z_wip_commit.txt
+?? all_log/deploys/20260604T015650Z_deployments_before.txt
+?? all_log/shop-functional/20260604T015759Z_public_url_status_after_functional_route_fix.txt
+?? all_log/shop-functional/20260604T015900Z_shop_functional_public_verification.md
+?? output/playwright/shop-functional/

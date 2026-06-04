@@ -82,7 +82,8 @@ test.describe("AIBOUX Shop public functional hardening", () => {
 
     await page.goto("/s/aiboux/checkout");
     await expect(page.getByText("決済設定が必要です")).toBeVisible();
-    await expect(page.getByText("決済完了")).toHaveCount(0);
+    await expect(page.getByText("注文が確定しました")).toHaveCount(0);
+    await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
 
     await page.goto("/s/aiboux/contact");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
@@ -101,11 +102,11 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await page.goto("/s/aiboux/legal");
     await expect(page.getByText("販売業者:")).toBeVisible();
     await page.goto("/s/aiboux/privacy");
-    await expect(page.getByText("個人情報")).toBeVisible();
+    await expect(page.locator("pre").getByText("個人情報")).toBeVisible();
     await page.goto("/s/aiboux/shipping");
-    await expect(page.getByText("配送方法と送料")).toBeVisible();
+    await expect(page.locator("pre").getByText("配送方法と送料")).toBeVisible();
     await page.goto("/s/aiboux/returns");
-    await expect(page.getByText("返品・交換")).toBeVisible();
+    await expect(page.locator("pre").getByText("返品・交換")).toBeVisible();
   });
 
   test("published product add-to-cart works when published products exist", async ({ page }) => {

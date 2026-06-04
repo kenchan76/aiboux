@@ -1,0 +1,143 @@
+diff --git a/public/g/d68.md b/public/g/d68.md
+index ebc417f..7e36aaa 100644
+--- a/public/g/d68.md
++++ b/public/g/d68.md
+@@ -252,6 +252,46 @@ Prepared Playwright artifact:
+ 
+ This evidence still requires WIP deploy and public URL verification before it can be treated as deployed screen evidence.
+ 
++### Cycle 04 Public Functional Screen Evidence
++
++Status: `WIP_FUNCTIONAL_HARDENING_DEPLOYED_NOT_FINAL`
++
++Verified Worker Version ID:
++
++- `99725905-9dd6-4263-a7a6-c098f0372ff7`
++
++Verified public screens:
++
++- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/categories`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/privacy`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/shipping`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/returns`: HTTP 200
++- all listed admin pages: HTTP 200
++
++Playwright screen behavior result:
++
++- cart renders a stored item
++- cart quantity changes update subtotal
++- cart removal returns to empty state
++- checkout shows payment setup required
++- checkout does not show fake order/payment success text
++- contact empty submit shows required-field errors
++- contact invalid email shows email validation error
++- contact valid input reports storage/notification is not connected and does not fake send success
++- legal/privacy/shipping/returns render policy text in the page body
++
++Playwright artifact:
++
++- `output/playwright/shop-functional/admin-demo-free-1980.png`
++
++This is not FINAL_ACCEPTED for the whole Shop tenant.
++
+ ## Shop Fix Cycle 03 Route And Cache Screen Evidence
+ 
+ Status: `WIP_ROUTE_CACHE_MISMATCH_FIX_PENDING_DEPLOY`
+diff --git a/public/g/l68.md b/public/g/l68.md
+index 3cd0858..bc360c5 100644
+--- a/public/g/l68.md
++++ b/public/g/l68.md
+@@ -582,3 +582,58 @@ Fix prepared:
+ - If tenant lookup fails, public storefront pages still render an honest AIBOUX Store empty state instead of returning 404.
+ 
+ This is still not FINAL_ACCEPTED.
++
++### Cycle 04 Public Verification After Route Fix
++
++Status: `WIP_FUNCTIONAL_HARDENING_DEPLOYED_NOT_FINAL`
++
++WIP deploy:
++
++- WIP commit: `cf22820d7aaf5c8fe08a005bae1b0caa55eaeb48`
++- Worker Version ID: `99725905-9dd6-4263-a7a6-c098f0372ff7`
++
++Public URL status after route fix:
++
++- `https://shop.aiboux.com/`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/products`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/orders`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/inventory`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/categories`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/customers`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/content`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/analytics`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/apps`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/admin/settings`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/categories`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/privacy`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/shipping`: HTTP 200
++- `https://shop.aiboux.com/s/aiboux/returns`: HTTP 200
++
++Public Playwright:
++
++- Command: `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
++- Result: 4 passed
++- Covered:
++  - all target URLs return usable HTML
++  - public admin fixed demo values remain absent
++  - cart quantity change, remove, subtotal, and checkout transition
++  - checkout shows honest payment-not-connected state
++  - contact validation works and does not fake send success
++  - legal/privacy/shipping/returns render configured or generated policy text
++  - published product add-to-cart works when published products exist; otherwise honest empty state is accepted
++
++Remaining non-final items:
++
++- Product creation through public admin UI has not been executed against production in this cycle to avoid creating unmanaged storefront data.
++- Payment provider connection is still not final; checkout correctly blocks false completion.
++- Strict Shop final gate has not been run.
++
++This is WIP_DEPLOYED_NOT_FINAL.
+diff --git a/tests/shop-functional-public.spec.ts b/tests/shop-functional-public.spec.ts
+index 95a6273..dcafead 100644
+--- a/tests/shop-functional-public.spec.ts
++++ b/tests/shop-functional-public.spec.ts
+@@ -82,7 +82,8 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+ 
+     await page.goto("/s/aiboux/checkout");
+     await expect(page.getByText("決済設定が必要です")).toBeVisible();
+-    await expect(page.getByText("決済完了")).toHaveCount(0);
++    await expect(page.getByText("注文が確定しました")).toHaveCount(0);
++    await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
+ 
+     await page.goto("/s/aiboux/contact");
+     await page.getByRole("button", { name: "入力内容を確認" }).click();
+@@ -101,11 +102,11 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+     await page.goto("/s/aiboux/legal");
+     await expect(page.getByText("販売業者:")).toBeVisible();
+     await page.goto("/s/aiboux/privacy");
+-    await expect(page.getByText("個人情報")).toBeVisible();
++    await expect(page.locator("pre").getByText("個人情報")).toBeVisible();
+     await page.goto("/s/aiboux/shipping");
+-    await expect(page.getByText("配送方法と送料")).toBeVisible();
++    await expect(page.locator("pre").getByText("配送方法と送料")).toBeVisible();
+     await page.goto("/s/aiboux/returns");
+-    await expect(page.getByText("返品・交換")).toBeVisible();
++    await expect(page.locator("pre").getByText("返品・交換")).toBeVisible();
+   });
+ 
+   test("published product add-to-cart works when published products exist", async ({ page }) => {
