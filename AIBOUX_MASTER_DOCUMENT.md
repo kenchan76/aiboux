@@ -19,12 +19,21 @@ Implemented WIP direction:
 - Subpage `SiteNavigationElement` JSON-LD source links include SEO checklist links.
 - Product detail still keeps one visible product `h1`; the duplicate title above the gallery remains prohibited.
 
-Latest local evidence before the next WIP deploy:
+Latest public evidence:
 
 - `npm run check:control-chars`: PASS.
 - `npm run check:mojibake`: PASS.
 - `npm run astro check`: PASS with existing warnings only, 0 errors.
 - `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- WIP checkpoint commit: `1fce168e109b6530e21a0e72c257aff22dd11e49`.
+- WIP deploy Worker Version ID: `e73cd20f-4416-4cea-bef7-020396cd9649`.
+- Public TOP HTML: HTTP 200, `x-aiboux-worker-version: e73cd20f-4416-4cea-bef7-020396cd9649`.
+- Public product detail HTML: HTTP 200, `x-aiboux-worker-version: e73cd20f-4416-4cea-bef7-020396cd9649`.
+- Public TOP contains `data-testid="storefront-seo-checklist"`, `SEO / UI checklist`, `TOPページSEO/UIチェック`, and `共通SEO部品`.
+- Public product detail contains `data-testid="storefront-seo-checklist"`, `商品詳細SEO/UIチェック`, `商品名H1は1つ`, and `Product/Offer`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final. The subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
 
 Not final:
 

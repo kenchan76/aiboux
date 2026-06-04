@@ -1,0 +1,16 @@
+timestamp=20260604T220233Z
+commit_status=0
+head_after=1fce168e109b6530e21a0e72c257aff22dd11e49
+commit_stdout:
+[main 1fce168] WIP shop aiboux tenant deploy checkpoint 20260604T220233Z
+ 19 files changed, 1162 insertions(+)
+ create mode 100644 all_log/20260604T220101_shop_seo_checklist_common_parts_wip.md
+ create mode 100644 all_log/checkpoints/20260604T220233Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T220233Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T220233Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T220233Z_status_before.txt
+ create mode 100644 all_log/patches/20260604T220233Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T220233Z_before_deploy_staged.patch
+ create mode 100644 src/components/shop/storefront/StorefrontSeoChecklist.tsx
+
+commit_stderr:

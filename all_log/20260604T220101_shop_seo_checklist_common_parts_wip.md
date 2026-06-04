@@ -54,6 +54,27 @@ This work unit adds a shared page-specific SEO/UI checklist so every public page
 - `npm run astro check`: PASS, 0 errors, existing warnings only
 - `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
 
+## Public Verification
+
+- WIP checkpoint commit: `1fce168e109b6530e21a0e72c257aff22dd11e49`
+- WIP deploy Worker Version ID: `e73cd20f-4416-4cea-bef7-020396cd9649`
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200 / `text/html` / `x-aiboux-worker-version: e73cd20f-4416-4cea-bef7-020396cd9649`
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200 / `text/html` / `x-aiboux-worker-version: e73cd20f-4416-4cea-bef7-020396cd9649`
+- Public TOP HTML markers:
+  - `data-testid="storefront-seo-checklist"`
+  - `SEO / UI checklist`
+  - `TOPページSEO/UIチェック`
+  - `共通SEO部品`
+- Public product detail HTML markers:
+  - `data-testid="storefront-seo-checklist"`
+  - `商品詳細SEO/UIチェック`
+  - `商品名H1は1つ`
+  - `Product/Offer`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- Secret-safe subscription failure artifacts: `all_log/test-results/20260604T220900_subscription_gate_blocked_after_seo_checklist/`
+
 ## Non-Final Conditions
 
 - Remote D1 subscription migration remains unapplied.
