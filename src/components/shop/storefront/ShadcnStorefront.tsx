@@ -697,6 +697,8 @@ function imageForProduct(name: string, category: string, index: number) {
     directMatch = "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&h=720&q=82";
   } else if (/保存容器|クロス|キッチン/.test(nameSource) || (isCategoryCard && /キッチン/.test(source))) {
     directMatch = "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=720&h=720&q=82";
+  } else if (/洗剤|洗濯|ランドリー|ホームケア|掃除|クリーナー|clean|laundry/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=720&h=720&q=82";
   } else if (/文具|本|stationery|book/.test(nameSource) || (isCategoryCard && /文具|本/.test(source))) {
     directMatch = "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=720&h=720&q=82";
   } else if (/スポーツ|アウトドア|sports|outdoor/.test(nameSource) || (isCategoryCard && /スポーツ|アウトドア/.test(source))) {
