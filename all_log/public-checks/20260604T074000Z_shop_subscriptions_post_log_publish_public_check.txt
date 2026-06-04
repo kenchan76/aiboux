@@ -1,0 +1,206 @@
+===== https://mail.aiboux.com/g/m68?verify=20260604T074000Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:40:01 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 120809
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=cHtoZt8iLkgKnGsiIPP1hMkx8w8%2FFi5bKhxSWsixxlWGd4Q9DJP7oiKDOJGEv7%2BSOTSDUB38dlfcHIGwjI2czM%2BqDpOjeCcELQyZi9AUT06mFC1JQLl24SRIHwCg6qFT1iE%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065497aac3be04f-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+# AIBOUX 正本マスター
+# サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
+
+## Current Active Operating Override: AIBOUX Shop Subscription Requirement
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+AIBOUX Shop must support subscription purchases as a required sales feature.
+
+Required scope:
+
+- product admin subscription-plan editing;
+- public product-detail subscription purchase option;
+- cart subscription item distinction;
+- checkout subscription terms and payment-setting blocker;
+- admin subscription list and actio
+
+===== https://mail.aiboux.com/g/l68?verify=20260604T074000Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:40:02 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 38395
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=QH768Mz1pdvHCtOzR3uSQCZzQJN4zNLLviwXrV4YMqrTJFdnCFvIuHipAUOi%2BzpN0Cp1YPn4PnNk5yi7DRlUDyolhV833SXUN4X4l2ETCnKuAXbqjQU8n5DJo5NKhjWLBxY%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065497dcfa8d78f-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+# AIBOUX Shop Sales Tenant Execution Log
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This is a WIP execution log update. It is not `FINAL_ACCEPTED`.
+
+### Implemented Locally
+
+- Added subscription plan editing to Shop product admin.
+- Added public product detail subscription purchase-box UI.
+- Added cart distinction for subscription items.
+- Added checkout subscription blocker and API call for honest payment-setting failure.
+- Added admin subscription list and pause/resume/skip/cancel actions.
+- Added subscription APIs:
+  - `GET/POST /shop/api/sub
+
+===== https://mail.aiboux.com/g/d68?verify=20260604T074000Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:40:02 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 21244
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=rmb1R11PcUIjeNOFq2DmFt7idKgEe7zxBVhQlQ9%2Bze1GX9dQguTXHCdeX5uCfXzA3WESKN9uirnemwgnJLLazKnUI%2FjBDyraec2izl7VPhmcz4So1HfjlHc8x4b7OUgR%2BnI%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0654981ca13d770-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This screen artifact records the intended WIP evidence for the AIBOUX Shop subscription flow.
+
+### Subscription Screens Added Locally
+
+- Product admin subscription-plan editor.
+- Product detail purchase box with:
+  - normal purchase;
+  - subscription purchase;
+  - subscription price;
+  - delivery frequency;
+  - notice text;
+  - minimum cycle note.
+- Product detail schema-pending message:
+  - `定期購入は準備中です。`
+  - `DB migrationが
+
+===== https://shop.aiboux.com/shop/api/subscription-plans?tenant=aiboux&productId=shopprod_tenant_001_4580000232621&verify=20260604T074000Z =====
+HTTP/2 503 
+date: Thu, 04 Jun 2026 07:40:02 GMT
+content-type: application/json
+content-length: 287
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /shop/api/subscription-plans
+x-aiboux-rewritten-path: /shop/api/subscription-plans
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 872ae388-9c39-4e55-a25b-9ae2ea6cb991
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=xKzg6iwj6ouBTJ8ZNBwoQsr6T%2FvIl%2FYo%2F5BSLuOvCAd4ATt8BWpt810rGC4maw24P%2Bz4Fwey6mjXWLew0gfOt7HKCRHhSyE0jrHhg2s3QUdB7N5KDLMYDS4HNDmrEAYnAR4%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06549828c2f48e5-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+{"ok":false,"success":false,"code":"SUBSCRIPTION_SCHEMA_PENDING","message":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","error":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。"}
+
+===== https://shop.aiboux.com/shop/api/subscriptions?tenant=aiboux&verify=20260604T074000Z =====
+HTTP/2 503 
+date: Thu, 04 Jun 2026 07:40:02 GMT
+content-type: application/json
+content-length: 306
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /shop/api/subscriptions
+x-aiboux-rewritten-path: /shop/api/subscriptions
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 872ae388-9c39-4e55-a25b-9ae2ea6cb991
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=5ecAsiDM8btexTrHfQT1UYyQYtv8HCPT1iS8WK96L9%2FEyJS%2FMB5GbPRx%2F6dBSFl%2FXY5FvoCsPHh5wvF1rnJmfLkrgw7S4RxeivEnpwtIsCfxqO2Tg5y8r%2BMlT9OEUgQL6T0%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0654984ea5f49a8-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+{"ok":false,"success":false,"code":"SUBSCRIPTION_SCHEMA_PENDING","message":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","error":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","subscriptions":[]}
+
+===== https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621?verify=20260604T074000Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:40:03 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/shopprod_tenant_001_4580000232621
+x-aiboux-rewritten-path: /shop/aiboux/product/shopprod_tenant_001_4580000232621
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 872ae388-9c39-4e55-a25b-9ae2ea6cb991
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=FD4t1d7ggUmIFE7cg5eTa3%2FAlFwuqWjWjKzamvob95JxSsClYBjDWfoYSYIb1P5iLE1uSNjtJSdQxDlURy9fXXWPs4rd598C7bifN%2Fb34a721nHTsaJu3S%2FfEts9gs3H0UM%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06549872906d795-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/0/wght/normal.woff2);unicode-range:U+25ee8,U+25f23,U+25f5c,U+25fd4,U+25fe0,U+25ffb,U+2600c,U+26017,U+26060,U+260ed,U+26222,U+2626a,U+26270,U+26286,U+2634c,U+26402,U+2667e,U+266b0,U+2671d,U+268dd,U+268ea,U+26951,U+2696f,U+26999,U+269dd,U+26a1e,U+26a58,U+26a8c,U+26ab7,U+26aff,U+26c29,U+26c73,U+26c9e,U+26cdd,U+26e40,U+26e
+
+===== https://shop.aiboux.com/s/aiboux/admin/subscriptions?verify=20260604T074000Z =====
+HTTP/2 200 
+date: Thu, 04 Jun 2026 07:40:03 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+clear-site-data: "cache"
+cloudflare-cdn-cache-control: no-store
+x-aiboux-admin-cache-policy: no-store-clear-cache
+x-aiboux-original-path: /s/aiboux/admin/subscriptions
+x-aiboux-rewritten-path: /shop/subscriptions
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 872ae388-9c39-4e55-a25b-9ae2ea6cb991
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=OE7RSpTekNB7nfiwoUJkTXMY6FZr%2FBCSxWcJiPyCA5RAIckKO2lnVzuenmlQLfzU5KIA2XiFDAwdvQbEfW185pjHAbm4amR7ogSGBTVGzaMQDrqaBSbFWuSVp3EvrjE1KM8%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0654988def81314-NRT
+alt-svc: h3=":443"; ma=86400
+
+--- body head ---
+<!DOCTYPE html><html lang="ja" class="bg-white"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style type="text/css">@font-face {font-family:Noto Sans JP;font-style:normal;font-weight:400;src:url(/cf-fonts/v/noto-sans-jp/5.2.9/102/wght/normal.woff2);unicode-range:U+3d,U+5e,U+25cf,U+4e0e,U+4e5d,U+4e73,U+4e94,U+4f3c,U+5009,U+5145,U+51ac,U+5238,U+524a,U+53f3,U+547c,U+5802,U+5922,U+5a66,U+5c0e,U+5de6,U+5fd8,U+5feb,U+6797,U+685c,U+6b7b,U+6c5f-6c60,U+6cc9,U+6ce2,U+6d17,U+6e21,U+7167,U+7642,U+76db,U+8001,U+821e,U+8857,U+89d2,U+8b1b,U+8b70,U+8cb4,U+
+

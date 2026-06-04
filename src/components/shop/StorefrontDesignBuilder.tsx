@@ -94,6 +94,20 @@ const productSections: Array<{ id: EditorSection; label: string }> = [
   { id: "product.related", label: "関連商品" },
 ];
 
+const editorHeroDefaults = [
+  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1500&h=620&q=86",
+  "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1500&h=620&q=86",
+  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1500&h=620&q=86",
+];
+
+const editorProductShowcase = [
+  { name: "食品・飲料セット", price: 3980, image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "日用品パック", price: 2480, image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "便利家電セット", price: 12800, image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "ビューティーケア", price: 4280, image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82" },
+  { name: "季節のギフト", price: 5980, image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82" },
+];
+
 const globalSections: Array<{ id: EditorSection; label: string; icon: React.ComponentType<{ className?: string }> }> = [
   { id: "global.header", label: "ヘッダー", icon: Monitor },
   { id: "global.logo", label: "ロゴ", icon: ImageIcon },
@@ -459,11 +473,13 @@ function TopPreview({
   selectedSection: EditorSection;
   onSelect: (section: EditorSection) => void;
 }) {
-  const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled);
-  const main = slides[0] ?? defaultStorefrontLayout.pages.top.heroSlider.slides[0];
+  const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled).map((slide, index) => ({
+    ...slide,
+    imageUrl: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length] : slide.imageUrl,
+  }));
+  const main = slides[0] ?? { ...defaultStorefrontLayout.pages.top.heroSlider.slides[0], imageUrl: editorHeroDefaults[0] };
   const previous = slides[slides.length - 1] ?? slides[1] ?? main;
   const next = slides[1] ?? slides[0] ?? main;
-  const products = ["バックパック", "サーキュレーター", "フレグランス", "コーヒーメーカー", "腕時計"];
 
   return (
     <div className="overflow-hidden rounded-md border border-neutral-300 bg-white shadow-sm">
@@ -507,12 +523,12 @@ function TopPreview({
         title={layout.pages.top.sections.recommendedProducts.title}
         selected={selectedSection === "top.recommendedProducts"}
         onClick={() => onSelect("top.recommendedProducts")}
-        products={products}
+        products={editorProductShowcase}
       />
       <div className="grid gap-3 p-3 md:grid-cols-3">
-        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} />
-        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} accent="red" />
-        <CompactSection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} />
+        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} products={editorProductShowcase.slice(1)} />
+        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} products={editorProductShowcase.slice(2)} accent="red" />
+        <CompactSection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} products={editorProductShowcase.slice(0, 3)} />
       </div>
       <CompactBrandSection selected={selectedSection === "top.brands"} onClick={() => onSelect("top.brands")} />
     </div>
@@ -570,7 +586,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
       data-hero-side={direction}
       data-testid={direction === "left" ? "hero-slide-prev" : "hero-slide-next"}
     >
-      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#f4d7a2,#8b6b37_55%,#475569)]" />}
+      <img src={isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[0] : slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
       <span className={cn("absolute top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow", direction === "left" ? "left-4" : "right-4")}>
@@ -580,7 +596,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
   );
 }
 
-function PreviewProducts({ title, selected, onClick, products }: { title: string; selected: boolean; onClick: () => void; products: string[] }) {
+function PreviewProducts({ title, selected, onClick, products }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase }) {
   return (
     <button type="button" onClick={onClick} className={cn("block w-full p-3 text-left", selected && "ring-2 ring-inset ring-blue-500")} data-testid="recommended-products">
       <div className="mb-3 flex items-center justify-between">
@@ -589,10 +605,11 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
       </div>
       <div className="grid grid-cols-5 gap-3">
         {products.map((product, index) => (
-          <div key={product} className="rounded-md border border-neutral-200 bg-white p-3">
-            <div className="aspect-square rounded bg-neutral-100" />
+          <div key={product.name} className="rounded-md border border-neutral-200 bg-white p-3">
+            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
             <div className="mt-2 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({800 + index * 87})</span></div>
-            <div className="mt-1 text-sm font-bold text-neutral-950">¥{[4980, 3280, 2980, 18800, 12800][index].toLocaleString("ja-JP")} <span className="text-[11px] font-normal text-neutral-500">税込</span></div>
+            <div className="mt-1 line-clamp-2 min-h-8 text-xs font-semibold text-neutral-800">{product.name}</div>
+            <div className="mt-1 text-sm font-bold text-neutral-950">¥{product.price.toLocaleString("ja-JP")} <span className="text-[11px] font-normal text-neutral-500">税込</span></div>
           </div>
         ))}
       </div>
@@ -600,20 +617,25 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
   );
 }
 
-function CompactSection({ title, selected, onClick, accent = "neutral" }: { title: string; selected: boolean; onClick: () => void; accent?: "neutral" | "red" }) {
+function CompactSection({ title, selected, onClick, products, accent = "neutral" }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase; accent?: "neutral" | "red" }) {
   return (
     <button type="button" onClick={onClick} className={cn("rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
       <div className="mb-2 flex justify-between text-sm font-bold">{title}<span className="text-xs font-normal text-neutral-500">もっと見る</span></div>
       <div className="grid grid-cols-3 gap-2">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div key={index} className="rounded border border-neutral-100 p-2">
-            <div className="aspect-square rounded bg-neutral-100" />
-            <div className={cn("mt-1 text-xs font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{[2980, 4980, 18800][index].toLocaleString("ja-JP")}</div>
+        {products.slice(0, 3).map((product) => (
+          <div key={`${title}-${product.name}`} className="rounded border border-neutral-100 p-2">
+            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
+            <div className={cn("mt-1 text-xs font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price.toLocaleString("ja-JP")}</div>
           </div>
         ))}
       </div>
     </button>
   );
+}
+
+function isWeakEditorImage(value: string | null | undefined) {
+  if (!value) return true;
+  return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-/i.test(value);
 }
 
 function CompactBrandSection({ selected, onClick }: { selected: boolean; onClick: () => void }) {

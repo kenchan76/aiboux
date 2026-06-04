@@ -1,5 +1,33 @@
 # AIBOUX Current Task
 
+## Active Override: Shop Public Storefront Visual Mismatch Fix
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_public_storefront_visual_mismatch_fix.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+
+Required work:
+
+1. Fix the public tenant storefront visual mismatch before continuing remote D1 subscription work.
+2. Remove gray image placeholders from the public storefront.
+3. Use real AIBOUX sales-oriented images for hero, product cards, ranking, time sale, and category cards.
+4. Keep hero as center main slide with smaller real previous/next slide previews.
+5. Make product cards Amazon-style with image, product name, rating, review count, price, tax label, and CTA.
+6. Align editor preview and public storefront visual language.
+7. Publish `/g/l68`, `/g/d68`, and `/g/m68` before reporting.
+
+Do not report `FINAL_ACCEPTED`.
+
 ## Active Override: Shop Subscriptions Required
 
 Instruction source:

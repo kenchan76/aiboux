@@ -398,17 +398,19 @@ function mapProductRow(row: ProductRow): ShopStorefrontProduct {
   const imageKeys = parseStringArray(row.image_r2_keys);
   const altTexts = parseStringArray(row.ai_alt_texts_json);
   const stockQuantity = Number(row.stock_quantity ?? 0);
+  const displayName = row.display_name;
+  const categoryName = row.category_name || row.google_category_id || "未分類";
   return {
     id: row.id,
     tenantId: row.tenant_id,
-    displayName: row.display_name,
+    displayName,
     description: row.description || row.seo_description || "",
-    seoTitle: row.seo_title || row.display_name,
+    seoTitle: row.seo_title || displayName,
     seoDescription: row.seo_description || row.description || "",
     salePrice: Number(row.sale_price ?? 0),
-    imageUrl: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : "",
-    imageAlt: altTexts[0] || row.display_name,
-    categoryName: row.category_name || row.google_category_id || "未分類",
+    imageUrl: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : buildStorefrontDefaultImage(displayName, categoryName, row.id),
+    imageAlt: altTexts[0] || displayName,
+    categoryName,
     sku: row.jan_code || row.id,
     stockQuantity,
     inStock: row.core_status !== "paused" && stockQuantity > 0,
@@ -416,6 +418,25 @@ function mapProductRow(row: ProductRow): ShopStorefrontProduct {
     subscriptionSchemaPending: false,
     updatedAt: Number(row.updated_at ?? 0),
   };
+}
+
+function buildStorefrontDefaultImage(productName: string, categoryName: string, productId: string): string {
+  const source = `${productName} ${categoryName}`.toLowerCase();
+  const photo = source.includes("食品") || source.includes("菓子") || source.includes("飲料") || source.includes("food")
+    ? "photo-1542838132-92c53300491e"
+    : source.includes("家電") || source.includes("電") || source.includes("gadget")
+      ? "photo-1550009158-9ebf69173e03"
+      : source.includes("美容") || source.includes("コスメ") || source.includes("beauty")
+        ? "photo-1522335789203-aabd1fc54bc9"
+        : source.includes("日用品") || source.includes("雑貨") || source.includes("living")
+          ? "photo-1513519245088-0e12902e5a38"
+          : source.includes("ペット")
+            ? "photo-1601758228041-f3b2795255f1"
+            : source.includes("ファッション") || source.includes("服")
+              ? "photo-1489987707025-afc232f7ea0f"
+              : "photo-1516321318423-f06f85e504b3";
+  const signature = encodeURIComponent(productId || productName || "aiboux-product");
+  return `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=720&h=720&q=82&sig=${signature}`;
 }
 
 function parseStringArray(value: string | null | undefined): string[] {

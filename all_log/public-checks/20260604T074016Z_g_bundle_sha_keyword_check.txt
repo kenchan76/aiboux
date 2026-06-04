@@ -1,0 +1,43 @@
+===== m68 =====
+content-type: text/markdown; charset=utf-8
+581b42d66a22430458d7217ab8765c99cf00194022ac65523a07dad0ff7242eb  public/g/m68.md
+6a0a03a5fd1d9d63615bcbad4c9156abf2fa79aa550345e820584ab43aa5de81  all_log/public-checks/20260604T074016Z_m68.body
+6:Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+26:- subscription APIs return `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500 when remote schema is missing;
+178:- Worker Version ID: 872ae388-9c39-4e55-a25b-9ae2ea6cb991
+2325:Worker Version ID: 872ae388-9c39-4e55-a25b-9ae2ea6cb991
+4454:- `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+===== l68 =====
+content-type: text/markdown; charset=utf-8
+f8f655d6ee83db3e3093cc8a615cc34205f830916018590b0702e681a2320c3b  public/g/l68.md
+8ecf9d83d35f4ea87b233d2f1c0a286b1cc32cf2a47ce9a1749c86ffc4a8db53  all_log/public-checks/20260604T074016Z_l68.body
+5:Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+61:  "code": "SUBSCRIPTION_SCHEMA_PENDING",
+82:- next WIP deploy must prove the API returns `SUBSCRIPTION_SCHEMA_PENDING` instead of generic 500.
+84:### Public WIP Proof After Schema Guard Redeploy
+90:- `GET https://shop.aiboux.com/shop/api/subscription-plans?tenant=aiboux&productId=shopprod_tenant_001_4580000232621`: HTTP 503 JSON `SUBSCRIPTION_SCHEMA_PENDING`
+91:- `GET https://shop.aiboux.com/shop/api/subscriptions?tenant=aiboux`: HTTP 503 JSON `SUBSCRIPTION_SCHEMA_PENDING`
+222:- Latest Worker Version ID: `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+326:Runtime placeholders such as `872ae388-9c39-4e55-a25b-9ae2ea6cb991` are replaced in the public response.
+336:The SHA mismatch is expected for files containing `872ae388-9c39-4e55-a25b-9ae2ea6cb991`.
+343:| `https://shop.aiboux.com/` | 200 | `872ae388-9c39-4e55-a25b-9ae2ea6cb991` | `AIBOUX SHOP | サービスサイト` |
+344:| `https://shop.aiboux.com/s/aiboux/` | 200 | `872ae388-9c39-4e55-a25b-9ae2ea6cb991` | `AIBOUX Store | AIBOUX Storefront` |
+345:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `872ae388-9c39-4e55-a25b-9ae2ea6cb991` | `AIBOUX SHOP Dashboard` |
+433:- `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+452:- `/g/*` responses replace `872ae388-9c39-4e55-a25b-9ae2ea6cb991` at runtime.
+888:- Public log publication Worker Version ID: `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+894:- `x-aiboux-worker-version`: `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+924:- `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+935:- `x-aiboux-worker-version`: `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+981:- `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+===== d68 =====
+content-type: text/markdown; charset=utf-8
+fa19f0439208de11b7731df2c9503b59051f9abd3cc8c53d7ab9c387c94971d9  public/g/d68.md
+b537ef807542d02a342b76eb23bfce2c2e7b298a1a3b92b0c4a66f478aa82e48  all_log/public-checks/20260604T074016Z_d68.body
+5:Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+133:| `https://shop.aiboux.com/` | 200 | `872ae388-9c39-4e55-a25b-9ae2ea6cb991` | `AIBOUX SHOP | サービスサイト` |
+134:| `https://shop.aiboux.com/s/aiboux/` | 200 | `872ae388-9c39-4e55-a25b-9ae2ea6cb991` | `AIBOUX Store | AIBOUX Storefront` |
+135:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `872ae388-9c39-4e55-a25b-9ae2ea6cb991` | `AIBOUX SHOP Dashboard` |
+190:- `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+279:- `x-aiboux-worker-version`: `872ae388-9c39-4e55-a25b-9ae2ea6cb991`
+436:- All checked responses were served by Worker Version ID `872ae388-9c39-4e55-a25b-9ae2ea6cb991`.

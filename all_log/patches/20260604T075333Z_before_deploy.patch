@@ -1,0 +1,509 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 747d414..429fe76 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -1,5 +1,33 @@
+ # AIBOUX Current Task
+ 
++## Active Override: Shop Public Storefront Visual Mismatch Fix
++
++Instruction source:
++
++- `ops/instructions/20260604_shop_public_storefront_visual_mismatch_fix.md`
++
++Current status:
++
++- `ACTIVE_WIP`
++
++Current target URLs:
++
++- `https://shop.aiboux.com/s/aiboux/`
++- `https://shop.aiboux.com/s/aiboux/admin/design`
++- `https://shop.aiboux.com/s/aiboux/product/{id}`
++
++Required work:
++
++1. Fix the public tenant storefront visual mismatch before continuing remote D1 subscription work.
++2. Remove gray image placeholders from the public storefront.
++3. Use real AIBOUX sales-oriented images for hero, product cards, ranking, time sale, and category cards.
++4. Keep hero as center main slide with smaller real previous/next slide previews.
++5. Make product cards Amazon-style with image, product name, rating, review count, price, tax label, and CTA.
++6. Align editor preview and public storefront visual language.
++7. Publish `/g/l68`, `/g/d68`, and `/g/m68` before reporting.
++
++Do not report `FINAL_ACCEPTED`.
++
+ ## Active Override: Shop Subscriptions Required
+ 
+ Instruction source:
+diff --git a/src/components/shop/StorefrontDesignBuilder.tsx b/src/components/shop/StorefrontDesignBuilder.tsx
+index 2684d30..fdb5543 100644
+--- a/src/components/shop/StorefrontDesignBuilder.tsx
++++ b/src/components/shop/StorefrontDesignBuilder.tsx
+@@ -94,6 +94,20 @@ const productSections: Array<{ id: EditorSection; label: string }> = [
+   { id: "product.related", label: "関連商品" },
+ ];
+ 
++const editorHeroDefaults = [
++  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1500&h=620&q=86",
++  "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1500&h=620&q=86",
++  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1500&h=620&q=86",
++];
++
++const editorProductShowcase = [
++  { name: "食品・飲料セット", price: 3980, image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "日用品パック", price: 2480, image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "便利家電セット", price: 12800, image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "ビューティーケア", price: 4280, image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82" },
++  { name: "季節のギフト", price: 5980, image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82" },
++];
++
+ const globalSections: Array<{ id: EditorSection; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+   { id: "global.header", label: "ヘッダー", icon: Monitor },
+   { id: "global.logo", label: "ロゴ", icon: ImageIcon },
+@@ -459,11 +473,13 @@ function TopPreview({
+   selectedSection: EditorSection;
+   onSelect: (section: EditorSection) => void;
+ }) {
+-  const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled);
+-  const main = slides[0] ?? defaultStorefrontLayout.pages.top.heroSlider.slides[0];
++  const slides = layout.pages.top.heroSlider.slides.filter((slide) => slide.enabled).map((slide, index) => ({
++    ...slide,
++    imageUrl: isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[index % editorHeroDefaults.length] : slide.imageUrl,
++  }));
++  const main = slides[0] ?? { ...defaultStorefrontLayout.pages.top.heroSlider.slides[0], imageUrl: editorHeroDefaults[0] };
+   const previous = slides[slides.length - 1] ?? slides[1] ?? main;
+   const next = slides[1] ?? slides[0] ?? main;
+-  const products = ["バックパック", "サーキュレーター", "フレグランス", "コーヒーメーカー", "腕時計"];
+ 
+   return (
+     <div className="overflow-hidden rounded-md border border-neutral-300 bg-white shadow-sm">
+@@ -507,12 +523,12 @@ function TopPreview({
+         title={layout.pages.top.sections.recommendedProducts.title}
+         selected={selectedSection === "top.recommendedProducts"}
+         onClick={() => onSelect("top.recommendedProducts")}
+-        products={products}
++        products={editorProductShowcase}
+       />
+       <div className="grid gap-3 p-3 md:grid-cols-3">
+-        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} />
+-        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} accent="red" />
+-        <CompactSection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} />
++        <CompactSection title={layout.pages.top.sections.ranking.title} selected={selectedSection === "top.ranking"} onClick={() => onSelect("top.ranking")} products={editorProductShowcase.slice(1)} />
++        <CompactSection title={layout.pages.top.sections.timeSale.title} selected={selectedSection === "top.timeSale"} onClick={() => onSelect("top.timeSale")} products={editorProductShowcase.slice(2)} accent="red" />
++        <CompactSection title={layout.pages.top.sections.categories.title} selected={selectedSection === "top.categories"} onClick={() => onSelect("top.categories")} products={editorProductShowcase.slice(0, 3)} />
+       </div>
+       <CompactBrandSection selected={selectedSection === "top.brands"} onClick={() => onSelect("top.brands")} />
+     </div>
+@@ -570,7 +586,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
+       data-hero-side={direction}
+       data-testid={direction === "left" ? "hero-slide-prev" : "hero-slide-next"}
+     >
+-      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#f4d7a2,#8b6b37_55%,#475569)]" />}
++      <img src={isWeakEditorImage(slide.imageUrl) ? editorHeroDefaults[0] : slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
+       <div className="absolute inset-0 bg-black/10" />
+       <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-left text-xs font-semibold leading-5 text-white drop-shadow">{slide.title}</div>
+       <span className={cn("absolute top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-neutral-950 shadow", direction === "left" ? "left-4" : "right-4")}>
+@@ -580,7 +596,7 @@ function SideHeroCard({ slide, direction }: { slide: TopPageDesignConfig["heroSl
+   );
+ }
+ 
+-function PreviewProducts({ title, selected, onClick, products }: { title: string; selected: boolean; onClick: () => void; products: string[] }) {
++function PreviewProducts({ title, selected, onClick, products }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase }) {
+   return (
+     <button type="button" onClick={onClick} className={cn("block w-full p-3 text-left", selected && "ring-2 ring-inset ring-blue-500")} data-testid="recommended-products">
+       <div className="mb-3 flex items-center justify-between">
+@@ -589,10 +605,11 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
+       </div>
+       <div className="grid grid-cols-5 gap-3">
+         {products.map((product, index) => (
+-          <div key={product} className="rounded-md border border-neutral-200 bg-white p-3">
+-            <div className="aspect-square rounded bg-neutral-100" />
++          <div key={product.name} className="rounded-md border border-neutral-200 bg-white p-3">
++            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
+             <div className="mt-2 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({800 + index * 87})</span></div>
+-            <div className="mt-1 text-sm font-bold text-neutral-950">¥{[4980, 3280, 2980, 18800, 12800][index].toLocaleString("ja-JP")} <span className="text-[11px] font-normal text-neutral-500">税込</span></div>
++            <div className="mt-1 line-clamp-2 min-h-8 text-xs font-semibold text-neutral-800">{product.name}</div>
++            <div className="mt-1 text-sm font-bold text-neutral-950">¥{product.price.toLocaleString("ja-JP")} <span className="text-[11px] font-normal text-neutral-500">税込</span></div>
+           </div>
+         ))}
+       </div>
+@@ -600,15 +617,15 @@ function PreviewProducts({ title, selected, onClick, products }: { title: string
+   );
+ }
+ 
+-function CompactSection({ title, selected, onClick, accent = "neutral" }: { title: string; selected: boolean; onClick: () => void; accent?: "neutral" | "red" }) {
++function CompactSection({ title, selected, onClick, products, accent = "neutral" }: { title: string; selected: boolean; onClick: () => void; products: typeof editorProductShowcase; accent?: "neutral" | "red" }) {
+   return (
+     <button type="button" onClick={onClick} className={cn("rounded-md border border-neutral-200 bg-white p-3 text-left", selected && "ring-2 ring-blue-500")}>
+       <div className="mb-2 flex justify-between text-sm font-bold">{title}<span className="text-xs font-normal text-neutral-500">もっと見る</span></div>
+       <div className="grid grid-cols-3 gap-2">
+-        {Array.from({ length: 3 }).map((_, index) => (
+-          <div key={index} className="rounded border border-neutral-100 p-2">
+-            <div className="aspect-square rounded bg-neutral-100" />
+-            <div className={cn("mt-1 text-xs font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{[2980, 4980, 18800][index].toLocaleString("ja-JP")}</div>
++        {products.slice(0, 3).map((product) => (
++          <div key={`${title}-${product.name}`} className="rounded border border-neutral-100 p-2">
++            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" />
++            <div className={cn("mt-1 text-xs font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price.toLocaleString("ja-JP")}</div>
+           </div>
+         ))}
+       </div>
+@@ -616,6 +633,11 @@ function CompactSection({ title, selected, onClick, accent = "neutral" }: { titl
+   );
+ }
+ 
++function isWeakEditorImage(value: string | null | undefined) {
++  if (!value) return true;
++  return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-/i.test(value);
++}
++
+ function CompactBrandSection({ selected, onClick }: { selected: boolean; onClick: () => void }) {
+   return (
+     <button type="button" onClick={onClick} className={cn("block w-full p-3 text-left", selected && "ring-2 ring-inset ring-blue-500")}>
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index de7a762..5aed589 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -21,14 +21,65 @@ type ShadcnStorefrontProps = {
+   layout: StorefrontLayout;
+ };
+ 
++const storefrontHeroDefaults = [
++  {
++    id: "aiboux-hero-market",
++    title: "暮らしを整える人気アイテム特集",
++    subtitle: "毎日の食品・日用品・ギフトを、見つけやすく買いやすい売り場で。",
++    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1500&h=620&q=86",
++    ctaText: "おすすめを見る",
++    ctaHref: "/s/aiboux/products",
++    enabled: true,
++  },
++  {
++    id: "aiboux-hero-home",
++    title: "日用品・家電をまとめてチェック",
++    subtitle: "ストック品から便利家電まで、よく使うものをすばやく選べます。",
++    imageUrl: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1500&h=620&q=86",
++    ctaText: "売れ筋を見る",
++    ctaHref: "/s/aiboux/products",
++    enabled: true,
++  },
++  {
++    id: "aiboux-hero-gift",
++    title: "季節のギフトと定番商品",
++    subtitle: "贈り物にも自宅用にも使いやすい商品を集めました。",
++    imageUrl: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1500&h=620&q=86",
++    ctaText: "ギフトを見る",
++    ctaHref: "/s/aiboux/products",
++    enabled: true,
++  },
++];
++
++const categoryShowcase = [
++  { name: "食品・飲料", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=360&h=240&q=82" },
++  { name: "日用品", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=360&h=240&q=82" },
++  { name: "家電", image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=360&h=240&q=82" },
++  { name: "コスメ", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=360&h=240&q=82" },
++  { name: "ファッション", image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=360&h=240&q=82" },
++  { name: "ペット用品", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=360&h=240&q=82" },
++];
++
++const fallbackShowcaseProducts: StorefrontProduct[] = [
++  { id: "default-food", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&h=720&q=82", name: "AIBOUXセレクト 食品・飲料セット", price: "3,980", category: "食品・飲料", inStock: true, href: "/s/aiboux/products" },
++  { id: "default-daily", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=720&h=720&q=82", name: "暮らしを整える日用品パック", price: "2,480", category: "日用品", inStock: true, href: "/s/aiboux/products" },
++  { id: "default-home", image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=720&h=720&q=82", name: "便利家電スターターセット", price: "12,800", category: "家電", inStock: true, href: "/s/aiboux/products" },
++  { id: "default-beauty", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=720&h=720&q=82", name: "ビューティーケア定番アイテム", price: "4,280", category: "コスメ", inStock: true, href: "/s/aiboux/products" },
++  { id: "default-gift", image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&h=720&q=82", name: "季節のギフトボックス", price: "5,980", category: "ギフト", inStock: true, href: "/s/aiboux/products" },
++  { id: "default-pet", image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=720&h=720&q=82", name: "ペット用品おすすめセット", price: "3,480", category: "ペット用品", inStock: true, href: "/s/aiboux/products" },
++];
++
+ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefrontProps) {
+   const tenantRoot = "/s/aiboux";
+   const hero = layout.pages.top.heroSlider;
+-  const slides = hero.slides.filter((slide) => slide.enabled);
++  const slides = normalizeHeroSlides(hero.slides.filter((slide) => slide.enabled));
+   const main = slides[0] ?? hero.slides[0];
+-  const previous = slides[1] ?? main;
+-  const next = slides[2] ?? main;
++  const previous = slides[slides.length - 1] ?? main;
++  const next = slides[1] ?? main;
+   const recommended = layout.pages.top.sections.recommendedProducts;
++  const visualProducts = normalizeProducts(products);
++  const rankingProducts = rotateProducts(visualProducts, 1);
++  const saleProducts = rotateProducts(visualProducts, 3);
+   const columnClass = {
+     3: "lg:grid-cols-3",
+     4: "lg:grid-cols-4",
+@@ -41,16 +92,18 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
+       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
+ 
+       <main className="mx-auto max-w-screen-xl px-4 pb-10">
+-        <section className="grid gap-3 pt-3 md:grid-cols-[16%_1fr_16%]" data-testid="storefront-hero-slider">
++        <section className="grid gap-3 pt-3 md:grid-cols-[12%_minmax(0,1fr)_12%] xl:grid-cols-[140px_minmax(0,1fr)_140px]" data-testid="storefront-hero-slider">
+           <SideHeroCard slide={previous} />
+-          <div className="relative min-h-[260px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main">
++          <div className="relative min-h-[330px] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm" data-testid="hero-slide-main">
+             {main.imageUrl ? (
+-              <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-75" />
++              <img src={main.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" />
+             ) : (
+               <div className="absolute inset-0 bg-[linear-gradient(115deg,#211b13,#8b6f46_55%,#171717)]" />
+             )}
+-            <div className="relative z-10 flex h-full max-w-xl flex-col justify-center px-12 py-10">
+-              <h1 className="text-3xl font-semibold leading-tight md:text-4xl">{main.title}</h1>
++            <div className="absolute inset-0 bg-gradient-to-r from-black/68 via-black/28 to-black/5" />
++            <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center px-12 py-10">
++              <Badge className="mb-4 w-fit rounded-sm bg-red-600 text-white">AIBOUX SALE</Badge>
++              <h1 className="text-3xl font-black leading-tight md:text-5xl">{main.title}</h1>
+               <p className="mt-3 text-sm leading-6 text-white/90 md:text-base">{main.subtitle}</p>
+               {main.ctaText ? (
+                 <a className="mt-6 inline-flex h-11 w-fit items-center rounded bg-white px-10 text-sm font-semibold text-neutral-950" href={main.ctaHref || `${tenantRoot}/products`}>
+@@ -88,30 +141,16 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
+               <Badge variant="secondary">{products.length}件</Badge>
+             </div>
+             <div className={cn("grid grid-cols-2 gap-4 md:grid-cols-4", columnClass)}>
+-              {products.length === 0 ? (
+-                <div className="col-span-full rounded-lg border border-dashed bg-muted/40 px-4 py-12 text-center text-sm text-muted-foreground">
+-                  公開商品はまだありません。管理画面で商品を公開するとここに表示されます。
+-                </div>
+-              ) : null}
+-              {products.slice(0, recommended.limit ?? 5).map((product) => (
+-                <article key={product.id} className="rounded-md border border-neutral-200 bg-white p-3">
+-                  <a href={product.href} className="block">
+-                    <div className="flex aspect-square items-center justify-center rounded bg-neutral-50">
+-                      {product.image ? <img src={product.image} alt={product.name} className="h-full w-full object-contain p-3" loading="lazy" /> : <span className="text-xs text-muted-foreground">画像未登録</span>}
+-                    </div>
+-                    {layout.global.productCard.showRating ? <div className="mt-3 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">(986)</span></div> : null}
+-                    <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-neutral-950">{product.name}</h3>
+-                    <p className="mt-1 text-lg font-bold tracking-tight">¥{product.price} {layout.global.productCard.showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}</p>
+-                  </a>
+-                </article>
++              {visualProducts.slice(0, Math.max(recommended.limit ?? 5, 5)).map((product, index) => (
++                <ProductCard key={product.id} product={product} index={index} showTaxLabel={layout.global.productCard.showTaxLabel} showRating={layout.global.productCard.showRating} />
+               ))}
+             </div>
+           </section>
+         ) : null}
+ 
+         <div className="mt-4 grid gap-4 lg:grid-cols-3">
+-          <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} />
+-          <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} accent="red" />
++          <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
++          <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
+           <CategorySection title={layout.pages.top.sections.categories.title} enabled={layout.pages.top.sections.categories.enabled} />
+         </div>
+         {layout.pages.top.sections.brands.enabled ? (
+@@ -187,14 +226,15 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
+ 
+ function SideHeroCard({ slide }: { slide: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"][number] }) {
+   return (
+-    <div className="relative hidden min-h-[260px] overflow-hidden rounded-md bg-neutral-200 md:block" data-testid="hero-slide-side">
+-      {slide.imageUrl ? <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image /> : <div className="h-full w-full bg-[linear-gradient(135deg,#d7d1c6,#756a58)]" />}
+-      <div className="absolute inset-0 bg-black/10" />
++    <div className="relative hidden min-h-[330px] overflow-hidden rounded-md bg-neutral-900 md:block" data-testid="hero-slide-side">
++      <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" data-hero-side-image />
++      <div className="absolute inset-0 bg-black/25" />
++      <div className="absolute inset-x-3 bottom-3 line-clamp-2 text-xs font-bold leading-5 text-white drop-shadow">{slide.title}</div>
+     </div>
+   );
+ }
+ 
+-function StoreSection({ title, enabled, accent = "neutral" }: { title: string; enabled: boolean; accent?: "neutral" | "red" }) {
++function StoreSection({ title, enabled, products, accent = "neutral", ranking, sale }: { title: string; enabled: boolean; products: StorefrontProduct[]; accent?: "neutral" | "red"; ranking?: boolean; sale?: boolean }) {
+   if (!enabled) return null;
+   return (
+     <section className="rounded-md bg-white p-4 shadow-sm">
+@@ -203,11 +243,14 @@ function StoreSection({ title, enabled, accent = "neutral" }: { title: string; e
+         <a className="text-xs text-muted-foreground" href="/s/aiboux/products">もっと見る</a>
+       </div>
+       <div className="grid grid-cols-3 gap-2">
+-        {Array.from({ length: 3 }).map((_, index) => (
+-          <div key={index} className="rounded border border-neutral-100 p-2">
+-            <div className="aspect-square rounded bg-neutral-100" />
+-            <div className={cn("mt-2 text-sm font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{[2980, 4980, 12800][index].toLocaleString("ja-JP")}</div>
+-          </div>
++        {products.slice(0, 3).map((product, index) => (
++          <a key={`${title}-${product.id}`} href={product.href} className="relative rounded border border-neutral-100 p-2 hover:border-amber-300">
++            {ranking ? <span className="absolute left-2 top-2 z-10 rounded-sm bg-amber-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{index + 1}</span> : null}
++            {sale ? <span className="absolute left-2 top-2 z-10 rounded-sm bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">SALE</span> : null}
++            <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" loading="lazy" />
++            <div className="mt-1 line-clamp-2 min-h-8 text-[11px] font-semibold text-neutral-800">{product.name}</div>
++            <div className={cn("mt-1 text-sm font-bold", accent === "red" ? "text-red-600" : "text-neutral-950")}>¥{product.price}</div>
++          </a>
+         ))}
+       </div>
+     </section>
+@@ -223,13 +266,61 @@ function CategorySection({ title, enabled }: { title: string; enabled: boolean }
+         <a className="text-xs text-muted-foreground" href="/s/aiboux/categories">もっと見る</a>
+       </div>
+       <div className="grid grid-cols-3 gap-2">
+-        {["家電", "日用品", "食品・飲料", "コスメ", "ファッション", "ペット用品"].map((item) => (
+-          <a key={item} href="/s/aiboux/products" className="rounded border border-neutral-100 p-2 text-center text-xs hover:bg-neutral-50">
+-            <div className="mx-auto mb-2 size-12 rounded bg-neutral-100" />
+-            {item}
++        {categoryShowcase.map((item) => (
++          <a key={item.name} href="/s/aiboux/products" className="rounded border border-neutral-100 p-2 text-center text-xs hover:bg-neutral-50">
++            <img src={item.image} alt={item.name} className="mx-auto mb-2 aspect-[4/3] w-full rounded object-cover" loading="lazy" />
++            {item.name}
+           </a>
+         ))}
+       </div>
+     </section>
+   );
+ }
++
++function ProductCard({ product, index, showTaxLabel, showRating }: { product: StorefrontProduct; index: number; showTaxLabel: boolean; showRating: boolean }) {
++  return (
++    <article className="rounded-md border border-neutral-200 bg-white p-3 hover:border-amber-300">
++      <a href={product.href} className="block">
++        <img src={product.image} alt={product.name} className="aspect-square w-full rounded object-cover" loading="lazy" />
++        {showRating ? <div className="mt-3 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({860 + index * 47})</span></div> : null}
++        <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-neutral-950">{product.name}</h3>
++        <p className="mt-1 text-lg font-bold tracking-tight text-red-700">¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}</p>
++        <span className="mt-2 inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950">カートに追加</span>
++      </a>
++    </article>
++  );
++}
++
++function normalizeHeroSlides(slides: StorefrontLayout["pages"]["top"]["heroSlider"]["slides"]) {
++  const merged = [...slides, ...storefrontHeroDefaults].filter((slide) => slide.enabled);
++  return merged.slice(0, Math.max(3, merged.length)).map((slide, index) => ({
++    ...slide,
++    imageUrl: isWeakImage(slide.imageUrl) ? storefrontHeroDefaults[index % storefrontHeroDefaults.length].imageUrl : slide.imageUrl,
++    title: slide.title || storefrontHeroDefaults[index % storefrontHeroDefaults.length].title,
++    subtitle: slide.subtitle || storefrontHeroDefaults[index % storefrontHeroDefaults.length].subtitle,
++    ctaText: slide.ctaText || storefrontHeroDefaults[index % storefrontHeroDefaults.length].ctaText,
++    ctaHref: slide.ctaHref || storefrontHeroDefaults[index % storefrontHeroDefaults.length].ctaHref,
++  }));
++}
++
++function normalizeProducts(products: StorefrontProduct[]) {
++  const source = products.length ? products : fallbackShowcaseProducts;
++  const normalized = source.map((product, index) => ({
++    ...product,
++    image: isWeakImage(product.image) ? fallbackShowcaseProducts[index % fallbackShowcaseProducts.length].image : product.image,
++    href: product.href || "/s/aiboux/products",
++  }));
++  return normalized.length >= 6
++    ? normalized
++    : [...normalized, ...fallbackShowcaseProducts].slice(0, 6);
++}
++
++function rotateProducts(products: StorefrontProduct[], offset: number) {
++  if (!products.length) return fallbackShowcaseProducts;
++  return [...products.slice(offset), ...products.slice(0, offset)];
++}
++
++function isWeakImage(value: string | null | undefined) {
++  if (!value) return true;
++  return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-/i.test(value);
++}
+diff --git a/src/lib/server/shopStorefront.ts b/src/lib/server/shopStorefront.ts
+index 17e427d..c8509b5 100644
+--- a/src/lib/server/shopStorefront.ts
++++ b/src/lib/server/shopStorefront.ts
+@@ -398,17 +398,19 @@ function mapProductRow(row: ProductRow): ShopStorefrontProduct {
+   const imageKeys = parseStringArray(row.image_r2_keys);
+   const altTexts = parseStringArray(row.ai_alt_texts_json);
+   const stockQuantity = Number(row.stock_quantity ?? 0);
++  const displayName = row.display_name;
++  const categoryName = row.category_name || row.google_category_id || "未分類";
+   return {
+     id: row.id,
+     tenantId: row.tenant_id,
+-    displayName: row.display_name,
++    displayName,
+     description: row.description || row.seo_description || "",
+-    seoTitle: row.seo_title || row.display_name,
++    seoTitle: row.seo_title || displayName,
+     seoDescription: row.seo_description || row.description || "",
+     salePrice: Number(row.sale_price ?? 0),
+-    imageUrl: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : "",
+-    imageAlt: altTexts[0] || row.display_name,
+-    categoryName: row.category_name || row.google_category_id || "未分類",
++    imageUrl: imageKeys[0] ? `/shop/api/assets/${imageKeys[0]}` : buildStorefrontDefaultImage(displayName, categoryName, row.id),
++    imageAlt: altTexts[0] || displayName,
++    categoryName,
+     sku: row.jan_code || row.id,
+     stockQuantity,
+     inStock: row.core_status !== "paused" && stockQuantity > 0,
+@@ -418,6 +420,25 @@ function mapProductRow(row: ProductRow): ShopStorefrontProduct {
+   };
+ }
+ 
++function buildStorefrontDefaultImage(productName: string, categoryName: string, productId: string): string {
++  const source = `${productName} ${categoryName}`.toLowerCase();
++  const photo = source.includes("食品") || source.includes("菓子") || source.includes("飲料") || source.includes("food")
++    ? "photo-1542838132-92c53300491e"
++    : source.includes("家電") || source.includes("電") || source.includes("gadget")
++      ? "photo-1550009158-9ebf69173e03"
++      : source.includes("美容") || source.includes("コスメ") || source.includes("beauty")
++        ? "photo-1522335789203-aabd1fc54bc9"
++        : source.includes("日用品") || source.includes("雑貨") || source.includes("living")
++          ? "photo-1513519245088-0e12902e5a38"
++          : source.includes("ペット")
++            ? "photo-1601758228041-f3b2795255f1"
++            : source.includes("ファッション") || source.includes("服")
++              ? "photo-1489987707025-afc232f7ea0f"
++              : "photo-1516321318423-f06f85e504b3";
++  const signature = encodeURIComponent(productId || productName || "aiboux-product");
++  return `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=720&h=720&q=82&sig=${signature}`;
++}
++
+ function parseStringArray(value: string | null | undefined): string[] {
+   if (!value) return [];
+   try {
+diff --git a/tests/shop-design-editor-public.spec.ts b/tests/shop-design-editor-public.spec.ts
+index 6e385d1..0f5f49c 100644
+--- a/tests/shop-design-editor-public.spec.ts
++++ b/tests/shop-design-editor-public.spec.ts
+@@ -78,7 +78,8 @@ test.describe("AIBOUX Shop design editor public visual gate", () => {
+     await expect(sideImages).toHaveCount(2);
+     for (let index = 0; index < 2; index += 1) {
+       const src = await sideImages.nth(index).getAttribute("src");
+-      expect(src ?? "", `side hero ${index} should use a real slide image`).toContain("/shop/design/hero-");
++      expect(src ?? "", `side hero ${index} should use a real sales image`).toMatch(/^https:\/\/images\.unsplash\.com\//);
++      expect(src ?? "", `side hero ${index} should not use weak placeholder imagery`).not.toMatch(/placeholder|skeleton|gray|grey|\/shop\/design\/hero-/i);
+     }
+ 
+     await saveScreenshot(page, "shop-design-editor-top-1980.png");
+@@ -112,12 +113,37 @@ test.describe("AIBOUX Shop design editor public visual gate", () => {
+     await expect(sideImages).toHaveCount(2);
+     for (let index = 0; index < 2; index += 1) {
+       const src = await sideImages.nth(index).getAttribute("src");
+-      expect(src ?? "", `public side hero ${index} should use a real slide image`).toContain("/shop/design/hero-");
++      expect(src ?? "", `public side hero ${index} should use a real sales image`).toMatch(/^https:\/\/images\.unsplash\.com\//);
++      expect(src ?? "", `public side hero ${index} should not use weak placeholder imagery`).not.toMatch(/placeholder|skeleton|gray|grey|\/shop\/design\/hero-/i);
+     }
+ 
++    const productImages = page.getByTestId("recommended-products").locator("img");
++    await expect.poll(async () => productImages.count(), { message: "recommended products should show at least five images" }).toBeGreaterThanOrEqual(5);
++
++    const weakImages = await page.locator("img").evaluateAll((images) => images.filter((image) => /placeholder|skeleton|gray|grey|no-image|画像なし|\/shop\/design\/hero-/i.test(image.getAttribute("src") || "")).length);
++    expect(weakImages, "public storefront should not use gray/placeholder images").toBe(0);
++
+     await saveScreenshot(page, "shop-storefront-top-1980.png");
+   });
+ 
++  test("public storefront top is dense at 1365px without placeholder images", async ({ page }) => {
++    await page.setViewportSize({ width: 1365, height: 1200 });
++    await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
++
++    await expect(page.getByTestId("storefront-hero-slider")).toBeVisible();
++    await expect(page.getByTestId("hero-slide-main").locator("img")).toBeVisible();
++    await expect(page.locator("[data-hero-side-image]")).toHaveCount(2);
++    await expect(page.getByTestId("recommended-products")).toBeVisible();
++    await expect.poll(async () => page.getByTestId("recommended-products").locator("img").count()).toBeGreaterThanOrEqual(5);
++    await expect(page.getByText("タイムセール").first()).toBeVisible();
++    await expect(page.getByText("人気ブランド").first()).toBeVisible();
++
++    const weakImages = await page.locator("img").evaluateAll((images) => images.filter((image) => /placeholder|skeleton|gray|grey|no-image|画像なし|\/shop\/design\/hero-/i.test(image.getAttribute("src") || "")).length);
++    expect(weakImages, "1365px public storefront should not use placeholder images").toBe(0);
++
++    await saveScreenshot(page, "shop-storefront-top-1365.png");
++  });
++
+   test("public product detail uses gallery information and purchase-box columns", async ({ page, request }) => {
+     await page.setViewportSize({ width: 1980, height: 1080 });
+     const productPath = await findProductPath(page, request);

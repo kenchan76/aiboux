@@ -1,0 +1,1 @@
+{"ok":false,"success":false,"code":"SUBSCRIPTION_SCHEMA_PENDING","message":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。","error":"定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。"}

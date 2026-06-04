@@ -78,7 +78,8 @@ test.describe("AIBOUX Shop design editor public visual gate", () => {
     await expect(sideImages).toHaveCount(2);
     for (let index = 0; index < 2; index += 1) {
       const src = await sideImages.nth(index).getAttribute("src");
-      expect(src ?? "", `side hero ${index} should use a real slide image`).toContain("/shop/design/hero-");
+      expect(src ?? "", `side hero ${index} should use a real sales image`).toMatch(/^https:\/\/images\.unsplash\.com\//);
+      expect(src ?? "", `side hero ${index} should not use weak placeholder imagery`).not.toMatch(/placeholder|skeleton|gray|grey|\/shop\/design\/hero-/i);
     }
 
     await saveScreenshot(page, "shop-design-editor-top-1980.png");
@@ -112,10 +113,35 @@ test.describe("AIBOUX Shop design editor public visual gate", () => {
     await expect(sideImages).toHaveCount(2);
     for (let index = 0; index < 2; index += 1) {
       const src = await sideImages.nth(index).getAttribute("src");
-      expect(src ?? "", `public side hero ${index} should use a real slide image`).toContain("/shop/design/hero-");
+      expect(src ?? "", `public side hero ${index} should use a real sales image`).toMatch(/^https:\/\/images\.unsplash\.com\//);
+      expect(src ?? "", `public side hero ${index} should not use weak placeholder imagery`).not.toMatch(/placeholder|skeleton|gray|grey|\/shop\/design\/hero-/i);
     }
 
+    const productImages = page.getByTestId("recommended-products").locator("img");
+    await expect.poll(async () => productImages.count(), { message: "recommended products should show at least five images" }).toBeGreaterThanOrEqual(5);
+
+    const weakImages = await page.locator("img").evaluateAll((images) => images.filter((image) => /placeholder|skeleton|gray|grey|no-image|画像なし|\/shop\/design\/hero-/i.test(image.getAttribute("src") || "")).length);
+    expect(weakImages, "public storefront should not use gray/placeholder images").toBe(0);
+
     await saveScreenshot(page, "shop-storefront-top-1980.png");
+  });
+
+  test("public storefront top is dense at 1365px without placeholder images", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
+
+    await expect(page.getByTestId("storefront-hero-slider")).toBeVisible();
+    await expect(page.getByTestId("hero-slide-main").locator("img")).toBeVisible();
+    await expect(page.locator("[data-hero-side-image]")).toHaveCount(2);
+    await expect(page.getByTestId("recommended-products")).toBeVisible();
+    await expect.poll(async () => page.getByTestId("recommended-products").locator("img").count()).toBeGreaterThanOrEqual(5);
+    await expect(page.getByText("タイムセール").first()).toBeVisible();
+    await expect(page.getByText("人気ブランド").first()).toBeVisible();
+
+    const weakImages = await page.locator("img").evaluateAll((images) => images.filter((image) => /placeholder|skeleton|gray|grey|no-image|画像なし|\/shop\/design\/hero-/i.test(image.getAttribute("src") || "")).length);
+    expect(weakImages, "1365px public storefront should not use placeholder images").toBe(0);
+
+    await saveScreenshot(page, "shop-storefront-top-1365.png");
   });
 
   test("public product detail uses gallery information and purchase-box columns", async ({ page, request }) => {
