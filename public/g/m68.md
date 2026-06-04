@@ -4696,3 +4696,36 @@ Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+## SHOP_10H_SHARED_SEO_HUB_WIP
+
+Status: `SHOP_10H_SHARED_SEO_HUB_WIP`
+
+Purpose:
+- Continue the AIBOUX Shop 5-hour sales-quality sprint.
+- Strengthen all tenant storefront pages with a shared SEO/internal-link hub.
+- Keep public links crawlable with real `<a href>` anchors and descriptive link text.
+- Keep SEO-relevant links visibly blue with hover/focus affordance.
+
+Implementation:
+- Added `src/components/shop/storefront/StorefrontSeoHub.tsx`.
+- Added shared link builders in `src/lib/shopStorefrontShared.ts`.
+- Rendered the SEO hub on TOP and every public tenant subpage.
+- Strengthened `tests/shop-public-crawl.spec.ts` to require the SEO hub, visible `SiteNavigationElement` microdata, dense internal links, and visible link color.
+
+Public deploy:
+- Worker Version ID: `89d685a7-8eb1-401c-8c6b-d92d29b9aa37`
+- WIP commit: `847f49b`
+
+Verification:
+- `npm run check:control-chars`: PASS
+- `npm run check:mojibake`: PASS
+- `npm run astro -- check`: PASS with existing warnings/hints only
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across configured storefront/admin lanes
+- Direct public HTML checks confirmed `storefront-seo-hub` on TOP, cart, checkout, mypage, and legal pages.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
