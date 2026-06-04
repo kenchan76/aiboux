@@ -4631,3 +4631,18 @@ Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
 - Strengthened public gates: `tests/shop-public-crawl.spec.ts`, `tests/shop-product-detail-public.spec.ts`.
 - FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+## 2026-06-04T15:00:00Z Current Evidence Note: Shop Shared Breadcrumb Public Verification
+
+Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
+
+- WIP commit before deploy: `9e48dc0`
+- Worker Version ID: `73a4a4fd-a69b-4ce7-9c7b-18ecee9c6701`
+- Public TOP `https://shop.aiboux.com/s/aiboux/`: HTTP 200 / `x-aiboux-worker-version: 73a4a4fd-a69b-4ce7-9c7b-18ecee9c6701`.
+- Public product detail `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`: HTTP 200 / visible shared breadcrumb microdata present.
+- Visible breadcrumb DOM confirms `data-testid="storefront-breadcrumb"`, `BreadcrumbList`, `ListItem`, and `text-blue-700` link styling.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 passed.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
