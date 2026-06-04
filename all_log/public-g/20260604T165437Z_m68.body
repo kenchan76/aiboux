@@ -52,7 +52,7 @@ Implemented WIP direction:
 Latest WIP evidence:
 
 - WIP commit: `82c4f6b WIP strengthen shop page entity FAQ SEO parts`
-- Worker Version ID: `__WORKER_VERSION_ID__`
+- Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
 - TOP `/s/aiboux/`: `SiteNavigationElement` and page entity JSON-LD verified on public HTML.
 - FAQ `/s/aiboux/faq`: `FAQPage`, `Question`, and `acceptedAnswer` verified on public HTML.
 - Contact `/s/aiboux/contact`: `ContactPage` verified on public HTML.
@@ -349,7 +349,7 @@ MASTER_REWRITE_REQUIRED
 ### 2.2 現在の確定情報
 
 - 対象Worker名: aiboux
-- Worker Version ID: __WORKER_VERSION_ID__
+- Worker Version ID: a34edb6b-82b2-4c36-b208-03b526b623c4
 - Remote repository: https://github.com/kenchan76/aiboux.git
 - gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
 - Bark通知方針修正: 完了
@@ -2496,7 +2496,7 @@ AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に
 ### 21.1 Worker
 
 Worker name: aiboux
-Worker Version ID: __WORKER_VERSION_ID__
+Worker Version ID: a34edb6b-82b2-4c36-b208-03b526b623c4
 Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
 Deployment created_on: 2026-05-31T14:22:16.574248Z
 Version percentage: 100
@@ -4727,22 +4727,6 @@ Verification:
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across configured storefront/admin lanes
 - Direct public HTML checks confirmed `storefront-seo-hub` on TOP, cart, checkout, mypage, and legal pages.
-
-Not final:
-- Remote D1 subscription migration remains unapplied.
-- Provider-backed recurring billing remains unverified.
-- FINAL_ACCEPTED remains prohibited.
-
-## SHOP_10H_ENTITY_GRAPH_SEO_PUBLICATION_AND_BARK
-
-Status: `WIP_DEPLOYED_NOT_FINAL`
-
-Latest public evidence publication:
-- Evidence commit: `2818d8c`
-- Public evidence Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
-- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
-- Public `/g/*` include the `SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP` marker.
-- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
 
 Not final:
 - Remote D1 subscription migration remains unapplied.

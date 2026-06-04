@@ -74,6 +74,19 @@ Confirmed markers:
 - WIP commit: `b6ba295`
 - Worker Version ID: `d7617383-347a-43b5-ab4d-dc54ddab17d7`
 - Deploy log: `all_log/deploys/20260604T164621Z_entity_graph_seo_wrangler_deploy.txt`
+- Evidence commit: `2818d8c`
+- Public evidence Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
+- Public evidence deploy log: `all_log/deploys/20260604T165412Z_publish_entity_graph_seo_evidence.txt`
+- Public `/g/*` verification: `all_log/public-g/20260604T165437Z_*`
+
+## Progress Bark
+
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
+- userReceiptConfirmed: false
+- Evidence file: `all_log/bark/20260604T165451Z_entity_graph_seo_progress_bark.json`
 
 ## Not Final
 

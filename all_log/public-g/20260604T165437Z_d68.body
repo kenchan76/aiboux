@@ -260,9 +260,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `a34edb6b-82b2-4c36-b208-03b526b623c4` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `a34edb6b-82b2-4c36-b208-03b526b623c4` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `a34edb6b-82b2-4c36-b208-03b526b623c4` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -317,7 +317,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `a34edb6b-82b2-4c36-b208-03b526b623c4`
 
 Screen evidence policy:
 
@@ -406,7 +406,7 @@ Verified route:
 - `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `a34edb6b-82b2-4c36-b208-03b526b623c4`
 
 Current visual evidence:
 
@@ -563,7 +563,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `a34edb6b-82b2-4c36-b208-03b526b623c4`.
 
 Design editor screen evidence:
 
@@ -1038,7 +1038,7 @@ Cycle 4 visual checks:
 Not FINAL_ACCEPTED.
 
 Evidence publication note:
-- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: __WORKER_VERSION_ID__
+- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: a34edb6b-82b2-4c36-b208-03b526b623c4
 
 ---
 
@@ -1317,39 +1317,6 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 
-## SHOP_10H_ENTITY_GRAPH_SEO_PUBLICATION_AND_BARK Screen Evidence
-
-Timestamp: 2026-06-04T16:56:00Z
-Status: WIP_DEPLOYED_NOT_FINAL
-
-Public evidence publication:
-- Evidence commit: `2818d8c`
-- Public evidence Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
-- Public m68/l68/d68 verification files: `all_log/public-g/20260604T165437Z_*`
-
-Public screen links confirmed in d68:
-- TOP 1365: `https://mail.aiboux.com/g/screens/shop-top-1365.png`
-- TOP mobile: `https://mail.aiboux.com/g/screens/shop-top-mobile.png`
-- Product detail 1365: `https://mail.aiboux.com/g/screens/shop-product-detail-1365.png`
-- Product detail 1980: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
-- Product detail mobile: `https://mail.aiboux.com/g/screens/shop-product-detail-mobile.png`
-- Hero during animation: `https://mail.aiboux.com/g/screens/shop-hero-during-animation-1365.png`
-- Hero after next: `https://mail.aiboux.com/g/screens/shop-hero-after-next-smooth-1365.png`
-- Hero after dot: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-smooth-1365.png`
-- Cart add result: `https://mail.aiboux.com/g/screens/shop-cart-add-result.png`
-- Admin products: `https://mail.aiboux.com/g/screens/shop-admin-products.png`
-
-Progress Bark notification:
-- delivered: true
-- skipped: false
-- secretLogged: false
-- finalGate: false
-- Evidence file: `all_log/bark/20260604T165451Z_entity_graph_seo_progress_bark.json`
-
-Not final:
-- Remote D1 subscription migration remains unapplied.
-- Provider-backed recurring billing remains unverified.
-
 ## SHOP_10H_ENTITY_GRAPH_SEO_UI_WIP Screen Evidence
 
 Timestamp: 2026-06-04T16:55:00Z
@@ -1588,7 +1555,7 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 
 Public SEO structure verification after WIP deploy:
-- Worker Version ID: `__WORKER_VERSION_ID__`
+- Worker Version ID: `a34edb6b-82b2-4c36-b208-03b526b623c4`
 - TOP `/s/aiboux/`: HTTP 200 / `SiteNavigationElement` present / `WebPage` present.
 - FAQ `/s/aiboux/faq`: HTTP 200 / `FAQPage` present / `Question` count 4 / `acceptedAnswer` count 4.
 - Contact `/s/aiboux/contact`: HTTP 200 / `ContactPage` present.
