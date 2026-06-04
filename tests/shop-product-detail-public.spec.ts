@@ -53,7 +53,11 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
       await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
-      await expect(page.getByTestId("storefront-breadcrumb")).toBeVisible();
+      const breadcrumb = page.getByTestId("storefront-breadcrumb");
+      await expect(breadcrumb).toBeVisible();
+      await expect(breadcrumb).toHaveAttribute("itemtype", "https://schema.org/BreadcrumbList");
+      expect(await breadcrumb.locator('[itemtype="https://schema.org/ListItem"]').count(), "product breadcrumb should expose visible ListItem microdata").toBeGreaterThanOrEqual(3);
+      expect(await breadcrumb.locator("a").first().getAttribute("class"), "product breadcrumb links should be visibly link-colored").toContain("text-blue-700");
       await expect(page.locator("h1")).toHaveCount(1);
 
       const jsonLdText = await page.locator('script[type="application/ld+json"]').first().textContent();

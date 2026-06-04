@@ -221,6 +221,27 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
 
+## 2026-06-04 User Escalation: Shared Breadcrumb SEO/UI Parts
+
+User required all pages to be made SEO strongest and UI strongest, including common reusable parts.
+
+Additional active requirements:
+- Visible storefront breadcrumbs must be a shared component, not hand-written separately on TOP and subpages.
+- The shared breadcrumb must expose Schema.org `BreadcrumbList` and `ListItem` microdata in the visible DOM.
+- Breadcrumb links must be obviously clickable with blue link color, underline hover state, and keyboard focus affordance.
+- JSON-LD breadcrumbs and visible breadcrumbs must use the same `ShopBreadcrumbItem` data source.
+- Public gates must verify visible breadcrumb microdata and link affordance on `https://shop.aiboux.com` URLs.
+
+Implementation direction:
+- Add `src/components/shop/storefront/StorefrontBreadcrumb.tsx`.
+- Use the shared breadcrumb on `/s/aiboux/` and all `/s/aiboux/...` subpages.
+- Strengthen public crawl and product detail Playwright gates to verify BreadcrumbList microdata and link color.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
+
 ## 2026-06-04 User Escalation: Shared Page Entity And FAQ SEO Parts
 
 User required all pages to be inspected for strongest SEO and reusable common parts.

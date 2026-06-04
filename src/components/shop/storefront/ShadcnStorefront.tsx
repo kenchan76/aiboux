@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import { buildShopFooterColumns } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
+import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
 
 type StorefrontProduct = {
   id: string;
@@ -107,9 +108,10 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
       <StoreHeader storeName={storeName} tenantRoot={tenantRoot} layout={layout} />
 
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
-        <nav className="flex items-center gap-1 py-3 text-xs text-neutral-500" aria-label="パンくず" data-testid="storefront-breadcrumb">
-          <span className="font-semibold text-neutral-700" aria-current="page">TOP</span>
-        </nav>
+        <StorefrontBreadcrumb
+          className="py-3"
+          items={[{ name: "TOP", href: "", url: "https://shop.aiboux.com/s/aiboux/" }]}
+        />
         <h1 className="sr-only">{storeName}</h1>
         <section
           className="pt-0"

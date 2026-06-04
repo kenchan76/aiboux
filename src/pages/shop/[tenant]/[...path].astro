@@ -1,5 +1,6 @@
 ---
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
+import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
 import {
   buildShopBreadcrumbItems,
   buildShopBreadcrumbJsonLd,
@@ -548,18 +549,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     {
       isKnownTenant && isAllowedPath ? (
         <main class="mx-auto max-w-screen-xl px-4 py-8">
-          <nav class="mb-4 flex flex-wrap items-center gap-1 text-xs text-neutral-500" aria-label="パンくず" data-testid="storefront-breadcrumb">
-            {breadcrumbItems.map((item, index) => (
-              <>
-                {index > 0 ? <span class="px-1 text-neutral-300">/</span> : null}
-                {item.href ? (
-                  <a class="font-semibold text-blue-700 hover:text-blue-900" href={item.href}>{item.name}</a>
-                ) : (
-                  <span class="font-semibold text-neutral-700" aria-current="page">{item.name}</span>
-                )}
-              </>
-            ))}
-          </nav>
+          <StorefrontBreadcrumb className="mb-4" items={breadcrumbItems} />
           {page !== "product" ? (
             <div class="mb-6">
               <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{storeName}</p>

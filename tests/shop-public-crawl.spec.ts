@@ -85,7 +85,17 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
         await expect(page.getByTestId("storefront-footer"), `${target.path} should include Amazon-like storefront footer`).toBeVisible();
-        await expect(page.getByTestId("storefront-breadcrumb"), `${target.path} should include visible breadcrumb navigation`).toBeVisible();
+        const breadcrumb = page.getByTestId("storefront-breadcrumb");
+        await expect(breadcrumb, `${target.path} should include visible breadcrumb navigation`).toBeVisible();
+        await expect(breadcrumb, `${target.path} breadcrumb should expose BreadcrumbList microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/BreadcrumbList",
+        );
+        expect(await breadcrumb.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} should expose visible breadcrumb ListItem microdata`).toBeGreaterThanOrEqual(1);
+        const breadcrumbLinkCount = await breadcrumb.locator("a").count();
+        if (breadcrumbLinkCount > 0) {
+          expect(await breadcrumb.locator("a").first().getAttribute("class"), `${target.path} breadcrumb links should be visibly link-colored`).toContain("text-blue-700");
+        }
         if ("expectedTestId" in target && target.expectedTestId) {
           await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
         }

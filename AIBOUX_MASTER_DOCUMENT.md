@@ -4611,3 +4611,23 @@ Status: `WIP_DEPLOYED_NOT_FINAL`
 - FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-04T14:55:42Z Current Evidence Note: Shop Shared Breadcrumb SEO/UI Parts
+
+Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target product/detail and support pages: `https://shop.aiboux.com/s/aiboux/...`
+- Shared visible breadcrumb component added: `src/components/shop/storefront/StorefrontBreadcrumb.tsx`
+- TOP React storefront and Astro subpage/product route now use the same visible breadcrumb component.
+- Visible breadcrumbs expose Schema.org `BreadcrumbList` and `ListItem` microdata.
+- Breadcrumb links use visible blue link color, underline hover state, and keyboard focus outline.
+- Visible breadcrumbs and JSON-LD breadcrumbs are both sourced from `ShopBreadcrumbItem`.
+- Product detail pages continue to require exactly one visible `h1`; duplicate product title above the image/gallery remains prohibited.
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with existing hints only.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- Strengthened public gates: `tests/shop-public-crawl.spec.ts`, `tests/shop-product-detail-public.spec.ts`.
+- FINAL_ACCEPTED remains prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
