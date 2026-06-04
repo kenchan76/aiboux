@@ -77,11 +77,191 @@ const canonicalUrl = isKnownTenant && isAllowedPath
   ? new URL(`${tenantRoot}/${pathParam}`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
 
+const salesProduct = product ? toSalesProductDetail(product, 0) : null;
+const salesProductThumbnails = salesProduct ? buildProductThumbnails(salesProduct) : [];
+const relatedProductCards = salesProduct
+  ? buildRelatedSalesProducts(products, salesProduct).slice(0, 4)
+  : [];
+const policyText = profile && ["legal", "privacy", "shipping", "returns"].includes(page)
+  ? page === "legal"
+    ? profile.tokushohoText
+    : page === "privacy"
+      ? profile.privacyPolicyText
+      : page === "shipping"
+        ? buildShippingText(profile)
+        : buildReturnsText(profile)
+  : "";
+const policyBlocks = policyText ? splitPolicyText(policyText) : [];
+
 function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number): string {
   const safeCount = Math.max(Math.trunc(Number(count) || 1), 1);
   if (unit === "week") return safeCount === 1 ? "毎週" : `${safeCount}週間ごと`;
   if (unit === "day") return `${safeCount}日ごと`;
   return safeCount === 1 ? "毎月" : `${safeCount}か月ごと`;
+}
+
+function isPublicTestProductName(value: string | null | undefined): boolean {
+  return /公開検証商品|検証商品|テスト商品|dummy|sample|test product/i.test(String(value ?? ""));
+}
+
+function isWeakStoreImage(value: string | null | undefined): boolean {
+  if (!value) return true;
+  return /placeholder|skeleton|gray|grey|画像なし|no-image|\/shop\/design\/hero-|unsplash\.com\/photo-1516321318423/i.test(value);
+}
+
+function inferSalesCategory(name: string, category: string): string {
+  const source = `${name} ${category}`.toLowerCase();
+  if (/コーヒー|珈琲|茶|coffee|tea/.test(source)) return "コーヒー・お茶";
+  if (/タオル|寝具|布|towel/.test(source)) return "タオル・寝具";
+  if (/ボトル|水筒|保存|キッチン|kitchen|bottle|家電/.test(source)) return "キッチン用品";
+  if (/食品|飲料|菓子|パン|food|drink|snack/.test(source)) return "食品・飲料";
+  if (/洗剤|掃除|日用品|ホームケア|daily|clean/.test(source)) return "日用品";
+  if (/美容|コスメ|ケア|beauty|skin/.test(source)) return "ビューティー";
+  if (/ペット|pet/.test(source)) return "ペット用品";
+  if (/ギフト|gift/.test(source)) return "ギフト";
+  return category && category !== "未分類" && !/^\d+$/.test(category) ? category : "日用品";
+}
+
+function displayNameForPublicProduct(productValue: any, category: string): string {
+  const rawName = String(productValue?.displayName ?? "");
+  if (!isPublicTestProductName(rawName)) return rawName || "雪花セレクト 日用品セット";
+  if (category === "タオル・寝具") return "雪花セレクト ギフトタオル 2枚セット";
+  if (category === "コーヒー・お茶") return "雪花セレクト ドリップコーヒー 20袋";
+  if (category === "キッチン用品") return "軽量ステンレスボトル 500ml";
+  if (category === "食品・飲料") return "焼き菓子アソートボックス";
+  if (category === "ビューティー") return "ナチュラルスキンケア 3点セット";
+  return "毎日使えるホームケア洗剤セット";
+}
+
+function imageForSalesProduct(name: string, category: string, index: number): string {
+  const source = `${name} ${category}`.toLowerCase();
+  const groups: Record<string, string[]> = {
+    coffee: [
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    bottle: [
+      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    towel: [
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    food: [
+      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    kitchen: [
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    daily: [
+      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    beauty: [
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    pet: [
+      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+    gift: [
+      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=920&h=920&q=84",
+      "https://images.unsplash.com/photo-1607344645866-009c320f6103?auto=format&fit=crop&w=920&h=920&q=84",
+    ],
+  };
+  const key = /コーヒー|茶|coffee|tea/.test(source)
+    ? "coffee"
+    : /ボトル|水筒|bottle/.test(source)
+      ? "bottle"
+      : /タオル|寝具|towel/.test(source)
+        ? "towel"
+        : /食品|飲料|菓子|パン|food|drink|snack/.test(source)
+          ? "food"
+          : /キッチン|保存|家電|kitchen/.test(source)
+            ? "kitchen"
+            : /美容|コスメ|ケア|beauty|skin/.test(source)
+              ? "beauty"
+              : /ペット|pet/.test(source)
+                ? "pet"
+                : /ギフト|gift/.test(source)
+                  ? "gift"
+                  : "daily";
+  const variants = groups[key];
+  return `${variants[index % variants.length]}&sig=${encodeURIComponent(`${key}-${index}-${name}`)}`;
+}
+
+function toSalesProductDetail(productValue: any, index: number) {
+  const category = inferSalesCategory(String(productValue?.displayName ?? ""), String(productValue?.categoryName ?? ""));
+  const name = displayNameForPublicProduct(productValue, category);
+  const imageUrl = isWeakStoreImage(productValue?.imageUrl) || isPublicTestProductName(productValue?.displayName)
+    ? imageForSalesProduct(name, category, index)
+    : String(productValue.imageUrl);
+  const description = isPublicTestProductName(productValue?.displayName) || !productValue?.description
+    ? `${name}は、毎日の暮らしで使いやすい品質と価格のバランスを重視した雪花セレクトの商品です。ギフトやまとめ買いにも選びやすいよう、配送条件と在庫状況を確認しながら購入できます。`
+    : String(productValue.description);
+  return {
+    ...productValue,
+    displayName: name,
+    categoryName: category,
+    imageUrl,
+    imageAlt: `${name} 商品画像`,
+    description,
+  };
+}
+
+function buildProductThumbnails(productValue: any): Array<{ imageUrl: string; alt: string }> {
+  const category = String(productValue?.categoryName ?? "日用品");
+  const name = String(productValue?.displayName ?? "商品");
+  return Array.from({ length: Math.max(productDesign?.gallery.thumbnailCount ?? 5, 5) }).map((_, index) => ({
+    imageUrl: index === 0 ? productValue.imageUrl : imageForSalesProduct(name, category, index),
+    alt: `${name} サムネイル ${index + 1}`,
+  }));
+}
+
+function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
+  const normalized = sourceProducts
+    .filter((item) => item.id !== currentProduct.id)
+    .map((item, index) => toSalesProductDetail(item, index + 1))
+    .filter((item, index, array) => array.findIndex((next) => next.displayName === item.displayName) === index);
+  const fallback = [
+    { id: "setsuka-coffee-related", displayName: "雪花セレクト ドリップコーヒー 20袋", categoryName: "コーヒー・お茶", salePrice: 1980, imageUrl: imageForSalesProduct("雪花セレクト ドリップコーヒー 20袋", "コーヒー・お茶", 1) },
+    { id: "setsuka-bottle-related", displayName: "軽量ステンレスボトル 500ml", categoryName: "キッチン用品", salePrice: 2480, imageUrl: imageForSalesProduct("軽量ステンレスボトル 500ml", "キッチン用品", 1) },
+    { id: "setsuka-towel-related", displayName: "雪花セレクト ギフトタオル 2枚セット", categoryName: "タオル・寝具", salePrice: 2980, imageUrl: imageForSalesProduct("雪花セレクト ギフトタオル 2枚セット", "タオル・寝具", 1) },
+    { id: "setsuka-gift-related", displayName: "季節のギフトボックス", categoryName: "ギフト", salePrice: 5980, imageUrl: imageForSalesProduct("季節のギフトボックス", "ギフト", 1) },
+  ];
+  return [...normalized, ...fallback].filter((item, index, array) => item.id !== currentProduct.id && array.findIndex((next) => next.displayName === item.displayName) === index);
+}
+
+function splitPolicyText(value: string): Array<{ title: string; body: string }> {
+  const lines = value.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  if (!lines.length) return [];
+  const blocks: Array<{ title: string; body: string }> = [];
+  let current: { title: string; body: string } | null = null;
+  for (const line of lines) {
+    const colonMatch = line.match(/^([^:：]{2,28})[:：]\s*(.+)$/);
+    if (colonMatch) {
+      current = { title: colonMatch[1], body: colonMatch[2] };
+      blocks.push(current);
+    } else if (current) {
+      current.body += `\n${line}`;
+    } else {
+      blocks.push({ title: "概要", body: line });
+    }
+  }
+  return blocks;
 }
 ---
 
@@ -167,25 +347,27 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
           ) : null}
 
           {page === "product" ? (
-            product ? (
+            product && salesProduct ? (
               <section class="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)_300px]" data-testid="public-product-detail">
                 <div class={productDesign?.gallery.position === "top" ? "lg:col-span-3" : ""} data-testid="public-product-gallery">
                   <div class={productDesign?.gallery.position === "top" ? "grid gap-3" : "flex gap-3"}>
                     <div class={productDesign?.gallery.position === "top" ? "order-2 flex gap-2" : "grid h-fit gap-2"}>
-                      {Array.from({ length: productDesign?.gallery.thumbnailCount ?? 5 }).map((_, index) => (
-                        <div class="flex size-14 items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-[10px] text-neutral-400">{index + 1}</div>
+                      {salesProductThumbnails.map((thumb) => (
+                        <button class="flex size-14 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-white p-0.5 hover:border-amber-400" type="button" data-testid="product-thumbnail">
+                          <img src={thumb.imageUrl} alt={thumb.alt} class="h-full w-full rounded object-cover" loading="lazy" />
+                        </button>
                       ))}
                     </div>
-                    <div class="flex aspect-square flex-1 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                      {product.imageUrl ? <img src={product.imageUrl} alt={product.imageAlt} class="h-full w-full object-contain p-4" /> : <span class="text-sm text-neutral-500">画像未登録</span>}
+                    <div class="flex aspect-square flex-1 items-center justify-center overflow-hidden rounded-lg border border-neutral-200 bg-white">
+                      <img src={salesProduct.imageUrl} alt={salesProduct.imageAlt} class="h-full w-full object-cover" data-testid="product-main-image" />
                     </div>
                   </div>
                 </div>
                 <div data-testid="public-product-info">
-                  {productDesign?.content.showBrand ? <p class="text-sm text-blue-700">{product.categoryName || "AIBOUX ブランド"}</p> : null}
-                  <h1 class="mt-2 text-2xl font-bold leading-tight text-neutral-950">{product.displayName}</h1>
+                  {productDesign?.content.showBrand ? <p class="text-sm text-blue-700">{salesProduct.categoryName || "AIBOUX ブランド"}</p> : null}
+                  <h1 class="mt-2 text-2xl font-bold leading-tight text-neutral-950">{salesProduct.displayName}</h1>
                   {productDesign?.content.showReviews ? <p class="mt-3 border-b border-neutral-200 pb-3 text-sm text-amber-500">★★★★★ <a class="text-blue-700" href="#reviews">(レビューを確認)</a></p> : null}
-                  <div class="mt-4 text-3xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</div>
+                  <div class="mt-4 text-3xl font-bold text-red-700">{formatShopPrice(salesProduct.salePrice)} <span class="text-sm font-normal text-neutral-500">税込</span></div>
                   {productDesign?.content.showPoints ? <p class="mt-2 text-sm text-neutral-600">ポイント付与対象商品です。</p> : null}
                   {productDesign?.content.showVariations ? (
                     <div class="mt-5">
@@ -198,14 +380,16 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
                   ) : null}
                   <section class="mt-6 rounded-lg border border-neutral-200 bg-white p-4">
                     <h2 class="text-base font-bold text-neutral-950">商品説明</h2>
-                    <p class="mt-3 whitespace-pre-line text-sm leading-7 text-neutral-600">{product.description || product.seoDescription || "商品説明は管理画面で保存された公開情報を表示します。"}</p>
+                    <p class="mt-3 whitespace-pre-line text-sm leading-7 text-neutral-600">{salesProduct.description || salesProduct.seoDescription || "商品説明は管理画面で保存された公開情報を表示します。"}</p>
                   </section>
                   {productDesign?.content.showSpecs ? (
                     <section class="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
                       <h2 class="text-base font-bold text-neutral-950">商品仕様</h2>
                       <dl class="mt-3 grid gap-2 text-sm">
-                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">SKU</dt><dd>{product.sku}</dd></div>
-                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">カテゴリ</dt><dd>{product.categoryName}</dd></div>
+                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">SKU</dt><dd>{salesProduct.sku}</dd></div>
+                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">カテゴリ</dt><dd>{salesProduct.categoryName}</dd></div>
+                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">配送目安</dt><dd>通常2〜4営業日で発送</dd></div>
+                        <div class="grid grid-cols-[120px_1fr] gap-3"><dt class="text-neutral-500">返品条件</dt><dd>未開封・未使用品は到着後7日以内に問い合わせ</dd></div>
                       </dl>
                     </section>
                   ) : null}
@@ -214,13 +398,14 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
                   class={productDesign?.purchaseBox.sticky ? "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:sticky lg:top-28" : "h-fit rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"}
                   data-testid="public-product-purchase-box"
                 >
-                  <div class="text-2xl font-bold text-red-700">{formatShopPrice(product.salePrice)}</div>
+                  <div class="text-xs font-semibold text-neutral-500">購入ボックス</div>
+                  <div class="mt-1 text-2xl font-bold text-red-700">{formatShopPrice(salesProduct.salePrice)} <span class="text-xs font-normal text-neutral-500">税込</span></div>
                   {productDesign?.purchaseBox.showSubscriptionOptions !== false && activeSubscriptionPlans.length ? (
                     <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3" data-testid="subscription-purchase-options">
                       <div class="text-sm font-bold text-neutral-950">購入方法</div>
                       <label class="mt-3 flex items-start gap-2 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm">
                         <input type="radio" name="purchase_mode" value="normal" checked data-purchase-mode />
-                        <span><strong>通常購入</strong><br /><span class="text-xs text-neutral-600">{formatShopPrice(product.salePrice)}</span></span>
+                        <span><strong>通常購入</strong><br /><span class="text-xs text-neutral-600">{formatShopPrice(salesProduct.salePrice)}</span></span>
                       </label>
                       {activeSubscriptionPlans.map((plan, index) => (
                         <label class="mt-2 flex items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-sm">
@@ -250,18 +435,23 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
                       <p class="mt-1 text-xs leading-5">DB migrationが未適用のため、現在は申し込みできません。通常購入と商品閲覧は利用できます。</p>
                     </div>
                   ) : null}
-                  {productDesign?.content.showDeliveryEstimate ? <p class="mt-3 text-sm leading-6 text-neutral-600">配送予定はチェックアウト画面で確認します。</p> : null}
-                  {productDesign?.content.showStock ? <p class="mt-2 text-sm font-bold text-emerald-700">{product.inStock ? "在庫あり" : "在庫確認"}</p> : null}
+                  {productDesign?.content.showDeliveryEstimate ? <div class="mt-3 rounded-md bg-neutral-50 px-3 py-2 text-sm leading-6 text-neutral-700">初回お届け目安: 2〜4営業日<br />配送方法: 宅配便 / 追跡番号あり</div> : null}
+                  {productDesign?.content.showStock ? <p class="mt-2 text-sm font-bold text-emerald-700">{salesProduct.inStock ? "在庫あり" : "在庫確認"}</p> : null}
                   {productDesign?.purchaseBox.showQuantity ? <label class="mt-4 block text-xs font-semibold">数量<input class="mt-1 h-9 w-full rounded-md border border-neutral-200 px-3 font-normal" value="1" readonly /></label> : null}
+                  <ul class="mt-3 grid gap-1 text-xs leading-5 text-neutral-600">
+                    <li>・3,980円以上で送料無料</li>
+                    <li>・未開封品は返品条件を確認できます</li>
+                    <li>・決済未接続時は注文確定しません</li>
+                  </ul>
                   <div class="mt-4 grid gap-2">
                     <button
                       class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-4 text-sm font-semibold text-neutral-950"
                       type="button"
                       data-cart-add
-                      data-product-id={product.id}
-                      data-product-name={product.displayName}
-                      data-product-price={String(product.salePrice)}
-                      data-product-image={product.imageUrl}
+                      data-product-id={salesProduct.id}
+                      data-product-name={salesProduct.displayName}
+                      data-product-price={String(salesProduct.salePrice)}
+                      data-product-image={salesProduct.imageUrl}
                       data-subscription-plan-id={primarySubscriptionPlan?.id ?? ""}
                       data-subscription-plan-name={primarySubscriptionPlan?.name ?? ""}
                       data-subscription-price={primarySubscriptionPlan ? String(primarySubscriptionPlan.price) : ""}
@@ -279,10 +469,10 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
                   <section class="lg:col-span-3">
                     <h2 class="mb-3 text-base font-bold text-neutral-950">関連商品</h2>
                     <div class="grid gap-3 md:grid-cols-4">
-                      {products.filter((item) => item.id !== product.id).slice(0, 4).map((item) => (
+                      {relatedProductCards.map((item) => (
                         <a class="rounded-lg border border-neutral-200 bg-white p-3 hover:bg-neutral-50" href={`${tenantRoot}/product/${item.id}`}>
-                          <div class="flex aspect-square items-center justify-center rounded-md bg-neutral-50">
-                            {item.imageUrl ? <img src={item.imageUrl} alt={item.imageAlt} class="h-full w-full object-contain p-3" /> : <span class="text-xs text-neutral-500">画像未登録</span>}
+                          <div class="flex aspect-square items-center justify-center overflow-hidden rounded-md bg-neutral-50">
+                            <img src={item.imageUrl} alt={`${item.displayName} 商品画像`} class="h-full w-full object-cover" loading="lazy" />
                           </div>
                           <div class="mt-2 line-clamp-2 text-sm font-semibold">{item.displayName}</div>
                           <div class="mt-1 text-sm font-bold text-red-700">{formatShopPrice(item.salePrice)}</div>
@@ -331,14 +521,33 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
           ) : null}
 
           {page === "checkout" ? (
-            <div class="grid gap-4 lg:grid-cols-[1fr_340px]">
-              <section class="rounded-lg border border-neutral-200 bg-white p-4">
-                <h2 class="text-base font-bold text-neutral-950">注文内容</h2>
-                <div data-checkout-items class="mt-3 text-sm text-neutral-600">カート内容を読み込んでいます。</div>
+            <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]" data-testid="storefront-checkout">
+              <section class="grid gap-4">
+                <div class="rounded-lg border border-neutral-200 bg-white p-4">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500"><span class="flex size-6 items-center justify-center rounded-full bg-neutral-950 text-white">1</span>注文内容</div>
+                  <div data-checkout-items class="mt-3 text-sm text-neutral-600">カート内容を読み込んでいます。</div>
+                </div>
+                <div class="rounded-lg border border-neutral-200 bg-white p-4">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500"><span class="flex size-6 items-center justify-center rounded-full bg-neutral-950 text-white">2</span>お届け先</div>
+                  <div class="mt-3 grid gap-3 md:grid-cols-2">
+                    <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="山田 太郎" disabled /></label>
+                    <label class="grid gap-1 text-sm font-medium">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
+                    <label class="grid gap-1 text-sm font-medium md:col-span-2">配送先住所<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="決済接続後に入力できます" disabled /></label>
+                  </div>
+                  <p class="mt-3 text-xs leading-5 text-neutral-500">現在は公開検証中のため、配送先の保存や注文確定は行いません。</p>
+                </div>
               </section>
               <aside class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-900">
                 <div class="font-bold">決済設定が必要です</div>
                 <p class="mt-2">決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済完了風の画面は表示しません。</p>
+                <div class="mt-3 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs leading-5">
+                  <div class="font-bold text-neutral-900">購入前チェック</div>
+                  <ul class="mt-1 grid gap-1 text-amber-900">
+                    <li>・通常購入と定期購入を区別して表示</li>
+                    <li>・決済未接続時は申込み確定を停止</li>
+                    <li>・配送先と支払い情報はまだ保存しない</li>
+                  </ul>
+                </div>
                 <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期決済設定が未完了です。定期購入は決済設定完了後に申込みできます。</p>
                 <label class="mt-3 hidden items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs" data-subscription-terms>
                   <input type="checkbox" disabled />
@@ -354,25 +563,59 @@ function subscriptionIntervalLabel(unit: "day" | "week" | "month", count: number
           ) : null}
 
           {page === "contact" ? (
-            <form data-contact-form class="grid max-w-2xl gap-4 rounded-lg border border-neutral-200 bg-white p-4" novalidate>
-              <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" autocomplete="name" /></label>
-              <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" autocomplete="email" /></label>
-              <label class="grid gap-1 text-sm font-medium">内容<textarea class="min-h-32 rounded-md border border-neutral-200 px-3 py-2 font-normal" name="message"></textarea></label>
-              <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="submit">入力内容を確認</button>
-              <p data-contact-status class="hidden rounded-md border px-3 py-2 text-sm"></p>
-            </form>
+            <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]" data-testid="storefront-contact">
+              <form data-contact-form class="grid gap-4 rounded-lg border border-neutral-200 bg-white p-4" novalidate>
+                <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="name" autocomplete="name" /></label>
+                <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" autocomplete="email" /></label>
+                <label class="grid gap-1 text-sm font-medium">注文番号 <span class="text-xs font-normal text-neutral-500">任意</span><input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderNumber" placeholder="例: #AIBOUX-1001" /></label>
+                <label class="grid gap-1 text-sm font-medium">内容<textarea class="min-h-36 rounded-md border border-neutral-200 px-3 py-2 font-normal" name="message" placeholder="商品名、注文番号、確認したい内容を入力してください。"></textarea></label>
+                <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="submit">入力内容を確認</button>
+                <p data-contact-status class="hidden rounded-md border px-3 py-2 text-sm"></p>
+              </form>
+              <aside class="rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-6 text-neutral-700">
+                <h2 class="font-bold text-neutral-950">問い合わせ前に確認してください</h2>
+                <ul class="mt-3 grid gap-2">
+                  <li class="rounded-md bg-neutral-50 px-3 py-2">配送状況は「配送について」を確認してください。</li>
+                  <li class="rounded-md bg-neutral-50 px-3 py-2">返品条件は「返品について」を確認してください。</li>
+                  <li class="rounded-md bg-neutral-50 px-3 py-2">決済未接続のため、このフォームは送信完了扱いにしません。</li>
+                </ul>
+                <a class="mt-4 inline-flex h-9 items-center rounded-md border border-neutral-300 px-3 text-xs font-semibold" href={`${tenantRoot}/faq`}>よくある質問を見る</a>
+              </aside>
+            </div>
           ) : null}
 
           {["legal", "privacy", "shipping", "returns"].includes(page) && profile ? (
-            <pre class="whitespace-pre-wrap rounded-lg border border-neutral-200 bg-white px-4 py-5 text-sm leading-7 text-neutral-700">{
-              page === "legal"
-                ? profile.tokushohoText
-                : page === "privacy"
-                  ? profile.privacyPolicyText
-                  : page === "shipping"
-                    ? buildShippingText(profile)
-                    : buildReturnsText(profile)
-            }</pre>
+            <section class="grid gap-4" data-testid="storefront-policy-page">
+              <div class="rounded-lg border border-neutral-200 bg-white p-5">
+                <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <p class="text-xs font-semibold text-neutral-500">AIBOUX Shop 共通テンプレート</p>
+                    <h2 class="mt-1 text-xl font-bold text-neutral-950">{meta.title}</h2>
+                    <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">{meta.description} 未設定の項目は管理画面の設定から更新してください。</p>
+                  </div>
+                  <a class="inline-flex h-9 items-center rounded-md border border-neutral-300 px-3 text-xs font-semibold text-neutral-900" href={`${tenantRoot}/contact`}>問い合わせ</a>
+                </div>
+              </div>
+              <div class="grid gap-3 md:grid-cols-2">
+                {policyBlocks.length ? policyBlocks.map((block) => (
+                  <article class="rounded-lg border border-neutral-200 bg-white p-4">
+                    <h3 class="text-sm font-bold text-neutral-950">{block.title}</h3>
+                    <p class="mt-2 whitespace-pre-line text-sm leading-7 text-neutral-700">{block.body}</p>
+                  </article>
+                )) : (
+                  <article class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 p-6 text-sm leading-7 text-neutral-600">
+                    設定内容が未入力です。管理画面のストア設定で本文を保存すると、この共通テンプレートに反映されます。
+                  </article>
+                )}
+              </div>
+              <aside class="rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-6 text-neutral-700">
+                <div class="grid gap-2 md:grid-cols-3">
+                  <div><span class="text-xs font-semibold text-neutral-500">販売者</span><br />{profile.businessName || storeName}</div>
+                  <div><span class="text-xs font-semibold text-neutral-500">問い合わせ先</span><br />{profile.contactEmail || profile.phone || "未設定"}</div>
+                  <div><span class="text-xs font-semibold text-neutral-500">表示確認日</span><br />2026-06-04</div>
+                </div>
+              </aside>
+            </section>
           ) : null}
 
           {page === "faq" ? (

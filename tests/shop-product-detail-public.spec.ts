@@ -46,10 +46,16 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(page.locator("[data-cart-add]").first()).toBeVisible();
       await expect(page.getByText(/在庫あり|在庫確認/)).toBeVisible();
       await expect(page.getByText("商品説明")).toBeVisible();
+      await expect(page.getByText(/AIBOUX公開検証商品|公開検証商品|検証商品/)).toHaveCount(0);
+      await expect(page.getByTestId("product-main-image")).toBeVisible();
+      expect(await page.getByTestId("product-thumbnail").count(), "thumbnail gallery should use real image thumbnails").toBeGreaterThanOrEqual(5);
+      const thumbnailImages = page.locator("[data-testid='product-thumbnail'] img");
+      expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
+      await expect(page.getByText("返品条件")).toBeVisible();
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
 
       const purchaseBox = await page.getByTestId("public-product-purchase-box").boundingBox();
-      expect(purchaseBox?.height ?? 0, "purchase box should not be collapsed").toBeGreaterThan(180);
+      expect(purchaseBox?.height ?? 0, "purchase box should not be collapsed").toBeGreaterThan(260);
       await saveScreenshot(page, viewport.file);
     });
   }

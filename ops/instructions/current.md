@@ -30,6 +30,37 @@ Required work:
 
 Do not report `FINAL_ACCEPTED`.
 
+## Active Override: Shop 5H Sales Quality Sprint Cycle 2 Polish
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_5h_sales_quality_sprint_cycle2_polish.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/contact`
+- `https://shop.aiboux.com/s/aiboux/legal`
+- `https://shop.aiboux.com/s/aiboux/privacy`
+- `https://shop.aiboux.com/s/aiboux/shipping`
+- `https://shop.aiboux.com/s/aiboux/returns`
+
+Required work:
+
+1. Continue the 5-hour sprint instead of stopping after gate pass.
+2. Remove public test product names and image mismatches from product detail.
+3. Replace numbered thumbnails with real image thumbnails.
+4. Strengthen product detail purchase box, checkout, contact, and legal shared templates.
+5. Keep remote D1 subscription migration as a separate blocked lane.
+6. Publish `/g/l68`, `/g/d68`, and `/g/m68` before reporting.
+
+Do not report `FINAL_ACCEPTED`.
+
 ## Active Override: Shop Public Storefront Carousel Smoothness And Visual Polish
 
 Instruction source:

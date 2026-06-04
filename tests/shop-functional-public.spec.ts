@@ -102,11 +102,11 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await page.goto("/s/aiboux/legal");
     await expect(page.getByText("販売業者:")).toBeVisible();
     await page.goto("/s/aiboux/privacy");
-    await expect(page.locator("pre").getByText("個人情報")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page").getByText("個人情報")).toBeVisible();
     await page.goto("/s/aiboux/shipping");
-    await expect(page.locator("pre").getByText("配送方法と送料")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page").getByText("配送方法と送料")).toBeVisible();
     await page.goto("/s/aiboux/returns");
-    await expect(page.locator("pre").getByText("返品・交換")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page").getByText("返品・交換")).toBeVisible();
   });
 
   test("store design editor exposes only top and product detail page editing", async ({ page }) => {

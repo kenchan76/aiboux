@@ -28,6 +28,7 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
 
     await page.locator("input[name='name']").fill("検証 太郎");
     await page.locator("input[name='email']").fill("invalid-email");
+    await page.locator("input[name='orderNumber']").fill("#AIBOUX-1001");
     await page.locator("textarea[name='message']").fill("問い合わせ検証です。");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
@@ -52,6 +53,11 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
       await page.goto(item.path, { waitUntil: "networkidle" });
       await expect(page.locator("body")).toContainText(item.text);
       await expect(page.locator("body")).not.toContainText("ページが見つかりません");
+      if (item.path !== "/s/aiboux/faq") {
+        await expect(page.getByTestId("storefront-policy-page")).toBeVisible();
+        await expect(page.getByText("AIBOUX Shop 共通テンプレート")).toBeVisible();
+        await expect(page.getByText("表示確認日")).toBeVisible();
+      }
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
       await saveScreenshot(page, item.file);
     }
