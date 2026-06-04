@@ -1,5 +1,5 @@
 ---
-import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import {
   buildShopBreadcrumbItems,
   buildShopBreadcrumbJsonLd,
@@ -547,26 +547,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
 <!doctype html>
 <html lang="ja" class="bg-white">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <NotoSansJpHead />
-    <meta name="color-scheme" content="light" />
-    <title>{title}</title>
-    <meta name="description" content={socialMeta.description} />
-    <meta name="robots" content={buildShopRobotsContent(page)} />
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
-    <meta property="og:site_name" content={socialMeta.storeName} />
-    <meta property="og:type" content={socialMeta.ogType} />
-    <meta property="og:title" content={socialMeta.title} />
-    <meta property="og:description" content={socialMeta.description} />
-    <meta property="og:url" content={socialMeta.canonicalUrl} />
-    <meta property="og:image" content={socialMeta.imageUrl} />
-    <meta name="twitter:card" content={socialMeta.twitterCard} />
-    <meta name="twitter:title" content={socialMeta.title} />
-    <meta name="twitter:description" content={socialMeta.description} />
-    <meta name="twitter:image" content={socialMeta.imageUrl} />
-    <script type="application/ld+json" set:html={structuredData}></script>
+    <ShopSeoHead
+      title={title}
+      description={socialMeta.description}
+      robots={buildShopRobotsContent(page)}
+      canonicalUrl={canonicalUrl}
+      socialMeta={socialMeta}
+      structuredData={structuredData}
+      productPrice={salesProduct?.salePrice}
+    />
   </head>
   <body class="min-h-screen bg-white text-neutral-950">
     <header id="top" class="border-b border-neutral-900 bg-[#0f1722] text-white">

@@ -1,8 +1,9 @@
 ---
-import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { ShadcnStorefront } from "@/components/shop/storefront/ShadcnStorefront";
 import {
   buildShopBreadcrumbJsonLd,
+  buildShopItemListJsonLd,
   buildShopOrganizationJsonLd,
   buildShopRobotsContent,
   buildShopSocialMeta,
@@ -39,6 +40,10 @@ const socialMeta = buildShopSocialMeta({
   imageUrl: products[0]?.imageUrl,
   storeName,
 });
+const publicProductCards = products.map((product) => ({
+  id: product.id,
+  displayName: product.displayName,
+}));
 const structuredData = JSON.stringify([
   buildShopBreadcrumbJsonLd([{ name: "TOP", href: "", url: canonicalUrl }]),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
@@ -49,7 +54,16 @@ const structuredData = JSON.stringify([
     contactEmail: profile?.contactEmail,
     phone: profile?.phone,
   }),
-]);
+  buildShopItemListJsonLd({
+    page: "",
+    canonicalUrl,
+    tenantRoot,
+    publicProductCards,
+    categoryCards: [],
+    accountCards: [],
+    policySupportCards: [],
+  }),
+].filter(Boolean));
 
 const storefrontProducts = products.map((product) => ({
   id: product.id,
@@ -65,26 +79,14 @@ const storefrontProducts = products.map((product) => ({
 <!doctype html>
 <html lang="ja" class="bg-white">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <NotoSansJpHead />
-    <meta name="color-scheme" content="light" />
-    <title>{title}</title>
-    <meta name="description" content={socialMeta.description} />
-    <meta name="robots" content={buildShopRobotsContent("")} />
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
-    <meta property="og:site_name" content={socialMeta.storeName} />
-    <meta property="og:type" content={socialMeta.ogType} />
-    <meta property="og:title" content={socialMeta.title} />
-    <meta property="og:description" content={socialMeta.description} />
-    <meta property="og:url" content={socialMeta.canonicalUrl} />
-    <meta property="og:image" content={socialMeta.imageUrl} />
-    <meta name="twitter:card" content={socialMeta.twitterCard} />
-    <meta name="twitter:title" content={socialMeta.title} />
-    <meta name="twitter:description" content={socialMeta.description} />
-    <meta name="twitter:image" content={socialMeta.imageUrl} />
-    <script type="application/ld+json" set:html={structuredData}></script>
+    <ShopSeoHead
+      title={title}
+      description={socialMeta.description}
+      robots={buildShopRobotsContent("")}
+      canonicalUrl={canonicalUrl}
+      socialMeta={socialMeta}
+      structuredData={structuredData}
+    />
   </head>
   <body>
     {

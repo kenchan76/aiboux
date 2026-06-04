@@ -321,7 +321,7 @@ export function buildShopItemListJsonLd({
   policySupportCards: Array<{ title: string; href: string }>;
 }) {
   const listItems =
-    page === "products" || page === "favorites"
+    page === "" || page === "products" || page === "favorites"
       ? publicProductCards.slice(0, 20).map((item) => ({
           name: item.displayName,
           url: absoluteShopUrl(`${tenantRoot}/product/${item.id}`),

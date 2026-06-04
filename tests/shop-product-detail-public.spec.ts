@@ -69,8 +69,11 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await page.locator('meta[property="og:type"]').getAttribute("content"), "product detail should use product Open Graph type").toBe("product");
       await expect(page.locator('meta[property="og:title"]'), "product detail should include Open Graph title").toHaveCount(1);
       await expect(page.locator('meta[property="og:image"]'), "product detail should include Open Graph product image").toHaveCount(1);
+      await expect(page.locator('meta[property="product:price:amount"]'), "product detail should include product price Open Graph metadata").toHaveCount(1);
+      await expect(page.locator('meta[property="product:price:currency"]'), "product detail should include product currency Open Graph metadata").toHaveCount(1);
       await expect(page.locator('meta[name="twitter:card"]'), "product detail should include Twitter Card metadata").toHaveCount(1);
       await expect(page.locator('link[rel="alternate"][hreflang="ja-JP"]'), "product detail should include ja-JP alternate link").toHaveCount(1);
+      await expect(page.locator('link[rel="alternate"][hreflang="x-default"]'), "product detail should include x-default alternate link").toHaveCount(1);
 
       const purchaseBox = await page.getByTestId("public-product-purchase-box").boundingBox();
       expect(purchaseBox?.height ?? 0, "purchase box should not be collapsed").toBeGreaterThan(260);

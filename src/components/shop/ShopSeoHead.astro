@@ -1,0 +1,63 @@
+---
+import NotoSansJpHead from "@/components/common/NotoSansJpHead.astro";
+
+type SocialMeta = {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  imageUrl: string;
+  storeName: string;
+  ogType: "website" | "product";
+  twitterCard: string;
+};
+
+type Props = {
+  title: string;
+  description: string;
+  robots: string;
+  canonicalUrl: string;
+  socialMeta: SocialMeta;
+  structuredData: string;
+  productPrice?: number | null;
+};
+
+const {
+  title,
+  description,
+  robots,
+  canonicalUrl,
+  socialMeta,
+  structuredData,
+  productPrice = null,
+} = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<NotoSansJpHead />
+<meta name="color-scheme" content="light" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="alternate" hreflang="ja-JP" href={canonicalUrl} />
+<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+<meta property="og:site_name" content={socialMeta.storeName} />
+<meta property="og:type" content={socialMeta.ogType} />
+<meta property="og:title" content={socialMeta.title} />
+<meta property="og:description" content={socialMeta.description} />
+<meta property="og:url" content={socialMeta.canonicalUrl} />
+<meta property="og:image" content={socialMeta.imageUrl} />
+{
+  socialMeta.ogType === "product" && typeof productPrice === "number" ? (
+    <>
+      <meta property="product:price:amount" content={String(productPrice)} />
+      <meta property="product:price:currency" content="JPY" />
+    </>
+  ) : null
+}
+<meta name="twitter:card" content={socialMeta.twitterCard} />
+<meta name="twitter:title" content={socialMeta.title} />
+<meta name="twitter:description" content={socialMeta.description} />
+<meta name="twitter:image" content={socialMeta.imageUrl} />
+<script type="application/ld+json" set:html={structuredData}></script>

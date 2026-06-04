@@ -94,6 +94,9 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(jsonLdText ?? "", `${target.path} should include BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
         expect(jsonLdText ?? "", `${target.path} should include WebSite JSON-LD`).toContain("WebSite");
         expect(jsonLdText ?? "", `${target.path} should include Organization JSON-LD`).toContain("Organization");
+        if (target.name === "shop-top") {
+          expect(jsonLdText ?? "", `${target.path} should expose TOP product discovery ItemList JSON-LD`).toContain("ItemList");
+        }
         if ([
           "shop-products-page",
           "shop-categories-page",
@@ -131,6 +134,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator('meta[property="og:image"]'), `${target.path} should include Open Graph image`).toHaveCount(1);
         await expect(page.locator('meta[name="twitter:card"]'), `${target.path} should include Twitter Card metadata`).toHaveCount(1);
         await expect(page.locator('link[rel="alternate"][hreflang="ja-JP"]'), `${target.path} should include ja-JP alternate link`).toHaveCount(1);
+        await expect(page.locator('link[rel="alternate"][hreflang="x-default"]'), `${target.path} should include x-default alternate link`).toHaveCount(1);
         await expect(page.locator("h1"), `${target.path} should expose one primary heading`).toHaveCount(1);
 
         const bodyBox = await page.locator("body").boundingBox();
