@@ -12,7 +12,7 @@
 # Error details
 
 ```
-Error: /s/aiboux/contact meta description should explain purchase/search/support intent
+Error: /s/aiboux/legal meta description should explain purchase/search/support intent
 
 expect(received).toBeGreaterThanOrEqual(expected)
 
@@ -76,325 +76,345 @@ Received:    44
         - /url: /s/aiboux/
       - generic [ref=e37]:
         - generic [ref=e38]: /
-        - generic [ref=e39]: 問い合わせ
-    - region "問い合わせ" [ref=e40]:
+        - generic [ref=e39]: 特定商取引法に基づく表示
+    - region "特定商取引法に基づく表示" [ref=e40]:
       - generic [ref=e41]:
         - generic [ref=e42]:
           - paragraph [ref=e43]: 株式会社雪花 公式ストア
-          - heading "問い合わせ" [level=1] [ref=e44]
-          - paragraph [ref=e45]: 商品、注文、配送、返品、定期購入について、必要な情報を添えてストアへ問い合わせできます。
-        - navigation "問い合わせ の主要導線" [ref=e46]:
-          - link "よくある質問" [ref=e47] [cursor=pointer]:
-            - /url: /s/aiboux/faq
-            - generic [ref=e48]: よくある質問
-          - link "配送について" [ref=e49] [cursor=pointer]:
+          - heading "特定商取引法に基づく表示" [level=1] [ref=e44]
+          - paragraph [ref=e45]: 販売者情報、所在地、連絡先、支払方法、配送、返品、キャンセル条件を購入前に確認できます。
+        - navigation "特定商取引法に基づく表示 の主要導線" [ref=e46]:
+          - link "配送条件" [ref=e47] [cursor=pointer]:
             - /url: /s/aiboux/shipping
-            - generic [ref=e50]: 配送について
-          - link "返品について" [ref=e51] [cursor=pointer]:
+            - generic [ref=e48]: 配送条件
+          - link "返品条件" [ref=e49] [cursor=pointer]:
             - /url: /s/aiboux/returns
-            - generic [ref=e52]: 返品について
+            - generic [ref=e50]: 返品条件
+          - link "問い合わせ" [ref=e51] [cursor=pointer]:
+            - /url: /s/aiboux/contact
+            - generic [ref=e52]: 問い合わせ
     - generic [ref=e53]:
-      - generic [ref=e54]:
-        - generic [ref=e55]:
-          - generic [ref=e56]:
-            - text: お名前
-            - textbox "お名前" [ref=e57]
-          - generic [ref=e58]:
-            - text: メールアドレス
-            - textbox "メールアドレス" [ref=e59]
-          - generic [ref=e60]:
-            - text: 注文番号
-            - generic [ref=e61]: 任意
-            - textbox "注文番号 任意" [ref=e62]:
-              - /placeholder: "例: #AIBOUX-1001"
-          - generic [ref=e63]:
-            - text: 内容
-            - textbox "内容" [ref=e64]:
-              - /placeholder: 商品名、注文番号、確認したい内容を入力してください。
-          - button "入力内容を確認" [ref=e65]
-        - complementary [ref=e66]:
-          - heading "問い合わせ前に確認してください" [level=2] [ref=e67]
-          - list [ref=e68]:
-            - listitem [ref=e69]: 配送状況は「配送について」を確認してください。
-            - listitem [ref=e70]: 返品条件は「返品について」を確認してください。
-            - listitem [ref=e71]: 決済未接続のため、このフォームは送信完了扱いにしません。
-          - link "よくある質問を見る" [ref=e72] [cursor=pointer]:
-            - /url: /s/aiboux/faq
-      - generic [ref=e73]:
-        - link "購入前チェック 価格、税込表示、送料、返品条件、決済設定状態を確認してから注文へ進みます。" [ref=e74] [cursor=pointer]:
-          - /url: /s/aiboux/checkout
-          - heading "購入前チェック" [level=3] [ref=e75]
-          - paragraph [ref=e76]: 価格、税込表示、送料、返品条件、決済設定状態を確認してから注文へ進みます。
-        - link "配送・返品 配送目安、送料、返品受付条件、不良品時の問い合わせ導線をまとめて確認できます。" [ref=e77] [cursor=pointer]:
-          - /url: /s/aiboux/shipping
-          - heading "配送・返品" [level=3] [ref=e78]
-          - paragraph [ref=e79]: 配送目安、送料、返品受付条件、不良品時の問い合わせ導線をまとめて確認できます。
-        - link "問い合わせ 注文番号、商品名、確認したい内容を添えてストアへ問い合わせできます。" [ref=e80] [cursor=pointer]:
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - paragraph [ref=e57]: AIBOUX Shop 共通テンプレート
+          - heading "特定商取引法に基づく表示" [level=2] [ref=e58]
+          - paragraph [ref=e59]: 販売者情報、所在地、連絡先、支払方法、配送、返品、キャンセル条件を購入前に確認できます。 未設定の項目は管理画面の設定から更新してください。
+        - link "問い合わせ" [ref=e60] [cursor=pointer]:
           - /url: /s/aiboux/contact
-          - heading "問い合わせ" [level=3] [ref=e81]
-          - paragraph [ref=e82]: 注文番号、商品名、確認したい内容を添えてストアへ問い合わせできます。
-    - region "このページから次に確認すること" [ref=e83]:
-      - generic [ref=e85]:
-        - paragraph [ref=e86]: Related navigation
-        - heading "このページから次に確認すること" [level=2] [ref=e87]
-        - paragraph [ref=e88]: 商品発見、購入前確認、購入後サポートをページごとに整理し、SEOに必要な説明的リンクを共通化します。
-      - navigation "関連する内部リンク" [ref=e89]:
-        - generic [ref=e90]:
-          - heading "商品を探す" [level=3] [ref=e91]
-          - paragraph [ref=e92]: 価格、税込表示、レビュー、カテゴリ、在庫、配送条件を同じ導線で比較します。
-          - list [ref=e93]:
-            - listitem [ref=e94]:
-              - link "すべての商品" [ref=e95] [cursor=pointer]:
+      - generic [ref=e61]:
+        - article [ref=e62]:
+          - heading "販売業者" [level=3] [ref=e63]
+          - paragraph [ref=e64]: 株式会社雪花
+        - article [ref=e65]:
+          - heading "所在地" [level=3] [ref=e66]
+          - paragraph [ref=e67]: 1000001 東京都千代田区
+        - article [ref=e68]:
+          - heading "連絡先" [level=3] [ref=e69]
+          - paragraph [ref=e70]: info@aiboux.com
+        - article [ref=e71]:
+          - heading "販売価格" [level=3] [ref=e72]
+          - paragraph [ref=e73]: 各商品ページに税込価格を表示します。
+        - article [ref=e74]:
+          - heading "商品代金以外の必要料金" [level=3] [ref=e75]
+          - paragraph [ref=e76]: 送料、決済手数料その他購入手続き画面で表示される費用。
+        - article [ref=e77]:
+          - heading "支払い方法" [level=3] [ref=e78]
+          - paragraph [ref=e79]: クレジットカードその他ストアで有効化された方法。
+        - article [ref=e80]:
+          - heading "商品の引渡時期" [level=3] [ref=e81]
+          - paragraph [ref=e82]: 決済確認後、商品ページまたは注文確認画面に記載の時期に発送します。
+        - article [ref=e83]:
+          - heading "返品・交換" [level=3] [ref=e84]
+          - paragraph [ref=e85]: 商品到着後7日以内にお問い合わせください。不良品の場合は当社負担で対応します。
+      - complementary [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - text: 販売者
+            - text: 株式会社雪花
+          - generic [ref=e89]:
+            - text: 問い合わせ先
+            - text: info@aiboux.com
+          - generic [ref=e90]:
+            - text: 表示確認日
+            - text: 2026-06-04
+      - generic [ref=e91]:
+        - link "購入前チェック 価格、税込表示、送料、返品条件、決済設定状態を確認してから注文へ進みます。 詳しく見る" [ref=e92] [cursor=pointer]:
+          - /url: /s/aiboux/checkout
+          - heading "購入前チェック" [level=3] [ref=e93]
+          - paragraph [ref=e94]: 価格、税込表示、送料、返品条件、決済設定状態を確認してから注文へ進みます。
+          - generic [ref=e95]: 詳しく見る
+        - link "配送・返品 配送目安、送料、返品受付条件、不良品時の問い合わせ導線をまとめて確認できます。 詳しく見る" [ref=e96] [cursor=pointer]:
+          - /url: /s/aiboux/shipping
+          - heading "配送・返品" [level=3] [ref=e97]
+          - paragraph [ref=e98]: 配送目安、送料、返品受付条件、不良品時の問い合わせ導線をまとめて確認できます。
+          - generic [ref=e99]: 詳しく見る
+        - link "問い合わせ 注文番号、商品名、確認したい内容を添えてストアへ問い合わせできます。 詳しく見る" [ref=e100] [cursor=pointer]:
+          - /url: /s/aiboux/contact
+          - heading "問い合わせ" [level=3] [ref=e101]
+          - paragraph [ref=e102]: 注文番号、商品名、確認したい内容を添えてストアへ問い合わせできます。
+          - generic [ref=e103]: 詳しく見る
+    - region "このページから次に確認すること" [ref=e104]:
+      - generic [ref=e106]:
+        - paragraph [ref=e107]: Related navigation
+        - heading "このページから次に確認すること" [level=2] [ref=e108]
+        - paragraph [ref=e109]: 商品発見、購入前確認、購入後サポートをページごとに整理し、SEOに必要な説明的リンクを共通化します。
+      - navigation "関連する内部リンク" [ref=e110]:
+        - generic [ref=e111]:
+          - heading "商品を探す" [level=3] [ref=e112]
+          - paragraph [ref=e113]: 価格、税込表示、レビュー、カテゴリ、在庫、配送条件を同じ導線で比較します。
+          - list [ref=e114]:
+            - listitem [ref=e115]:
+              - link "すべての商品" [ref=e116] [cursor=pointer]:
                 - /url: /s/aiboux/products
-            - listitem [ref=e96]:
-              - link "カテゴリ一覧" [ref=e97] [cursor=pointer]:
+            - listitem [ref=e117]:
+              - link "カテゴリ一覧" [ref=e118] [cursor=pointer]:
                 - /url: /s/aiboux/categories
-            - listitem [ref=e98]:
-              - link "食品・飲料" [ref=e99] [cursor=pointer]:
+            - listitem [ref=e119]:
+              - link "食品・飲料" [ref=e120] [cursor=pointer]:
                 - /url: /s/aiboux/products?category=food-drink
-            - listitem [ref=e100]:
-              - link "日用品" [ref=e101] [cursor=pointer]:
+            - listitem [ref=e121]:
+              - link "日用品" [ref=e122] [cursor=pointer]:
                 - /url: /s/aiboux/products?category=daily-goods
-            - listitem [ref=e102]:
-              - link "タイムセール" [ref=e103] [cursor=pointer]:
+            - listitem [ref=e123]:
+              - link "タイムセール" [ref=e124] [cursor=pointer]:
                 - /url: /s/aiboux/products?category=sale
-            - listitem [ref=e104]:
-              - link "売れ筋ランキング" [ref=e105] [cursor=pointer]:
+            - listitem [ref=e125]:
+              - link "売れ筋ランキング" [ref=e126] [cursor=pointer]:
                 - /url: /s/aiboux/products?category=ranking
-        - generic [ref=e106]:
-          - heading "購入前に確認" [level=3] [ref=e107]
-          - paragraph [ref=e108]: 送料、返品、問い合わせ、取引条件を購入前に確認できるようにします。
-          - list [ref=e109]:
-            - listitem [ref=e110]:
-              - link "カート" [ref=e111] [cursor=pointer]:
+        - generic [ref=e127]:
+          - heading "購入前に確認" [level=3] [ref=e128]
+          - paragraph [ref=e129]: 送料、返品、問い合わせ、取引条件を購入前に確認できるようにします。
+          - list [ref=e130]:
+            - listitem [ref=e131]:
+              - link "カート" [ref=e132] [cursor=pointer]:
                 - /url: /s/aiboux/cart
-            - listitem [ref=e112]:
-              - link "チェックアウト" [ref=e113] [cursor=pointer]:
+            - listitem [ref=e133]:
+              - link "チェックアウト" [ref=e134] [cursor=pointer]:
                 - /url: /s/aiboux/checkout
-            - listitem [ref=e114]:
-              - link "配送について" [ref=e115] [cursor=pointer]:
+            - listitem [ref=e135]:
+              - link "配送について" [ref=e136] [cursor=pointer]:
                 - /url: /s/aiboux/shipping
-            - listitem [ref=e116]:
-              - link "返品について" [ref=e117] [cursor=pointer]:
+            - listitem [ref=e137]:
+              - link "返品について" [ref=e138] [cursor=pointer]:
                 - /url: /s/aiboux/returns
-            - listitem [ref=e118]:
-              - link "特定商取引法" [ref=e119] [cursor=pointer]:
+            - listitem [ref=e139]:
+              - link "特定商取引法" [ref=e140] [cursor=pointer]:
                 - /url: /s/aiboux/legal
-            - listitem [ref=e120]:
-              - link "問い合わせ" [ref=e121] [cursor=pointer]:
+            - listitem [ref=e141]:
+              - link "問い合わせ" [ref=e142] [cursor=pointer]:
                 - /url: /s/aiboux/contact
-        - generic [ref=e122]:
-          - heading "購入後サポート" [level=3] [ref=e123]
-          - paragraph [ref=e124]: 注文履歴、マイページ、定期購入、お気に入りへ迷わず戻れるようにします。
-          - list [ref=e125]:
-            - listitem [ref=e126]:
-              - link "マイページ" [ref=e127] [cursor=pointer]:
+        - generic [ref=e143]:
+          - heading "購入後サポート" [level=3] [ref=e144]
+          - paragraph [ref=e145]: 注文履歴、マイページ、定期購入、お気に入りへ迷わず戻れるようにします。
+          - list [ref=e146]:
+            - listitem [ref=e147]:
+              - link "マイページ" [ref=e148] [cursor=pointer]:
                 - /url: /s/aiboux/mypage
-            - listitem [ref=e128]:
-              - link "注文履歴" [ref=e129] [cursor=pointer]:
+            - listitem [ref=e149]:
+              - link "注文履歴" [ref=e150] [cursor=pointer]:
                 - /url: /s/aiboux/orders
-            - listitem [ref=e130]:
-              - link "お気に入り" [ref=e131] [cursor=pointer]:
+            - listitem [ref=e151]:
+              - link "お気に入り" [ref=e152] [cursor=pointer]:
                 - /url: /s/aiboux/favorites
-            - listitem [ref=e132]:
-              - link "定期購入" [ref=e133] [cursor=pointer]:
+            - listitem [ref=e153]:
+              - link "定期購入" [ref=e154] [cursor=pointer]:
                 - /url: /s/aiboux/mypage/subscriptions
-            - listitem [ref=e134]:
-              - link "ログイン" [ref=e135] [cursor=pointer]:
+            - listitem [ref=e155]:
+              - link "ログイン" [ref=e156] [cursor=pointer]:
                 - /url: /s/aiboux/login
-            - listitem [ref=e136]:
-              - link "会員登録" [ref=e137] [cursor=pointer]:
+            - listitem [ref=e157]:
+              - link "会員登録" [ref=e158] [cursor=pointer]:
                 - /url: /s/aiboux/register
-    - region "株式会社雪花 公式ストアで迷わず探す" [ref=e138]:
-      - generic [ref=e139]:
-        - generic [ref=e140]:
-          - paragraph [ref=e141]: Store navigation
-          - heading "株式会社雪花 公式ストアで迷わず探す" [level=2] [ref=e142]
-          - paragraph [ref=e143]: 商品、カテゴリ、配送、返品、注文履歴を説明的なリンクで整理します。検索エンジンにもユーザーにも分かる、共通の内部リンク導線です。
-        - link "商品一覧へ" [ref=e144] [cursor=pointer]:
+    - region "株式会社雪花 公式ストアで迷わず探す" [ref=e159]:
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - paragraph [ref=e162]: Store navigation
+          - heading "株式会社雪花 公式ストアで迷わず探す" [level=2] [ref=e163]
+          - paragraph [ref=e164]: 商品、カテゴリ、配送、返品、注文履歴を説明的なリンクで整理します。検索エンジンにもユーザーにも分かる、共通の内部リンク導線です。
+        - link "商品一覧へ" [ref=e165] [cursor=pointer]:
           - /url: /s/aiboux/products
-      - generic [ref=e145]:
-        - navigation "株式会社雪花 公式ストア SEO内部リンク" [ref=e146]:
-          - generic [ref=e147]:
-            - heading "人気カテゴリ" [level=3] [ref=e148]
-            - list [ref=e149]:
-              - listitem [ref=e150]:
-                - link "食品・飲料を比較する" [ref=e151] [cursor=pointer]:
+      - generic [ref=e166]:
+        - navigation "株式会社雪花 公式ストア SEO内部リンク" [ref=e167]:
+          - generic [ref=e168]:
+            - heading "人気カテゴリ" [level=3] [ref=e169]
+            - list [ref=e170]:
+              - listitem [ref=e171]:
+                - link "食品・飲料を比較する" [ref=e172] [cursor=pointer]:
                   - /url: /s/aiboux/products?category=food-drink
-              - listitem [ref=e152]:
-                - link "コーヒー・お茶を見る" [ref=e153] [cursor=pointer]:
+              - listitem [ref=e173]:
+                - link "コーヒー・お茶を見る" [ref=e174] [cursor=pointer]:
                   - /url: /s/aiboux/products?category=coffee-tea
-              - listitem [ref=e154]:
-                - link "キッチン用品を探す" [ref=e155] [cursor=pointer]:
+              - listitem [ref=e175]:
+                - link "キッチン用品を探す" [ref=e176] [cursor=pointer]:
                   - /url: /s/aiboux/products?category=kitchen
-              - listitem [ref=e156]:
-                - link "日用品をまとめ買いする" [ref=e157] [cursor=pointer]:
+              - listitem [ref=e177]:
+                - link "日用品をまとめ買いする" [ref=e178] [cursor=pointer]:
                   - /url: /s/aiboux/products?category=daily-goods
-              - listitem [ref=e158]:
-                - link "ギフト商品を選ぶ" [ref=e159] [cursor=pointer]:
+              - listitem [ref=e179]:
+                - link "ギフト商品を選ぶ" [ref=e180] [cursor=pointer]:
                   - /url: /s/aiboux/products?category=gift
-          - generic [ref=e160]:
-            - heading "購入前ガイド" [level=3] [ref=e161]
-            - list [ref=e162]:
-              - listitem [ref=e163]:
-                - link "送料と配送予定を確認する" [ref=e164] [cursor=pointer]:
+          - generic [ref=e181]:
+            - heading "購入前ガイド" [level=3] [ref=e182]
+            - list [ref=e183]:
+              - listitem [ref=e184]:
+                - link "送料と配送予定を確認する" [ref=e185] [cursor=pointer]:
                   - /url: /s/aiboux/shipping
-              - listitem [ref=e165]:
-                - link "返品・交換条件を確認する" [ref=e166] [cursor=pointer]:
+              - listitem [ref=e186]:
+                - link "返品・交換条件を確認する" [ref=e187] [cursor=pointer]:
                   - /url: /s/aiboux/returns
-              - listitem [ref=e167]:
-                - link "よくある質問を見る" [ref=e168] [cursor=pointer]:
+              - listitem [ref=e188]:
+                - link "よくある質問を見る" [ref=e189] [cursor=pointer]:
                   - /url: /s/aiboux/faq
-              - listitem [ref=e169]:
-                - link "ストアへ問い合わせる" [ref=e170] [cursor=pointer]:
+              - listitem [ref=e190]:
+                - link "ストアへ問い合わせる" [ref=e191] [cursor=pointer]:
                   - /url: /s/aiboux/contact
-          - generic [ref=e171]:
-            - heading "購入後サポート" [level=3] [ref=e172]
-            - list [ref=e173]:
-              - listitem [ref=e174]:
-                - link "注文履歴を確認する" [ref=e175] [cursor=pointer]:
+          - generic [ref=e192]:
+            - heading "購入後サポート" [level=3] [ref=e193]
+            - list [ref=e194]:
+              - listitem [ref=e195]:
+                - link "注文履歴を確認する" [ref=e196] [cursor=pointer]:
                   - /url: /s/aiboux/orders
-              - listitem [ref=e176]:
-                - link "マイページを開く" [ref=e177] [cursor=pointer]:
+              - listitem [ref=e197]:
+                - link "マイページを開く" [ref=e198] [cursor=pointer]:
                   - /url: /s/aiboux/mypage
-              - listitem [ref=e178]:
-                - link "お気に入り商品を見る" [ref=e179] [cursor=pointer]:
+              - listitem [ref=e199]:
+                - link "お気に入り商品を見る" [ref=e200] [cursor=pointer]:
                   - /url: /s/aiboux/favorites
-              - listitem [ref=e180]:
-                - link "定期購入の状態を見る" [ref=e181] [cursor=pointer]:
+              - listitem [ref=e201]:
+                - link "定期購入の状態を見る" [ref=e202] [cursor=pointer]:
                   - /url: /s/aiboux/mypage/subscriptions
-        - complementary "購入判断の要点" [ref=e182]:
-          - link "商品比較 価格、税込、レビュー、在庫、配送目安を同じ商品カードで比較します。 商品一覧" [ref=e183] [cursor=pointer]:
+        - complementary "購入判断の要点" [ref=e203]:
+          - link "商品比較 価格、税込、レビュー、在庫、配送目安を同じ商品カードで比較します。 商品一覧" [ref=e204] [cursor=pointer]:
             - /url: /s/aiboux/products
             - text: 商品比較
-            - generic [ref=e184]: 価格、税込、レビュー、在庫、配送目安を同じ商品カードで比較します。
-            - generic [ref=e185]: 商品一覧
-          - link "購入条件 送料、返品、特商法、決済設定状態を注文前に確認できます。 取引条件" [ref=e186] [cursor=pointer]:
+            - generic [ref=e205]: 価格、税込、レビュー、在庫、配送目安を同じ商品カードで比較します。
+            - generic [ref=e206]: 商品一覧
+          - link "購入条件 送料、返品、特商法、決済設定状態を注文前に確認できます。 取引条件" [ref=e207] [cursor=pointer]:
             - /url: /s/aiboux/legal
             - text: 購入条件
-            - generic [ref=e187]: 送料、返品、特商法、決済設定状態を注文前に確認できます。
-            - generic [ref=e188]: 取引条件
-          - link "アカウント 注文履歴、配送状況、定期購入、お気に入りを同じ導線で確認します。 マイページ" [ref=e189] [cursor=pointer]:
+            - generic [ref=e208]: 送料、返品、特商法、決済設定状態を注文前に確認できます。
+            - generic [ref=e209]: 取引条件
+          - link "アカウント 注文履歴、配送状況、定期購入、お気に入りを同じ導線で確認します。 マイページ" [ref=e210] [cursor=pointer]:
             - /url: /s/aiboux/mypage
             - text: アカウント
-            - generic [ref=e190]: 注文履歴、配送状況、定期購入、お気に入りを同じ導線で確認します。
-            - generic [ref=e191]: マイページ
-    - region "迷わず買えるための確認導線" [ref=e192]:
-      - generic [ref=e193]:
-        - generic [ref=e194]:
-          - paragraph [ref=e195]: Shopping guide
-          - heading "迷わず買えるための確認導線" [level=2] [ref=e196]
-          - paragraph [ref=e197]: 商品比較、配送・返品、注文後の確認、定期購入の状態まで、SEOに忠実な内部リンクで移動できます。
-        - link "商品一覧を見る" [ref=e198] [cursor=pointer]:
+            - generic [ref=e211]: 注文履歴、配送状況、定期購入、お気に入りを同じ導線で確認します。
+            - generic [ref=e212]: マイページ
+    - region "迷わず買えるための確認導線" [ref=e213]:
+      - generic [ref=e214]:
+        - generic [ref=e215]:
+          - paragraph [ref=e216]: Shopping guide
+          - heading "迷わず買えるための確認導線" [level=2] [ref=e217]
+          - paragraph [ref=e218]: 商品比較、配送・返品、注文後の確認、定期購入の状態まで、SEOに忠実な内部リンクで移動できます。
+        - link "商品一覧を見る" [ref=e219] [cursor=pointer]:
           - /url: /s/aiboux/products
-          - generic [ref=e199]: 商品一覧を見る
-      - generic [ref=e200]:
-        - link "商品を探す 商品一覧、カテゴリ、ランキングから価格・税込・在庫・レビューを比較できます。 商品一覧へ" [ref=e201] [cursor=pointer]:
+          - generic [ref=e220]: 商品一覧を見る
+      - generic [ref=e221]:
+        - link "商品を探す 商品一覧、カテゴリ、ランキングから価格・税込・在庫・レビューを比較できます。 商品一覧へ" [ref=e222] [cursor=pointer]:
           - /url: /s/aiboux/products
-          - heading "商品を探す" [level=3] [ref=e202]
-          - paragraph [ref=e203]: 商品一覧、カテゴリ、ランキングから価格・税込・在庫・レビューを比較できます。
-          - generic [ref=e204]: 商品一覧へ
-        - link "購入前に確認 送料、返品条件、決済設定状態、特定商取引法の表示を注文前に確認できます。 配送条件を見る" [ref=e205] [cursor=pointer]:
+          - heading "商品を探す" [level=3] [ref=e223]
+          - paragraph [ref=e224]: 商品一覧、カテゴリ、ランキングから価格・税込・在庫・レビューを比較できます。
+          - generic [ref=e225]: 商品一覧へ
+        - link "購入前に確認 送料、返品条件、決済設定状態、特定商取引法の表示を注文前に確認できます。 配送条件を見る" [ref=e226] [cursor=pointer]:
           - /url: /s/aiboux/shipping
-          - heading "購入前に確認" [level=3] [ref=e206]
-          - paragraph [ref=e207]: 送料、返品条件、決済設定状態、特定商取引法の表示を注文前に確認できます。
-          - generic [ref=e208]: 配送条件を見る
-        - link "注文後の確認 注文履歴、配送状況、問い合わせ、領収書導線を同じマイページ導線で確認します。 注文履歴へ" [ref=e209] [cursor=pointer]:
+          - heading "購入前に確認" [level=3] [ref=e227]
+          - paragraph [ref=e228]: 送料、返品条件、決済設定状態、特定商取引法の表示を注文前に確認できます。
+          - generic [ref=e229]: 配送条件を見る
+        - link "注文後の確認 注文履歴、配送状況、問い合わせ、領収書導線を同じマイページ導線で確認します。 注文履歴へ" [ref=e230] [cursor=pointer]:
           - /url: /s/aiboux/orders
-          - heading "注文後の確認" [level=3] [ref=e210]
-          - paragraph [ref=e211]: 注文履歴、配送状況、問い合わせ、領収書導線を同じマイページ導線で確認します。
-          - generic [ref=e212]: 注文履歴へ
-        - link "定期購入 定期購入は本番DB migrationと決済接続が完了するまで、準備中として正直に表示します。 定期購入を見る" [ref=e213] [cursor=pointer]:
+          - heading "注文後の確認" [level=3] [ref=e231]
+          - paragraph [ref=e232]: 注文履歴、配送状況、問い合わせ、領収書導線を同じマイページ導線で確認します。
+          - generic [ref=e233]: 注文履歴へ
+        - link "定期購入 定期購入は本番DB migrationと決済接続が完了するまで、準備中として正直に表示します。 定期購入を見る" [ref=e234] [cursor=pointer]:
           - /url: /s/aiboux/mypage/subscriptions
-          - heading "定期購入" [level=3] [ref=e214]
-          - paragraph [ref=e215]: 定期購入は本番DB migrationと決済接続が完了するまで、準備中として正直に表示します。
-          - generic [ref=e216]: 定期購入を見る
-      - navigation "購入サポートの内部リンク" [ref=e217]:
-        - link "カテゴリから探す" [ref=e218] [cursor=pointer]:
+          - heading "定期購入" [level=3] [ref=e235]
+          - paragraph [ref=e236]: 定期購入は本番DB migrationと決済接続が完了するまで、準備中として正直に表示します。
+          - generic [ref=e237]: 定期購入を見る
+      - navigation "購入サポートの内部リンク" [ref=e238]:
+        - link "カテゴリから探す" [ref=e239] [cursor=pointer]:
           - /url: /s/aiboux/categories
-        - link "カートを見る" [ref=e219] [cursor=pointer]:
+        - link "カートを見る" [ref=e240] [cursor=pointer]:
           - /url: /s/aiboux/cart
-        - link "チェックアウト" [ref=e220] [cursor=pointer]:
+        - link "チェックアウト" [ref=e241] [cursor=pointer]:
           - /url: /s/aiboux/checkout
-        - link "問い合わせ" [ref=e221] [cursor=pointer]:
+        - link "問い合わせ" [ref=e242] [cursor=pointer]:
           - /url: /s/aiboux/contact
-        - link "よくある質問" [ref=e222] [cursor=pointer]:
+        - link "よくある質問" [ref=e243] [cursor=pointer]:
           - /url: /s/aiboux/faq
-        - link "返品について" [ref=e223] [cursor=pointer]:
+        - link "返品について" [ref=e244] [cursor=pointer]:
           - /url: /s/aiboux/returns
-        - link "マイページ" [ref=e224] [cursor=pointer]:
+        - link "マイページ" [ref=e245] [cursor=pointer]:
           - /url: /s/aiboux/mypage
-        - link "お気に入り" [ref=e225] [cursor=pointer]:
+        - link "お気に入り" [ref=e246] [cursor=pointer]:
           - /url: /s/aiboux/favorites
-  - contentinfo [ref=e226]:
-    - link "ページ上部へ戻る" [ref=e227] [cursor=pointer]:
+  - contentinfo [ref=e247]:
+    - link "ページ上部へ戻る" [ref=e248] [cursor=pointer]:
       - /url: "#top"
-    - generic [ref=e228]:
-      - generic [ref=e229]:
-        - heading "税込価格" [level=2] [ref=e230]
-        - paragraph [ref=e231]: 商品価格は税込表示で統一します。
-      - generic [ref=e232]:
-        - heading "配送・返品" [level=2] [ref=e233]
-        - paragraph [ref=e234]: 配送予定、返品条件、問い合わせ先を各ページから確認できます。
-      - generic [ref=e235]:
-        - heading "決済状態" [level=2] [ref=e236]
-        - paragraph [ref=e237]: 決済未接続時は注文確定したふりをせず、設定未完了として表示します。
-      - generic [ref=e238]:
-        - heading "定期購入" [level=2] [ref=e239]
-        - paragraph [ref=e240]: 定期購入はDB migrationと決済接続が完了するまで正直に準備中表示にします。
-    - generic [ref=e241]:
-      - navigation "お買い物" [ref=e242]:
-        - heading "お買い物" [level=2] [ref=e243]
-        - link "商品一覧" [ref=e244] [cursor=pointer]:
+    - generic [ref=e249]:
+      - generic [ref=e250]:
+        - heading "税込価格" [level=2] [ref=e251]
+        - paragraph [ref=e252]: 商品価格は税込表示で統一します。
+      - generic [ref=e253]:
+        - heading "配送・返品" [level=2] [ref=e254]
+        - paragraph [ref=e255]: 配送予定、返品条件、問い合わせ先を各ページから確認できます。
+      - generic [ref=e256]:
+        - heading "決済状態" [level=2] [ref=e257]
+        - paragraph [ref=e258]: 決済未接続時は注文確定したふりをせず、設定未完了として表示します。
+      - generic [ref=e259]:
+        - heading "定期購入" [level=2] [ref=e260]
+        - paragraph [ref=e261]: 定期購入はDB migrationと決済接続が完了するまで正直に準備中表示にします。
+    - generic [ref=e262]:
+      - navigation "お買い物" [ref=e263]:
+        - heading "お買い物" [level=2] [ref=e264]
+        - link "商品一覧" [ref=e265] [cursor=pointer]:
           - /url: /s/aiboux/products
-        - link "カテゴリ" [ref=e245] [cursor=pointer]:
+        - link "カテゴリ" [ref=e266] [cursor=pointer]:
           - /url: /s/aiboux/categories
-        - link "タイムセール" [ref=e246] [cursor=pointer]:
+        - link "タイムセール" [ref=e267] [cursor=pointer]:
           - /url: /s/aiboux/products?category=sale
-        - link "売れ筋ランキング" [ref=e247] [cursor=pointer]:
+        - link "売れ筋ランキング" [ref=e268] [cursor=pointer]:
           - /url: /s/aiboux/products?category=ranking
-        - link "お気に入り" [ref=e248] [cursor=pointer]:
+        - link "お気に入り" [ref=e269] [cursor=pointer]:
           - /url: /s/aiboux/favorites
-      - navigation "アカウント" [ref=e249]:
-        - heading "アカウント" [level=2] [ref=e250]
-        - link "マイページ" [ref=e251] [cursor=pointer]:
+      - navigation "アカウント" [ref=e270]:
+        - heading "アカウント" [level=2] [ref=e271]
+        - link "マイページ" [ref=e272] [cursor=pointer]:
           - /url: /s/aiboux/mypage
-        - link "注文履歴" [ref=e252] [cursor=pointer]:
+        - link "注文履歴" [ref=e273] [cursor=pointer]:
           - /url: /s/aiboux/orders
-        - link "定期購入" [ref=e253] [cursor=pointer]:
+        - link "定期購入" [ref=e274] [cursor=pointer]:
           - /url: /s/aiboux/mypage/subscriptions
-        - link "ログイン" [ref=e254] [cursor=pointer]:
+        - link "ログイン" [ref=e275] [cursor=pointer]:
           - /url: /s/aiboux/login
-      - navigation "サポート" [ref=e255]:
-        - heading "サポート" [level=2] [ref=e256]
-        - link "問い合わせ" [ref=e257] [cursor=pointer]:
+      - navigation "サポート" [ref=e276]:
+        - heading "サポート" [level=2] [ref=e277]
+        - link "問い合わせ" [ref=e278] [cursor=pointer]:
           - /url: /s/aiboux/contact
-        - link "よくある質問" [ref=e258] [cursor=pointer]:
+        - link "よくある質問" [ref=e279] [cursor=pointer]:
           - /url: /s/aiboux/faq
-        - link "配送について" [ref=e259] [cursor=pointer]:
+        - link "配送について" [ref=e280] [cursor=pointer]:
           - /url: /s/aiboux/shipping
-        - link "返品について" [ref=e260] [cursor=pointer]:
+        - link "返品について" [ref=e281] [cursor=pointer]:
           - /url: /s/aiboux/returns
-      - navigation "ストア情報" [ref=e261]:
-        - heading "ストア情報" [level=2] [ref=e262]
-        - link "特定商取引法" [ref=e263] [cursor=pointer]:
+      - navigation "ストア情報" [ref=e282]:
+        - heading "ストア情報" [level=2] [ref=e283]
+        - link "特定商取引法" [ref=e284] [cursor=pointer]:
           - /url: /s/aiboux/legal
-        - link "プライバシーポリシー" [ref=e264] [cursor=pointer]:
+        - link "プライバシーポリシー" [ref=e285] [cursor=pointer]:
           - /url: /s/aiboux/privacy
-        - link "カート" [ref=e265] [cursor=pointer]:
+        - link "カート" [ref=e286] [cursor=pointer]:
           - /url: /s/aiboux/cart
-        - link "チェックアウト" [ref=e266] [cursor=pointer]:
+        - link "チェックアウト" [ref=e287] [cursor=pointer]:
           - /url: /s/aiboux/checkout
-    - generic [ref=e268]:
-      - generic [ref=e269]:
-        - generic [ref=e270]: 株式会社雪花 公式ストア
-        - paragraph [ref=e271]: 注文、配送、返品、定期購入、問い合わせまで同じテナント導線で確認できます。決済未接続時は注文確定しません。
-      - navigation "ストア基本情報" [ref=e272]:
-        - link "特商法" [ref=e273] [cursor=pointer]:
+    - generic [ref=e289]:
+      - generic [ref=e290]:
+        - generic [ref=e291]: 株式会社雪花 公式ストア
+        - paragraph [ref=e292]: 注文、配送、返品、定期購入、問い合わせまで同じテナント導線で確認できます。決済未接続時は注文確定しません。
+      - navigation "ストア基本情報" [ref=e293]:
+        - link "特商法" [ref=e294] [cursor=pointer]:
           - /url: /s/aiboux/legal
-        - link "プライバシー" [ref=e274] [cursor=pointer]:
+        - link "プライバシー" [ref=e295] [cursor=pointer]:
           - /url: /s/aiboux/privacy
-        - link "問い合わせ" [ref=e275] [cursor=pointer]:
+        - link "問い合わせ" [ref=e296] [cursor=pointer]:
           - /url: /s/aiboux/contact
 ```
 
@@ -502,7 +522,7 @@ Received:    44
   187 |         const metaDescription = await page.locator('meta[name="description"]').getAttribute("content");
   188 |         expect(metaDescription, `${target.path} should include meta description`).toBeTruthy();
 > 189 |         expect(metaDescription?.length ?? 0, `${target.path} meta description should explain purchase/search/support intent`).toBeGreaterThanOrEqual(45);
-      |                                                                                                                               ^ Error: /s/aiboux/contact meta description should explain purchase/search/support intent
+      |                                                                                                                               ^ Error: /s/aiboux/legal meta description should explain purchase/search/support intent
   190 |         expect(metaDescription?.length ?? 0, `${target.path} meta description should remain snippet-safe`).toBeLessThanOrEqual(155);
   191 |         expect(metaDescription ?? "", `${target.path} description should not use thin placeholder copy`).not.toMatch(/公開中の商品を表示|AIBOUX Storeの公開ページ|ストアへの問い合わせを受け付けます/);
   192 | 

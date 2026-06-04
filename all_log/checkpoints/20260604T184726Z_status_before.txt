@@ -1,0 +1,31 @@
+ M output/playwright/shop-5h-sprint/shop-contact-page-1980.png
+ M output/playwright/shop-5h-sprint/shop-top-1980.png
+ M public/g/screens/shop-contact-page-1980.png
+ M public/g/screens/shop-top-1980.png
+ M src/lib/shopSeo.ts
+ D test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/error-context.md
+ D test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/test-failed-1.png
+ D test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/trace.zip
+ D test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/video.webm
+ D test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/error-context.md
+ D test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/test-failed-1.png
+ D test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/trace.zip
+ D test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/video.webm
+ D test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/error-context.md
+ D test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/test-failed-1.png
+ D test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/trace.zip
+ D test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/video.webm
+ M test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/error-context.md
+ M test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/test-failed-1.png
+ M test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/trace.zip
+ M test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/video.webm
+ M test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/error-context.md
+ M test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/test-failed-1.png
+ M test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/trace.zip
+ M test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/video.webm
+ M test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/error-context.md
+ M test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/test-failed-1.png
+ M test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/trace.zip
+ M test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/video.webm
+?? all_log/checkpoints/20260604T184409Z_wip_commit.txt
+?? all_log/deploys/20260604T184409Z_deployments_before.txt

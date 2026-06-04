@@ -1,0 +1,40 @@
+timestamp=20260604T184409Z
+commit_status=0
+head_after=23232701a013d73f11d52a2e2c61cb33b2205ebf
+commit_stdout:
+[main 2323270] WIP shop aiboux tenant deploy checkpoint 20260604T184409Z
+ 42 files changed, 3738 insertions(+), 4 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T184106Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T184409Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T184409Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T184409Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T184409Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T184106Z_deployments_before.txt
+ create mode 100644 all_log/patches/20260604T184409Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T184409Z_before_deploy_staged.patch
+ create mode 100644 test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/error-context.md
+ create mode 100644 test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/test-failed-1.png
+ create mode 100644 test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/trace.zip
+ create mode 100644 test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/video.webm
+ create mode 100644 test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/error-context.md
+ create mode 100644 test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/test-failed-1.png
+ create mode 100644 test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/trace.zip
+ create mode 100644 test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/video.webm
+ create mode 100644 test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/error-context.md
+ create mode 100644 test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/test-failed-1.png
+ create mode 100644 test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/trace.zip
+ create mode 100644 test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/video.webm
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/error-context.md
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/test-failed-1.png
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/trace.zip
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-1f9f9-er-with-styled-HTML-at-1365/video.webm
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/error-context.md
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/test-failed-1.png
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/trace.zip
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-3e181--with-styled-HTML-at-mobile/video.webm
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/error-context.md
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/test-failed-1.png
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/trace.zip
+ create mode 100644 test-results/shop-public-crawl-AIBOUX-S-d6fda-er-with-styled-HTML-at-1980/video.webm
+
+commit_stderr:
