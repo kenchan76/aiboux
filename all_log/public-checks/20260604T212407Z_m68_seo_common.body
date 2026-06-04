@@ -28,10 +28,8 @@ Latest WIP evidence:
 
 - WIP commit: `881e7e35e799caa2900ade531f0ab5e663a6f7ed`
 - WIP Worker Version ID: `08c51847-da75-4556-b094-e311c2dcb17a`
-- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
-- Progress Bark notification: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
 
 Not final:
 
@@ -129,7 +127,7 @@ Latest WIP evidence:
 
 - WIP implementation commit: `3c0693b`
 - Public evidence deploy commit: `69881a2`
-- Latest Worker Version ID: `__WORKER_VERSION_ID__`
+- Latest Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts`: PASS, 9 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-product-detail-public.spec.ts`: PASS, 3 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-contact-legal-public.spec.ts`: PASS, 2 tests.
@@ -166,7 +164,7 @@ Latest WIP evidence:
 - WIP implementation commit: `d2bc86e`
 - WIP deploy checkpoint commit: `6b93e7d`
 - Implementation Worker Version ID: `d3a99848-acc8-47be-bd09-661e24b1fe85`
-- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`
+- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - Evidence publication commit: `e4e998a`
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
@@ -333,7 +331,7 @@ Implemented WIP direction:
 Latest WIP evidence:
 
 - WIP commit: `82c4f6b WIP strengthen shop page entity FAQ SEO parts`
-- Worker Version ID: `__WORKER_VERSION_ID__`
+- Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - TOP `/s/aiboux/`: `SiteNavigationElement` and page entity JSON-LD verified on public HTML.
 - FAQ `/s/aiboux/faq`: `FAQPage`, `Question`, and `acceptedAnswer` verified on public HTML.
 - Contact `/s/aiboux/contact`: `ContactPage` verified on public HTML.
@@ -630,7 +628,7 @@ MASTER_REWRITE_REQUIRED
 ### 2.2 現在の確定情報
 
 - 対象Worker名: aiboux
-- Worker Version ID: __WORKER_VERSION_ID__
+- Worker Version ID: 94d34d86-c05c-4b0a-94fb-060a5eed2d84
 - Remote repository: https://github.com/kenchan76/aiboux.git
 - gate結果: npm run gate:aiboux は AIBOUX_GATE_PASS
 - Bark通知方針修正: 完了
@@ -2777,7 +2775,7 @@ AIレビュー無応答を、成功扱いまたは失敗扱いとして勝手に
 ### 21.1 Worker
 
 Worker name: aiboux
-Worker Version ID: __WORKER_VERSION_ID__
+Worker Version ID: 94d34d86-c05c-4b0a-94fb-060a5eed2d84
 Deployment ID: ab13f87a-b776-4c94-9c25-6081db15f1af
 Deployment created_on: 2026-05-31T14:22:16.574248Z
 Version percentage: 100
@@ -5125,7 +5123,7 @@ Not final:
 - FINAL_ACCEPTED remains prohibited.
 
 Public evidence publication:
-- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`
+- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
 - Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
 - Progress Bark notification delivered with `delivered=true`, `skipped=false`, `secretLogged=false`.

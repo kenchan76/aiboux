@@ -28,8 +28,10 @@ Latest WIP evidence:
 
 - WIP commit: `881e7e35e799caa2900ade531f0ab5e663a6f7ed`
 - WIP Worker Version ID: `08c51847-da75-4556-b094-e311c2dcb17a`
+- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts`: PASS, 12 tests.
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- Progress Bark notification: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
 
 Not final:
 

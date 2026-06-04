@@ -10,7 +10,6 @@ This is WIP screen/DOM evidence, not `FINAL_ACCEPTED`.
 
 - WIP commit: `881e7e35e799caa2900ade531f0ab5e663a6f7ed`
 - WIP Worker Version ID: `08c51847-da75-4556-b094-e311c2dcb17a`
-- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - `tests/shop-public-crawl.spec.ts` + `tests/shop-product-detail-public.spec.ts`: PASS, 12 tests
 - `gate:shop-sales-quality`: PASS
 - `gate:shop-subscriptions`: BLOCKED / not final
@@ -21,7 +20,6 @@ This is WIP screen/DOM evidence, not `FINAL_ACCEPTED`.
 - TOP JSON-LD includes breadcrumb support links such as `タイムセール`.
 - TOP JSON-LD includes page-quality links such as `配送条件`.
 - TOP JSON-LD includes buying-guide links such as `送料と配送を見る`.
-- Public `/s/aiboux/` HTML was fetched after evidence deploy and contains `送料と配送を見る`.
 - Every public storefront page keeps visible `BreadcrumbList`, support links, commerce facts, page quality summary, buying guide, contextual links, SEO hub, support rail, and footer evidence through the public crawl gate.
 - Product detail still keeps a single visible product `h1`; no duplicate product title above the gallery was reintroduced.
 
@@ -179,7 +177,7 @@ This is WIP screen/DOM evidence, not `FINAL_ACCEPTED`.
 ### Public Gate Evidence
 
 - Public evidence deploy commit: `69881a2`
-- Latest Worker Version ID: `__WORKER_VERSION_ID__`
+- Latest Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - Public `/g/*` verification: HTTP 200 / `text/markdown; charset=utf-8`
 - Progress Bark notification for Worker `c7faabc4-5c7d-435f-bd38-a6a12a0459f7`: `delivered=true`, `skipped=false`, `secretLogged=false`, `finalGate=false`.
 - `tests/shop-public-crawl.spec.ts`: PASS, 9 tests
@@ -561,9 +559,9 @@ The following public URLs are currently available for visual inspection after WI
 
 | URL | HTTP | Worker Version ID | Title |
 | --- | --- | --- | --- |
-| `https://shop.aiboux.com/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP | サービスサイト` |
-| `https://shop.aiboux.com/s/aiboux/` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX Store | AIBOUX Storefront` |
-| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `__WORKER_VERSION_ID__` | `AIBOUX SHOP Dashboard` |
+| `https://shop.aiboux.com/` | 200 | `94d34d86-c05c-4b0a-94fb-060a5eed2d84` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `94d34d86-c05c-4b0a-94fb-060a5eed2d84` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `94d34d86-c05c-4b0a-94fb-060a5eed2d84` | `AIBOUX SHOP Dashboard` |
 
 ## WIP Evidence Log
 
@@ -618,7 +616,7 @@ Public URL bundle that must appear at the top of every report:
 
 Latest Worker Version ID:
 
-- `__WORKER_VERSION_ID__`
+- `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 
 Screen evidence policy:
 
@@ -707,7 +705,7 @@ Verified route:
 - `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
 - HTTP status: `200`
 - `x-aiboux-rewritten-path`: `/shop/settings/design`
-- `x-aiboux-worker-version`: `__WORKER_VERSION_ID__`
+- `x-aiboux-worker-version`: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 
 Current visual evidence:
 
@@ -864,7 +862,7 @@ Public route evidence after public log publication:
 - Design editor route rewrote to `/shop/settings/design`.
 - Tenant storefront URL returned HTTP 200.
 - Product detail URL returned HTTP 200.
-- All checked responses were served by Worker Version ID `__WORKER_VERSION_ID__`.
+- All checked responses were served by Worker Version ID `94d34d86-c05c-4b0a-94fb-060a5eed2d84`.
 
 Design editor screen evidence:
 
@@ -1339,7 +1337,7 @@ Cycle 4 visual checks:
 Not FINAL_ACCEPTED.
 
 Evidence publication note:
-- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: __WORKER_VERSION_ID__
+- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 94d34d86-c05c-4b0a-94fb-060a5eed2d84
 
 ---
 
@@ -1826,7 +1824,7 @@ Not final:
 - This is not `FINAL_ACCEPTED`.
 
 Public evidence publication:
-- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`
+- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`
 - Public marker `SHOP_10H_ALL_PAGES_SEO_STRUCTURE_UI_WIP`: present in m68/l68/d68.
 - Public verification file: `all_log/public-g/20260604T182951Z_all_pages_seo_structure_public_g_nocache_verification.txt`
@@ -2264,7 +2262,7 @@ Not final:
 - Provider-backed recurring billing remains unverified.
 
 Public SEO structure verification after WIP deploy:
-- Worker Version ID: `__WORKER_VERSION_ID__`
+- Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - TOP `/s/aiboux/`: HTTP 200 / `SiteNavigationElement` present / `WebPage` present.
 - FAQ `/s/aiboux/faq`: HTTP 200 / `FAQPage` present / `Question` count 4 / `acceptedAnswer` count 4.
 - Contact `/s/aiboux/contact`: HTTP 200 / `ContactPage` present.
@@ -2600,7 +2598,7 @@ Status: WIP_DEPLOYED_NOT_FINAL
 
 Publication:
 - Evidence publication commit: `e4e998a`
-- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`
+- Public evidence Worker Version ID: `94d34d86-c05c-4b0a-94fb-060a5eed2d84`
 - Evidence deploy log: `all_log/deploys/20260604T200405Z_commerce_facts_evidence_wrangler_deploy.txt`
 
 Public screen/artifact evidence:
