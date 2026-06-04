@@ -1,6 +1,52 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Footer SEO Sitemap Public Evidence
+
+Status: `SHOP_5H_FOOTER_SEO_SITEMAP_WIP_DEPLOYED_NOT_FINAL`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override records the public verification state for the shared footer SEO sitemap commonization.
+
+Current public WIP evidence:
+
+- WIP implementation commit: `dd23f4d`.
+- WIP gate assertion commit: `62e7799`.
+- WIP deploy Worker Version ID: `97620c07-b5ce-4267-8174-d4ecc546afc0`.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- Public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops sub-gates passed.
+- TOP and product detail render `StorefrontFooter` with `data-testid="storefront-footer-seo-sitemap"`.
+- The footer SEO sitemap uses crawlable `<a href>` links with visible sky-blue link affordance.
+- The footer SEO sitemap exposes visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+- The footer SEO sitemap links are included in `SiteNavigationElement` JSON-LD source links.
+- Product detail keeps one visible product `h1`; duplicate product title above the image gallery remains prohibited.
+
+Google Search Central references checked for this WIP include:
+
+- SEO Starter Guide.
+- Breadcrumb structured data.
+- Product structured data.
+- Merchant Listing structured data.
+- Page Experience.
+
+Not final:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- The subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
+Public evidence publication:
+
+- Public evidence Worker Version ID: `__WORKER_VERSION_ID__`.
+- Public `m68/l68/d68`: HTTP 200 / `text/markdown; charset=utf-8`.
+- Public TOP and product detail contain `storefront-footer-seo-sitemap`, `SEO site map`, `ItemList`, and visible `text-sky-200` footer links.
+- Runtime SHA note: `/g/*` replaces `__WORKER_VERSION_ID__` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+
 ## Current Active Operating Override: AIBOUX Shop SEO Sitemap Panel Public Evidence
 
 Status: `SHOP_5H_SEO_SITEMAP_PANEL_WIP_DEPLOYED_NOT_FINAL`
