@@ -96,6 +96,16 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(breadcrumb).toHaveAttribute("itemtype", "https://schema.org/BreadcrumbList");
       expect(await breadcrumb.locator('[itemtype="https://schema.org/ListItem"]').count(), "product breadcrumb should expose visible ListItem microdata").toBeGreaterThanOrEqual(3);
       expect(await breadcrumb.locator("a").first().getAttribute("class"), "product breadcrumb links should be visibly link-colored").toContain("text-blue-700");
+      await expect(page.getByTestId("storefront-breadcrumb-shell"), "product detail should use the shared breadcrumb shell").toContainText("現在地");
+      const breadcrumbSupport = page.getByTestId("storefront-breadcrumb-support-links");
+      await expect(breadcrumbSupport, "product detail should expose breadcrumb support links").toBeVisible();
+      await expect(breadcrumbSupport, "product detail breadcrumb support should use SiteNavigationElement microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/SiteNavigationElement",
+      );
+      expect(await breadcrumbSupport.locator("a").count(), "product detail should expose multiple breadcrumb support links").toBeGreaterThanOrEqual(4);
+      expect(await breadcrumbSupport.locator("a").first().getAttribute("class"), "product detail breadcrumb support links should be visibly blue").toContain("text-blue-700");
+      await expect(breadcrumbSupport, "product detail breadcrumb support should link back to cart or product comparison").toContainText(/カート|商品一覧/);
       await expect(page.locator("h1")).toHaveCount(1);
       const productTitle = (await page.locator("h1").innerText()).trim();
       await expect(page.getByTestId("storefront-breadcrumb-current"), "product breadcrumb current label should not duplicate the full product title above the gallery").toHaveText("商品詳細");

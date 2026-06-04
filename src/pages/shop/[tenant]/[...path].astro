@@ -38,6 +38,7 @@ import {
 } from "@/lib/server/shopStorefront";
 import {
   buildShopAccountCards,
+  buildShopBreadcrumbSupportLinks,
   buildShopCuratedCategoryCards,
   buildShopContextualLinkSections,
   buildShopFaqItems,
@@ -151,6 +152,9 @@ const breadcrumbItems = buildShopBreadcrumbItems({
   absoluteTenantRoot,
   canonicalUrl,
   product: salesProduct,
+});
+const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks(page, tenantRoot, {
+  categoryName: salesProduct?.categoryName ?? activeCategoryName,
 });
 const breadcrumbJsonLd = buildShopBreadcrumbJsonLd(breadcrumbItems);
 const websiteJsonLd = buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot });
@@ -645,7 +649,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
     {
       isKnownTenant && isAllowedPath ? (
         <main class="mx-auto max-w-screen-xl px-4 py-8">
-          <StorefrontBreadcrumb className="mb-4" items={breadcrumbItems} />
+          <StorefrontBreadcrumb className="mb-4" items={breadcrumbItems} supportLinks={breadcrumbSupportLinks} />
           {page !== "product" ? (
             <StorefrontPageHeader storeName={storeName} title={meta.metaTitle} description={meta.description} actions={pageHeaderActions} />
           ) : null}

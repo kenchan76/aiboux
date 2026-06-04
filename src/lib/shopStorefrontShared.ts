@@ -70,6 +70,12 @@ export type ShopStorefrontPageQualitySummary = {
   signals: ShopStorefrontPageQualitySignal[];
 };
 
+export type ShopStorefrontBreadcrumbSupportLink = {
+  label: string;
+  href: string;
+  note: string;
+};
+
 export function buildShopCategoryHref(tenantRoot: string, slugOrName: string): string {
   const category = findShopCuratedCategory(slugOrName);
   const slug = category?.slug ?? slugOrName;
@@ -96,6 +102,153 @@ export function buildShopHeaderCategoryLinks(tenantRoot: string): ShopStorefront
     { label: "セール", href: buildShopCategoryHref(tenantRoot, "sale") },
     { label: "ランキング", href: buildShopCategoryHref(tenantRoot, "ranking") },
   ];
+}
+
+export function buildShopBreadcrumbSupportLinks(
+  page: string,
+  tenantRoot: string,
+  input: {
+    categoryName?: string | null;
+  } = {},
+): ShopStorefrontBreadcrumbSupportLink[] {
+  const categoryName = String(input.categoryName || "").replace(/\s+/g, " ").trim();
+  const category = categoryName ? findShopCuratedCategory(categoryName) : null;
+  const categoryLink: ShopStorefrontBreadcrumbSupportLink = category
+    ? {
+        label: `${category.name}を見る`,
+        href: buildShopCategoryHref(tenantRoot, category.slug),
+        note: "同じカテゴリの商品へ戻る",
+      }
+    : {
+        label: "カテゴリから探す",
+        href: `${tenantRoot}/categories`,
+        note: "売り場階層をたどる",
+      };
+
+  const commonDiscovery: ShopStorefrontBreadcrumbSupportLink[] = [
+    { label: "商品一覧", href: `${tenantRoot}/products`, note: "全商品を比較する" },
+    { label: "配送・返品", href: `${tenantRoot}/shipping`, note: "購入条件を確認する" },
+    { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "不明点を確認する" },
+  ];
+
+  const map: Record<string, ShopStorefrontBreadcrumbSupportLink[]> = {
+    "": [
+      { label: "タイムセール", href: buildShopCategoryHref(tenantRoot, "sale"), note: "セール商品へ移動" },
+      { label: "ランキング", href: buildShopCategoryHref(tenantRoot, "ranking"), note: "売れ筋を確認" },
+      { label: "カテゴリ一覧", href: `${tenantRoot}/categories`, note: "売り場を選ぶ" },
+      { label: "カート", href: `${tenantRoot}/cart`, note: "購入候補を確認" },
+    ],
+    products: [
+      { label: "カテゴリ一覧", href: `${tenantRoot}/categories`, note: "カテゴリで絞り込む" },
+      { label: "タイムセール", href: buildShopCategoryHref(tenantRoot, "sale"), note: "値引き商品を確認" },
+      { label: "ランキング", href: buildShopCategoryHref(tenantRoot, "ranking"), note: "人気商品を見る" },
+      { label: "配送・返品", href: `${tenantRoot}/shipping`, note: "購入前条件を確認" },
+    ],
+    categories: [
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "すべての商品を見る" },
+      { label: "食品・飲料", href: buildShopCategoryHref(tenantRoot, "food-drink"), note: "食品カテゴリへ" },
+      { label: "日用品", href: buildShopCategoryHref(tenantRoot, "daily-goods"), note: "日用品カテゴリへ" },
+      { label: "ギフト", href: buildShopCategoryHref(tenantRoot, "gift"), note: "ギフトカテゴリへ" },
+    ],
+    product: [
+      categoryLink,
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "比較に戻る" },
+      { label: "カート", href: `${tenantRoot}/cart`, note: "購入候補を確認" },
+      { label: "返品条件", href: `${tenantRoot}/returns`, note: "購入前に確認" },
+    ],
+    cart: [
+      { label: "商品を追加", href: `${tenantRoot}/products`, note: "買い物を続ける" },
+      { label: "チェックアウト", href: `${tenantRoot}/checkout`, note: "注文確認へ進む" },
+      { label: "配送条件", href: `${tenantRoot}/shipping`, note: "送料を確認" },
+      { label: "返品条件", href: `${tenantRoot}/returns`, note: "返品可否を確認" },
+    ],
+    checkout: [
+      { label: "カートへ戻る", href: `${tenantRoot}/cart`, note: "数量と小計を確認" },
+      { label: "特商法", href: `${tenantRoot}/legal`, note: "販売条件を確認" },
+      { label: "プライバシー", href: `${tenantRoot}/privacy`, note: "個人情報を確認" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "注文前に相談" },
+    ],
+    contact: [
+      { label: "FAQ", href: `${tenantRoot}/faq`, note: "よくある質問を見る" },
+      { label: "配送について", href: `${tenantRoot}/shipping`, note: "配送条件を見る" },
+      { label: "返品について", href: `${tenantRoot}/returns`, note: "返品条件を見る" },
+      { label: "注文履歴", href: `${tenantRoot}/orders`, note: "注文番号を確認" },
+    ],
+    legal: [
+      { label: "配送について", href: `${tenantRoot}/shipping`, note: "発送条件を確認" },
+      { label: "返品について", href: `${tenantRoot}/returns`, note: "返品条件を確認" },
+      { label: "プライバシー", href: `${tenantRoot}/privacy`, note: "個人情報を確認" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "販売条件を相談" },
+    ],
+    privacy: [
+      { label: "特商法", href: `${tenantRoot}/legal`, note: "販売者情報を見る" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "個人情報を相談" },
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "登録情報を確認" },
+      { label: "FAQ", href: `${tenantRoot}/faq`, note: "よくある質問へ" },
+    ],
+    shipping: [
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "商品へ戻る" },
+      { label: "返品について", href: `${tenantRoot}/returns`, note: "返品条件と合わせて確認" },
+      { label: "カート", href: `${tenantRoot}/cart`, note: "送料前の小計を見る" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "配送を相談" },
+    ],
+    returns: [
+      { label: "配送について", href: `${tenantRoot}/shipping`, note: "配送条件を確認" },
+      { label: "注文履歴", href: `${tenantRoot}/orders`, note: "対象注文を確認" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "返品を相談" },
+      { label: "特商法", href: `${tenantRoot}/legal`, note: "取引条件を見る" },
+    ],
+    faq: [
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "解決しない場合に連絡" },
+      { label: "配送について", href: `${tenantRoot}/shipping`, note: "配送FAQへ移動" },
+      { label: "返品について", href: `${tenantRoot}/returns`, note: "返品FAQへ移動" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "商品比較へ戻る" },
+    ],
+    mypage: [
+      { label: "注文履歴", href: `${tenantRoot}/orders`, note: "注文を確認" },
+      { label: "お気に入り", href: `${tenantRoot}/favorites`, note: "保存商品を見る" },
+      { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions`, note: "契約状態を見る" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "購入後相談" },
+    ],
+    "mypage/subscriptions": [
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "アカウントへ戻る" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "対象商品を探す" },
+      { label: "FAQ", href: `${tenantRoot}/faq`, note: "定期購入FAQを見る" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "契約を相談" },
+    ],
+    orders: [
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "購入者ページへ戻る" },
+      { label: "配送について", href: `${tenantRoot}/shipping`, note: "配送状態を確認" },
+      { label: "返品について", href: `${tenantRoot}/returns`, note: "返品条件を見る" },
+      { label: "問い合わせ", href: `${tenantRoot}/contact`, note: "注文番号で相談" },
+    ],
+    favorites: [
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "商品を追加" },
+      { label: "カテゴリ一覧", href: `${tenantRoot}/categories`, note: "カテゴリで探す" },
+      { label: "カート", href: `${tenantRoot}/cart`, note: "購入候補を確認" },
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "アカウントへ戻る" },
+    ],
+    login: [
+      { label: "会員登録", href: `${tenantRoot}/register`, note: "新規登録へ" },
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "アカウントへ" },
+      { label: "注文履歴", href: `${tenantRoot}/orders`, note: "注文確認へ" },
+      { label: "FAQ", href: `${tenantRoot}/faq`, note: "ログインFAQへ" },
+    ],
+    register: [
+      { label: "ログイン", href: `${tenantRoot}/login`, note: "既存アカウントへ" },
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "登録後の入口" },
+      { label: "プライバシー", href: `${tenantRoot}/privacy`, note: "個人情報を確認" },
+      { label: "商品一覧", href: `${tenantRoot}/products`, note: "買い物へ戻る" },
+    ],
+    account: [
+      { label: "マイページ", href: `${tenantRoot}/mypage`, note: "購入者ページへ" },
+      { label: "注文履歴", href: `${tenantRoot}/orders`, note: "注文を確認" },
+      { label: "お気に入り", href: `${tenantRoot}/favorites`, note: "保存商品を見る" },
+      { label: "定期購入", href: `${tenantRoot}/mypage/subscriptions`, note: "契約状態を見る" },
+    ],
+  };
+
+  return map[page] ?? commonDiscovery;
 }
 
 function normalizeShopCategoryToken(value: string): string {

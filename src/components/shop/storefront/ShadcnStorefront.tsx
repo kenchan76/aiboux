@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import {
+  buildShopBreadcrumbSupportLinks,
   buildShopHeaderCategoryLinks,
   buildShopPageBuyingGuide,
   buildShopPageQualitySummary,
@@ -110,6 +111,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const saleProducts = rotateProducts(visualProducts, 3);
   const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
+  const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
   const columnClass = {
     3: "lg:grid-cols-3",
     4: "lg:grid-cols-4",
@@ -124,6 +126,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
       <main className="mx-auto max-w-screen-xl px-4 pb-10">
         <StorefrontBreadcrumb
           className="py-3"
+          supportLinks={breadcrumbSupportLinks}
           items={[{ name: "TOP", href: "", url: "https://shop.aiboux.com/s/aiboux/" }]}
         />
         <h1 className="sr-only">{storeName}</h1>

@@ -168,6 +168,17 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         if (breadcrumbLinkCount > 0) {
           expect(await breadcrumb.locator("a").first().getAttribute("class"), `${target.path} breadcrumb links should be visibly link-colored`).toContain("text-blue-700");
         }
+        const breadcrumbShell = page.getByTestId("storefront-breadcrumb-shell");
+        await expect(breadcrumbShell, `${target.path} should render the shared breadcrumb shell`).toBeVisible();
+        await expect(breadcrumbShell, `${target.path} breadcrumb shell should label the current location`).toContainText("現在地");
+        const breadcrumbSupport = page.getByTestId("storefront-breadcrumb-support-links");
+        await expect(breadcrumbSupport, `${target.path} should include breadcrumb-adjacent support links`).toBeVisible();
+        await expect(breadcrumbSupport, `${target.path} support links should expose SiteNavigationElement microdata`).toHaveAttribute(
+          "itemtype",
+          "https://schema.org/SiteNavigationElement",
+        );
+        expect(await breadcrumbSupport.locator("a").count(), `${target.path} should expose multiple breadcrumb support links`).toBeGreaterThanOrEqual(3);
+        expect(await breadcrumbSupport.locator("a").first().getAttribute("class"), `${target.path} breadcrumb support links should be visibly blue`).toContain("text-blue-700");
         if ("expectedTestId" in target && target.expectedTestId) {
           await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
         }
