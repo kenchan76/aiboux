@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Thu, 04 Jun 2026 13:40:53 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/setsuka-coffee
+x-aiboux-rewritten-path: /shop/aiboux/product/setsuka-coffee
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: d9802610-8d8a-4958-b78c-d5b1c93ab8f7
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2B%2FUdYX5a1agvAd9Lfi2uvw3cukyYApeS8SZmdLkJWCXKFVyMsUpD5AeipevldA3INf%2Bfxrn25TVv42j9No3d%2FhlrvCxiv11eLrrAzX3kWvKliONwpoA9qkBKG%2BOur5u8Yqo%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a0675a1a3f76005d-NRT
+alt-svc: h3=":443"; ma=86400
+

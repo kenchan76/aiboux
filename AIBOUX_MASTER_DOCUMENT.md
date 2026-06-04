@@ -29,6 +29,65 @@ Still unresolved:
 
 This sprint status does not override the requirement that subscription support must pass after D1 permission is restored.
 
+## Current Active Operating Override: AIBOUX Shop Social Robots SEO And Shared Head Meta
+
+Status: `SHOP_10H_SOCIAL_ROBOTS_SEO_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens tenant storefront SEO structure beyond visible breadcrumb and JSON-LD.
+
+Implemented WIP evidence:
+
+- Worker Version ID: `d9802610-8d8a-4958-b78c-d5b1c93ab8f7`
+- `npm run gate:shop-sales-quality`: PASS on public URLs
+- TOP `/s/aiboux/`: robots `index,follow,max-image-preview:large`, self canonical, Open Graph website, Twitter Card
+- Product `/s/aiboux/product/setsuka-coffee`: robots `index,follow,max-image-preview:large`, self canonical, Open Graph product, Twitter Card
+- Cart `/s/aiboux/cart`: robots `noindex,follow,noarchive`, self canonical, Open Graph website, Twitter Card
+
+Active SEO rules:
+
+- Tenant storefront SEO head metadata must be shared infrastructure, not page-local ad hoc code.
+- Public discovery/content pages are indexable:
+  - TOP
+  - products
+  - categories
+  - product detail
+  - contact
+  - legal
+  - privacy
+  - shipping
+  - returns
+  - FAQ
+- Transactional/private/account pages are `noindex,follow,noarchive`:
+  - cart
+  - checkout
+  - mypage
+  - account
+  - orders
+  - favorites
+  - login
+  - register
+  - mypage/subscriptions
+- Every tenant storefront page must include:
+  - self-referencing canonical URL;
+  - robots meta;
+  - Open Graph title, description, URL, image, and type;
+  - Twitter Card title, description, image, and card type;
+  - `ja-JP` alternate URL;
+  - visible breadcrumb for tenant subpages;
+  - JSON-LD generated from shared helpers.
+- Product detail must use product-specific Open Graph image and `og:type=product`.
+- Product detail must keep one primary product H1 and must not render a duplicated title above the image/gallery.
+- SEO-critical navigation must use real `<a href>` anchors with meaningful visible text.
+
+Still unresolved:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Public Storefront Visual Quality Fix
 
 Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
