@@ -44,14 +44,16 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(page.getByTestId("public-product-info")).toBeVisible();
       await expect(page.getByTestId("public-product-purchase-box")).toBeVisible();
       await expect(page.locator("[data-cart-add]").first()).toBeVisible();
-      await expect(page.getByText(/在庫あり|在庫確認/)).toBeVisible();
+      await expect(page.getByTestId("public-product-purchase-box").getByText(/在庫あり|在庫確認/)).toBeVisible();
       await expect(page.getByText("商品説明")).toBeVisible();
       await expect(page.getByText(/AIBOUX公開検証商品|公開検証商品|検証商品/)).toHaveCount(0);
       await expect(page.getByTestId("product-main-image")).toBeVisible();
       expect(await page.getByTestId("product-thumbnail").count(), "thumbnail gallery should use real image thumbnails").toBeGreaterThanOrEqual(5);
       const thumbnailImages = page.locator("[data-testid='product-thumbnail'] img");
       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
-      await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
+      await expect(
+        page.getByTestId("public-product-info").locator("dt", { hasText: /^返品条件$/ }),
+      ).toBeVisible();
       const commerceFacts = page.getByTestId("storefront-commerce-facts");
       await expect(commerceFacts, "product detail should include shared merchant listing purchase facts").toBeVisible();
       await expect(commerceFacts, "product detail purchase facts should include price/shipping/returns/payment context").toContainText("価格・配送・返品・決済");

@@ -1,6 +1,40 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Commerce Facts SEO/UI Commonization
+
+Status: `SHOP_5H_COMMERCE_FACTS_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens all public tenant storefront pages with shared visible purchase facts and crawlable internal links.
+
+Implemented WIP direction:
+
+- Price, tax, stock, shipping, return policy, payment status, support, and subscription readiness are rendered through a shared commerce facts component.
+- The shared component appears on TOP, public subpages, and product detail.
+- Links remain real crawlable `<a href>` anchors with visible link affordance.
+- The shared component exposes visible `SiteNavigationElement` microdata.
+- Product detail keeps one visible product `h1`; the duplicate product title above the gallery remains removed.
+- Product detail keeps Product, Offer, shipping, return policy, canonical, Open Graph, Twitter, and breadcrumb evidence.
+- Google Search Central references checked for this WIP include SEO Starter Guide, ecommerce URL structure, product structured data, merchant listing, breadcrumb structured data, and crawlable link guidance.
+
+Latest WIP evidence:
+
+- WIP implementation commit: `d2bc86e`
+- WIP deploy checkpoint commit: `6b93e7d`
+- Implementation Worker Version ID: `d3a99848-acc8-47be-bd09-661e24b1fe85`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Shared Category Link Parts
 
 Status: `SHOP_10H_SHARED_CATEGORY_LINK_PARTS_WIP`

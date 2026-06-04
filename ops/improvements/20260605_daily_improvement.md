@@ -54,3 +54,18 @@ Practical process improvement:
 Applied target:
 
 - `/s/aiboux/products?category={slug}` must filter products, show category context, emit a self canonical, remain indexable, and expose an `ItemList` for the visible products.
+
+## Additional Improvement: Shared Commerce Facts Gate
+
+After checking Google Search Central product, merchant listing, return policy, breadcrumb, ecommerce URL, and crawlable link guidance again, purchase-critical facts should not be scattered across page-local templates.
+
+Practical process improvement:
+
+- Every public storefront page must show a shared purchase facts block with price/tax, stock/shipping, return policy, payment state, support, and subscription readiness.
+- The block must use crawlable `<a href>` links with visible affordance.
+- The block must expose visible `SiteNavigationElement` microdata.
+- Product detail must include product-specific price and stock context while keeping only one visible product `h1`.
+
+Applied target:
+
+- `StorefrontCommerceFacts` is required by public crawl and product detail gates.
