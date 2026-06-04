@@ -1,5 +1,35 @@
 # AIBOUX Current Task
 
+## Active Override: Shop 5H Sales Quality Sprint
+
+Instruction source:
+
+- `ops/instructions/20260604_shop_5h_sales_quality_sprint.md`
+
+Current status:
+
+- `ACTIVE_WIP`
+
+Current target URLs:
+
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/cart`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/contact`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/admin/subscriptions`
+
+Required work:
+
+1. Treat this as `SHOP_5H_SALES_QUALITY_SPRINT_WIP`, not a single-gate task.
+2. Add or strengthen crawl, product detail, cart/checkout, contact/legal, admin, and sales-quality gates.
+3. Continue improving public storefront sales quality, hero smoothness, product/card behavior, shared templates, admin pages, and subscription schema-pending behavior.
+4. Remote D1 subscription migration permission failures are a separate blocker and must not stop storefront/frontend work.
+5. Publish `/g/l68`, `/g/d68`, and `/g/m68` before reporting.
+
+Do not report `FINAL_ACCEPTED`.
+
 ## Active Override: Shop Public Storefront Carousel Smoothness And Visual Polish
 
 Instruction source:

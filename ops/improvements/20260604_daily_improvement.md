@@ -1,37 +1,12 @@
 # 2026-06-04 Daily Improvement
 
-## Topic
+Checked current official documentation while preparing the Shop sales-quality sprint.
 
-AIBOUX public Playwright persistence tests should wait for UI readiness with web-first assertions and use strict, unambiguous locators.
+## Documentation Checked
 
-## Official Documentation Checked
+- Playwright screenshot and visual evidence guidance: use screenshots as concrete evidence instead of relying only on HTTP status.
+- Cloudflare Workers versions and deployments guidance: deployments produce version evidence, and Worker Version ID should continue to be recorded after WIP deploys.
 
-- Playwright official best practices: `https://playwright.dev/docs/next/best-practices`
-- Playwright official locator documentation: `https://playwright.dev/docs/next/api/class-locator`
+## Improvement Applied
 
-## Improvement
-
-For AIBOUX public UI tests that save data:
-
-1. Wait for visible loading indicators to disappear before filling controlled React inputs.
-2. Verify the input value after `fill()` before clicking save.
-3. Use exact role-based locators for primary buttons when preview text can include the same word.
-4. Snapshot original production state before temporary public-save tests.
-5. Restore the original state in `finally`.
-6. Verify the temporary marker is not left on the public page after restore.
-
-## Reason
-
-The Shop design editor persistence test initially failed because it filled a controlled input before the async layout load had fully settled, and then used a non-exact save button locator that became ambiguous after the marker text appeared in the live preview.
-
-The new pattern avoids that by using:
-
-```ts
-await expect(page.getByText("読み込み中")).toHaveCount(0);
-await expect(heroTitle).not.toHaveValue("");
-await heroTitle.fill(marker);
-await expect(heroTitle).toHaveValue(marker);
-await page.getByRole("button", { name: "保存", exact: true }).click();
-```
-
-This pattern is now required for similar AIBOUX editor persistence tests.
+The Shop sales-quality sprint will not stop after a single passing gate. It adds page-crawl and behavior gates across storefront, product detail, cart, checkout, contact/legal pages, admin pages, and subscription state. Public screenshots are treated as required evidence in `/g/d68`, and Worker Version ID remains required in `/g/l68`.
