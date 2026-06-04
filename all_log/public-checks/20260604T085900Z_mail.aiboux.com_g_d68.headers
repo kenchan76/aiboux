@@ -1,0 +1,17 @@
+HTTP/2 200 
+date: Thu, 04 Jun 2026 08:57:17 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 26879
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=i%2F3gVlTlaMxj%2B3bTu30hQzIx07XxV1X6NVke8HakUItQ%2BOHs5SXwhhUGQfDRS%2FeKXLkXZAnHT%2BzGCch62oG%2BTUDvPUfq1MLW5V40F9gdUIQ6olefZ9ZZFiGk81Sl29W8V4Y%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a065baaa8b55ac08-NRT
+alt-svc: h3=":443"; ma=86400
+

@@ -1,0 +1,747 @@
+# AIBOUX Shop Sales Tenant Screen Artifact
+
+## 2026-06-04T08:22:22Z Public Storefront Visual Quality Fix Evidence
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+This is WIP visual evidence, not `FINAL_ACCEPTED`.
+
+### Public Screen Evidence
+
+| Evidence | Public URL |
+| --- | --- |
+| Public storefront after quality fix 1365px | `/g/screens/public-storefront-after-quality-fix-1365.png` |
+| Public storefront after quality fix 1980px | `/g/screens/public-storefront-after-quality-fix-1980.png` |
+| Public storefront after quality fix mobile | `/g/screens/public-storefront-after-quality-fix-mobile.png` |
+| TOP editor after quality fix 1980px | `/g/screens/shop-design-editor-top-1980.png` |
+| Public product detail after quality fix 1980px | `/g/screens/shop-product-detail-1980.png` |
+
+### Visual Quality Checks
+
+- Public storefront TOP URL: `https://shop.aiboux.com/s/aiboux/`
+- Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- recommended product cards: 10
+- ranking cards: 5
+- time-sale cards: 5
+- category cards: 8
+- public test product name matches: 0
+- weak image URL matches: 0
+- Unsplash image references in public TOP HTML: 31
+- unique sales image references: 21
+- `npm run gate:shop-storefront-visual`: 3 passed
+- `npm run gate:shop-design`: 5 passed
+
+### Non-Final Condition
+
+This fixes the public storefront visual quality as WIP evidence only.
+
+Shop overall `FINAL_ACCEPTED` is still prohibited because remote D1 subscription migration and `gate:shop-subscriptions` remain unresolved.
+
+## 2026-06-04T07:55:00Z Public Storefront Visual Repair Evidence
+
+Status: `PUBLIC_STOREFRONT_DESIGN_MISMATCH_FIXED_WIP`
+
+This is WIP visual evidence, not `FINAL_ACCEPTED`.
+
+### Public Screen Evidence
+
+| Evidence | Public URL |
+| --- | --- |
+| TOP editor 1980px | `/g/screens/shop-design-editor-top-1980.png` |
+| Product editor 1980px | `/g/screens/shop-design-editor-product-1980.png` |
+| Public storefront TOP 1980px | `/g/screens/shop-storefront-top-1980.png` |
+| Public storefront TOP 1365px | `/g/screens/shop-storefront-top-1365.png` |
+| Public product detail 1980px | `/g/screens/shop-product-detail-1980.png` |
+
+### Visual Checks
+
+- Normal Shop admin sidebar is not used in the design editor.
+- TOP and Product Detail are the only editable pages.
+- Public storefront TOP uses real sales-oriented images.
+- Hero main slide is visible.
+- Hero previous and next previews use real image URLs.
+- Recommended products show at least five images.
+- Weak image URLs containing `placeholder`, `skeleton`, `gray`, `grey`, `no-image`, `画像なし`, or `/shop/design/hero-` are rejected by Playwright.
+- Ranking and time sale cards use product images.
+- Category cards use images.
+- Public 1365px storefront screenshot was captured.
+
+### Public URL Evidence
+
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/admin/design`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`: HTTP 200
+- Worker Version ID: `fc1a0ea0-f7a4-48db-9309-4a5f11b4dbe5`
+
+## 2026-06-04T07:30:00Z Shop Subscriptions WIP Screen State
+
+Status: `D1_PERMISSION_BLOCKED_NOT_FINAL`
+
+This screen artifact records the intended WIP evidence for the AIBOUX Shop subscription flow.
+
+### Subscription Screens Added Locally
+
+- Product admin subscription-plan editor.
+- Product detail purchase box with:
+  - normal purchase;
+  - subscription purchase;
+  - subscription price;
+  - delivery frequency;
+  - notice text;
+  - minimum cycle note.
+- Product detail schema-pending message:
+  - `定期購入は準備中です。`
+  - `DB migrationが未適用のため、現在は申し込みできません。`
+- Cart subscription item display.
+- Checkout subscription blocker:
+  - `定期決済設定が未完了です。`
+- Checkout subscription submit result area.
+- Admin subscription list:
+  - customer;
+  - product / plan;
+  - amount;
+  - next billing;
+  - next delivery;
+  - status;
+  - pause / resume / skip / cancel actions.
+
+### Screenshot Evidence Pending
+
+The following public screenshot evidence still requires remote D1 migration and WIP deploy:
+
+- `/g/screens/shop-subscription-product-1980.png`
+- `/g/screens/shop-subscription-cart-1980.png`
+- `/g/screens/shop-subscription-checkout-1980.png`
+- `/g/screens/shop-subscription-admin-1980.png`
+
+### Non-Final Condition
+
+This is not final visual acceptance.
+
+Remote D1 migration is blocked by Cloudflare authorization error 7403, so the public subscription flow cannot yet prove persisted remote subscription records.
+
+## Status
+
+WIP_DEPLOYED
+
+## Public Execution Log Required Rule
+
+Every user-facing report must start with the public URL Bundle:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Screen evidence is not valid if it exists only under `all_log/...`.
+Before reporting, this `d68` public URL must be deployed and verified with curl.
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+
+## Current Screen Meaning
+
+This screen artifact URL is reserved for AIBOUX Shop sales tenant visual evidence.
+It is not final acceptance evidence yet.
+
+## Required Public Screen Evidence
+
+The final `d68` artifact must record public visual evidence for:
+
+- `https://shop.aiboux.com/`
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/admin`
+- `https://shop.aiboux.com/s/aiboux/admin/orders`
+- `https://shop.aiboux.com/s/aiboux/admin/products`
+- `https://shop.aiboux.com/s/aiboux/admin/inventory`
+- `https://shop.aiboux.com/s/aiboux/admin/categories`
+- `https://shop.aiboux.com/s/aiboux/admin/customers`
+- `https://shop.aiboux.com/s/aiboux/admin/content`
+- `https://shop.aiboux.com/s/aiboux/admin/analytics`
+- `https://shop.aiboux.com/s/aiboux/admin/apps`
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/admin/settings`
+- storefront product list
+- product detail
+- cart
+- checkout
+- contact
+- legal
+- privacy
+- shipping
+- returns
+
+## Required Interaction Evidence
+
+- Product create opens and saves.
+- Product edit saves.
+- Product list updates.
+- Product appears on storefront.
+- Cart add works.
+- Cart quantity change works.
+- Cart delete works.
+- Checkout transition works.
+- Contact form validates and submits.
+- Settings save reflects on public legal/privacy/shipping/returns pages.
+
+## Current Policy Evidence
+
+Shop UI protection is warn-only for WIP deploy.
+Strict Shop UI protection is final-only.
+
+WIP deploy must be preceded by checkpoint evidence under:
+
+- `all_log/checkpoints/`
+- `all_log/patches/`
+- `all_log/deploys/`
+
+## WIP Public Screen Targets
+
+The following public URLs are currently available for visual inspection after WIP deploy:
+
+| URL | HTTP | Worker Version ID | Title |
+| --- | --- | --- | --- |
+| `https://shop.aiboux.com/` | 200 | `07bc9232-ba82-4317-9d0a-9d97001fa1ad` | `AIBOUX SHOP | サービスサイト` |
+| `https://shop.aiboux.com/s/aiboux/` | 200 | `07bc9232-ba82-4317-9d0a-9d97001fa1ad` | `AIBOUX Store | AIBOUX Storefront` |
+| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `07bc9232-ba82-4317-9d0a-9d97001fa1ad` | `AIBOUX SHOP Dashboard` |
+
+## WIP Evidence Log
+
+- `all_log/92_shop_wip_deploy_public_reflection.md`
+
+## Shop Fix Cycle 01 Screen Evidence
+
+Cycle timestamp: `20260603T233309Z`
+
+WIP deploy Worker Version ID:
+
+- `ed331907-7c17-4135-8184-746d9989c229`
+
+Public screen/text verification after cycle 01:
+
+- public admin no longer displays fake fixed values such as fixed sales, fixed order counts, fixed order numbers, fixed customer names, fixed SKUs, or fixed date ranges;
+- admin dashboard displays honest empty states where real data is unavailable;
+- storefront child routes return styled HTTP 200 pages;
+- storefront pages do not show fake checkout or fake payment completion UI;
+- Shop UI links stay under `/s/aiboux/` and `/s/aiboux/admin/`;
+- no `href="#"` remains in Shop public UI.
+
+Evidence files:
+
+- `all_log/shop-ui/20260603T233309Z_public_url_status_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_admin_fixed_value_check_after_fix_01.txt`
+- `all_log/shop-ui/20260603T233309Z_playwright_text_check_after_fix_01.json`
+
+Playwright rendered text check:
+
+- `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200, forbidden fixed values 0
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200, forbidden fixed values 0
+
+## Safety
+
+- This artifact is WIP.
+- Do not treat this as FINAL_ACCEPTED.
+- Do not claim visual completion until public screenshots and Playwright evidence are attached.
+
+## Public Execution Log Required Rule Screen Evidence
+
+Status: `WIP_LOG_RULE_PUBLISHED`
+
+Public URL bundle that must appear at the top of every report:
+
+- Execution log URL: `https://mail.aiboux.com/g/l68`
+- Screen evidence URL: `https://mail.aiboux.com/g/d68`
+- Master URL: `https://mail.aiboux.com/g/m68`
+
+Latest Worker Version ID:
+
+- `07bc9232-ba82-4317-9d0a-9d97001fa1ad`
+
+Screen evidence policy:
+
+- Local screenshots or `all_log/...` paths alone are not sufficient for user-facing reporting.
+- The public screen evidence URL must be curl-verified before reporting.
+- WIP evidence is allowed, but it must be labeled WIP and must not be called FINAL_ACCEPTED.
+
+## Shop Fix Cycle 02 Screen Evidence Pending
+
+Status: `WIP_FIXING_PENDING_DEPLOY`
+
+Target public screen:
+
+- `https://shop.aiboux.com/s/aiboux/admin`
+
+Required visible-value check:
+
+- The public admin screen must not show the fixed demo values reported by the user.
+- Checks must use public URL curl and public URL Playwright rendered DOM.
+
+Pre-deploy observation:
+
+- Public curl with no-cache headers returned HTTP 200 and did not find the reported fixed values in HTML.
+- Public Playwright rendered DOM returned HTTP 200 and did not show the reported fixed values in visible text.
+- A Shop AI assistant source component still contained fixed Shop sample values; that source has been changed to `未集計` / `0件` before deploy.
+- A Global AI assistant placeholder included a person-name example that caused `佐藤` to appear in rendered HTML, even though it was not visible text. That placeholder now uses a generic `取引先` example.
+
+This evidence is WIP and not FINAL_ACCEPTED.
+
+## Shop Fix Cycle 02 Public Screen Evidence
+
+Status: `WIP_PUBLIC_ADMIN_DEMO_VALUES_ZERO`
+
+Fix deploy Worker Version ID:
+
+- `117ac4a0-68c2-4807-b650-8c793599f73d`
+
+Verified public admin URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin?codex_nocache=20260604T002350Z`
+
+Public curl screen evidence:
+
+- HTTP 200
+- `2024/05`: absent
+- `山田`: absent
+- `¥2,340,000`: absent
+- `245件`: absent
+- `2.35%`: absent
+- `¥9,551`: absent
+- `28.7%`: absent
+- `TSH-001`: absent
+- `BAG-001`: absent
+- `BTL-500`: absent
+- `#10085`: absent
+- `#10084`: absent
+- `#10083`: absent
+- `佐藤`: absent
+- `鈴木`: absent
+- `田中`: absent
+
+Public Playwright rendered screen evidence:
+
+- HTTP 200
+- title: `AIBOUX SHOP Dashboard`
+- visible text: all listed fixed demo values absent
+- rendered HTML: all listed fixed demo values absent
+
+Visual scope:
+
+- No broad Shop layout redesign was done in this cycle.
+- This cycle only removed fixed demo values from delayed Shop/Global AI assistant sources and verified public admin output.
+
+This is not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Design Editor Post Deploy Screen Evidence
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+Public design editor URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+Verified route:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design?verify=20260604T061436Z`
+- HTTP status: `200`
+- `x-aiboux-rewritten-path`: `/shop/settings/design`
+- `x-aiboux-worker-version`: `07bc9232-ba82-4317-9d0a-9d97001fa1ad`
+
+Current visual evidence:
+
+- the normal Shop admin sidebar is not used for the design editor screen;
+- the editor uses a dedicated top bar;
+- the editor uses left pane, central preview, and right settings pane;
+- editable page targets are limited to `TOPページ` and `商品詳細ページ`;
+- TOP preview keeps the Amazon-like category navigation horizontal;
+- the hero slider side previews use actual slide images, not gray placeholders;
+- public Playwright screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`.
+
+Public Playwright after deploy:
+
+- `tests/shop-functional-public.spec.ts`: `6 passed`
+
+Persistence screen behavior:
+
+- the TOP hero title was temporarily edited through the public design editor;
+- the public storefront rendered the temporary title;
+- the layout was restored after the test;
+- restored TOP hero title: `雪花セレクトを、わかりやすく。`
+
+Non-final note:
+
+- `npm run gate:design` is still configured for an older Core preview URL and is not a valid Shop design editor acceptance gate yet.
+- This must be split or replaced before final UI acceptance.
+
+## Shop Design Editor Visual Evidence URLs
+
+Status: `WIP_DEPLOYED_NOT_FINAL_ACCEPTED`
+
+Public screenshot URLs:
+
+- Editor TOP 1980px: `https://mail.aiboux.com/g/screens/shop-design-editor-top-1980.png`
+- Editor Product Detail 1980px: `https://mail.aiboux.com/g/screens/shop-design-editor-product-1980.png`
+- Public Storefront TOP 1980px: `https://mail.aiboux.com/g/screens/shop-storefront-top-1980.png`
+- Public Product Detail 1980px: `https://mail.aiboux.com/g/screens/shop-product-detail-1980.png`
+
+Shop-specific visual gate:
+
+```bash
+npm run gate:shop-design
+```
+
+Result:
+
+```text
+4 passed
+```
+
+Visual status:
+
+- normal Shop admin sidebar absent from design editor: PASS
+- dedicated design editor top bar: PASS
+- left pane, central preview, right pane visible: PASS
+- editable page targets limited to `TOPページ` and `商品詳細ページ`: PASS
+- category navigation remains horizontal at 1980px: PASS
+- hero side previews use real slide images: PASS
+- public storefront TOP has hero and recommended products: PASS
+- public product detail has gallery, information, and purchase-box columns: PASS
+
+Known WIP visual note:
+
+- public product detail is now structurally Amazon-like, but spacing and polish can still be improved in a later visual refinement cycle.
+- This is not `FINAL_ACCEPTED`.
+
+## Shop Fix Cycle 04 Functional Screen Evidence Pending Deploy
+
+## Shop Design Editor Fullscreen Repair Screen Evidence
+
+Status: `WIP_DESIGN_EDITOR_FULLSCREEN_REPAIR_DEPLOYED_NOT_FINAL`
+
+Screen under repair:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+
+Rejected issue addressed:
+
+- The previous screen placed the design editor inside the normal Shop admin sidebar/header.
+- That compressed the central preview and caused the Amazon-style category navigation and hero preview to break.
+
+Current visual evidence:
+
+- The normal Shop management sidebar is absent on `/s/aiboux/admin/design`.
+- The normal Shop admin header is absent on `/s/aiboux/admin/design`.
+- A dedicated top editor bar is visible.
+- The left side is the editor pane for `ページ` and `共通設定`.
+- The central area is a wide live store preview.
+- The right side is the selected-section settings panel.
+- On a 1980px screenshot, the central preview is verified by Playwright as at least 1100px wide.
+- Category navigation labels remain horizontal.
+- Hero side previews use actual slide images, not gray placeholders.
+- Editable page targets are limited to `TOPページ` and `商品詳細ページ`.
+- Cart, checkout, legal, privacy, shipping, returns, and other common-template pages are not exposed as editable page targets.
+
+Screenshot artifact:
+
+- `output/playwright/shop-functional/design-editor-1980.png`
+
+Public Playwright evidence:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
+- Result: PASS, 5 passed
+
+This is WIP screen evidence and not `FINAL_ACCEPTED`.
+
+## Shop Design Editor Persistence Screen Evidence
+
+Status: `WIP_DESIGN_EDITOR_PERSISTENCE_VERIFIED_NOT_FINAL`
+
+Verified public screens:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/`
+
+Public Playwright behavior evidence:
+
+- The design editor loads as the dedicated fullscreen editor.
+- The first TOP hero title is edited through the visible right-pane input.
+- The exact top-bar `保存` button is clicked.
+- The layout API receives a save request.
+- The public storefront shows the temporary hero title.
+- The public storefront still shows the temporary title after reload/revisit.
+- The original layout is restored after the test.
+- The temporary marker is not left on the public storefront after restore.
+
+Screenshot artifacts:
+
+- `output/playwright/shop-functional/design-editor-1980.png`
+- `output/playwright/shop-functional/admin-demo-free-1980.png`
+
+Playwright results:
+
+- Full public Shop functional spec: PASS, 6 passed
+- Persistence-only spec selection: PASS, 1 passed
+
+This is WIP screen evidence and not `FINAL_ACCEPTED`.
+
+## Shop Fix Cycle 05 Store Design Editor Screen Evidence
+
+Status: `WIP_STORE_DESIGN_EDITOR_DEPLOYED_NOT_FINAL`
+
+Cycle timestamp: `20260604T052958Z`
+
+Target public screens:
+
+- `https://shop.aiboux.com/s/aiboux/admin/design`
+- `https://shop.aiboux.com/s/aiboux/`
+- `https://shop.aiboux.com/s/aiboux/product/shopprod_tenant_001_4580000232621`
+
+Public route evidence after public log publication:
+
+- Design editor URL returned HTTP 200.
+- Design editor route rewrote to `/shop/settings/design`.
+- Tenant storefront URL returned HTTP 200.
+- Product detail URL returned HTTP 200.
+- All checked responses were served by Worker Version ID `07bc9232-ba82-4317-9d0a-9d97001fa1ad`.
+
+Design editor screen evidence:
+
+- The left pane exposes `TOPページ` and `商品詳細ページ`.
+- The left pane does not expose product list, category, cart, checkout, contact, legal, privacy, shipping, returns, mypage, orders, FAQ, or 404 as page-level editing targets.
+- The editor includes the explicit note that only TOP page and product detail page are editable.
+- The editor includes `ヒーロースライダー` settings.
+- The editor includes common `ロゴ` settings.
+- The center preview uses a three-column editor layout matching the requested direction:
+  - left navigation/layers;
+  - center live preview;
+  - right selected-section settings.
+
+Storefront screen evidence:
+
+- The public TOP page uses the tenant URL `https://shop.aiboux.com/s/aiboux/`.
+- The public TOP page keeps the Shop service root separate from the tenant storefront.
+- The public TOP page renders an Amazon-like header, category navigation, hero area, and product sections.
+- The product detail page renders an Amazon-like product detail structure with image gallery, product information, and purchase box.
+
+Playwright result:
+
+- Command: `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npx playwright test tests/shop-functional-public.spec.ts`
+- Result: 5 passed
+- Screenshot artifact: `output/playwright/shop-functional/design-editor-1980.png`
+
+This screen evidence is WIP only.
+It must not be treated as FINAL_ACCEPTED for the whole Shop tenant.
+
+Status: `WIP_FUNCTIONAL_HARDENING_PENDING_DEPLOY`
+
+Prepared public screen targets:
+
+- `https://shop.aiboux.com/s/aiboux/products`
+- `https://shop.aiboux.com/s/aiboux/product/{id}`
+- `https://shop.aiboux.com/s/aiboux/cart`
+- `https://shop.aiboux.com/s/aiboux/checkout`
+- `https://shop.aiboux.com/s/aiboux/contact`
+- `https://shop.aiboux.com/s/aiboux/legal`
+- `https://shop.aiboux.com/s/aiboux/privacy`
+- `https://shop.aiboux.com/s/aiboux/shipping`
+- `https://shop.aiboux.com/s/aiboux/returns`
+- `https://shop.aiboux.com/s/aiboux/admin/products`
+- `https://shop.aiboux.com/s/aiboux/admin/settings`
+
+Prepared screen behavior:
+
+- Public products page reads published D1 shop products instead of `shop-sample-data`.
+- Product detail page reads the selected published D1 shop product.
+- Empty product/category pages show honest empty states.
+- Cart page can render local cart items, update quantity, remove items, and show subtotal.
+- Checkout page shows cart contents and blocks false payment completion when payment is not connected.
+- Contact page validates name, email, and message, then reports that storage/notification is not connected rather than pretending success.
+- Legal and privacy pages render saved/generated shop profile text.
+- Shipping and returns pages render generated policy text based on shop profile contact data.
+
+Prepared Playwright artifact:
+
+- `tests/shop-functional-public.spec.ts`
+- screenshot target: `output/playwright/shop-functional/admin-demo-free-1980.png`
+
+This evidence still requires WIP deploy and public URL verification before it can be treated as deployed screen evidence.
+
+### Cycle 04 Public Functional Screen Evidence
+
+Status: `WIP_FUNCTIONAL_HARDENING_DEPLOYED_NOT_FINAL`
+
+Verified Worker Version ID:
+
+- `99725905-9dd6-4263-a7a6-c098f0372ff7`
+
+Verified public screens:
+
+- `https://shop.aiboux.com/s/aiboux/`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/products`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/categories`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/cart`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/contact`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/legal`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/privacy`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/shipping`: HTTP 200
+- `https://shop.aiboux.com/s/aiboux/returns`: HTTP 200
+- all listed admin pages: HTTP 200
+
+Playwright screen behavior result:
+
+- cart renders a stored item
+- cart quantity changes update subtotal
+- cart removal returns to empty state
+- checkout shows payment setup required
+- checkout does not show fake order/payment success text
+- contact empty submit shows required-field errors
+- contact invalid email shows email validation error
+- contact valid input reports storage/notification is not connected and does not fake send success
+- legal/privacy/shipping/returns render policy text in the page body
+
+Playwright artifact:
+
+- `output/playwright/shop-functional/admin-demo-free-1980.png`
+
+This is not FINAL_ACCEPTED for the whole Shop tenant.
+
+## Shop Fix Cycle 03 Route And Cache Screen Evidence
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIX_PENDING_DEPLOY`
+
+Reason:
+
+- The user's external fetch path still shows stale fixed demo values.
+- Codex's direct curl and Playwright path shows those values absent.
+- This cycle treats the issue as route/cache mismatch and does not advance to other Shop features.
+
+Required public screen evidence after deploy:
+
+- public admin response headers show stronger no-store policy
+- `x-aiboux-worker-version` is current
+- public admin HTML grep shows fixed values absent
+- public Playwright rendered DOM shows fixed values absent
+
+This is not FINAL_ACCEPTED.
+
+## Shop Fix Cycle 03 Public Screen Evidence
+
+Status: `WIP_ROUTE_CACHE_MISMATCH_FIXED_FOR_VERIFIED_PATHS`
+
+Verified Worker Version ID:
+
+- `9f28a3bb-99e5-4655-9caf-999263b016f4`
+
+Verified public admin URL:
+
+- `https://shop.aiboux.com/s/aiboux/admin?verify=20260604T012024Z`
+
+Visible public state after fix:
+
+- Admin account area shows `ストア管理者` instead of `山田 太郎 管理者`.
+- Sales KPI shows `¥0` instead of `¥2,340,000`.
+- Order count shows `0件` instead of `245件`.
+- CVR / AOV / repeat rate show `未集計` where data is unavailable.
+- Best sellers, recent orders, and inventory alerts show honest empty states.
+
+Public curl and Playwright evidence:
+
+- HTTP 200
+- fixed demo values absent from public HTML
+- fixed demo values absent from Playwright visible text
+- fixed demo values absent from Playwright rendered HTML
+
+Cache evidence:
+
+- `cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0`
+- `cdn-cache-control: no-store`
+- `cloudflare-cdn-cache-control: no-store`
+- `clear-site-data: "cache"`
+- `x-aiboux-admin-cache-policy: no-store-clear-cache`
+
+External web fetch evidence:
+
+- The external web fetch path returned the updated admin after the cache-header deploy.
+- The old fixed demo values were no longer present in that fetch result.
+
+This is not FINAL_ACCEPTED for the whole Shop tenant.
+
+---
+
+## 2026-06-04T08:30:30Z Public Storefront Visual Quality Screenshot Refresh
+
+Status: `PUBLIC_STOREFRONT_VISUAL_QUALITY_FIX_WIP`
+
+The public storefront visual gate was rerun after the side hero DOM was made explicit as previous and next slide cards.
+
+- Code WIP Worker Version ID: `d26b3694-1816-4f3b-8b8b-5a5cbc9ac971`
+- WIP commit: `d6403e1f1348032cd3d44200ccb8a17584e5aa1f`
+- Public storefront 1365px: `/g/screens/public-storefront-after-quality-fix-1365.png`
+- Public storefront 1980px: `/g/screens/public-storefront-after-quality-fix-1980.png`
+- Public storefront mobile: `/g/screens/public-storefront-after-quality-fix-mobile.png`
+- Design editor TOP 1980px: `/g/screens/shop-design-editor-top-1980.png`
+
+Visual gate assertions:
+
+- `hero-slide-main img`: PASS
+- `hero-slide-prev img`: PASS
+- `hero-slide-next img`: PASS
+- recommended product cards >= 10: PASS
+- recommended product images >= 10: PASS
+- recommended unique image count >= 8: PASS
+- ranking cards = 5: PASS
+- time-sale cards = 5: PASS
+- category cards = 8: PASS
+- public test product names = 0: PASS
+- weak placeholder image URLs = 0: PASS
+
+This is not `FINAL_ACCEPTED` because subscription remote D1 migration and complete Shop sales flow verification remain open.
+
+---
+
+## 2026-06-04T08:53:40Z Shop Public Storefront Interaction Screen Evidence
+
+Status: `PUBLIC_STOREFRONT_SLIDER_AND_INTERACTION_FIX_WIP`
+
+Target:
+
+- `https://shop.aiboux.com/s/aiboux/`
+
+WIP commit:
+
+- `53c1fee`
+
+Code WIP Worker Version ID:
+
+- `4c77ab87-dffa-46b3-a764-10545da399e9`
+
+Published screenshots:
+
+- Hero initial: `https://mail.aiboux.com/g/screens/shop-hero-initial-1365.png`
+- Hero after next click: `https://mail.aiboux.com/g/screens/shop-hero-after-next-1365.png`
+- Hero after dot click: `https://mail.aiboux.com/g/screens/shop-hero-after-dot-1365.png`
+- Hero after autoplay: `https://mail.aiboux.com/g/screens/shop-hero-after-autoplay-1365.png`
+- Product card click destination: `https://mail.aiboux.com/g/screens/shop-product-card-click-result.png`
+- Cart add result: `https://mail.aiboux.com/g/screens/shop-cart-add-result.png`
+
+Visual and interaction checks:
+
+- hero main image: PASS
+- hero previous image: PASS
+- hero next image: PASS
+- next button changes main slide: PASS
+- previous button changes main slide: PASS
+- dot click changes main slide: PASS
+- autoplay advances main slide: PASS
+- side preview slide ids update: PASS
+- recommended products image-backed density: PASS
+- product card opens product detail: PASS
+- cart button updates cart count and button state: PASS
+- public TOP dead placeholder audit: PASS
+
+This is WIP screen evidence only. Do not report `FINAL_ACCEPTED`.
