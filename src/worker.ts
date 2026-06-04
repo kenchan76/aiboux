@@ -293,6 +293,7 @@ function isStaticOrApiPath(pathname: string): boolean {
     pathname.startsWith('/file/api/') ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml' ||
     pathname === '/manifest.json' ||
     pathname.startsWith('/g/')
   );

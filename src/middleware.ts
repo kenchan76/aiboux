@@ -7,7 +7,7 @@ type MiddlewareContext = Parameters<Parameters<typeof defineMiddleware>[0]>[0];
 type MiddlewareNext = Parameters<Parameters<typeof defineMiddleware>[0]>[1];
 type MiddlewareResponse = Response | Promise<Response>;
 
-const STATIC_PREFIXES = ['/_astro/', '/favicon.ico', '/robots.txt', '/manifest.json'];
+const STATIC_PREFIXES = ['/_astro/', '/favicon.ico', '/robots.txt', '/sitemap.xml', '/manifest.json'];
 const API_PREFIXES = ['/api/', '/mail/api/', '/file/api/'];
 const PUBLIC_SHORTLINK_PREFIXES = ['/g/'];
 const APP_MOUNT_PREFIXES = ['/core', '/mail', '/file', '/biz', '/shop', '/mall', '/rirekisho', '/office', '/docs'];
