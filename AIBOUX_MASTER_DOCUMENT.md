@@ -32,6 +32,41 @@ Not final:
 - Remote D1 subscription migration is still blocked by Cloudflare permissions.
 - Provider-backed recurring subscription creation is not accepted.
 
+## Current Active Operating Override: AIBOUX Shop Schema Graph SEO/UI
+
+Status: `SHOP_5H_SCHEMA_GRAPH_SEO_UI_WIP`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override strengthens every public storefront page's SEO entity structure by emitting one connected Schema.org `@graph`.
+
+Implemented WIP direction:
+
+- Structured data is built through the shared `buildShopStructuredDataGraph()` helper.
+- Public storefront pages emit one top-level `@context: https://schema.org`.
+- Public storefront pages emit one top-level `@graph`.
+- Repeated top-level `@context` values are removed from graph nodes.
+- Graph nodes are deduplicated by `@id` where possible.
+- TOP and subpage routes share the same graph builder.
+- Public Playwright checks parse JSON-LD and verify graph structure, not only string presence.
+
+Latest WIP evidence:
+
+- WIP implementation commit: `414690b`
+- WIP deploy checkpoint commit: `304e0a5`
+- Worker Version ID: `2c4c61f2-3be5-4901-8c35-d519ce451737`
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+- Direct public HTML verification confirms one `@graph` and one `@context` on TOP and product detail.
+
+Not final:
+
+- `FINAL_ACCEPTED` is prohibited.
+- Remote D1 subscription migration is still blocked by Cloudflare permissions.
+- Provider-backed recurring subscription creation is not accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Stable Category URL SEO And UI
 
 Status: `SHOP_10H_CATEGORY_URL_SEO_UI_WIP`
