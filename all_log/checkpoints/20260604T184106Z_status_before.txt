@@ -1,0 +1,8 @@
+ M ops/instructions/current.md
+ M package.json
+ M src/lib/shopSeo.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? ops/instructions/20260605_shop_shared_seo_meta_model.md

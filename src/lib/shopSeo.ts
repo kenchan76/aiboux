@@ -45,6 +45,115 @@ const NOINDEX_STOREFRONT_PAGES = new Set([
   "account",
 ]);
 
+type ShopStorefrontSeoMetaInput = {
+  page: string;
+  storeName: string;
+  productName?: string | null;
+  productDescription?: string | null;
+  activeCategoryName?: string | null;
+  searchQuery?: string | null;
+  found?: boolean;
+};
+
+export type ShopStorefrontSeoMeta = {
+  title: string;
+  metaTitle: string;
+  description: string;
+};
+
+const SHOP_STOREFRONT_PAGE_META: Record<string, { title: string; description: string }> = {
+  "": {
+    title: "TOP",
+    description:
+      "日用品、食品、ギフト、コーヒー、キッチン用品を価格、税込表示、レビュー、配送条件から比較できる公式ストアTOPです。",
+  },
+  products: {
+    title: "商品一覧",
+    description:
+      "食品、日用品、ギフト、キッチン用品、ペット用品を画像、価格、税込表示、レビュー、在庫、配送条件から比較できます。",
+  },
+  categories: {
+    title: "カテゴリ一覧",
+    description:
+      "食品・飲料、日用品、キッチン用品、ギフト、ビューティー、ペット用品などの売り場へ迷わず移動できます。",
+  },
+  cart: {
+    title: "カート",
+    description:
+      "カート内の商品、数量、小計、配送・返品条件、決済未接続時の注文制限を購入前に確認できます。",
+  },
+  checkout: {
+    title: "チェックアウト",
+    description:
+      "注文内容、配送先、支払い設定状態、定期購入の注意事項を確認し、未接続の決済を成功扱いにしません。",
+  },
+  contact: {
+    title: "問い合わせ",
+    description:
+      "商品、注文、配送、返品、定期購入について、必要な情報を添えてストアへ問い合わせできます。",
+  },
+  legal: {
+    title: "特定商取引法に基づく表示",
+    description:
+      "販売者情報、所在地、連絡先、支払方法、配送、返品、キャンセル条件を購入前に確認できます。",
+  },
+  privacy: {
+    title: "プライバシーポリシー",
+    description:
+      "購入者の氏名、住所、連絡先、注文情報、問い合わせ内容の利用目的と管理方針を確認できます。",
+  },
+  shipping: {
+    title: "配送について",
+    description:
+      "送料、配送方法、発送目安、追跡、まとめ買い時の配送条件を注文前に確認できます。",
+  },
+  returns: {
+    title: "返品について",
+    description:
+      "返品・交換条件、キャンセル、初期不良、問い合わせに必要な情報を購入前に確認できます。",
+  },
+  faq: {
+    title: "よくある質問",
+    description:
+      "商品選び、配送、返品、支払い、定期購入、アカウントに関するよくある質問をまとめて確認できます。",
+  },
+  mypage: {
+    title: "マイページ",
+    description:
+      "注文履歴、配送状況、お気に入り、定期購入、アカウント情報へ移動する購入者向け入口です。",
+  },
+  "mypage/subscriptions": {
+    title: "定期購入",
+    description:
+      "定期購入契約、次回配送予定、一時停止、スキップ、解約導線とDB migration状態を確認できます。",
+  },
+  orders: {
+    title: "注文履歴",
+    description:
+      "過去の注文、配送状況、問い合わせ、返品相談の入口を購入者向けに整理しています。",
+  },
+  favorites: {
+    title: "お気に入り",
+    description:
+      "保存した商品、最近見た商品、関連カテゴリ、カートへの戻り導線をまとめて確認できます。",
+  },
+  login: {
+    title: "ログイン",
+    description:
+      "購入者アカウントへログインし、注文履歴、お気に入り、定期購入状態へ移動する入口です。",
+  },
+  register: {
+    title: "会員登録",
+    description:
+      "購入者アカウントを作成し、配送先、注文履歴、お気に入り、定期購入状態を管理する入口です。",
+  },
+  account: {
+    title: "アカウント",
+    description:
+      "購入者情報、配送先、注文履歴、お気に入り、定期購入への導線をまとめたアカウント入口です。",
+  },
+};
+
 export function absoluteShopUrl(path: string): string {
   return new URL(path, SHOP_ORIGIN).toString();
 }
@@ -75,9 +184,82 @@ export function normalizeShopSeoDescription(value: string, fallback: string): st
   return description.length > 155 ? `${description.slice(0, 152)}...` : description;
 }
 
+function normalizeShopSeoTitle(value: string): string {
+  const normalized = String(value || "AIBOUX Store").replace(/\s+/g, " ").trim();
+  return normalized.length > 76 ? `${normalized.slice(0, 73)}...` : normalized;
+}
+
 export function normalizeShopSeoImageUrl(value?: string | null): string {
   if (!value) return DEFAULT_SHOP_OG_IMAGE;
   return new URL(value, SHOP_ORIGIN).toString();
+}
+
+export function buildShopStorefrontSeoMeta({
+  page,
+  storeName,
+  productName,
+  productDescription,
+  activeCategoryName,
+  searchQuery,
+  found = true,
+}: ShopStorefrontSeoMetaInput): ShopStorefrontSeoMeta {
+  if (!found) {
+    return {
+      metaTitle: "ページが見つかりません",
+      title: "ページが見つかりません | AIBOUX Store",
+      description: "指定されたストアページは公開されていないか、URLが変更されています。",
+    };
+  }
+
+  if (page === "product") {
+    const safeProductName = String(productName || "商品詳細").replace(/\s+/g, " ").trim();
+    const metaTitle = safeProductName || "商品詳細";
+    const fallbackDescription = `${metaTitle}の価格、税込表示、レビュー、在庫、配送予定、返品条件、定期購入の可否を確認できます。`;
+    return {
+      metaTitle,
+      title: normalizeShopSeoTitle(`${metaTitle} | ${storeName}`),
+      description: normalizeShopSeoDescription(productDescription || fallbackDescription, fallbackDescription),
+    };
+  }
+
+  if (page === "products" && searchQuery) {
+    const safeQuery = String(searchQuery).replace(/\s+/g, " ").trim();
+    const metaTitle = `「${safeQuery}」の検索結果`;
+    return {
+      metaTitle,
+      title: normalizeShopSeoTitle(`${metaTitle} | ${storeName}`),
+      description: normalizeShopSeoDescription(
+        `${storeName}で「${safeQuery}」に関連する商品を検索します。商品名、カテゴリ、価格、レビュー、在庫、配送条件を比較できます。`,
+        `${safeQuery}の検索結果を表示します。`,
+      ),
+    };
+  }
+
+  if (page === "products" && activeCategoryName) {
+    const categoryName = String(activeCategoryName).replace(/\s+/g, " ").trim();
+    const metaTitle = `${categoryName}の商品一覧`;
+    return {
+      metaTitle,
+      title: normalizeShopSeoTitle(`${metaTitle} | ${storeName}`),
+      description: normalizeShopSeoDescription(
+        `${storeName}の${categoryName}カテゴリ商品を、画像、税込価格、レビュー、在庫、配送条件、カート導線から比較できます。`,
+        `${categoryName}カテゴリの商品一覧です。`,
+      ),
+    };
+  }
+
+  const base = SHOP_STOREFRONT_PAGE_META[page] ?? {
+    title: "ストアページ",
+    description:
+      "商品、カテゴリ、配送、返品、問い合わせ、アカウント導線を整理したAIBOUX Storeの公開ページです。",
+  };
+  const metaTitle = page === "" ? storeName : base.title;
+  const title = page === "" ? `${storeName} | AIBOUX Storefront` : `${metaTitle} | ${storeName}`;
+  return {
+    metaTitle,
+    title: normalizeShopSeoTitle(title),
+    description: normalizeShopSeoDescription(base.description, `${storeName}の公開ストアです。`),
+  };
 }
 
 export function buildShopRobotsContent(page: string): string {

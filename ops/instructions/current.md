@@ -4,7 +4,31 @@ Status: WIP
 
 Active instruction file:
 
+- `ops/instructions/20260605_shop_shared_seo_meta_model.md`
 - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
+
+## 2026-06-05 Continuation: Shared SEO Meta Model
+
+Continue the active sales-quality sprint. The next concrete work unit is centralizing SEO title and meta description generation so every public tenant storefront page has a non-thin title, useful description, canonical URL, social metadata, robots policy, and structured data from one shared model.
+
+Google Search Central references already checked for this sprint:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+
+Current additions required:
+
+- Add a shared storefront SEO meta builder in `shopSeo.ts`.
+- Use the shared builder from TOP and subpage routes.
+- Replace thin descriptions such as "公開中の商品を表示します" with purchase/search/support intent descriptions.
+- Keep search query pages noindex and canonicalized to `/products`.
+- Keep category URLs indexable and self-canonical.
+- Add public Playwright checks for title/description length and canonical/social metadata consistency.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: All Pages SEO Structure And UI Commonization
 

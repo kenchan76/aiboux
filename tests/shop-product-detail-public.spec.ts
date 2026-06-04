@@ -79,10 +79,19 @@ test.describe("AIBOUX Shop product detail public quality", () => {
 
       const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
       expect(canonical ?? "", "product detail canonical should point at the product URL").toContain("https://shop.aiboux.com/s/aiboux/product/");
+      const titleText = await page.title();
+      expect(titleText, "product detail title should include the product name").toContain(productTitle);
+      expect(titleText.length, "product detail title should remain snippet-safe").toBeLessThanOrEqual(78);
+      const metaDescription = await page.locator('meta[name="description"]').getAttribute("content");
+      expect(metaDescription ?? "", "product detail description should mention purchase decision information").toMatch(/価格|税込|レビュー|在庫|配送|返品|定期購入/);
+      expect(metaDescription?.length ?? 0, "product detail description should be useful").toBeGreaterThanOrEqual(45);
+      expect(metaDescription?.length ?? 0, "product detail description should remain snippet-safe").toBeLessThanOrEqual(155);
       expect(await page.locator('meta[name="robots"]').getAttribute("content"), "product detail should be indexable").toContain("index");
       expect(await page.locator('meta[property="og:type"]').getAttribute("content"), "product detail should use product Open Graph type").toBe("product");
       await expect(page.locator('meta[property="og:title"]'), "product detail should include Open Graph title").toHaveCount(1);
       await expect(page.locator('meta[property="og:image"]'), "product detail should include Open Graph product image").toHaveCount(1);
+      await expect(page.locator('meta[property="og:url"]'), "product detail Open Graph URL should match canonical").toHaveAttribute("content", canonical ?? "");
+      await expect(page.locator('meta[name="twitter:description"]'), "product detail Twitter description should match meta description").toHaveAttribute("content", metaDescription ?? "");
       await expect(page.locator('meta[property="product:price:amount"]'), "product detail should include product price Open Graph metadata").toHaveCount(1);
       await expect(page.locator('meta[property="product:price:currency"]'), "product detail should include product currency Open Graph metadata").toHaveCount(1);
       await expect(page.locator('meta[name="twitter:card"]'), "product detail should include Twitter Card metadata").toHaveCount(1);

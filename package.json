@@ -34,6 +34,7 @@
     "gate:shop-subscriptions": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-subscriptions-public.spec.ts",
     "gate:shop-public-crawl": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-public-crawl.spec.ts",
     "gate:shop-seo-structure": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-public-crawl.spec.ts --grep \"public storefront pages render|shared category links|robots and sitemap|stable category product URLs|storefront search\"",
+    "gate:shop-seo-meta": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-public-crawl.spec.ts tests/shop-product-detail-public.spec.ts --grep \"public storefront pages render|product detail renders\"",
     "gate:shop-product-detail": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-product-detail-public.spec.ts",
     "gate:shop-cart-checkout": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-cart-checkout-public.spec.ts",
     "gate:shop-contact-legal": "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com playwright test tests/shop-contact-legal-public.spec.ts",

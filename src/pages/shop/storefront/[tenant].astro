@@ -8,6 +8,7 @@ import {
   buildShopRobotsContent,
   buildShopSiteNavigationJsonLd,
   buildShopSocialMeta,
+  buildShopStorefrontSeoMeta,
   buildShopWebPageJsonLd,
   buildShopWebsiteJsonLd,
 } from "@/lib/shopSeo";
@@ -34,15 +35,19 @@ if (!isKnownTenant || !profile) {
 Astro.response.headers.set("Cache-Control", isKnownTenant && profile ? "public, max-age=30, s-maxage=60, stale-while-revalidate=30" : "no-store");
 
 const storeName = profile?.storeName ?? "AIBOUX Store";
-const title = isKnownTenant && profile ? `${storeName} | AIBOUX Storefront` : "ストアが見つかりません | AIBOUX Storefront";
-const metaDescription = `${storeName}の公開ストアです。商品、カテゴリ、セール、ランキング、配送・返品条件を確認できます。`;
+const meta = buildShopStorefrontSeoMeta({
+  page: "",
+  storeName,
+  found: isKnownTenant && Boolean(profile),
+});
+const title = meta.title;
 const canonicalUrl = isKnownTenant && profile
   ? new URL(`/s/${encodeURIComponent(tenantParam)}/`, "https://shop.aiboux.com").toString()
   : Astro.url.toString();
 const tenantRoot = `/s/${encodeURIComponent(tenantParam)}`;
 const socialMeta = buildShopSocialMeta({
   title,
-  description: metaDescription,
+  description: meta.description,
   canonicalUrl,
   imageUrl: products[0]?.imageUrl,
   storeName,
@@ -79,7 +84,7 @@ const structuredData = JSON.stringify([
   buildShopWebPageJsonLd({
     page: "",
     name: title,
-    description: metaDescription,
+    description: meta.description,
     canonicalUrl,
     absoluteTenantRoot: canonicalUrl,
     breadcrumbItems,

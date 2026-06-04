@@ -1,0 +1,10 @@
+f8ffcab WIP publish runtime worker evidence for shop SEO links
+52b1b26 WIP strengthen all storefront SEO structure links
+3a69523 WIP shop aiboux tenant deploy checkpoint 20260604T181546Z
+83818c6 WIP publish shared category link parts evidence
+9728617 WIP centralize shop category SEO links
+1c3b718 WIP publish category URL SEO evidence
+a534b5a WIP harden shop category URL SEO
+49482fc WIP publish search SEO runtime evidence and bark
+be12b08 WIP record storefront search SEO publication
+9020ef8 WIP publish storefront search SEO evidence

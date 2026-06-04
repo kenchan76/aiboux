@@ -179,6 +179,17 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(canonical, `${target.path} should include a self-referencing canonical URL`).toBeTruthy();
         expect(canonical ?? "", `${target.path} canonical should point at shop.aiboux.com tenant URL`).toContain(`https://shop.aiboux.com${target.path}`);
 
+        const titleText = await page.title();
+        expect(titleText.length, `${target.path} should expose a useful SEO title`).toBeGreaterThanOrEqual(12);
+        expect(titleText.length, `${target.path} SEO title should not be overly long`).toBeLessThanOrEqual(78);
+        expect(titleText, `${target.path} title should not use thin placeholder copy`).not.toMatch(/公開中の商品を表示|AIBOUX Storeの公開ページ|ストアページ/);
+
+        const metaDescription = await page.locator('meta[name="description"]').getAttribute("content");
+        expect(metaDescription, `${target.path} should include meta description`).toBeTruthy();
+        expect(metaDescription?.length ?? 0, `${target.path} meta description should explain purchase/search/support intent`).toBeGreaterThanOrEqual(45);
+        expect(metaDescription?.length ?? 0, `${target.path} meta description should remain snippet-safe`).toBeLessThanOrEqual(155);
+        expect(metaDescription ?? "", `${target.path} description should not use thin placeholder copy`).not.toMatch(/公開中の商品を表示|AIBOUX Storeの公開ページ|ストアへの問い合わせを受け付けます/);
+
         const robots = await page.locator('meta[name="robots"]').getAttribute("content");
         if (noIndexPublicPageNames.has(target.name)) {
           expect(robots ?? "", `${target.path} transactional/account page should not be indexed`).toContain("noindex");
@@ -192,7 +203,12 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator('meta[property="og:description"]'), `${target.path} should include Open Graph description`).toHaveCount(1);
         await expect(page.locator('meta[property="og:url"]'), `${target.path} should include Open Graph URL`).toHaveCount(1);
         await expect(page.locator('meta[property="og:image"]'), `${target.path} should include Open Graph image`).toHaveCount(1);
+        await expect(page.locator('meta[property="og:url"]'), `${target.path} Open Graph URL should match canonical`).toHaveAttribute("content", canonical ?? "");
+        const ogImage = await page.locator('meta[property="og:image"]').getAttribute("content");
+        expect(ogImage ?? "", `${target.path} Open Graph image should be absolute`).toMatch(/^https:\/\/.+/);
         await expect(page.locator('meta[name="twitter:card"]'), `${target.path} should include Twitter Card metadata`).toHaveCount(1);
+        await expect(page.locator('meta[name="twitter:card"]'), `${target.path} should use large image Twitter Card`).toHaveAttribute("content", "summary_large_image");
+        await expect(page.locator('meta[name="twitter:description"]'), `${target.path} Twitter description should match meta description`).toHaveAttribute("content", metaDescription ?? "");
         await expect(page.locator('link[rel="alternate"][hreflang="ja-JP"]'), `${target.path} should include ja-JP alternate link`).toHaveCount(1);
         await expect(page.locator('link[rel="alternate"][hreflang="x-default"]'), `${target.path} should include x-default alternate link`).toHaveCount(1);
         await expect(page.locator("h1"), `${target.path} should expose one primary heading`).toHaveCount(1);
