@@ -1,0 +1,9 @@
+ M all_log/deploys/20260604T052318Z_deploy_design_editor_wip.txt
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M src/middleware.ts
+ M src/worker.ts
+ M test-results/.last-run.json
+?? all_log/checkpoints/20260604T052338Z_wip_commit.txt
+?? all_log/checkpoints/20260604T052701Z_status_before_design_editor_route_fix.txt
+?? all_log/deploys/20260604T052338Z_deployments_before.txt
+?? test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/

@@ -262,6 +262,7 @@ function rewriteShopTenantPath(tenantSlug: string, suffix: string): string {
   if (suffix.startsWith('admin/')) {
     const adminSuffix = suffix.slice('admin/'.length);
     if (adminSuffix === 'orders/mark-shipped') return '/shop/admin/orders/mark-shipped';
+    if (adminSuffix === 'design') return '/shop/settings/design';
     return adminSuffix ? `/shop/${adminSuffix}` : '/shop/dashboard';
   }
 

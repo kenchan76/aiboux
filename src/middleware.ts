@@ -271,6 +271,8 @@ function rewriteShopTenantRoute(
     const adminSuffix = suffix.slice('admin/'.length);
     target.pathname = adminSuffix === 'orders/mark-shipped'
       ? '/shop/admin/orders/mark-shipped'
+      : adminSuffix === 'design'
+        ? '/shop/settings/design'
       : adminSuffix
         ? `/shop/${adminSuffix}`
         : '/shop/dashboard';
