@@ -4,6 +4,7 @@ import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import { buildShopHeaderCategoryLinks, type ShopStorefrontContextLinkSection } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
+import { StorefrontCommerceFacts } from "./StorefrontCommerceFacts";
 import { StorefrontContextLinks } from "./StorefrontContextLinks";
 import { StorefrontFooter } from "./StorefrontFooter";
 import { StorefrontSearchForm } from "./StorefrontSearchForm";
@@ -201,6 +202,13 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
             </div>
           </section>
         ) : null}
+
+        <StorefrontCommerceFacts
+          className="mt-4"
+          tenantRoot={tenantRoot}
+          page=""
+          subscriptionSchemaPending
+        />
 
         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />

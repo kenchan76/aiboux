@@ -1,6 +1,7 @@
 ---
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
+import { StorefrontCommerceFacts } from "@/components/shop/storefront/StorefrontCommerceFacts";
 import { StorefrontContextLinks } from "@/components/shop/storefront/StorefrontContextLinks";
 import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
 import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPageHeader";
@@ -638,6 +639,14 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           {page !== "product" ? (
             <StorefrontPageHeader storeName={storeName} title={meta.metaTitle} description={meta.description} actions={pageHeaderActions} />
           ) : null}
+          {page !== "product" ? (
+            <StorefrontCommerceFacts
+              className="mb-6"
+              tenantRoot={tenantRoot}
+              page={page}
+              subscriptionSchemaPending={true}
+            />
+          ) : null}
 
           {page === "products" ? (
             <section class="grid gap-5" data-testid="storefront-products">
@@ -714,6 +723,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   <h1 class="mt-2 text-2xl font-bold leading-tight text-neutral-950">{salesProduct.displayName}</h1>
                   {productDesign?.content.showReviews ? <p class="mt-3 border-b border-neutral-200 pb-3 text-sm text-amber-500">★★★★★ <a class="text-blue-700" href="#reviews">(レビューを確認)</a></p> : null}
                   <div class="mt-4 text-3xl font-bold text-red-700">{formatShopPrice(salesProduct.salePrice)} <span class="text-sm font-normal text-neutral-500">税込</span></div>
+                  <StorefrontCommerceFacts
+                    className="mt-4"
+                    tenantRoot={tenantRoot}
+                    page="product"
+                    productName={salesProduct.displayName}
+                    priceLabel={formatShopPrice(salesProduct.salePrice)}
+                    inStock={salesProduct.inStock}
+                    subscriptionSchemaPending={subscriptionSchemaPending}
+                  />
                   {productDesign?.content.showPoints ? <p class="mt-2 text-sm text-neutral-600">ポイント付与対象商品です。</p> : null}
                   {productDesign?.content.showVariations ? (
                     <div class="mt-5">

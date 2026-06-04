@@ -21,6 +21,15 @@ export type ShopStorefrontInfoCard = {
   label?: string;
 };
 
+export type ShopStorefrontCommerceFact = {
+  title: string;
+  body: string;
+  href: string;
+  label: string;
+  badge?: string;
+  tone?: "neutral" | "amber" | "blue" | "red" | "green";
+};
+
 export type ShopStorefrontPageHeaderAction = {
   label: string;
   href: string;
@@ -142,6 +151,69 @@ export function buildShopPolicySupportCards(tenantRoot: string): ShopStorefrontI
     { title: "購入前チェック", body: "価格、税込表示、送料、返品条件、決済設定状態を確認してから注文へ進みます。", href: `${tenantRoot}/checkout` },
     { title: "配送・返品", body: "配送目安、送料、返品受付条件、不良品時の問い合わせ導線をまとめて確認できます。", href: `${tenantRoot}/shipping` },
     { title: "問い合わせ", body: "注文番号、商品名、確認したい内容を添えてストアへ問い合わせできます。", href: `${tenantRoot}/contact` },
+  ];
+}
+
+export function buildShopCommerceFacts(
+  tenantRoot: string,
+  input: {
+    page?: string;
+    productName?: string | null;
+    priceLabel?: string | null;
+    inStock?: boolean | null;
+    subscriptionSchemaPending?: boolean;
+  } = {},
+): ShopStorefrontCommerceFact[] {
+  const productName = String(input.productName || "商品").replace(/\s+/g, " ").trim();
+  const priceLabel = String(input.priceLabel || "税込価格を商品ページで確認").replace(/\s+/g, " ").trim();
+  const stockText = input.inStock === false ? "在庫は商品ページで確認" : "在庫あり・在庫確認を明示";
+  const subscriptionBody = input.subscriptionSchemaPending
+    ? "定期購入はDB migrationと決済接続が完了するまで申込み不可として表示します。成功したふりはしません。"
+    : "通常購入と定期購入の条件を購入前に分けて確認できます。";
+
+  return [
+    {
+      title: "価格・税込表示",
+      body: input.page === "product"
+        ? `${productName}の価格は${priceLabel}です。商品カード、商品詳細、カートで税込表示を揃えます。`
+        : "商品一覧、商品詳細、カートで税込価格を同じ形式で表示し、購入前の比較をしやすくします。",
+      href: input.page === "product" ? `${tenantRoot}/cart` : `${tenantRoot}/products`,
+      label: input.page === "product" ? "カートで確認" : "商品を比較",
+      badge: "税込",
+      tone: "red",
+    },
+    {
+      title: "在庫・配送予定",
+      body: `${stockText}。配送は通常2〜4営業日を目安に、追跡と送料条件を配送ページへ集約します。`,
+      href: `${tenantRoot}/shipping`,
+      label: "配送条件を見る",
+      badge: "配送",
+      tone: "green",
+    },
+    {
+      title: "返品・キャンセル",
+      body: "未開封・未使用品、初期不良、到着後7日以内の問い合わせ条件を購入前に確認できます。",
+      href: `${tenantRoot}/returns`,
+      label: "返品条件を見る",
+      badge: "返品",
+      tone: "blue",
+    },
+    {
+      title: "決済・定期購入",
+      body: subscriptionBody,
+      href: `${tenantRoot}/checkout`,
+      label: "注文前に確認",
+      badge: input.subscriptionSchemaPending ? "準備中" : "購入条件",
+      tone: "amber",
+    },
+    {
+      title: "問い合わせ導線",
+      body: "商品名、注文番号、配送、返品、定期購入の確認事項を問い合わせページで整理します。",
+      href: `${tenantRoot}/contact`,
+      label: "問い合わせる",
+      badge: "サポート",
+      tone: "neutral",
+    },
   ];
 }
 

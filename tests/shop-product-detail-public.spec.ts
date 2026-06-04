@@ -52,6 +52,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       const thumbnailImages = page.locator("[data-testid='product-thumbnail'] img");
       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
       await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
+      const commerceFacts = page.getByTestId("storefront-commerce-facts");
+      await expect(commerceFacts, "product detail should include shared merchant listing purchase facts").toBeVisible();
+      await expect(commerceFacts, "product detail purchase facts should include price/shipping/returns/payment context").toContainText("価格・配送・返品・決済");
+      await expect(commerceFacts, "product detail purchase facts should include the visible product price").toContainText("¥");
+      await expect(commerceFacts, "product detail purchase facts should expose SiteNavigationElement microdata").toHaveAttribute(
+        "itemtype",
+        "https://schema.org/SiteNavigationElement",
+      );
+      expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
       const relatedCards = page.getByTestId("storefront-product-card");
       expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
       await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(

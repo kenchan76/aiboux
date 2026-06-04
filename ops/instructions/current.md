@@ -4,9 +4,34 @@ Status: WIP
 
 Active instruction file:
 
+- `ops/instructions/20260605_shop_commerce_facts_seo_ui.md`
 - `ops/instructions/20260605_shop_shared_seo_meta_model.md`
 - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
 - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+
+## 2026-06-05 Continuation: Commerce Facts SEO/UI Commonization
+
+Continue the active sales-quality sprint. The next concrete work unit is making price, tax, stock, shipping, returns, payment, and subscription status a shared visible SEO/UI component across every public storefront page.
+
+Google Search Central references checked for this continuation:
+
+- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+- Ecommerce URL Structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+
+Current additions required:
+
+- Add `buildShopCommerceFacts` in `shopStorefrontShared.ts`.
+- Add `StorefrontCommerceFacts` as a shared storefront component.
+- Render purchase facts on TOP, all public subpages, and product detail.
+- Keep links crawlable and visibly link-colored.
+- Strengthen public Playwright checks for shared purchase facts.
+- Keep product detail single H1 and no duplicated title above the gallery.
+- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
 
 ## 2026-06-05 Continuation: Schema Graph SEO/UI Hardening
 

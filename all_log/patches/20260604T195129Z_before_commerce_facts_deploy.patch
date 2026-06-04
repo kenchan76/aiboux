@@ -1,0 +1,240 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index f15d49a..ef1d655 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -4,10 +4,35 @@ Status: WIP
+ 
+ Active instruction file:
+ 
++- `ops/instructions/20260605_shop_commerce_facts_seo_ui.md`
+ - `ops/instructions/20260605_shop_shared_seo_meta_model.md`
+ - `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
+ - `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+ 
++## 2026-06-05 Continuation: Commerce Facts SEO/UI Commonization
++
++Continue the active sales-quality sprint. The next concrete work unit is making price, tax, stock, shipping, returns, payment, and subscription status a shared visible SEO/UI component across every public storefront page.
++
++Google Search Central references checked for this continuation:
++
++- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
++- Ecommerce URL Structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
++- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
++- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
++- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
++- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
++- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
++
++Current additions required:
++
++- Add `buildShopCommerceFacts` in `shopStorefrontShared.ts`.
++- Add `StorefrontCommerceFacts` as a shared storefront component.
++- Render purchase facts on TOP, all public subpages, and product detail.
++- Keep links crawlable and visibly link-colored.
++- Strengthen public Playwright checks for shared purchase facts.
++- Keep product detail single H1 and no duplicated title above the gallery.
++- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
++
+ ## 2026-06-05 Continuation: Schema Graph SEO/UI Hardening
+ 
+ Continue the active sales-quality sprint. The next concrete work unit is converting public storefront structured data to a single connected Schema.org `@graph` so every page exposes a coherent WebSite, OnlineStore, BreadcrumbList, SiteNavigationElement, page entity, ItemList, and Product/FAQ where applicable.
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index 9bd18ab..a66cca8 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -4,6 +4,7 @@ import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
+ import { buildShopHeaderCategoryLinks, type ShopStorefrontContextLinkSection } from "@/lib/shopStorefrontShared";
+ import { cn } from "@/lib/utils";
+ import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
++import { StorefrontCommerceFacts } from "./StorefrontCommerceFacts";
+ import { StorefrontContextLinks } from "./StorefrontContextLinks";
+ import { StorefrontFooter } from "./StorefrontFooter";
+ import { StorefrontSearchForm } from "./StorefrontSearchForm";
+@@ -202,6 +203,13 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+           </section>
+         ) : null}
+ 
++        <StorefrontCommerceFacts
++          className="mt-4"
++          tenantRoot={tenantRoot}
++          page=""
++          subscriptionSchemaPending
++        />
++
+         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
+         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
+         <CategorySection title={layout.pages.top.sections.categories.title} enabled={layout.pages.top.sections.categories.enabled} />
+diff --git a/src/lib/shopStorefrontShared.ts b/src/lib/shopStorefrontShared.ts
+index 2479704..3abd4ab 100644
+--- a/src/lib/shopStorefrontShared.ts
++++ b/src/lib/shopStorefrontShared.ts
+@@ -21,6 +21,15 @@ export type ShopStorefrontInfoCard = {
+   label?: string;
+ };
+ 
++export type ShopStorefrontCommerceFact = {
++  title: string;
++  body: string;
++  href: string;
++  label: string;
++  badge?: string;
++  tone?: "neutral" | "amber" | "blue" | "red" | "green";
++};
++
+ export type ShopStorefrontPageHeaderAction = {
+   label: string;
+   href: string;
+@@ -145,6 +154,69 @@ export function buildShopPolicySupportCards(tenantRoot: string): ShopStorefrontI
+   ];
+ }
+ 
++export function buildShopCommerceFacts(
++  tenantRoot: string,
++  input: {
++    page?: string;
++    productName?: string | null;
++    priceLabel?: string | null;
++    inStock?: boolean | null;
++    subscriptionSchemaPending?: boolean;
++  } = {},
++): ShopStorefrontCommerceFact[] {
++  const productName = String(input.productName || "商品").replace(/\s+/g, " ").trim();
++  const priceLabel = String(input.priceLabel || "税込価格を商品ページで確認").replace(/\s+/g, " ").trim();
++  const stockText = input.inStock === false ? "在庫は商品ページで確認" : "在庫あり・在庫確認を明示";
++  const subscriptionBody = input.subscriptionSchemaPending
++    ? "定期購入はDB migrationと決済接続が完了するまで申込み不可として表示します。成功したふりはしません。"
++    : "通常購入と定期購入の条件を購入前に分けて確認できます。";
++
++  return [
++    {
++      title: "価格・税込表示",
++      body: input.page === "product"
++        ? `${productName}の価格は${priceLabel}です。商品カード、商品詳細、カートで税込表示を揃えます。`
++        : "商品一覧、商品詳細、カートで税込価格を同じ形式で表示し、購入前の比較をしやすくします。",
++      href: input.page === "product" ? `${tenantRoot}/cart` : `${tenantRoot}/products`,
++      label: input.page === "product" ? "カートで確認" : "商品を比較",
++      badge: "税込",
++      tone: "red",
++    },
++    {
++      title: "在庫・配送予定",
++      body: `${stockText}。配送は通常2〜4営業日を目安に、追跡と送料条件を配送ページへ集約します。`,
++      href: `${tenantRoot}/shipping`,
++      label: "配送条件を見る",
++      badge: "配送",
++      tone: "green",
++    },
++    {
++      title: "返品・キャンセル",
++      body: "未開封・未使用品、初期不良、到着後7日以内の問い合わせ条件を購入前に確認できます。",
++      href: `${tenantRoot}/returns`,
++      label: "返品条件を見る",
++      badge: "返品",
++      tone: "blue",
++    },
++    {
++      title: "決済・定期購入",
++      body: subscriptionBody,
++      href: `${tenantRoot}/checkout`,
++      label: "注文前に確認",
++      badge: input.subscriptionSchemaPending ? "準備中" : "購入条件",
++      tone: "amber",
++    },
++    {
++      title: "問い合わせ導線",
++      body: "商品名、注文番号、配送、返品、定期購入の確認事項を問い合わせページで整理します。",
++      href: `${tenantRoot}/contact`,
++      label: "問い合わせる",
++      badge: "サポート",
++      tone: "neutral",
++    },
++  ];
++}
++
+ export function buildShopSupportRailCards(tenantRoot: string): ShopStorefrontInfoCard[] {
+   return [
+     {
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index 8b0e06c..fb02408 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -1,6 +1,7 @@
+ ---
+ import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
+ import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
++import { StorefrontCommerceFacts } from "@/components/shop/storefront/StorefrontCommerceFacts";
+ import { StorefrontContextLinks } from "@/components/shop/storefront/StorefrontContextLinks";
+ import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
+ import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPageHeader";
+@@ -638,6 +639,14 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+           {page !== "product" ? (
+             <StorefrontPageHeader storeName={storeName} title={meta.metaTitle} description={meta.description} actions={pageHeaderActions} />
+           ) : null}
++          {page !== "product" ? (
++            <StorefrontCommerceFacts
++              className="mb-6"
++              tenantRoot={tenantRoot}
++              page={page}
++              subscriptionSchemaPending={true}
++            />
++          ) : null}
+ 
+           {page === "products" ? (
+             <section class="grid gap-5" data-testid="storefront-products">
+@@ -714,6 +723,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                   <h1 class="mt-2 text-2xl font-bold leading-tight text-neutral-950">{salesProduct.displayName}</h1>
+                   {productDesign?.content.showReviews ? <p class="mt-3 border-b border-neutral-200 pb-3 text-sm text-amber-500">★★★★★ <a class="text-blue-700" href="#reviews">(レビューを確認)</a></p> : null}
+                   <div class="mt-4 text-3xl font-bold text-red-700">{formatShopPrice(salesProduct.salePrice)} <span class="text-sm font-normal text-neutral-500">税込</span></div>
++                  <StorefrontCommerceFacts
++                    className="mt-4"
++                    tenantRoot={tenantRoot}
++                    page="product"
++                    productName={salesProduct.displayName}
++                    priceLabel={formatShopPrice(salesProduct.salePrice)}
++                    inStock={salesProduct.inStock}
++                    subscriptionSchemaPending={subscriptionSchemaPending}
++                  />
+                   {productDesign?.content.showPoints ? <p class="mt-2 text-sm text-neutral-600">ポイント付与対象商品です。</p> : null}
+                   {productDesign?.content.showVariations ? (
+                     <div class="mt-5">
+diff --git a/tests/shop-product-detail-public.spec.ts b/tests/shop-product-detail-public.spec.ts
+index b5eb03c..aacd376 100644
+--- a/tests/shop-product-detail-public.spec.ts
++++ b/tests/shop-product-detail-public.spec.ts
+@@ -52,6 +52,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       const thumbnailImages = page.locator("[data-testid='product-thumbnail'] img");
+       expect(await thumbnailImages.count(), "thumbnail images should be visible instead of numbered boxes").toBeGreaterThanOrEqual(5);
+       await expect(page.getByTestId("public-product-info").getByText("返品条件")).toBeVisible();
++      const commerceFacts = page.getByTestId("storefront-commerce-facts");
++      await expect(commerceFacts, "product detail should include shared merchant listing purchase facts").toBeVisible();
++      await expect(commerceFacts, "product detail purchase facts should include price/shipping/returns/payment context").toContainText("価格・配送・返品・決済");
++      await expect(commerceFacts, "product detail purchase facts should include the visible product price").toContainText("¥");
++      await expect(commerceFacts, "product detail purchase facts should expose SiteNavigationElement microdata").toHaveAttribute(
++        "itemtype",
++        "https://schema.org/SiteNavigationElement",
++      );
++      expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
+       const relatedCards = page.getByTestId("storefront-product-card");
+       expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
+       await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index 82e83f3..da7c6e5 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -112,6 +112,16 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         await expect(supportRail, `${target.path} support rail should expose honest subscription state`).toContainText("定期購入");
+         expect(await supportRail.locator("a").count(), `${target.path} support rail should expose crawlable support links`).toBeGreaterThanOrEqual(9);
+         expect(await supportRail.locator("a").first().getAttribute("class"), `${target.path} support rail links should have visible link affordance`).toMatch(/text-|bg-amber/);
++        const commerceFacts = page.getByTestId("storefront-commerce-facts");
++        await expect(commerceFacts, `${target.path} should include shared purchase fact structure`).toBeVisible();
++        await expect(commerceFacts, `${target.path} purchase facts should expose price/shipping/return/payment information`).toContainText("価格・配送・返品・決済");
++        await expect(commerceFacts, `${target.path} purchase facts should expose honest subscription state`).toContainText("定期購入");
++        await expect(commerceFacts, `${target.path} purchase facts should expose SiteNavigationElement microdata`).toHaveAttribute(
++          "itemtype",
++          "https://schema.org/SiteNavigationElement",
++        );
++        expect(await commerceFacts.locator("a").count(), `${target.path} purchase facts should have crawlable internal links`).toBeGreaterThanOrEqual(5);
++        expect(await commerceFacts.locator("a").first().getAttribute("class"), `${target.path} purchase fact links should be visibly styled`).toMatch(/border-|bg-/);
+         const contextLinks = page.getByTestId("storefront-context-links");
+         await expect(contextLinks, `${target.path} should include page-context internal links`).toBeVisible();
+         await expect(contextLinks, `${target.path} contextual links should explain next actions`).toContainText("このページから次に確認すること");

@@ -1,0 +1,9 @@
+ M ops/instructions/current.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260604T195129Z_status_before_commerce_facts_deploy.txt
+?? ops/instructions/20260605_shop_commerce_facts_seo_ui.md
+?? src/components/shop/storefront/StorefrontCommerceFacts.tsx
