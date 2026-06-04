@@ -4646,3 +4646,18 @@ Status: `SHOP_10H_SHARED_BREADCRUMB_SEO_UI_WIP`
 - `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
 - Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
+
+## 2026-06-04T15:12:15Z Current Evidence Note: Shop Shared Footer SEO/UI Parts
+
+Status: `SHOP_10H_SHARED_FOOTER_SEO_UI_WIP`
+
+- Target TOP: `https://shop.aiboux.com/s/aiboux/`
+- Target tenant subpages: `https://shop.aiboux.com/s/aiboux/...`
+- Shared storefront footer component added: `src/components/shop/storefront/StorefrontFooter.tsx`
+- TOP React storefront and Astro subpage/product route now use the same shared footer component.
+- Footer link groups continue to use the shared `buildShopFooterColumns(tenantRoot)` source used for `SiteNavigationElement` JSON-LD.
+- Visible footer navigation now exposes Schema.org `SiteNavigationElement` microdata in the DOM.
+- Footer assurance cards are shared across TOP and subpages, including honest payment/subscription pending messaging.
+- `tests/shop-public-crawl.spec.ts` now verifies footer `SiteNavigationElement` microdata, dense internal link coverage, and payment-not-configured honesty text on public URLs.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.

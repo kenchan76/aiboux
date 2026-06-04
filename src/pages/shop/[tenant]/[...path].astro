@@ -1,6 +1,7 @@
 ---
 import ShopSeoHead from "@/components/shop/ShopSeoHead.astro";
 import { StorefrontBreadcrumb } from "@/components/shop/storefront/StorefrontBreadcrumb";
+import { StorefrontFooter } from "@/components/shop/storefront/StorefrontFooter";
 import {
   buildShopBreadcrumbItems,
   buildShopBreadcrumbJsonLd,
@@ -28,7 +29,6 @@ import {
   buildShopAccountCards,
   buildShopCuratedCategoryCards,
   buildShopFaqItems,
-  buildShopFooterAssurances,
   buildShopFooterColumns,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
@@ -150,7 +150,6 @@ const accountCards = buildShopAccountCards(tenantRoot);
 const purchaseGuideCards = buildShopPurchaseGuideCards();
 const policySupportCards = buildShopPolicySupportCards(tenantRoot);
 const footerColumns = buildShopFooterColumns(tenantRoot);
-const footerAssurances = buildShopFooterAssurances();
 const faqItems = buildShopFaqItems();
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const curatedCategoryCards = buildShopCuratedCategoryCards();
@@ -1226,40 +1225,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
         </main>
       )
     }
-    {isKnownTenant && isAllowedPath ? (
-      <footer class="mt-8 bg-[#17212f] text-white" data-testid="storefront-footer">
-        <a class="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold hover:bg-[#2e4058]" href="#top">ページ上部へ戻る</a>
-        <div class="mx-auto grid max-w-screen-xl gap-3 px-4 pt-8 sm:grid-cols-2 lg:grid-cols-4">
-          {footerAssurances.map((item) => (
-            <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-3">
-              <div class="text-sm font-bold text-white">{item.title}</div>
-              <p class="mt-1 text-xs leading-5 text-white/72">{item.body}</p>
-            </div>
-          ))}
-        </div>
-        <div class="mx-auto grid max-w-screen-xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          {footerColumns.map((column) => (
-            <nav class="grid gap-2 text-sm">
-              <h2 class="mb-2 text-base font-bold">{column.title}</h2>
-              {column.links.map((link) => <a class="text-white/78 hover:text-white" href={link.href}>{link.label}</a>)}
-            </nav>
-          ))}
-        </div>
-        <div class="border-t border-white/10 px-4 py-5">
-          <div class="mx-auto grid max-w-screen-xl gap-3 text-xs text-white/70 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <div class="font-bold text-white">{storeName}</div>
-              <div class="mt-1">注文、配送、返品、定期購入、問い合わせまで同じテナント導線で確認できます。決済未接続時は注文確定しません。</div>
-            </div>
-            <div class="flex flex-wrap gap-3 md:justify-end">
-              <a class="hover:text-white" href={`${tenantRoot}/legal`}>特商法</a>
-              <a class="hover:text-white" href={`${tenantRoot}/privacy`}>プライバシー</a>
-              <a class="hover:text-white" href={`${tenantRoot}/contact`}>問い合わせ</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    ) : null}
+    {isKnownTenant && isAllowedPath ? <StorefrontFooter storeName={storeName} tenantRoot={tenantRoot} /> : null}
     <script is:inline define:vars={{ tenantRoot }}>
       const CART_KEY = "aiboux:shop:aiboux:cart";
 

@@ -259,6 +259,22 @@ Implementation direction:
 - Use the new shared JSON-LD helpers on TOP and subpage/product routes.
 - Strengthen `tests/shop-public-crawl.spec.ts` to verify `SiteNavigationElement`, page entity JSON-LD, FAQPage questions/answers, and ContactPage.
 
+## 2026-06-04 User Escalation: Shared Footer SEO/UI Parts
+
+User required all pages to be audited for strongest SEO/UI structure and reusable common parts.
+
+Additional active requirements:
+- Tenant storefront footer must be a shared component, not duplicated between TOP and Astro subpages.
+- All public tenant pages must expose the same dense shopping/account/support/store-info link network.
+- Footer visible DOM must expose `SiteNavigationElement` microdata for the shared navigation link groups.
+- Footer must include purchase assurance cards, including honest payment/subscription status.
+- Public crawl gates must verify the shared footer link density, `SiteNavigationElement` microdata, and payment-not-configured honesty text on `https://shop.aiboux.com` URLs.
+
+Implementation direction:
+- Add `src/components/shop/storefront/StorefrontFooter.tsx`.
+- Use the shared footer on `/s/aiboux/` and all `/s/aiboux/...` subpages.
+- Strengthen `tests/shop-public-crawl.spec.ts` for shared footer SEO/UI checks.
+
 Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.

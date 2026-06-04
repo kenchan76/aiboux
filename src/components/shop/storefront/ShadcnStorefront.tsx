@@ -3,9 +3,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
-import { buildShopFooterColumns } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
+import { StorefrontFooter } from "./StorefrontFooter";
 
 type StorefrontProduct = {
   id: string;
@@ -216,7 +216,7 @@ export function ShadcnStorefront({ storeName, products, layout }: ShadcnStorefro
         ) : null}
       </main>
 
-      <StoreFooter storeName={storeName} tenantRoot={tenantRoot} />
+      <StorefrontFooter storeName={storeName} tenantRoot={tenantRoot} />
       <StorefrontInteractionScript />
     </div>
   );
@@ -263,29 +263,6 @@ function StoreHeader({ storeName, tenantRoot, layout }: { storeName: string; ten
         ))}
       </nav>
     </header>
-  );
-}
-
-function StoreFooter({ storeName, tenantRoot }: { storeName: string; tenantRoot: string }) {
-  const columns = buildShopFooterColumns(tenantRoot);
-  return (
-    <footer className="mt-8 bg-[#17212f] text-white" data-testid="storefront-footer">
-      <a className="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold hover:bg-[#2e4058]" href="#top">ページ上部へ戻る</a>
-      <div className="mx-auto grid max-w-screen-xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
-        {columns.map((column) => (
-          <nav key={column.title} className="grid gap-2 text-sm">
-            <h2 className="mb-2 text-base font-bold">{column.title}</h2>
-            {column.links.map((link) => (
-              <a key={link.label} className="text-white/82 underline-offset-4 hover:text-white hover:underline" href={link.href}>{link.label}</a>
-            ))}
-          </nav>
-        ))}
-      </div>
-      <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-white/70">
-        <div className="font-bold text-white">{storeName}</div>
-        <div className="mt-1">配送、返品、定期購入、問い合わせまで同じテナント導線で確認できます。決済未接続時は注文確定しません。</div>
-      </div>
-    </footer>
   );
 }
 

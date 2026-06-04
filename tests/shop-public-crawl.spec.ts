@@ -84,7 +84,11 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("Not Found");
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
-        await expect(page.getByTestId("storefront-footer"), `${target.path} should include Amazon-like storefront footer`).toBeVisible();
+        const footer = page.getByTestId("storefront-footer");
+        await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
+        expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
+        expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(16);
+        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("決済未接続時は注文確定しません");
         const breadcrumb = page.getByTestId("storefront-breadcrumb");
         await expect(breadcrumb, `${target.path} should include visible breadcrumb navigation`).toBeVisible();
         await expect(breadcrumb, `${target.path} breadcrumb should expose BreadcrumbList microdata`).toHaveAttribute(
