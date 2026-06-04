@@ -4769,3 +4769,18 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+
+## SHOP_10H_BREADCRUMB_PRODUCT_SEO_PUBLICATION_AND_BARK
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+Latest public evidence publication:
+- Evidence commit: `87862ac`
+- Public evidence Worker Version ID: `1dda6a0e-440d-4eaf-958a-b5adbb60f585`
+- Progress Bark sent successfully with `delivered=true`, `skipped=false`, `secretLogged=false`.
+- Public `/g/m68`, `/g/l68`, and `/g/d68` return HTTP 200 and `text/markdown; charset=utf-8`.
+
+Not final:
+- Remote D1 subscription migration remains unapplied.
+- Provider-backed recurring billing remains unverified.
+- FINAL_ACCEPTED remains prohibited.
