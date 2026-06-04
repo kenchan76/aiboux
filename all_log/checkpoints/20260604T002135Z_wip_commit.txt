@@ -1,0 +1,25 @@
+timestamp=20260604T002135Z
+commit_status=0
+head_after=a878955fa48fd9e5bdd23576a2cc8db2ffad3ba3
+commit_stdout:
+[main a878955] WIP shop aiboux tenant deploy checkpoint 20260604T002135Z
+ 22 files changed, 1915 insertions(+), 9 deletions(-)
+ create mode 100644 all_log/checkpoints/20260604T001112Z_wip_commit.txt
+ create mode 100644 all_log/checkpoints/20260604T002135Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260604T002135Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260604T002135Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260604T002135Z_status_before.txt
+ create mode 100644 all_log/deploys/20260604T001112Z_deployments_before.txt
+ create mode 100644 all_log/deploys/20260604T002200Z_deploy_shop_public_admin_demo_recheck.txt
+ create mode 100644 all_log/patches/20260604T002135Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260604T002135Z_before_deploy_staged.patch
+ create mode 100644 all_log/public-checks/20260604T001922Z_admin.headers
+ create mode 100644 all_log/public-checks/20260604T001922Z_admin.html
+ create mode 100644 all_log/public-checks/20260604T001948Z_admin_playwright_content.html
+ create mode 100644 all_log/public-checks/20260604T001948Z_admin_playwright_text.txt
+ create mode 100644 all_log/public-checks/20260604T002103Z_admin_nocache.headers
+ create mode 100644 all_log/public-checks/20260604T002103Z_admin_nocache.html
+ create mode 100644 all_log/public-g/20260604T001112Z_public_log_required_rule_final_verify.txt
+ create mode 100644 ops/instructions/20260604_shop_public_admin_demo_value_recheck.md
+
+commit_stderr:

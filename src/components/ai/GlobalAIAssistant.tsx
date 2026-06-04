@@ -32,7 +32,7 @@ interface GlobalAIAssistantProps {
 }
 
 const storageKey = "aiboux.global-ai.v1";
-const sampleVoice = "佐藤さんに、明日の会議は10時からに変更してとメールを送って";
+const sampleVoice = "取引先へ、明日の会議は10時からに変更してとメールを送って";
 const mobileQuery = "(max-width: 767px)";
 
 const initialMessages: AssistantMessage[] = [
@@ -259,7 +259,7 @@ export function GlobalAIAssistant({ service = "AIBOUX", defaultOpen = true }: Gl
             <Textarea
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder={listening ? "話すとここへ文字起こしされます" : "AIに依頼する（例：佐藤さんに明日の会議は10時からとメール）"}
+              placeholder={listening ? "話すとここへ文字起こしされます" : "AIに依頼する（例：取引先へ明日の会議は10時からとメール）"}
               className="mt-2 min-h-20 resize-none text-sm"
             />
             {speechText ? <div className="mt-1 text-xs text-neutral-500">認識中: {speechText}</div> : null}
