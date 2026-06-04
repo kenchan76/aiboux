@@ -32,7 +32,8 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     });
     await page.goto(`/s/aiboux/cart?cartGate=${Date.now()}`, { waitUntil: "networkidle" });
 
-    await expect(page.getByText("雪花セレクト ドリップコーヒー 20袋")).toBeVisible();
+    const cartList = page.locator("[data-cart-list]");
+    await expect(cartList.getByText("雪花セレクト ドリップコーヒー 20袋")).toBeVisible();
     await expect(page.getByText("定期購入:")).toBeVisible();
     await expect(page.getByText("次回以降合計")).toBeVisible();
     await saveScreenshot(page, "shop-cart-page.png");
@@ -40,7 +41,7 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await page.locator("[data-cart-qty]").first().fill("2");
     await expect(page.getByText("¥6,192")).toBeVisible();
     await page.locator("[data-cart-remove]").first().click();
-    await expect(page.getByText("雪花セレクト ドリップコーヒー 20袋")).toHaveCount(0);
+    await expect(cartList.getByText("雪花セレクト ドリップコーヒー 20袋")).toHaveCount(0);
 
     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);

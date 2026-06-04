@@ -4441,3 +4441,23 @@ Status: `PUBLIC_STOREFRONT_CAROUSEL_SMOOTHNESS_AND_VISUAL_POLISH_WIP`
 - Verified: next, previous, dot click, autoplay, side preview sync, keyboard arrows, swipe/drag, and transform during animation.
 - Smooth carousel screenshots are published under `/g/screens/`.
 - This is WIP evidence only, not `FINAL_ACCEPTED`.
+
+---
+
+## 2026-06-04T12:45:00Z Current Evidence Note: Shop All Pages Cycle 6 Footer Cart Checkout
+
+Status: `WIP_DEPLOYED_NOT_FINAL`
+
+- Target storefront: `https://shop.aiboux.com/s/aiboux/`
+- WIP commit: `5a74d3e`
+- Worker Version ID: `522b3fdb-81d9-4d45-913b-112ce56372bd`
+- User rejected the previous quality because all pages, footer, links, mypage, and unimplemented-looking surfaces still did not reach the requested Amazon-like sales quality.
+- Cart page now has a left cart content panel, right order summary, payment-not-configured notice, shipping/return condition link, and recommendation continuation section.
+- Checkout page now has order review, delivery/contact section, support cards, and sales/privacy links while honestly blocking unconnected payment.
+- Shared footer now includes delivery, returns, payment, and subscription assurance cards plus dense shopping/account/support/store-info link columns.
+- `gate:shop-public-crawl`: PASS, 5 passed on public URLs.
+- `gate:shop-contact-legal`: PASS, 2 passed on public URLs.
+- `gate:shop-cart-checkout`: PASS, 1 passed on public URLs.
+- Screen evidence is published under `/g/screens/`.
+- This is WIP evidence only, not `FINAL_ACCEPTED`.
+- Remote D1 subscription migration remains unapplied, and provider-backed recurring billing remains unverified.
