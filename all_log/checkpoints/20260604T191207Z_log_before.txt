@@ -1,0 +1,10 @@
+6090368 WIP strengthen shared shop product card SEO UI
+5b1a428 WIP record shared SEO meta status report
+5284c11 WIP record shared SEO meta Bark public verification
+854cfdc WIP publish shared SEO meta Bark evidence
+7b26ffe WIP publish shared SEO meta public verification
+352d358 WIP publish shared storefront SEO meta evidence
+b647f21 WIP shop aiboux tenant deploy checkpoint 20260604T184726Z
+2323270 WIP shop aiboux tenant deploy checkpoint 20260604T184409Z
+d067ea9 WIP shop aiboux tenant deploy checkpoint 20260604T184106Z
+f8ffcab WIP publish runtime worker evidence for shop SEO links
