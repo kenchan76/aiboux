@@ -19,9 +19,13 @@ Continue the AIBOUX Shop sales-quality sprint by removing dead row-menu operatio
   - Segment toggles a visible confirmation badge.
   - Memo editing opens an enabled inline input and save button.
 
+- `src/components/shop/ShopTopbar.tsx`
+  - Replaced the disabled logout item with a real admin settings menu action.
+
 - `tests/shop-admin-ops-public.spec.ts`
   - Added product row-menu assertions.
   - Added customer row-menu assertions.
+  - Added admin account-menu assertions.
 
 ## Verification
 

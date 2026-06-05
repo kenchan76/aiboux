@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AppWindow, Bell, CalendarDays, HelpCircle, Search, SlidersHorizontal } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -157,7 +157,7 @@ export function ShopTopbar({
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => onSectionChange("settings")}>設定</DropdownMenuItem>
           <DropdownMenuItem asChild><a href="/s/aiboux/" target="_blank" rel="noreferrer">公開ストアを開く</a></DropdownMenuItem>
-          <DropdownMenuItem disabled>ログアウト</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onSectionChange("settings")}>管理者設定</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 

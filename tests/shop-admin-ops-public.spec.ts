@@ -127,6 +127,15 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.getByRole("button", { name: "保存" }).first()).toBeEnabled();
   });
 
+  test("admin account menu does not expose a disabled logout item", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin", { waitUntil: "networkidle" });
+
+    await page.getByRole("button", { name: /ストア管理者|管理画面/ }).click();
+    await expect(page.getByRole("menuitem", { name: "管理者設定" })).toBeVisible();
+    await expect(page.getByRole("menuitem", { name: "ログアウト" })).toHaveCount(0);
+  });
+
   test("design editor remains a focused two-page editor", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/design", { waitUntil: "networkidle" });
