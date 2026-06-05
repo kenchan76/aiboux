@@ -1,0 +1,92 @@
+
+ ⛅️ wrangler 4.94.0 (update available 4.98.0)
+─────────────────────────────────────────────
+Created:     2026-06-05T08:38:03.910Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) da2a20cb-5f01-4e00-b623-8e20a268300a
+                 Created:  2026-06-05T08:38:02.337Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T08:41:30.984Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 0ec0c0cd-8968-4c64-a677-568c47eb2c6e
+                 Created:  2026-06-05T08:41:28.950Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T08:44:23.009Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 1f3b2573-c0cf-452e-8fb8-0a51fcfb1fb5
+                 Created:  2026-06-05T08:44:21.123Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T08:46:25.413Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 3acfa2c7-f97c-4fde-8e2e-0f80f2825ca4
+                 Created:  2026-06-05T08:46:23.645Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T08:55:17.980Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 60197172-1e8a-432b-9a87-d8b38179afb3
+                 Created:  2026-06-05T08:55:15.503Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T08:58:07.540Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) df87045d-e6a5-4d4e-8a0d-464a78a56d08
+                 Created:  2026-06-05T08:58:04.083Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T09:05:18.260Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) d0ffe01c-9530-4b5f-a434-26b1f4925c20
+                 Created:  2026-06-05T09:05:16.372Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T09:08:11.268Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 94ec56da-4c14-4af2-b617-9e84b62cbecf
+                 Created:  2026-06-05T09:08:09.798Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T09:15:44.269Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 59f5ddac-76dc-46aa-a7ef-45ffcdb1bc28
+                 Created:  2026-06-05T09:15:42.800Z
+                     Tag:  -
+                 Message:  -
+
+Created:     2026-06-05T09:18:56.749Z
+Author:      kenchan.7648@gmail.com
+Source:      Unknown (deployment)
+Message:     -
+Version(s):  (100%) 6bc521b4-3e29-4c48-b972-f9ec8c5d0348
+                 Created:  2026-06-05T09:18:55.297Z
+                     Tag:  -
+                 Message:  -
