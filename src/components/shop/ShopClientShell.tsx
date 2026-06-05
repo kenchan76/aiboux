@@ -52,7 +52,7 @@ const sectionPath: Record<ShopSection, string> = {
   content: "content",
   analytics: "analytics",
   apps: "apps",
-  design: "settings/design",
+  design: "design",
   settings: "settings",
 };
 

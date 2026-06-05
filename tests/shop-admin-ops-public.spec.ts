@@ -69,6 +69,7 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
   test("design editor remains a focused two-page editor", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/design", { waitUntil: "networkidle" });
+    expect(new URL(page.url()).pathname).toBe("/s/aiboux/admin/design");
     await expect(page.locator("[data-shop-design-editor-shell]")).toBeVisible();
     await expect(page.getByText("TOPページ").first()).toBeVisible();
     await expect(page.getByText("商品詳細ページ").first()).toBeVisible();
