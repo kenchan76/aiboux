@@ -38,6 +38,10 @@ test.describe("AIBOUX Shop product detail public quality", () => {
     await expect(page.getByTestId("public-product-info")).toContainText("コーヒー・お茶");
     await expect(page.getByTestId("product-main-image")).toHaveAttribute("alt", /ドリップコーヒー|コーヒー/);
     await expect(page.getByTestId("storefront-breadcrumb")).toContainText("コーヒー・お茶");
+    await expect(
+      page.getByTestId("storefront-product-card").first().getByTestId("storefront-product-card-category"),
+      "related products should prioritize the current product category",
+    ).toHaveText("コーヒー・お茶");
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
     expect(canonical ?? "").toContain("/s/aiboux/product/setsuka-coffee");
     expect(await page.getByText("毎日使えるホームケア洗剤セット", { exact: true }).count()).toBe(0);

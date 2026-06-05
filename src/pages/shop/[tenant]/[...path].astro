@@ -582,6 +582,7 @@ function buildProductGalleryImages(name: string, category: string, primaryImage:
 
 function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
   const currentId = currentProduct?.id ?? "";
+  const currentCategory = String(currentProduct?.categoryName ?? "");
   const normalized = sourceProducts
     .filter((item) => item.id !== currentId)
     .map((item, index) => toSalesProductDetail(item, index + 1))
@@ -604,7 +605,23 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
     { id: "setsuka-candle", displayName: "リラックスアロマキャンドル", categoryName: "ギフト", salePrice: 1980, imageUrl: imageForSalesProduct("リラックスアロマキャンドル", "ギフト", 3) },
     { id: "setsuka-stationery", displayName: "毎日使える文具スターターセット", categoryName: "本・文具", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使える文具スターターセット", "本・文具", 3) },
   ];
-  return [...fallback, ...normalized].filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
+  const candidates = [...fallback, ...normalized]
+    .filter((item, index, array) => item.id !== currentId && array.findIndex((next) => next.displayName === item.displayName) === index);
+  if (!currentProduct) return candidates;
+  return candidates.sort((left, right) => relatedProductScore(left, currentCategory) - relatedProductScore(right, currentCategory));
+}
+
+function relatedProductScore(productValue: { displayName?: string; categoryName?: string }, currentCategory: string): number {
+  const current = normalizePublicCategoryToken(currentCategory);
+  const candidate = normalizePublicCategoryToken(`${productValue.categoryName ?? ""} ${productValue.displayName ?? ""}`);
+  if (!current) return 20;
+  if (candidate.includes(current)) return 0;
+  if (/daily-goods|日用品/.test(current) && /daily-goods|日用品|clean|laundry|洗剤|掃除|ランドリー|ホームケア/.test(candidate)) return 1;
+  if (/kitchen|キッチン/.test(current) && /kitchen|キッチン|保存|ボトル|水筒|クロス/.test(candidate)) return 1;
+  if (/coffee-tea|コーヒー|茶/.test(current) && /coffee-tea|コーヒー|茶|coffee|tea/.test(candidate)) return 1;
+  if (/food-drink|食品|飲料/.test(current) && /food-drink|食品|飲料|菓子|米|パン/.test(candidate)) return 1;
+  if (/gift|ギフト/.test(current) && /gift|ギフト|キャンドル|ボックス/.test(candidate)) return 1;
+  return 10;
 }
 
 function splitPolicyText(value: string): Array<{ title: string; body: string }> {
