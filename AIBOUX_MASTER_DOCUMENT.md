@@ -1,5 +1,28 @@
 # AIBOUX 正本マスター
 
+## Current Active Operating Override: Shop Log Truth Public Gate
+
+Status: `SHOP_LOG_TRUTH_PUBLIC_GATE_WIP_NOT_FINAL`
+
+`gate:shop-log-truth` はローカル `public/g/*.md` だけを見てPASSしてはいけない。
+
+必ず公開URLを取得して検査する。
+
+- `https://mail.aiboux.com/g/m68`
+- `https://mail.aiboux.com/g/l68`
+- `https://mail.aiboux.com/g/d68`
+- `https://mail.aiboux.com/g/sha68`
+
+`/g/sha68` はHTTP 200、`text/markdown`、`Status: PASS`、`/g/m68`、`/g/l68`、`/g/d68` のnormalized match PASSを必須とする。
+
+これはログ整合性gateであり、ストアフロントUI改善ではない。
+
+Forbidden:
+
+- Do not touch storefront UI in this cycle.
+- Do not add visible SEO panels.
+- Do not claim `FINAL_ACCEPTED`.
+
 ## Current Active Operating Override: Normalized /g SHA Verification
 
 Status: `NORMALIZED_G_SHA_VERIFICATION_WIP_NOT_FINAL`

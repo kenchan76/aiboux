@@ -1,14 +1,14 @@
-# CYCLE 0B: NORMALIZED_G_SHA_VERIFICATION
+# CYCLE 0C: SHOP_LOG_TRUTH_PUBLIC_GATE
 
 Active instruction file:
 
-- `ops/instructions/20260605_normalized_g_sha_verification.md`
+- `ops/instructions/20260605_shop_log_truth_public_gate.md`
 
 Status: `WIP_NOT_FINAL`
 
 ## Objective
 
-`/g/m68`、`/g/l68`、`/g/d68` のruntime Worker Version ID置換によるsha不一致を、正規化shaで厳密に検証して記録する。
+`gate:shop-log-truth` をローカルファイル検査だけで終わらせず、公開URLをcurl/fetchして検査する。
 
 ## Do Not
 
@@ -16,17 +16,18 @@ Status: `WIP_NOT_FINAL`
 - Do not add SEO panels.
 - Do not add trust matrix, support rail, action map, buying guide, page quality summary, or visible SEO explanation components.
 - Do not claim `FINAL_ACCEPTED`.
+- Do not proceed to buyer-surface UI changes in this cycle.
 
 ## Do
 
-1. Add normalized sha verification for `/g/m68`, `/g/l68`, and `/g/d68`.
-2. Record local raw sha256.
-3. Record public raw sha256.
-4. Record local normalized sha256 after Worker Version ID normalization.
-5. Record public normalized sha256 after Worker Version ID normalization.
-6. Record normalized match result.
-7. If normalized sha does not match, fail.
-8. Publish the normalized sha record at `/g/sha68`.
+1. Read local `public/g/m68.md`, `public/g/l68.md`, and `public/g/d68.md`.
+2. Fetch public `https://mail.aiboux.com/g/m68`.
+3. Fetch public `https://mail.aiboux.com/g/l68`.
+4. Fetch public `https://mail.aiboux.com/g/d68`.
+5. Fetch public `https://mail.aiboux.com/g/sha68`.
+6. Run truth-log format checks against local and public bodies.
+7. Require `/g/sha68` normalized SHA verification to be `PASS`.
+8. Fail the gate if public URL checks fail.
 
 ## STOP_LOCK
 
@@ -46,7 +47,6 @@ Status: `WIP_NOT_FINAL`
 - `npm run check:control-chars`
 - `npm run check:mojibake`
 - `npm run gate:shop-log-truth`
-- `npm run verify:g-normalized-sha`
 - `npm run astro check`
 - `ESBUILD_WORKER_THREADS=0 npm run build`
 - `npx wrangler deploy`
