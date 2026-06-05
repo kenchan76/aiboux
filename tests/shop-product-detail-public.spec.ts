@@ -97,6 +97,12 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(page.getByTestId("public-product-info")).toBeVisible();
       await expect(page.getByTestId("public-product-purchase-box")).toBeVisible();
       await expect(page.locator("[data-cart-add]").first()).toBeVisible();
+      const purchaseSupport = page.getByTestId("public-product-purchase-support");
+      await expect(purchaseSupport, "purchase box should expose buyer support links close to purchase buttons").toBeVisible();
+      await expect(purchaseSupport.getByRole("link", { name: /カートを確認/ })).toHaveAttribute("href", "/s/aiboux/cart");
+      await expect(purchaseSupport.getByRole("link", { name: /配送条件を見る/ })).toHaveAttribute("href", "/s/aiboux/shipping");
+      await expect(purchaseSupport.getByRole("link", { name: /返品条件を見る/ })).toHaveAttribute("href", "/s/aiboux/returns");
+      await expect(purchaseSupport.getByRole("link", { name: /商品について問い合わせ/ })).toHaveAttribute("href", "/s/aiboux/contact");
       await expect(page.getByTestId("public-product-purchase-box").getByText(/在庫あり|在庫確認/)).toBeVisible();
       await expect(page.getByText("商品説明")).toBeVisible();
       await expect(page.getByTestId("public-product-reviews"), "product detail should expose an actual review section for the review anchor").toBeVisible();
