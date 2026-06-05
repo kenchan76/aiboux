@@ -53,8 +53,8 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     const hasTable = await page.getByRole("table").isVisible().catch(() => false);
     expect(hasEmptyState || hasTable, "subscriptions page should show either an empty state or a real table").toBe(true);
     if (hasEmptyState) {
-      await expect(page.getByRole("button", { name: "商品設定を開く" })).toBeVisible();
-      await expect(page.getByRole("button", { name: "支払い設定を確認" })).toBeVisible();
+      await expect(page.getByRole("link", { name: "商品設定を開く" })).toHaveAttribute("href", "/s/aiboux/admin/products");
+      await expect(page.getByRole("link", { name: "支払い設定を確認" })).toHaveAttribute("href", "/s/aiboux/admin/settings");
     }
 
     await expect(page.locator("body")).not.toContainText("SUBSCRIPTION_SCHEMA_PENDING");

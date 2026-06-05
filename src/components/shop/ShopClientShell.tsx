@@ -508,8 +508,12 @@ function ShopSubscriptionsPanel() {
               商品編集で定期購入プランを設定し、商品詳細で購入者に頻度と受付条件を表示します。申込が入ると、顧客名、商品、次回請求日、次回配送日をここで確認できます。
             </p>
             <div className="mt-4 flex flex-wrap justify-center gap-2">
-              <Button variant="outline" onClick={() => window.location.assign(`${getShopAdminBasePath()}/products`)}>商品設定を開く</Button>
-              <Button variant="outline" onClick={() => window.location.assign(`${getShopAdminBasePath()}/settings`)}>支払い設定を確認</Button>
+              <Button asChild variant="outline">
+                <a href={`${getShopAdminBasePath()}/products`}>商品設定を開く</a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href={`${getShopAdminBasePath()}/settings`}>支払い設定を確認</a>
+              </Button>
             </div>
           </div>
         </div>
