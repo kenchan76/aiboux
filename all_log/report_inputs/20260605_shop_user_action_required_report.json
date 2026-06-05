@@ -1,0 +1,33 @@
+{
+  "title": "AIBOUX Shop WIP Status",
+  "status": "USER_ACTION_REQUIRED",
+  "masterUrl": "https://mail.aiboux.com/g/m68",
+  "logUrl": "https://mail.aiboux.com/g/l68",
+  "screenUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "CLEANUP_AND_REFOCUS_CYCLE_0 の方針に合わせ、販売画面に直接効く修正だけを進めました。",
+    "WIP commit 96675b6: フッターの買い物継続導線を追加しました。",
+    "WIP commit 2052517: 商品詳細の今すぐ購入が、選択商品をcart状態に入れてcheckoutへ進むようにしました。",
+    "WIP commit f963fbc: legal/privacy/shipping/returns/FAQ/cart/checkout の購入者向け文言から内部状態語を削りました。",
+    "WIP commit 948b978: TOPの構造化データ用リンク生成を説明パネル系ヘルパー依存から販売リンク直定義へ寄せました。",
+    "WIP commit 9ad65b4: public/g/l68.md と public/g/d68.md のローカル証跡を軽量サマリーで更新しました。"
+  ],
+  "verification": [
+    "npm run check:control-chars: PASS",
+    "npm run check:mojibake: PASS",
+    "npm run astro -- check: PASS with 0 errors",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS",
+    "対象公開ページソースの内部語スキャン: PASS locally",
+    "TOP entryの説明パネル系ヘルパー依存スキャン: PASS locally"
+  ],
+  "notes": [
+    "CLOUDFLARE_API_TOKEN が現在のshellに無いため、WIP deploy、Worker Version ID取得、公開/g/*反映、公開URL最新検証は実行していません。",
+    "公開URLの3本は既存URLです。今回のローカル更新はまだ公開反映されていません。",
+    "定期購入DB laneは D1_PERMISSION_BLOCKED_NOT_FINAL のままです。",
+    "FINAL_ACCEPTEDは主張していません。"
+  ],
+  "bark": {
+    "notification": "not sent",
+    "reason": "CLOUDFLARE_API_TOKEN missing; this is USER_ACTION_REQUIRED, not a cycle-complete deploy report."
+  }
+}
