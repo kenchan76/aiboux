@@ -1107,8 +1107,13 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
                       { title: "配送・返品", body: "条件を確認" },
                       { title: "支払い方法", body: "受付条件を確認" },
                     ].map((step, index) => (
-                      <li class="flex items-start gap-3 rounded-lg bg-neutral-50 px-3 py-3">
-                        <span class={index === 1 ? "flex size-7 shrink-0 items-center justify-center rounded-full bg-amber-400 text-xs font-bold text-neutral-950" : "flex size-7 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-xs font-bold text-white"}>{index + 1}</span>
+                      <li
+                        class={index === 0 ? "flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-3" : "flex items-start gap-3 rounded-lg bg-neutral-50 px-3 py-3"}
+                        data-checkout-step-item
+                        data-checkout-step-index={index}
+                        data-current={index === 0 ? "true" : "false"}
+                      >
+                        <span class={index === 0 ? "flex size-7 shrink-0 items-center justify-center rounded-full bg-amber-400 text-xs font-bold text-neutral-950" : "flex size-7 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-xs font-bold text-white"} data-checkout-step-number>{index + 1}</span>
                         <span>
                           <span class="block font-bold text-neutral-950">{step.title}</span>
                           <span class="mt-0.5 block text-xs leading-5 text-neutral-600">{step.body}</span>
@@ -1792,6 +1797,7 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
         if (!node) return;
         const items = readCart();
         if (!items.length) {
+          setCheckoutStep(0);
           node.innerHTML = `
             <div class="rounded-lg border border-dashed border-neutral-300 bg-neutral-50 p-4" data-testid="storefront-checkout-empty-guide">
               <div class="font-bold text-neutral-950">カートに商品がありません</div>
@@ -1809,6 +1815,7 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
           if (sideMode) sideMode.textContent = "未選択";
           return;
         }
+        setCheckoutStep(1);
         const totalItems = items.reduce((sum, item) => sum + Math.max(1, Number(item.quantity || 1)), 0);
         const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
         node.innerHTML = `
@@ -1837,6 +1844,24 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
           element.classList.toggle("hidden", !hasSubscription);
           if (element.hasAttribute("data-subscription-terms")) element.classList.toggle("flex", hasSubscription);
           if (element.hasAttribute("data-subscription-submit")) element.classList.toggle("inline-flex", hasSubscription);
+        });
+      }
+
+      function setCheckoutStep(activeIndex) {
+        document.querySelectorAll("[data-checkout-step-item]").forEach((item) => {
+          const isCurrent = item.getAttribute("data-checkout-step-index") === String(activeIndex);
+          item.setAttribute("data-current", isCurrent ? "true" : "false");
+          item.classList.toggle("border", isCurrent);
+          item.classList.toggle("border-amber-200", isCurrent);
+          item.classList.toggle("bg-amber-50", isCurrent);
+          item.classList.toggle("bg-neutral-50", !isCurrent);
+          const number = item.querySelector("[data-checkout-step-number]");
+          if (number) {
+            number.classList.toggle("bg-amber-400", isCurrent);
+            number.classList.toggle("text-neutral-950", isCurrent);
+            number.classList.toggle("bg-neutral-950", !isCurrent);
+            number.classList.toggle("text-white", !isCurrent);
+          }
         });
       }
 

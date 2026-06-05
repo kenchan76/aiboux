@@ -28,6 +28,8 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     const guide = page.getByTestId("storefront-checkout-empty-guide");
     await expect(guide).toBeVisible();
     await expect(guide).toContainText("カートに商品がありません");
+    await expect(page.locator("[data-checkout-step-index='0']")).toHaveAttribute("data-current", "true");
+    await expect(page.locator("[data-checkout-step-index='1']")).toHaveAttribute("data-current", "false");
     await expect(guide).toContainText("配送・返品条件");
     await expect(guide.getByRole("link", { name: "商品一覧へ戻る" })).toHaveAttribute("href", "/s/aiboux/products");
     await expect(guide.getByRole("link", { name: "カートを確認" })).toHaveAttribute("href", "/s/aiboux/cart");
@@ -80,6 +82,8 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
     await expect(page.getByTestId("storefront-checkout-stepper")).toBeVisible();
+    await expect(page.locator("[data-checkout-step-index='0']")).toHaveAttribute("data-current", "false");
+    await expect(page.locator("[data-checkout-step-index='1']")).toHaveAttribute("data-current", "true");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-payment-panel")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-live-summary")).toBeVisible();
