@@ -1,0 +1,35 @@
+--- headers ---
+/tmp/m68.headers:HTTP/2 200 
+/tmp/m68.headers:content-type: text/markdown; charset=utf-8
+/tmp/m68.headers:x-content-type-options: nosniff
+/tmp/l68.headers:HTTP/2 200 
+/tmp/l68.headers:content-type: text/markdown; charset=utf-8
+/tmp/l68.headers:x-content-type-options: nosniff
+/tmp/d68.headers:HTTP/2 200 
+/tmp/d68.headers:content-type: text/markdown; charset=utf-8
+/tmp/d68.headers:x-content-type-options: nosniff
+--- latest marker ---
+/tmp/l68.body:4585:## 2026-06-05T01:38:30Z - Shop Public Text Declutter Public Gate
+/tmp/m68.body:5815:- Latest public text declutter Worker Version ID: `51c6add9-5e7d-4040-b52c-24d4341d1deb`
+/tmp/l68.body:4590:- Worker Version ID: `51c6add9-5e7d-4040-b52c-24d4341d1deb`
+/tmp/d68.body:3255:- Worker Version ID: `51c6add9-5e7d-4040-b52c-24d4341d1deb`
+/tmp/l68.body:4459:- Public evidence Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/l68.body:4512:- Public evidence publication Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/l68.body:4553:- Current public Worker Version ID is resolved at runtime as `c4712fd6-0d25-45ae-b657-867720f6aa6a`.
+/tmp/d68.body:31:- Public evidence publication Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`.
+/tmp/d68.body:229:- Public evidence publication Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`.
+/tmp/d68.body:238:- Runtime SHA note: `/g/*` replaces `c4712fd6-0d25-45ae-b657-867720f6aa6a` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+/tmp/d68.body:304:- Public evidence publication Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`.
+/tmp/d68.body:313:- Runtime SHA note: `/g/*` replaces `c4712fd6-0d25-45ae-b657-867720f6aa6a` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+/tmp/d68.body:726:- Latest Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/d68.body:1108:| `https://shop.aiboux.com/` | 200 | `c4712fd6-0d25-45ae-b657-867720f6aa6a` | `AIBOUX SHOP | サービスサイト` |
+/tmp/d68.body:1109:| `https://shop.aiboux.com/s/aiboux/` | 200 | `c4712fd6-0d25-45ae-b657-867720f6aa6a` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/d68.body:1110:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `c4712fd6-0d25-45ae-b657-867720f6aa6a` | `AIBOUX SHOP Dashboard` |
+/tmp/d68.body:1165:- `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/d68.body:1254:- `x-aiboux-worker-version`: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/d68.body:1411:- All checked responses were served by Worker Version ID `c4712fd6-0d25-45ae-b657-867720f6aa6a`.
+/tmp/d68.body:1886:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: c4712fd6-0d25-45ae-b657-867720f6aa6a
+/tmp/d68.body:2373:- Public evidence Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/d68.body:2811:- Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/d68.body:3147:- Public evidence Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`
+/tmp/d68.body:3214:- Public evidence publication Worker Version ID: `c4712fd6-0d25-45ae-b657-867720f6aa6a`.
