@@ -124,7 +124,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
         />
         <h1 className="sr-only">{storeName}</h1>
         <section
-          className="pt-0"
+          className="touch-pan-y pt-0"
           data-testid="hero-carousel"
           data-hero-carousel
           data-slides={JSON.stringify(slides)}
@@ -486,6 +486,7 @@ function StorefrontInteractionScript() {
     let transitioning = false;
     let pointerStartX = 0;
     let pointerStartY = 0;
+    let pointerCurrentX = 0;
     let pointerTracking = false;
 
     const setTrackTransition = (enabled) => {
@@ -504,6 +505,13 @@ function StorefrontInteractionScript() {
       setTrackTransition(animated);
       const offset = targetOffsetForTrackIndex(trackIndex);
       track.style.transform = "translate3d(" + offset + "px, 0, 0)";
+    };
+    const applyDragPosition = (dx) => {
+      if (!track) return;
+      const baseOffset = targetOffsetForTrackIndex(activeTrackIndex);
+      const limitedDx = Math.max(Math.min(dx, 220), -220);
+      setTrackTransition(false);
+      track.style.transform = "translate3d(" + Math.round(baseOffset + limitedDx) + "px, 0, 0)";
     };
     const renderState = () => {
       const current = slides[index];
@@ -595,21 +603,48 @@ function StorefrontInteractionScript() {
       if (event.key === "ArrowRight") move(1);
     });
     carousel.addEventListener("pointerdown", (event) => {
+      if (transitioning) return;
       pointerTracking = true;
       pointerStartX = event.clientX;
       pointerStartY = event.clientY;
+      pointerCurrentX = event.clientX;
+      paused = true;
+      setTrackTransition(false);
+      if (event.pointerId !== undefined && "setPointerCapture" in carousel) {
+        try { carousel.setPointerCapture(event.pointerId); } catch {}
+      }
+    });
+    carousel.addEventListener("pointermove", (event) => {
+      if (!pointerTracking) return;
+      pointerCurrentX = event.clientX;
+      const dx = pointerCurrentX - pointerStartX;
+      const dy = event.clientY - pointerStartY;
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+        event.preventDefault();
+        applyDragPosition(dx);
+      }
     });
     carousel.addEventListener("pointerup", (event) => {
       if (!pointerTracking) return;
       pointerTracking = false;
       const dx = event.clientX - pointerStartX;
       const dy = event.clientY - pointerStartY;
-      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+      if (event.pointerId !== undefined && "releasePointerCapture" in carousel) {
+        try { carousel.releasePointerCapture(event.pointerId); } catch {}
+      }
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.25) {
+        applyTrackPosition(activeTrackIndex, true);
+        paused = false;
+        return;
+      }
       move(dx < 0 ? 1 : -1);
+      paused = false;
       restart();
     });
     carousel.addEventListener("pointercancel", () => {
       pointerTracking = false;
+      applyTrackPosition(activeTrackIndex, true);
+      paused = false;
     });
     carousel.addEventListener("mouseenter", () => { paused = true; });
     carousel.addEventListener("mouseleave", () => { paused = false; });
