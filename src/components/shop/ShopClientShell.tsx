@@ -343,7 +343,7 @@ type ShopProductsResponse = {
 
 function mapApiProduct(row: Record<string, unknown>): ShopProduct {
   const id = stringValue(row.id) || "shop-product";
-  const name = stringValue(row.display_name) || stringValue(row.product_name) || "名称未設定の商品";
+  const name = stringValue(row.display_name) || stringValue(row.product_name) || "商品名確認中";
   const sku = stringValue(row.jan_code) || id;
   const category = stringValue(row.category_name) || stringValue(row.google_category_id) || stringValue(row.category_id) || "未分類";
   const price = numberValue(row.sale_price);
@@ -538,8 +538,8 @@ function ShopSubscriptionsPanel() {
                 return (
                   <tr key={id}>
                     <td className="px-3 py-3">
-                      <div className="font-medium text-neutral-950">{stringValue(subscription.customerName) || "未入力"}</div>
-                      <div className="text-xs text-neutral-500">{stringValue(subscription.customerEmail) || "メール未入力"}</div>
+                      <div className="font-medium text-neutral-950">{stringValue(subscription.customerName) || "顧客情報確認中"}</div>
+                      <div className="text-xs text-neutral-500">{stringValue(subscription.customerEmail) || "連絡先確認中"}</div>
                     </td>
                     <td className="px-3 py-3">
                       <div className="font-medium text-neutral-950">{stringValue(subscription.productName)}</div>
@@ -548,7 +548,7 @@ function ShopSubscriptionsPanel() {
                     <td className="px-3 py-3 font-semibold">{formatYen(numberValue(subscription.unitPrice))}</td>
                     <td className="px-3 py-3">{formatDateValue(subscription.nextBillingAt)}</td>
                     <td className="px-3 py-3">{formatDateValue(subscription.nextDeliveryAt)}</td>
-                    <td className="px-3 py-3"><Badge variant="outline" className="rounded-md">{status || "pending_payment_setup"}</Badge></td>
+                    <td className="px-3 py-3"><Badge variant="outline" className="rounded-md">{subscriptionStatusLabel(status)}</Badge></td>
                     <td className="px-3 py-3">
                       <div className="flex justify-end gap-2">
                         <Button variant="outline" size="sm" className="h-8" onClick={() => action(id, status === "paused" ? "resume" : "pause")}>{status === "paused" ? "再開" : "一時停止"}</Button>
@@ -585,8 +585,17 @@ function subscriptionIntervalLabelForAdmin(value: Record<string, unknown>): stri
   return count === 1 ? "毎月" : `${count}か月ごと`;
 }
 
+function subscriptionStatusLabel(value: string): string {
+  if (value === "active") return "継続中";
+  if (value === "paused") return "一時停止";
+  if (value === "canceled") return "解約済み";
+  if (value === "payment_failed") return "支払い確認";
+  if (value === "completed") return "完了";
+  return "受付条件確認";
+}
+
 function formatDateValue(value: unknown): string {
   const number = typeof value === "number" ? value : Number(value ?? 0);
-  if (!Number.isFinite(number) || number <= 0) return "未設定";
+  if (!Number.isFinite(number) || number <= 0) return "日程確認中";
   return new Intl.DateTimeFormat("ja-JP", { dateStyle: "medium" }).format(new Date(number));
 }

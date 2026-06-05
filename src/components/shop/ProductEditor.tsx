@@ -432,7 +432,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
             <CardContent className="space-y-3 p-4">
               {subscriptionPlans.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-10 text-center text-sm text-neutral-600">
-                  定期購入プランは未設定です。プランを追加すると商品詳細、カート、checkoutに反映します。
+                  定期購入プランはまだありません。プランを追加すると商品詳細、カート、checkoutに反映します。
                 </div>
               ) : subscriptionPlans.map((plan, index) => (
                 <div key={plan.id} className="rounded-lg border border-neutral-200 bg-white p-3" data-testid="subscription-plan-editor">
