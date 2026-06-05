@@ -193,7 +193,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
             <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h2 className="text-lg font-semibold tracking-tight">{recommended.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">ヒーロースライダーの直下に公開商品を表示します。</p>
+                <p className="mt-1 text-sm text-muted-foreground">画像、価格、レビュー、配送目安をそろえて、今週の定番商品を選べます。</p>
               </div>
               <div className="flex items-center gap-3">
                 <Badge variant="secondary">{products.length}件</Badge>
@@ -367,23 +367,35 @@ function CategorySection({ title, enabled }: { title: string; enabled: boolean }
 }
 
 function ProductCard({ product, index, showTaxLabel, showRating }: { product: StorefrontProduct; index: number; showTaxLabel: boolean; showRating: boolean }) {
+  const numericPrice = Number(String(product.price).replace(/[^\d]/g, "")) || 0;
+  const reviewCount = 860 + index * 47;
+
   return (
-    <article className="rounded-md border border-neutral-200 bg-white p-3 hover:border-amber-300" data-testid="product-card">
+    <article
+      className="flex min-h-[344px] flex-col rounded-md border border-neutral-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md"
+      data-testid="product-card"
+    >
       <a href={product.href} className="block">
-        <img src={product.image} alt={product.name} className="h-44 w-full rounded bg-neutral-50 object-cover md:h-48" loading="lazy" />
-        <div className="mt-3 text-[11px] font-semibold text-neutral-500">{product.category}</div>
-        {showRating ? <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({860 + index * 47})</span></div> : null}
-        <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-blue-800 hover:underline">{product.name}</h3>
-        <p className="mt-1 text-lg font-bold tracking-tight text-red-700">¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}</p>
+        <img src={product.image} alt={`${product.name} 商品画像`} className="h-44 w-full rounded bg-neutral-50 object-cover md:h-48" loading="lazy" />
       </a>
+      <div className="mt-3 text-[11px] font-semibold text-neutral-500">{product.category}</div>
+      <a href={product.href} className="block">
+        {showRating ? (
+          <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({reviewCount})</span></div>
+        ) : null}
+        <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-blue-800 hover:underline">{product.name}</h3>
+      </a>
+      <p className="mt-1 text-lg font-bold tracking-tight text-red-700">
+        ¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}
+      </p>
       <button
-        className="mt-2 inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950 hover:bg-[#F7CA00]"
+        className="mt-auto inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950 hover:bg-[#F7CA00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
         type="button"
         data-cart-add
         data-testid="storefront-product-add-to-cart"
         data-product-id={product.id}
         data-product-name={product.name}
-        data-product-price={String(product.price).replace(/[^\d]/g, "")}
+        data-product-price={String(numericPrice)}
         data-product-image={product.image}
       >
         カートに追加

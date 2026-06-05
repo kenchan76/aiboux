@@ -1,5 +1,22 @@
 # 2026-06-05 Daily Improvement: Shopper UI Text Must Not Expose SEO/Internal Implementation
 
+## 2026-06-05 Addition: Stop SEO-Work Drift And Fix The Sales UI Directly
+
+Checked current Google Search Central ecommerce guidance again for this sprint:
+
+- Ecommerce site structure and crawler-friendly navigation.
+- Ecommerce URL structure.
+- Breadcrumb structured data.
+- Ecommerce structured data.
+
+Process improvement:
+
+- Stop adding SEO explanation panels, checklist panels, sitemap panels, trust matrices, support rails, action maps, or context-link panels to shopper pages.
+- Do not spend a WIP cycle on schema-only or gate-only changes when the user asked for sales quality.
+- Keep existing technical SEO working in head metadata, canonical, robots, JSON-LD, breadcrumbs, sitemap.xml, and robots.txt, but do not surface implementation explanations in shopper UI.
+- Treat visible improvements as valid only when they make TOP, product detail, cart, checkout, contact/legal, or admin operations more usable for buyers or operators.
+- Use fewer, broader gates: core flow and visual critical checks should prove buying behavior and screen quality rather than proving that more SEO components exist.
+
 ## Checked References
 
 - Google Search Central SEO Starter Guide

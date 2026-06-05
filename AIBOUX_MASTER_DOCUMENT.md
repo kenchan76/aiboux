@@ -1,5 +1,61 @@
 # AIBOUX 正本マスター
 
+## Current Active Operating Override: AIBOUX Shop Cleanup And Refocus
+
+Status: `CLEANUP_AND_REFOCUS_CYCLE_0_WIP_NOT_FINAL`
+
+This override supersedes prior Shop visible SEO-panel, trust-matrix, support-rail, action-map, SEO-checklist, and sitemap-panel work.
+
+The active Shop work is no longer to add visible SEO explanation components. The active work is to directly improve the buyer-facing sales experience.
+
+Tenant URL rules remain fixed:
+
+- `https://shop.aiboux.com/` is the Shop service site.
+- `https://shop.aiboux.com/s/aiboux/` is the aiboux tenant storefront.
+- `https://shop.aiboux.com/s/aiboux/admin` is the aiboux tenant admin.
+- `https://shop.aiboux.com/s/aiboux/admin/design` is the store design editor.
+
+Active work lanes:
+
+- Lane A: TOP sales quality.
+- Lane B: product detail and purchase-box quality.
+- Lane C: cart, checkout, contact, legal, privacy, shipping, and returns.
+- Lane D: admin products, settings, design, and subscriptions.
+
+Allowed work:
+
+- Fix product image and product-name mismatch.
+- Improve TOP hero/carousel smoothness and product-card density.
+- Improve product detail gallery, purchase box, cart actions, checkout flow, contact validation, and legal/shipping/returns pages.
+- Improve admin product/design/settings/subscription operation.
+- Keep technical SEO in metadata, stable URLs, breadcrumbs, robots, sitemap, and structured data where it does not create visible shopper-facing explanation panels.
+
+Forbidden work:
+
+- Do not add visible SEO explanation panels.
+- Do not add visible SEO checklist panels.
+- Do not add visible sitemap panels.
+- Do not add trust matrix / support rail / action map / context-link explanation blocks for shoppers.
+- Do not create gate-only, Bark-only, or `/g`-only work cycles.
+- Do not repeat long D1 permission explanations.
+
+Reduced gates:
+
+- `gate:shop-core-flow`
+- `gate:shop-visual-critical`
+- `gate:shop-final` is final-only and still requires subscription lane completion.
+
+Blocked lane:
+
+- Subscription remote D1 migration remains `D1_PERMISSION_BLOCKED_NOT_FINAL`.
+- This blocks final subscription acceptance only. It must not stop non-D1 sales UI work.
+
+Reporting:
+
+- `/g/l68` must show the current concise execution status only.
+- `/g/d68` must show the current concise screen evidence only.
+- `FINAL_ACCEPTED` is prohibited until all public behavior, visual evidence, deployment evidence, and subscription requirements pass.
+
 ## Current Active Operating Override: AIBOUX Shop Public HTML Internal Wording Removal
 
 Status: `SHOP_PUBLIC_HTML_INTERNAL_WORDING_REMOVED_WIP_DEPLOYED_NOT_FINAL`

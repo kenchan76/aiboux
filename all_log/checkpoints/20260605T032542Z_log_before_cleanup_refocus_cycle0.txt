@@ -1,0 +1,10 @@
+e6fe068 WIP render shop account retail report
+5297453 WIP record shop account retail progress bark
+5263592 WIP record shop account retail public log verification
+bd4ea3a WIP publish shop account order favorite retail evidence
+9b41c7b WIP improve shop account order favorite retail flow
+1357dd6 WIP render shop cart checkout contact retail report
+c61fa05 WIP record shop retail progress bark
+c7606b5 WIP record shop retail evidence final public verification
+ade98e2 WIP record shop retail evidence publication worker
+563f4ab WIP publish shop cart checkout contact retail evidence

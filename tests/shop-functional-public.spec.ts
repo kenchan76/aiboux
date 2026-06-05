@@ -231,7 +231,7 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     const addButtons = page.locator("[data-cart-add]");
     const count = await addButtons.count();
     if (count === 0) {
-      await expect(page.getByText("公開商品はまだありません。")).toBeVisible();
+      await expect(page.getByText("商品はこれから追加されます。")).toBeVisible();
       return;
     }
 

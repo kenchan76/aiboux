@@ -39,6 +39,7 @@ test.describe("AIBOUX Shop public storefront visual quality", () => {
     const recommendedCards = page.getByTestId("recommended-products").getByTestId("product-card");
     await expect.poll(async () => recommendedCards.count(), { message: "recommended products should be dense enough" }).toBeGreaterThanOrEqual(10);
     await expect.poll(async () => page.getByTestId("recommended-products").locator("img").count()).toBeGreaterThanOrEqual(10);
+    await expect(page.getByTestId("recommended-products")).not.toContainText("公開商品");
 
     await expect(page.getByText(/AIBOUX公開検証商品|公開検証商品|検証商品/)).toHaveCount(0);
     await expect(page.locator(".placeholder, .skeleton, [data-placeholder='true']")).toHaveCount(0);

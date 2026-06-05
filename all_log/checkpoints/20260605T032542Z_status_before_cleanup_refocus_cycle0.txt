@@ -1,0 +1,24 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M ops/improvements/20260605_daily_improvement.md
+ M ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+ M ops/instructions/current.md
+ M package.json
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/components/shop/storefront/ShopStorefrontHome.tsx
+ D src/components/shop/storefront/StorefrontBuyingGuide.tsx
+ D src/components/shop/storefront/StorefrontCommerceFacts.tsx
+ D src/components/shop/storefront/StorefrontContextLinks.tsx
+ M src/components/shop/storefront/StorefrontFooter.tsx
+ D src/components/shop/storefront/StorefrontPageActionMap.tsx
+ D src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+ D src/components/shop/storefront/StorefrontSeoHub.tsx
+ D src/components/shop/storefront/StorefrontSupportRail.tsx
+ D src/components/shop/storefront/StorefrontTrustMatrix.tsx
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-functional-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+ M tests/shop-storefront-visual-public.spec.ts
+?? all_log/checkpoints/20260605T032542Z_status_before_cleanup_refocus_cycle0.txt
