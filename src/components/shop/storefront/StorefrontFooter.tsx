@@ -81,7 +81,7 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
         <div className="mx-auto grid max-w-screen-xl gap-3 text-xs text-white/70 md:grid-cols-[1fr_auto] md:items-center">
           <div>
             <div className="font-bold text-white">{storeName}</div>
-            <p className="mt-1">注文、配送、返品、定期購入、問い合わせまで同じストア導線で確認できます。オンライン決済準備中は注文確定しません。</p>
+            <p className="mt-1">注文、配送、返品、定期購入、問い合わせまで同じストア導線で確認できます。オンライン決済の受付前は注文前確認として表示します。</p>
           </div>
           <nav className="flex flex-wrap gap-3 md:justify-end" aria-label="ストア基本情報">
             <a className="underline-offset-4 hover:text-white hover:underline focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-300" href={`${tenantRoot}/legal`}>特商法</a>

@@ -119,11 +119,19 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("ログイン基盤");
         await expect(page.locator("body")).not.toContainText("本番認証");
         await expect(page.locator("body")).not.toContainText("成功したふり");
+        await expect(page.locator("body")).not.toContainText("準備中");
+        await expect(page.locator("body")).not.toContainText("未完了");
+        await expect(page.locator("body")).not.toContainText("未接続");
+        await expect(page.locator("body")).not.toContainText("Provider subscription");
         const html = await page.content();
         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("クロール可能");
         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("内部リンク");
         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Page guide");
         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Trust / proof matrix");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("準備中");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("未完了");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("未接続");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Provider subscription");
         const skipLinks = page.getByTestId("storefront-skip-links");
         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
@@ -145,7 +153,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
-        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("オンライン決済準備中は注文確定しません");
+        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("支払い方法の確認が必要な場合は注文前確認に切り替えます");
         const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
         await expect(footerLinkDirectory, `${target.path} should include shared footer link directory`).toBeVisible();
         await expect(footerLinkDirectory, `${target.path} footer link directory should expose ItemList microdata`).toHaveAttribute(

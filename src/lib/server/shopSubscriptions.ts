@@ -2,7 +2,7 @@ import { env } from "cloudflare:workers";
 import { ProductApiError } from "@/lib/server/productMasterApi";
 
 export const SUBSCRIPTION_SCHEMA_PENDING_CODE = "SUBSCRIPTION_SCHEMA_PENDING";
-export const SUBSCRIPTION_SCHEMA_PENDING_MESSAGE = "定期購入は現在準備中です。設定完了後にお申し込みいただけます。";
+export const SUBSCRIPTION_SCHEMA_PENDING_MESSAGE = "定期購入の受付状態を確認してください。受付開始後にお申し込みいただけます。";
 
 export class SubscriptionSchemaPendingError extends ProductApiError {
   readonly code = SUBSCRIPTION_SCHEMA_PENDING_CODE;
@@ -325,7 +325,7 @@ export async function createPendingSubscription(input: {
   return {
     subscription: await insertSubscription({ ...input, plan, status: "pending_payment_setup", paymentProvider: "stripe", paymentSubscriptionId: null }),
     paymentReady: false,
-    paymentReason: "Provider subscription creation is not implemented in this WIP. Do not claim payment success.",
+    paymentReason: "定期購入の支払い方法を確認してください。受付開始後に申込みできます。",
   };
 }
 
@@ -428,7 +428,7 @@ async function getSubscriptionPaymentReadiness(tenantId: string): Promise<{ read
   if (row?.stripe_connect_state === "active" && row.stripe_account_id && !row.stripe_account_id.startsWith("acct_mock_")) {
     return { ready: true, reason: "stripe_active" };
   }
-  return { ready: false, reason: "定期決済設定が未完了です" };
+  return { ready: false, reason: "定期購入の支払い方法を確認してください" };
 }
 
 function normalizePlanInput(value: unknown, tenantId: string, productId: string, index: number): ShopSubscriptionPlan {

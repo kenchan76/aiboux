@@ -78,10 +78,10 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await quantity.fill("3");
     await expect(page.getByText("¥3,600")).toBeVisible();
     await page.locator("[data-cart-remove]").first().click();
-    await expect(page.getByText("カートは空です。商品を追加するとここに表示されます。")).toBeVisible();
+    await expect(page.getByText("カートは空です")).toBeVisible();
 
     await page.goto("/s/aiboux/checkout");
-    await expect(page.getByText("決済設定が必要です")).toBeVisible();
+    await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
 
@@ -95,7 +95,7 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
     await page.locator("input[name='email']").fill("tester@example.com");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
-    await expect(page.getByText("送信完了扱いにはしません。")).toBeVisible();
+    await expect(page.getByText("入力内容を確認しました。")).toBeVisible();
   });
 
   test("legal pages render configured or generated policy text", async ({ page }) => {

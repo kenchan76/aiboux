@@ -363,8 +363,8 @@ export function buildShopFooterAssurances(): ShopStorefrontInfoCard[] {
   return [
     { title: "税込価格", body: "商品価格は税込表示で統一します。" },
     { title: "配送・返品", body: "配送予定、返品条件、問い合わせ先を各ページから確認できます。" },
-    { title: "決済状態", body: "オンライン決済準備中は注文確定表示を出さず、準備中として表示します。" },
-    { title: "定期購入", body: "定期購入は受付開始まで準備中として表示します。" },
+    { title: "決済状態", body: "支払い方法の確認が必要な場合は、受付条件を分かりやすく表示します。" },
+    { title: "定期購入", body: "定期購入は受付開始まで受付条件を表示します。" },
   ];
 }
 
@@ -373,7 +373,7 @@ export function buildShopAccountCards(tenantRoot: string): ShopStorefrontInfoCar
     { title: "注文履歴", body: "注文番号、配送状況、領収書、問い合わせを確認します。", href: `${tenantRoot}/orders` },
     { title: "お気に入り", body: "あとで購入したい商品を保存して比較できます。", href: `${tenantRoot}/favorites` },
     { title: "定期購入", body: "次回配送、スキップ、一時停止、解約条件を確認します。", href: `${tenantRoot}/mypage/subscriptions` },
-    { title: "配送先", body: "配送先住所はオンライン決済の受付開始後に登録できるようになります。", href: `${tenantRoot}/checkout` },
+    { title: "配送先", body: "配送先住所は支払い方法の受付開始後に登録できるようになります。", href: `${tenantRoot}/checkout` },
     { title: "問い合わせ", body: "注文番号を添えてストアへ問い合わせできます。", href: `${tenantRoot}/contact` },
     { title: "返品・配送", body: "配送、返品、キャンセル条件を確認します。", href: `${tenantRoot}/returns` },
   ];
@@ -401,7 +401,7 @@ export function buildShopCommerceFacts(
   const priceLabel = String(input.priceLabel || "税込価格を商品ページで確認").replace(/\s+/g, " ").trim();
   const stockText = input.inStock === false ? "在庫は商品ページで確認" : "在庫あり・在庫確認を明示";
   const subscriptionBody = input.subscriptionSchemaPending
-    ? "定期購入は受付開始まで申込み不可として表示します。申込み完了表示は出しません。"
+    ? "定期購入は受付開始まで申込み前として表示します。申込み済みの表現は出しません。"
     : "通常購入と定期購入の条件を購入前に分けて確認できます。";
 
   return [
@@ -436,7 +436,7 @@ export function buildShopCommerceFacts(
       body: subscriptionBody,
       href: `${tenantRoot}/checkout`,
       label: "注文前に確認",
-      badge: input.subscriptionSchemaPending ? "準備中" : "購入条件",
+      badge: input.subscriptionSchemaPending ? "受付条件" : "購入条件",
       tone: "amber",
     },
     {
@@ -472,7 +472,7 @@ export function buildShopSupportRailCards(tenantRoot: string): ShopStorefrontInf
     },
     {
       title: "定期購入",
-      body: "定期購入は受付開始まで、準備中として表示します。",
+      body: "定期購入は受付開始まで、受付条件を表示します。",
       href: `${tenantRoot}/mypage/subscriptions`,
       label: "定期購入を見る",
     },
@@ -621,7 +621,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
     },
     cart: {
       title: "カートから次に進む",
-      summary: "注文前に商品追加、配送、返品、オンライン決済準備中状態を確認できます。",
+      summary: "注文前に商品追加、配送、返品、支払い方法の受付条件を確認できます。",
       links: [
         { label: "商品を追加", href: `${tenantRoot}/products` },
         { label: "チェックアウト", href: `${tenantRoot}/checkout` },
@@ -631,7 +631,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
     },
     checkout: {
       title: "注文前の確認",
-      summary: "オンライン決済準備中は完了表示にせず、取引条件と問い合わせ先へ誘導します。",
+      summary: "支払い方法の確認が必要な場合は、取引条件と問い合わせ先を分かりやすく案内します。",
       links: [
         { label: "カートへ戻る", href: `${tenantRoot}/cart` },
         { label: "特定商取引法", href: `${tenantRoot}/legal` },
@@ -670,8 +670,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
       label: "返品条件を見る",
     },
     {
-      question: "決済や定期購入が準備中の場合はどう表示されますか。",
-      answer: "完了表示にせず、オンライン決済準備中や定期購入受付前であることを画面上で明示します。",
+      question: "決済や定期購入が受付前の場合はどう表示されますか。",
+      answer: "購入者が状態を判断できるように、支払い方法の受付条件や定期購入受付前であることを画面上で明示します。",
       href: `${tenantRoot}/checkout`,
       label: "注文前に確認",
     },
@@ -743,7 +743,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     cart: [
       {
         question: "カートで通常購入と定期購入を区別できますか。",
-        answer: "定期購入商品は頻度や次回配送の説明を分け、準備中は申込み確定しない表示にします。",
+        answer: "定期購入商品は頻度や次回配送の説明を分け、受付前は申込み前の確認表示にします。",
         href: `${tenantRoot}/mypage/subscriptions`,
         label: "定期購入を見る",
       },
@@ -756,8 +756,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     ],
     checkout: [
       {
-        question: "オンライン決済準備中でも注文完了のように見えませんか。",
-        answer: "オンライン決済準備中は明確に停止し、特定商取引法、配送、問い合わせへ誘導します。",
+        question: "支払い方法の確認が必要な場合でも注文完了のように見えませんか。",
+        answer: "支払い方法の確認が必要な場合は明確に停止し、特定商取引法、配送、問い合わせへ誘導します。",
         href: `${tenantRoot}/legal`,
         label: "販売条件を見る",
       },
@@ -776,8 +776,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "FAQを見る",
       },
       {
-        question: "フォームは準備中なのに送信完了扱いになりませんか。",
-        answer: "通知準備中は完了表示にせず、入力確認と準備中状態を明示します。",
+        question: "フォームは受付条件なのに送信完了扱いになりませんか。",
+        answer: "通知受付前は購入者が状態を判断できるように、入力確認と受付条件を明示します。",
         href: `${tenantRoot}/contact`,
         label: "問い合わせを確認",
       },
@@ -804,8 +804,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "問い合わせる",
       },
       {
-        question: "ログインやオンライン決済準備中のデータ保存はどうなりますか。",
-        answer: "準備中機能は保存済みのように見せず、利用可能範囲を画面に明記します。",
+        question: "ログインや支払い方法の受付条件のデータ保存はどうなりますか。",
+        answer: "受付対象の機能は保存状態を分かりやすく分け、利用可能範囲を画面に明記します。",
         href: `${tenantRoot}/mypage`,
         label: "マイページを見る",
       },
@@ -846,8 +846,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "商品一覧へ",
       },
       {
-        question: "FAQの内容は受付状態と一致していますか。",
-        answer: "オンライン決済準備中や定期購入準備中など、未完了を受付済みのように書かない方針です。",
+        question: "FAQの内容は受付条件と一致していますか。",
+        answer: "支払い方法の受付条件や定期購入の受付条件など、確認が必要な状態を受付済みのように書かない方針です。",
         href: `${tenantRoot}/checkout`,
         label: "注文前に確認",
       },
@@ -855,12 +855,12 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     mypage: [
       {
         question: "マイページで注文や定期購入を確認できますか。",
-        answer: "注文履歴、定期購入、お気に入り、問い合わせ入口をまとめ、準備中機能は準備中として表示します。",
+        answer: "注文履歴、定期購入、お気に入り、問い合わせ入口をまとめ、受付対象の機能は受付条件を表示します。",
         href: `${tenantRoot}/orders`,
         label: "注文履歴へ",
       },
       {
-        question: "会員ログイン準備中でも誤解しませんか。",
+        question: "会員ログインの受付前でも誤解しませんか。",
         answer: "保存済みアカウントのように見せず、ログイン機能の状態と利用可能な導線を明記します。",
         href: `${tenantRoot}/login`,
         label: "ログインを見る",
@@ -902,7 +902,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "商品一覧へ",
       },
       {
-        question: "保存機能が準備中でも分かりますか。",
+        question: "保存機能が受付前でも分かりますか。",
         answer: "ログイン保存が有効化されるまで、人気商品候補として表示することを明記します。",
         href: `${tenantRoot}/login`,
         label: "ログインを見る",
@@ -910,7 +910,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     ],
     login: [
       {
-        question: "ログイン準備中でも利用者に誤解を与えませんか。",
+        question: "ログインの受付前でも利用者に誤解を与えませんか。",
         answer: "会員ログイン接続前は入力を保存せず、注文履歴やお気に入りの確認導線を表示します。",
         href: `${tenantRoot}/mypage`,
         label: "マイページへ",
@@ -930,8 +930,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "プライバシーを見る",
       },
       {
-        question: "登録機能が準備中でも購入導線は残りますか。",
-        answer: "商品一覧、カート、問い合わせへ戻れる導線を残し、認証準備中を明示します。",
+        question: "登録機能が受付前でも購入導線は残りますか。",
+        answer: "商品一覧、カート、問い合わせへ戻れる導線を残し、認証の受付条件を表示します。",
         href: `${tenantRoot}/products`,
         label: "商品を見る",
       },
@@ -939,7 +939,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     "mypage/subscriptions": [
       {
         question: "定期購入の状態は分かりやすく表示されていますか。",
-        answer: "定期購入受付前は契約作成や表示を行わず、準備中として明示します。",
+        answer: "定期購入受付前は契約作成や表示を行わず、受付条件として明示します。",
         href: `${tenantRoot}/checkout`,
         label: "注文前に確認",
       },
@@ -1014,7 +1014,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       summary: "商品名、画像、税込価格、在庫、配送、返品、定期購入状態を確認してカートへ進みます。",
       steps: [
         { title: "商品情報を確認", body: "説明本文、仕様、レビュー、関連商品を確認します。", href: `${tenantRoot}/products`, label: "関連商品へ", badge: "情報" },
-        { title: "購入条件を確認", body: "送料、返品、オンライン決済準備中の扱いを購入前に確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+        { title: "購入条件を確認", body: "送料、返品、支払い方法の受付条件の扱いを購入前に確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
         { title: "カートへ進む", body: "通常購入と定期購入状態を区別してカートへ追加します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
       ],
     },
@@ -1024,12 +1024,12 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       steps: [
         { title: "商品を追加する", body: "不足商品があれば商品一覧へ戻って追加します。", href: `${tenantRoot}/products`, label: "商品を追加", badge: "追加" },
         { title: "配送・返品を見る", body: "送料、配送予定、返品条件を確認します。", href: `${tenantRoot}/returns`, label: "返品条件へ", badge: "条件" },
-        { title: "注文確認へ進む", body: "オンライン決済準備中は注文確定せず、確認画面として表示します。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
+        { title: "注文確認へ進む", body: "支払い方法の確認が必要な場合は注文確定せず、確認画面として表示します。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
       ],
     },
     checkout: {
       title: "注文確認で注文前チェックを行う",
-      summary: "オンライン決済準備中は完了表示にせず、販売条件と個人情報の扱いを確認します。",
+      summary: "支払い方法の確認が必要な場合は購入者が状態を判断できるように、販売条件と個人情報の扱いを確認します。",
       steps: [
         { title: "カートへ戻る", body: "数量、商品、定期購入頻度を再確認します。", href: `${tenantRoot}/cart`, label: "カートへ戻る", badge: "戻る" },
         { title: "販売条件を確認", body: "特定商取引法、配送、返品条件を注文前に確認します。", href: `${tenantRoot}/legal`, label: "特商法へ", badge: "条件" },
@@ -1059,7 +1059,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       summary: "注文、問い合わせ、ログイン、定期購入で扱う情報を確認します。",
       steps: [
         { title: "問い合わせ情報", body: "問い合わせフォームで扱う氏名、メール、注文番号の扱いを確認します。", href: `${tenantRoot}/contact`, label: "問い合わせへ", badge: "連絡" },
-        { title: "アカウント状態", body: "ログイン準備中の保存範囲をマイページで確認します。", href: `${tenantRoot}/mypage`, label: "マイページへ", badge: "状態" },
+        { title: "アカウント状態", body: "ログインの受付条件の保存範囲をマイページで確認します。", href: `${tenantRoot}/mypage`, label: "マイページへ", badge: "状態" },
         { title: "販売条件", body: "個人情報と合わせて販売者情報も確認します。", href: `${tenantRoot}/legal`, label: "特商法へ", badge: "取引" },
       ],
     },
@@ -1083,7 +1083,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
     },
     faq: {
       title: "FAQから解決し、次のページへ進む",
-      summary: "FAQPage本文と受付状態を一致させ、商品、配送、返品、問い合わせへ戻します。",
+      summary: "FAQPage本文と受付条件を一致させ、商品、配送、返品、問い合わせへ戻します。",
       steps: [
         { title: "商品へ戻る", body: "疑問が解消したら商品一覧へ戻ります。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
         { title: "配送・返品を見る", body: "FAQから配送と返品の詳細へ移動します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
@@ -1096,7 +1096,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       steps: [
         { title: "注文を確認", body: "注文番号、配送、返品相談の入口へ進みます。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
         { title: "保存商品を見る", body: "お気に入り候補から商品詳細へ戻ります。", href: `${tenantRoot}/favorites`, label: "お気に入りへ", badge: "保存" },
-        { title: "定期購入を見る", body: "定期購入受付前は準備中表示で状態を確認します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入へ", badge: "定期" },
+        { title: "定期購入を見る", body: "定期購入受付前は受付条件表示で状態を確認します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入へ", badge: "定期" },
       ],
     },
     account: {
@@ -1105,7 +1105,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       steps: [
         { title: "マイページへ", body: "アカウント機能の状態と導線を確認します。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "入口" },
         { title: "注文履歴へ", body: "注文と配送状況を確認します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
-        { title: "問い合わせへ", body: "アカウント準備中の確認事項を連絡します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
+        { title: "問い合わせへ", body: "アカウントの受付条件の確認事項を連絡します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
       ],
     },
     orders: {
@@ -1128,28 +1128,28 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
     },
     login: {
       title: "ログイン前に利用可能範囲を確認する",
-      summary: "会員ログイン準備中は保存済みのように見せず、商品や注文導線へ戻します。",
+      summary: "会員ログインの受付前は保存状態を分かりやすく分け、商品や注文導線へ戻します。",
       steps: [
         { title: "会員登録へ", body: "登録導線の状態を確認します。", href: `${tenantRoot}/register`, label: "会員登録へ", badge: "登録" },
         { title: "注文履歴へ", body: "注文番号確認の入口へ進みます。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
-        { title: "商品へ戻る", body: "認証準備中でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+        { title: "商品へ戻る", body: "認証の受付前でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
       ],
     },
     register: {
       title: "登録前に個人情報と購入条件を確認する",
-      summary: "会員ログイン準備中は登録成功扱いにせず、プライバシーと商品導線を示します。",
+      summary: "会員ログインの受付前は登録済みの表現にせず、プライバシーと商品導線を示します。",
       steps: [
         { title: "プライバシーを見る", body: "登録や注文で扱う情報を確認します。", href: `${tenantRoot}/privacy`, label: "プライバシーへ", badge: "情報" },
         { title: "ログインへ", body: "既存アカウント導線を確認します。", href: `${tenantRoot}/login`, label: "ログインへ", badge: "認証" },
-        { title: "商品へ戻る", body: "認証準備中でも商品比較へ戻れます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+        { title: "商品へ戻る", body: "認証の受付前でも商品比較へ戻れます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
       ],
     },
     "mypage/subscriptions": {
       title: "定期購入の状態と次の行動を確認する",
-      summary: "準備中は申込み済みのように見せず、商品、注文確認、問い合わせへ案内します。",
+      summary: "受付前は申込み前の状態として、商品、注文確認、問い合わせへ案内します。",
       steps: [
         { title: "対象商品を見る", body: "定期購入に向く商品候補を商品詳細で確認します。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
-        { title: "注文前に確認", body: "定期購入のオンライン決済準備中は注文確認で申込みを止めます。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
+        { title: "注文前に確認", body: "定期購入の支払い方法の確認が必要な場合は注文確認で申込みを止めます。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
         { title: "相談する", body: "スキップ、一時停止、解約条件を問い合わせます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
       ],
     },
@@ -1238,10 +1238,10 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     checkout: {
       pageLabel: "チェックアウト",
       intent: "顧客情報、配送先、支払い状態、定期購入規約を確認するページです。",
-      seoRole: "オンライン決済準備中は注文完了風に見せず、必要な確認先へ案内します。",
+      seoRole: "支払い方法の確認が必要な場合は、注文前に必要な確認先へ案内します。",
       userAction: "決済設定状態を確認し、必要ならカートや問い合わせへ戻ります。",
       signals: [
-        { title: "決済状態", body: "準備中は注文確定を停止し、完了表示にしません。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
+        { title: "決済状態", body: "受付前は注文前確認に切り替え、受付条件を明確に表示します。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
         { title: "個人情報", body: "配送先や支払い情報の保存条件をプライバシー導線で確認します。", href: `${tenantRoot}/privacy`, label: "個人情報", badge: "保護" },
       ],
     },
@@ -1251,7 +1251,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
       seoRole: "問い合わせ前にFAQ、配送、返品を確認できます。",
       userAction: "FAQ確認後、必要事項を入力して送信状態を確認します。",
       signals: [
-        { title: "FAQ先行", body: "配送・返品・オンライン決済準備中状態をFAQで確認してから問い合わせます。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "確認" },
+        { title: "FAQ先行", body: "配送・返品・支払い方法の受付条件をFAQで確認してから問い合わせます。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "確認" },
         { title: "注文番号", body: "注文後の確認は注文履歴と問い合わせをつなげます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
       ],
     },
@@ -1272,7 +1272,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
       userAction: "個人情報の扱いを確認し、必要なら問い合わせやマイページへ進みます。",
       signals: [
         { title: "個人情報", body: "注文、問い合わせ、ログインで扱う項目を明確にします。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "保護" },
-        { title: "アカウント", body: "ログイン準備中も保存済みのように見せません。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "状態" },
+        { title: "アカウント", body: "ログインの受付条件も保存済みのように見せません。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "状態" },
       ],
     },
     shipping: {
@@ -1312,7 +1312,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
       userAction: "注文履歴、定期購入、お気に入り、問い合わせへ移動します。",
       signals: [
         { title: "注文管理", body: "注文履歴、配送、返品、問い合わせをまとめます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
-        { title: "定期購入", body: "定期購入受付前は準備中として表示します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入", badge: "状態" },
+        { title: "定期購入", body: "定期購入受付前は受付条件を表示します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入", badge: "状態" },
       ],
     },
     account: {
@@ -1321,7 +1321,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
       seoRole: "ログイン、会員登録、注文履歴、定期購入へ移動できます。",
       userAction: "ログイン、注文履歴、お気に入り、問い合わせへ移動します。",
       signals: [
-        { title: "ログイン導線", body: "会員ログイン準備中は入力保存を行わず状態を明記します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
+        { title: "ログイン導線", body: "会員ログインの受付前は入力保存を行わず状態を明記します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
         { title: "購入後導線", body: "注文履歴と問い合わせへ戻れる導線を固定します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "購入後" },
       ],
     },
@@ -1338,7 +1338,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     favorites: {
       pageLabel: "お気に入り",
       intent: "保存候補、比較候補、商品詳細への戻り先をまとめるページです。",
-      seoRole: "保存機能準備中も商品一覧やカテゴリへ戻れます。",
+      seoRole: "保存機能の受付条件も商品一覧やカテゴリへ戻れます。",
       userAction: "候補商品から商品詳細やカートへ進みます。",
       signals: [
         { title: "商品比較", body: "お気に入り候補の商品カードで価格、画像、CTAを揃えます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "比較" },
@@ -1348,17 +1348,17 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     login: {
       pageLabel: "ログイン",
       intent: "注文履歴、定期購入、お気に入りへ進む入口です。",
-      seoRole: "認証準備中は入力保存を行わず、利用可能状態を明示します。",
+      seoRole: "認証の受付前は入力保存を行わず、利用可能状態を明示します。",
       userAction: "会員登録、マイページ、問い合わせへ移動します。",
       signals: [
-        { title: "認証状態", body: "会員ログイン接続前はログイン成功扱いにしません。", href: `${tenantRoot}/register`, label: "会員登録", badge: "認証" },
+        { title: "認証状態", body: "会員ログイン接続前はログイン前の案内として表示します。", href: `${tenantRoot}/register`, label: "会員登録", badge: "認証" },
         { title: "購入確認", body: "注文履歴や問い合わせへ戻れる導線を維持します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
       ],
     },
     register: {
       pageLabel: "会員登録",
       intent: "購入者登録の入口と個人情報確認をまとめるページです。",
-      seoRole: "認証準備中は登録完了風に見せず、プライバシーへ案内します。",
+      seoRole: "認証の受付前は登録前の案内として、プライバシーへ案内します。",
       userAction: "プライバシー、ログイン、商品一覧へ移動します。",
       signals: [
         { title: "個人情報", body: "登録前に個人情報の扱いを確認できます。", href: `${tenantRoot}/privacy`, label: "プライバシー", badge: "保護" },
@@ -1368,11 +1368,11 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     "mypage/subscriptions": {
       pageLabel: "定期購入",
       intent: "契約、次回配送、一時停止、再開、スキップ、解約の状態を確認するページです。",
-      seoRole: "定期購入が準備中の間は準備中を明示し、完了表示にしません。",
+      seoRole: "定期購入が受付条件の間は受付条件を表示し、受付条件を明確に表示します。",
       userAction: "チェックアウト、問い合わせ、商品一覧へ戻ります。",
       signals: [
-        { title: "準備中", body: "定期購入受付前は契約表示や作成を行いません。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "未完了" },
-        { title: "解約条件", body: "受付開始後に停止、再開、スキップ、解約導線を検証します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "契約" },
+        { title: "受付条件", body: "定期購入受付開始前は契約条件と問い合わせ先を表示します。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "確認が必要" },
+        { title: "解約条件", body: "受付開始後に停止、再開、スキップ、解約条件を確認できます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "契約" },
       ],
     },
   };
@@ -1400,7 +1400,7 @@ export function buildShopTrustMatrix(
   const priceLabel = String(input.priceLabel || "税込価格").replace(/\s+/g, " ").trim();
   const stockProof = input.inStock === false ? "在庫状態は商品詳細と問い合わせで確認" : "在庫あり表示と配送目安を購入前に確認";
   const subscriptionProof = input.subscriptionSchemaPending
-    ? "定期購入準備中は申込み不可として明示"
+    ? "定期購入の受付前は申込み前として明示"
     : "通常購入と定期購入の条件を購入前に分離";
 
   const sharedSignals: ShopStorefrontTrustMatrixSignal[] = [
@@ -1430,11 +1430,11 @@ export function buildShopTrustMatrix(
     },
     {
       title: "決済と定期購入",
-      body: `${subscriptionProof}。オンライン決済準備中は完了表示にせず、注文確認で申込みを止めます。`,
+      body: `${subscriptionProof}。支払い方法の確認が必要な場合は、注文前に必要な確認先を案内します。`,
       href: `${tenantRoot}/checkout`,
       label: "注文前確認",
       badge: "Payment",
-      proof: "オンライン決済準備中と定期購入状態を明示",
+      proof: "支払い方法の受付条件と定期購入状態を明示",
     },
     {
       title: "個人情報とサポート",
@@ -1525,15 +1525,15 @@ export function buildShopTrustMatrix(
     checkout: {
       title: "注文前確認の信頼マトリクス",
       summary: "顧客情報、配送先、決済状態、定期購入規約、販売条件を注文確定前に確認します。",
-      pageContext: "オンライン決済準備中なら成功扱いにせず、原因と戻り先を示します。",
+      pageContext: "支払い方法の受付条件なら受付済みの表現にせず、原因と戻り先を示します。",
       signals: [
         {
           title: "注文確定の正直な停止",
-          body: "オンライン決済準備中や定期購入受付前は完了表示を出さず、必要な確認先を案内します。",
+          body: "支払い方法の受付条件や定期購入受付前は受付済みと誤解されない案内にし、必要な確認先を案内します。",
           href: `${tenantRoot}/contact`,
           label: "問い合わせ",
           badge: "Checkout",
-          proof: "オンライン決済準備中は注文確定をブロック",
+          proof: "支払い方法の確認が必要な場合は注文前確認に切り替え",
         },
       ],
     },
@@ -1645,11 +1645,11 @@ export function buildShopTrustMatrix(
     account: {
       title: "アカウントページの信頼マトリクス",
       summary: "ログイン、会員登録、注文履歴、定期購入、問い合わせを同じ認証導線で整理します。",
-      pageContext: "認証準備中も完了表示をしない確認表です。",
+      pageContext: "認証の受付条件も受付済みの表現にしない確認表です。",
       signals: [
         {
           title: "認証状態の明示",
-          body: "ログイン準備中は注文履歴や商品一覧へ戻れるようにします。",
+          body: "ログイン受付前は注文履歴や商品一覧へ戻れるようにします。",
           href: `${tenantRoot}/login`,
           label: "ログイン",
           badge: "Account",
@@ -1689,7 +1689,7 @@ export function buildShopTrustMatrix(
     },
     login: {
       title: "ログインページの信頼マトリクス",
-      summary: "ログイン準備中に成功扱いにせず、登録、注文履歴、商品導線へ戻します。",
+      summary: "ログインの受付条件に受付済みの表現にせず、登録、注文履歴、商品導線へ戻します。",
       pageContext: "認証前の利用可能範囲を示す確認表です。",
       signals: [
         {
@@ -1698,7 +1698,7 @@ export function buildShopTrustMatrix(
           href: `${tenantRoot}/register`,
           label: "会員登録",
           badge: "Login",
-          proof: "認証準備中状態を明示",
+          proof: "認証受付条件を明示",
         },
       ],
     },
@@ -1724,11 +1724,11 @@ export function buildShopTrustMatrix(
       signals: [
         {
           title: "定期購入の正直な状態",
-          body: "準備中は申込み不可として表示し、停止・解約導線は受付開始後に検証します。",
+          body: "受付前は申込み前として表示し、停止・解約導線は受付開始後に検証します。",
           href: `${tenantRoot}/checkout`,
           label: "注文確認",
           badge: "Subscription",
-          proof: "準備中は定期購入準備中",
+          proof: "受付前は定期購入の受付条件",
         },
       ],
     },
@@ -1884,9 +1884,9 @@ export function buildShopFaqItems(): ShopStorefrontFaqItem[] {
         "配送について、返品について、特定商取引法に基づく表示の各ページで確認できます。",
     },
     {
-      question: "決済が準備中の場合はどうなりますか。",
+      question: "決済が受付前の場合はどうなりますか。",
       answer:
-        "購入者に誤解を与えないため、オンライン決済準備中は注文確定や支払い完了のような表示を出さず、設定が必要であることを表示します。",
+        "購入者に誤解を与えないため、支払い方法の確認が必要な場合は注文確定や支払い完了のような表示を出さず、設定が必要であることを表示します。",
     },
   ];
 }

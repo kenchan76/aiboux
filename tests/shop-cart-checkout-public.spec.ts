@@ -45,8 +45,8 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
 
     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
-    await expect(page.getByText("決済設定が必要です")).toBeVisible();
-    await expect(page.getByText("定期決済設定が未完了です")).toBeVisible();
+    await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
+    await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
     await saveScreenshot(page, "shop-checkout-page.png");

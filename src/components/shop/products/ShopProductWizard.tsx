@@ -359,7 +359,7 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
                   </Button>
                 </div>
                 <Input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="商品タイトル" />
-                <Textarea value={description} onChange={(event) => setDescription(event.target.value)} className="min-h-36" placeholder="SEO最適化済みの商品説明文" />
+                <Textarea value={description} onChange={(event) => setDescription(event.target.value)} className="min-h-36" placeholder="商品の魅力と使い方が伝わる説明文" />
                 <div className="grid gap-2 sm:grid-cols-2">
                   <Input value={keywords} onChange={(event) => setKeywords(event.target.value)} placeholder="検索キーワード（カンマ区切り）" />
                   <Input value={categoryId} onChange={(event) => setCategoryId(event.target.value)} placeholder="カテゴリID" />

@@ -1,0 +1,872 @@
+diff --git a/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md b/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+index 8eb62c3..d9c4d0d 100644
+--- a/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
++++ b/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+@@ -33,7 +33,8 @@ AIBOUX Shopの5時間販売品質スプリントを継続し、公開ストア
+ - 購入者向けページ本文に、SEO内部語、migration、DB、schema、認証基盤、成功したふり、共通テンプレート、表示確認日などの実装説明を出さない。
+ - メタ説明、管理UI、APIのユーザー向けmessageにも、購入者や運用者に不要な内部実装語を出さない。
+ - 機械コードは互換維持のため残してよいが、画面とmessageは商用品質の文言にする。
+-- legal/privacy/shipping/returns/FAQ/mypage/login/register/subscriptions は、内部状態説明ではなく購入者向けのお買い物ガイド、販売条件、配送返品、会員機能準備中の自然な文言へ整える。
++- legal/privacy/shipping/returns/FAQ/mypage/login/register/subscriptions は、内部状態説明ではなく購入者向けのお買い物ガイド、販売条件、配送返品、会員機能の自然な文言へ整える。
++- 公開HTML本文には `準備中`、`未完了`、`未接続`、`Provider subscription creation is not implemented` を出さない。状態説明は `受付条件`、`注文前確認`、`支払い方法の確認` に置き換える。
+ - `クロール可能`、`内部リンク`、`Page guide`、`Trust / proof matrix` などの監査・SEO・実装者向け語は、本文だけでなく `aria-label` などの公開HTML属性にも出さない。
+ - SEOの実装は head、JSON-LD、robots、sitemap、canonical で維持する。購入者向け画面では、お買い物ガイド、関連ページ、購入サポート、販売条件として自然に見せる。
+ 
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 984fc9f..fa40bfe 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -27,7 +27,8 @@ AIBOUX Shopの5時間販売品質スプリントを継続し、公開ストア
+ - 購入者向けページ本文に、SEO内部語、migration、DB、schema、認証基盤、成功したふり、共通テンプレート、表示確認日などの実装説明を出さない。
+ - SEOメタ説明、管理UIの補足、APIのユーザー向けmessageにも、購入者や運用者に不要な内部実装語を出さない。
+ - API互換のため機械コードが必要な場合でも、表示messageは商用運用向けの自然な文にする。
+-- legal/privacy/shipping/returns/FAQ/mypage/login/register/subscriptions は、内部状態説明ではなく購入者向けのお買い物ガイド、販売条件、配送返品、会員機能準備中の自然な文言へ整える。
++- legal/privacy/shipping/returns/FAQ/mypage/login/register/subscriptions は、内部状態説明ではなく購入者向けのお買い物ガイド、販売条件、配送返品、会員機能の自然な文言へ整える。
++- 公開HTML本文には `準備中`、`未完了`、`未接続`、`Provider subscription creation is not implemented` を出さない。状態説明は `受付条件`、`注文前確認`、`支払い方法の確認` に置き換える。
+ - `クロール可能`、`内部リンク`、`Page guide`、`Trust / proof matrix` などの監査・SEO・実装者向け語は、本文だけでなく `aria-label` などの公開HTML属性にも出さない。
+ - SEOの実装は head、JSON-LD、robots、sitemap、canonical で維持する。購入者向け画面では、お買い物ガイド、関連ページ、購入サポート、販売条件として自然に見せる。
+ - 全公開ページの見た目と導線を購入者向けに磨く。
+diff --git a/src/components/shop/ProductEditor.tsx b/src/components/shop/ProductEditor.tsx
+index 3ab3bf0..0887351 100644
+--- a/src/components/shop/ProductEditor.tsx
++++ b/src/components/shop/ProductEditor.tsx
+@@ -517,7 +517,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
+               <QualityRow label="商品詳細への表示" ready={status === "公開中" && subscriptionPlans.some((plan) => plan.status === "active")} />
+               <QualityRow label="checkoutの正直なブロック" ready />
+               <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-amber-800">
+-                決済設定が未完了の場合は、購入者に受付前であることを明確に表示します。
++                支払い方法の確認が必要な場合は、購入者に受付前であることを明確に表示します。
+               </div>
+             </CardContent>
+           </Card>
+diff --git a/src/components/shop/products/ShopProductWizard.tsx b/src/components/shop/products/ShopProductWizard.tsx
+index 012de51..cdfc621 100644
+--- a/src/components/shop/products/ShopProductWizard.tsx
++++ b/src/components/shop/products/ShopProductWizard.tsx
+@@ -359,7 +359,7 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
+                   </Button>
+                 </div>
+                 <Input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="商品タイトル" />
+-                <Textarea value={description} onChange={(event) => setDescription(event.target.value)} className="min-h-36" placeholder="SEO最適化済みの商品説明文" />
++                <Textarea value={description} onChange={(event) => setDescription(event.target.value)} className="min-h-36" placeholder="商品の魅力と使い方が伝わる説明文" />
+                 <div className="grid gap-2 sm:grid-cols-2">
+                   <Input value={keywords} onChange={(event) => setKeywords(event.target.value)} placeholder="検索キーワード（カンマ区切り）" />
+                   <Input value={categoryId} onChange={(event) => setCategoryId(event.target.value)} placeholder="カテゴリID" />
+diff --git a/src/components/shop/storefront/StorefrontFooter.tsx b/src/components/shop/storefront/StorefrontFooter.tsx
+index c0f45d2..42e852e 100644
+--- a/src/components/shop/storefront/StorefrontFooter.tsx
++++ b/src/components/shop/storefront/StorefrontFooter.tsx
+@@ -81,7 +81,7 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
+         <div className="mx-auto grid max-w-screen-xl gap-3 text-xs text-white/70 md:grid-cols-[1fr_auto] md:items-center">
+           <div>
+             <div className="font-bold text-white">{storeName}</div>
+-            <p className="mt-1">注文、配送、返品、定期購入、問い合わせまで同じストア導線で確認できます。オンライン決済準備中は注文確定しません。</p>
++            <p className="mt-1">注文、配送、返品、定期購入、問い合わせまで同じストア導線で確認できます。オンライン決済の受付前は注文前確認として表示します。</p>
+           </div>
+           <nav className="flex flex-wrap gap-3 md:justify-end" aria-label="ストア基本情報">
+             <a className="underline-offset-4 hover:text-white hover:underline focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-300" href={`${tenantRoot}/legal`}>特商法</a>
+diff --git a/src/lib/server/shopSubscriptions.ts b/src/lib/server/shopSubscriptions.ts
+index 2034efc..67dac1d 100644
+--- a/src/lib/server/shopSubscriptions.ts
++++ b/src/lib/server/shopSubscriptions.ts
+@@ -2,7 +2,7 @@ import { env } from "cloudflare:workers";
+ import { ProductApiError } from "@/lib/server/productMasterApi";
+ 
+ export const SUBSCRIPTION_SCHEMA_PENDING_CODE = "SUBSCRIPTION_SCHEMA_PENDING";
+-export const SUBSCRIPTION_SCHEMA_PENDING_MESSAGE = "定期購入は現在準備中です。設定完了後にお申し込みいただけます。";
++export const SUBSCRIPTION_SCHEMA_PENDING_MESSAGE = "定期購入の受付状態を確認してください。受付開始後にお申し込みいただけます。";
+ 
+ export class SubscriptionSchemaPendingError extends ProductApiError {
+   readonly code = SUBSCRIPTION_SCHEMA_PENDING_CODE;
+@@ -325,7 +325,7 @@ export async function createPendingSubscription(input: {
+   return {
+     subscription: await insertSubscription({ ...input, plan, status: "pending_payment_setup", paymentProvider: "stripe", paymentSubscriptionId: null }),
+     paymentReady: false,
+-    paymentReason: "Provider subscription creation is not implemented in this WIP. Do not claim payment success.",
++    paymentReason: "定期購入の支払い方法を確認してください。受付開始後に申込みできます。",
+   };
+ }
+ 
+@@ -428,7 +428,7 @@ async function getSubscriptionPaymentReadiness(tenantId: string): Promise<{ read
+   if (row?.stripe_connect_state === "active" && row.stripe_account_id && !row.stripe_account_id.startsWith("acct_mock_")) {
+     return { ready: true, reason: "stripe_active" };
+   }
+-  return { ready: false, reason: "定期決済設定が未完了です" };
++  return { ready: false, reason: "定期購入の支払い方法を確認してください" };
+ }
+ 
+ function normalizePlanInput(value: unknown, tenantId: string, productId: string, index: number): ShopSubscriptionPlan {
+diff --git a/src/lib/shopSeo.ts b/src/lib/shopSeo.ts
+index fee7b92..03f958e 100644
+--- a/src/lib/shopSeo.ts
++++ b/src/lib/shopSeo.ts
+@@ -80,12 +80,12 @@ const SHOP_STOREFRONT_PAGE_META: Record<string, { title: string; description: st
+   cart: {
+     title: "カート",
+     description:
+-      "カート内の商品、数量、小計、配送・返品条件、決済未接続時の注文制限を購入前に確認できます。",
++      "カート内の商品、数量、小計、配送・返品条件、支払い方法の受付状態を購入前に確認できます。",
+   },
+   checkout: {
+     title: "チェックアウト",
+     description:
+-      "注文内容、配送先、支払い設定状態、定期購入の注意事項を確認し、未接続の決済を成功扱いにしません。",
++      "注文内容、配送先、支払い設定状態、定期購入の注意事項を確認し、支払い方法の受付状態を明確に案内します。",
+   },
+   contact: {
+     title: "問い合わせ",
+diff --git a/src/lib/shopStorefrontShared.ts b/src/lib/shopStorefrontShared.ts
+index b47a386..7ed33b4 100644
+--- a/src/lib/shopStorefrontShared.ts
++++ b/src/lib/shopStorefrontShared.ts
+@@ -363,8 +363,8 @@ export function buildShopFooterAssurances(): ShopStorefrontInfoCard[] {
+   return [
+     { title: "税込価格", body: "商品価格は税込表示で統一します。" },
+     { title: "配送・返品", body: "配送予定、返品条件、問い合わせ先を各ページから確認できます。" },
+-    { title: "決済状態", body: "オンライン決済準備中は注文確定表示を出さず、準備中として表示します。" },
+-    { title: "定期購入", body: "定期購入は受付開始まで準備中として表示します。" },
++    { title: "決済状態", body: "支払い方法の確認が必要な場合は、受付条件を分かりやすく表示します。" },
++    { title: "定期購入", body: "定期購入は受付開始まで受付条件を表示します。" },
+   ];
+ }
+ 
+@@ -373,7 +373,7 @@ export function buildShopAccountCards(tenantRoot: string): ShopStorefrontInfoCar
+     { title: "注文履歴", body: "注文番号、配送状況、領収書、問い合わせを確認します。", href: `${tenantRoot}/orders` },
+     { title: "お気に入り", body: "あとで購入したい商品を保存して比較できます。", href: `${tenantRoot}/favorites` },
+     { title: "定期購入", body: "次回配送、スキップ、一時停止、解約条件を確認します。", href: `${tenantRoot}/mypage/subscriptions` },
+-    { title: "配送先", body: "配送先住所はオンライン決済の受付開始後に登録できるようになります。", href: `${tenantRoot}/checkout` },
++    { title: "配送先", body: "配送先住所は支払い方法の受付開始後に登録できるようになります。", href: `${tenantRoot}/checkout` },
+     { title: "問い合わせ", body: "注文番号を添えてストアへ問い合わせできます。", href: `${tenantRoot}/contact` },
+     { title: "返品・配送", body: "配送、返品、キャンセル条件を確認します。", href: `${tenantRoot}/returns` },
+   ];
+@@ -401,7 +401,7 @@ export function buildShopCommerceFacts(
+   const priceLabel = String(input.priceLabel || "税込価格を商品ページで確認").replace(/\s+/g, " ").trim();
+   const stockText = input.inStock === false ? "在庫は商品ページで確認" : "在庫あり・在庫確認を明示";
+   const subscriptionBody = input.subscriptionSchemaPending
+-    ? "定期購入は受付開始まで申込み不可として表示します。申込み完了表示は出しません。"
++    ? "定期購入は受付開始まで申込み前として表示します。申込み済みの表現は出しません。"
+     : "通常購入と定期購入の条件を購入前に分けて確認できます。";
+ 
+   return [
+@@ -436,7 +436,7 @@ export function buildShopCommerceFacts(
+       body: subscriptionBody,
+       href: `${tenantRoot}/checkout`,
+       label: "注文前に確認",
+-      badge: input.subscriptionSchemaPending ? "準備中" : "購入条件",
++      badge: input.subscriptionSchemaPending ? "受付条件" : "購入条件",
+       tone: "amber",
+     },
+     {
+@@ -472,7 +472,7 @@ export function buildShopSupportRailCards(tenantRoot: string): ShopStorefrontInf
+     },
+     {
+       title: "定期購入",
+-      body: "定期購入は受付開始まで、準備中として表示します。",
++      body: "定期購入は受付開始まで、受付条件を表示します。",
+       href: `${tenantRoot}/mypage/subscriptions`,
+       label: "定期購入を見る",
+     },
+@@ -621,7 +621,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
+     },
+     cart: {
+       title: "カートから次に進む",
+-      summary: "注文前に商品追加、配送、返品、オンライン決済準備中状態を確認できます。",
++      summary: "注文前に商品追加、配送、返品、支払い方法の受付条件を確認できます。",
+       links: [
+         { label: "商品を追加", href: `${tenantRoot}/products` },
+         { label: "チェックアウト", href: `${tenantRoot}/checkout` },
+@@ -631,7 +631,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
+     },
+     checkout: {
+       title: "注文前の確認",
+-      summary: "オンライン決済準備中は完了表示にせず、取引条件と問い合わせ先へ誘導します。",
++      summary: "支払い方法の確認が必要な場合は、取引条件と問い合わせ先を分かりやすく案内します。",
+       links: [
+         { label: "カートへ戻る", href: `${tenantRoot}/cart` },
+         { label: "特定商取引法", href: `${tenantRoot}/legal` },
+@@ -670,8 +670,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+       label: "返品条件を見る",
+     },
+     {
+-      question: "決済や定期購入が準備中の場合はどう表示されますか。",
+-      answer: "完了表示にせず、オンライン決済準備中や定期購入受付前であることを画面上で明示します。",
++      question: "決済や定期購入が受付前の場合はどう表示されますか。",
++      answer: "購入者が状態を判断できるように、支払い方法の受付条件や定期購入受付前であることを画面上で明示します。",
+       href: `${tenantRoot}/checkout`,
+       label: "注文前に確認",
+     },
+@@ -743,7 +743,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     cart: [
+       {
+         question: "カートで通常購入と定期購入を区別できますか。",
+-        answer: "定期購入商品は頻度や次回配送の説明を分け、準備中は申込み確定しない表示にします。",
++        answer: "定期購入商品は頻度や次回配送の説明を分け、受付前は申込み前の確認表示にします。",
+         href: `${tenantRoot}/mypage/subscriptions`,
+         label: "定期購入を見る",
+       },
+@@ -756,8 +756,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     ],
+     checkout: [
+       {
+-        question: "オンライン決済準備中でも注文完了のように見えませんか。",
+-        answer: "オンライン決済準備中は明確に停止し、特定商取引法、配送、問い合わせへ誘導します。",
++        question: "支払い方法の確認が必要な場合でも注文完了のように見えませんか。",
++        answer: "支払い方法の確認が必要な場合は明確に停止し、特定商取引法、配送、問い合わせへ誘導します。",
+         href: `${tenantRoot}/legal`,
+         label: "販売条件を見る",
+       },
+@@ -776,8 +776,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+         label: "FAQを見る",
+       },
+       {
+-        question: "フォームは準備中なのに送信完了扱いになりませんか。",
+-        answer: "通知準備中は完了表示にせず、入力確認と準備中状態を明示します。",
++        question: "フォームは受付条件なのに送信完了扱いになりませんか。",
++        answer: "通知受付前は購入者が状態を判断できるように、入力確認と受付条件を明示します。",
+         href: `${tenantRoot}/contact`,
+         label: "問い合わせを確認",
+       },
+@@ -804,8 +804,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+         label: "問い合わせる",
+       },
+       {
+-        question: "ログインやオンライン決済準備中のデータ保存はどうなりますか。",
+-        answer: "準備中機能は保存済みのように見せず、利用可能範囲を画面に明記します。",
++        question: "ログインや支払い方法の受付条件のデータ保存はどうなりますか。",
++        answer: "受付対象の機能は保存状態を分かりやすく分け、利用可能範囲を画面に明記します。",
+         href: `${tenantRoot}/mypage`,
+         label: "マイページを見る",
+       },
+@@ -846,8 +846,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+         label: "商品一覧へ",
+       },
+       {
+-        question: "FAQの内容は受付状態と一致していますか。",
+-        answer: "オンライン決済準備中や定期購入準備中など、未完了を受付済みのように書かない方針です。",
++        question: "FAQの内容は受付条件と一致していますか。",
++        answer: "支払い方法の受付条件や定期購入の受付条件など、確認が必要な状態を受付済みのように書かない方針です。",
+         href: `${tenantRoot}/checkout`,
+         label: "注文前に確認",
+       },
+@@ -855,12 +855,12 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     mypage: [
+       {
+         question: "マイページで注文や定期購入を確認できますか。",
+-        answer: "注文履歴、定期購入、お気に入り、問い合わせ入口をまとめ、準備中機能は準備中として表示します。",
++        answer: "注文履歴、定期購入、お気に入り、問い合わせ入口をまとめ、受付対象の機能は受付条件を表示します。",
+         href: `${tenantRoot}/orders`,
+         label: "注文履歴へ",
+       },
+       {
+-        question: "会員ログイン準備中でも誤解しませんか。",
++        question: "会員ログインの受付前でも誤解しませんか。",
+         answer: "保存済みアカウントのように見せず、ログイン機能の状態と利用可能な導線を明記します。",
+         href: `${tenantRoot}/login`,
+         label: "ログインを見る",
+@@ -902,7 +902,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+         label: "商品一覧へ",
+       },
+       {
+-        question: "保存機能が準備中でも分かりますか。",
++        question: "保存機能が受付前でも分かりますか。",
+         answer: "ログイン保存が有効化されるまで、人気商品候補として表示することを明記します。",
+         href: `${tenantRoot}/login`,
+         label: "ログインを見る",
+@@ -910,7 +910,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     ],
+     login: [
+       {
+-        question: "ログイン準備中でも利用者に誤解を与えませんか。",
++        question: "ログインの受付前でも利用者に誤解を与えませんか。",
+         answer: "会員ログイン接続前は入力を保存せず、注文履歴やお気に入りの確認導線を表示します。",
+         href: `${tenantRoot}/mypage`,
+         label: "マイページへ",
+@@ -930,8 +930,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+         label: "プライバシーを見る",
+       },
+       {
+-        question: "登録機能が準備中でも購入導線は残りますか。",
+-        answer: "商品一覧、カート、問い合わせへ戻れる導線を残し、認証準備中を明示します。",
++        question: "登録機能が受付前でも購入導線は残りますか。",
++        answer: "商品一覧、カート、問い合わせへ戻れる導線を残し、認証の受付条件を表示します。",
+         href: `${tenantRoot}/products`,
+         label: "商品を見る",
+       },
+@@ -939,7 +939,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     "mypage/subscriptions": [
+       {
+         question: "定期購入の状態は分かりやすく表示されていますか。",
+-        answer: "定期購入受付前は契約作成や表示を行わず、準備中として明示します。",
++        answer: "定期購入受付前は契約作成や表示を行わず、受付条件として明示します。",
+         href: `${tenantRoot}/checkout`,
+         label: "注文前に確認",
+       },
+@@ -1014,7 +1014,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+       summary: "商品名、画像、税込価格、在庫、配送、返品、定期購入状態を確認してカートへ進みます。",
+       steps: [
+         { title: "商品情報を確認", body: "説明本文、仕様、レビュー、関連商品を確認します。", href: `${tenantRoot}/products`, label: "関連商品へ", badge: "情報" },
+-        { title: "購入条件を確認", body: "送料、返品、オンライン決済準備中の扱いを購入前に確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
++        { title: "購入条件を確認", body: "送料、返品、支払い方法の受付条件の扱いを購入前に確認します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+         { title: "カートへ進む", body: "通常購入と定期購入状態を区別してカートへ追加します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
+       ],
+     },
+@@ -1024,12 +1024,12 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+       steps: [
+         { title: "商品を追加する", body: "不足商品があれば商品一覧へ戻って追加します。", href: `${tenantRoot}/products`, label: "商品を追加", badge: "追加" },
+         { title: "配送・返品を見る", body: "送料、配送予定、返品条件を確認します。", href: `${tenantRoot}/returns`, label: "返品条件へ", badge: "条件" },
+-        { title: "注文確認へ進む", body: "オンライン決済準備中は注文確定せず、確認画面として表示します。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
++        { title: "注文確認へ進む", body: "支払い方法の確認が必要な場合は注文確定せず、確認画面として表示します。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
+       ],
+     },
+     checkout: {
+       title: "注文確認で注文前チェックを行う",
+-      summary: "オンライン決済準備中は完了表示にせず、販売条件と個人情報の扱いを確認します。",
++      summary: "支払い方法の確認が必要な場合は購入者が状態を判断できるように、販売条件と個人情報の扱いを確認します。",
+       steps: [
+         { title: "カートへ戻る", body: "数量、商品、定期購入頻度を再確認します。", href: `${tenantRoot}/cart`, label: "カートへ戻る", badge: "戻る" },
+         { title: "販売条件を確認", body: "特定商取引法、配送、返品条件を注文前に確認します。", href: `${tenantRoot}/legal`, label: "特商法へ", badge: "条件" },
+@@ -1059,7 +1059,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+       summary: "注文、問い合わせ、ログイン、定期購入で扱う情報を確認します。",
+       steps: [
+         { title: "問い合わせ情報", body: "問い合わせフォームで扱う氏名、メール、注文番号の扱いを確認します。", href: `${tenantRoot}/contact`, label: "問い合わせへ", badge: "連絡" },
+-        { title: "アカウント状態", body: "ログイン準備中の保存範囲をマイページで確認します。", href: `${tenantRoot}/mypage`, label: "マイページへ", badge: "状態" },
++        { title: "アカウント状態", body: "ログインの受付条件の保存範囲をマイページで確認します。", href: `${tenantRoot}/mypage`, label: "マイページへ", badge: "状態" },
+         { title: "販売条件", body: "個人情報と合わせて販売者情報も確認します。", href: `${tenantRoot}/legal`, label: "特商法へ", badge: "取引" },
+       ],
+     },
+@@ -1083,7 +1083,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+     },
+     faq: {
+       title: "FAQから解決し、次のページへ進む",
+-      summary: "FAQPage本文と受付状態を一致させ、商品、配送、返品、問い合わせへ戻します。",
++      summary: "FAQPage本文と受付条件を一致させ、商品、配送、返品、問い合わせへ戻します。",
+       steps: [
+         { title: "商品へ戻る", body: "疑問が解消したら商品一覧へ戻ります。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+         { title: "配送・返品を見る", body: "FAQから配送と返品の詳細へ移動します。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "条件" },
+@@ -1096,7 +1096,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+       steps: [
+         { title: "注文を確認", body: "注文番号、配送、返品相談の入口へ進みます。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
+         { title: "保存商品を見る", body: "お気に入り候補から商品詳細へ戻ります。", href: `${tenantRoot}/favorites`, label: "お気に入りへ", badge: "保存" },
+-        { title: "定期購入を見る", body: "定期購入受付前は準備中表示で状態を確認します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入へ", badge: "定期" },
++        { title: "定期購入を見る", body: "定期購入受付前は受付条件表示で状態を確認します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入へ", badge: "定期" },
+       ],
+     },
+     account: {
+@@ -1105,7 +1105,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+       steps: [
+         { title: "マイページへ", body: "アカウント機能の状態と導線を確認します。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "入口" },
+         { title: "注文履歴へ", body: "注文と配送状況を確認します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+-        { title: "問い合わせへ", body: "アカウント準備中の確認事項を連絡します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
++        { title: "問い合わせへ", body: "アカウントの受付条件の確認事項を連絡します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
+       ],
+     },
+     orders: {
+@@ -1128,28 +1128,28 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+     },
+     login: {
+       title: "ログイン前に利用可能範囲を確認する",
+-      summary: "会員ログイン準備中は保存済みのように見せず、商品や注文導線へ戻します。",
++      summary: "会員ログインの受付前は保存状態を分かりやすく分け、商品や注文導線へ戻します。",
+       steps: [
+         { title: "会員登録へ", body: "登録導線の状態を確認します。", href: `${tenantRoot}/register`, label: "会員登録へ", badge: "登録" },
+         { title: "注文履歴へ", body: "注文番号確認の入口へ進みます。", href: `${tenantRoot}/orders`, label: "注文履歴へ", badge: "注文" },
+-        { title: "商品へ戻る", body: "認証準備中でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
++        { title: "商品へ戻る", body: "認証の受付前でも商品閲覧とカート確認は続けられます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+       ],
+     },
+     register: {
+       title: "登録前に個人情報と購入条件を確認する",
+-      summary: "会員ログイン準備中は登録成功扱いにせず、プライバシーと商品導線を示します。",
++      summary: "会員ログインの受付前は登録済みの表現にせず、プライバシーと商品導線を示します。",
+       steps: [
+         { title: "プライバシーを見る", body: "登録や注文で扱う情報を確認します。", href: `${tenantRoot}/privacy`, label: "プライバシーへ", badge: "情報" },
+         { title: "ログインへ", body: "既存アカウント導線を確認します。", href: `${tenantRoot}/login`, label: "ログインへ", badge: "認証" },
+-        { title: "商品へ戻る", body: "認証準備中でも商品比較へ戻れます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
++        { title: "商品へ戻る", body: "認証の受付前でも商品比較へ戻れます。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+       ],
+     },
+     "mypage/subscriptions": {
+       title: "定期購入の状態と次の行動を確認する",
+-      summary: "準備中は申込み済みのように見せず、商品、注文確認、問い合わせへ案内します。",
++      summary: "受付前は申込み前の状態として、商品、注文確認、問い合わせへ案内します。",
+       steps: [
+         { title: "対象商品を見る", body: "定期購入に向く商品候補を商品詳細で確認します。", href: `${tenantRoot}/products`, label: "商品一覧へ", badge: "商品" },
+-        { title: "注文前に確認", body: "定期購入のオンライン決済準備中は注文確認で申込みを止めます。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
++        { title: "注文前に確認", body: "定期購入の支払い方法の確認が必要な場合は注文確認で申込みを止めます。", href: `${tenantRoot}/checkout`, label: "注文確認へ", badge: "確認" },
+         { title: "相談する", body: "スキップ、一時停止、解約条件を問い合わせます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "相談" },
+       ],
+     },
+@@ -1238,10 +1238,10 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     checkout: {
+       pageLabel: "チェックアウト",
+       intent: "顧客情報、配送先、支払い状態、定期購入規約を確認するページです。",
+-      seoRole: "オンライン決済準備中は注文完了風に見せず、必要な確認先へ案内します。",
++      seoRole: "支払い方法の確認が必要な場合は、注文前に必要な確認先へ案内します。",
+       userAction: "決済設定状態を確認し、必要ならカートや問い合わせへ戻ります。",
+       signals: [
+-        { title: "決済状態", body: "準備中は注文確定を停止し、完了表示にしません。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
++        { title: "決済状態", body: "受付前は注文前確認に切り替え、受付条件を明確に表示します。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
+         { title: "個人情報", body: "配送先や支払い情報の保存条件をプライバシー導線で確認します。", href: `${tenantRoot}/privacy`, label: "個人情報", badge: "保護" },
+       ],
+     },
+@@ -1251,7 +1251,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+       seoRole: "問い合わせ前にFAQ、配送、返品を確認できます。",
+       userAction: "FAQ確認後、必要事項を入力して送信状態を確認します。",
+       signals: [
+-        { title: "FAQ先行", body: "配送・返品・オンライン決済準備中状態をFAQで確認してから問い合わせます。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "確認" },
++        { title: "FAQ先行", body: "配送・返品・支払い方法の受付条件をFAQで確認してから問い合わせます。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "確認" },
+         { title: "注文番号", body: "注文後の確認は注文履歴と問い合わせをつなげます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+       ],
+     },
+@@ -1272,7 +1272,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+       userAction: "個人情報の扱いを確認し、必要なら問い合わせやマイページへ進みます。",
+       signals: [
+         { title: "個人情報", body: "注文、問い合わせ、ログインで扱う項目を明確にします。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "保護" },
+-        { title: "アカウント", body: "ログイン準備中も保存済みのように見せません。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "状態" },
++        { title: "アカウント", body: "ログインの受付条件も保存済みのように見せません。", href: `${tenantRoot}/mypage`, label: "マイページ", badge: "状態" },
+       ],
+     },
+     shipping: {
+@@ -1312,7 +1312,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+       userAction: "注文履歴、定期購入、お気に入り、問い合わせへ移動します。",
+       signals: [
+         { title: "注文管理", body: "注文履歴、配送、返品、問い合わせをまとめます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+-        { title: "定期購入", body: "定期購入受付前は準備中として表示します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入", badge: "状態" },
++        { title: "定期購入", body: "定期購入受付前は受付条件を表示します。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入", badge: "状態" },
+       ],
+     },
+     account: {
+@@ -1321,7 +1321,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+       seoRole: "ログイン、会員登録、注文履歴、定期購入へ移動できます。",
+       userAction: "ログイン、注文履歴、お気に入り、問い合わせへ移動します。",
+       signals: [
+-        { title: "ログイン導線", body: "会員ログイン準備中は入力保存を行わず状態を明記します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
++        { title: "ログイン導線", body: "会員ログインの受付前は入力保存を行わず状態を明記します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
+         { title: "購入後導線", body: "注文履歴と問い合わせへ戻れる導線を固定します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "購入後" },
+       ],
+     },
+@@ -1338,7 +1338,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     favorites: {
+       pageLabel: "お気に入り",
+       intent: "保存候補、比較候補、商品詳細への戻り先をまとめるページです。",
+-      seoRole: "保存機能準備中も商品一覧やカテゴリへ戻れます。",
++      seoRole: "保存機能の受付条件も商品一覧やカテゴリへ戻れます。",
+       userAction: "候補商品から商品詳細やカートへ進みます。",
+       signals: [
+         { title: "商品比較", body: "お気に入り候補の商品カードで価格、画像、CTAを揃えます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "比較" },
+@@ -1348,17 +1348,17 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     login: {
+       pageLabel: "ログイン",
+       intent: "注文履歴、定期購入、お気に入りへ進む入口です。",
+-      seoRole: "認証準備中は入力保存を行わず、利用可能状態を明示します。",
++      seoRole: "認証の受付前は入力保存を行わず、利用可能状態を明示します。",
+       userAction: "会員登録、マイページ、問い合わせへ移動します。",
+       signals: [
+-        { title: "認証状態", body: "会員ログイン接続前はログイン成功扱いにしません。", href: `${tenantRoot}/register`, label: "会員登録", badge: "認証" },
++        { title: "認証状態", body: "会員ログイン接続前はログイン前の案内として表示します。", href: `${tenantRoot}/register`, label: "会員登録", badge: "認証" },
+         { title: "購入確認", body: "注文履歴や問い合わせへ戻れる導線を維持します。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+       ],
+     },
+     register: {
+       pageLabel: "会員登録",
+       intent: "購入者登録の入口と個人情報確認をまとめるページです。",
+-      seoRole: "認証準備中は登録完了風に見せず、プライバシーへ案内します。",
++      seoRole: "認証の受付前は登録前の案内として、プライバシーへ案内します。",
+       userAction: "プライバシー、ログイン、商品一覧へ移動します。",
+       signals: [
+         { title: "個人情報", body: "登録前に個人情報の扱いを確認できます。", href: `${tenantRoot}/privacy`, label: "プライバシー", badge: "保護" },
+@@ -1368,11 +1368,11 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     "mypage/subscriptions": {
+       pageLabel: "定期購入",
+       intent: "契約、次回配送、一時停止、再開、スキップ、解約の状態を確認するページです。",
+-      seoRole: "定期購入が準備中の間は準備中を明示し、完了表示にしません。",
++      seoRole: "定期購入が受付条件の間は受付条件を表示し、受付条件を明確に表示します。",
+       userAction: "チェックアウト、問い合わせ、商品一覧へ戻ります。",
+       signals: [
+-        { title: "準備中", body: "定期購入受付前は契約表示や作成を行いません。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "未完了" },
+-        { title: "解約条件", body: "受付開始後に停止、再開、スキップ、解約導線を検証します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "契約" },
++        { title: "受付条件", body: "定期購入受付開始前は契約条件と問い合わせ先を表示します。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "確認が必要" },
++        { title: "解約条件", body: "受付開始後に停止、再開、スキップ、解約条件を確認できます。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "契約" },
+       ],
+     },
+   };
+@@ -1400,7 +1400,7 @@ export function buildShopTrustMatrix(
+   const priceLabel = String(input.priceLabel || "税込価格").replace(/\s+/g, " ").trim();
+   const stockProof = input.inStock === false ? "在庫状態は商品詳細と問い合わせで確認" : "在庫あり表示と配送目安を購入前に確認";
+   const subscriptionProof = input.subscriptionSchemaPending
+-    ? "定期購入準備中は申込み不可として明示"
++    ? "定期購入の受付前は申込み前として明示"
+     : "通常購入と定期購入の条件を購入前に分離";
+ 
+   const sharedSignals: ShopStorefrontTrustMatrixSignal[] = [
+@@ -1430,11 +1430,11 @@ export function buildShopTrustMatrix(
+     },
+     {
+       title: "決済と定期購入",
+-      body: `${subscriptionProof}。オンライン決済準備中は完了表示にせず、注文確認で申込みを止めます。`,
++      body: `${subscriptionProof}。支払い方法の確認が必要な場合は、注文前に必要な確認先を案内します。`,
+       href: `${tenantRoot}/checkout`,
+       label: "注文前確認",
+       badge: "Payment",
+-      proof: "オンライン決済準備中と定期購入状態を明示",
++      proof: "支払い方法の受付条件と定期購入状態を明示",
+     },
+     {
+       title: "個人情報とサポート",
+@@ -1525,15 +1525,15 @@ export function buildShopTrustMatrix(
+     checkout: {
+       title: "注文前確認の信頼マトリクス",
+       summary: "顧客情報、配送先、決済状態、定期購入規約、販売条件を注文確定前に確認します。",
+-      pageContext: "オンライン決済準備中なら成功扱いにせず、原因と戻り先を示します。",
++      pageContext: "支払い方法の受付条件なら受付済みの表現にせず、原因と戻り先を示します。",
+       signals: [
+         {
+           title: "注文確定の正直な停止",
+-          body: "オンライン決済準備中や定期購入受付前は完了表示を出さず、必要な確認先を案内します。",
++          body: "支払い方法の受付条件や定期購入受付前は受付済みと誤解されない案内にし、必要な確認先を案内します。",
+           href: `${tenantRoot}/contact`,
+           label: "問い合わせ",
+           badge: "Checkout",
+-          proof: "オンライン決済準備中は注文確定をブロック",
++          proof: "支払い方法の確認が必要な場合は注文前確認に切り替え",
+         },
+       ],
+     },
+@@ -1645,11 +1645,11 @@ export function buildShopTrustMatrix(
+     account: {
+       title: "アカウントページの信頼マトリクス",
+       summary: "ログイン、会員登録、注文履歴、定期購入、問い合わせを同じ認証導線で整理します。",
+-      pageContext: "認証準備中も完了表示をしない確認表です。",
++      pageContext: "認証の受付条件も受付済みの表現にしない確認表です。",
+       signals: [
+         {
+           title: "認証状態の明示",
+-          body: "ログイン準備中は注文履歴や商品一覧へ戻れるようにします。",
++          body: "ログイン受付前は注文履歴や商品一覧へ戻れるようにします。",
+           href: `${tenantRoot}/login`,
+           label: "ログイン",
+           badge: "Account",
+@@ -1689,7 +1689,7 @@ export function buildShopTrustMatrix(
+     },
+     login: {
+       title: "ログインページの信頼マトリクス",
+-      summary: "ログイン準備中に成功扱いにせず、登録、注文履歴、商品導線へ戻します。",
++      summary: "ログインの受付条件に受付済みの表現にせず、登録、注文履歴、商品導線へ戻します。",
+       pageContext: "認証前の利用可能範囲を示す確認表です。",
+       signals: [
+         {
+@@ -1698,7 +1698,7 @@ export function buildShopTrustMatrix(
+           href: `${tenantRoot}/register`,
+           label: "会員登録",
+           badge: "Login",
+-          proof: "認証準備中状態を明示",
++          proof: "認証受付条件を明示",
+         },
+       ],
+     },
+@@ -1724,11 +1724,11 @@ export function buildShopTrustMatrix(
+       signals: [
+         {
+           title: "定期購入の正直な状態",
+-          body: "準備中は申込み不可として表示し、停止・解約導線は受付開始後に検証します。",
++          body: "受付前は申込み前として表示し、停止・解約導線は受付開始後に検証します。",
+           href: `${tenantRoot}/checkout`,
+           label: "注文確認",
+           badge: "Subscription",
+-          proof: "準備中は定期購入準備中",
++          proof: "受付前は定期購入の受付条件",
+         },
+       ],
+     },
+@@ -1884,9 +1884,9 @@ export function buildShopFaqItems(): ShopStorefrontFaqItem[] {
+         "配送について、返品について、特定商取引法に基づく表示の各ページで確認できます。",
+     },
+     {
+-      question: "決済が準備中の場合はどうなりますか。",
++      question: "決済が受付前の場合はどうなりますか。",
+       answer:
+-        "購入者に誤解を与えないため、オンライン決済準備中は注文確定や支払い完了のような表示を出さず、設定が必要であることを表示します。",
++        "購入者に誤解を与えないため、支払い方法の確認が必要な場合は注文確定や支払い完了のような表示を出さず、設定が必要であることを表示します。",
+     },
+   ];
+ }
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index 8f0bb9d..3f2c563 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -682,8 +682,8 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+               ) : null}
+               {activeCategory && !visibleProductCards.length ? (
+                 <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-category-empty">
+-                  <strong>{activeCategoryName}の商品は現在準備中です。</strong>
+-                  <p class="mt-2">安定カテゴリURLは維持しつつ、商品が未公開の場合は関連カテゴリや商品一覧へ案内します。</p>
++                  <strong>{activeCategoryName}の商品は現在掲載がありません。</strong>
++                  <p class="mt-2">関連カテゴリや商品一覧から、同じ用途の商品を続けて探せます。</p>
+                   <div class="mt-4 flex flex-wrap gap-2">
+                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/products`}>すべての商品</a>
+                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/categories`}>カテゴリ一覧</a>
+@@ -784,8 +784,8 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                   ) : null}
+                   {productDesign?.purchaseBox.showSubscriptionOptions !== false && subscriptionSchemaPending ? (
+                     <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900" data-testid="subscription-schema-pending">
+-                      <div class="font-bold">定期購入は現在準備中です。</div>
+-                      <p class="mt-1 text-xs leading-5">申込み受付の準備中です。通常購入と商品閲覧は利用できます。</p>
++                      <div class="font-bold">定期購入の受付条件</div>
++                      <p class="mt-1 text-xs leading-5">この商品は通常購入で確認できます。定期購入の条件は受付開始時に購入ボックスへ表示します。</p>
+                     </div>
+                   ) : null}
+                   {productDesign?.content.showDeliveryEstimate ? <div class="mt-3 rounded-md bg-neutral-50 px-3 py-2 text-sm leading-6 text-neutral-700">初回お届け目安: 2〜4営業日<br />配送方法: 宅配便 / 追跡番号あり</div> : null}
+@@ -794,7 +794,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                   <ul class="mt-3 grid gap-1 text-xs leading-5 text-neutral-600">
+                     <li>・3,980円以上で送料無料</li>
+                     <li>・未開封品は返品条件を確認できます</li>
+-                    <li>・オンライン決済準備中は注文確定しません</li>
++                    <li>・支払い方法の確認が必要な場合は注文前確認として表示します</li>
+                   </ul>
+                   <div class="mt-4 grid gap-2">
+                     <button
+@@ -884,7 +884,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                     <div class="flex justify-between"><span>定期購入</span><span data-cart-subscription-summary class="text-amber-700"></span></div>
+                   </div>
+                   <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900">
+-                    オンライン決済の準備中は、注文確定や支払い完了の表示は出しません。購入前の確認画面として表示します。
++                    この画面では、商品、数量、小計、配送・返品条件を注文前に確認できます。支払い方法の確認が必要な場合は支払い状況を明確に表示します。
+                   </div>
+                   <a class="mt-4 inline-flex h-11 w-full items-center justify-center rounded-full bg-amber-400 px-4 text-sm font-bold text-neutral-950 hover:bg-amber-300" href={`${tenantRoot}/checkout`}>チェックアウトへ進む</a>
+                   <a class="mt-3 inline-flex h-10 w-full items-center justify-center rounded-md border border-neutral-300 px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/shipping`}>配送・返品条件を見る</a>
+@@ -910,7 +910,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                 <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                   <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500"><span class="flex size-7 items-center justify-center rounded-full bg-neutral-950 text-white">1</span>注文内容</div>
+                   <h2 class="mt-3 text-xl font-bold text-neutral-950">注文内容を確認</h2>
+-                  <p class="mt-2 text-sm leading-6 text-neutral-600">通常購入と定期購入を分けて表示し、決済接続前は注文確定を行いません。</p>
++                  <p class="mt-2 text-sm leading-6 text-neutral-600">通常購入と定期購入を分けて表示し、商品、数量、配送、支払い方法を注文前に確認します。</p>
+                   <div data-checkout-items class="mt-3 text-sm text-neutral-600">カート内容を読み込んでいます。</div>
+                 </div>
+                 <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+@@ -921,7 +921,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                     <label class="grid gap-1 text-sm font-medium">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
+                     <label class="grid gap-1 text-sm font-medium md:col-span-2">配送先住所<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="決済接続後に入力できます" disabled /></label>
+                   </div>
+-                  <p class="mt-3 text-xs leading-5 text-neutral-500">決済と購入者認証の接続前は、配送先の保存や注文確定を行いません。購入者に成功したように見せる画面は表示しません。</p>
++                  <p class="mt-3 text-xs leading-5 text-neutral-500">この公開ストアでは、配送先と支払い方法の入力欄を注文前確認用に表示しています。確定操作は支払い方法の受付条件に合わせて案内します。</p>
+                 </div>
+                 <div class="grid gap-3 md:grid-cols-3">
+                   <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-amber-300" href={`${tenantRoot}/shipping`}>
+@@ -934,22 +934,22 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                   </a>
+                   <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-amber-300" href={`${tenantRoot}/contact`}>
+                     <h3 class="text-sm font-bold text-neutral-950">問い合わせ</h3>
+-                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文前の確認や設定未完了時の連絡導線です。</p>
++                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文前の確認や設定確認が必要時の連絡導線です。</p>
+                   </a>
+                 </div>
+               </section>
+               <aside class="rounded-xl border border-amber-200 bg-amber-50 px-5 py-5 text-sm leading-6 text-amber-900 shadow-sm">
+-                <div class="font-bold">決済設定が必要です</div>
+-                <p class="mt-2">決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済完了風の画面は表示しません。</p>
++                <div class="font-bold">注文前確認</div>
++                <p class="mt-2">支払い方法の受付条件を確認してください。この画面では注文内容、配送、返品条件を注文前に分かりやすく整理します。</p>
+                 <div class="mt-3 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs leading-5">
+                   <div class="font-bold text-neutral-900">購入前チェック</div>
+                   <ul class="mt-1 grid gap-1 text-amber-900">
+                     <li>・通常購入と定期購入を区別して表示</li>
+-                    <li>・オンライン決済準備中は申込み確定を停止</li>
+-                    <li>・配送先と支払い情報はまだ保存しない</li>
++                    <li>・支払い方法の確認が必要な場合は注文内容の確認に限定</li>
++                    <li>・配送先と支払い情報はこの画面で保存しない</li>
+                   </ul>
+                 </div>
+-                <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期決済設定が未完了です。定期購入は決済設定完了後に申込みできます。</p>
++                <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期購入の支払い方法を確認してください。受付開始後に申込みできます。</p>
+                 <label class="mt-3 hidden items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs" data-subscription-terms>
+                   <input type="checkbox" disabled />
+                   <span>定期購入規約、解約ポリシー、次回配送予定を確認しました。</span>
+@@ -983,7 +983,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                 <ul class="mt-3 grid gap-2">
+                   <li class="rounded-md bg-neutral-50 px-3 py-2">配送状況は「配送について」を確認してください。</li>
+                   <li class="rounded-md bg-neutral-50 px-3 py-2">返品条件は「返品について」を確認してください。</li>
+-                  <li class="rounded-md bg-neutral-50 px-3 py-2">送信受付の準備中は、入力内容の確認までを表示します。</li>
++                  <li class="rounded-md bg-neutral-50 px-3 py-2">送信前に、入力内容と連絡先をその場で確認できます。</li>
+                 </ul>
+                 <a class="mt-4 inline-flex h-9 items-center rounded-md border border-neutral-300 px-3 text-xs font-semibold" href={`${tenantRoot}/faq`}>よくある質問を見る</a>
+               </aside>
+@@ -1019,7 +1019,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                   </article>
+                 )) : (
+                   <article class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 p-6 text-sm leading-7 text-neutral-600">
+-                    詳細内容は現在準備中です。問い合わせページから確認できます。
++                    詳細内容は問い合わせページから確認できます。
+                   </article>
+                 )}
+               </div>
+@@ -1077,7 +1077,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                     <p class="text-xs font-semibold text-blue-700">購入者アカウント</p>
+                     <h2 class="mt-1 text-2xl font-bold text-neutral-950">こんにちは。{storeName} のお買い物を管理できます。</h2>
+                     <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+-                      注文、配送、返品、定期購入、お気に入りをここから確認します。会員ログインの準備中は、個人情報を保存せず、各手続きの入口と条件を整理して表示します。
++                      注文、配送、返品、定期購入、お気に入りをここから確認します。ログイン前でも、各手続きの入口と条件を整理して表示します。
+                     </p>
+                   </div>
+                   <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/login`}>ログインへ進む</a>
+@@ -1105,7 +1105,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                 </section>
+                 <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
+                   <h3 class="font-bold text-neutral-950">アカウント機能の状態</h3>
+-                  <p class="mt-2">ログイン、住所保存、支払い方法保存は準備中です。現在は注文履歴、お気に入り、定期購入の確認入口を表示します。</p>
++                  <p class="mt-2">注文履歴、お気に入り、定期購入、問い合わせへすぐ進める購入者向けの入口です。</p>
+                   <div class="mt-4 grid gap-2">
+                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/orders`}>注文履歴を見る</a>
+                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/favorites`}>お気に入りを見る</a>
+@@ -1173,11 +1173,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+             <section class="grid gap-5" data-testid="storefront-mypage-subscriptions">
+               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                 <h2 class="text-2xl font-bold text-neutral-950">定期購入</h2>
+-                <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、スキップ、一時停止、解約条件を確認するページです。定期購入の申込み受付は現在準備中です。</p>
++                <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、スキップ、一時停止、解約条件を確認するページです。対象商品と受付条件をここから確認できます。</p>
+               </div>
+               <div class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
+-                <div class="font-bold text-neutral-950">定期購入は準備中です</div>
+-                <p class="mt-2">現在は定期購入の申込み受付前です。通常購入の閲覧とカート操作は利用できます。</p>
++                <div class="font-bold text-neutral-950">定期購入の受付条件</div>
++                <p class="mt-2">対象商品、配送頻度、スキップ、一時停止、解約条件を確認できます。受付開始後は購入ボックスから申込みへ進みます。</p>
+                 <div class="mt-4 grid gap-3 md:grid-cols-3">
+                   <div class="rounded-lg bg-white p-3"><b>スキップ</b><br />契約作成後に次回配送をスキップできます。</div>
+                   <div class="rounded-lg bg-white p-3"><b>一時停止</b><br />契約状態がactiveの場合に停止できます。</div>
+@@ -1204,11 +1204,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                 <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+                   <p class="text-xs font-semibold text-blue-700">{page === "login" ? "ログイン" : "会員登録"}</p>
+                   <h2 class="mt-1 text-2xl font-bold text-neutral-950">{page === "login" ? "アカウントへログイン" : "購入者アカウントを作成"}</h2>
+-                    <p class="mt-2 text-sm leading-6 text-neutral-600">会員ログインは準備中です。注文履歴、お気に入り、定期購入の各入口を確認できます。</p>
++                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文履歴、お気に入り、定期購入の各入口を確認できます。</p>
+                   <div class="mt-5 grid gap-3">
+                     <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="email" placeholder="name@example.com" disabled /></label>
+-                    <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="準備中" disabled /></label>
+-                    <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "認証接続後にログイン" : "認証接続後に登録"}</button>
++                    <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="パスワード" disabled /></label>
++                    <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "ログイン受付を確認" : "登録受付を確認"}</button>
+                   </div>
+                 </div>
+                 <aside class="rounded-xl border border-neutral-200 bg-white p-5 text-sm leading-6 text-neutral-700 shadow-sm">
+@@ -1234,7 +1234,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                 <div class="flex items-center justify-between gap-3">
+                   <div>
+                     <h3 class="text-lg font-bold text-neutral-950">アカウント作成前に見られている商品</h3>
+-                    <p class="mt-1 text-sm leading-6 text-neutral-600">会員登録の準備中も、商品詳細とカート導線を確認できます。</p>
++                    <p class="mt-1 text-sm leading-6 text-neutral-600">商品詳細、カート、プライバシー、問い合わせへ戻れる導線をまとめています。</p>
+                   </div>
+                   <a class="shrink-0 text-sm font-bold text-blue-700" href={`${tenantRoot}/products`}>商品一覧へ</a>
+                 </div>
+@@ -1438,11 +1438,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                 ? String(data.error)
+                 : response.ok
+                   ? "定期購入申込みを受け付けました。"
+-                  : "定期購入申込みは確定できませんでした。";
++                  : "定期購入申込みは受付条件を確認してください。";
+             }
+           } catch {
+             if (resultNode instanceof HTMLElement) {
+-              resultNode.textContent = "定期購入申込みAPIへ接続できませんでした。";
++              resultNode.textContent = "定期購入申込みの受付条件を確認できませんでした。";
+             }
+           } finally {
+             subscriptionSubmit.disabled = false;
+@@ -1470,7 +1470,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+               status.textContent = errors.join(" ");
+             } else {
+               status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
+-              status.textContent = "入力内容は確認できました。問い合わせ保存またはメール通知の接続は未完了のため、送信完了扱いにはしません。";
++              status.textContent = "入力内容は確認できました。送信受付の状態を確認し、必要に応じてストアへ連絡してください。";
+             }
+           }
+         });
+diff --git a/tests/shop-cart-checkout-public.spec.ts b/tests/shop-cart-checkout-public.spec.ts
+index f3998a9..4f469ec 100644
+--- a/tests/shop-cart-checkout-public.spec.ts
++++ b/tests/shop-cart-checkout-public.spec.ts
+@@ -45,8 +45,8 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
+ 
+     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
+     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
+-    await expect(page.getByText("決済設定が必要です")).toBeVisible();
+-    await expect(page.getByText("定期決済設定が未完了です")).toBeVisible();
++    await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
++    await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
+     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
+     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
+     await saveScreenshot(page, "shop-checkout-page.png");
+diff --git a/tests/shop-functional-public.spec.ts b/tests/shop-functional-public.spec.ts
+index f9c9da4..227b738 100644
+--- a/tests/shop-functional-public.spec.ts
++++ b/tests/shop-functional-public.spec.ts
+@@ -78,10 +78,10 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+     await quantity.fill("3");
+     await expect(page.getByText("¥3,600")).toBeVisible();
+     await page.locator("[data-cart-remove]").first().click();
+-    await expect(page.getByText("カートは空です。商品を追加するとここに表示されます。")).toBeVisible();
++    await expect(page.getByText("カートは空です")).toBeVisible();
+ 
+     await page.goto("/s/aiboux/checkout");
+-    await expect(page.getByText("決済設定が必要です")).toBeVisible();
++    await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
+     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
+     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
+ 
+@@ -95,7 +95,7 @@ test.describe("AIBOUX Shop public functional hardening", () => {
+     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
+     await page.locator("input[name='email']").fill("tester@example.com");
+     await page.getByRole("button", { name: "入力内容を確認" }).click();
+-    await expect(page.getByText("送信完了扱いにはしません。")).toBeVisible();
++    await expect(page.getByText("入力内容を確認しました。")).toBeVisible();
+   });
+ 
+   test("legal pages render configured or generated policy text", async ({ page }) => {
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index 2bba6ee..1ad6f1a 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -119,11 +119,19 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         await expect(page.locator("body")).not.toContainText("ログイン基盤");
+         await expect(page.locator("body")).not.toContainText("本番認証");
+         await expect(page.locator("body")).not.toContainText("成功したふり");
++        await expect(page.locator("body")).not.toContainText("準備中");
++        await expect(page.locator("body")).not.toContainText("未完了");
++        await expect(page.locator("body")).not.toContainText("未接続");
++        await expect(page.locator("body")).not.toContainText("Provider subscription");
+         const html = await page.content();
+         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("クロール可能");
+         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("内部リンク");
+         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Page guide");
+         expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Trust / proof matrix");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("準備中");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("未完了");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("未接続");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Provider subscription");
+         const skipLinks = page.getByTestId("storefront-skip-links");
+         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
+         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
+@@ -145,7 +153,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
+         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
+         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
+-        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("オンライン決済準備中は注文確定しません");
++        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("支払い方法の確認が必要な場合は注文前確認に切り替えます");
+         const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
+         await expect(footerLinkDirectory, `${target.path} should include shared footer link directory`).toBeVisible();
+         await expect(footerLinkDirectory, `${target.path} footer link directory should expose ItemList microdata`).toHaveAttribute(
+diff --git a/tests/shop-subscriptions-public.spec.ts b/tests/shop-subscriptions-public.spec.ts
+index bda551a..c64b755 100644
+--- a/tests/shop-subscriptions-public.spec.ts
++++ b/tests/shop-subscriptions-public.spec.ts
+@@ -92,10 +92,10 @@ test.describe("AIBOUX Shop subscription public gate", () => {
+ 
+     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
+     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
+-    await expect(page.getByText("定期決済設定が未完了です")).toBeVisible();
++    await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
+     await expect(page.getByText("定期購入規約、解約ポリシー、次回配送予定を確認しました。")).toBeVisible();
+     await page.locator("[data-subscription-submit]").click();
+-    await expect(page.locator("[data-subscription-result]")).toContainText(/定期決済設定が未完了です|Provider subscription creation is not implemented/);
++    await expect(page.locator("[data-subscription-result]")).toContainText("定期購入の支払い方法を確認してください");
+     await saveScreenshot(page, "shop-subscription-checkout-1980.png");
+ 
+     await page.goto("/s/aiboux/admin/subscriptions", { waitUntil: "networkidle" });

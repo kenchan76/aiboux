@@ -92,10 +92,10 @@ test.describe("AIBOUX Shop subscription public gate", () => {
 
     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
-    await expect(page.getByText("定期決済設定が未完了です")).toBeVisible();
+    await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("定期購入規約、解約ポリシー、次回配送予定を確認しました。")).toBeVisible();
     await page.locator("[data-subscription-submit]").click();
-    await expect(page.locator("[data-subscription-result]")).toContainText(/定期決済設定が未完了です|Provider subscription creation is not implemented/);
+    await expect(page.locator("[data-subscription-result]")).toContainText("定期購入の支払い方法を確認してください");
     await saveScreenshot(page, "shop-subscription-checkout-1980.png");
 
     await page.goto("/s/aiboux/admin/subscriptions", { waitUntil: "networkidle" });

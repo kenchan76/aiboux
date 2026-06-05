@@ -517,7 +517,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
               <QualityRow label="商品詳細への表示" ready={status === "公開中" && subscriptionPlans.some((plan) => plan.status === "active")} />
               <QualityRow label="checkoutの正直なブロック" ready />
               <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-amber-800">
-                決済設定が未完了の場合は、購入者に受付前であることを明確に表示します。
+                支払い方法の確認が必要な場合は、購入者に受付前であることを明確に表示します。
               </div>
             </CardContent>
           </Card>

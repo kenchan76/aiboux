@@ -1,0 +1,14 @@
+ M ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+ M ops/instructions/current.md
+ M src/components/shop/ProductEditor.tsx
+ M src/components/shop/products/ShopProductWizard.tsx
+ M src/components/shop/storefront/StorefrontFooter.tsx
+ M src/lib/server/shopSubscriptions.ts
+ M src/lib/shopSeo.ts
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-cart-checkout-public.spec.ts
+ M tests/shop-functional-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+ M tests/shop-subscriptions-public.spec.ts
+?? all_log/checkpoints/20260605T021351Z_status_before_public_wording_cleanup.txt

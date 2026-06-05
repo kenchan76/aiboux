@@ -80,12 +80,12 @@ const SHOP_STOREFRONT_PAGE_META: Record<string, { title: string; description: st
   cart: {
     title: "カート",
     description:
-      "カート内の商品、数量、小計、配送・返品条件、決済未接続時の注文制限を購入前に確認できます。",
+      "カート内の商品、数量、小計、配送・返品条件、支払い方法の受付状態を購入前に確認できます。",
   },
   checkout: {
     title: "チェックアウト",
     description:
-      "注文内容、配送先、支払い設定状態、定期購入の注意事項を確認し、未接続の決済を成功扱いにしません。",
+      "注文内容、配送先、支払い設定状態、定期購入の注意事項を確認し、支払い方法の受付状態を明確に案内します。",
   },
   contact: {
     title: "問い合わせ",

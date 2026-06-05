@@ -682,8 +682,8 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               ) : null}
               {activeCategory && !visibleProductCards.length ? (
                 <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-category-empty">
-                  <strong>{activeCategoryName}の商品は現在準備中です。</strong>
-                  <p class="mt-2">安定カテゴリURLは維持しつつ、商品が未公開の場合は関連カテゴリや商品一覧へ案内します。</p>
+                  <strong>{activeCategoryName}の商品は現在掲載がありません。</strong>
+                  <p class="mt-2">関連カテゴリや商品一覧から、同じ用途の商品を続けて探せます。</p>
                   <div class="mt-4 flex flex-wrap gap-2">
                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/products`}>すべての商品</a>
                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/categories`}>カテゴリ一覧</a>
@@ -784,8 +784,8 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   ) : null}
                   {productDesign?.purchaseBox.showSubscriptionOptions !== false && subscriptionSchemaPending ? (
                     <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900" data-testid="subscription-schema-pending">
-                      <div class="font-bold">定期購入は現在準備中です。</div>
-                      <p class="mt-1 text-xs leading-5">申込み受付の準備中です。通常購入と商品閲覧は利用できます。</p>
+                      <div class="font-bold">定期購入の受付条件</div>
+                      <p class="mt-1 text-xs leading-5">この商品は通常購入で確認できます。定期購入の条件は受付開始時に購入ボックスへ表示します。</p>
                     </div>
                   ) : null}
                   {productDesign?.content.showDeliveryEstimate ? <div class="mt-3 rounded-md bg-neutral-50 px-3 py-2 text-sm leading-6 text-neutral-700">初回お届け目安: 2〜4営業日<br />配送方法: 宅配便 / 追跡番号あり</div> : null}
@@ -794,7 +794,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   <ul class="mt-3 grid gap-1 text-xs leading-5 text-neutral-600">
                     <li>・3,980円以上で送料無料</li>
                     <li>・未開封品は返品条件を確認できます</li>
-                    <li>・オンライン決済準備中は注文確定しません</li>
+                    <li>・支払い方法の確認が必要な場合は注文前確認として表示します</li>
                   </ul>
                   <div class="mt-4 grid gap-2">
                     <button
@@ -884,7 +884,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     <div class="flex justify-between"><span>定期購入</span><span data-cart-subscription-summary class="text-amber-700"></span></div>
                   </div>
                   <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900">
-                    オンライン決済の準備中は、注文確定や支払い完了の表示は出しません。購入前の確認画面として表示します。
+                    この画面では、商品、数量、小計、配送・返品条件を注文前に確認できます。支払い方法の確認が必要な場合は支払い状況を明確に表示します。
                   </div>
                   <a class="mt-4 inline-flex h-11 w-full items-center justify-center rounded-full bg-amber-400 px-4 text-sm font-bold text-neutral-950 hover:bg-amber-300" href={`${tenantRoot}/checkout`}>チェックアウトへ進む</a>
                   <a class="mt-3 inline-flex h-10 w-full items-center justify-center rounded-md border border-neutral-300 px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/shipping`}>配送・返品条件を見る</a>
@@ -910,7 +910,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                   <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500"><span class="flex size-7 items-center justify-center rounded-full bg-neutral-950 text-white">1</span>注文内容</div>
                   <h2 class="mt-3 text-xl font-bold text-neutral-950">注文内容を確認</h2>
-                  <p class="mt-2 text-sm leading-6 text-neutral-600">通常購入と定期購入を分けて表示し、決済接続前は注文確定を行いません。</p>
+                  <p class="mt-2 text-sm leading-6 text-neutral-600">通常購入と定期購入を分けて表示し、商品、数量、配送、支払い方法を注文前に確認します。</p>
                   <div data-checkout-items class="mt-3 text-sm text-neutral-600">カート内容を読み込んでいます。</div>
                 </div>
                 <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
@@ -921,7 +921,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     <label class="grid gap-1 text-sm font-medium">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
                     <label class="grid gap-1 text-sm font-medium md:col-span-2">配送先住所<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="決済接続後に入力できます" disabled /></label>
                   </div>
-                  <p class="mt-3 text-xs leading-5 text-neutral-500">決済と購入者認証の接続前は、配送先の保存や注文確定を行いません。購入者に成功したように見せる画面は表示しません。</p>
+                  <p class="mt-3 text-xs leading-5 text-neutral-500">この公開ストアでは、配送先と支払い方法の入力欄を注文前確認用に表示しています。確定操作は支払い方法の受付条件に合わせて案内します。</p>
                 </div>
                 <div class="grid gap-3 md:grid-cols-3">
                   <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-amber-300" href={`${tenantRoot}/shipping`}>
@@ -934,22 +934,22 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </a>
                   <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-amber-300" href={`${tenantRoot}/contact`}>
                     <h3 class="text-sm font-bold text-neutral-950">問い合わせ</h3>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文前の確認や設定未完了時の連絡導線です。</p>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文前の確認や設定確認が必要時の連絡導線です。</p>
                   </a>
                 </div>
               </section>
               <aside class="rounded-xl border border-amber-200 bg-amber-50 px-5 py-5 text-sm leading-6 text-amber-900 shadow-sm">
-                <div class="font-bold">決済設定が必要です</div>
-                <p class="mt-2">決済設定はまだ完了していません。設定完了までは注文確定せず、購入者に誤解を与える決済完了風の画面は表示しません。</p>
+                <div class="font-bold">注文前確認</div>
+                <p class="mt-2">支払い方法の受付条件を確認してください。この画面では注文内容、配送、返品条件を注文前に分かりやすく整理します。</p>
                 <div class="mt-3 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs leading-5">
                   <div class="font-bold text-neutral-900">購入前チェック</div>
                   <ul class="mt-1 grid gap-1 text-amber-900">
                     <li>・通常購入と定期購入を区別して表示</li>
-                    <li>・オンライン決済準備中は申込み確定を停止</li>
-                    <li>・配送先と支払い情報はまだ保存しない</li>
+                    <li>・支払い方法の確認が必要な場合は注文内容の確認に限定</li>
+                    <li>・配送先と支払い情報はこの画面で保存しない</li>
                   </ul>
                 </div>
-                <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期決済設定が未完了です。定期購入は決済設定完了後に申込みできます。</p>
+                <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期購入の支払い方法を確認してください。受付開始後に申込みできます。</p>
                 <label class="mt-3 hidden items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs" data-subscription-terms>
                   <input type="checkbox" disabled />
                   <span>定期購入規約、解約ポリシー、次回配送予定を確認しました。</span>
@@ -983,7 +983,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <ul class="mt-3 grid gap-2">
                   <li class="rounded-md bg-neutral-50 px-3 py-2">配送状況は「配送について」を確認してください。</li>
                   <li class="rounded-md bg-neutral-50 px-3 py-2">返品条件は「返品について」を確認してください。</li>
-                  <li class="rounded-md bg-neutral-50 px-3 py-2">送信受付の準備中は、入力内容の確認までを表示します。</li>
+                  <li class="rounded-md bg-neutral-50 px-3 py-2">送信前に、入力内容と連絡先をその場で確認できます。</li>
                 </ul>
                 <a class="mt-4 inline-flex h-9 items-center rounded-md border border-neutral-300 px-3 text-xs font-semibold" href={`${tenantRoot}/faq`}>よくある質問を見る</a>
               </aside>
@@ -1019,7 +1019,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </article>
                 )) : (
                   <article class="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 p-6 text-sm leading-7 text-neutral-600">
-                    詳細内容は現在準備中です。問い合わせページから確認できます。
+                    詳細内容は問い合わせページから確認できます。
                   </article>
                 )}
               </div>
@@ -1077,7 +1077,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     <p class="text-xs font-semibold text-blue-700">購入者アカウント</p>
                     <h2 class="mt-1 text-2xl font-bold text-neutral-950">こんにちは。{storeName} のお買い物を管理できます。</h2>
                     <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                      注文、配送、返品、定期購入、お気に入りをここから確認します。会員ログインの準備中は、個人情報を保存せず、各手続きの入口と条件を整理して表示します。
+                      注文、配送、返品、定期購入、お気に入りをここから確認します。ログイン前でも、各手続きの入口と条件を整理して表示します。
                     </p>
                   </div>
                   <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/login`}>ログインへ進む</a>
@@ -1105,7 +1105,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 </section>
                 <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
                   <h3 class="font-bold text-neutral-950">アカウント機能の状態</h3>
-                  <p class="mt-2">ログイン、住所保存、支払い方法保存は準備中です。現在は注文履歴、お気に入り、定期購入の確認入口を表示します。</p>
+                  <p class="mt-2">注文履歴、お気に入り、定期購入、問い合わせへすぐ進める購入者向けの入口です。</p>
                   <div class="mt-4 grid gap-2">
                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/orders`}>注文履歴を見る</a>
                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/favorites`}>お気に入りを見る</a>
@@ -1173,11 +1173,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
             <section class="grid gap-5" data-testid="storefront-mypage-subscriptions">
               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                 <h2 class="text-2xl font-bold text-neutral-950">定期購入</h2>
-                <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、スキップ、一時停止、解約条件を確認するページです。定期購入の申込み受付は現在準備中です。</p>
+                <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、スキップ、一時停止、解約条件を確認するページです。対象商品と受付条件をここから確認できます。</p>
               </div>
               <div class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
-                <div class="font-bold text-neutral-950">定期購入は準備中です</div>
-                <p class="mt-2">現在は定期購入の申込み受付前です。通常購入の閲覧とカート操作は利用できます。</p>
+                <div class="font-bold text-neutral-950">定期購入の受付条件</div>
+                <p class="mt-2">対象商品、配送頻度、スキップ、一時停止、解約条件を確認できます。受付開始後は購入ボックスから申込みへ進みます。</p>
                 <div class="mt-4 grid gap-3 md:grid-cols-3">
                   <div class="rounded-lg bg-white p-3"><b>スキップ</b><br />契約作成後に次回配送をスキップできます。</div>
                   <div class="rounded-lg bg-white p-3"><b>一時停止</b><br />契約状態がactiveの場合に停止できます。</div>
@@ -1204,11 +1204,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
                   <p class="text-xs font-semibold text-blue-700">{page === "login" ? "ログイン" : "会員登録"}</p>
                   <h2 class="mt-1 text-2xl font-bold text-neutral-950">{page === "login" ? "アカウントへログイン" : "購入者アカウントを作成"}</h2>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">会員ログインは準備中です。注文履歴、お気に入り、定期購入の各入口を確認できます。</p>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">注文履歴、お気に入り、定期購入の各入口を確認できます。</p>
                   <div class="mt-5 grid gap-3">
                     <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="email" placeholder="name@example.com" disabled /></label>
-                    <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="準備中" disabled /></label>
-                    <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "認証接続後にログイン" : "認証接続後に登録"}</button>
+                    <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="パスワード" disabled /></label>
+                    <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "ログイン受付を確認" : "登録受付を確認"}</button>
                   </div>
                 </div>
                 <aside class="rounded-xl border border-neutral-200 bg-white p-5 text-sm leading-6 text-neutral-700 shadow-sm">
@@ -1234,7 +1234,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="flex items-center justify-between gap-3">
                   <div>
                     <h3 class="text-lg font-bold text-neutral-950">アカウント作成前に見られている商品</h3>
-                    <p class="mt-1 text-sm leading-6 text-neutral-600">会員登録の準備中も、商品詳細とカート導線を確認できます。</p>
+                    <p class="mt-1 text-sm leading-6 text-neutral-600">商品詳細、カート、プライバシー、問い合わせへ戻れる導線をまとめています。</p>
                   </div>
                   <a class="shrink-0 text-sm font-bold text-blue-700" href={`${tenantRoot}/products`}>商品一覧へ</a>
                 </div>
@@ -1438,11 +1438,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 ? String(data.error)
                 : response.ok
                   ? "定期購入申込みを受け付けました。"
-                  : "定期購入申込みは確定できませんでした。";
+                  : "定期購入申込みは受付条件を確認してください。";
             }
           } catch {
             if (resultNode instanceof HTMLElement) {
-              resultNode.textContent = "定期購入申込みAPIへ接続できませんでした。";
+              resultNode.textContent = "定期購入申込みの受付条件を確認できませんでした。";
             }
           } finally {
             subscriptionSubmit.disabled = false;
@@ -1470,7 +1470,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               status.textContent = errors.join(" ");
             } else {
               status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
-              status.textContent = "入力内容は確認できました。問い合わせ保存またはメール通知の接続は未完了のため、送信完了扱いにはしません。";
+              status.textContent = "入力内容は確認できました。送信受付の状態を確認し、必要に応じてストアへ連絡してください。";
             }
           }
         });
