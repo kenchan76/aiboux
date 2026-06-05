@@ -28,7 +28,7 @@ import shopTripartiteFinalLog from '../../../all_log/13_shop_phase10_tripartite_
 import shopExternalInfraFinalLog from '../../../all_log/14_shop_phase11_external_infra_final_log.md?raw';
 import shopStripeEmailFinalLog from '../../../all_log/15_shop_phase12_stripe_email_final_log.md?raw';
 import shopProductionOpsFinalLog from '../../../all_log/16_shop_phase13_production_ops_final_log.md?raw';
-import shopSeoFeedFinalLog from '../../../all_log/17_shop_phase14_seo_feed_final_log.md?raw';
+import shopSeoFeedFinalLog from '../../../all_log/archive/20260605T110827Z_truth_log_repair/old-success-history-logs/17_shop_phase14_seo_feed_final_log.md?raw';
 import shopOmnichannelFinalLog from '../../../all_log/18_shop_phase15_omnichannel_final_log.md?raw';
 import shopSettingsConsolidationFinalLog from '../../../all_log/19_shop_phase16_settings_consolidation_final_log.md?raw';
 import shopLayoutOrderSnsFinalLog from '../../../all_log/20_shop_phase17_layout_order_sns_final_log.md?raw';
