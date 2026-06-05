@@ -1063,7 +1063,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </a>
                 </div>
               </section>
-              <aside class="rounded-xl border border-amber-200 bg-amber-50 px-5 py-5 text-sm leading-6 text-amber-900 shadow-sm">
+              <aside class="rounded-xl border border-amber-200 bg-amber-50 px-5 py-5 text-sm leading-6 text-amber-900 shadow-sm" data-testid="storefront-checkout-payment-panel">
                 <div class="font-bold">注文前確認</div>
                 <p class="mt-2">支払い方法の選択内容を確認してください。この画面では注文内容、配送、返品条件を注文前にまとめます。</p>
                 <div class="mt-3 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs leading-5">
@@ -1073,6 +1073,18 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     <li>・支払い方法の選択が必要な場合は注文内容の確認に限定</li>
                     <li>・配送先と支払い情報はこの画面で保存しない</li>
                   </ul>
+                </div>
+                <div class="mt-3 grid gap-2" aria-label="支払い方法の確認項目">
+                  {[
+                    { title: "通常購入", body: "商品、数量、小計、配送条件を確認してから進みます。" },
+                    { title: "定期購入", body: "頻度、次回配送、解約条件、支払い方法を申込み前に分けて確認します。" },
+                    { title: "サポート", body: "不明点は注文前に問い合わせへ戻れます。" },
+                  ].map((item) => (
+                    <div class="rounded-md border border-amber-200 bg-white px-3 py-2">
+                      <div class="text-xs font-bold text-neutral-950">{item.title}</div>
+                      <p class="mt-1 text-[11px] leading-5 text-amber-900">{item.body}</p>
+                    </div>
+                  ))}
                 </div>
                 <p class="mt-2 hidden font-semibold" data-subscription-payment-blocker>定期購入の支払い方法を確認してください。受付開始後に申込みできます。</p>
                 <label class="mt-3 hidden items-start gap-2 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs" data-subscription-terms>
@@ -1715,10 +1727,10 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           const subscriptionItem = readCart().find((item) => item.purchaseMode === "subscription");
           if (!subscriptionItem) return;
           subscriptionSubmit.disabled = true;
-          if (resultNode instanceof HTMLElement) {
-            resultNode.classList.remove("hidden");
-            resultNode.textContent = "定期購入の決済設定を確認しています。";
-          }
+            if (resultNode instanceof HTMLElement) {
+              resultNode.classList.remove("hidden");
+            resultNode.textContent = "定期購入の支払い方法の受付条件を確認しています。";
+            }
           try {
             const response = await fetch("/shop/api/checkout/subscription?tenant=aiboux", {
               method: "POST",

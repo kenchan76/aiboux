@@ -57,12 +57,16 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
     await expect(page.getByTestId("storefront-checkout-stepper")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-order-guard")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-payment-panel")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-payment-panel")).toContainText("通常購入");
+    await expect(page.getByTestId("storefront-checkout-payment-panel")).toContainText("サポート");
     await expect(page.locator("[data-checkout-total-items]")).toHaveText("1点");
     await expect(page.locator("[data-checkout-grand-total]")).toHaveText("¥2,232");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("税込価格");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("定期購入");
     await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
+    await expect(page.locator("body")).not.toContainText("決済設定");
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
     await saveScreenshot(page, "shop-checkout-page.png");
