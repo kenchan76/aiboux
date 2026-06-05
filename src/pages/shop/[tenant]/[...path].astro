@@ -986,12 +986,13 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </div>
                   <div data-cart-list class="hidden divide-y divide-neutral-100"></div>
                 </div>
-                <aside data-cart-summary class="hidden rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                <aside data-cart-summary class="hidden rounded-xl border border-neutral-200 bg-white p-5 shadow-sm lg:sticky lg:top-4 lg:self-start">
                   <h3 class="text-lg font-bold text-neutral-950">注文サマリー</h3>
                   <div class="mt-4 grid gap-3 text-sm text-neutral-700">
                     <div class="flex justify-between"><span>商品点数</span><strong data-cart-total-items class="text-neutral-950">0点</strong></div>
                     <div class="flex justify-between"><span>商品小計</span><strong data-cart-subtotal class="text-neutral-950">¥0</strong></div>
-                    <div class="flex justify-between"><span>送料見込み</span><span>注文受付時に確認</span></div>
+                    <div class="flex justify-between"><span>送料見込み</span><span>注文前に確認</span></div>
+                    <div class="flex justify-between"><span>お届け目安</span><span>通常2〜4営業日</span></div>
                     <div class="flex justify-between"><span>定期購入</span><span data-cart-subscription-summary class="text-amber-700"></span></div>
                     <div class="border-t border-neutral-200 pt-3">
                       <div class="flex items-baseline justify-between text-base text-neutral-950">
@@ -1001,8 +1002,13 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                       <p class="mt-1 text-xs leading-5 text-neutral-500">送料と支払い方法はチェックアウトで確認します。</p>
                     </div>
                   </div>
-                  <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900">
-                    商品、数量、小計、配送・返品条件を注文前に確認できます。支払い方法の選択が必要な場合も分かりやすく案内します。
+                  <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900" data-testid="storefront-cart-purchase-check">
+                    <div class="font-bold text-neutral-950">購入前チェック</div>
+                    <ul class="mt-2 grid gap-1">
+                      <li>・数量変更後の合計をすぐ確認</li>
+                      <li>・配送予定と返品条件へ1クリックで戻れる</li>
+                      <li>・通常購入と定期購入を分けて表示</li>
+                    </ul>
                   </div>
                   <a class="mt-4 inline-flex h-11 w-full items-center justify-center rounded-full bg-amber-400 px-4 text-sm font-bold text-neutral-950 hover:bg-amber-300" href={`${tenantRoot}/checkout`}>チェックアウトへ進む</a>
                   <a class="mt-3 inline-flex h-10 w-full items-center justify-center rounded-md border border-neutral-300 px-4 text-sm font-semibold text-neutral-900" href={`${tenantRoot}/shipping`}>配送・返品条件を見る</a>
@@ -1096,9 +1102,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </a>
                 </div>
               </section>
-              <aside class="rounded-xl border border-amber-200 bg-amber-50 px-5 py-5 text-sm leading-6 text-amber-900 shadow-sm" data-testid="storefront-checkout-payment-panel">
-                <div class="font-bold">注文前確認</div>
-                <p class="mt-2">支払い方法の選択内容を確認してください。この画面では注文内容、配送、返品条件を注文前にまとめます。</p>
+              <aside class="rounded-xl border border-amber-200 bg-amber-50 px-5 py-5 text-sm leading-6 text-amber-900 shadow-sm lg:sticky lg:top-4 lg:self-start" data-testid="storefront-checkout-payment-panel">
+                <div class="font-bold text-neutral-950">注文サマリー</div>
+                <p class="mt-2">注文内容、配送、返品条件、支払い方法の受付条件を右側で確認できます。</p>
+                <div class="mt-3 rounded-lg border border-amber-300 bg-white p-3 text-xs leading-5" data-testid="storefront-checkout-live-summary">
+                  <div class="flex justify-between gap-3"><span>商品点数</span><strong class="text-neutral-950" data-checkout-side-total-items>0点</strong></div>
+                  <div class="mt-2 flex justify-between gap-3"><span>注文合計</span><strong class="text-base text-red-700" data-checkout-side-grand-total>¥0</strong></div>
+                  <div class="mt-2 flex justify-between gap-3"><span>購入方式</span><strong class="text-amber-800" data-checkout-side-mode>確認中</strong></div>
+                  <div class="mt-3 border-t border-amber-200 pt-3" data-checkout-side-items>カート内容を確認中です。</div>
+                </div>
                 <div class="mt-3 rounded-md border border-amber-300 bg-white px-3 py-2 text-xs leading-5">
                   <div class="font-bold text-neutral-900">購入前チェック</div>
                   <ul class="mt-1 grid gap-1 text-amber-900">
@@ -1623,22 +1635,38 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
         empty.classList.add("hidden");
         list.classList.remove("hidden");
         summary.classList.remove("hidden");
-        list.innerHTML = items.map((item) => `
-          <div class="grid gap-3 rounded-lg border border-neutral-200 p-3 sm:grid-cols-[64px_1fr_auto]">
-            <div class="flex size-16 items-center justify-center rounded-md bg-neutral-50">
+        list.innerHTML = items.map((item) => {
+          const quantity = Math.max(1, Number(item.quantity || 1));
+          const lineTotal = Number(item.price || 0) * quantity;
+          const productHref = item.productId ? `${tenantRoot}/product/${encodeURIComponent(String(item.productId))}` : `${tenantRoot}/products`;
+          return `
+          <div class="grid gap-3 rounded-lg border border-neutral-200 bg-white p-3 sm:grid-cols-[84px_1fr_120px]">
+            <a class="flex size-20 items-center justify-center overflow-hidden rounded-md bg-neutral-50" href="${productHref}">
               <img src="${escapeHtml(item.image || cartImageForName(item.name))}" alt="${escapeHtml(item.name || "カート商品")} 商品画像" class="h-full w-full rounded-md object-cover" />
-            </div>
+            </a>
             <div>
-              <div class="text-sm font-semibold text-neutral-950">${escapeHtml(item.name)}</div>
-              <div class="mt-1 text-sm text-neutral-600">${formatYen(item.price)}${item.purchaseMode === "subscription" ? ` / ${escapeHtml(item.subscriptionInterval || "")}` : ""}</div>
-              ${item.purchaseMode === "subscription" ? `<div class="mt-1 inline-flex rounded bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-800">定期購入: ${escapeHtml(item.subscriptionPlanName || "定期プラン")}</div>` : ""}
-              <label class="mt-2 inline-flex items-center gap-2 text-xs text-neutral-600">数量
+              <a class="text-sm font-bold text-blue-700 underline-offset-2 hover:text-blue-900 hover:underline" href="${productHref}">${escapeHtml(item.name)}</a>
+              <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-neutral-600">
+                <span>${item.purchaseMode === "subscription" ? "定期購入" : "通常購入"}</span>
+                <span>税込 ${formatYen(item.price)}</span>
+                <span>お届け目安 2〜4営業日</span>
+              </div>
+              ${item.purchaseMode === "subscription" ? `<div class="mt-2 inline-flex rounded bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-800">定期購入: ${escapeHtml(item.subscriptionPlanName || "定期プラン")} / ${escapeHtml(item.subscriptionInterval || "頻度確認")}</div>` : ""}
+              <div class="mt-2 flex flex-wrap items-center gap-2">
+                <label class="inline-flex items-center gap-2 text-xs text-neutral-600">数量
                 <input class="h-8 w-20 rounded-md border border-neutral-200 px-2" data-cart-qty="${escapeHtml(item.id)}" inputmode="numeric" value="${Number(item.quantity || 1)}" />
-              </label>
+                </label>
+                <a class="text-xs font-bold text-blue-700 hover:underline" href="${tenantRoot}/shipping">配送条件</a>
+                <a class="text-xs font-bold text-blue-700 hover:underline" href="${tenantRoot}/returns">返品条件</a>
+              </div>
             </div>
-            <button class="h-8 rounded-md border border-neutral-300 px-3 text-xs font-semibold" data-cart-remove="${escapeHtml(item.id)}" type="button">削除</button>
+            <div class="flex flex-row items-center justify-between gap-3 sm:flex-col sm:items-end">
+              <strong class="text-base text-neutral-950">${formatYen(lineTotal)}</strong>
+              <button class="h-8 rounded-md border border-neutral-300 px-3 text-xs font-semibold hover:border-red-300 hover:text-red-700" data-cart-remove="${escapeHtml(item.id)}" type="button">削除</button>
+            </div>
           </div>
-        `).join("");
+        `;
+        }).join("");
         const totalItems = items.reduce((sum, item) => sum + Math.max(1, Number(item.quantity || 1)), 0);
         const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
         subtotalNode.textContent = formatYen(subtotal);
@@ -1654,6 +1682,10 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
 
       function renderCheckout() {
         const node = document.querySelector("[data-checkout-items]");
+        const sideItems = document.querySelector("[data-checkout-side-items]");
+        const sideTotalItems = document.querySelector("[data-checkout-side-total-items]");
+        const sideGrandTotal = document.querySelector("[data-checkout-side-grand-total]");
+        const sideMode = document.querySelector("[data-checkout-side-mode]");
         if (!node) return;
         const items = readCart();
         if (!items.length) {
@@ -1668,6 +1700,10 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               </div>
             </div>
           `;
+          if (sideItems) sideItems.textContent = "商品を追加すると、右側に明細が表示されます。";
+          if (sideTotalItems) sideTotalItems.textContent = "0点";
+          if (sideGrandTotal) sideGrandTotal.textContent = "¥0";
+          if (sideMode) sideMode.textContent = "未選択";
           return;
         }
         const totalItems = items.reduce((sum, item) => sum + Math.max(1, Number(item.quantity || 1)), 0);
@@ -1680,6 +1716,20 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           </div>
         `;
         const hasSubscription = items.some((item) => item.purchaseMode === "subscription");
+        if (sideItems) {
+          sideItems.innerHTML = items.map((item) => `
+            <div class="flex justify-between gap-3 border-b border-amber-100 py-1 last:border-b-0">
+              <span>${escapeHtml(item.name)}<br><span class="text-[11px] text-amber-800">${item.purchaseMode === "subscription" ? `定期購入 / ${escapeHtml(item.subscriptionInterval || "頻度確認")}` : "通常購入"}</span></span>
+              <strong class="text-neutral-950">${formatYen(Number(item.price || 0) * Number(item.quantity || 0))}</strong>
+            </div>
+          `).join("");
+        }
+        if (sideTotalItems) sideTotalItems.textContent = `${totalItems}点`;
+        if (sideGrandTotal) sideGrandTotal.textContent = formatYen(subtotal);
+        if (sideMode) {
+          const hasNormal = items.some((item) => item.purchaseMode !== "subscription");
+          sideMode.textContent = hasSubscription && hasNormal ? "通常購入 + 定期購入" : hasSubscription ? "定期購入" : "通常購入";
+        }
         document.querySelectorAll("[data-subscription-payment-blocker], [data-subscription-terms], [data-subscription-submit]").forEach((element) => {
           element.classList.toggle("hidden", !hasSubscription);
           if (element.hasAttribute("data-subscription-terms")) element.classList.toggle("flex", hasSubscription);

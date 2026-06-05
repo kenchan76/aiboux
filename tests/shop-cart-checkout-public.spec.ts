@@ -44,6 +44,7 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.getByTestId("storefront-cart-recovery-panel")).toBeVisible();
     await expect(page.getByTestId("storefront-cart-recovery-panel")).toContainText("配送予定を確認");
     await expect(page.getByTestId("storefront-cart-recovery-panel")).toContainText("返品条件を確認");
+    await expect(page.getByTestId("storefront-cart-purchase-check")).not.toBeVisible();
     await page.evaluate(() => {
       localStorage.setItem(
         "aiboux:shop:aiboux:cart",
@@ -57,6 +58,10 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
 
     const cartList = page.locator("[data-cart-list]");
     await expect(cartList.getByText("雪花セレクト ドリップコーヒー 20袋")).toBeVisible();
+    await expect(cartList.getByText("お届け目安 2〜4営業日")).toHaveCount(2);
+    await expect(cartList.getByRole("link", { name: "配送条件" }).first()).toHaveAttribute("href", "/s/aiboux/shipping");
+    await expect(page.getByTestId("storefront-cart-purchase-check")).toBeVisible();
+    await expect(page.getByTestId("storefront-cart-purchase-check")).toContainText("通常購入と定期購入を分けて表示");
     await expect(page.getByText("定期購入:")).toBeVisible();
     await expect(page.getByText("次回以降合計")).toBeVisible();
     await expect(page.locator("[data-cart-total-items]")).toHaveText("2点");
@@ -77,10 +82,15 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.getByTestId("storefront-checkout-stepper")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-order-guard")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-payment-panel")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-live-summary")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-payment-panel")).toContainText("通常購入");
     await expect(page.getByTestId("storefront-checkout-payment-panel")).toContainText("サポート");
     await expect(page.locator("[data-checkout-total-items]")).toHaveText("1点");
     await expect(page.locator("[data-checkout-grand-total]")).toHaveText("¥2,232");
+    await expect(page.locator("[data-checkout-side-total-items]")).toHaveText("1点");
+    await expect(page.locator("[data-checkout-side-grand-total]")).toHaveText("¥2,232");
+    await expect(page.locator("[data-checkout-side-mode]")).toHaveText("定期購入");
+    await expect(page.locator("[data-checkout-side-items]")).toContainText("軽量ステンレスボトル 500ml");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("税込価格");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("定期購入");
     await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
