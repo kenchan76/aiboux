@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Fri, 05 Jun 2026 00:00:07 GMT
+content-type: text/html
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-aiboux-original-path: /s/aiboux/product/setsuka-cafe-blend
+x-aiboux-rewritten-path: /shop/aiboux/product/setsuka-cafe-blend
+x-aiboux-route-source: worker-entry
+x-aiboux-worker-version: 6a3fefda-4133-49e6-9424-5d64556b29d6
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=5nej5hfmUS1%2BEVPGRYfZiGzDmGH9cbZrEn8KkZeBBzFEl0SIE2lzZagrcIOCjm2jGF1BF9YOER56izz86uYp0REKdt6ANYcSkyTu7pO1J5zzq7dqwd1WlLgaHMj4h9kUsWY%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06ae52d4a9260ba-NRT
+alt-svc: h3=":443"; ma=86400
+

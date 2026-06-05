@@ -1,6 +1,46 @@
 # AIBOUX 正本マスター
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
+## Current Active Operating Override: AIBOUX Shop Landmark / Skip Link SEO UI Public Evidence
+
+Status: `SHOP_5H_LANDMARK_SKIPLINK_SEO_UI_WIP_DEPLOYED_NOT_FINAL`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override records the public verification state for shared storefront landmarks and skip links.
+
+Current public WIP evidence:
+
+- WIP implementation commit: `5e7f1e2cff3804f4050cff21e3dc22ff125669b9`.
+- WIP deploy Worker Version ID: `6a3fefda-4133-49e6-9424-5d64556b29d6`.
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with existing hints only, 0 errors.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+- Public TOP and product detail HTML contain `storefront-skip-links`, `storefront-main`, `storefront-search`, `storefront-footer`, and `aria-label="ストアカテゴリナビ"`.
+- Every public storefront page is now required by gate to expose the same shared skip-link nav, main landmark target, search target, footer target, labeled header, and labeled category navigation.
+- Product detail keeps one visible product `h1`; duplicate product title above the image gallery remains prohibited.
+
+Google Search Central references checked for this WIP include:
+
+- SEO Starter Guide.
+- Crawlable links.
+- Ecommerce website navigation structure.
+- Ecommerce URL structure.
+- Ecommerce structured data.
+- Breadcrumb structured data.
+
+Not final:
+
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final.
+- The subscription plan POST returned HTTP 200, but the public gate did not observe the active test plan persisted in the response.
+- Failure artifacts are retained under `all_log/test-results/20260605T000006Z_shop_subscription_gate_blocked/`.
+- Remote D1 subscription migration and provider-backed recurring billing are not accepted.
+- `FINAL_ACCEPTED` remains prohibited.
+
 ## Current Active Operating Override: AIBOUX Shop Footer SEO Sitemap Public Evidence
 
 Status: `SHOP_5H_FOOTER_SEO_SITEMAP_WIP_DEPLOYED_NOT_FINAL`
