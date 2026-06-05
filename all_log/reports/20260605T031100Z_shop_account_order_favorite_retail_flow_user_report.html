@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AIBOUX Final User Report</title>
+  <style>
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;margin:24px;max-width:1100px}
+    pre{white-space:pre-wrap;background:#f7f7f8;border:1px solid #e4e4e7;border-radius:8px;padding:16px}
+  </style>
+</head>
+<body>
+  <h1>AIBOUX Final User Report</h1>
+  <pre># AIBOUX Shop Account Order Favorite Retail Flow WIP
+
+## Status
+WIP_DEPLOYED_NOT_FINAL
+
+## Summary
+- Account, order history, favorites, subscription mypage, login, and register pages were improved as part of the Amazon-quality Shop sales sprint.
+- My page and account now expose a buyer command center for orders, delivery/returns, subscriptions, and contact.
+- Order history now has order lookup, delivery, returns, and contact operation routes instead of only a thin empty state.
+- Favorites now has comparison actions for price, stock, cart, and shopping conditions.
+- Subscription mypage now shows delivery, frequency, skip, and cancellation-condition guidance.
+- Login/register now validate input and do not pretend that account completion occurred.
+- This is WIP evidence, not FINAL_ACCEPTED.
+
+## Verification
+- Implementation Worker Version ID: 7278fc11-7a56-41fd-9123-551f8591bf42.
+- Public evidence deployment Worker Version ID: 119068ad-a4df-4a4a-b669-42ffd5e9ff02.
+- WIP commits: 9b41c7b, bd4ea3a, 5263592, 5297453.
+- npm run check:control-chars: PASS.
+- npm run check:mojibake: PASS.
+- npm run astro -- check: PASS, 0 errors.
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS.
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl: PASS, 10 tests.
+- Public forbidden wording grep across account/admin checked URLs: PASS.
+- m68/l68/d68 public URLs: HTTP 200 and text/markdown; charset=utf-8.
+- Public markers found in m68, l68, and d68.
+
+## Bark
+- notification: progress delivered
+- reason: Bark progress notification returned delivered=true, skipped=false, secretLogged=false.
+
+## Notes
+- FINAL_ACCEPTED remains prohibited.
+- The broader Amazon-quality Shop sales sprint remains active.
+- Remote D1/provider-backed recurring billing remains a separate unfinished lane.
+- The public /g sha256 values differ from local public/g files because the Worker publishes generated public Markdown bodies; public headers and markers were verified.
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
+</pre>
+</body>
+</html>
