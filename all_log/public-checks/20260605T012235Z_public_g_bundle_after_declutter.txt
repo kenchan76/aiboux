@@ -1,0 +1,73 @@
+--- m68 headers ---
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+x-content-type-options: nosniff
+--- l68 headers ---
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+x-content-type-options: nosniff
+--- d68 headers ---
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+x-content-type-options: nosniff
+--- markers ---
+/tmp/m68.body:3:## Current Active Operating Override: AIBOUX Shop Public Text Declutter
+/tmp/l68.body:3:## 2026-06-05T01:22:35Z Shop Public Text Declutter WIP
+/tmp/l68.body:4555:## 2026-06-05T01:22:35Z - Shop Public Text Declutter WIP
+/tmp/d68.body:3216:## 2026-06-05T01:22:35Z - Shop Public Text Declutter Screen Evidence
+/tmp/m68.body:26:- Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/m68.body:154:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/m68.body:158:- Runtime SHA note: `/g/*` replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+/tmp/m68.body:198:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/m68.body:202:- Runtime SHA note: `/g/*` replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+/tmp/m68.body:470:- Latest Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/m68.body:507:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/m68.body:674:- Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/m68.body:971:- Worker Version ID: 7f29da21-f109-41cc-b8a6-f827663959e6
+/tmp/m68.body:3118:Worker Version ID: 7f29da21-f109-41cc-b8a6-f827663959e6
+/tmp/m68.body:5466:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/m68.body:5812:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:42:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/l68.body:317:- Public log publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/l68.body:319:- Runtime SHA note: source markdown SHA and public body SHA can differ because the `/g/*` route replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time.
+/tmp/l68.body:413:- Public log publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/l68.body:422:- Public `/g/*` SHA note: source markdown SHA and public body SHA differ because the `/g/*` route replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time. The mismatch is expected and recorded honestly.
+/tmp/l68.body:1065:- Latest Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:1068:- Runtime SHA note: `/g/*` replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time, so source markdown SHA and public body SHA differ only by Worker Version ID substitution.
+/tmp/l68.body:1645:- Latest Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:1749:Runtime placeholders such as `7f29da21-f109-41cc-b8a6-f827663959e6` are replaced in the public response.
+/tmp/l68.body:1759:The SHA mismatch is expected for files containing `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/l68.body:1766:| `https://shop.aiboux.com/` | 200 | `7f29da21-f109-41cc-b8a6-f827663959e6` | `AIBOUX SHOP | サービスサイト` |
+/tmp/l68.body:1767:| `https://shop.aiboux.com/s/aiboux/` | 200 | `7f29da21-f109-41cc-b8a6-f827663959e6` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/l68.body:1768:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `7f29da21-f109-41cc-b8a6-f827663959e6` | `AIBOUX SHOP Dashboard` |
+/tmp/l68.body:1856:- `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:1875:- `/g/*` responses replace `7f29da21-f109-41cc-b8a6-f827663959e6` at runtime.
+/tmp/l68.body:2311:- Public log publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:2317:- `x-aiboux-worker-version`: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:2347:- `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:2358:- `x-aiboux-worker-version`: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:2404:- `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:2859:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 7f29da21-f109-41cc-b8a6-f827663959e6
+/tmp/l68.body:3324:- Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:3500:- This is expected because the Worker replaces `7f29da21-f109-41cc-b8a6-f827663959e6` with the runtime Worker Version ID in public responses.
+/tmp/l68.body:3575:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:4459:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:4512:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/l68.body:4553:- Current public Worker Version ID is resolved at runtime as `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/d68.body:31:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/d68.body:229:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/d68.body:238:- Runtime SHA note: `/g/*` replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+/tmp/d68.body:304:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/d68.body:313:- Runtime SHA note: `/g/*` replaces `7f29da21-f109-41cc-b8a6-f827663959e6` at response time, so source markdown SHA and public body SHA can differ while serving the intended public evidence.
+/tmp/d68.body:726:- Latest Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/d68.body:1108:| `https://shop.aiboux.com/` | 200 | `7f29da21-f109-41cc-b8a6-f827663959e6` | `AIBOUX SHOP | サービスサイト` |
+/tmp/d68.body:1109:| `https://shop.aiboux.com/s/aiboux/` | 200 | `7f29da21-f109-41cc-b8a6-f827663959e6` | `AIBOUX Store | AIBOUX Storefront` |
+/tmp/d68.body:1110:| `https://shop.aiboux.com/s/aiboux/admin` | 200 | `7f29da21-f109-41cc-b8a6-f827663959e6` | `AIBOUX SHOP Dashboard` |
+/tmp/d68.body:1165:- `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/d68.body:1254:- `x-aiboux-worker-version`: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/d68.body:1411:- All checked responses were served by Worker Version ID `7f29da21-f109-41cc-b8a6-f827663959e6`.
+/tmp/d68.body:1886:- The final evidence publication Worker Version ID is resolved at runtime from Cloudflare Version Metadata: 7f29da21-f109-41cc-b8a6-f827663959e6
+/tmp/d68.body:2373:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/d68.body:2811:- Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/d68.body:3147:- Public evidence Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`
+/tmp/d68.body:3214:- Public evidence publication Worker Version ID: `7f29da21-f109-41cc-b8a6-f827663959e6`.

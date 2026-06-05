@@ -125,7 +125,7 @@ const SHOP_STOREFRONT_PAGE_META: Record<string, { title: string; description: st
   "mypage/subscriptions": {
     title: "定期購入",
     description:
-      "定期購入、次回配送予定、一時停止、スキップ、解約の状態と手続き導線を確認できます。",
+      "定期購入の申込み状況、次回配送予定、一時停止、スキップ、解約の手続き導線と問い合わせ先を確認できます。",
   },
   orders: {
     title: "注文履歴",

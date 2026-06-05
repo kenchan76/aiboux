@@ -1,0 +1,15 @@
+200 https://shop.aiboux.com/s/aiboux/
+200 https://shop.aiboux.com/s/aiboux/products
+200 https://shop.aiboux.com/s/aiboux/categories
+200 https://shop.aiboux.com/s/aiboux/cart
+200 https://shop.aiboux.com/s/aiboux/checkout
+200 https://shop.aiboux.com/s/aiboux/contact
+200 https://shop.aiboux.com/s/aiboux/legal
+200 https://shop.aiboux.com/s/aiboux/privacy
+200 https://shop.aiboux.com/s/aiboux/shipping
+200 https://shop.aiboux.com/s/aiboux/returns
+200 https://shop.aiboux.com/s/aiboux/faq
+200 https://shop.aiboux.com/s/aiboux/mypage
+200 https://shop.aiboux.com/s/aiboux/login
+200 https://shop.aiboux.com/s/aiboux/register
+200 https://shop.aiboux.com/s/aiboux/mypage/subscriptions
