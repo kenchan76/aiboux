@@ -27,10 +27,12 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.getByText("お名前を入力してください。")).toBeVisible();
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
+    await expect(page.getByText("問い合わせ種別を選択してください。")).toBeVisible();
     await expect(page.getByText("内容を入力してください。")).toBeVisible();
 
     await page.locator("input[name='name']").fill("検証 太郎");
     await page.locator("input[name='email']").fill("invalid-email");
+    await page.locator("select[name='topic']").selectOption("shipping");
     await page.locator("input[name='orderNumber']").fill("#AIBOUX-1001");
     await page.locator("textarea[name='message']").fill("問い合わせ検証です。");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
