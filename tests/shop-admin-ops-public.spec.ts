@@ -34,9 +34,36 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
       await expect(page.locator("body")).not.toContainText("2024/05");
       await expect(page.locator("body")).not.toContainText("山田 太郎");
       await expect(page.locator("body")).not.toContainText("#10085");
+      await expect(page.locator("body")).not.toContainText("SUBSCRIPTION_SCHEMA_PENDING");
+      await expect(page.locator("body")).not.toContainText("D1 migration");
+      await expect(page.locator("body")).not.toContainText("DB migration");
+      await expect(page.locator("body")).not.toContainText("Provider subscription");
       await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
       await saveScreenshot(page, target.file);
     }
+  });
+
+  test("admin subscriptions page exposes operational guidance without backend wording", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/subscriptions", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: "定期購入" })).toBeVisible();
+    await expect(page.locator('[data-testid="admin-subscription-operation-cards"]')).toBeVisible();
+    const hasEmptyState = await page.locator('[data-testid="admin-subscription-empty-state"]').isVisible().catch(() => false);
+    const hasTable = await page.getByRole("table").isVisible().catch(() => false);
+    expect(hasEmptyState || hasTable, "subscriptions page should show either an empty state or a real table").toBe(true);
+    if (hasEmptyState) {
+      await expect(page.getByRole("button", { name: "商品設定を開く" })).toBeVisible();
+      await expect(page.getByRole("button", { name: "支払い設定を確認" })).toBeVisible();
+    }
+
+    await expect(page.locator("body")).not.toContainText("SUBSCRIPTION_SCHEMA_PENDING");
+    await expect(page.locator("body")).not.toContainText("D1 migration");
+    await expect(page.locator("body")).not.toContainText("DB migration");
+    await expect(page.locator("body")).not.toContainText("schema");
+    await expect(page.locator("body")).not.toContainText("Provider subscription");
+
+    await saveScreenshot(page, "shop-admin-subscriptions-operational.png");
   });
 
   test("design editor remains a focused two-page editor", async ({ page }) => {

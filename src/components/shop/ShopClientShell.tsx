@@ -419,17 +419,28 @@ function ShopSubscriptionsPanel() {
   const [subscriptions, setSubscriptions] = React.useState<Array<Record<string, unknown>>>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
+  const [receptionLimited, setReceptionLimited] = React.useState(false);
 
   const load = React.useCallback(() => {
     setLoading(true);
     fetch("/shop/api/subscriptions")
       .then(async (response) => {
-        const data = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string; subscriptions?: Array<Record<string, unknown>> };
-        if (!response.ok || data.success === false) throw new Error(data.error || "定期購入一覧を取得できませんでした");
+        const data = (await response.json().catch(() => ({}))) as { success?: boolean; code?: string; error?: string; subscriptions?: Array<Record<string, unknown>> };
+        if (response.status === 503 && data.code === "SUBSCRIPTION_SCHEMA_PENDING") {
+          setSubscriptions([]);
+          setReceptionLimited(true);
+          setError("");
+          return;
+        }
+        if (!response.ok || data.success === false) throw new Error("定期購入の受付状態を確認できませんでした");
         setSubscriptions(Array.isArray(data.subscriptions) ? data.subscriptions : []);
+        setReceptionLimited(false);
         setError("");
       })
-      .catch((caught) => setError(caught instanceof Error ? caught.message : "定期購入一覧を取得できませんでした"))
+      .catch(() => {
+        setReceptionLimited(false);
+        setError("定期購入の受付状態を確認できませんでした。少し時間をおいて再読込してください。");
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -439,9 +450,9 @@ function ShopSubscriptionsPanel() {
 
   const action = async (subscriptionId: string, nextAction: "pause" | "resume" | "skip" | "cancel") => {
     const response = await fetch(`/shop/api/subscriptions/${encodeURIComponent(subscriptionId)}/${nextAction}`, { method: "PATCH" });
-    const data = (await response.json().catch(() => ({}))) as { success?: boolean; error?: string };
+    const data = (await response.json().catch(() => ({}))) as { success?: boolean; code?: string; error?: string };
     if (!response.ok || data.success === false) {
-      alert(data.error || "定期購入を更新できませんでした");
+      alert(data.code === "SUBSCRIPTION_SCHEMA_PENDING" ? "定期購入の受付条件を確認してください。" : "定期購入を更新できませんでした。");
       return;
     }
     load();
@@ -457,9 +468,50 @@ function ShopSubscriptionsPanel() {
         <Button variant="outline" onClick={load} disabled={loading}>{loading ? "読込中..." : "再読込"}</Button>
       </div>
       {error ? <div className="mb-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div> : null}
+      {receptionLimited ? (
+        <div className="mb-3 rounded-lg border border-amber-200 bg-amber-50 p-4" data-testid="admin-subscription-reception-limited">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <div className="text-sm font-semibold text-amber-950">定期購入の受付条件を確認してください</div>
+              <p className="mt-1 max-w-3xl text-sm leading-6 text-amber-900">
+                商品詳細とカートでは定期購入の案内を表示できます。契約受付、次回請求日、停止・再開などの操作は、支払い方法と契約保存の条件が整ってから有効になります。
+              </p>
+            </div>
+            <Button variant="outline" size="sm" className="border-amber-300 bg-white text-amber-900 hover:bg-amber-100" onClick={load}>
+              状態を再確認
+            </Button>
+          </div>
+        </div>
+      ) : null}
+      <div className="mb-4 grid gap-3 md:grid-cols-3" data-testid="admin-subscription-operation-cards">
+        <AdminSubscriptionStatusCard
+          label="受付商品"
+          value={subscriptions.length > 0 ? `${subscriptions.length}件` : "商品設定を確認"}
+          description="商品編集で定期価格、頻度、停止・解約条件を整えます。"
+        />
+        <AdminSubscriptionStatusCard
+          label="次回対応"
+          value={subscriptions.length > 0 ? "配送日を確認" : "受付開始前"}
+          description="申込後は次回請求日と次回配送日をこの画面で確認します。"
+        />
+        <AdminSubscriptionStatusCard
+          label="購入者対応"
+          value="停止・再開・スキップ"
+          description="契約行ごとに一時停止、再開、スキップ、解約を操作します。"
+        />
+      </div>
       {subscriptions.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600">
-          定期購入はまだありません。商品詳細から定期購入を選ぶと、決済設定確認後にここへ表示します。
+        <div className="rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-12 text-center text-sm text-neutral-600" data-testid="admin-subscription-empty-state">
+          <div className="mx-auto max-w-xl">
+            <div className="text-base font-semibold text-neutral-950">現在管理対象の定期購入はありません</div>
+            <p className="mt-2 leading-6">
+              商品編集で定期購入プランを設定し、商品詳細で購入者に頻度と受付条件を表示します。申込が入ると、顧客名、商品、次回請求日、次回配送日をここで確認できます。
+            </p>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Button variant="outline" onClick={() => window.location.assign(`${getShopAdminBasePath()}/products`)}>商品設定を開く</Button>
+              <Button variant="outline" onClick={() => window.location.assign(`${getShopAdminBasePath()}/settings`)}>支払い設定を確認</Button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-neutral-200">
@@ -508,6 +560,16 @@ function ShopSubscriptionsPanel() {
         </div>
       )}
     </section>
+  );
+}
+
+function AdminSubscriptionStatusCard({ label, value, description }: { label: string; value: string; description: string }) {
+  return (
+    <div className="rounded-lg border border-neutral-200 bg-white p-3 shadow-sm">
+      <div className="text-xs font-medium text-neutral-500">{label}</div>
+      <div className="mt-1 text-base font-semibold text-neutral-950">{value}</div>
+      <p className="mt-1 text-xs leading-5 text-neutral-600">{description}</p>
+    </div>
   );
 }
 
