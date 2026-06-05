@@ -57,14 +57,41 @@ function normalizeWorkerVersion(text, workerVersionId) {
   return text.replace(new RegExp(escapeRegex(workerVersionId), 'g'), PLACEHOLDER);
 }
 
-function inferWorkerVersionId(publicBodies) {
-  const joined = publicBodies.join('\n');
-  const direct = joined.match(/Worker Version ID:\s*`?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i);
-  if (direct?.[1]) return direct[1];
+function inferRuntimeWorkerVersionId(localRaw, publicRaw) {
+  if (!localRaw.includes(PLACEHOLDER)) return '';
 
-  const publicEvidence = joined.match(/Public evidence Worker Version ID:\s*`?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i);
-  if (publicEvidence?.[1]) return publicEvidence[1];
+  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const parts = localRaw.split(PLACEHOLDER);
+  let offset = 0;
+  const ids = [];
 
+  for (let index = 0; index < parts.length - 1; index += 1) {
+    const before = parts[index];
+    const after = parts[index + 1];
+    if (!publicRaw.startsWith(before, offset)) return '';
+    offset += before.length;
+
+    const nextOffset = after ? publicRaw.indexOf(after, offset) : publicRaw.length;
+    if (nextOffset < offset) return '';
+
+    const replacement = publicRaw.slice(offset, nextOffset);
+    if (!uuidPattern.test(replacement)) return '';
+    ids.push(replacement);
+    offset = nextOffset;
+  }
+
+  const tail = parts[parts.length - 1];
+  if (!publicRaw.startsWith(tail, offset) || offset + tail.length !== publicRaw.length) return '';
+
+  const uniqueIds = [...new Set(ids)];
+  if (uniqueIds.length !== 1) return '';
+  return uniqueIds[0];
+}
+
+function resolveWorkerVersionId(localRaw, publicRaw, explicitWorkerVersionId) {
+  if (explicitWorkerVersionId) return explicitWorkerVersionId;
+  const inferred = inferRuntimeWorkerVersionId(localRaw, publicRaw);
+  if (inferred) return inferred;
   return '';
 }
 
@@ -102,7 +129,7 @@ function renderMarkdown(result) {
     '',
     `Verification Time: \`${result.checkedAt}\``,
     '',
-    `Worker Version ID: \`${result.workerVersionId || 'NOT_FOUND'}\``,
+    `Worker Version ID: \`${result.workerVersionIds.length ? result.workerVersionIds.join(', ') : 'NOT_FOUND'}\``,
     '',
     '## Rule',
     '',
@@ -112,12 +139,12 @@ function renderMarkdown(result) {
     '',
     '## Results',
     '',
-    '| Target | HTTP | Content-Type | Local Raw SHA256 | Public Raw SHA256 | Local Normalized SHA256 | Public Normalized SHA256 | Normalized Match |',
-    '| --- | ---: | --- | --- | --- | --- | --- | --- |',
+    '| Target | Runtime Worker Version ID | HTTP | Content-Type | Local Raw SHA256 | Public Raw SHA256 | Local Normalized SHA256 | Public Normalized SHA256 | Normalized Match |',
+    '| --- | --- | ---: | --- | --- | --- | --- | --- | --- |',
   ];
 
   for (const item of result.targets) {
-    lines.push(`| /g/${item.id} | ${item.httpStatus} | ${item.contentType} | ${item.localRawSha256} | ${item.publicRawSha256} | ${item.localNormalizedSha256} | ${item.publicNormalizedSha256} | ${item.normalizedMatch ? 'PASS' : 'FAIL'} |`);
+    lines.push(`| /g/${item.id} | ${item.workerVersionId || 'none'} | ${item.httpStatus} | ${item.contentType} | ${item.localRawSha256} | ${item.publicRawSha256} | ${item.localNormalizedSha256} | ${item.publicNormalizedSha256} | ${item.normalizedMatch ? 'PASS' : 'FAIL'} |`);
   }
 
   lines.push(
@@ -147,10 +174,10 @@ async function main() {
     fetched.push(await fetchPublic(args.baseUrl, target.publicPath, args.outputDir, target.id));
   }
 
-  const workerVersionId = args.workerVersionId || inferWorkerVersionId(fetched.map((item) => item.body));
   const targets = TARGETS.map((target, index) => {
     const localRaw = fs.readFileSync(target.localPath, 'utf8');
     const publicRaw = fetched[index].body;
+    const workerVersionId = resolveWorkerVersionId(localRaw, publicRaw, args.workerVersionId);
     const localNormalized = normalizeWorkerVersion(localRaw, workerVersionId);
     const publicNormalized = normalizeWorkerVersion(publicRaw, workerVersionId);
     const localRawSha256 = sha256(localRaw);
@@ -163,6 +190,7 @@ async function main() {
       publicUrl: new URL(target.publicPath, args.baseUrl).toString(),
       httpStatus: fetched[index].status,
       contentType: fetched[index].contentType,
+      workerVersionId,
       localRawSha256,
       publicRawSha256,
       localNormalizedSha256,
@@ -170,11 +198,16 @@ async function main() {
       normalizedMatch: localNormalizedSha256 === publicNormalizedSha256,
     };
   });
+  const workerVersionIds = [...new Set(targets.map((item) => item.workerVersionId).filter(Boolean))];
 
   const result = {
     checkedAt: new Date().toISOString(),
-    workerVersionId,
-    ok: Boolean(workerVersionId) && targets.every((item) => item.httpStatus === 200 && item.contentType.includes('text/markdown') && item.normalizedMatch),
+    workerVersionIds,
+    ok: targets.every((item) => {
+      const localRaw = fs.readFileSync(item.localPath, 'utf8');
+      const workerRequirementMet = !localRaw.includes(PLACEHOLDER) || Boolean(item.workerVersionId);
+      return workerRequirementMet && item.httpStatus === 200 && item.contentType.includes('text/markdown') && item.normalizedMatch;
+    }),
     targets,
   };
 

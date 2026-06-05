@@ -1,0 +1,17 @@
+status: 200
+alt-svc: h3=":443"; ma=86400
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+cdn-cache-control: no-store
+cf-ray: a06eff9dbc99aa18-NRT
+cloudflare-cdn-cache-control: no-store
+connection: keep-alive
+content-length: 6606
+content-type: text/markdown; charset=utf-8
+date: Fri, 05 Jun 2026 11:57:13 GMT
+expires: 0
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+pragma: no-cache
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Ob%2FTN7VQB6qUMap0%2FE1ee3G%2BaSKl4jKur5ntSZ2s2a2wZv15JyX85gy8atfhoE7X9NlpB0ychXcpntit0LRZHsFJTKAcfd3LgCT3Cecgxy3ChPZX5c8ApO4nKPFR569zEh8%3D"}]}
+server: cloudflare
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
