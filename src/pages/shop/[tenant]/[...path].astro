@@ -181,6 +181,36 @@ const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections(page, tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
+const accountActionCards = [
+  { title: "注文を探す", body: "注文番号、配送状況、領収書の確認へ進めます。", href: `${tenantRoot}/orders`, cta: "注文履歴へ" },
+  { title: "配送・返品", body: "発送目安、送料、返品条件を購入前後で確認できます。", href: `${tenantRoot}/shipping`, cta: "配送条件へ" },
+  { title: "定期購入", body: "次回配送、頻度、スキップ、解約条件を確認できます。", href: `${tenantRoot}/mypage/subscriptions`, cta: "定期購入へ" },
+  { title: "問い合わせ", body: "商品名や注文番号を添えてストアへ相談できます。", href: `${tenantRoot}/contact`, cta: "問い合わせへ" },
+];
+const orderStatusCards = [
+  { title: "注文確認", body: "注文番号、商品、金額、配送先をまとめて確認します。", href: `${tenantRoot}/orders` },
+  { title: "配送状況", body: "発送目安、追跡番号、配送会社の案内へ進めます。", href: `${tenantRoot}/shipping` },
+  { title: "返品・交換", body: "返品受付条件、不良品時の連絡先、到着後の確認事項を整理しています。", href: `${tenantRoot}/returns` },
+  { title: "領収書・相談", body: "注文番号を添えて問い合わせし、必要な案内を確認できます。", href: `${tenantRoot}/contact` },
+];
+const favoriteAssistCards = [
+  { title: "価格を見る", body: "税込価格とセール表示を見比べます。", href: `${tenantRoot}/favorites` },
+  { title: "在庫を確認", body: "商品詳細で在庫と配送予定を確認します。", href: `${tenantRoot}/products` },
+  { title: "まとめて買う", body: "候補をカートへ入れて合計金額を確認します。", href: `${tenantRoot}/cart` },
+  { title: "条件を見る", body: "配送と返品条件を確認してから購入できます。", href: `${tenantRoot}/shipping` },
+];
+const subscriptionControlCards = [
+  { title: "次回配送", body: "商品ごとの次回配送予定と配送先を確認します。" },
+  { title: "頻度変更", body: "毎週、毎月などの購入頻度を商品詳細で確認します。" },
+  { title: "スキップ", body: "次回分を休む場合の条件を確認できます。" },
+  { title: "解約条件", body: "最低回数や受付期間を確認してから手続きします。" },
+];
+const authAssistCards = [
+  { title: "注文を追跡", body: "ログイン後に注文番号と配送状況を確認できます。", href: `${tenantRoot}/orders` },
+  { title: "お気に入り保存", body: "あとで買う商品を比較しやすくできます。", href: `${tenantRoot}/favorites` },
+  { title: "定期購入管理", body: "配送頻度、スキップ、一時停止、解約条件を確認できます。", href: `${tenantRoot}/mypage/subscriptions` },
+  { title: "個人情報の扱い", body: "購入者情報の扱いを事前に確認できます。", href: `${tenantRoot}/privacy` },
+];
 const normalizedSearchNeedle = searchQuery.toLowerCase();
 const visibleProductCards = page === "products" && normalizedSearchNeedle
   ? publicProductCards.filter((item) => {
@@ -1146,6 +1176,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/login`}>ログインへ進む</a>
                 </div>
               </div>
+              <div class="grid gap-3 md:grid-cols-4" data-testid="storefront-account-command-center">
+                {accountActionCards.map((card) => (
+                  <a class="group rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={card.href}>
+                    <h3 class="text-sm font-bold text-neutral-950">{card.title}</h3>
+                    <p class="mt-2 min-h-12 text-xs leading-5 text-neutral-600">{card.body}</p>
+                    <span class="mt-3 inline-flex text-xs font-bold text-blue-700 group-hover:text-amber-700">{card.cta}</span>
+                  </a>
+                ))}
+              </div>
               <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {accountCards.map((card) => (
                   <a class="group rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={card.href}>
@@ -1167,12 +1206,13 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </div>
                 </section>
                 <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
-                  <h3 class="font-bold text-neutral-950">アカウント機能の状態</h3>
-                  <p class="mt-2">注文履歴、お気に入り、定期購入、問い合わせへすぐ進める購入者向けの入口です。</p>
+                  <h3 class="font-bold text-neutral-950">次に確認すること</h3>
+                  <p class="mt-2">注文、配送、返品、定期購入を見落とさないように、よく使う入口をまとめています。</p>
                   <div class="mt-4 grid gap-2">
                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/orders`}>注文履歴を見る</a>
                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/favorites`}>お気に入りを見る</a>
                     <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/mypage/subscriptions`}>定期購入を見る</a>
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/returns`}>返品条件を見る</a>
                   </div>
                   <a class="mt-4 inline-flex h-9 items-center rounded-md border border-amber-300 bg-white px-3 text-xs font-semibold" href={`${tenantRoot}/contact`}>問い合わせする</a>
                 </aside>
@@ -1199,6 +1239,38 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   </article>
                 ))}
               </div>
+              <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]" data-testid="storefront-order-action-panel">
+                <section class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+                  <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                    <div>
+                      <h3 class="text-lg font-bold text-neutral-950">注文を探す</h3>
+                      <p class="mt-1 text-sm leading-6 text-neutral-600">注文番号、メール、配送先名で確認しやすいように整理します。</p>
+                    </div>
+                    <a class="inline-flex h-9 items-center justify-center rounded-full border border-neutral-300 px-4 text-xs font-bold text-neutral-900 hover:border-amber-300" href={`${tenantRoot}/contact`}>注文番号を添えて相談</a>
+                  </div>
+                  <div class="mt-4 grid gap-3 md:grid-cols-3">
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">注文番号<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="#AIBOUX-1001" disabled /></label>
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">期間<select class="h-10 rounded-md border border-neutral-200 px-3 font-normal" disabled><option>過去3か月</option></select></label>
+                  </div>
+                </section>
+                <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
+                  <h3 class="font-bold text-neutral-950">注文後によく使う操作</h3>
+                  <div class="mt-3 grid gap-2">
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/shipping`}>配送条件を見る</a>
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/returns`}>返品条件を見る</a>
+                    <a class="rounded-md bg-white px-3 py-2 font-semibold text-neutral-900 hover:bg-amber-100" href={`${tenantRoot}/contact`}>ストアへ問い合わせ</a>
+                  </div>
+                </aside>
+              </div>
+              <div class="grid gap-3 md:grid-cols-4" data-testid="storefront-order-status-cards">
+                {orderStatusCards.map((card) => (
+                  <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={card.href}>
+                    <h3 class="text-sm font-bold text-neutral-950">{card.title}</h3>
+                    <p class="mt-2 text-xs leading-5 text-neutral-600">{card.body}</p>
+                  </a>
+                ))}
+              </div>
               <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-8 text-center">
                 <div class="text-base font-bold text-neutral-950">まだ注文はありません</div>
                 <p class="mt-2 text-sm leading-6 text-neutral-600">決済設定が完了し、注文が作成されると配送状況と問い合わせ導線がここに表示されます。</p>
@@ -1221,8 +1293,21 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           {page === "favorites" ? (
             <section class="grid gap-5" data-testid="storefront-favorites">
               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
-                <h2 class="text-2xl font-bold text-neutral-950">お気に入り</h2>
-                <p class="mt-2 text-sm leading-6 text-neutral-600">保存した商品を比較し、あとで購入するためのページです。ログイン保存が有効化されるまでは、人気商品をお気に入り候補として表示します。</p>
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <h2 class="text-2xl font-bold text-neutral-950">お気に入り</h2>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">保存した商品を比較し、価格、配送、返品条件を確認してからカートへ進めます。</p>
+                  </div>
+                  <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/cart`}>カートを見る</a>
+                </div>
+              </div>
+              <div class="grid gap-3 md:grid-cols-4" data-testid="storefront-favorite-assist-grid">
+                {favoriteAssistCards.map((card) => (
+                  <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={card.href}>
+                    <h3 class="text-sm font-bold text-neutral-950">{card.title}</h3>
+                    <p class="mt-2 text-xs leading-5 text-neutral-600">{card.body}</p>
+                  </a>
+                ))}
               </div>
               <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                 {buildRelatedSalesProducts(products, null).slice(0, 10).map((item, index) => (
@@ -1235,16 +1320,28 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           {page === "mypage/subscriptions" ? (
             <section class="grid gap-5" data-testid="storefront-mypage-subscriptions">
               <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
-                <h2 class="text-2xl font-bold text-neutral-950">定期購入</h2>
-                <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、スキップ、一時停止、解約条件を確認するページです。対象商品と受付条件をここから確認できます。</p>
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <h2 class="text-2xl font-bold text-neutral-950">定期購入</h2>
+                    <p class="mt-2 text-sm leading-6 text-neutral-600">次回配送、頻度、スキップ、一時停止、解約条件を確認し、対象商品の購入ボックスへ進めます。</p>
+                  </div>
+                  <a class="inline-flex h-10 items-center justify-center rounded-full bg-amber-400 px-5 text-sm font-bold text-neutral-950" href={`${tenantRoot}/products`}>対象商品を見る</a>
+                </div>
               </div>
-              <div class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
-                <div class="font-bold text-neutral-950">定期購入の受付条件</div>
-                <p class="mt-2">対象商品、配送頻度、スキップ、一時停止、解約条件を確認できます。受付開始後は購入ボックスから申込みへ進みます。</p>
-                <div class="mt-4 grid gap-3 md:grid-cols-3">
-                  <div class="rounded-lg bg-white p-3"><b>スキップ</b><br />契約作成後に次回配送をスキップできます。</div>
-                  <div class="rounded-lg bg-white p-3"><b>一時停止</b><br />契約状態がactiveの場合に停止できます。</div>
-                  <div class="rounded-lg bg-white p-3"><b>解約</b><br />最低継続回数などの条件を確認して解約します。</div>
+              <div class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900" data-testid="storefront-subscription-control-panel">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <div class="font-bold text-neutral-950">定期購入の操作ガイド</div>
+                    <p class="mt-2">配送頻度、次回配送、スキップ、解約条件を注文前に確認できるように整理しています。</p>
+                  </div>
+                  <a class="inline-flex h-9 items-center justify-center rounded-md border border-amber-300 bg-white px-3 text-xs font-bold text-neutral-900" href={`${tenantRoot}/contact`}>条件を相談する</a>
+                </div>
+                <div class="mt-4 grid gap-3 md:grid-cols-4">
+                  {subscriptionControlCards.map((card) => (
+                    <div class="rounded-lg bg-white p-3">
+                      <b>{card.title}</b><br />{card.body}
+                    </div>
+                  ))}
                 </div>
               </div>
               <section class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
@@ -1268,11 +1365,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   <p class="text-xs font-semibold text-blue-700">{page === "login" ? "ログイン" : "会員登録"}</p>
                   <h2 class="mt-1 text-2xl font-bold text-neutral-950">{page === "login" ? "アカウントへログイン" : "購入者アカウントを作成"}</h2>
                     <p class="mt-2 text-sm leading-6 text-neutral-600">注文履歴、お気に入り、定期購入の各入口を確認できます。</p>
-                  <div class="mt-5 grid gap-3">
-                    <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="email" placeholder="name@example.com" disabled /></label>
-                    <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" type="password" placeholder="パスワード" disabled /></label>
-                    <button class="h-10 w-fit rounded-md bg-neutral-400 px-4 text-sm font-bold text-white" type="button" disabled>{page === "login" ? "ログイン受付を確認" : "登録受付を確認"}</button>
-                  </div>
+                  <form class="mt-5 grid gap-3" data-auth-form novalidate>
+                    <label class="grid gap-1 text-sm font-medium">メールアドレス<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="email" type="email" autocomplete="email" placeholder="name@example.com" required /></label>
+                    <label class="grid gap-1 text-sm font-medium">パスワード<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="password" type="password" autocomplete={page === "login" ? "current-password" : "new-password"} placeholder="パスワード" required /></label>
+                    <div class="flex flex-wrap gap-2">
+                      <button class="h-10 rounded-md bg-neutral-950 px-4 text-sm font-bold text-white" type="submit">{page === "login" ? "入力内容を確認" : "登録内容を確認"}</button>
+                      <a class="inline-flex h-10 items-center rounded-md border border-neutral-300 px-4 text-sm font-bold text-neutral-900" href={`${tenantRoot}/privacy`}>個人情報の扱い</a>
+                    </div>
+                    <p data-auth-status class="hidden rounded-md border px-3 py-2 text-sm"></p>
+                  </form>
                 </div>
                 <aside class="rounded-xl border border-neutral-200 bg-white p-5 text-sm leading-6 text-neutral-700 shadow-sm">
                   <h3 class="font-bold text-neutral-950">アカウントでできること</h3>
@@ -1290,6 +1391,14 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-amber-300" href={card.href}>
                     <h3 class="text-sm font-bold text-neutral-950">{card.title}</h3>
                     <p class="mt-2 text-sm leading-6 text-neutral-600">{card.body}</p>
+                  </a>
+                ))}
+              </div>
+              <div class="mx-auto grid w-full max-w-5xl gap-3 md:grid-cols-4" data-testid="storefront-auth-assist-grid">
+                {authAssistCards.map((card) => (
+                  <a class="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md" href={card.href}>
+                    <h3 class="text-sm font-bold text-neutral-950">{card.title}</h3>
+                    <p class="mt-2 text-xs leading-5 text-neutral-600">{card.body}</p>
                   </a>
                 ))}
               </div>
@@ -1538,6 +1647,31 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           }
         });
       }
+
+      const authForms = document.querySelectorAll("[data-auth-form]");
+      authForms.forEach((authForm) => {
+        if (!(authForm instanceof HTMLFormElement)) return;
+        authForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const status = authForm.querySelector("[data-auth-status]");
+          const form = new FormData(authForm);
+          const email = String(form.get("email") || "").trim();
+          const password = String(form.get("password") || "").trim();
+          const errors = [];
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("正しいメールアドレスを入力してください。");
+          if (password.length < 8) errors.push("パスワードは8文字以上で入力してください。");
+          if (status instanceof HTMLElement) {
+            status.classList.remove("hidden", "border-emerald-200", "bg-emerald-50", "text-emerald-700", "border-red-200", "bg-red-50", "text-red-700", "border-amber-200", "bg-amber-50", "text-amber-800");
+            if (errors.length) {
+              status.classList.add("border-red-200", "bg-red-50", "text-red-700");
+              status.textContent = errors.join(" ");
+            } else {
+              status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
+              status.textContent = "入力内容を確認しました。注文履歴や問い合わせはマイページから確認できます。";
+            }
+          }
+        });
+      });
 
       renderCart();
       renderCheckout();

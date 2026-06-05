@@ -203,6 +203,32 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         if ("expectedTestId" in target && target.expectedTestId) {
           await expect(page.locator(`[data-testid="${target.expectedTestId}"]`), target.path).toBeVisible();
         }
+        if (["shop-mypage", "shop-account"].includes(target.name)) {
+          const commandCenter = page.getByTestId("storefront-account-command-center");
+          await expect(commandCenter, `${target.path} should expose account command center`).toBeVisible();
+          await expect(commandCenter, `${target.path} should link to orders, subscriptions, and contact`).toContainText(/注文を探す|定期購入|問い合わせ/);
+          expect(await commandCenter.locator("a").count(), `${target.path} command center should expose dense account links`).toBeGreaterThanOrEqual(4);
+        }
+        if (target.name === "shop-orders") {
+          await expect(page.getByTestId("storefront-order-action-panel"), `${target.path} should expose order lookup and support panel`).toBeVisible();
+          await expect(page.getByTestId("storefront-order-status-cards"), `${target.path} should expose order status action cards`).toBeVisible();
+          await expect(page.getByTestId("storefront-order-status-cards"), `${target.path} order status cards should include delivery and returns`).toContainText(/配送状況|返品・交換/);
+        }
+        if (target.name === "shop-favorites") {
+          const favoriteAssist = page.getByTestId("storefront-favorite-assist-grid");
+          await expect(favoriteAssist, `${target.path} should expose favorite comparison actions`).toBeVisible();
+          await expect(favoriteAssist, `${target.path} should include price, stock, cart, and policy actions`).toContainText(/価格を見る|在庫を確認|まとめて買う|条件を見る/);
+        }
+        if (target.name === "shop-mypage-subscriptions") {
+          const subscriptionPanel = page.getByTestId("storefront-subscription-control-panel");
+          await expect(subscriptionPanel, `${target.path} should expose subscription operation guide`).toBeVisible();
+          await expect(subscriptionPanel, `${target.path} should include delivery, frequency, skip, and cancellation guidance`).toContainText(/次回配送|頻度変更|スキップ|解約条件/);
+        }
+        if (["shop-login", "shop-register"].includes(target.name)) {
+          const authAssist = page.getByTestId("storefront-auth-assist-grid");
+          await expect(authAssist, `${target.path} should expose account assist links`).toBeVisible();
+          await expect(authAssist, `${target.path} should include account value routes`).toContainText(/注文を追跡|お気に入り保存|定期購入管理|個人情報の扱い/);
+        }
         if (target.name !== "shop-top") {
           const pageHeader = page.getByTestId("storefront-page-header");
           await expect(pageHeader, `${target.path} should include the shared page header`).toBeVisible();
@@ -393,6 +419,21 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
       const body = await linked.text();
       expect(body, pathname).not.toContain("ページが見つかりません");
       expect(body, pathname).not.toContain("Not Found");
+    }
+  });
+
+  test("login and register forms validate without fake account completion", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1000 });
+    for (const path of ["/s/aiboux/login", "/s/aiboux/register"]) {
+      await page.goto(`${path}?authCheck=${Date.now()}`, { waitUntil: "networkidle" });
+      await page.locator("[data-auth-form]").getByRole("button").first().click();
+      await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
+      await page.locator('[data-auth-form] input[name="email"]').fill("buyer@example.com");
+      await page.locator('[data-auth-form] input[name="password"]').fill("password123");
+      await page.locator("[data-auth-form]").getByRole("button").first().click();
+      await expect(page.getByText("入力内容を確認しました。")).toBeVisible();
+      await expect(page.locator("body")).not.toContainText("ログインしました");
+      await expect(page.locator("body")).not.toContainText("登録が完了しました");
     }
   });
 
