@@ -1,0 +1,19 @@
+timestamp=20260605T090347Z
+commit_status=0
+head_after=6c55af7ce8e846ab942b22e6ee80cafd2edf77ed
+commit_stdout:
+[main 6c55af7] WIP shop aiboux tenant deploy checkpoint 20260605T090347Z
+ 12 files changed, 649 insertions(+), 2 deletions(-)
+ create mode 100644 all_log/checkpoints/20260605T090347Z_head_before.txt
+ create mode 100644 all_log/checkpoints/20260605T090347Z_log_before.txt
+ create mode 100644 all_log/checkpoints/20260605T090347Z_origin_main_before.txt
+ create mode 100644 all_log/checkpoints/20260605T090347Z_status_before.txt
+ create mode 100644 all_log/deploys/20260605T090347Z_wrangler_cart_quantity_stepper_deploy.txt
+ create mode 100644 all_log/patches/20260605T090347Z_before_deploy.patch
+ create mode 100644 all_log/patches/20260605T090347Z_before_deploy_staged.patch
+ create mode 100644 test-results/shop-cart-checkout-public--7fb50-hows-honest-payment-blocker/error-context.md
+ create mode 100644 test-results/shop-cart-checkout-public--7fb50-hows-honest-payment-blocker/test-failed-1.png
+ create mode 100644 test-results/shop-cart-checkout-public--7fb50-hows-honest-payment-blocker/trace.zip
+ create mode 100644 test-results/shop-cart-checkout-public--7fb50-hows-honest-payment-blocker/video.webm
+
+commit_stderr:
