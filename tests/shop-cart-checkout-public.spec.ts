@@ -19,6 +19,25 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     mkdirSync(publicDir, { recursive: true });
   });
 
+  test("checkout empty state recovers shoppers to products, cart, and shipping without pretending payment is ready", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto(`/s/aiboux/checkout?emptyCheckoutGate=${Date.now()}`, { waitUntil: "networkidle" });
+    await page.evaluate(() => localStorage.removeItem("aiboux:shop:aiboux:cart"));
+    await page.reload({ waitUntil: "networkidle" });
+
+    const guide = page.getByTestId("storefront-checkout-empty-guide");
+    await expect(guide).toBeVisible();
+    await expect(guide).toContainText("カートに商品がありません");
+    await expect(guide).toContainText("配送・返品条件");
+    await expect(guide.getByRole("link", { name: "商品一覧へ戻る" })).toHaveAttribute("href", "/s/aiboux/products");
+    await expect(guide.getByRole("link", { name: "カートを確認" })).toHaveAttribute("href", "/s/aiboux/cart");
+    await expect(guide.getByRole("link", { name: "配送条件を見る" })).toHaveAttribute("href", "/s/aiboux/shipping");
+    await expect(page.getByText("注文が確定しました")).toHaveCount(0);
+    await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
+    await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+    await saveScreenshot(page, "shop-checkout-empty-guide.png");
+  });
+
   test("cart supports quantity, remove, and checkout shows honest payment blocker", async ({ page }) => {
     await page.setViewportSize({ width: 1365, height: 1200 });
     await page.goto("/s/aiboux/cart", { waitUntil: "networkidle" });
