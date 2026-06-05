@@ -153,7 +153,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
-        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("支払い方法の確認が必要な場合は注文前確認に切り替えます");
+        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("支払い方法の確認が必要な場合は、受付条件を分かりやすく表示します");
         const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
         await expect(footerLinkDirectory, `${target.path} should include shared footer link directory`).toBeVisible();
         await expect(footerLinkDirectory, `${target.path} footer link directory should expose ItemList microdata`).toHaveAttribute(
