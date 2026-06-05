@@ -1,0 +1,11 @@
+ M output/playwright/shop-storefront-interaction/shop-cart-add-result.png
+ M output/playwright/shop-storefront-interaction/shop-hero-after-next-1365.png
+ M output/playwright/shop-storefront-interaction/shop-hero-initial-1365.png
+ M output/playwright/shop-storefront-interaction/shop-product-card-click-result.png
+ M public/g/screens/shop-cart-add-result.png
+ M public/g/screens/shop-hero-after-next-1365.png
+ M public/g/screens/shop-hero-initial-1365.png
+ M public/g/screens/shop-product-card-click-result.png
+ M test-results/.last-run.json
+?? test-results/shop-storefront-interactio-aa686-next-prev-dots-and-autoplay/
+?? test-results/shop-storefront-interactio-ee4ba-to-cart-and-more-links-work/

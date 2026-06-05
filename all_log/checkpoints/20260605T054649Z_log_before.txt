@@ -1,0 +1,10 @@
+ece5930 WIP refocus shop top sales links
+fd6576e WIP record post deploy public verification 20260605T053955Z
+06e2517 WIP shop aiboux tenant deploy checkpoint 20260605T053705Z
+86cac6d WIP record public cart checkout crawl pass
+02e6757 WIP shop aiboux tenant deploy checkpoint 20260605T053016Z
+cb5c91f WIP record shop deploy public verification
+8610801 WIP shop aiboux tenant deploy checkpoint 20260605T052701Z
+2d49bc0 WIP checkpoint before shop deploy 20260605T052641Z
+7b5ed8b WIP record local preview block
+0b9e88f WIP add buyer form recovery links

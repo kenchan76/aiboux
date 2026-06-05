@@ -1,0 +1,39 @@
+diff --git a/output/playwright/shop-storefront-interaction/shop-cart-add-result.png b/output/playwright/shop-storefront-interaction/shop-cart-add-result.png
+index f817552..d691ea8 100644
+Binary files a/output/playwright/shop-storefront-interaction/shop-cart-add-result.png and b/output/playwright/shop-storefront-interaction/shop-cart-add-result.png differ
+diff --git a/output/playwright/shop-storefront-interaction/shop-hero-after-next-1365.png b/output/playwright/shop-storefront-interaction/shop-hero-after-next-1365.png
+index 4f51ef5..6ed5658 100644
+Binary files a/output/playwright/shop-storefront-interaction/shop-hero-after-next-1365.png and b/output/playwright/shop-storefront-interaction/shop-hero-after-next-1365.png differ
+diff --git a/output/playwright/shop-storefront-interaction/shop-hero-initial-1365.png b/output/playwright/shop-storefront-interaction/shop-hero-initial-1365.png
+index b27d4fb..33b0c35 100644
+Binary files a/output/playwright/shop-storefront-interaction/shop-hero-initial-1365.png and b/output/playwright/shop-storefront-interaction/shop-hero-initial-1365.png differ
+diff --git a/output/playwright/shop-storefront-interaction/shop-product-card-click-result.png b/output/playwright/shop-storefront-interaction/shop-product-card-click-result.png
+index 2b1b1d5..c0abe00 100644
+Binary files a/output/playwright/shop-storefront-interaction/shop-product-card-click-result.png and b/output/playwright/shop-storefront-interaction/shop-product-card-click-result.png differ
+diff --git a/public/g/screens/shop-cart-add-result.png b/public/g/screens/shop-cart-add-result.png
+index f817552..d691ea8 100644
+Binary files a/public/g/screens/shop-cart-add-result.png and b/public/g/screens/shop-cart-add-result.png differ
+diff --git a/public/g/screens/shop-hero-after-next-1365.png b/public/g/screens/shop-hero-after-next-1365.png
+index 4f51ef5..6ed5658 100644
+Binary files a/public/g/screens/shop-hero-after-next-1365.png and b/public/g/screens/shop-hero-after-next-1365.png differ
+diff --git a/public/g/screens/shop-hero-initial-1365.png b/public/g/screens/shop-hero-initial-1365.png
+index b27d4fb..33b0c35 100644
+Binary files a/public/g/screens/shop-hero-initial-1365.png and b/public/g/screens/shop-hero-initial-1365.png differ
+diff --git a/public/g/screens/shop-product-card-click-result.png b/public/g/screens/shop-product-card-click-result.png
+index 2b1b1d5..c0abe00 100644
+Binary files a/public/g/screens/shop-product-card-click-result.png and b/public/g/screens/shop-product-card-click-result.png differ
+diff --git a/test-results/.last-run.json b/test-results/.last-run.json
+index cbcc1fb..8e200ff 100644
+--- a/test-results/.last-run.json
++++ b/test-results/.last-run.json
+@@ -1,4 +1,7 @@
+ {
+-  "status": "passed",
+-  "failedTests": []
++  "status": "failed",
++  "failedTests": [
++    "fa85c36695a81223bf5e-b928b5a9d927aa91feed",
++    "fa85c36695a81223bf5e-1dd91ea30de1cec4dfa8"
++  ]
+ }
+\ No newline at end of file
