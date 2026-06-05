@@ -4,25 +4,13 @@ import type { StorefrontLayout } from "@/lib/shopStorefrontLayout";
 import {
   buildShopBreadcrumbSupportLinks,
   buildShopHeaderCategoryLinks,
-  buildShopPageActionMap,
-  buildShopPageBuyingGuide,
-  buildShopPageQualitySummary,
-  buildShopTrustMatrix,
   type ShopStorefrontContextLinkSection,
 } from "@/lib/shopStorefrontShared";
 import { cn } from "@/lib/utils";
 import { StorefrontBreadcrumb } from "./StorefrontBreadcrumb";
-import { StorefrontBuyingGuide } from "./StorefrontBuyingGuide";
-import { StorefrontCommerceFacts } from "./StorefrontCommerceFacts";
-import { StorefrontContextLinks } from "./StorefrontContextLinks";
 import { StorefrontFooter } from "./StorefrontFooter";
-import { StorefrontPageActionMap } from "./StorefrontPageActionMap";
-import { StorefrontPageQualitySummary } from "./StorefrontPageQualitySummary";
 import { StorefrontSearchForm } from "./StorefrontSearchForm";
-import { StorefrontSeoHub } from "./StorefrontSeoHub";
 import { StorefrontSkipLinks } from "./StorefrontSkipLinks";
-import { StorefrontSupportRail } from "./StorefrontSupportRail";
-import { StorefrontTrustMatrix } from "./StorefrontTrustMatrix";
 
 type StorefrontProduct = {
   id: string;
@@ -105,6 +93,7 @@ const curatedStorefrontProducts: StorefrontProduct[] = [
 ];
 
 export function ShadcnStorefront({ storeName, products, layout, contextualLinkSections }: ShadcnStorefrontProps) {
+  void contextualLinkSections;
   const tenantRoot = "/s/aiboux";
   const hero = layout.pages.top.heroSlider;
   const slides = normalizeHeroSlides(hero.slides.filter((slide) => slide.enabled));
@@ -114,10 +103,6 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const visualProducts = buildSalesReadyProducts(products);
   const rankingProducts = rotateProducts(visualProducts, 1);
   const saleProducts = rotateProducts(visualProducts, 3);
-  const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
-  const actionMap = buildShopPageActionMap("", tenantRoot);
-  const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
-  const trustMatrix = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true });
   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
   const columnClass = {
     3: "lg:grid-cols-3",
@@ -223,16 +208,6 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
           </section>
         ) : null}
 
-        <StorefrontCommerceFacts
-          className="mt-4"
-          tenantRoot={tenantRoot}
-          page=""
-          subscriptionSchemaPending
-        />
-        <StorefrontTrustMatrix trustMatrix={trustMatrix} />
-        <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
-        <StorefrontPageActionMap actionMap={actionMap} />
-
         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
         <CategorySection title={layout.pages.top.sections.categories.title} enabled={layout.pages.top.sections.categories.enabled} />
@@ -251,12 +226,6 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
         ) : null}
       </main>
 
-      <div className="mx-auto max-w-screen-xl px-4 pb-2">
-        <StorefrontBuyingGuide items={buyingGuideItems} pageLabel={`${storeName} TOPページ`} />
-        <StorefrontContextLinks sections={contextualLinkSections} />
-        <StorefrontSeoHub tenantRoot={tenantRoot} storeName={storeName} />
-        <StorefrontSupportRail tenantRoot={tenantRoot} />
-      </div>
       <StorefrontFooter storeName={storeName} tenantRoot={tenantRoot} />
       <StorefrontInteractionScript />
     </div>

@@ -64,54 +64,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(
         page.getByTestId("public-product-info").locator("dt", { hasText: /^返品条件$/ }),
       ).toBeVisible();
-      const commerceFacts = page.getByTestId("storefront-commerce-facts");
-      await expect(commerceFacts, "product detail should include shared merchant listing purchase facts").toBeVisible();
-      await expect(commerceFacts, "product detail purchase facts should include price/shipping/returns/payment context").toContainText("価格・配送・返品・決済");
-      await expect(commerceFacts, "product detail purchase facts should include the visible product price").toContainText("¥");
-      await expect(commerceFacts, "product detail purchase facts should expose SiteNavigationElement microdata").toHaveAttribute(
-        "itemtype",
-        "https://schema.org/SiteNavigationElement",
-      );
-      expect(await commerceFacts.locator("a").count(), "product detail purchase facts should expose crawlable internal links").toBeGreaterThanOrEqual(5);
-      const trustMatrix = page.getByTestId("storefront-trust-matrix");
-      await expect(trustMatrix, "product detail should include shared trust/proof matrix").toBeVisible();
-      await expect(trustMatrix, "product detail trust matrix should expose ItemList microdata").toHaveAttribute(
-        "itemtype",
-        "https://schema.org/ItemList",
-      );
-      await expect(trustMatrix, "product detail trust matrix should mention product-specific purchase trust").toContainText("購入前の信頼");
-      await expect(trustMatrix, "product detail trust matrix should reinforce seller/payment/returns/subscription context").toContainText(/販売者|決済|返品|定期購入|個人情報/);
-      await expect(trustMatrix.locator('meta[itemprop="numberOfItems"]'), "product detail trust matrix should declare numberOfItems").toHaveCount(1);
-      expect(await trustMatrix.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail trust matrix should expose ListItem microdata").toBeGreaterThanOrEqual(4);
-      expect(await trustMatrix.locator("a").count(), "product detail trust matrix should expose crawlable proof links").toBeGreaterThanOrEqual(4);
-      expect(await trustMatrix.locator("a").first().getAttribute("class"), "product detail trust matrix links should be visibly blue").toContain("text-blue-700");
-      const qualitySummary = page.getByTestId("storefront-page-quality-summary");
-      await expect(qualitySummary, "product detail should include shared page quality summary").toBeVisible();
-      await expect(qualitySummary, "product detail quality summary should identify page role").toContainText("商品詳細で確認できること");
-      await expect(qualitySummary, "product detail quality summary should explain customer-facing confirmation points").toContainText("確認できること");
-      await expect(qualitySummary, "product detail quality summary should not expose implementation terms").not.toContainText("Product/Offer");
-      expect(await qualitySummary.locator("a").count(), "product detail quality summary should expose crawlable links").toBeGreaterThanOrEqual(4);
-      expect(await qualitySummary.locator("a").first().getAttribute("class"), "product detail quality summary links should be visibly blue").toContain("text-blue-700");
-      const actionMap = page.getByTestId("storefront-page-action-map");
-      await expect(actionMap, "product detail should include shared page action map").toBeVisible();
-      await expect(actionMap, "product detail action map should expose ItemList microdata").toHaveAttribute(
-        "itemtype",
-        "https://schema.org/ItemList",
-      );
-      await expect(actionMap, "product detail action map should explain product purchase actions").toContainText("商品詳細で購入判断を完結する");
-      await expect(actionMap, "product detail action map should link to cart or shipping context").toContainText(/カート|配送条件/);
-      await expect(actionMap.locator('meta[itemprop="numberOfItems"]'), "product detail action map should declare numberOfItems").toHaveCount(1);
-      expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail action map should expose ListItem microdata").toBeGreaterThanOrEqual(3);
-      expect(await actionMap.locator("a").count(), "product detail action map should expose crawlable internal links").toBeGreaterThanOrEqual(3);
-      expect(await actionMap.locator("a").first().getAttribute("class"), "product detail action map links should be visibly blue").toContain("text-blue-700");
+      await expect(page.getByTestId("storefront-commerce-facts"), "product detail should not show purchase fact explanation panels above the product body").toHaveCount(0);
+      await expect(page.getByTestId("storefront-trust-matrix"), "product detail should not show trust/proof explanation panels around the buy box").toHaveCount(0);
+      await expect(page.getByTestId("storefront-page-quality-summary"), "product detail should not show page quality explanation panels to shoppers").toHaveCount(0);
+      await expect(page.getByTestId("storefront-page-action-map"), "product detail should not show next-action explanation panels to shoppers").toHaveCount(0);
+      await expect(page.locator("body"), "product detail should not expose internal page-guide copy").not.toContainText("商品詳細で確認できること");
+      await expect(page.locator("body"), "product detail should not expose internal next-action copy").not.toContainText("次にできること");
       await expect(page.getByTestId("storefront-seo-checklist"), "product detail should not show SEO checklist to shoppers").toHaveCount(0);
       await expect(page.getByTestId("storefront-seo-sitemap-panel"), "product detail should not show technical SEO sitemap panel to shoppers").toHaveCount(0);
-      const buyingGuide = page.getByTestId("storefront-buying-guide");
-      await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
-      await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");
-      await expect(buyingGuide, "product detail buying guide should use customer-facing copy").not.toContainText("可視H1を1つ");
-      expect(await buyingGuide.locator("a").count(), "product detail buying guide should expose crawlable links").toBeGreaterThanOrEqual(4);
-      expect(await buyingGuide.locator("a").first().getAttribute("class"), "product detail buying guide links should be visibly blue").toContain("text-blue-700");
+      await expect(page.getByTestId("storefront-buying-guide"), "product detail should not show separate buying-guide explanation panels").toHaveCount(0);
       const footer = page.getByTestId("storefront-footer");
       await expect(footer, "product detail should include shared storefront footer").toBeVisible();
       const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");

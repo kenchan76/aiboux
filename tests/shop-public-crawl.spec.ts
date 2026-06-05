@@ -141,83 +141,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(await footerLinkDirectory.locator("a").count(), `${target.path} footer link directory should expose dense internal links`).toBeGreaterThanOrEqual(20);
         expect(await footerLinkDirectory.locator("a").first().getAttribute("class"), `${target.path} footer link directory links should be visibly blue or sky colored`).toContain("text-sky-200");
         await expect(footerLinkDirectory, `${target.path} footer link directory should include account, purchase, and policy routes`).toContainText(/商品一覧|注文履歴|特定商取引法|定期購入/);
-        const supportRail = page.getByTestId("storefront-support-rail");
-        await expect(supportRail, `${target.path} should include shared storefront support rail`).toBeVisible();
-        await expect(supportRail, `${target.path} support rail should expose purchase guidance`).toContainText("迷わず買えるための確認導線");
-        await expect(supportRail, `${target.path} support rail should expose honest subscription state`).toContainText("定期購入");
-        expect(await supportRail.locator("a").count(), `${target.path} support rail should expose crawlable support links`).toBeGreaterThanOrEqual(9);
-        expect(await supportRail.locator("a").first().getAttribute("class"), `${target.path} support rail links should have visible link affordance`).toMatch(/text-|bg-amber/);
-        const commerceFacts = page.getByTestId("storefront-commerce-facts");
-        await expect(commerceFacts, `${target.path} should include shared purchase fact structure`).toBeVisible();
-        await expect(commerceFacts, `${target.path} purchase facts should expose price/shipping/return/payment information`).toContainText("価格・配送・返品・決済");
-        await expect(commerceFacts, `${target.path} purchase facts should expose honest subscription state`).toContainText("定期購入");
-        await expect(commerceFacts, `${target.path} purchase facts should expose SiteNavigationElement microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/SiteNavigationElement",
-        );
-        expect(await commerceFacts.locator("a").count(), `${target.path} purchase facts should have crawlable internal links`).toBeGreaterThanOrEqual(5);
-        expect(await commerceFacts.locator("a").first().getAttribute("class"), `${target.path} purchase fact links should be visibly styled`).toMatch(/border-|bg-/);
-        const trustMatrix = page.getByTestId("storefront-trust-matrix");
-        await expect(trustMatrix, `${target.path} should include shared trust/proof matrix`).toBeVisible();
-        await expect(trustMatrix, `${target.path} trust matrix should expose ItemList microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/ItemList",
-        );
-        await expect(trustMatrix, `${target.path} trust matrix should name purchase confidence context`).toContainText("購入前の信頼");
-        await expect(trustMatrix, `${target.path} trust matrix should mention payment or subscription honesty`).toContainText(/決済|定期購入/);
-        await expect(trustMatrix.locator('meta[itemprop="numberOfItems"]'), `${target.path} trust matrix should declare numberOfItems`).toHaveCount(1);
-        expect(await trustMatrix.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} trust matrix should expose visible ListItem microdata`).toBeGreaterThanOrEqual(4);
-        expect(await trustMatrix.locator("a").count(), `${target.path} trust matrix should expose crawlable proof links`).toBeGreaterThanOrEqual(4);
-        expect(await trustMatrix.locator("a").first().getAttribute("class"), `${target.path} trust matrix links should be visibly blue and underlined`).toContain("text-blue-700");
-        const qualitySummary = page.getByTestId("storefront-page-quality-summary");
-        await expect(qualitySummary, `${target.path} should include shared page quality summary`).toBeVisible();
-        await expect(qualitySummary, `${target.path} quality summary should explain page purpose`).toContainText("探せること");
-        await expect(qualitySummary, `${target.path} quality summary should explain customer-facing confirmation points`).toContainText("確認できること");
-        await expect(qualitySummary, `${target.path} quality summary should explain next action`).toContainText("次の操作");
-        await expect(qualitySummary, `${target.path} quality summary should expose SiteNavigationElement microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/SiteNavigationElement",
-        );
-        expect(await qualitySummary.locator("a").count(), `${target.path} quality summary should expose crawlable links`).toBeGreaterThanOrEqual(4);
-        expect(await qualitySummary.locator("a").first().getAttribute("class"), `${target.path} quality summary links should be visibly blue`).toContain("text-blue-700");
-        const actionMap = page.getByTestId("storefront-page-action-map");
-        await expect(actionMap, `${target.path} should include shared page action map`).toBeVisible();
-        await expect(actionMap, `${target.path} action map should expose ItemList microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/ItemList",
-        );
-        await expect(actionMap, `${target.path} action map should name next actions`).toContainText("次にできること");
-        await expect(actionMap, `${target.path} action map should expose page-specific action links`).toContainText(/商品|購入|配送|問い合わせ|注文|定期購入/);
-        await expect(actionMap.locator('meta[itemprop="numberOfItems"]'), `${target.path} action map should declare numberOfItems`).toHaveCount(1);
-        expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} action map should expose visible ListItem microdata`).toBeGreaterThanOrEqual(3);
-        expect(await actionMap.locator("a").count(), `${target.path} action map should expose crawlable internal links`).toBeGreaterThanOrEqual(3);
-        expect(await actionMap.locator("a").first().getAttribute("class"), `${target.path} action map links should be visibly blue`).toContain("text-blue-700");
+        await expect(page.getByTestId("storefront-support-rail"), `${target.path} should not show a separate support explanation rail in the shopper flow`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-commerce-facts"), `${target.path} should not show purchase fact explanation panels before the main task`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-trust-matrix"), `${target.path} should not show trust/proof explanation matrix as visible retail content`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-page-quality-summary"), `${target.path} should not show page quality explanations to shoppers`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-page-action-map"), `${target.path} should not show next-action explanation panels to shoppers`).toHaveCount(0);
+        await expect(page.locator("body"), `${target.path} should not expose internal page-guide copy`).not.toContainText("探せること");
+        await expect(page.locator("body"), `${target.path} should not expose internal next-action copy`).not.toContainText("次にできること");
         await expect(page.getByTestId("storefront-seo-checklist"), `${target.path} should not show SEO checklist to shoppers`).toHaveCount(0);
         await expect(page.getByTestId("storefront-seo-sitemap-panel"), `${target.path} should not show technical SEO sitemap panel to shoppers`).toHaveCount(0);
-        const buyingGuide = page.getByTestId("storefront-buying-guide");
-        await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
-        await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");
-        await expect(buyingGuide, `${target.path} buying guide should expose pricing/shipping/payment context`).toContainText(/価格|配送|返品|決済|定期購入/);
-        await expect(buyingGuide, `${target.path} buying guide should expose SiteNavigationElement microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/SiteNavigationElement",
-        );
-        expect(await buyingGuide.locator("a").count(), `${target.path} buying guide should expose crawlable internal links`).toBeGreaterThanOrEqual(4);
-        expect(await buyingGuide.locator("a").first().getAttribute("class"), `${target.path} buying guide links should use visible blue link affordance`).toContain("text-blue-700");
-        const contextLinks = page.getByTestId("storefront-context-links");
-        await expect(contextLinks, `${target.path} should include page-context internal links`).toBeVisible();
-        await expect(contextLinks, `${target.path} contextual links should explain next actions`).toContainText("このページから次に確認すること");
-        expect(await contextLinks.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} contextual links should expose visible SiteNavigationElement microdata`).toBeGreaterThanOrEqual(1);
-        expect(await contextLinks.locator("a").count(), `${target.path} contextual links should expose dense internal links`).toBeGreaterThanOrEqual(16);
-        expect(await contextLinks.locator("a").first().getAttribute("class"), `${target.path} contextual links should use visible blue link affordance`).toContain("text-blue-700");
-        const seoHub = page.getByTestId("storefront-seo-hub");
-        await expect(seoHub, `${target.path} should include shared SEO hub`).toBeVisible();
-        await expect(seoHub, `${target.path} SEO hub should explain internal navigation`).toContainText("迷わず探す");
-        await expect(seoHub, `${target.path} SEO hub should expose product discovery`).toContainText("商品一覧へ");
-        await expect(seoHub, `${target.path} SEO hub should expose support/account links`).toContainText("定期購入の状態を見る");
-        expect(await seoHub.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} SEO hub should expose visible SiteNavigationElement microdata`).toBeGreaterThanOrEqual(1);
-        expect(await seoHub.locator("a").count(), `${target.path} SEO hub should expose dense crawlable links`).toBeGreaterThanOrEqual(14);
-        expect(await seoHub.locator("a").nth(1).getAttribute("class"), `${target.path} SEO hub links should be visibly link-colored`).toContain("text-blue-700");
+        await expect(page.getByTestId("storefront-buying-guide"), `${target.path} should not show separate buying-guide explanation panels`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-context-links"), `${target.path} should not show separate context-link explanation panels`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-seo-hub"), `${target.path} should not show SEO hub panels to shoppers`).toHaveCount(0);
         const breadcrumb = page.getByTestId("storefront-breadcrumb");
         await expect(breadcrumb, `${target.path} should include visible breadcrumb navigation`).toBeVisible();
         await expect(breadcrumb, `${target.path} breadcrumb should expose BreadcrumbList microdata`).toHaveAttribute(
