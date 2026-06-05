@@ -1,0 +1,38 @@
+# AIBOUX /g Normalized SHA Verification
+
+Status: `PASS`
+
+Verification Time: `2026-06-05T12:01:26.924Z`
+
+Worker Version ID: `1570d227-ff81-4eac-a086-34a50b449c31`
+
+## Rule
+
+Runtime Worker Version ID置換がある場合、raw sha256不一致だけで合格にしない。
+`/g/m68`、`/g/l68`、`/g/d68` は次の5項目を必ず記録する。
+
+1. local raw sha256
+2. public raw sha256
+3. Worker Version IDを `__WORKER_VERSION_ID__` に正規化したlocal normalized sha256
+4. Worker Version IDを `__WORKER_VERSION_ID__` に正規化したpublic normalized sha256
+5. normalized sha256が一致するか
+
+normalized sha256が一致しない場合は、公開ログ不一致としてFAIL。
+
+## Results
+
+| Target | Runtime Worker Version ID | HTTP | Content-Type | Local Raw SHA256 | Public Raw SHA256 | Local Normalized SHA256 | Public Normalized SHA256 | Normalized Match |
+| --- | --- | ---: | --- | --- | --- | --- | --- | --- |
+| /g/m68 | 1570d227-ff81-4eac-a086-34a50b449c31 | 200 | text/markdown; charset=utf-8 | e399bfba520effecae8f310c8d94ac6d34c7cf35a5c9582c7f189de2436abf74 | 91e31fab4922c7027ccc8cf6ea81236a5da32428a837099b9244cd166d7e6365 | e399bfba520effecae8f310c8d94ac6d34c7cf35a5c9582c7f189de2436abf74 | e399bfba520effecae8f310c8d94ac6d34c7cf35a5c9582c7f189de2436abf74 | PASS |
+| /g/l68 | 1570d227-ff81-4eac-a086-34a50b449c31 | 200 | text/markdown; charset=utf-8 | 5bcaa244fd9df09a32ac927166b636e93a7f36b0c3a94544c01b31f630269679 | 43305671c6b9a5b3a34f51a2bbb1b1bbcc5c00fa75ea7f9a0d7a658ed8abce37 | 5bcaa244fd9df09a32ac927166b636e93a7f36b0c3a94544c01b31f630269679 | 5bcaa244fd9df09a32ac927166b636e93a7f36b0c3a94544c01b31f630269679 | PASS |
+| /g/d68 | none | 200 | text/markdown; charset=utf-8 | 9ea68abe368b47c2e47caf2c99326c544273685122c18b53dd010fc7fb330260 | 9ea68abe368b47c2e47caf2c99326c544273685122c18b53dd010fc7fb330260 | 9ea68abe368b47c2e47caf2c99326c544273685122c18b53dd010fc7fb330260 | 9ea68abe368b47c2e47caf2c99326c544273685122c18b53dd010fc7fb330260 | PASS |
+
+## Verdict
+
+Normalized sha256一致。runtime Worker Version ID置換を除き、local/public本文は一致している。
+
+## Notes
+
+- このURLは現在のWorkerで動的生成する正規化SHA証跡である。
+- ストアフロントUI変更の証跡ではない。
+- `FINAL_ACCEPTED` は主張しない。
