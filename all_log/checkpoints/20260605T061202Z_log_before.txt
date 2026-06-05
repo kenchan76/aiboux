@@ -1,0 +1,10 @@
+5cc2977 WIP record shop footer cleanup public verification
+090a2be WIP shop aiboux tenant deploy checkpoint 20260605T060539Z
+e62af0a WIP remove shop footer explanatory copy
+8c6f2e4 WIP shop aiboux tenant deploy checkpoint 20260605T055958Z
+a90f94c WIP fix shop product slug detail consistency
+e1ca02a WIP record public log publish verification 20260605T055354Z
+79d06a0 WIP shop aiboux tenant deploy checkpoint 20260605T055158Z
+f96bf00 WIP record top sales link public verification 20260605T055200Z
+0a1c8e1 WIP shop aiboux tenant deploy checkpoint 20260605T054649Z
+ece5930 WIP refocus shop top sales links
