@@ -155,8 +155,15 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => onSelectProduct?.(product)}>編集</DropdownMenuItem>
-                      <DropdownMenuItem disabled>複製</DropdownMenuItem>
-                      <DropdownMenuItem disabled>販売状態は編集画面で変更</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          window.history.pushState({ section: "product-new", duplicateFrom: product.id }, "", `/s/aiboux/admin/products/new?duplicate=${encodeURIComponent(product.id)}`);
+                          window.dispatchEvent(new PopStateEvent("popstate", { state: { section: "product-new", duplicateFrom: product.id } }));
+                        }}
+                      >
+                        複製して編集
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onSelectProduct?.(product)}>販売状態を編集</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

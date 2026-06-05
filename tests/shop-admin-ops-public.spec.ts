@@ -97,6 +97,36 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.locator("body")).not.toContainText("CSV書き出しAPI接続後");
   });
 
+  test("admin product row menu exposes real edit and duplicate actions", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/products", { waitUntil: "networkidle" });
+
+    await page.getByRole("button", { name: "商品操作" }).first().click();
+    await expect(page.getByRole("menuitem", { name: "編集" })).toBeVisible();
+    await expect(page.getByRole("menuitem", { name: "複製して編集" })).toBeVisible();
+    await expect(page.getByRole("menuitem", { name: "販売状態を編集" })).toBeVisible();
+    await expect(page.getByRole("menuitem", { name: "複製" })).toHaveCount(0);
+    await expect(page.getByRole("menuitem", { name: "販売状態は編集画面で変更" })).toHaveCount(0);
+  });
+
+  test("admin customer row menu opens detail, segment, and memo actions", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/customers", { waitUntil: "networkidle" });
+
+    await page.getByRole("button", { name: /の操作/ }).first().click();
+    await page.getByRole("menuitem", { name: "詳細を開く" }).click();
+    await expect(page.locator('[data-testid="admin-customer-detail-panel"]')).toBeVisible();
+
+    await page.getByRole("button", { name: /の操作/ }).first().click();
+    await page.getByRole("menuitem", { name: "セグメントへ追加" }).click();
+    await expect(page.getByText("確認対象").first()).toBeVisible();
+
+    await page.getByRole("button", { name: /の操作/ }).first().click();
+    await page.getByRole("menuitem", { name: "メモを編集" }).click();
+    await expect(page.getByLabel(/のメモ/).first()).toBeVisible();
+    await expect(page.getByRole("button", { name: "保存" }).first()).toBeEnabled();
+  });
+
   test("design editor remains a focused two-page editor", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/design", { waitUntil: "networkidle" });
