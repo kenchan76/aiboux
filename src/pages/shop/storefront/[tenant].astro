@@ -20,10 +20,6 @@ import {
   buildShopFooterColumns,
   buildShopFooterSeoSitemapLinks,
   buildShopHeaderCategoryLinks,
-  buildShopPageActionMap,
-  buildShopPageBuyingGuide,
-  buildShopPageQualitySummary,
-  buildShopTrustMatrix,
 } from "@/lib/shopStorefrontShared";
 import "@/styles/global.css";
 
@@ -70,11 +66,14 @@ const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections("", tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
 const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
-const actionMap = buildShopPageActionMap("", tenantRoot);
-const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
-const buyingGuideLinks = buildShopPageBuyingGuide("", tenantRoot).map((item) => ({ label: item.label, href: item.href }));
-const pageQualityLinks = buildShopPageQualitySummary("", tenantRoot).signals.map((item) => ({ label: item.label, href: item.href }));
-const trustMatrixLinks = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true }).signals.map((item) => ({ label: item.label, href: item.href }));
+const storefrontSalesLinks = [
+  { label: "商品一覧", href: `${tenantRoot}/products` },
+  { label: "カテゴリ", href: `${tenantRoot}/categories` },
+  { label: "カート", href: `${tenantRoot}/cart` },
+  { label: "配送について", href: `${tenantRoot}/shipping` },
+  { label: "返品について", href: `${tenantRoot}/returns` },
+  { label: "問い合わせ", href: `${tenantRoot}/contact` },
+];
 const structuredData = JSON.stringify(buildShopStructuredDataGraph([
   buildShopBreadcrumbJsonLd(breadcrumbItems),
   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
@@ -109,10 +108,7 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
     links: [
       ...headerCategoryLinks,
       ...breadcrumbSupportLinks,
-      ...pageQualityLinks,
-      ...actionMapLinks,
-      ...trustMatrixLinks,
-      ...buyingGuideLinks,
+      ...storefrontSalesLinks,
       ...contextualLinks,
       ...footerColumns.flatMap((column) => column.links),
       ...footerSeoSitemapLinks,
