@@ -1,0 +1,10 @@
+5887dd8 WIP add product purchase support links
+60a1cb9 WIP record buyer form recovery evidence deploy
+32aebd8 WIP publish buyer form recovery links evidence
+e4bb735 WIP shop aiboux tenant deploy checkpoint 20260605T091407Z
+e2ce574 WIP add buyer form recovery links
+c436ea5 WIP record cart quantity evidence deploy
+bffc627 WIP publish cart quantity stepper evidence
+6c55af7 WIP shop aiboux tenant deploy checkpoint 20260605T090347Z
+41f465e WIP improve cart quantity stepper
+8a414e1 WIP record checkout stepper public evidence
