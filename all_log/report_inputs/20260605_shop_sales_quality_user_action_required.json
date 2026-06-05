@@ -1,0 +1,32 @@
+{
+  "title": "AIBOUX Shop Sales Quality Sprint Status",
+  "status": "USER_ACTION_REQUIRED",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "WIP commit eefd500: 定期購入規約チェックを購入者が操作できる確認項目へ変更しました。",
+    "WIP commit 071b98f: checkout配送先・連絡先と注文履歴検索をdisabled表示から入力確認フォームへ変更しました。",
+    "WIP commit bb72b9b: 商品詳細のレビューリンクに実体のあるpublic-product-reviewsセクションを追加しました。",
+    "古い可視SEO action-map前提のテスト期待を、商品一覧、カート、問い合わせなど販売リンクの検証へ寄せました。",
+    "公開画面にSEO説明パネルを増やす作業は止め、販売画面の購入導線だけを修正しています。"
+  ],
+  "verification": [
+    "npm run check:control-chars: PASS",
+    "npm run check:mojibake: PASS",
+    "npm run astro -- check: PASS with 0 errors",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS",
+    "public shopper source scan for internal wording: PASS",
+    "npx wrangler whoami: not authenticated"
+  ],
+  "notes": [
+    "WIP deployは未実行です。CLOUDFLARE_API_TOKENが空でWranglerが未認証のため、Worker Version IDと公開/g反映は更新できていません。",
+    "現在の/g URLsは正本Bundleですが、このローカルWIPの最新内容はまだ公開反映されていません。",
+    "Subscription remote D1 migration remains D1_PERMISSION_BLOCKED_NOT_FINAL.",
+    "FINAL_ACCEPTEDは禁止です。"
+  ],
+  "bark": {
+    "notification": "not sent",
+    "reason": "Cycle途中であり、Bark乱発禁止方針のため送信していません。"
+  }
+}
