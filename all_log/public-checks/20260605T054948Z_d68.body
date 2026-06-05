@@ -1,0 +1,97 @@
+# AIBOUX Shop Current Screen Evidence
+
+## Current Status
+
+`WIP_DEPLOYED_NOT_FINAL`
+
+This is not `FINAL_ACCEPTED`.
+
+## Current Visual Focus
+
+`TOP_HERO_CAROUSEL_SMOOTHNESS`
+
+## Local UI Change Summary
+
+- TOPカテゴリカードがカテゴリ別売り場へ直接遷移するようになりました。
+- 売れ筋ランキングとタイムセールの「もっと見る」は、商品一覧ではなく該当売り場へ移動します。
+- おすすめ商品件数バッジは公開TOPの実表示カード件数に揃えました。
+- フッターの内部実装名はSEO sitemapではなくshopping directoryへ寄せ、購入者向けリンク集として維持します。
+- Admin collection and discount controls were changed from inert placeholder actions into clickable local operations and tenant links.
+- Payment setup status wording now avoids unnecessary internal connection wording.
+- App integration badges now use `受付前` instead of `未接続`.
+- Checkout empty state now exposes a buyer recovery panel with links to products, cart, and shipping.
+- Checkout empty-state recovery now has Playwright coverage for the product listing, cart, and shipping links, plus no fake order/payment success state.
+- Order lookup and auth forms now expose next-action links after valid input without claiming account/order completion.
+- The storefront TOP hero carousel now waits for the real CSS `transitionend` event before finalizing slide state.
+- A timeout fallback remains to avoid stuck transitions.
+- Hero image URLs are preloaded before interaction.
+- The track uses GPU-friendly rendering hints.
+- CSS and JavaScript transition timing are aligned at `560ms` with `cubic-bezier(0.22, 1, 0.36, 1)`.
+
+## Required Public Screens After Deploy
+
+- TOP desktop: `/g/screens/shop-top-1365.png`
+- TOP wide: `/g/screens/shop-top-1980.png`
+- TOP mobile: `/g/screens/shop-top-mobile.png`
+- Hero before click: `/g/screens/shop-hero-before-click-1365.png`
+- Hero during animation: `/g/screens/shop-hero-during-animation-1365.png`
+- Hero after next: `/g/screens/shop-hero-after-next-1365.png`
+- Hero after dot: `/g/screens/shop-hero-after-dot-1365.png`
+- Product detail wide: `/g/screens/shop-product-detail-1980.png`
+- Cart: `/g/screens/shop-cart-page-1980.png`
+- Checkout: `/g/screens/shop-checkout-page-1980.png`
+- Admin design: `/g/screens/shop-admin-design.png`
+
+## Current Visual Verdict
+
+`TOP_SALES_LINK_REFOCUS_WIP`
+
+The local code now targets TOP sales-link accuracy: category cards, ranking, sale links, and visible product-count consistency. This is still not `FINAL_ACCEPTED`.
+
+## Local Verification
+
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with 0 errors.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `tests/shop-cart-checkout-public.spec.ts`: checkout empty guide assertions added locally.
+- `tests/shop-public-crawl.spec.ts`: order lookup and auth next-action link assertions added locally.
+- `tests/shop-storefront-interaction-public.spec.ts`: TOP category, ranking, and sale link assertions strengthened locally.
+
+## Public Recheck Must Confirm
+
+- TOP category card `コーヒー・お茶` links to `/s/aiboux/products?category=coffee-tea`.
+- TOP category card `キッチン用品` links to `/s/aiboux/products?category=kitchen`.
+- Ranking `もっと見る` links to `/s/aiboux/products?category=ranking`.
+- Time sale `もっと見る` links to `/s/aiboux/products?category=sale`.
+- Hero next click changes the main slide.
+- Hero prev click changes the main slide.
+- Dot click changes the main slide.
+- Autoplay advances the slide.
+- Side previews update with the main slide.
+- Transform transition is detected during animation.
+- Product cards remain aligned and buyer-facing.
+- No visible SEO/explanation panels are present on shopper pages.
+
+## Blocked
+
+- Local `astro preview` did not start because the Cloudflare remote proxy attempted to launch `xdg-open`, which is unavailable in this shell.
+- Public Playwright screenshots are still pending after the WIP deployment.
+
+## Deployment Evidence
+
+- Worker Version ID: `f211898d-ad37-4079-8b85-d27cd1482a92`.
+- Public `/g/l68`: HTTP 200 / markdown / sha256 matched local source in the first public check.
+- Public `/g/d68`: HTTP 200 / markdown / sha256 matched local source in the first public check.
+- Public `https://shop.aiboux.com/s/aiboux/`: HTTP 200 in curl check.
+- Public `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200 in curl check.
+
+## Public Playwright Evidence
+
+- `gate:shop-cart-checkout`: PASS, 3 tests.
+- `gate:shop-public-crawl`: PASS, 11 tests.
+- Checkout empty-state evidence: `/g/screens/shop-checkout-empty-guide.png`.
+- Cart evidence: `/g/screens/shop-cart-page.png`.
+- Checkout payment-state evidence: `/g/screens/shop-checkout-page.png`.
+- Buy-now checkout evidence: `/g/screens/shop-checkout-buy-now-result.png`.
+- Full page crawl screenshots include TOP, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, orders, favorites, login, register, admin design, and admin subscriptions.
