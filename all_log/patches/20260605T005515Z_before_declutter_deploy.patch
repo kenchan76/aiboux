@@ -1,0 +1,16 @@
+diff --git a/test-results/.last-run.json b/test-results/.last-run.json
+index cbcc1fb..3956b1b 100644
+--- a/test-results/.last-run.json
++++ b/test-results/.last-run.json
+@@ -1,4 +1,8 @@
+ {
+-  "status": "passed",
+-  "failedTests": []
++  "status": "failed",
++  "failedTests": [
++    "698e549c8b6518798afb-171d07a876c2f7f6fd6c",
++    "698e549c8b6518798afb-18f37e5ef799f4a86eff",
++    "698e549c8b6518798afb-4c94b4da8182fadfcb56"
++  ]
+ }
+\ No newline at end of file

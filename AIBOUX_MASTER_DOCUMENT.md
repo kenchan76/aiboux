@@ -5691,3 +5691,25 @@ Not final:
 - Remote D1 subscription migration remains unapplied.
 - Provider-backed recurring billing remains unverified.
 - FINAL_ACCEPTED remains prohibited.
+## 2026-06-05 Current Active Operating Override: Shop Visible Explanation Panels
+
+Status: WIP_DEPLOYED_NOT_FINAL
+
+For AIBOUX Shop public shopper pages, visible SEO/explanation panels must not interrupt the retail flow.
+
+Confirmed current rule:
+
+- Keep SEO through metadata, canonical URLs, robots rules, JSON-LD, breadcrumbs, search forms, stable category URLs, product cards, and footer/internal navigation.
+- Do not show separate shopper-facing panels whose main purpose is to explain SEO, page quality, proof matrices, next actions, crawl hubs, or support rails.
+- TOP page should prioritize header, hero, products, ranking, sale, categories, brands, and footer.
+- Product detail should prioritize breadcrumb, product gallery, product title, price, purchase box, description, specs, related products, and footer.
+- Customer-support and legal information belongs in the relevant common pages and footer links, not as repeated explanatory blocks on every page.
+
+Current WIP evidence:
+
+- WIP commit: `3b537c1189264aa3e15b1ec2688470180b72ec3a`
+- Worker Version ID: `c7c9e23b-fa2e-4b29-adfc-dfd83b92be82`
+- Log URL: `https://mail.aiboux.com/g/l68`
+- Screen URL: `https://mail.aiboux.com/g/d68`
+
+This does not mark Shop FINAL_ACCEPTED.

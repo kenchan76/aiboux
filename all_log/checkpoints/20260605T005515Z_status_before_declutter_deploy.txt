@@ -1,0 +1,7 @@
+ M test-results/.last-run.json
+?? all_log/checkpoints/20260605T005515Z_status_before_declutter_deploy.txt
+?? test-results/shop-contact-legal-public--51088-ot-fake-successful-delivery/
+?? test-results/shop-contact-legal-public--59639-ges-render-shared-templates/
+?? test-results/shop-product-detail-public-2b0a3-hase-ready-layout-at-1980px/
+?? test-results/shop-product-detail-public-72d09-chase-ready-layout-at-390px/
+?? test-results/shop-product-detail-public-80ff3-hase-ready-layout-at-1365px/
