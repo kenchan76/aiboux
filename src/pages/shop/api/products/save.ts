@@ -40,6 +40,7 @@ type SaveProductBody = {
   publishState?: unknown;
   shopName?: unknown;
   actorId?: unknown;
+  notifyAdmin?: unknown;
   subscriptionPlans?: unknown;
 };
 
@@ -73,6 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     const imageR2Keys = normalizeStringArray(body.imageR2Keys);
     const aiAltTexts = normalizeStringArray(body.aiAltTexts);
     const actorId = textValue(body.actorId, "actorId", { maxLength: 120 }) || null;
+    const shouldNotifyAdmin = booleanValue(body.notifyAdmin, false);
     const now = Date.now();
     const coreProductId = await upsertCoreProduct({
       tenantId: tenant.tenantId,
@@ -185,7 +187,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const notification =
-      publishState === "published"
+      publishState === "published" && shouldNotifyAdmin
         ? await sendShopAdminNotification(env, {
             subject: "【AIBOUX Shop】商品が公開されました",
             text: [
@@ -200,7 +202,7 @@ export const POST: APIRoute = async ({ request }) => {
             ].join("\n"),
             tenantId: tenant.tenantId,
           })
-        : { attempted: false, ok: false, error: "Notification is sent only when publishState is published." };
+        : { attempted: false, ok: false, error: "管理通知は送信せず、商品保存結果だけを確認しました。" };
     const feedSyncJobId = `feed_${crypto.randomUUID()}`;
     const feedSyncMessage = {
       type: "shop.product.feed_sync.requested" as const,
