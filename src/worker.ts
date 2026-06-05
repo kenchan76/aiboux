@@ -20,8 +20,13 @@ const PERSISTENT_SHORTLINK_ASSETS: Record<string, string> = {
   '/g/m68': '/g/m68.md',
   '/g/l68': '/g/l68.md',
   '/g/d68': '/g/d68.md',
-  '/g/sha68': '/g/sha68.md',
 };
+
+const NORMALIZED_SHA_TARGETS = [
+  { id: 'm68', assetPath: '/g/m68.md', publicPath: '/g/m68' },
+  { id: 'l68', assetPath: '/g/l68.md', publicPath: '/g/l68' },
+  { id: 'd68', assetPath: '/g/d68.md', publicPath: '/g/d68' },
+];
 
 export default {
   async fetch(request, env, ctx) {
@@ -100,7 +105,13 @@ export default {
 
 async function servePersistentShortlink(request: Request, env: EnvWithAssets): Promise<Response | null> {
   const url = new URL(request.url);
-  const assetPath = PERSISTENT_SHORTLINK_ASSETS[url.pathname.replace(/\/$/, '')];
+  const shortPath = url.pathname.replace(/\/$/, '');
+
+  if (shortPath === '/g/sha68') {
+    return serveNormalizedShaEvidence(url, env);
+  }
+
+  const assetPath = PERSISTENT_SHORTLINK_ASSETS[shortPath];
   if (!assetPath) return null;
 
   if (!env.ASSETS) {
@@ -125,6 +136,139 @@ async function servePersistentShortlink(request: Request, env: EnvWithAssets): P
     status: 200,
     headers: persistentArtifactHeaders(),
   });
+}
+
+async function serveNormalizedShaEvidence(url: URL, env: EnvWithAssets): Promise<Response> {
+  if (!env.ASSETS) {
+    return new Response('Persistent artifact storage is unavailable.', {
+      status: 503,
+      headers: persistentArtifactHeaders(),
+    });
+  }
+
+  const workerVersionId = env.CF_VERSION_METADATA?.id ?? '';
+  const checkedAt = new Date().toISOString();
+  const rows = [];
+
+  for (const target of NORMALIZED_SHA_TARGETS) {
+    const assetUrl = new URL(target.assetPath, url.origin);
+    const asset = await env.ASSETS.fetch(new Request(assetUrl.toString()));
+    const localRaw = asset.ok ? await asset.text() : '';
+    const publicRaw = asset.ok ? replaceWorkerMetadata(localRaw, env) : '';
+    const targetWorkerVersionId = localRaw.includes('__WORKER_VERSION_ID__') ? workerVersionId : '';
+    const localNormalized = normalizeRuntimeWorkerIdForSha(localRaw, targetWorkerVersionId);
+    const publicNormalized = normalizeRuntimeWorkerIdForSha(publicRaw, targetWorkerVersionId);
+    const localRawSha256 = await sha256Hex(localRaw);
+    const publicRawSha256 = await sha256Hex(publicRaw);
+    const localNormalizedSha256 = await sha256Hex(localNormalized);
+    const publicNormalizedSha256 = await sha256Hex(publicNormalized);
+
+    rows.push({
+      id: target.id,
+      publicPath: target.publicPath,
+      httpStatus: asset.ok ? 200 : 500,
+      contentType: 'text/markdown; charset=utf-8',
+      workerVersionId: targetWorkerVersionId || 'none',
+      localRawSha256,
+      publicRawSha256,
+      localNormalizedSha256,
+      publicNormalizedSha256,
+      normalizedMatch: localNormalizedSha256 === publicNormalizedSha256,
+    });
+  }
+
+  const ok = Boolean(workerVersionId) && rows.every((row) => row.httpStatus === 200 && row.normalizedMatch);
+  const markdown = renderNormalizedShaMarkdown({
+    checkedAt,
+    ok,
+    workerVersionId,
+    rows,
+  });
+
+  return new Response(markdown, {
+    status: ok ? 200 : 500,
+    headers: persistentArtifactHeaders(),
+  });
+}
+
+function normalizeRuntimeWorkerIdForSha(content: string, workerVersionId: string): string {
+  if (!workerVersionId) return content;
+  return content.replaceAll(workerVersionId, '__WORKER_VERSION_ID__');
+}
+
+async function sha256Hex(content: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(content));
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function renderNormalizedShaMarkdown(result: {
+  checkedAt: string;
+  ok: boolean;
+  workerVersionId: string;
+  rows: Array<{
+    id: string;
+    publicPath: string;
+    httpStatus: number;
+    contentType: string;
+    workerVersionId: string;
+    localRawSha256: string;
+    publicRawSha256: string;
+    localNormalizedSha256: string;
+    publicNormalizedSha256: string;
+    normalizedMatch: boolean;
+  }>;
+}): string {
+  const lines = [
+    '# AIBOUX /g Normalized SHA Verification',
+    '',
+    `Status: \`${result.ok ? 'PASS' : 'FAIL'}\``,
+    '',
+    `Verification Time: \`${result.checkedAt}\``,
+    '',
+    `Worker Version ID: \`${result.workerVersionId || 'NOT_FOUND'}\``,
+    '',
+    '## Rule',
+    '',
+    'Runtime Worker Version ID置換がある場合、raw sha256不一致だけで合格にしない。',
+    '`/g/m68`、`/g/l68`、`/g/d68` は次の5項目を必ず記録する。',
+    '',
+    '1. local raw sha256',
+    '2. public raw sha256',
+    '3. Worker Version IDを `__WORKER_VERSION_ID__` に正規化したlocal normalized sha256',
+    '4. Worker Version IDを `__WORKER_VERSION_ID__` に正規化したpublic normalized sha256',
+    '5. normalized sha256が一致するか',
+    '',
+    'normalized sha256が一致しない場合は、公開ログ不一致としてFAIL。',
+    '',
+    '## Results',
+    '',
+    '| Target | Runtime Worker Version ID | HTTP | Content-Type | Local Raw SHA256 | Public Raw SHA256 | Local Normalized SHA256 | Public Normalized SHA256 | Normalized Match |',
+    '| --- | --- | ---: | --- | --- | --- | --- | --- | --- |',
+  ];
+
+  for (const row of result.rows) {
+    lines.push(`| ${row.publicPath} | ${row.workerVersionId} | ${row.httpStatus} | ${row.contentType} | ${row.localRawSha256} | ${row.publicRawSha256} | ${row.localNormalizedSha256} | ${row.publicNormalizedSha256} | ${row.normalizedMatch ? 'PASS' : 'FAIL'} |`);
+  }
+
+  lines.push(
+    '',
+    '## Verdict',
+    '',
+    result.ok
+      ? 'Normalized sha256一致。runtime Worker Version ID置換を除き、local/public本文は一致している。'
+      : 'Normalized sha256不一致。公開ログ不一致としてFAIL。',
+    '',
+    '## Notes',
+    '',
+    '- このURLは現在のWorkerで動的生成する正規化SHA証跡である。',
+    '- ストアフロントUI変更の証跡ではない。',
+    '- `FINAL_ACCEPTED` は主張しない。',
+    '',
+  );
+
+  return `${lines.join('\n').trimEnd()}\n`;
 }
 
 function persistentArtifactHeaders(): HeadersInit {
