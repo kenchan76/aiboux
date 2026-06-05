@@ -104,30 +104,32 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
               </TableCell>
             </TableRow>
           ) : null}
-          {rows.map((product) => (
+          {rows.map((product) => {
+            const display = toAdminProductDisplay(product);
+            return (
             <TableRow key={product.id} className="cursor-pointer" onClick={() => onSelectProduct?.(product)}>
               {!compact && (
                 <TableCell onClick={(event) => event.stopPropagation()}>
-                  <Checkbox aria-label={`${product.name}を選択`} />
+                  <Checkbox aria-label={`${display.name}を選択`} />
                 </TableCell>
               )}
               <TableCell>
                 <div className="flex items-center gap-2">
                   {product.image ? (
-                    <img src={product.image} alt={product.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
+                    <img src={product.image} alt={display.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
                   ) : (
                     <div className="flex size-9 items-center justify-center rounded-md border border-dashed border-neutral-200 bg-neutral-50 text-[10px] text-neutral-400">
                       画像
                     </div>
                   )}
                   <div className="min-w-0">
-                    <div className="truncate font-medium">{product.name}</div>
-                    <div className="truncate text-xs text-neutral-500">{product.tags.join(" / ")}</div>
+                    <div className="truncate font-medium">{display.name}</div>
+                    <div className="truncate text-xs text-neutral-500">{display.tags.join(" / ")}</div>
                   </div>
                 </div>
               </TableCell>
               <TableCell className=" text-xs">{product.sku}</TableCell>
-              <TableCell>{product.category}</TableCell>
+              <TableCell>{display.category}</TableCell>
               <TableCell className="text-right">{formatYen(product.price)}</TableCell>
               <TableCell className="text-right">{product.stock}</TableCell>
               <TableCell><StatusBadge value={product.status} /></TableCell>
@@ -169,7 +171,8 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
                 </TableCell>
               )}
             </TableRow>
-          ))}
+            );
+          })}
         </TableBody>
       </Table>
       {!compact && (
@@ -245,4 +248,42 @@ function providerStatus(jobStatus?: string, providerStatusValue?: string): SyncS
   if (providerStatusValue === "succeeded" || jobStatus === "succeeded") return "synced";
   if (jobStatus === "queued" || jobStatus === "received") return "syncing";
   return "unsynced";
+}
+
+function toAdminProductDisplay(product: ShopProduct) {
+  const rawName = String(product.name ?? "");
+  const rawCategory = String(product.category ?? "");
+  const source = `${rawName} ${rawCategory} ${product.sku} ${product.tags.join(" ")}`;
+  const isInternalTestName = /公開検証商品|検証商品|テスト商品|利益確認用|dummy|sample|test product/i.test(source);
+  const category = normalizeAdminCategory(source);
+  const name = isInternalTestName ? adminDisplayNameFor(source, category) : rawName;
+  const tags = product.tags
+    .filter((tag) => !/検証|テスト|AIBOUX|dummy|sample|test/i.test(tag))
+    .slice(0, 3);
+
+  return {
+    name,
+    category,
+    tags: tags.length ? tags : [category, product.status],
+  };
+}
+
+function adminDisplayNameFor(source: string, category: string) {
+  if (/4580000232621|洗剤|ホームケア|日用品/i.test(source)) return "毎日使えるホームケア洗剤セット";
+  if (/利益|margin|profit/i.test(source)) return "ホームケア詰め替えセット";
+  if (/4901234567897|タオル|ギフト/i.test(source)) return "雪花セレクト ギフトタオル";
+  if (/4901234567895|ボトル|ステンレス/i.test(source)) return "軽量ステンレスボトル";
+  if (category === "キッチン用品") return "キッチン用品セット";
+  if (category === "日用品") return "毎日使える日用品セット";
+  return "雪花セレクト 商品";
+}
+
+function normalizeAdminCategory(source: string) {
+  if (/test category|166|検証|テスト/i.test(source)) return "日用品";
+  if (/towel|タオル|寝具/i.test(source)) return "タオル・寝具";
+  if (/kitchen|drinkware|ボトル|ステンレス|キッチン/i.test(source)) return "キッチン用品";
+  if (/gift|ギフト/i.test(source)) return "ギフト";
+  if (/coffee|tea|コーヒー|茶/i.test(source)) return "コーヒー・お茶";
+  if (/洗剤|日用品|ホームケア|clean|laundry/i.test(source)) return "日用品";
+  return source.trim() || "日用品";
 }

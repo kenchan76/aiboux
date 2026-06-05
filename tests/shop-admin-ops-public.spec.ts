@@ -175,6 +175,11 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/products", { waitUntil: "networkidle" });
 
+    await expect(page.locator("body")).not.toContainText("AIBOUX公開検証商品");
+    await expect(page.locator("body")).not.toContainText("利益確認用テスト商品");
+    await expect(page.locator("body")).not.toContainText("Test Category");
+    await expect(page.locator("body")).not.toContainText("検証 / AIBOUX");
+
     await page.getByRole("button", { name: "商品操作" }).first().click();
     await expect(page.getByRole("menuitem", { name: "編集", exact: true })).toBeVisible();
     await expect(page.getByRole("menuitem", { name: "複製して編集" })).toBeVisible();
