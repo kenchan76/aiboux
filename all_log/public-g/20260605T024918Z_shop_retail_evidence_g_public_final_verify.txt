@@ -1,0 +1,19 @@
+# Final public /g verification 20260605T024918Z
+## status/content-type
+m68 200 / content-type: text/markdown; charset=utf-8
+l68 200 / content-type: text/markdown; charset=utf-8
+d68 200 / content-type: text/markdown; charset=utf-8
+## sha256
+f76d0384c39cb3a499edc5ad54b85adaea0602c749f34517b93262124a4bc031  public/g/m68.md
+e383e5de68e2bfa5780ea660aa7830a47bd91ce04ae5cc0dcc5b200766ff41df  /tmp/m68.final.body
+c60ca2393257a3e26517a5851843df09545d1b34eb64f2c503ab62ed365ea32c  public/g/l68.md
+3e146fd8a490539e6693d71fd3664cefad5bf95e9d56a32dba447f3d8b6d235a  /tmp/l68.final.body
+1b8d1ec8cf4b060e1496eb71894e768555b692e98931af81f97dc8309e0b3dea  public/g/d68.md
+861dd7e383976bade32df5772bb66ce652f0e46285142b3a8e8aef8cdfc8dc7b  /tmp/d68.final.body
+## markers
+5878:## 2026-06-05 Current Active Operating Override: Shop Shared Page Retail Quality
+4804:## 2026-06-05T02:40:05Z - Shop Cart Checkout Contact Retail Flow WIP
+3359:## 2026-06-05T02:40:05Z - Shop Cart Checkout Contact Retail Flow Screen Evidence
+/tmp/l68.final.body:4831:- Public evidence publication Worker Version ID: `5c358df2-13f3-459f-89da-2a6e4afc68cc`
+/tmp/d68.final.body:3365:- Public evidence publication Worker Version ID: `5c358df2-13f3-459f-89da-2a6e4afc68cc`
+/tmp/m68.final.body:5897:- Public evidence publication Worker Version ID: `5c358df2-13f3-459f-89da-2a6e4afc68cc`
