@@ -115,13 +115,17 @@ export function ProductsTable({ products = shopProducts, compact, onSelectProduc
               )}
               <TableCell>
                 <div className="flex items-center gap-2">
-                  {product.image ? (
-                    <img src={product.image} alt={display.name} className="size-9 rounded-md border border-neutral-200 object-cover" />
-                  ) : (
-                    <div className="flex size-9 items-center justify-center rounded-md border border-dashed border-neutral-200 bg-neutral-50 text-[10px] text-neutral-400">
-                      画像
-                    </div>
-                  )}
+                  <img
+                    src={product.image || adminImageFor(display.category)}
+                    alt={display.name}
+                    className="size-9 rounded-md border border-neutral-200 object-cover"
+                    onError={(event) => {
+                      const image = event.currentTarget;
+                      if (image.dataset.fallbackApplied === "true") return;
+                      image.dataset.fallbackApplied = "true";
+                      image.src = adminImageFor(display.category);
+                    }}
+                  />
                   <div className="min-w-0">
                     <div className="truncate font-medium">{display.name}</div>
                     <div className="truncate text-xs text-neutral-500">{display.tags.join(" / ")}</div>
@@ -286,4 +290,20 @@ function normalizeAdminCategory(source: string) {
   if (/coffee|tea|コーヒー|茶/i.test(source)) return "コーヒー・お茶";
   if (/洗剤|日用品|ホームケア|clean|laundry/i.test(source)) return "日用品";
   return source.trim() || "日用品";
+}
+
+function adminImageFor(category: string) {
+  if (category === "タオル・寝具") {
+    return "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=160&h=160&q=82";
+  }
+  if (category === "キッチン用品") {
+    return "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=160&h=160&q=82";
+  }
+  if (category === "ギフト") {
+    return "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=160&h=160&q=82";
+  }
+  if (category === "コーヒー・お茶") {
+    return "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=160&h=160&q=82";
+  }
+  return "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=160&h=160&q=82";
 }

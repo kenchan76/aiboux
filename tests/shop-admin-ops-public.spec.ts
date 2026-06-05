@@ -179,6 +179,7 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.locator("body")).not.toContainText("利益確認用テスト商品");
     await expect(page.locator("body")).not.toContainText("Test Category");
     await expect(page.locator("body")).not.toContainText("検証 / AIBOUX");
+    expect(await page.locator("table img[alt]").count()).toBeGreaterThanOrEqual(4);
 
     await page.getByRole("button", { name: "商品操作" }).first().click();
     await expect(page.getByRole("menuitem", { name: "編集", exact: true })).toBeVisible();
