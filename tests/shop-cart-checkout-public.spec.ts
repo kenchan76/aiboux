@@ -21,6 +21,9 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
   test("cart supports quantity, remove, and checkout shows honest payment blocker", async ({ page }) => {
     await page.setViewportSize({ width: 1365, height: 1200 });
     await page.goto("/s/aiboux/cart", { waitUntil: "networkidle" });
+    await expect(page.getByTestId("storefront-cart-recovery-panel")).toBeVisible();
+    await expect(page.getByTestId("storefront-cart-recovery-panel")).toContainText("配送予定を確認");
+    await expect(page.getByTestId("storefront-cart-recovery-panel")).toContainText("返品条件を確認");
     await page.evaluate(() => {
       localStorage.setItem(
         "aiboux:shop:aiboux:cart",
@@ -45,6 +48,10 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
 
     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
+    await expect(page.getByTestId("storefront-checkout-stepper")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-order-guard")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("税込価格");
+    await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("定期購入");
     await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);

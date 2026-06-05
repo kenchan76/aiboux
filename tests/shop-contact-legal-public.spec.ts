@@ -21,6 +21,9 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
   test("contact validation is honest and does not fake successful delivery", async ({ page }) => {
     await page.setViewportSize({ width: 1365, height: 1200 });
     await page.goto("/s/aiboux/contact", { waitUntil: "networkidle" });
+    await expect(page.getByTestId("storefront-contact-topic-grid")).toBeVisible();
+    await expect(page.getByTestId("storefront-contact-topic-grid")).toContainText("商品について");
+    await expect(page.getByTestId("storefront-contact-topic-grid")).toContainText("注文履歴");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.getByText("お名前を入力してください。")).toBeVisible();
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
