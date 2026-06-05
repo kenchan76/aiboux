@@ -1233,7 +1233,7 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
                     <option value="subscription">定期購入について</option>
                   </select>
                 </label>
-                <label class="grid gap-1 text-sm font-medium">注文番号 <span class="text-xs font-normal text-neutral-500">任意</span><input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderNumber" placeholder="例: #AIBOUX-1001" /></label>
+                <label class="grid gap-1 text-sm font-medium">注文番号 <span class="text-xs font-normal text-neutral-500">任意</span><input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderNumber" placeholder="例: 注文確認メールの番号" /></label>
                 <label class="grid gap-1 text-sm font-medium">内容<textarea class="min-h-36 rounded-md border border-neutral-200 px-3 py-2 font-normal" name="message" placeholder="商品名、注文番号、確認したい内容を入力してください。" required></textarea></label>
                 <button class="h-10 w-fit rounded-md bg-neutral-950 px-4 text-sm font-semibold text-white" type="submit">入力内容を確認</button>
                 <p data-contact-status class="hidden rounded-md border px-3 py-2 text-sm"></p>
@@ -1466,7 +1466,7 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
                     <a class="inline-flex h-9 items-center justify-center rounded-full border border-neutral-300 px-4 text-xs font-bold text-neutral-900 hover:border-amber-300" href={`${tenantRoot}/contact`}>注文番号を添えて相談</a>
                   </div>
                   <form class="mt-4 grid gap-3 md:grid-cols-3" data-order-search-form novalidate>
-                    <label class="grid gap-1 text-xs font-bold text-neutral-700">注文番号<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderNumber" placeholder="#AIBOUX-1001" /></label>
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">注文番号<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderNumber" placeholder="注文確認メールの番号" /></label>
                     <label class="grid gap-1 text-xs font-bold text-neutral-700">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderEmail" type="email" placeholder="name@example.com" /></label>
                     <label class="grid gap-1 text-xs font-bold text-neutral-700">期間<select class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderPeriod"><option>過去3か月</option><option>過去6か月</option><option>すべて</option></select></label>
                     <div class="flex flex-wrap items-center gap-2 md:col-span-3">

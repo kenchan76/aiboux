@@ -24,6 +24,10 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
     await expect(page.getByTestId("storefront-contact-topic-grid")).toBeVisible();
     await expect(page.getByTestId("storefront-contact-topic-grid")).toContainText("商品について");
     await expect(page.getByTestId("storefront-contact-topic-grid")).toContainText("注文履歴");
+    await expect(page.locator("input[name='name']")).toHaveValue("");
+    await expect(page.locator("input[name='email']")).toHaveValue("");
+    await expect(page.locator("input[name='orderNumber']")).toHaveAttribute("placeholder", "例: 注文確認メールの番号");
+    await saveScreenshot(page, "shop-contact-page.png");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.getByText("お名前を入力してください。")).toBeVisible();
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
@@ -43,7 +47,6 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
     await expect(page.getByText("入力内容は確認できました。")).toBeVisible();
     await expect(page.getByTestId("storefront-buying-guide")).toHaveCount(0);
     await expect(page.getByTestId("storefront-footer")).toBeVisible();
-    await saveScreenshot(page, "shop-contact-page.png");
   });
 
   test("legal, privacy, shipping, returns, and FAQ pages render shared templates", async ({ page }) => {
