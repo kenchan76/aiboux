@@ -97,6 +97,18 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.locator("body")).not.toContainText("CSV書き出しAPI接続後");
   });
 
+  test("admin settings wording stays operational and avoids raw integration setup terms", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/settings", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: "設定" })).toBeVisible();
+    await expect(page.locator("body")).not.toContainText("APIキー未設定");
+    await expect(page.locator("body")).not.toContainText("Resend APIキー");
+    await expect(page.locator("body")).not.toContainText("未設定でも開始できます");
+    await expect(page.locator("body")).not.toContainText("mock_send_without");
+    await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+  });
+
   test("admin product row menu exposes real edit and duplicate actions", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/products", { waitUntil: "networkidle" });

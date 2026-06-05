@@ -72,7 +72,7 @@ export const POST: APIRoute = async ({ request }) => {
       } catch (error) {
         if (accountId && !accountId.startsWith("acct_mock_")) throw error;
         mode = "mock";
-        warning = "Stripe API接続に失敗したため、モック連携として状態を保存しました。APIキーとStripe設定を確認してください。";
+        warning = "支払い方法の連携確認に失敗したため、受付前の状態として保存しました。支払い方法の設定を確認してください。";
         accountId = buildMockStripeAccountId(tenant.tenantId);
         onboardingUrl = `${origin}/s/aiboux/admin/settings?stripe=mock_onboarding&account=${encodeURIComponent(accountId)}`;
       }
@@ -118,7 +118,7 @@ export const POST: APIRoute = async ({ request }) => {
       onboardingUrl,
       onboardingExpiresAt: expiresAt,
       businessData,
-      message: warning || (mode === "mock" ? "Stripe APIキー未設定のため、モック連携として保存しました。" : "Stripe連携URLを作成しました。"),
+      message: warning || (mode === "mock" ? "支払い方法の受付前状態として保存しました。" : "支払い方法の連携URLを作成しました。"),
       warning,
     });
   } catch (error) {

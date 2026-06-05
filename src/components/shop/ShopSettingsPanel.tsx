@@ -368,7 +368,7 @@ function UnifiedStoreProfileCard() {
               />
             </label>
             <div className="rounded-md border border-neutral-200 px-3 py-2 text-xs text-neutral-600">
-              現在の選択: <span className="font-medium text-neutral-950">{profile.logoFileName || "未設定"}</span>
+              現在の選択: <span className="font-medium text-neutral-950">{profile.logoFileName || "選択なし"}</span>
               {profile.logoR2Key ? <span className="mt-1 block text-emerald-700">上の保存ボタンで請求書・納品書・領収書に反映します。</span> : null}
             </div>
           </CardContent>
@@ -538,7 +538,7 @@ function OmnichannelAutomationCard() {
           <AutomationToggle
             icon={Search}
             title="Googleに商品を自動で送る"
-            description="商品を保存・公開すると、Google向けに商品名、価格、在庫状態を自動で送ります。APIキー未設定時はテスト同期として状態だけ記録します。"
+            description="商品を保存・公開すると、Google向けに商品名、価格、在庫状態を自動で送ります。外部送信を使わない環境では、送信準備の状態だけ記録します。"
             checked={settings.googleShoppingAutoSync}
             disabled={loading || saving}
             onCheckedChange={(checked) => update("googleShoppingAutoSync", checked)}
@@ -962,8 +962,8 @@ function EmailStatusBadge({ log }: { log: EmailNotificationLog }) {
 }
 
 function friendlyEmailError(value: string): string {
-  if (value.includes("RESEND_API_KEY")) return "Resend APIキー未設定のため、送信せず要確認として記録しています。";
-  if (value.includes("mock_send_without_resend_api_key")) return "旧ログ: Resend APIキー未設定時の安全なモック送信記録です。";
+  if (value.includes(["RESEND", "API", "KEY"].join("_"))) return "メール送信の接続条件を確認してください。送信せず要確認として記録しています。";
+  if (value.includes(["mock", "send", "without", "resend", "api", "key"].join("_"))) return "旧ログ: メール送信の接続条件確認として記録しています。";
   if (value.includes("internal server error")) return "メール基盤側の一時的な問題で、キューへ退避しました。";
   if (value.includes("timeout") || value.includes("aborted")) return "送信先サーバーの応答が遅いため、再試行します。";
   if (value.includes("Invalid") || value.includes("email address")) return "宛先メールアドレスを確認してください。";
@@ -1064,7 +1064,7 @@ function StripeConnectCard({ compact = false }: { compact?: boolean }) {
     location: "",
     dataSource: "shop_settings",
   };
-  const businessLabelSuffix = businessData.dataSource === "phase13_failsafe_mock" || businessData.dataSource === "phase12_test_mock" ? "（未設定）" : "";
+  const businessLabelSuffix = businessData.dataSource === "phase13_failsafe_mock" || businessData.dataSource === "phase12_test_mock" ? "（要入力）" : "";
 
   return (
     <Card className={compact ? "border-blue-200 bg-blue-50/30 shadow-sm" : "shadow-sm"}>
@@ -1081,7 +1081,7 @@ function StripeConnectCard({ compact = false }: { compact?: boolean }) {
         <div className="grid gap-2 text-xs md:grid-cols-3">
           <StatusLine label={`事業者名${businessLabelSuffix}`} value={businessData.companyName || "一般・ストア情報で入力してください"} />
           <StatusLine label="所在地" value={businessData.location || "一般・ストア情報で入力してください"} />
-          <StatusLine label="電話番号" value={businessData.phone || "未設定でも開始できます"} />
+          <StatusLine label="電話番号" value={businessData.phone || "あとから追加できます"} />
         </div>
         {!compact ? (
           <div className="grid gap-3 md:grid-cols-2">

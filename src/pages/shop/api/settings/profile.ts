@@ -280,7 +280,7 @@ async function safeSendProfileNotification(input: {
         `tenantId: ${input.tenantId}`,
         `店名: ${input.storeName}`,
         `事業者名: ${input.businessName}`,
-        `連絡先メール: ${input.email || "未設定"}`,
+        `連絡先メール: ${input.email || "連絡先確認中"}`,
         `保存日時: ${new Date(input.savedAt).toISOString()}`,
       ].join("\n"),
       tenantId: input.tenantId,
@@ -347,8 +347,8 @@ function extractStoreHostOrSlug(value: string): string {
 function buildTokushohoText(input: { businessName: string; postalCode: string; address: string; phone: string; email: string }): string {
   return [
     `販売業者: ${input.businessName}`,
-    `所在地: ${[input.postalCode, input.address].filter(Boolean).join(" ") || "未設定"}`,
-    `連絡先: ${input.email || input.phone || "未設定"}`,
+    `所在地: ${[input.postalCode, input.address].filter(Boolean).join(" ") || "所在地確認中"}`,
+    `連絡先: ${input.email || input.phone || "連絡先確認中"}`,
     "販売価格: 各商品ページに税込価格を表示します。",
     "商品代金以外の必要料金: 送料、決済手数料その他購入手続き画面で表示される費用。",
     "支払い方法: クレジットカードその他ストアで有効化された方法。",
@@ -363,6 +363,6 @@ function buildPrivacyPolicyText(input: { businessName: string; email: string }):
     "取得する主な情報は、氏名、住所、電話番号、メールアドレス、注文内容、決済に必要な識別情報です。",
     "取得した情報は、配送会社、決済会社、システム運用委託先など業務遂行に必要な範囲で共有する場合があります。",
     "法令に基づく場合を除き、本人の同意なく目的外利用または不要な第三者提供を行いません。",
-    `個人情報に関するお問い合わせ先: ${input.email || "未設定"}`,
+    `個人情報に関するお問い合わせ先: ${input.email || "問い合わせページから確認"}`,
   ].join("\n");
 }

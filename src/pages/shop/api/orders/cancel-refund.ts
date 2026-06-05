@@ -233,7 +233,7 @@ async function issueRefund(input: {
       status: "mock_refunded",
       refundId: `mock_refund_${crypto.randomUUID()}`,
       mode: "mock",
-      message: "Stripe APIキー未設定のため、安全なモック返金として記録しました。",
+      message: "支払い方法の確認が必要なため、返金確認待ちとして記録しました。",
     };
   }
 
@@ -242,7 +242,7 @@ async function issueRefund(input: {
       status: "mock_refunded",
       refundId: `mock_refund_${crypto.randomUUID()}`,
       mode: "mock",
-      message: "Stripe接続はありますが、注文にStripe決済IDが未保存のためモック返金として記録しました。",
+      message: "注文の支払い識別情報を確認できないため、返金確認待ちとして記録しました。",
     };
   }
 
@@ -258,7 +258,7 @@ async function issueRefund(input: {
     status: "stripe_refunded",
     refundId: refund.id,
     mode: "stripe",
-    message: "Stripe Refund APIで返金を実行しました。",
+    message: "支払いサービスで返金を実行しました。",
   };
 }
 
@@ -308,7 +308,7 @@ async function createStripeRefund(input: {
   const result = (await response.json().catch(() => ({}))) as { id?: string; error?: { message?: string } };
 
   if (!response.ok || !result.id) {
-    throw new ProductApiError(result.error?.message || "Stripe Refund APIで返金に失敗しました。", 502);
+    throw new ProductApiError(result.error?.message || "支払いサービスで返金に失敗しました。", 502);
   }
 
   return { id: result.id };

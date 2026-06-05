@@ -68,7 +68,7 @@ export async function runShopEmailQueue(env: Pick<Cloudflare.Env, "DB" | "RESEND
           AND tenant_id = ?
         `,
       )
-        .bind(result.providerMessageId, result.mocked ? "mock_send_without_resend_api_key" : "", now, now, row.id, row.tenant_id)
+        .bind(result.providerMessageId, result.mocked ? "メール送信の接続条件を確認してください。" : "", now, now, row.id, row.tenant_id)
         .run();
       sent += 1;
       if (result.mocked) mocked += 1;
@@ -127,7 +127,7 @@ async function deliverEmail(
 ): Promise<{ providerMessageId: string; mocked: boolean }> {
   const apiKey = env.RESEND_API_KEY?.trim();
   if (!apiKey) {
-    throw new Error("RESEND_API_KEY is not configured. Email was not sent.");
+    throw new Error("メール送信の接続条件を確認してください。メールは送信していません。");
   }
 
   const controller = new AbortController();
