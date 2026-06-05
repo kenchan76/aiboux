@@ -107,6 +107,14 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("sitemap");
         await expect(page.locator("body")).not.toContainText("共通SEO部品");
         await expect(page.locator("body")).not.toContainText("SEO内部リンク");
+        await expect(page.locator("body")).not.toContainText("AIBOUX Shop 共通テンプレート");
+        await expect(page.locator("body")).not.toContainText("表示確認日");
+        await expect(page.locator("body")).not.toContainText("D1 migration");
+        await expect(page.locator("body")).not.toContainText("DB migration");
+        await expect(page.locator("body")).not.toContainText("SUBSCRIPTION_SCHEMA_PENDING");
+        await expect(page.locator("body")).not.toContainText("ログイン基盤");
+        await expect(page.locator("body")).not.toContainText("本番認証");
+        await expect(page.locator("body")).not.toContainText("成功したふり");
         const skipLinks = page.getByTestId("storefront-skip-links");
         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
@@ -128,7 +136,7 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
-        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("決済未接続時は注文確定しません");
+        await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("オンライン決済準備中は注文確定しません");
         const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
         await expect(footerLinkDirectory, `${target.path} should include shared footer link directory`).toBeVisible();
         await expect(footerLinkDirectory, `${target.path} footer link directory should expose ItemList microdata`).toHaveAttribute(

@@ -235,7 +235,7 @@ function ProductRail({ title, products, ranking, sale }: { title: string; produc
       </div>
       {products.length === 0 ? (
         <div className="rounded-md border border-dashed border-neutral-200 bg-neutral-50 px-4 py-10 text-center text-sm text-neutral-500">
-          公開商品はまだありません。管理画面で商品を公開するとここに表示されます。
+          公開商品はまだありません。商品が追加されるとここに表示されます。
         </div>
       ) : null}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">

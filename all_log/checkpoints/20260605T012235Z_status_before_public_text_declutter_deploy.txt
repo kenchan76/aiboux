@@ -1,0 +1,15 @@
+ M AIBOUX_MASTER_DOCUMENT.md
+ M ops/improvements/20260605_daily_improvement.md
+ M ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+ M ops/instructions/current.md
+ M public/g/d68.md
+ M public/g/l68.md
+ M public/g/m68.md
+ M src/components/shop/storefront/ShopStorefrontHome.tsx
+ M src/components/shop/storefront/StorefrontFooter.tsx
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M tests/shop-contact-legal-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/20260605T012235Z_shop_public_text_declutter_wip.md
+?? all_log/checkpoints/20260605T012235Z_status_before_public_text_declutter_deploy.txt

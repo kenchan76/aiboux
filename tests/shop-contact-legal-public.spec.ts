@@ -57,8 +57,13 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
       await expect(page.locator("body")).not.toContainText("ページが見つかりません");
       if (item.path !== "/s/aiboux/faq") {
         await expect(page.getByTestId("storefront-policy-page")).toBeVisible();
-        await expect(page.getByText("AIBOUX Shop 共通テンプレート")).toBeVisible();
-        await expect(page.getByText("表示確認日")).toBeVisible();
+        await expect(page.getByText("AIBOUX Shop お買い物ガイド")).toBeVisible();
+        await expect(page.getByText("最終更新日")).toBeVisible();
+        await expect(page.locator("body")).not.toContainText("AIBOUX Shop 共通テンプレート");
+        await expect(page.locator("body")).not.toContainText("表示確認日");
+        await expect(page.locator("body")).not.toContainText("D1 migration");
+        await expect(page.locator("body")).not.toContainText("DB migration");
+        await expect(page.locator("body")).not.toContainText("管理画面");
       }
       await expect(page.getByTestId("storefront-buying-guide")).toHaveCount(0);
       await expect(page.getByTestId("storefront-footer")).toBeVisible();
