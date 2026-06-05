@@ -80,7 +80,7 @@ const SHOP_STOREFRONT_PAGE_META: Record<string, { title: string; description: st
   cart: {
     title: "カート",
     description:
-      "カート内の商品、数量、小計、配送・返品条件、支払い方法の受付状態を購入前に確認できます。",
+      "カート内の商品、数量、小計、配送・返品条件、支払い方法の受付状態を購入前にまとめて確認できます。",
   },
   checkout: {
     title: "チェックアウト",

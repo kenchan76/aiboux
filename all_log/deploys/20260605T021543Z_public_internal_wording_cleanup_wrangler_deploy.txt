@@ -6,3 +6,356 @@
 > aiboux@0.0.1 shop:checkpoint
 > node scripts/create-shop-wip-checkpoint.mjs --commit
 
+SHOP_WIP_CHECKPOINT_CREATED timestamp=20260605T021543Z
+statusBefore=all_log/checkpoints/20260605T021543Z_status_before.txt
+headBefore=all_log/checkpoints/20260605T021543Z_head_before.txt
+originMainBefore=all_log/checkpoints/20260605T021543Z_origin_main_before.txt
+diffBefore=all_log/patches/20260605T021543Z_before_deploy.patch
+diffStagedBefore=all_log/patches/20260605T021543Z_before_deploy_staged.patch
+logBefore=all_log/checkpoints/20260605T021543Z_log_before.txt
+wipCommit=all_log/checkpoints/20260605T021543Z_wip_commit.txt
+deploymentsBefore=all_log/deploys/20260605T021543Z_deployments_before.txt
+
+> aiboux@0.0.1 check:control-chars
+> node scripts/check-control-chars.mjs
+
+CONTROL_CHAR_CHECK_OK
+
+> aiboux@0.0.1 check:mojibake
+> node scripts/check-mojibake.mjs
+
+MOJIBAKE_CHECK_OK files=1088
+
+> aiboux@0.0.1 astro
+> astro check
+
+11:15:52 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+11:15:52 [WARN] [vite] Default inspector port 9229 not available, using 9230 instead
+
+11:15:54 [vite]   ➜  Tunnel closed
+11:15:54 [types] Generated 2.38s
+11:15:54 [check] Getting diagnostics for Astro files in /home/pkkatsu/aiboux...
+[96mscripts/check-report-policy.mjs[0m:[93m50[0m:[93m9[0m - [93mwarning[0m[90m ts(6133): [0m'isIntermediate' is declared but its value is never read.
+
+[7m50[0m   const isIntermediate = INTERMEDIATE_STATUSES.has(status);
+[7m  [0m [93m        ~~~~~~~~~~~~~~[0m
+
+[96mscripts/create-shop-wip-checkpoint.mjs[0m:[93m3[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'execFileSync' is declared but its value is never read.
+
+[7m3[0m import { execFileSync, spawnSync } from "node:child_process";
+[7m [0m [93m         ~~~~~~~~~~~~[0m
+
+[96msrc/components/biz/AibouxSeriesCard.astro[0m:[93m13[0m:[93m19[0m - [93mwarning[0m[90m ts(6133): [0m'text' is declared but its value is never read.
+
+[7m13[0m     ].map(([name, text, color, bg, border]) => (
+[7m  [0m [93m                  ~~~~[0m
+
+[96msrc/components/core/CoreShell.tsx[0m:[93m1848[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'CompactField' is declared but its value is never read.
+
+[7m1848[0m function CompactField({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
+[7m    [0m [93m         ~~~~~~~~~~~~[0m
+[96msrc/components/core/CoreShell.tsx[0m:[93m1830[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'DestinationLine' is declared but its value is never read.
+
+[7m1830[0m function DestinationLine({ label, value, className }: { label: string; value: string; className?: string }) {
+[7m    [0m [93m         ~~~~~~~~~~~~~~~[0m
+[96msrc/components/core/CoreShell.tsx[0m:[93m1818[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'SectionMiniHeader' is declared but its value is never read.
+
+[7m1818[0m function SectionMiniHeader({ title, icon }: { title: string; icon?: React.ReactNode }) {
+[7m    [0m [93m         ~~~~~~~~~~~~~~~~~[0m
+[96msrc/components/core/CoreShell.tsx[0m:[93m1753[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'DetailValue' is declared but its value is never read.
+
+[7m1753[0m function DetailValue({ children }: { children: React.ReactNode }) {
+[7m    [0m [93m         ~~~~~~~~~~~[0m
+[96msrc/components/core/CoreShell.tsx[0m:[93m1749[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'DetailLabel' is declared but its value is never read.
+
+[7m1749[0m function DetailLabel({ children }: { children: React.ReactNode }) {
+[7m    [0m [93m         ~~~~~~~~~~~[0m
+
+[96msrc/components/core/CoreSidebar.tsx[0m:[93m8[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'FileCheck2' is declared but its value is never read.
+
+[7m8[0m   FileCheck2,
+[7m [0m [93m  ~~~~~~~~~~[0m
+[96msrc/components/core/CoreSidebar.tsx[0m:[93m2[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'BarChart3' is declared but its value is never read.
+
+[7m2[0m   BarChart3,
+[7m [0m [93m  ~~~~~~~~~[0m
+
+[96msrc/components/core/ProductMasterHub.tsx[0m:[93m51[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'deliveryDestinations' is declared but its value is never read.
+
+[7m51[0m   deliveryDestinations,
+[7m  [0m [93m  ~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/components/core/ProductMasterHub.tsx[0m:[93m44[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'Textarea' is declared but its value is never read.
+
+[7m44[0m import { Textarea } from "@/components/ui/textarea";
+[7m  [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/components/core/ProductMasterHub.tsx[0m:[93m40[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'Separator' is declared but its value is never read.
+
+[7m40[0m import { Separator } from "@/components/ui/separator";
+[7m  [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/components/core/ProductMasterHub.tsx[0m:[93m25[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'Checkbox' is declared but its value is never read.
+
+[7m25[0m import { Checkbox } from "@/components/ui/checkbox";
+[7m  [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/components/core/ProductMasterHub.tsx[0m:[93m11[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'Package' is declared but its value is never read.
+
+[7m11[0m   Package,
+[7m  [0m [93m  ~~~~~~~[0m
+[96msrc/components/core/ProductMasterHub.tsx[0m:[93m7[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'Check' is declared but its value is never read.
+
+[7m7[0m   Check,
+[7m [0m [93m  ~~~~~[0m
+
+[96msrc/components/core/documents/DeliveryPrintPreview.tsx[0m:[93m71[0m:[93m28[0m - [93mwarning[0m[90m ts(6387): [0mThe signature '(...text: string[]): void' of 'previewWindow.document.write' is deprecated.
+
+[7m71[0m     previewWindow.document.write(html);
+[7m  [0m [93m                           ~~~~~[0m
+
+[96msrc/components/mail/ComposeDialog.tsx[0m:[93m4[0m:[93m38[0m - [93mwarning[0m[90m ts(6133): [0m'Sparkles' is declared but its value is never read.
+
+[7m4[0m import { Bot, Paperclip, Save, Send, Sparkles, Wand2 } from "lucide-react";
+[7m [0m [93m                                     ~~~~~~~~[0m
+
+[96msrc/components/mail/CopyableEmail.tsx[0m:[93m30[0m:[93m27[0m - [93mwarning[0m[90m ts(6387): [0mThe signature '(commandId: string, showUI?: boolean | undefined, value?: string | undefined): boolean' of 'document.execCommand' is deprecated.
+
+[7m30[0m   const copied = document.execCommand("copy");
+[7m  [0m [93m                          ~~~~~~~~~~~[0m
+
+[96msrc/components/mail/MailSettingsPanel.tsx[0m:[93m10[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'Separator' is declared but its value is never read.
+
+[7m10[0m import { Separator } from "@/components/ui/separator";
+[7m  [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/components/mail/MailSettingsPanel.tsx[0m:[93m4[0m:[93m127[0m - [93mwarning[0m[90m ts(6133): [0m'Signature' is declared but its value is never read.
+
+[7m4[0m import { Archive, AtSign, Ban, Bell, Bot, Check, Eye, Forward, Globe2, Inbox, Info, MailCheck, Save, Send, Settings2, Shield, Signature, SlidersHorizontal, UserRound } from "lucide-react";
+[7m [0m [93m                                                                                                                              ~~~~~~~~~[0m
+[96msrc/components/mail/MailSettingsPanel.tsx[0m:[93m4[0m:[93m108[0m - [93mwarning[0m[90m ts(6133): [0m'Settings2' is declared but its value is never read.
+
+[7m4[0m import { Archive, AtSign, Ban, Bell, Bot, Check, Eye, Forward, Globe2, Inbox, Info, MailCheck, Save, Send, Settings2, Shield, Signature, SlidersHorizontal, UserRound } from "lucide-react";
+[7m [0m [93m                                                                                                           ~~~~~~~~~[0m
+[96msrc/components/mail/MailSettingsPanel.tsx[0m:[93m4[0m:[93m38[0m - [93mwarning[0m[90m ts(6133): [0m'Bot' is declared but its value is never read.
+
+[7m4[0m import { Archive, AtSign, Ban, Bell, Bot, Check, Eye, Forward, Globe2, Inbox, Info, MailCheck, Save, Send, Settings2, Shield, Signature, SlidersHorizontal, UserRound } from "lucide-react";
+[7m [0m [93m                                     ~~~[0m
+[96msrc/components/mail/MailSettingsPanel.tsx[0m:[93m4[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'Archive' is declared but its value is never read.
+
+[7m4[0m import { Archive, AtSign, Ban, Bell, Bot, Check, Eye, Forward, Globe2, Inbox, Info, MailCheck, Save, Send, Settings2, Shield, Signature, SlidersHorizontal, UserRound } from "lucide-react";
+[7m [0m [93m         ~~~~~~~[0m
+
+[96msrc/components/mail/MailTopbar.tsx[0m:[93m52[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'activeMailbox' is declared but its value is never read.
+
+[7m52[0m   activeMailbox,
+[7m  [0m [93m  ~~~~~~~~~~~~~[0m
+
+[96msrc/components/shop/InventoryTable.tsx[0m:[93m64[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'returnValue' is deprecated.
+
+[7m64[0m       event.returnValue = "";
+[7m  [0m [93m            ~~~~~~~~~~~[0m
+
+[96msrc/components/shop/ProductEditor.tsx[0m:[93m72[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'returnValue' is deprecated.
+
+[7m72[0m       event.returnValue = "";
+[7m  [0m [93m            ~~~~~~~~~~~[0m
+
+[96msrc/components/shop/ShopContentPanel.tsx[0m:[93m3[0m:[93m38[0m - [93mwarning[0m[90m ts(6133): [0m'Search' is declared but its value is never read.
+
+[7m3[0m import { FileText, Image, Megaphone, Search } from "lucide-react";
+[7m [0m [93m                                     ~~~~~~[0m
+[96msrc/components/shop/ShopContentPanel.tsx[0m:[93m3[0m:[93m27[0m - [93mwarning[0m[90m ts(6133): [0m'Megaphone' is declared but its value is never read.
+
+[7m3[0m import { FileText, Image, Megaphone, Search } from "lucide-react";
+[7m [0m [93m                          ~~~~~~~~~[0m
+[96msrc/components/shop/ShopContentPanel.tsx[0m:[93m3[0m:[93m20[0m - [93mwarning[0m[90m ts(6133): [0m'Image' is declared but its value is never read.
+
+[7m3[0m import { FileText, Image, Megaphone, Search } from "lucide-react";
+[7m [0m [93m                   ~~~~~[0m
+
+[96msrc/components/shop/ShopOrderDetailPage.tsx[0m:[93m48[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'returnValue' is deprecated.
+
+[7m48[0m       event.returnValue = "";
+[7m  [0m [93m            ~~~~~~~~~~~[0m
+
+[96msrc/components/shop/ShopSeoHead.astro[0m:[93m63[0m:[93m9[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m63[0m <script type="application/ld+json" set:html={structuredData}></script>
+[7m  [0m [93m        ~~~~[0m
+
+[96msrc/components/shop/ShopTopbar.tsx[0m:[93m5[0m:[93m34[0m - [93mwarning[0m[90m ts(6133): [0m'AvatarImage' is declared but its value is never read.
+
+[7m5[0m import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+[7m [0m [93m                                 ~~~~~~~~~~~[0m
+
+[96msrc/components/starwind/dropzone/Dropzone.astro[0m:[93m47[0m:[93m13[0m - [93mwarning[0m[90m ts(6133): [0m'hasFiles' is declared but its value is never read.
+
+[7m47[0m     private hasFiles: boolean = false;
+[7m  [0m [93m            ~~~~~~~~[0m
+
+[96msrc/components/starwind/tabs/Tabs.astro[0m:[93m45[0m:[93m13[0m - [93mwarning[0m[90m ts(6133): [0m'parentHandler' is declared but its value is never read.
+
+[7m45[0m     private parentHandler: TabsHandler | null = null;
+[7m  [0m [93m            ~~~~~~~~~~~~~[0m
+
+[96msrc/components/starwind/toast/Toaster.astro[0m:[93m209[0m:[93m13[0m - [93mwarning[0m[90m ts(6133): [0m'queue' is declared but its value is never read.
+
+[7m209[0m     private queue: ToastState[] = [];
+[7m   [0m [93m            ~~~~~[0m
+
+[96msrc/layouts/FileToolLayout.astro[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'GlobalAIAssistant' is declared but its value is never read.
+
+[7m2[0m import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/layouts/ResumeEditorLayout.astro[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'GlobalAIAssistant' is declared but its value is never read.
+
+[7m2[0m import { GlobalAIAssistant } from "@/components/ai/GlobalAIAssistant";
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/lib/shopDocumentPrint.ts[0m:[93m388[0m:[93m24[0m - [93mwarning[0m[90m ts(6387): [0mThe signature '(...text: string[]): void' of 'printWindow.document.write' is deprecated.
+
+[7m388[0m   printWindow.document.write(buildShopDocumentsHtml(orders, kind));
+[7m   [0m [93m                       ~~~~~[0m
+
+[96msrc/pages/api/v1/ai/execute-voice-command.ts[0m:[93m3[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'toCsv' is declared but its value is never read.
+
+[7m3[0m import { toCsv, withUtf8Bom } from '../../../../lib/server/csv';
+[7m [0m [93m         ~~~~~[0m
+
+Result (681 files): 
+- 0 errors
+- 0 warnings
+- 40 hints
+
+11:16:29 [vite]   ➜  Tunnel closed
+
+> aiboux@0.0.1 build
+> astro build
+
+11:16:32 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+11:16:32 [WARN] [vite] Default inspector port 9229 not available, using 9230 instead
+
+11:16:34 [vite]   ➜  Tunnel closed
+11:16:34 [types] Generated 2.01s
+11:16:34 [build] output: "server"
+11:16:34 [build] mode: "server"
+11:16:34 [build] directory: /home/pkkatsu/aiboux/dist/
+11:16:34 [build] adapter: @astrojs/cloudflare
+11:16:34 [build] Collecting build info...
+11:16:34 [build] ✓ Completed in 2.08s.
+11:16:34 [build] Building server entrypoints...
+11:16:43 [vite]   ➜  Tunnel closed
+11:16:43 [vite] ✓ built in 9.51s
+11:16:56 [vite]   ➜  Tunnel closed
+11:16:57 [vite] ✓ built in 13.47s
+11:17:03 [vite]   ➜  Tunnel closed
+11:17:04 [WARN] [vite] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+11:17:04 [vite] ✓ built in 6.99s
+
+ prerendering static routes 
+11:17:05   ├─ /biz/commercial/index.html (+200ms) 
+11:17:05   ├─ /biz/dashboard/index.html (+59ms) 
+11:17:06   ├─ /biz/editor/index.html (+33ms) 
+11:17:06   ├─ /biz/help/index.html (+217ms) 
+11:17:06   ├─ /biz/pricing/index.html (+95ms) 
+11:17:06   ├─ /biz/privacy/index.html (+93ms) 
+11:17:06   ├─ /biz/templates/accounting/index.html (+155ms) 
+11:17:06   ├─ /biz/templates/contracts/index.html (+40ms) 
+11:17:06   ├─ /biz/templates/estimates/index.html (+222ms) 
+11:17:06   ├─ /biz/templates/hr/index.html (+79ms) 
+11:17:06   ├─ /biz/templates/invoices/index.html (+39ms) 
+11:17:07   ├─ /biz/templates/proposals/index.html (+145ms) 
+11:17:07   ├─ /biz/templates/reports/index.html (+39ms) 
+11:17:07   ├─ /biz/templates/simple-estimate/index.html (+78ms) 
+11:17:07   ├─ /biz/templates/invoice-qualified/index.html (+50ms) 
+11:17:07   ├─ /biz/templates/outsourcing-contract/index.html (+44ms) 
+11:17:07   ├─ /biz/templates/nda-basic/index.html (+61ms) 
+11:17:07   ├─ /biz/templates/employment-contract/index.html (+45ms) 
+11:17:07   ├─ /biz/templates/resignation-letter/index.html (+158ms) 
+11:17:07   ├─ /biz/templates/meeting-minutes/index.html (+127ms) 
+11:17:07   ├─ /biz/templates/business-report/index.html (+107ms) 
+11:17:07   ├─ /biz/templates/sales-proposal/index.html (+69ms) 
+11:17:07   ├─ /biz/templates/planning-sheet/index.html (+116ms) 
+11:17:08   ├─ /biz/templates/approval-request/index.html (+42ms) 
+11:17:08   ├─ /biz/templates/expense-report/index.html (+53ms) 
+11:17:08   ├─ /biz/templates/customer-list/index.html (+39ms) 
+11:17:08   ├─ /biz/templates/inventory-sheet/index.html (+67ms) 
+11:17:08   ├─ /biz/templates/purchase-order/index.html (+34ms) 
+11:17:08   ├─ /biz/templates/delivery-note/index.html (+97ms) 
+11:17:08   ├─ /biz/templates/receipt-basic/index.html (+65ms) 
+11:17:08   ├─ /biz/templates/index.html (+58ms) 
+11:17:08   ├─ /biz/terms/index.html (+92ms) 
+11:17:08   ├─ /biz/index.html (+80ms) 
+11:17:08   ├─ /file/abuse/index.html (+35ms) 
+11:17:08   ├─ /file/barcode/index.html (+64ms) 
+11:17:08   ├─ /file/dashboard/index.html (+55ms) 
+11:17:08   ├─ /file/help/index.html (+44ms) 
+11:17:08   ├─ /file/image/background-remover/index.html (+47ms) 
+11:17:08   ├─ /file/image/index.html (+99ms) 
+11:17:09   ├─ /file/pdf/index.html (+31ms) 
+11:17:09   ├─ /file/pricing/index.html (+158ms) 
+11:17:09   ├─ /file/privacy/index.html (+28ms) 
+11:17:09   ├─ /file/terms/index.html (+22ms) 
+11:17:09   ├─ /file/tools/index.html (+35ms) 
+11:17:09   ├─ /file/transfer/index.html (+31ms) 
+11:17:09   ├─ /file/index.html (+76ms) 
+11:17:09   ├─ /office/csv/index.html (+35ms) 
+11:17:09   ├─ /office/disclaimer/index.html (+26ms) 
+11:17:09   ├─ /office/editor/index.html (+33ms) 
+11:17:09   ├─ /office/excel/index.html (+27ms) 
+11:17:09   ├─ /office/help/index.html (+45ms) 
+11:17:09   ├─ /office/history/index.html (+29ms) 
+11:17:09   ├─ /office/pdf/index.html (+136ms) 
+11:17:09   ├─ /office/powerpoint/index.html (+25ms) 
+11:17:09   ├─ /office/privacy/index.html (+52ms) 
+11:17:09   ├─ /office/security/index.html (+24ms) 
+11:17:09   ├─ /office/terms/index.html (+31ms) 
+11:17:09   ├─ /office/word/index.html (+29ms) 
+11:17:09   ├─ /office/index.html (+53ms) 
+11:17:09   ├─ /rirekisho/career/new/index.html (+35ms) 
+11:17:09   ├─ /rirekisho/career/index.html (+28ms) 
+11:17:10   ├─ /rirekisho/checklists/interview/index.html (+30ms) 
+11:17:10   ├─ /rirekisho/checklists/onboarding/index.html (+48ms) 
+11:17:10   ├─ /rirekisho/checklists/resignation/index.html (+38ms) 
+11:17:10   ├─ /rirekisho/commercial/index.html (+45ms) 
+11:17:10   ├─ /rirekisho/cover-letter/index.html (+27ms) 
+11:17:10   ├─ /rirekisho/dashboard/index.html (+29ms) 
+11:17:10   ├─ /rirekisho/help/index.html (+29ms) 
+11:17:10   ├─ /rirekisho/job-scan/index.html (+84ms) 
+11:17:10   ├─ /rirekisho/photo/print/index.html (+31ms) 
+11:17:10   ├─ /rirekisho/photo/index.html (+29ms) 
+11:17:10   ├─ /rirekisho/pricing/index.html (+28ms) 
+11:17:10   ├─ /rirekisho/privacy/index.html (+60ms) 
+11:17:10   ├─ /rirekisho/resignation/index.html (+86ms) 
+11:17:10   ├─ /rirekisho/resume/new/index.html (+27ms) 
+11:17:10   ├─ /rirekisho/resume/index.html (+24ms) 
+11:17:10   ├─ /rirekisho/self-pr/index.html (+26ms) 
+11:17:10   ├─ /rirekisho/templates/index.html (+27ms) 
+11:17:10   ├─ /rirekisho/terms/index.html (+22ms) 
+11:17:10   ├─ /rirekisho/index.html (+44ms) 
+11:17:10 [vite]   ➜  Tunnel closed
+11:17:10 ✓ Completed in 6.42s.
+
+11:17:10 [build] Rearranging server assets...
+11:17:10 [build] ✓ Completed in 36.48s.
+11:17:10 [build] Server built in 38.75s
+11:17:10 [build] Complete!
+11:17:10 [vite]   ➜  Tunnel closed
+
+> aiboux@0.0.1 check:shop-ui-protection
+> node scripts/check-shop-ui-protection.mjs --mode=warn
+
+SHOP_UI_PROTECTION_OK mode=warn: protected Shop UI paths are clean
+
+ ⛅️ wrangler 4.94.0 (update available 4.98.0)
+─────────────────────────────────────────────
+Using redirected Wrangler configuration.
+ - Configuration being used: "dist/server/wrangler.json"
+ - Original user's configuration: "wrangler.toml"
+ - Deploy configuration file: ".wrangler/deploy/config.json"
+
