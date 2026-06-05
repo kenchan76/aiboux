@@ -47,6 +47,22 @@ test.describe("AIBOUX Shop product detail public quality", () => {
     expect(await page.getByText("毎日使えるホームケア洗剤セット", { exact: true }).count()).toBe(0);
   });
 
+  test("daily goods product keeps related cards category-relevant", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto(`${fallbackProduct}?dailyRelatedGate=${Date.now()}`, { waitUntil: "networkidle" });
+
+    await expect(page.getByTestId("public-product-detail")).toBeVisible();
+    await expect(page.locator("h1")).toHaveText("毎日使えるホームケア洗剤セット");
+    const relatedCards = page.getByTestId("storefront-product-card");
+    await expect(relatedCards).toHaveCount(4);
+    for (const index of [0, 1, 2, 3]) {
+      await expect(
+        relatedCards.nth(index).getByTestId("storefront-product-card-category"),
+        `related product ${index + 1} should stay in daily goods for home-care detail`,
+      ).toHaveText("日用品");
+    }
+  });
+
   for (const viewport of [
     { width: 1365, height: 1200, file: "shop-product-detail-1365.png" },
     { width: 1980, height: 1080, file: "shop-product-detail-1980.png" },

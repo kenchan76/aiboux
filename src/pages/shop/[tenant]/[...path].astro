@@ -413,7 +413,13 @@ function imageForSalesProduct(name: string, category: string, index: number): st
     directMatch = "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=920&h=920&q=84";
   } else if (/保存容器|クロス|キッチン/.test(nameSource) || (isCategoryCard && /キッチン/.test(source))) {
     directMatch = "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=920&h=920&q=84";
-  } else if (/洗剤|洗濯|ランドリー|ホームケア|掃除|クリーナー|clean|laundry/.test(nameSource)) {
+  } else if (/浴室|バス|bath/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=920&h=920&q=84";
+  } else if (/フローリング|シート|床|floor|sheet/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1576503276229-998652dc7e56?auto=format&fit=crop&w=920&h=920&q=84";
+  } else if (/洗濯|ランドリー|laundry/.test(nameSource)) {
+    directMatch = "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=920&h=920&q=84";
+  } else if (/洗剤|ホームケア|掃除|クリーナー|clean/.test(nameSource)) {
     directMatch = "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=920&h=920&q=84";
   } else if (/文具|本|stationery|book/.test(nameSource) || (isCategoryCard && /文具|本/.test(source))) {
     directMatch = "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=920&h=920&q=84";
@@ -603,6 +609,9 @@ function buildRelatedSalesProducts(sourceProducts: any[], currentProduct: any) {
     { id: "setsuka-pan", displayName: "ふっくら食パン詰め合わせ", categoryName: "食品・飲料", salePrice: 2280, imageUrl: imageForSalesProduct("ふっくら食パン詰め合わせ", "食品・飲料", 4) },
     { id: "setsuka-dishcloth", displayName: "吸水キッチンクロス 4枚組", categoryName: "キッチン用品", salePrice: 1480, imageUrl: imageForSalesProduct("吸水キッチンクロス 4枚組", "キッチン用品", 3) },
     { id: "setsuka-laundry", displayName: "部屋干しランドリー洗剤セット", categoryName: "日用品", salePrice: 1880, imageUrl: imageForSalesProduct("部屋干しランドリー洗剤セット", "日用品", 3) },
+    { id: "setsuka-bath-cleaner", displayName: "浴室まわりクリーナー 2本セット", categoryName: "日用品", salePrice: 1280, imageUrl: imageForSalesProduct("浴室まわりクリーナー 2本セット", "日用品", 4) },
+    { id: "setsuka-floor-sheets", displayName: "フローリング掃除シート 60枚", categoryName: "日用品", salePrice: 980, imageUrl: imageForSalesProduct("フローリング掃除シート 60枚", "日用品", 5) },
+    { id: "setsuka-multi-cleaner", displayName: "住まいのマルチクリーナー 詰め替え", categoryName: "日用品", salePrice: 1180, imageUrl: imageForSalesProduct("住まいのマルチクリーナー 詰め替え", "日用品", 6) },
     { id: "setsuka-candle", displayName: "リラックスアロマキャンドル", categoryName: "ギフト", salePrice: 1980, imageUrl: imageForSalesProduct("リラックスアロマキャンドル", "ギフト", 3) },
     { id: "setsuka-stationery", displayName: "毎日使える文具スターターセット", categoryName: "本・文具", salePrice: 1680, imageUrl: imageForSalesProduct("毎日使える文具スターターセット", "本・文具", 3) },
   ];
