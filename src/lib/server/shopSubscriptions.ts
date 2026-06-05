@@ -2,7 +2,7 @@ import { env } from "cloudflare:workers";
 import { ProductApiError } from "@/lib/server/productMasterApi";
 
 export const SUBSCRIPTION_SCHEMA_PENDING_CODE = "SUBSCRIPTION_SCHEMA_PENDING";
-export const SUBSCRIPTION_SCHEMA_PENDING_MESSAGE = "定期購入DB migrationが未適用です。管理者がD1 migrationを適用してください。";
+export const SUBSCRIPTION_SCHEMA_PENDING_MESSAGE = "定期購入は現在準備中です。設定完了後にお申し込みいただけます。";
 
 export class SubscriptionSchemaPendingError extends ProductApiError {
   readonly code = SUBSCRIPTION_SCHEMA_PENDING_CODE;
