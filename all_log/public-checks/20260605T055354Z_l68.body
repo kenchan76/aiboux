@@ -1,0 +1,85 @@
+# AIBOUX Shop Current Execution Log
+
+## Current Status
+
+`WIP_DEPLOYED_NOT_FINAL`
+
+This is not `FINAL_ACCEPTED`.
+
+## Current Cycle
+
+`CLEANUP_AND_REFOCUS_CYCLE_0`
+
+The active work is direct sales-quality improvement. Visible SEO explanation panels, trust matrix, support rail, action map, SEO checklist panels, sitemap explanation panels, gate-only cycles, Bark-only cycles, and `/g`-only cycles are stopped.
+
+## Public URLs
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Log: `https://mail.aiboux.com/g/l68`
+- Screen: `https://mail.aiboux.com/g/d68`
+- Storefront: `https://shop.aiboux.com/s/aiboux/`
+- Product detail: `https://shop.aiboux.com/s/aiboux/product/setsuka-coffee`
+- Cart: `https://shop.aiboux.com/s/aiboux/cart`
+- Checkout: `https://shop.aiboux.com/s/aiboux/checkout`
+- Admin design: `https://shop.aiboux.com/s/aiboux/admin/design`
+
+## Changed In This Local WIP
+
+- TOPカテゴリカードが全て商品一覧へ戻るだけだった導線を、カテゴリ別売り場URLへ修正。
+- 売れ筋ランキングとタイムセールの「もっと見る」を、ランキング/セールの売り場URLへ修正。
+- おすすめ商品件数バッジを、DB取得件数ではなく公開TOPに実表示する販売カード件数へ修正。
+- フッター主要リンクの内部実装名をSEO sitemapではなくshopping directoryへ寄せ、可視SEO説明への逆戻りを防止。
+- PlaywrightのTOP導線テストを、カテゴリ、ランキング、セールの実リンク検証へ拡張。
+- Admin collection and discount tables no longer expose permanent disabled placeholder actions.
+- Collection create/edit/check/open actions now respond through local state or real tenant links.
+- Discount create/edit/duplicate/stop actions now respond in the admin UI.
+- Payment setup wording was moved away from internal connection-state language toward buyer/business operation wording.
+- App integration status wording now uses `受付前` instead of `未接続`.
+- Checkout empty state now shows product, cart, and shipping recovery links instead of a single dead-end sentence.
+- Checkout empty-state recovery is now covered by Playwright assertions for product, cart, and shipping links, with no fake order/payment success state.
+- Order lookup and auth form confirmed states now show buyer recovery links instead of ending with text-only notices.
+- Order lookup links to contact, shipping, and returns after valid input.
+- Login/register links to mypage, orders, and favorites after valid input without claiming login or registration completion.
+- TOP hero carousel transition duration aligned to `560ms`.
+- Carousel movement completion now uses `transitionend` with a timeout fallback instead of relying only on a fixed timer.
+- Hero images are preloaded through browser `Image` objects before interaction to reduce white flashes during slide changes.
+- Carousel track now receives GPU-friendly rendering hints for smoother `translate3d` transitions.
+- Active instruction files were updated to record this carousel-smoothness work.
+
+## Verified Locally
+
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with 0 errors and existing hints.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `tests/shop-cart-checkout-public.spec.ts`: local test coverage strengthened for checkout empty-state recovery.
+- `tests/shop-public-crawl.spec.ts`: local coverage strengthened for order lookup and auth recovery links.
+- `tests/shop-functional-public.spec.ts`: checkout empty-state expectations aligned with the recovery panel.
+- `tests/shop-storefront-interaction-public.spec.ts`: TOP category, ranking, and sale links strengthened locally. Public rerun is required after WIP deploy because the script targets `https://shop.aiboux.com`.
+
+## Public Deploy / Public Log State
+
+- WIP deploy: executed for the latest TOP sales-link refocus.
+- Current Worker Version ID observed from deploy output: `0dbb45dc-ffb2-41fd-9b00-996920d0846f`.
+- WIP checkpoint commit: `0a1c8e1`.
+- Source change commit: `ece5930`.
+- Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 matched local source in the first public check.
+- Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 matched local source in the first public check.
+- Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 differed from local source; m68 was not changed in this local cycle and remains a separate reconciliation item.
+- Public `https://shop.aiboux.com/s/aiboux/`: HTTP 200 in curl check.
+- Public `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200 in curl check.
+- Public `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200 in curl check.
+- Public Playwright `gate:shop-cart-checkout`: PASS, 3 tests.
+- Public Playwright `gate:shop-public-crawl`: PASS, 11 tests.
+- Public Playwright `gate:shop-storefront-interaction`: PASS, 2 tests.
+- Public storefront HTML includes category sales links for `coffee-tea`, `kitchen`, `ranking`, and `sale`.
+
+## Blocked
+
+- Subscription DB lane: `D1_PERMISSION_BLOCKED_NOT_FINAL`.
+
+## Next
+
+1. Continue Cycle 1 visual polish on TOP and product detail, without adding visible SEO explanation panels.
+2. Reconcile `public/g/m68.md` versus the current public `/g/m68` body before claiming full URL bundle source equality.
+3. Keep subscription DB work separated as D1 permission blocked; do not let it stop storefront quality work.
