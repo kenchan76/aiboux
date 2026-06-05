@@ -36,6 +36,7 @@ test.describe("AIBOUX Shop public storefront smooth carousel", () => {
     const main = page.getByTestId("hero-slide-main");
 
     await expect(carousel).toBeVisible();
+    await expect(carousel).toHaveAttribute("data-hero-ready", "true");
     await saveScreenshot(page, "shop-hero-before-click-1365.png");
 
     const beforeId = await main.getAttribute("data-slide-id");
@@ -55,20 +56,19 @@ test.describe("AIBOUX Shop public storefront smooth carousel", () => {
     expect(duringTransform).not.toBe("none");
     await saveScreenshot(page, "shop-hero-during-animation-1365.png");
 
-    await page.waitForTimeout(700);
-    const afterId = await main.getAttribute("data-slide-id");
-    expect(afterId).not.toBe(beforeId);
+    await expect.poll(() => main.getAttribute("data-slide-id")).not.toBe(beforeId);
     await saveScreenshot(page, "shop-hero-after-next-smooth-1365.png");
   });
 
   test("hero carousel updates side previews, dots, keyboard, swipe, and autoplay", async ({ page }) => {
     await page.setViewportSize({ width: 1365, height: 1200 });
     await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
+    await expect(page.getByTestId("hero-carousel")).toHaveAttribute("data-hero-ready", "true");
 
     const before = await ids(page);
 
     await page.getByTestId("hero-next-button").click();
-    await page.waitForTimeout(700);
+    await expect.poll(async () => (await ids(page)).main).not.toBe(before.main);
     const afterNext = await ids(page);
     expect(afterNext.prev).not.toBe(before.prev);
     expect(afterNext.main).not.toBe(before.main);
@@ -76,14 +76,14 @@ test.describe("AIBOUX Shop public storefront smooth carousel", () => {
     await expect(page.getByTestId("hero-dot-1")).toHaveAttribute("aria-current", "true");
 
     await page.getByTestId("hero-dot-2").click();
-    await page.waitForTimeout(700);
+    await expect.poll(async () => (await ids(page)).main).not.toBe(afterNext.main);
     await expect(page.getByTestId("hero-dot-2")).toHaveAttribute("aria-current", "true");
     await saveScreenshot(page, "shop-hero-after-dot-smooth-1365.png");
 
     const afterDot = await ids(page);
     await page.getByTestId("hero-carousel").focus();
     await page.keyboard.press("ArrowLeft");
-    await page.waitForTimeout(700);
+    await expect.poll(async () => (await ids(page)).main).not.toBe(afterDot.main);
     const afterKeyboard = await ids(page);
     expect(afterKeyboard.main).not.toBe(afterDot.main);
 
@@ -93,7 +93,7 @@ test.describe("AIBOUX Shop public storefront smooth carousel", () => {
     await page.mouse.down();
     await page.mouse.move(box.x + box.width * 0.28, box.y + box.height * 0.35);
     await page.mouse.up();
-    await page.waitForTimeout(700);
+    await expect.poll(async () => (await ids(page)).main).not.toBe(afterKeyboard.main);
     const afterSwipe = await ids(page);
     expect(afterSwipe.main).not.toBe(afterKeyboard.main);
 

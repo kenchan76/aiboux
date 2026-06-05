@@ -677,6 +677,7 @@ function StorefrontInteractionScript() {
     renderState();
     applyTrackPosition(activeTrackIndex, false);
     window.requestAnimationFrame(() => window.requestAnimationFrame(() => setTrackTransition(true)));
+    carousel.setAttribute("data-hero-ready", "true");
     restart();
   });
 })();
