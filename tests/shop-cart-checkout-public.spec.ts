@@ -77,10 +77,13 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await page.evaluate(() => localStorage.removeItem("aiboux:shop:aiboux:cart"));
     const title = (await page.locator("h1").innerText()).trim();
 
+    await expect(page.getByTestId("product-quantity-stepper")).toBeVisible();
+    await page.locator("[data-product-quantity-increase]").click();
+    await expect(page.locator("[data-product-quantity]")).toHaveValue("2");
     await page.getByRole("button", { name: /今すぐ購入|今すぐ申し込む/ }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
     await expect(page.locator("[data-checkout-items]")).toContainText(title);
-    await expect(page.locator("[data-checkout-total-items]")).toHaveText("1点");
+    await expect(page.locator("[data-checkout-total-items]")).toHaveText("2点");
     await expect(page.locator("[data-checkout-grand-total]")).toContainText("¥");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("支払い方法");
     await saveScreenshot(page, "shop-checkout-buy-now-result.png");

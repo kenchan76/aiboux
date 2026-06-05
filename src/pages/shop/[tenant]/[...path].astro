@@ -830,7 +830,23 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                   ) : null}
                   {productDesign?.content.showDeliveryEstimate ? <div class="mt-3 rounded-md bg-neutral-50 px-3 py-2 text-sm leading-6 text-neutral-700">初回お届け目安: 2〜4営業日<br />配送方法: 宅配便 / 追跡番号あり</div> : null}
                   {productDesign?.content.showStock ? <p class="mt-2 text-sm font-bold text-emerald-700">{salesProduct.inStock ? "在庫あり" : "在庫確認"}</p> : null}
-                  {productDesign?.purchaseBox.showQuantity ? <label class="mt-4 block text-xs font-semibold">数量<input class="mt-1 h-9 w-full rounded-md border border-neutral-200 px-3 font-normal" value="1" readonly /></label> : null}
+                  {productDesign?.purchaseBox.showQuantity ? (
+                    <div class="mt-4" data-testid="product-quantity-stepper">
+                      <div class="text-xs font-semibold text-neutral-700">数量</div>
+                      <div class="mt-1 grid grid-cols-[40px_1fr_40px] overflow-hidden rounded-md border border-neutral-200 bg-white">
+                        <button class="h-10 border-r border-neutral-200 text-lg font-bold text-neutral-700 hover:bg-neutral-50" type="button" aria-label="数量を減らす" data-product-quantity-decrease>-</button>
+                        <input
+                          class="h-10 w-full border-0 px-3 text-center text-sm font-semibold text-neutral-950 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                          value="1"
+                          inputmode="numeric"
+                          aria-label="購入数量"
+                          data-product-quantity
+                        />
+                        <button class="h-10 border-l border-neutral-200 text-lg font-bold text-neutral-700 hover:bg-neutral-50" type="button" aria-label="数量を増やす" data-product-quantity-increase>+</button>
+                      </div>
+                      <p class="mt-1 text-[11px] leading-5 text-neutral-500">1〜99点まで選択できます。カートと注文確認に同じ数量を反映します。</p>
+                    </div>
+                  ) : null}
                   <ul class="mt-3 grid gap-1 text-xs leading-5 text-neutral-600">
                     <li>・3,980円以上で送料無料</li>
                     <li>・未開封品は返品条件を確認できます</li>
@@ -1503,10 +1519,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
       function addToCart(product, redirectPath = `${tenantRoot}/cart`) {
         const items = readCart();
         const existing = items.find((item) => item.id === product.id);
+        const quantity = Math.min(99, Math.max(1, Number(product.quantity || 1)));
         if (existing) {
-          existing.quantity = Math.min(99, Number(existing.quantity || 0) + 1);
+          existing.quantity = Math.min(99, Number(existing.quantity || 0) + quantity);
         } else {
-          items.push({ ...product, quantity: 1 });
+          items.push({ ...product, quantity });
         }
         writeCart(items);
         window.location.href = redirectPath;
@@ -1515,9 +1532,11 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
       function buildCartProductFromButton(button) {
         const selectedMode = document.querySelector("input[name='purchase_mode']:checked");
         const planSelect = document.querySelector("[data-subscription-plan-select]");
+        const quantityInput = document.querySelector("[data-product-quantity]");
         const purchaseMode = selectedMode instanceof HTMLInputElement ? selectedMode.value : "normal";
         const selectedOption = planSelect instanceof HTMLSelectElement ? planSelect.selectedOptions[0] : null;
         const subscriptionPrice = Number(selectedOption?.getAttribute("data-price") || button.getAttribute("data-subscription-price") || 0);
+        const quantity = quantityInput instanceof HTMLInputElement ? Math.min(99, Math.max(1, Number.parseInt(quantityInput.value, 10) || 1)) : 1;
         return {
           id: purchaseMode === "subscription"
             ? `${button.getAttribute("data-product-id") || ""}:${selectedOption?.value || button.getAttribute("data-subscription-plan-id") || "subscription"}`
@@ -1527,6 +1546,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           price: purchaseMode === "subscription" && subscriptionPrice > 0 ? subscriptionPrice : Number(button.getAttribute("data-product-price") || 0),
           image: button.getAttribute("data-product-image") || "",
           purchaseMode,
+          quantity,
           subscriptionPlanId: purchaseMode === "subscription" ? selectedOption?.value || button.getAttribute("data-subscription-plan-id") || "" : "",
           subscriptionPlanName: purchaseMode === "subscription" ? selectedOption?.textContent?.trim() || button.getAttribute("data-subscription-plan-name") || "定期プラン" : "",
           subscriptionInterval: purchaseMode === "subscription" ? selectedOption?.getAttribute("data-interval") || button.getAttribute("data-subscription-interval") || "" : "",
@@ -1621,6 +1641,22 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
         button.addEventListener("click", () => {
           addToCart(buildCartProductFromButton(button), `${tenantRoot}/checkout`);
         });
+      });
+
+      const productQuantityInput = document.querySelector("[data-product-quantity]");
+      function normalizeProductQuantity(nextValue) {
+        if (!(productQuantityInput instanceof HTMLInputElement)) return;
+        productQuantityInput.value = String(Math.min(99, Math.max(1, Number.parseInt(String(nextValue), 10) || 1)));
+      }
+      if (productQuantityInput instanceof HTMLInputElement) {
+        productQuantityInput.addEventListener("input", () => normalizeProductQuantity(productQuantityInput.value));
+        productQuantityInput.addEventListener("blur", () => normalizeProductQuantity(productQuantityInput.value));
+      }
+      document.querySelector("[data-product-quantity-decrease]")?.addEventListener("click", () => {
+        if (productQuantityInput instanceof HTMLInputElement) normalizeProductQuantity(Number(productQuantityInput.value || 1) - 1);
+      });
+      document.querySelector("[data-product-quantity-increase]")?.addEventListener("click", () => {
+        if (productQuantityInput instanceof HTMLInputElement) normalizeProductQuantity(Number(productQuantityInput.value || 1) + 1);
       });
 
       const productMainImage = document.querySelector("[data-testid='product-main-image']");
