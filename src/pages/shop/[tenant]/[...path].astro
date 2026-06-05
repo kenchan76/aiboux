@@ -636,7 +636,7 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
   const map: Record<string, Array<{ label: string; title: string; body: string; href?: string }>> = {
     legal: [
       { label: "販売者", title: seller, body: "販売者名、所在地、連絡先を購入前に確認できます。" },
-      { label: "支払い", title: "注文確認後に支払い方法を確認", body: "決済未設定時は申込み完了風に見せず、支払い設定が必要な状態を明示します。" },
+      { label: "支払い", title: "注文確認後に支払い方法を確認", body: "支払い準備中の場合は申込み完了風に見せず、注文前に確認が必要な状態を明示します。" },
       { label: "配送", title: "発送目安と送料", body: common.shipping, href: `${tenantRootValue}/shipping` },
       { label: "返品", title: "返品・交換条件", body: common.returns, href: `${tenantRootValue}/returns` },
     ],
