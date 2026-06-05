@@ -29,6 +29,20 @@ test.describe("AIBOUX Shop product detail public quality", () => {
     mkdirSync(publicDir, { recursive: true });
   });
 
+  test("curated product slug renders the matching product detail", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    await page.goto(`/s/aiboux/product/setsuka-coffee?slugGate=${Date.now()}`, { waitUntil: "networkidle" });
+
+    await expect(page.getByTestId("public-product-detail")).toBeVisible();
+    await expect(page.locator("h1")).toHaveText("雪花セレクト ドリップコーヒー 20袋");
+    await expect(page.getByTestId("public-product-info")).toContainText("コーヒー・お茶");
+    await expect(page.getByTestId("product-main-image")).toHaveAttribute("alt", /ドリップコーヒー|コーヒー/);
+    await expect(page.getByTestId("storefront-breadcrumb")).toContainText("コーヒー・お茶");
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+    expect(canonical ?? "").toContain("/s/aiboux/product/setsuka-coffee");
+    expect(await page.getByText("毎日使えるホームケア洗剤セット", { exact: true }).count()).toBe(0);
+  });
+
   for (const viewport of [
     { width: 1365, height: 1200, file: "shop-product-detail-1365.png" },
     { width: 1980, height: 1080, file: "shop-product-detail-1980.png" },
