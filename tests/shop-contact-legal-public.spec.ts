@@ -38,7 +38,7 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
 
     await page.locator("input[name='email']").fill("tester@example.com");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
-    await expect(page.getByText("送信完了扱いにはしません。")).toBeVisible();
+    await expect(page.getByText("入力内容は確認できました。")).toBeVisible();
     await expect(page.getByTestId("storefront-buying-guide")).toHaveCount(0);
     await expect(page.getByTestId("storefront-footer")).toBeVisible();
     await saveScreenshot(page, "shop-contact-page.png");

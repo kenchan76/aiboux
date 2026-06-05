@@ -1,0 +1,12 @@
+## https://shop.aiboux.com/s/aiboux/
+## https://shop.aiboux.com/s/aiboux/products
+## https://shop.aiboux.com/s/aiboux/categories
+## https://shop.aiboux.com/s/aiboux/cart
+## https://shop.aiboux.com/s/aiboux/checkout
+## https://shop.aiboux.com/s/aiboux/contact
+## https://shop.aiboux.com/s/aiboux/legal
+## https://shop.aiboux.com/s/aiboux/privacy
+## https://shop.aiboux.com/s/aiboux/shipping
+## https://shop.aiboux.com/s/aiboux/returns
+## https://shop.aiboux.com/s/aiboux/faq
+## https://shop.aiboux.com/s/aiboux/admin/design
