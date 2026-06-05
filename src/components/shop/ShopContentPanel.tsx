@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, Image, Megaphone, Search } from "lucide-react";
+import { FileText } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,9 +14,11 @@ export function ShopContentPanel() {
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold tracking-tight text-neutral-950">コンテンツ</h1>
-          <p className="text-sm text-neutral-500">ページ、ブログ、お知らせ、バナー、SEOを管理します。</p>
+          <p className="text-sm text-neutral-500">お知らせ、ストア案内、特商法、配送、返品、問い合わせ文言を管理します。</p>
         </div>
-        <Button disabled title="コンテンツ保存API接続後に有効化します">コンテンツを作成</Button>
+        <Button asChild>
+          <a href="/s/aiboux/admin/settings">ストア文言を編集</a>
+        </Button>
       </div>
       <Card className="shadow-sm">
         <CardHeader className="px-4 py-3">
@@ -59,7 +61,9 @@ export function ShopContentPanel() {
                     </TableCell>
                     <TableCell>{item.updatedAt}</TableCell>
                     <TableCell className="text-right">
-                      <Button variant="outline" size="sm" disabled>編集</Button>
+                      <Button asChild variant="outline" size="sm">
+                        <a href="/s/aiboux/admin/settings">編集</a>
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

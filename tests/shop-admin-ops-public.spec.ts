@@ -75,6 +75,16 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
   });
 
+  test("admin content page links to editable store wording settings", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/content", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: "コンテンツ" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "ストア文言を編集" })).toHaveAttribute("href", "/s/aiboux/admin/settings");
+    await expect(page.locator("body")).not.toContainText("コンテンツ保存API接続後");
+    await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+  });
+
   test("design editor remains a focused two-page editor", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/design", { waitUntil: "networkidle" });
