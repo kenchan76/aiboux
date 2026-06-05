@@ -1,0 +1,101 @@
+ M all_log/deploys/20260605T062439Z_wrangler_admin_ops_fix_deploy.txt
+ M output/playwright/shop-admin-ops/shop-admin-design.png
+ M output/playwright/shop-admin-ops/shop-admin-inventory.png
+ M output/playwright/shop-admin-ops/shop-admin-orders.png
+ M output/playwright/shop-admin-ops/shop-admin-products.png
+ M output/playwright/shop-admin-ops/shop-admin-settings.png
+ M output/playwright/shop-admin-ops/shop-admin-subscriptions.png
+ M output/playwright/shop-cart-checkout/shop-cart-page.png
+ M output/playwright/shop-cart-checkout/shop-checkout-buy-now-result.png
+ M output/playwright/shop-cart-checkout/shop-checkout-empty-guide.png
+ M output/playwright/shop-cart-checkout/shop-checkout-page.png
+ M output/playwright/shop-contact-legal/shop-contact-page.png
+ M output/playwright/shop-contact-legal/shop-legal-page.png
+ M output/playwright/shop-contact-legal/shop-privacy-page.png
+ M output/playwright/shop-contact-legal/shop-returns-page.png
+ M output/playwright/shop-contact-legal/shop-shipping-page.png
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M output/playwright/shop-functional/design-editor-1980.png
+ M output/playwright/shop-storefront-carousel/shop-hero-after-autoplay-smooth-1365.png
+ M output/playwright/shop-storefront-carousel/shop-hero-after-dot-smooth-1365.png
+ M output/playwright/shop-storefront-carousel/shop-hero-after-next-smooth-1365.png
+ M output/playwright/shop-storefront-carousel/shop-hero-before-click-1365.png
+ M output/playwright/shop-storefront-carousel/shop-hero-during-animation-1365.png
+ M output/playwright/shop-storefront-interaction/shop-cart-add-result.png
+ M output/playwright/shop-storefront-interaction/shop-hero-after-autoplay-1365.png
+ M output/playwright/shop-storefront-interaction/shop-hero-after-dot-1365.png
+ M output/playwright/shop-storefront-interaction/shop-hero-after-next-1365.png
+ M output/playwright/shop-storefront-interaction/shop-hero-initial-1365.png
+ M output/playwright/shop-storefront-interaction/shop-product-card-click-result.png
+ M output/playwright/shop-storefront-visual/public-storefront-after-quality-fix-1365.png
+ M output/playwright/shop-storefront-visual/public-storefront-after-quality-fix-1980.png
+ M output/playwright/shop-storefront-visual/public-storefront-after-quality-fix-mobile.png
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/components/shop/storefront/StorefrontProductCard.astro
+ M test-results/.last-run.json
+ D test-results/shop-admin-ops-public-AIBO-96846-nce-without-backend-wording/error-context.md
+ D test-results/shop-admin-ops-public-AIBO-96846-nce-without-backend-wording/test-failed-1.png
+ D test-results/shop-admin-ops-public-AIBO-96846-nce-without-backend-wording/trace.zip
+ D test-results/shop-admin-ops-public-AIBO-96846-nce-without-backend-wording/video.webm
+ D test-results/shop-admin-ops-public-AIBO-ce61a--edit-and-duplicate-actions/error-context.md
+ D test-results/shop-admin-ops-public-AIBO-ce61a--edit-and-duplicate-actions/test-failed-1.png
+ D test-results/shop-admin-ops-public-AIBO-ce61a--edit-and-duplicate-actions/trace.zip
+ D test-results/shop-admin-ops-public-AIBO-ce61a--edit-and-duplicate-actions/video.webm
+ D test-results/shop-admin-ops-public-AIBO-cfa8d-il-segment-and-memo-actions/error-context.md
+ D test-results/shop-admin-ops-public-AIBO-cfa8d-il-segment-and-memo-actions/test-failed-1.png
+ D test-results/shop-admin-ops-public-AIBO-cfa8d-il-segment-and-memo-actions/trace.zip
+ D test-results/shop-admin-ops-public-AIBO-cfa8d-il-segment-and-memo-actions/video.webm
+ D test-results/shop-admin-ops-public-AIBO-d8c06-or-exposes-a-real-back-link/error-context.md
+ D test-results/shop-admin-ops-public-AIBO-d8c06-or-exposes-a-real-back-link/test-failed-1.png
+ D test-results/shop-admin-ops-public-AIBO-d8c06-or-exposes-a-real-back-link/trace.zip
+ D test-results/shop-admin-ops-public-AIBO-d8c06-or-exposes-a-real-back-link/video.webm
+ D test-results/shop-admin-ops-public-AIBO-da3d9-ntrols-are-not-dead-buttons/error-context.md
+ D test-results/shop-admin-ops-public-AIBO-da3d9-ntrols-are-not-dead-buttons/test-failed-1.png
+ D test-results/shop-admin-ops-public-AIBO-da3d9-ntrols-are-not-dead-buttons/trace.zip
+ D test-results/shop-admin-ops-public-AIBO-da3d9-ntrols-are-not-dead-buttons/video.webm
+ D test-results/shop-functional-public-AIB-297f3-and-contact-behave-honestly/error-context.md
+ D test-results/shop-functional-public-AIB-297f3-and-contact-behave-honestly/test-failed-1.png
+ D test-results/shop-functional-public-AIB-297f3-and-contact-behave-honestly/trace.zip
+ D test-results/shop-functional-public-AIB-297f3-and-contact-behave-honestly/video.webm
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/error-context.md
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/test-failed-1.png
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/trace.zip
+ D test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/video.webm
+ D test-results/shop-functional-public-AIB-cfe2c-nd-restores-original-layout/error-context.md
+ D test-results/shop-functional-public-AIB-cfe2c-nd-restores-original-layout/test-failed-1.png
+ D test-results/shop-functional-public-AIB-cfe2c-nd-restores-original-layout/trace.zip
+ D test-results/shop-functional-public-AIB-cfe2c-nd-restores-original-layout/video.webm
+ D test-results/shop-functional-public-AIB-ea31c-ed-or-generated-policy-text/error-context.md
+ D test-results/shop-functional-public-AIB-ea31c-ed-or-generated-policy-text/test-failed-1.png
+ D test-results/shop-functional-public-AIB-ea31c-ed-or-generated-policy-text/trace.zip
+ D test-results/shop-functional-public-AIB-ea31c-ed-or-generated-policy-text/video.webm
+?? all_log/checkpoints/20260605T062441Z_wip_commit.txt
+?? all_log/checkpoints/20260605T071729Z_head_before_admin_subscription_wording.txt
+?? all_log/checkpoints/20260605T071729Z_status_before_admin_subscription_wording.txt
+?? all_log/checkpoints/20260605T080218Z_status_before_product_card_align.txt
+?? all_log/deploys/20260605T062441Z_deployments_before.txt
+?? all_log/deploys/20260605T063427Z_wrangler_core_flow_reflection_deploy.txt
+?? all_log/deploys/20260605T064129Z_wrangler_carousel_ready_deploy.txt
+?? all_log/deploys/20260605T064453Z_wrangler_public_log_gate_status_deploy.txt
+?? all_log/deploys/20260605T064649Z_wrangler_public_log_worker_id_deploy.txt
+?? all_log/deploys/20260605T065355Z_wrangler_cart_checkout_summary_deploy.txt
+?? all_log/deploys/20260605T065959Z_wrangler_cart_checkout_log_publication_deploy.txt
+?? all_log/deploys/20260605T070652Z_wrangler_contact_policy_publication_deploy.txt
+?? all_log/deploys/20260605T070846Z_wrangler_policy_wording_fix_deploy.txt
+?? all_log/deploys/20260605T071007Z_wrangler_latest_contact_policy_log_deploy.txt
+?? all_log/deploys/20260605T071132Z_wrangler_log_sha_republish_deploy.txt
+?? all_log/deploys/20260605T071729Z_deployments_before_admin_subscription_wording.txt
+?? all_log/deploys/20260605T071748Z_wrangler_admin_subscription_wording_deploy.txt
+?? all_log/deploys/20260605T072038Z_wrangler_admin_operation_evidence_deploy.txt
+?? all_log/deploys/20260605T072325Z_wrangler_regression_evidence_deploy.txt
+?? all_log/deploys/20260605T073135Z_deployments_before_admin_settings_wording.txt
+?? all_log/deploys/20260605T073135Z_wrangler_admin_settings_wording_deploy.txt
+?? all_log/deploys/20260605T073406Z_wrangler_admin_settings_evidence_deploy.txt
+?? all_log/deploys/20260605T073524Z_wrangler_admin_settings_evidence_redeploy.txt
+?? all_log/deploys/20260605T074524Z_deployments_before_settings_profile_persistence.txt
+?? all_log/deploys/20260605T074524Z_wrangler_settings_profile_persistence_deploy.txt
+?? all_log/deploys/20260605T074816Z_wrangler_settings_profile_persistence_evidence_deploy.txt
+?? all_log/deploys/20260605T075317Z_wrangler_product_save_notification_guard_deploy.txt
+?? all_log/deploys/20260605T075546Z_wrangler_product_notification_evidence_deploy.txt
+?? all_log/patches/20260605T071729Z_admin_subscription_wording.patch
+?? output/playwright/shop-admin-ops/shop-admin-subscriptions-operational.png

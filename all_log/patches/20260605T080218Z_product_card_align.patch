@@ -1,0 +1,221 @@
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index ade64d7..121f89c 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -375,31 +375,33 @@ function ProductCard({ product, index, showTaxLabel, showRating }: { product: St
+       className="flex min-h-[344px] flex-col rounded-md border border-neutral-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md"
+       data-testid="product-card"
+     >
+-      <a href={product.href} className="block">
++      <a href={product.href} className="block flex-none">
+         <img src={product.image} alt={`${product.name} 商品画像`} className="h-44 w-full rounded bg-neutral-50 object-cover md:h-48" loading="lazy" />
+       </a>
+-      <div className="mt-3 text-[11px] font-semibold text-neutral-500">{product.category}</div>
+-      <a href={product.href} className="block">
+-        {showRating ? (
+-          <div className="mt-1 text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({reviewCount})</span></div>
+-        ) : null}
+-        <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-blue-800 hover:underline">{product.name}</h3>
+-      </a>
+-      <p className="mt-1 text-lg font-bold tracking-tight text-red-700">
+-        ¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}
+-      </p>
+-      <button
+-        className="mt-auto inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950 hover:bg-[#F7CA00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+-        type="button"
+-        data-cart-add
+-        data-testid="storefront-product-add-to-cart"
+-        data-product-id={product.id}
+-        data-product-name={product.name}
+-        data-product-price={String(numericPrice)}
+-        data-product-image={product.image}
+-      >
+-        カートに追加
+-      </button>
++      <div className="flex flex-1 flex-col">
++        <div className="mt-3 line-clamp-1 min-h-[1.2rem] text-[11px] font-semibold text-neutral-500">{product.category}</div>
++        <a href={product.href} className="block">
++          {showRating ? (
++            <div className="mt-1 min-h-[1.25rem] text-xs text-amber-500">★★★★★ <span className="text-neutral-500">({reviewCount})</span></div>
++          ) : null}
++          <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-semibold text-blue-800 hover:underline">{product.name}</h3>
++        </a>
++        <p className="mt-auto pt-2 text-lg font-bold tracking-tight text-red-700">
++          ¥{product.price} {showTaxLabel ? <span className="text-[11px] font-normal text-neutral-500">税込</span> : null}
++        </p>
++        <button
++          className="mt-2 inline-flex h-8 w-full items-center justify-center rounded bg-[#FFD814] text-xs font-bold text-neutral-950 hover:bg-[#F7CA00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
++          type="button"
++          data-cart-add
++          data-testid="storefront-product-add-to-cart"
++          data-product-id={product.id}
++          data-product-name={product.name}
++          data-product-price={String(numericPrice)}
++          data-product-image={product.image}
++        >
++          カートに追加
++        </button>
++      </div>
+     </article>
+   );
+ }
+diff --git a/src/components/shop/storefront/StorefrontProductCard.astro b/src/components/shop/storefront/StorefrontProductCard.astro
+index 5bfe935..d0fd2df 100644
+--- a/src/components/shop/storefront/StorefrontProductCard.astro
++++ b/src/components/shop/storefront/StorefrontProductCard.astro
+@@ -48,7 +48,7 @@ const compact = variant === "compact";
+ <article
+   class:list={[
+     "group flex flex-col rounded-xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md",
+-    compact ? "min-h-[292px] p-3" : "min-h-[344px] p-3",
++    compact ? "min-h-[332px] p-3" : "min-h-[372px] p-3",
+   ]}
+   data-testid={testId}
+   itemscope
+@@ -60,7 +60,7 @@ const compact = variant === "compact";
+   <link itemprop="url" href={productHref} />
+ 
+   <a
+-    class="aspect-square overflow-hidden rounded-lg bg-neutral-50 outline-none ring-amber-400 transition focus-visible:ring-2"
++    class="aspect-square flex-none overflow-hidden rounded-lg bg-neutral-50 outline-none ring-amber-400 transition focus-visible:ring-2"
+     href={productHref}
+     data-testid="storefront-product-card-link"
+     aria-label={`${product.displayName}の商品詳細を見る`}
+@@ -75,72 +75,73 @@ const compact = variant === "compact";
+     />
+   </a>
+ 
+-  <a
+-    class="mt-3 w-fit text-[11px] font-bold text-blue-700 hover:text-blue-950 hover:underline"
+-    href={categoryHref}
+-    data-testid="storefront-product-card-category"
+-  >
+-    {categoryName}
+-  </a>
++  <div class="flex flex-1 flex-col">
++    <a
++      class="mt-3 line-clamp-1 min-h-[1.2rem] w-fit text-[11px] font-bold text-blue-700 hover:text-blue-950 hover:underline"
++      href={categoryHref}
++      data-testid="storefront-product-card-category"
++    >
++      {categoryName}
++    </a>
+ 
+-  <a
+-    class="mt-1 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline"
+-    href={productHref}
+-    data-testid="storefront-product-card-title"
+-    itemprop="name"
+-  >
+-    {product.displayName}
+-  </a>
++    <a
++      class="mt-1 line-clamp-2 min-h-[2.8em] text-sm font-semibold leading-5 text-blue-800 hover:text-blue-950 hover:underline"
++      href={productHref}
++      data-testid="storefront-product-card-title"
++      itemprop="name"
++    >
++      {product.displayName}
++    </a>
+ 
+-  <div
+-    class="mt-2 flex items-center gap-1 text-xs text-amber-500"
+-    itemprop="aggregateRating"
+-    itemscope
+-    itemtype="https://schema.org/AggregateRating"
+-    aria-label={`評価 ${ratingValue}、レビュー ${reviewCount}件`}
+-  >
+-    <span aria-hidden="true">★★★★★</span>
+-    <span class="text-neutral-500">({reviewCount})</span>
+-    <meta itemprop="ratingValue" content={ratingValue} />
+-    <meta itemprop="reviewCount" content={String(reviewCount)} />
+-  </div>
++    <div
++      class="mt-2 flex min-h-[1.25rem] items-center gap-1 text-xs text-amber-500"
++      itemprop="aggregateRating"
++      itemscope
++      itemtype="https://schema.org/AggregateRating"
++      aria-label={`評価 ${ratingValue}、レビュー ${reviewCount}件`}
++    >
++      <span aria-hidden="true">★★★★★</span>
++      <span class="text-neutral-500">({reviewCount})</span>
++      <meta itemprop="ratingValue" content={ratingValue} />
++      <meta itemprop="reviewCount" content={String(reviewCount)} />
++    </div>
+ 
+-  <div
+-    class="mt-1 text-lg font-bold text-red-700"
+-    itemprop="offers"
+-    itemscope
+-    itemtype="https://schema.org/Offer"
+-  >
+-    <link itemprop="availability" href={product.inStock === false ? "https://schema.org/PreOrder" : "https://schema.org/InStock"} />
+-    <meta itemprop="priceCurrency" content="JPY" />
+-    <meta itemprop="price" content={String(price)} />
+-    <link itemprop="url" href={productHref} />
+-    {formattedPrice} <span class="text-[11px] font-normal text-neutral-500">税込</span>
+-  </div>
++    <div
++      class="mt-auto pt-2 text-lg font-bold text-red-700"
++      itemprop="offers"
++      itemscope
++      itemtype="https://schema.org/Offer"
++    >
++      <link itemprop="availability" href={product.inStock === false ? "https://schema.org/PreOrder" : "https://schema.org/InStock"} />
++      <meta itemprop="priceCurrency" content="JPY" />
++      <meta itemprop="price" content={String(price)} />
++      <link itemprop="url" href={productHref} />
++      {formattedPrice} <span class="text-[11px] font-normal text-neutral-500">税込</span>
++    </div>
+ 
+-  {
+-    showCartButton ? (
+-      <button
+-        class="mt-auto h-9 rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+-        type="button"
+-        data-cart-add
+-        data-testid="storefront-product-card-add-to-cart"
+-        data-product-id={product.id}
+-        data-product-name={product.displayName}
+-        data-product-price={String(price)}
+-        data-product-image={product.imageUrl}
+-      >
+-        {ctaLabel}
+-      </button>
+-    ) : (
+-      <a
+-        class="mt-auto inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 transition hover:bg-amber-300"
+-        href={productHref}
+-        data-testid="storefront-product-card-detail-cta"
+-      >
+-        {ctaLabel}
+-      </a>
+-    )
+-  }
++    {
++      showCartButton ? (
++        <button
++          class="mt-2 h-9 rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
++          type="button"
++          data-cart-add
++          data-testid="storefront-product-card-add-to-cart"
++          data-product-id={product.id}
++          data-product-name={product.displayName}
++          data-product-price={String(price)}
++          data-product-image={product.imageUrl}
++        >
++          {ctaLabel}
++        </button>
++      ) : (
++        <a
++          class="mt-2 inline-flex h-9 items-center justify-center rounded-full bg-amber-400 px-3 text-xs font-bold text-neutral-950 transition hover:bg-amber-300"
++          href={productHref}
++          data-testid="storefront-product-card-detail-cta"
++        >
++          {ctaLabel}
++        </a>
++      )
++    }
++  </div>
+ </article>
+-
