@@ -40,9 +40,9 @@ This is not `FINAL_ACCEPTED`.
 
 ## Current Visual Verdict
 
-`PUBLIC_CART_CHECKOUT_AND_CRAWL_RECHECK_PASS_WIP`
+`PENDING_PUBLIC_PLAYWRIGHT_RECHECK_AFTER_WIP_DEPLOY`
 
-The local code targets smoother carousel motion and buyer recovery links. WIP deploy succeeded, and the focused public cart/checkout and public crawl gates passed. This is still not `FINAL_ACCEPTED`.
+The local code targets smoother carousel motion and buyer recovery links. WIP deploy succeeded, but public Playwright visual acceptance is not claimed until focused public gates run against the deployed Worker.
 
 ## Local Verification
 
@@ -71,18 +71,8 @@ The local code targets smoother carousel motion and buyer recovery links. WIP de
 
 ## Deployment Evidence
 
-- Worker Version ID: `f211898d-ad37-4079-8b85-d27cd1482a92`.
+- Worker Version ID: `0f865b57-1e7c-4786-823e-24ec36c2a477`.
 - Public `/g/l68`: HTTP 200 / markdown / sha256 matched local source in the first public check.
 - Public `/g/d68`: HTTP 200 / markdown / sha256 matched local source in the first public check.
 - Public `https://shop.aiboux.com/s/aiboux/`: HTTP 200 in curl check.
 - Public `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200 in curl check.
-
-## Public Playwright Evidence
-
-- `gate:shop-cart-checkout`: PASS, 3 tests.
-- `gate:shop-public-crawl`: PASS, 11 tests.
-- Checkout empty-state evidence: `/g/screens/shop-checkout-empty-guide.png`.
-- Cart evidence: `/g/screens/shop-cart-page.png`.
-- Checkout payment-state evidence: `/g/screens/shop-checkout-page.png`.
-- Buy-now checkout evidence: `/g/screens/shop-checkout-buy-now-result.png`.
-- Full page crawl screenshots include TOP, products, categories, cart, checkout, contact, legal, privacy, shipping, returns, FAQ, mypage, orders, favorites, login, register, admin design, and admin subscriptions.

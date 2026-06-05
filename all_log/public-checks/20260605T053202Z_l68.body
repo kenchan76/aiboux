@@ -54,15 +54,13 @@ The active work is direct sales-quality improvement. Visible SEO explanation pan
 ## Public Deploy / Public Log State
 
 - WIP deploy: executed.
-- Worker Version ID: `f211898d-ad37-4079-8b85-d27cd1482a92`.
+- Worker Version ID: `0f865b57-1e7c-4786-823e-24ec36c2a477`.
 - Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 matched local source in the first public check.
 - Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 matched local source in the first public check.
 - Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 differed from local source; m68 was not changed in this local cycle and remains a separate reconciliation item.
 - Public `https://shop.aiboux.com/s/aiboux/`: HTTP 200 in curl check.
 - Public `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200 in curl check.
-- Public `https://shop.aiboux.com/s/aiboux/checkout`: HTTP 200 in curl check.
-- Public Playwright `gate:shop-cart-checkout`: PASS, 3 tests.
-- Public Playwright `gate:shop-public-crawl`: PASS, 11 tests.
+- Public Playwright: still pending after this WIP deploy.
 
 ## Blocked
 
@@ -71,6 +69,6 @@ The active work is direct sales-quality improvement. Visible SEO explanation pan
 
 ## Next
 
-1. Reconcile `public/g/m68.md` versus the current public `/g/m68` body before claiming full URL bundle source equality.
-2. Continue direct sales-quality improvement; do not add visible SEO explanation panels.
-3. Subscription D1/provider-backed recurring billing remains a separate unfinished lane.
+1. Run focused public Playwright gates against the deployed Worker.
+2. Reconcile `public/g/m68.md` versus the current public `/g/m68` body before claiming full URL bundle source equality.
+3. Continue direct sales-quality improvement; do not add visible SEO explanation panels.

@@ -64,7 +64,7 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await saveScreenshot(page, "shop-cart-page.png");
 
     await page.locator("[data-cart-qty]").first().fill("2");
-    await expect(page.getByText("¥6,192")).toBeVisible();
+    await expect(page.locator("[data-cart-subtotal]")).toHaveText("¥6,192");
     await expect(page.locator("[data-cart-total-items]")).toHaveText("3点");
     await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥6,192");
     await page.locator("[data-cart-remove]").first().click();
@@ -118,7 +118,7 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.locator("[data-checkout-items]")).toContainText(title);
     await expect(page.locator("[data-checkout-total-items]")).toHaveText("2点");
     await expect(page.locator("[data-checkout-grand-total]")).toContainText("¥");
-    await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("支払い方法");
+    await expect(page.getByTestId("storefront-checkout-payment-panel")).toContainText("支払い方法");
     await saveScreenshot(page, "shop-checkout-buy-now-result.png");
   });
 });
