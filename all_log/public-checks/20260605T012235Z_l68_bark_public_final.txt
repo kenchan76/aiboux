@@ -1,0 +1,12 @@
+HTTP/2 200 
+content-type: text/markdown; charset=utf-8
+x-content-type-options: nosniff
+4006:Progress Bark:
+4544:Progress Bark:
+4606:Progress Bark:
+4607:- Evidence file: `all_log/bark/20260605T012235Z_shop_public_text_declutter_progress_bark.json`
+3500:- This is expected because the Worker replaces `8e564e30-beec-4c76-933b-7273ba2ec4ec` with the runtime Worker Version ID in public responses.
+3575:- Public evidence Worker Version ID: `8e564e30-beec-4c76-933b-7273ba2ec4ec`
+4459:- Public evidence Worker Version ID: `8e564e30-beec-4c76-933b-7273ba2ec4ec`
+4512:- Public evidence publication Worker Version ID: `8e564e30-beec-4c76-933b-7273ba2ec4ec`
+4553:- Current public Worker Version ID is resolved at runtime as `8e564e30-beec-4c76-933b-7273ba2ec4ec`.
