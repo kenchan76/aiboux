@@ -26,7 +26,8 @@ Remove shopper-facing SEO/explanation panels from public AIBOUX Shop pages while
 ## Commit And Deployment
 
 - WIP commit: `3b537c1189264aa3e15b1ec2688470180b72ec3a`
-- Worker Version ID: `c7c9e23b-fa2e-4b29-adfc-dfd83b92be82`
+- Implementation deploy Worker Version ID: `c7c9e23b-fa2e-4b29-adfc-dfd83b92be82`
+- Public evidence publication Worker Version ID: `00250f92-7c8f-4a3c-b62f-a21ffdca9616`
 - Deployment status: WIP deployed
 - FINAL_ACCEPTED: no
 
