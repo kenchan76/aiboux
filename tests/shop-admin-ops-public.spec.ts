@@ -109,6 +109,68 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
   });
 
+  test("admin settings profile save persists and restores without notification side effects", async ({ request }) => {
+    const originalResponse = await request.get("/shop/api/settings/profile", {
+      headers: {
+        "cache-control": "no-cache",
+        pragma: "no-cache",
+      },
+    });
+    expect(originalResponse.ok(), "profile GET before save").toBeTruthy();
+    const originalData = await originalResponse.json();
+    expect(originalData.success, "profile GET success before save").toBeTruthy();
+    const originalProfile = originalData.profile as Record<string, unknown>;
+    const originalStoreName = String(originalProfile.storeName ?? "AIBOUX STORE");
+    const originalBusinessName = String(originalProfile.businessName ?? "AIBOUX STORE");
+    const marker = `${originalStoreName} 保存確認`;
+    const nextProfile = {
+      ...originalProfile,
+      storeName: marker,
+      actorId: "playwright-settings-profile-save",
+      notifyAdmin: false,
+    };
+
+    try {
+      const saveResponse = await request.post("/shop/api/settings/profile", {
+        data: nextProfile,
+      });
+      expect(saveResponse.ok(), "profile POST save").toBeTruthy();
+      const saveData = await saveResponse.json();
+      expect(saveData.success, "profile POST save success").toBeTruthy();
+      expect(saveData.profile?.storeName).toBe(marker);
+      expect(saveData.notification?.attempted).toBe(false);
+
+      const persistedResponse = await request.get("/shop/api/settings/profile", {
+        headers: {
+          "cache-control": "no-cache",
+          pragma: "no-cache",
+        },
+      });
+      expect(persistedResponse.ok(), "profile GET after save").toBeTruthy();
+      const persistedData = await persistedResponse.json();
+      expect(persistedData.profile?.storeName).toBe(marker);
+      expect(String(persistedData.profile?.tokushohoText ?? "")).toContain(originalBusinessName);
+    } finally {
+      const restoreResponse = await request.post("/shop/api/settings/profile", {
+        data: {
+          ...originalProfile,
+          actorId: "playwright-settings-profile-restore",
+          notifyAdmin: false,
+        },
+      });
+      expect(restoreResponse.ok(), "profile POST restore").toBeTruthy();
+      const restoredResponse = await request.get("/shop/api/settings/profile", {
+        headers: {
+          "cache-control": "no-cache",
+          pragma: "no-cache",
+        },
+      });
+      expect(restoredResponse.ok(), "profile GET after restore").toBeTruthy();
+      const restoredData = await restoredResponse.json();
+      expect(restoredData.profile?.storeName).toBe(originalStoreName);
+    }
+  });
+
   test("admin product row menu exposes real edit and duplicate actions", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/products", { waitUntil: "networkidle" });

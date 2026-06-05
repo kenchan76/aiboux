@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
-import { ProductApiError, productError, productJson, readJsonBody, textValue, withTenant } from "@/lib/server/productMasterApi";
+import { ProductApiError, booleanValue, productError, productJson, readJsonBody, textValue, withTenant } from "@/lib/server/productMasterApi";
 import { sendShopAdminNotification } from "@/lib/server/shopNotificationEmail";
 
 export const prerender = false;
@@ -17,6 +17,7 @@ type ProfileBody = {
   logoR2Key?: unknown;
   logoUrl?: unknown;
   logoFileName?: unknown;
+  notifyAdmin?: unknown;
   actorId?: unknown;
 };
 
@@ -109,6 +110,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await readJsonBody<ProfileBody>(request);
     const now = Date.now();
     const actorId = textValue(body.actorId, "actorId", { maxLength: 120 }) || null;
+    const shouldNotifyAdmin = booleanValue(body.notifyAdmin, false);
     const storeName = textValue(body.storeName, "storeName", { required: true, maxLength: 120 });
     const businessName = textValue(body.businessName, "businessName", { required: true, maxLength: 180 });
     const postalCode = textValue(body.postalCode, "postalCode", { maxLength: 16 });
@@ -226,13 +228,15 @@ export const POST: APIRoute = async ({ request }) => {
       ),
     ]);
 
-    const notification = await safeSendProfileNotification({
-      tenantId: tenant.tenantId,
-      storeName,
-      businessName,
-      email,
-      savedAt: now,
-    });
+    const notification = shouldNotifyAdmin
+      ? await safeSendProfileNotification({
+          tenantId: tenant.tenantId,
+          storeName,
+          businessName,
+          email,
+          savedAt: now,
+        })
+      : { attempted: false, ok: false, error: "管理通知は送信せず、保存結果だけを確認しました。" };
 
     return productJson({
       success: true,
