@@ -165,7 +165,8 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
           "itemtype",
           "https://schema.org/ItemList",
         );
-        await expect(footerLinkDirectory, `${target.path} footer link directory should use customer-facing copy`).toContainText("ストア主要リンク");
+        await expect(footerLinkDirectory, `${target.path} footer link directory should not expose explanatory footer copy`).not.toContainText("ストア内リンクをまとめて確認");
+        await expect(footerLinkDirectory, `${target.path} footer link directory should not expose explanatory footer copy`).not.toContainText("必要なページへすぐ移動できます");
         await expect(footerLinkDirectory.locator('meta[itemprop="numberOfItems"]'), `${target.path} footer link directory should declare numberOfItems`).toHaveCount(1);
         expect(await footerLinkDirectory.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} footer link directory should expose ListItem microdata`).toBeGreaterThanOrEqual(20);
         expect(await footerLinkDirectory.locator("a").count(), `${target.path} footer link directory should expose dense internal links`).toBeGreaterThanOrEqual(20);

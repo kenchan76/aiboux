@@ -79,17 +79,9 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
         itemType="https://schema.org/ItemList"
       >
         <div className="mx-auto max-w-screen-xl">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 className="text-base font-bold text-white">ストア内リンクをまとめて確認</h2>
-              <p className="mt-1 text-xs leading-5 text-white/72">
-                商品、カテゴリ、注文、配送、返品、定期購入、問い合わせまで、必要なページへすぐ移動できます。
-              </p>
-            </div>
-            <div className="text-xs font-semibold text-sky-200">ストア主要リンク</div>
-          </div>
+          <h2 className="sr-only">ストア主要リンク</h2>
           <meta itemProp="numberOfItems" content={String(linkDirectory.length)} />
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {linkDirectory.map((link, index) => (
               <a
                 key={`${link.label}-${link.href}`}

@@ -112,7 +112,8 @@ test.describe("AIBOUX Shop product detail public quality", () => {
         "itemtype",
         "https://schema.org/ItemList",
       );
-      await expect(footerLinkDirectory, "product detail footer link directory should use customer-facing copy").toContainText("ストア主要リンク");
+      await expect(footerLinkDirectory, "product detail footer link directory should not expose explanatory footer copy").not.toContainText("ストア内リンクをまとめて確認");
+      await expect(footerLinkDirectory, "product detail footer link directory should not expose explanatory footer copy").not.toContainText("必要なページへすぐ移動できます");
       expect(await footerLinkDirectory.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail footer link directory should expose ListItem microdata").toBeGreaterThanOrEqual(20);
       expect(await footerLinkDirectory.locator("a").count(), "product detail footer link directory should expose dense internal links").toBeGreaterThanOrEqual(20);
       expect(await footerLinkDirectory.locator("a").first().getAttribute("class"), "product detail footer link directory links should be visibly sky colored").toContain("text-sky-200");
