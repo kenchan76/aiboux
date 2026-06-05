@@ -735,8 +735,18 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class={productDesign?.gallery.position === "top" ? "lg:col-span-3" : ""} data-testid="public-product-gallery">
                   <div class={productDesign?.gallery.position === "top" ? "grid gap-3" : "flex gap-3"}>
                     <div class={productDesign?.gallery.position === "top" ? "order-2 flex gap-2" : "grid h-fit gap-2"}>
-                      {salesProductThumbnails.map((thumb) => (
-                        <button class="flex size-14 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-white p-0.5 hover:border-amber-400" type="button" data-testid="product-thumbnail">
+                      {salesProductThumbnails.map((thumb, index) => (
+                        <button
+                          class="flex size-14 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-white p-0.5 hover:border-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 data-[active=true]:border-amber-500 data-[active=true]:ring-2 data-[active=true]:ring-amber-200"
+                          type="button"
+                          data-testid="product-thumbnail"
+                          data-product-thumbnail
+                          data-gallery-image={thumb.imageUrl}
+                          data-gallery-alt={thumb.alt}
+                          data-active={index === 0 ? "true" : "false"}
+                          aria-label={`${thumb.alt}を表示`}
+                          aria-pressed={index === 0 ? "true" : "false"}
+                        >
                           <img src={thumb.imageUrl} alt={thumb.alt} class="h-full w-full rounded object-cover" loading="lazy" />
                         </button>
                       ))}
@@ -1560,6 +1570,37 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
             subscriptionPlanName: purchaseMode === "subscription" ? selectedOption?.textContent?.trim() || button.getAttribute("data-subscription-plan-name") || "定期プラン" : "",
             subscriptionInterval: purchaseMode === "subscription" ? selectedOption?.getAttribute("data-interval") || button.getAttribute("data-subscription-interval") || "" : "",
           });
+        });
+      });
+
+      const productMainImage = document.querySelector("[data-testid='product-main-image']");
+      const productThumbnails = Array.from(document.querySelectorAll("[data-product-thumbnail]"));
+      function activateProductThumbnail(button) {
+        if (!(productMainImage instanceof HTMLImageElement) || !(button instanceof HTMLElement)) return;
+        const image = button.getAttribute("data-gallery-image") || "";
+        const alt = button.getAttribute("data-gallery-alt") || "";
+        if (!image) return;
+        productMainImage.src = image;
+        if (alt) productMainImage.alt = alt;
+        productThumbnails.forEach((node) => {
+          const active = node === button;
+          node.setAttribute("data-active", active ? "true" : "false");
+          node.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+      }
+      productThumbnails.forEach((button, index) => {
+        button.addEventListener("click", () => activateProductThumbnail(button));
+        button.addEventListener("keydown", (event) => {
+          if (!(event instanceof KeyboardEvent)) return;
+          if (event.key !== "ArrowDown" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowLeft") return;
+          event.preventDefault();
+          const delta = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+          const nextIndex = (index + delta + productThumbnails.length) % productThumbnails.length;
+          const nextButton = productThumbnails[nextIndex];
+          if (nextButton instanceof HTMLElement) {
+            nextButton.focus();
+            activateProductThumbnail(nextButton);
+          }
         });
       });
 
