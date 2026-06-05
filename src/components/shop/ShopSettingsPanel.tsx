@@ -1093,10 +1093,10 @@ function StripeConnectCard({ compact = false }: { compact?: boolean }) {
           {state === "active" ? "決済の受付準備が完了しています。" : null}
           {state === "pending" ? "Stripe側の確認を進めています。Stripe画面で入力を完了した後、この画面に戻って状態を更新してください。" : null}
           {state === "restricted" ? "追加確認が必要です。Stripeの案内に沿って情報を更新してください。" : null}
-          {state === "not_connected" ? "まだ接続されていません。下のボタンから安全に開始できます。" : null}
-          {status?.apiMode === "mock" ? <span className="mt-1 block text-neutral-500">現在はAPIキー未設定のため、モック連携で状態保存します。</span> : null}
+          {state === "not_connected" ? "受付を開始する前に、下のボタンから支払い方法の確認を進めてください。" : null}
+          {status?.apiMode === "mock" ? <span className="mt-1 block text-neutral-500">現在はテスト保存モードで状態を確認します。</span> : null}
           {businessData.dataSource === "shop_settings" ? <span className="mt-1 block text-emerald-700">一般・ストア情報の事業者データをStripeへ連携します。</span> : null}
-          {businessData.dataSource === "phase13_failsafe_mock" || businessData.dataSource === "phase12_test_mock" ? <span className="mt-1 block text-amber-700">事業者情報が未設定のため、Stripe連携はまだ開始しません。先に一般・ストア情報を保存してください。</span> : null}
+          {businessData.dataSource === "phase13_failsafe_mock" || businessData.dataSource === "phase12_test_mock" ? <span className="mt-1 block text-amber-700">事業者情報を保存すると、支払い方法の確認を開始できます。先に一般・ストア情報を保存してください。</span> : null}
           {status?.accountId ? <span className="mt-1 block text-neutral-500">接続IDは保存済みです。</span> : null}
           {status?.onboardingExpiresAt ? <span className="mt-1 block text-neutral-500">入力リンク期限: {new Date(status.onboardingExpiresAt).toLocaleString("ja-JP")}</span> : null}
           {status?.lastSyncedAt ? <span className="mt-1 block text-neutral-500">最終確認: {new Date(status.lastSyncedAt).toLocaleString("ja-JP")}</span> : null}
@@ -1135,7 +1135,7 @@ function stripeStateBadge(state: NonNullable<StripeStatusResponse["state"]>): { 
   if (state === "active") return { label: "受付可能", className: "bg-emerald-600 text-white" };
   if (state === "pending") return { label: "確認中", className: "bg-blue-600 text-white" };
   if (state === "restricted") return { label: "要対応", className: "bg-amber-500 text-white" };
-  return { label: "未接続", className: "bg-neutral-200 text-neutral-700" };
+  return { label: "受付前", className: "bg-neutral-200 text-neutral-700" };
 }
 
 function Loader2Icon() {

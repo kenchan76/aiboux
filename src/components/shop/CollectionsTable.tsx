@@ -1,6 +1,7 @@
 "use client";
 
-import { MoreHorizontal, Plus } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, MoreHorizontal, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,14 +15,41 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { collections } from "@/data/shop-sample-data";
 
 export function CollectionsTable() {
+  const [rows, setRows] = useState(collections);
+
+  const createCollection = () => {
+    const next = rows.length + 1;
+    setRows((current) => [
+      {
+        id: `collection-local-${Date.now()}`,
+        name: `販売特集 ${next}`,
+        thumbnail: "特",
+        productCount: 0,
+        status: "下書き",
+        condition: "手動選択",
+        sort: `${next}`,
+        seo: "商品登録後に公開",
+      },
+      ...current,
+    ]);
+  };
+
+  const markEdited = (id: string) => {
+    setRows((current) => current.map((collection) => (
+      collection.id === id
+        ? { ...collection, name: `${collection.name.replace(/（編集中）$/, "")}（編集中）`, status: "下書き" }
+        : collection
+    )));
+  };
+
   return (
     <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold tracking-tight text-neutral-950">コレクション</h1>
-          <p className="text-sm text-neutral-500">商品を束ねて販売導線とSEO導線を管理します。</p>
+          <p className="text-sm text-neutral-500">商品を束ねて、公開ストアのカテゴリ導線へつなげます。</p>
         </div>
-        <Button className="gap-2" disabled title="コレクション機能は現在ナビゲーションから外しています">
+        <Button className="gap-2" onClick={createCollection}>
           <Plus className="size-4" />
           作成
         </Button>
@@ -44,7 +72,7 @@ export function CollectionsTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {collections.map((collection) => (
+              {rows.map((collection) => (
                 <TableRow key={collection.id} className="h-11">
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -69,9 +97,16 @@ export function CollectionsTable() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem disabled>編集</DropdownMenuItem>
-                        <DropdownMenuItem disabled>商品を確認</DropdownMenuItem>
-                        <DropdownMenuItem disabled>公開ストアで開く</DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => markEdited(collection.id)}>編集状態にする</DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <a href="/s/aiboux/admin/products">商品を確認</a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <a href="/s/aiboux/categories">
+                            <ExternalLink className="mr-2 size-3.5" />
+                            公開ストアで開く
+                          </a>
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

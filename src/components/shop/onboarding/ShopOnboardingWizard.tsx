@@ -428,7 +428,7 @@ function stripeStateLabel(state: StripeOnboardResponse["state"]): string {
   if (state === "active") return "受付可能";
   if (state === "pending") return "確認中";
   if (state === "restricted") return "要対応";
-  return "未接続";
+  return "受付前";
 }
 
 function StatusPanel({ icon: Icon, title, rows }: { icon: React.ComponentType<{ className?: string }>; title: string; rows: string[] }) {
