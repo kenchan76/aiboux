@@ -44,9 +44,16 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
 
     await page.locator("input[name='email']").fill("tester@example.com");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
-    await expect(page.getByText("入力内容は確認できました。")).toBeVisible();
+    const contactStatus = page.locator("[data-contact-status]");
+    await expect(contactStatus).toContainText("入力内容は確認できました。");
+    await expect(contactStatus.getByRole("link", { name: "注文履歴を見る" })).toHaveAttribute("href", "/s/aiboux/orders");
+    await expect(contactStatus.getByRole("link", { name: "配送条件を見る" })).toHaveAttribute("href", "/s/aiboux/shipping");
+    await expect(contactStatus.getByRole("link", { name: "返品条件を見る" })).toHaveAttribute("href", "/s/aiboux/returns");
+    await expect(page.locator("body")).not.toContainText("送信が完了しました");
+    await expect(page.locator("body")).not.toContainText("問い合わせを受け付けました");
     await expect(page.getByTestId("storefront-buying-guide")).toHaveCount(0);
     await expect(page.getByTestId("storefront-footer")).toBeVisible();
+    await saveScreenshot(page, "shop-contact-confirmed-links.png");
   });
 
   test("legal, privacy, shipping, returns, and FAQ pages render shared templates", async ({ page }) => {

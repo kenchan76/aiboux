@@ -117,7 +117,12 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await page.locator("[data-checkout-customer-form] input[name='customerEmail']").fill("hanako@example.com");
     await page.locator("[data-checkout-customer-form] input[name='shippingAddress']").fill("東京都千代田区丸の内1-1-1");
     await page.locator("[data-checkout-customer-form]").getByRole("button", { name: "配送先を確認" }).click();
-    await expect(page.locator("[data-checkout-customer-status]")).toContainText("配送先と連絡先を確認しました");
+    const customerStatus = page.locator("[data-checkout-customer-status]");
+    await expect(customerStatus).toContainText("配送先と連絡先を確認しました");
+    await expect(customerStatus.getByRole("link", { name: "カートへ戻る" })).toHaveAttribute("href", "/s/aiboux/cart");
+    await expect(customerStatus.getByRole("link", { name: "配送条件を見る" })).toHaveAttribute("href", "/s/aiboux/shipping");
+    await expect(customerStatus.getByRole("link", { name: "返品条件を見る" })).toHaveAttribute("href", "/s/aiboux/returns");
+    await expect(customerStatus.getByRole("link", { name: "問い合わせへ進む" })).toHaveAttribute("href", "/s/aiboux/contact");
     await expect(page.locator("body")).not.toContainText("決済設定");
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);

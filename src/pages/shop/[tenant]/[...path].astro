@@ -2038,7 +2038,15 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
               status.textContent = errors.join(" ");
             } else {
               status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
-              status.textContent = "入力内容は確認できました。送信受付の状態を確認し、必要に応じてストアへ連絡してください。";
+              status.innerHTML = `
+                <span class="block font-semibold">入力内容は確認できました。</span>
+                <span class="mt-1 block">注文履歴、配送条件、返品条件を確認しながら、必要な内容を整理できます。</span>
+                <span class="mt-2 flex flex-wrap gap-2">
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/orders">注文履歴を見る</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/shipping">配送条件を見る</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/returns">返品条件を見る</a>
+                </span>
+              `;
             }
           }
         });
@@ -2064,7 +2072,16 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
               status.textContent = errors.join(" ");
             } else {
               status.classList.add("border-emerald-200", "bg-emerald-50", "text-emerald-700");
-              status.textContent = "配送先と連絡先を確認しました。注文内容、配送条件、支払い方法を続けて確認してください。";
+              status.innerHTML = `
+                <span class="block font-semibold">配送先と連絡先を確認しました。</span>
+                <span class="mt-1 block">注文内容、配送条件、返品条件、問い合わせ先を確認してから進めます。</span>
+                <span class="mt-2 flex flex-wrap gap-2">
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/cart">カートへ戻る</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/shipping">配送条件を見る</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/returns">返品条件を見る</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/contact">問い合わせへ進む</a>
+                </span>
+              `;
             }
           }
         });
