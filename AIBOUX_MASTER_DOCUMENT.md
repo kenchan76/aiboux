@@ -12,12 +12,13 @@ Current WIP direction:
 - Visible SEO and implementation explanations must not appear in shopper-facing public HTML.
 - This applies to body text and public HTML attributes such as `aria-label`.
 - Real SEO remains active through head metadata, JSON-LD, breadcrumbs, robots.txt, sitemap.xml, crawlable anchors, and stable tenant URLs.
-- Rejected public-facing phrases now include `クロール可能`, `内部リンク`, `Page guide`, `Trust / proof matrix`, `SEO内部リンク`, `共通SEO部品`, `AIBOUX Shop 共通テンプレート`, `表示確認日`, `D1 migration`, `DB migration`, `SUBSCRIPTION_SCHEMA_PENDING`, `ログイン基盤`, `本番認証`, and `成功したふり`.
-- Buyer-facing replacements must read as shopping guidance, related pages, purchase support, sales conditions, account preparation, and subscription preparation.
+- Rejected public-facing phrases now include `クロール可能`, `内部リンク`, `Page guide`, `Trust / proof matrix`, `SEO内部リンク`, `共通SEO部品`, `AIBOUX Shop 共通テンプレート`, `表示確認日`, `D1 migration`, `DB migration`, `SUBSCRIPTION_SCHEMA_PENDING`, `Provider subscription creation is not implemented`, `ログイン基盤`, `本番認証`, `準備中`, `未完了`, `未接続`, and `成功したふり`.
+- Buyer-facing replacements must read as shopping guidance, related pages, purchase support, sales conditions, account preparation, subscription conditions, `受付条件`, `注文前確認`, and `支払い方法の確認`.
 
 Current public verification:
 
-- WIP commit: `64bed01700e7806378e59b564e07c23f8932cf69`.
+- Latest WIP commit: `42c1a5b8261cf76f11fdf8519ad991ee404098cb`.
+- Prior WIP commit: `64bed01700e7806378e59b564e07c23f8932cf69`.
 - WIP code deploy Worker Version ID: `7d62ae8c-1ae8-4ad1-87e7-83a3856f38a6`.
 - `npm run check:control-chars`: PASS.
 - `npm run check:mojibake`: PASS.
