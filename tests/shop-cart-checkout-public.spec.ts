@@ -39,17 +39,25 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(cartList.getByText("雪花セレクト ドリップコーヒー 20袋")).toBeVisible();
     await expect(page.getByText("定期購入:")).toBeVisible();
     await expect(page.getByText("次回以降合計")).toBeVisible();
+    await expect(page.locator("[data-cart-total-items]")).toHaveText("2点");
+    await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥4,212");
     await saveScreenshot(page, "shop-cart-page.png");
 
     await page.locator("[data-cart-qty]").first().fill("2");
     await expect(page.getByText("¥6,192")).toBeVisible();
+    await expect(page.locator("[data-cart-total-items]")).toHaveText("3点");
+    await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥6,192");
     await page.locator("[data-cart-remove]").first().click();
     await expect(cartList.getByText("雪花セレクト ドリップコーヒー 20袋")).toHaveCount(0);
+    await expect(page.locator("[data-cart-total-items]")).toHaveText("1点");
+    await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥2,232");
 
     await page.getByRole("link", { name: "チェックアウトへ進む" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
     await expect(page.getByTestId("storefront-checkout-stepper")).toBeVisible();
     await expect(page.getByTestId("storefront-checkout-order-guard")).toBeVisible();
+    await expect(page.locator("[data-checkout-total-items]")).toHaveText("1点");
+    await expect(page.locator("[data-checkout-grand-total]")).toHaveText("¥2,232");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("税込価格");
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("定期購入");
     await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
