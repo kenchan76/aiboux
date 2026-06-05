@@ -1,5 +1,39 @@
 # AIBOUX 正本マスター
 
+## Current Active Operating Override: AIBOUX Shop Public HTML Internal Wording Removal
+
+Status: `SHOP_PUBLIC_HTML_INTERNAL_WORDING_REMOVED_WIP_DEPLOYED_NOT_FINAL`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+Current WIP direction:
+
+- Visible SEO and implementation explanations must not appear in shopper-facing public HTML.
+- This applies to body text and public HTML attributes such as `aria-label`.
+- Real SEO remains active through head metadata, JSON-LD, breadcrumbs, robots.txt, sitemap.xml, crawlable anchors, and stable tenant URLs.
+- Rejected public-facing phrases now include `クロール可能`, `内部リンク`, `Page guide`, `Trust / proof matrix`, `SEO内部リンク`, `共通SEO部品`, `AIBOUX Shop 共通テンプレート`, `表示確認日`, `D1 migration`, `DB migration`, `SUBSCRIPTION_SCHEMA_PENDING`, `ログイン基盤`, `本番認証`, and `成功したふり`.
+- Buyer-facing replacements must read as shopping guidance, related pages, purchase support, sales conditions, account preparation, and subscription preparation.
+
+Current public verification:
+
+- WIP commit: `64bed01700e7806378e59b564e07c23f8932cf69`.
+- WIP code deploy Worker Version ID: `7d62ae8c-1ae8-4ad1-87e7-83a3856f38a6`.
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS, 0 errors.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-contact-legal`: PASS, 2 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- Direct curl/grep across 17 public tenant URLs: HTTP 200 and rejected phrases absent.
+
+Not final:
+
+- This is WIP evidence, not `FINAL_ACCEPTED`.
+- The wider Shop sales-quality sprint remains active.
+- The subscription lane remains separate until remote D1/provider-backed recurring billing is accepted.
+
 ## Current Active Operating Override: AIBOUX Shop Public Text Declutter
 
 Status: `SHOP_PUBLIC_TEXT_DECLUTTER_WIP_DEPLOY_PENDING_NOT_FINAL`

@@ -1,0 +1,12 @@
+ M ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+ M ops/instructions/current.md
+ M src/components/shop/StorefrontDesignBuilder.tsx
+ M src/components/shop/storefront/StorefrontContextLinks.tsx
+ M src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+ M src/components/shop/storefront/StorefrontSupportRail.tsx
+ M src/components/shop/storefront/StorefrontTrustMatrix.tsx
+ M src/lib/shopStorefrontShared.ts
+ M tests/shop-contact-legal-public.spec.ts
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260605T015237Z_status_before_public_html_text_declutter.txt

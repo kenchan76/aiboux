@@ -1,0 +1,216 @@
+diff --git a/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md b/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+index 0582014..8eb62c3 100644
+--- a/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
++++ b/ops/instructions/20260605_shop_5h_sales_quality_sprint_continue.md
+@@ -34,6 +34,8 @@ AIBOUX Shopの5時間販売品質スプリントを継続し、公開ストア
+ - メタ説明、管理UI、APIのユーザー向けmessageにも、購入者や運用者に不要な内部実装語を出さない。
+ - 機械コードは互換維持のため残してよいが、画面とmessageは商用品質の文言にする。
+ - legal/privacy/shipping/returns/FAQ/mypage/login/register/subscriptions は、内部状態説明ではなく購入者向けのお買い物ガイド、販売条件、配送返品、会員機能準備中の自然な文言へ整える。
++- `クロール可能`、`内部リンク`、`Page guide`、`Trust / proof matrix` などの監査・SEO・実装者向け語は、本文だけでなく `aria-label` などの公開HTML属性にも出さない。
++- SEOの実装は head、JSON-LD、robots、sitemap、canonical で維持する。購入者向け画面では、お買い物ガイド、関連ページ、購入サポート、販売条件として自然に見せる。
+ 
+ ## Verification
+ 
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index e6ba874..984fc9f 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -28,6 +28,8 @@ AIBOUX Shopの5時間販売品質スプリントを継続し、公開ストア
+ - SEOメタ説明、管理UIの補足、APIのユーザー向けmessageにも、購入者や運用者に不要な内部実装語を出さない。
+ - API互換のため機械コードが必要な場合でも、表示messageは商用運用向けの自然な文にする。
+ - legal/privacy/shipping/returns/FAQ/mypage/login/register/subscriptions は、内部状態説明ではなく購入者向けのお買い物ガイド、販売条件、配送返品、会員機能準備中の自然な文言へ整える。
++- `クロール可能`、`内部リンク`、`Page guide`、`Trust / proof matrix` などの監査・SEO・実装者向け語は、本文だけでなく `aria-label` などの公開HTML属性にも出さない。
++- SEOの実装は head、JSON-LD、robots、sitemap、canonical で維持する。購入者向け画面では、お買い物ガイド、関連ページ、購入サポート、販売条件として自然に見せる。
+ - 全公開ページの見た目と導線を購入者向けに磨く。
+ - TOPと商品詳細のAmazon風売り場密度、リンク色、CTA、フッター、パンくず、商品カード、購入ボックスを改善する。
+ - cart/checkout/contact/legal/privacy/shipping/returns/FAQ/mypage/account/orders/favorites/login/register/mypage/subscriptions を薄い説明ページにしない。
+diff --git a/src/components/shop/StorefrontDesignBuilder.tsx b/src/components/shop/StorefrontDesignBuilder.tsx
+index ee15d9f..c73cb17 100644
+--- a/src/components/shop/StorefrontDesignBuilder.tsx
++++ b/src/components/shop/StorefrontDesignBuilder.tsx
+@@ -439,7 +439,7 @@ function LeftPane({
+           </div>
+         </div>
+         <div className="rounded-md border border-blue-100 bg-blue-50 px-3 py-3 text-xs leading-5 text-blue-900">
+-          編集できるのは「TOPページ」と「商品詳細ページ」のみです。商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務ページはテナント全共通テンプレートです。
++          編集できるのは「TOPページ」と「商品詳細ページ」のみです。商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務ページは共通レイアウトで表示します。
+         </div>
+       </div>
+     </aside>
+diff --git a/src/components/shop/storefront/StorefrontContextLinks.tsx b/src/components/shop/storefront/StorefrontContextLinks.tsx
+index 986dda8..8b2572e 100644
+--- a/src/components/shop/storefront/StorefrontContextLinks.tsx
++++ b/src/components/shop/storefront/StorefrontContextLinks.tsx
+@@ -28,7 +28,7 @@ export function StorefrontContextLinks({ sections, className = "" }: StorefrontC
+       </div>
+       <nav
+         className="mt-4 grid gap-3 lg:grid-cols-4"
+-        aria-label="関連する内部リンク"
++        aria-label="関連ページ"
+         itemScope
+         itemType="https://schema.org/SiteNavigationElement"
+       >
+diff --git a/src/components/shop/storefront/StorefrontPageQualitySummary.tsx b/src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+index e05baa0..3592723 100644
+--- a/src/components/shop/storefront/StorefrontPageQualitySummary.tsx
++++ b/src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+@@ -19,7 +19,7 @@ export function StorefrontPageQualitySummary({ summary, className = "" }: Storef
+     >
+       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_1.35fr] xl:items-start">
+         <div>
+-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Page guide</p>
++          <p className="text-xs font-bold tracking-wide text-blue-700">お買い物ガイド</p>
+           <h2 id="storefront-page-quality-summary-title" className="mt-1 text-lg font-bold text-neutral-950">
+             {summary.pageLabel}で確認できること
+           </h2>
+diff --git a/src/components/shop/storefront/StorefrontSupportRail.tsx b/src/components/shop/storefront/StorefrontSupportRail.tsx
+index be010b0..70693b3 100644
+--- a/src/components/shop/storefront/StorefrontSupportRail.tsx
++++ b/src/components/shop/storefront/StorefrontSupportRail.tsx
+@@ -54,7 +54,7 @@ export function StorefrontSupportRail({ tenantRoot, className = "" }: Storefront
+           </a>
+         ))}
+       </div>
+-      <nav className="mt-4 flex flex-wrap gap-2 border-t border-neutral-100 pt-4 text-sm" aria-label="購入サポートの内部リンク">
++      <nav className="mt-4 flex flex-wrap gap-2 border-t border-neutral-100 pt-4 text-sm" aria-label="購入サポート">
+         {quickLinks.map((link) => (
+           <a
+             key={link.href}
+diff --git a/src/components/shop/storefront/StorefrontTrustMatrix.tsx b/src/components/shop/storefront/StorefrontTrustMatrix.tsx
+index f055fa9..ad859b5 100644
+--- a/src/components/shop/storefront/StorefrontTrustMatrix.tsx
++++ b/src/components/shop/storefront/StorefrontTrustMatrix.tsx
+@@ -18,7 +18,7 @@ export function StorefrontTrustMatrix({ trustMatrix, className = "" }: Storefron
+     >
+       <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+         <div>
+-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">Trust / proof matrix</p>
++          <p className="text-xs font-bold tracking-wide text-emerald-700">安心して購入するために</p>
+           <h2 id="storefront-trust-matrix-title" className="mt-1 text-lg font-bold text-neutral-950" itemProp="name">
+             {trustMatrix.title}
+           </h2>
+diff --git a/src/lib/shopStorefrontShared.ts b/src/lib/shopStorefrontShared.ts
+index 66de0cb..b47a386 100644
+--- a/src/lib/shopStorefrontShared.ts
++++ b/src/lib/shopStorefrontShared.ts
+@@ -1177,7 +1177,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     },
+     {
+       title: "サポート導線",
+-      body: "FAQ、問い合わせ、注文履歴へ戻れるクロール可能な内部リンクを維持します。",
++      body: "FAQ、問い合わせ、注文履歴へすぐ戻れる導線を用意します。",
+       href: `${tenantRoot}/faq`,
+       label: "FAQ",
+       badge: "支援",
+@@ -1410,7 +1410,7 @@ export function buildShopTrustMatrix(
+       href: `${tenantRoot}/legal`,
+       label: "販売者情報",
+       badge: "Seller",
+-      proof: "特商法・問い合わせへクロール可能なリンク",
++      proof: "販売者情報と問い合わせ先をすぐ確認できます",
+     },
+     {
+       title: "配送と在庫",
+@@ -1458,7 +1458,7 @@ export function buildShopTrustMatrix(
+           href: `${tenantRoot}/products`,
+           label: "商品一覧",
+           badge: "Store",
+-          proof: "TOP、商品一覧、カテゴリ、フッターの内部リンクを統一",
++          proof: "TOP、商品一覧、カテゴリ、フッターから迷わず移動できます",
+         },
+       ],
+     },
+@@ -1473,7 +1473,7 @@ export function buildShopTrustMatrix(
+           href: `${tenantRoot}/categories`,
+           label: "カテゴリ",
+           badge: "Compare",
+-          proof: "商品カードとカテゴリURLを同じデータから生成",
++          proof: "商品カードとカテゴリの行き先を同じ売り場に揃えています",
+         },
+       ],
+     },
+@@ -1593,7 +1593,7 @@ export function buildShopTrustMatrix(
+           href: `${tenantRoot}/products`,
+           label: "商品を見る",
+           badge: "Delivery",
+-          proof: "配送ページから商品・返品・問い合わせへ内部リンク",
++          proof: "配送ページから商品・返品・問い合わせへすぐ戻れます",
+         },
+       ],
+     },
+@@ -1683,7 +1683,7 @@ export function buildShopTrustMatrix(
+           href: `${tenantRoot}/products`,
+           label: "商品一覧",
+           badge: "Favorite",
+-          proof: "お気に入りから商品比較へ内部リンク",
++          proof: "お気に入りから商品比較へすぐ戻れます",
+         },
+       ],
+     },
+diff --git a/tests/shop-contact-legal-public.spec.ts b/tests/shop-contact-legal-public.spec.ts
+index a732373..29256dd 100644
+--- a/tests/shop-contact-legal-public.spec.ts
++++ b/tests/shop-contact-legal-public.spec.ts
+@@ -63,6 +63,15 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
+         await expect(page.locator("body")).not.toContainText("表示確認日");
+         await expect(page.locator("body")).not.toContainText("D1 migration");
+         await expect(page.locator("body")).not.toContainText("DB migration");
++        await expect(page.locator("body")).not.toContainText("クロール可能");
++        await expect(page.locator("body")).not.toContainText("内部リンク");
++        await expect(page.locator("body")).not.toContainText("Page guide");
++        await expect(page.locator("body")).not.toContainText("Trust / proof matrix");
++        const html = await page.content();
++        expect(html).not.toContain("クロール可能");
++        expect(html).not.toContain("内部リンク");
++        expect(html).not.toContain("Page guide");
++        expect(html).not.toContain("Trust / proof matrix");
+         await expect(page.locator("body")).not.toContainText("管理画面");
+       }
+       await expect(page.getByTestId("storefront-buying-guide")).toHaveCount(0);
+diff --git a/tests/shop-product-detail-public.spec.ts b/tests/shop-product-detail-public.spec.ts
+index 3991aa3..3293181 100644
+--- a/tests/shop-product-detail-public.spec.ts
++++ b/tests/shop-product-detail-public.spec.ts
+@@ -50,6 +50,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       await expect(page.locator("body")).not.toContainText("Product/Offer");
+       await expect(page.locator("body")).not.toContainText("可視H1");
+       await expect(page.locator("body")).not.toContainText("SEO内部リンク");
++      await expect(page.locator("body")).not.toContainText("クロール可能");
++      await expect(page.locator("body")).not.toContainText("内部リンク");
++      await expect(page.locator("body")).not.toContainText("Page guide");
++      await expect(page.locator("body")).not.toContainText("Trust / proof matrix");
++      const html = await page.content();
++      expect(html).not.toContain("クロール可能");
++      expect(html).not.toContain("内部リンク");
++      expect(html).not.toContain("Page guide");
++      expect(html).not.toContain("Trust / proof matrix");
+       await expect(page.getByTestId("public-product-gallery")).toBeVisible();
+       await expect(page.getByTestId("public-product-info")).toBeVisible();
+       await expect(page.getByTestId("public-product-purchase-box")).toBeVisible();
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index 1292cb4..2bba6ee 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -107,6 +107,10 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         await expect(page.locator("body")).not.toContainText("sitemap");
+         await expect(page.locator("body")).not.toContainText("共通SEO部品");
+         await expect(page.locator("body")).not.toContainText("SEO内部リンク");
++        await expect(page.locator("body")).not.toContainText("クロール可能");
++        await expect(page.locator("body")).not.toContainText("内部リンク");
++        await expect(page.locator("body")).not.toContainText("Page guide");
++        await expect(page.locator("body")).not.toContainText("Trust / proof matrix");
+         await expect(page.locator("body")).not.toContainText("AIBOUX Shop 共通テンプレート");
+         await expect(page.locator("body")).not.toContainText("表示確認日");
+         await expect(page.locator("body")).not.toContainText("D1 migration");
+@@ -115,6 +119,11 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         await expect(page.locator("body")).not.toContainText("ログイン基盤");
+         await expect(page.locator("body")).not.toContainText("本番認証");
+         await expect(page.locator("body")).not.toContainText("成功したふり");
++        const html = await page.content();
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("クロール可能");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("内部リンク");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Page guide");
++        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Trust / proof matrix");
+         const skipLinks = page.getByTestId("storefront-skip-links");
+         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
+         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
