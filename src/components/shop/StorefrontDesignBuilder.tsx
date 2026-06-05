@@ -44,6 +44,7 @@ type LayoutResponse = {
 };
 
 type EditorPage = "top" | "productDetail";
+type PreviewDevice = "desktop" | "mobile";
 type EditorSection =
   | "top.heroSlider"
   | "top.recommendedProducts"
@@ -152,6 +153,9 @@ export function StorefrontDesignBuilder() {
   const [saving, setSaving] = React.useState(false);
   const [uploadingLogo, setUploadingLogo] = React.useState(false);
   const [lastSavedAt, setLastSavedAt] = React.useState<number | null>(null);
+  const [previewDevice, setPreviewDevice] = React.useState<PreviewDevice>("desktop");
+  const [undoStack, setUndoStack] = React.useState<StorefrontLayout[]>([]);
+  const [redoStack, setRedoStack] = React.useState<StorefrontLayout[]>([]);
 
   React.useEffect(() => {
     let mounted = true;
@@ -179,7 +183,28 @@ export function StorefrontDesignBuilder() {
   }, []);
 
   const updateLayout = (updater: (current: StorefrontLayout) => StorefrontLayout) => {
-    setLayout((current) => sanitizeStorefrontLayout(updater(current)));
+    const previous = layout;
+    const next = sanitizeStorefrontLayout(updater(previous));
+    if (JSON.stringify(previous) === JSON.stringify(next)) return;
+    setUndoStack((items) => [...items.slice(-29), previous]);
+    setRedoStack([]);
+    setLayout(next);
+  };
+
+  const undoLayout = () => {
+    const previous = undoStack.at(-1);
+    if (!previous) return;
+    setUndoStack((items) => items.slice(0, -1));
+    setRedoStack((items) => [layout, ...items].slice(0, 30));
+    setLayout(previous);
+  };
+
+  const redoLayout = () => {
+    const next = redoStack[0];
+    if (!next) return;
+    setRedoStack((items) => items.slice(1));
+    setUndoStack((items) => [...items.slice(-29), layout]);
+    setLayout(next);
   };
 
   const updateLogo = (patch: Partial<LogoConfig>) => {
@@ -293,10 +318,10 @@ export function StorefrontDesignBuilder() {
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <Button type="button" variant="outline" size="icon" aria-label="undo" disabled>
+          <Button type="button" variant="outline" size="icon" aria-label="undo" disabled={!undoStack.length} onClick={undoLayout}>
             <Undo2 className="size-4" />
           </Button>
-          <Button type="button" variant="outline" size="icon" aria-label="redo" disabled>
+          <Button type="button" variant="outline" size="icon" aria-label="redo" disabled={!redoStack.length} onClick={redoLayout}>
             <Undo2 className="size-4 rotate-180" />
           </Button>
           <Button asChild variant="outline" size="sm" className="gap-2">
@@ -305,10 +330,24 @@ export function StorefrontDesignBuilder() {
               公開サイト
             </a>
           </Button>
-          <Button type="button" variant="outline" size="icon" aria-label="desktop preview">
+          <Button
+            type="button"
+            variant={previewDevice === "desktop" ? "default" : "outline"}
+            size="icon"
+            aria-label="desktop preview"
+            aria-pressed={previewDevice === "desktop"}
+            onClick={() => setPreviewDevice("desktop")}
+          >
             <Monitor className="size-4" />
           </Button>
-          <Button type="button" variant="outline" size="icon" aria-label="mobile preview">
+          <Button
+            type="button"
+            variant={previewDevice === "mobile" ? "default" : "outline"}
+            size="icon"
+            aria-label="mobile preview"
+            aria-pressed={previewDevice === "mobile"}
+            onClick={() => setPreviewDevice("mobile")}
+          >
             <Smartphone className="size-4" />
           </Button>
           <Button onClick={saveLayout} disabled={saving || loading} size="sm" className="gap-2 bg-blue-600 hover:bg-blue-700">
@@ -339,7 +378,15 @@ export function StorefrontDesignBuilder() {
               読み込み中
             </div>
           ) : (
-            <div className="mx-auto w-full max-w-[1280px]" data-store-preview-frame data-testid="store-preview-frame">
+            <div
+              className={cn(
+                "mx-auto w-full transition-[max-width] duration-300",
+                previewDevice === "mobile" ? "max-w-[390px]" : "max-w-[1280px]",
+              )}
+              data-store-preview-frame
+              data-testid="store-preview-frame"
+              data-preview-device={previewDevice}
+            >
               {activePage === "top" ? (
                 <TopPreview layout={layout} selectedSection={selectedSection} onSelect={setSelectedSection} />
               ) : (

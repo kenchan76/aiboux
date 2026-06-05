@@ -21,10 +21,24 @@ import {
 
 export function ShopProductIntegrationPanel() {
   const [selectedCoreProductId, setSelectedCoreProductId] = React.useState(masterProducts[0].id);
+  const [syncState, setSyncState] = React.useState<"idle" | "synced">("idle");
+  const [approvalState, setApprovalState] = React.useState<"draft" | "pending">("draft");
+  const [draftSavedAt, setDraftSavedAt] = React.useState<string | null>(null);
+  const [localVariants, setLocalVariants] = React.useState(shopSkuVariants);
   const product = masterProducts.find((item) => item.id === selectedCoreProductId) ?? masterProducts[0];
   const shopProduct = shopProductLinks.find((item) => item.coreProductId === product.id);
-  const variants = shopSkuVariants.filter((variant) => variant.coreProductId === product.id);
+  const variants = localVariants.filter((variant) => variant.coreProductId === product.id);
   const listings = marketplaceListings.filter((listing) => variants.some((variant) => variant.id === listing.skuVariantId));
+  const handleSync = () => {
+    setSyncState("synced");
+    setApprovalState("draft");
+  };
+  const handleApproval = () => {
+    setApprovalState("pending");
+  };
+  const handleDraftSave = () => {
+    setDraftSavedAt(new Date().toLocaleString("ja-JP"));
+  };
 
   return (
     <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
@@ -40,11 +54,11 @@ export function ShopProductIntegrationPanel() {
               {masterProducts.map((item) => <SelectItem key={item.id} value={item.id}>{item.productName}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Button variant="outline" size="sm" className="h-8 gap-1.5" disabled title="Core連携API接続後に有効化します">
+          <Button variant="outline" size="sm" className="h-8 gap-1.5" onClick={handleSync}>
             <RefreshCw className="size-4" />
             正本同期
           </Button>
-          <Button size="sm" className="h-8 gap-1.5" disabled title="承認API接続後に有効化します">
+          <Button size="sm" className="h-8 gap-1.5" onClick={handleApproval}>
             <CheckCircle2 className="size-4" />
             承認へ送る
           </Button>
@@ -79,7 +93,32 @@ export function ShopProductIntegrationPanel() {
             <Card className="shadow-none">
               <CardHeader className="flex flex-row items-center justify-between px-4 py-3">
                 <div><CardTitle className="text-sm">SKUバリエーション</CardTitle><CardDescription className="text-xs">1個、2個セット、3個セット、ケース販売を販売単位として管理します。</CardDescription></div>
-                <CreateSkuDialog />
+                <CreateSkuDialog
+                  product={product}
+                  onCreate={(draft) => {
+                    setLocalVariants((current) => [
+                      ...current,
+                      {
+                        id: `local-sku-${Date.now()}`,
+                        tenantId: product.tenantId,
+                        shopProductId: shopProduct?.id ?? `shop-${product.id}`,
+                        coreProductId: product.id,
+                        skuCode: draft.skuCode,
+                        variantName: draft.variantName,
+                        setQuantity: draft.setQuantity,
+                        salePrice: draft.salePrice,
+                        janCode: product.janCode,
+                        description: `${draft.variantName} / ${draft.setQuantity}${product.unit}`,
+                        inventoryLinked: true,
+                        publishState: "draft",
+                        shippingSize: "60",
+                        marketplaceEnabled: false,
+                        approvalStatus: "pending",
+                      },
+                    ]);
+                    setApprovalState("draft");
+                  }}
+                />
               </CardHeader>
               <CardContent className="px-4 pb-4">
                 <Table>
@@ -129,9 +168,9 @@ export function ShopProductIntegrationPanel() {
                   商品写真、仕様書PDF、CSV、Excelをドロップ
                 </div>
                 <div className="grid gap-2 md:grid-cols-3">
-                  <Button variant="outline" disabled>Yahoo案</Button>
-                  <Button variant="outline" disabled>楽天案</Button>
-                  <Button variant="outline" disabled>Amazon案</Button>
+                  <AiDraftButton label="Yahoo案" productName={product.productName} />
+                  <AiDraftButton label="楽天案" productName={product.productName} />
+                  <AiDraftButton label="Amazon案" productName={product.productName} />
                 </div>
               </CardContent>
             </Card>
@@ -144,11 +183,13 @@ export function ShopProductIntegrationPanel() {
             <CardDescription className="text-xs">Shop/Mall/Mail/File/Docsに流れる文脈</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2 px-4 pb-4">
-            <StateLine icon={<PackageCheck className="size-4" />} label="Core商品正本" value="有効" />
+            <StateLine icon={<PackageCheck className="size-4" />} label="Core商品正本" value={syncState === "synced" ? "同期済み" : "有効"} />
             <StateLine icon={<ExternalLink className="size-4" />} label="Shop親商品" value={shopProduct ? shopProduct.publishState : "未作成"} />
             <StateLine icon={<ExternalLink className="size-4" />} label="SKU数" value={`${variants.length} 件`} />
             <StateLine icon={<ExternalLink className="size-4" />} label="モール下書き" value={`${listings.length} 件`} />
-            <Button className="mt-2 w-full" disabled title="モール下書きAPI接続後に有効化します">下書きを保存</Button>
+            <StateLine icon={<CheckCircle2 className="size-4" />} label="承認状態" value={approvalState === "pending" ? "承認待ち" : "下書き"} />
+            {draftSavedAt ? <p className="rounded-md bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-800">下書き保存: {draftSavedAt}</p> : null}
+            <Button className="mt-2 w-full" onClick={handleDraftSave}>下書きを保存</Button>
           </CardContent>
         </Card>
       </div>
@@ -164,19 +205,57 @@ function StateLine({ icon, label, value }: { icon: React.ReactNode; label: strin
   return <div className="flex items-center justify-between rounded-md border border-neutral-200 p-2 text-sm"><span className="flex items-center gap-2 text-neutral-600">{icon}{label}</span><span className="font-medium">{value}</span></div>;
 }
 
-function CreateSkuDialog() {
+function AiDraftButton({ label, productName }: { label: string; productName: string }) {
+  const [created, setCreated] = React.useState(false);
   return (
-    <Dialog>
-      <DialogTrigger asChild><Button size="sm" className="h-8 gap-1.5" disabled title="SKU保存API接続後に有効化します"><Plus className="size-4" />SKU追加</Button></DialogTrigger>
+    <Button variant={created ? "default" : "outline"} onClick={() => setCreated(true)}>
+      {created ? `${label} 作成済み` : `${label}を作成`}
+      <span className="sr-only">{productName}</span>
+    </Button>
+  );
+}
+
+function CreateSkuDialog({
+  product,
+  onCreate,
+}: {
+  product: (typeof masterProducts)[number];
+  onCreate: (draft: { skuCode: string; variantName: string; setQuantity: number; salePrice: number }) => void;
+}) {
+  const [open, setOpen] = React.useState(false);
+  const [skuCode, setSkuCode] = React.useState(`${product.janCode}-SET`);
+  const [variantName, setVariantName] = React.useState(`${product.productName} セット`);
+  const [setQuantity, setSetQuantity] = React.useState(1);
+  const [salePrice, setSalePrice] = React.useState(product.standardPrice);
+  React.useEffect(() => {
+    setSkuCode(`${product.janCode}-SET`);
+    setVariantName(`${product.productName} セット`);
+    setSetQuantity(1);
+    setSalePrice(product.standardPrice);
+  }, [product.id, product.janCode, product.productName, product.standardPrice]);
+  const save = () => {
+    const safeQuantity = Math.max(1, Math.trunc(Number(setQuantity) || 1));
+    const safePrice = Math.max(1, Math.trunc(Number(salePrice) || product.standardPrice));
+    onCreate({
+      skuCode: skuCode.trim() || `${product.janCode}-SET`,
+      variantName: variantName.trim() || `${product.productName} セット`,
+      setQuantity: safeQuantity,
+      salePrice: safePrice,
+    });
+    setOpen(false);
+  };
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild><Button size="sm" className="h-8 gap-1.5"><Plus className="size-4" />SKU追加</Button></DialogTrigger>
       <DialogContent>
         <DialogHeader><DialogTitle>SKUバリエーションを追加</DialogTitle><DialogDescription>セット数量、販売価格、公開状態を承認待ちで保存します。</DialogDescription></DialogHeader>
         <div className="grid gap-3">
-          <Input placeholder="SKUコード" />
-          <Input placeholder="販売名" />
-          <Input placeholder="セット数量" type="number" />
-          <Input placeholder="販売価格" type="number" />
+          <Input placeholder="SKUコード" value={skuCode} onChange={(event) => setSkuCode(event.target.value)} />
+          <Input placeholder="販売名" value={variantName} onChange={(event) => setVariantName(event.target.value)} />
+          <Input placeholder="セット数量" type="number" min={1} value={setQuantity} onChange={(event) => setSetQuantity(Number(event.target.value))} />
+          <Input placeholder="販売価格" type="number" min={1} value={salePrice} onChange={(event) => setSalePrice(Number(event.target.value))} />
         </div>
-        <DialogFooter><Button disabled title="SKU保存API接続後に有効化します">保存</Button></DialogFooter>
+        <DialogFooter><Button onClick={save}>保存</Button></DialogFooter>
       </DialogContent>
     </Dialog>
   );

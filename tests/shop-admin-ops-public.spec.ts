@@ -109,4 +109,49 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.getByText("チェックアウトページ")).toHaveCount(0);
     await expect(page.getByText("編集できるのは「TOPページ」と「商品詳細ページ」のみです。")).toBeVisible();
   });
+
+  test("design editor undo redo and preview device controls are usable", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/design", { waitUntil: "networkidle" });
+
+    const titleInput = page.getByLabel("タイトル").first();
+    await expect(titleInput).toBeVisible();
+    const before = await titleInput.inputValue();
+
+    await expect(page.getByRole("button", { name: "undo" })).toBeDisabled();
+    await titleInput.fill(`${before} 更新`);
+    await expect(page.getByRole("button", { name: "undo" })).toBeEnabled();
+    await page.getByRole("button", { name: "undo" }).click();
+    await expect(titleInput).toHaveValue(before);
+    await expect(page.getByRole("button", { name: "redo" })).toBeEnabled();
+    await page.getByRole("button", { name: "redo" }).click();
+    await expect(titleInput).toHaveValue(`${before} 更新`);
+
+    await page.getByRole("button", { name: "mobile preview" }).click();
+    await expect(page.locator('[data-testid="store-preview-frame"]')).toHaveAttribute("data-preview-device", "mobile");
+    await page.getByRole("button", { name: "desktop preview" }).click();
+    await expect(page.locator('[data-testid="store-preview-frame"]')).toHaveAttribute("data-preview-device", "desktop");
+  });
+
+  test("core product integration controls are not dead buttons", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/shop/products/integration", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: "Core商品連携" })).toBeVisible();
+    await page.getByRole("button", { name: "正本同期" }).click();
+    await expect(page.locator("body")).toContainText("同期済み");
+
+    await page.getByRole("button", { name: "承認へ送る" }).click();
+    await expect(page.locator("body")).toContainText("承認待ち");
+
+    await page.getByRole("button", { name: "下書きを保存" }).click();
+    await expect(page.locator("body")).toContainText("下書き保存:");
+
+    await page.getByRole("button", { name: "SKU追加" }).click();
+    await expect(page.getByRole("dialog", { name: "SKUバリエーションを追加" })).toBeVisible();
+    await page.getByRole("button", { name: "保存" }).click();
+    await expect(page.getByRole("dialog", { name: "SKUバリエーションを追加" })).toHaveCount(0);
+
+    await expect(page.locator("body")).not.toContainText("API接続後");
+  });
 });
