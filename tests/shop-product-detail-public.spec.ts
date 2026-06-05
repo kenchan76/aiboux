@@ -65,6 +65,9 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(page.locator("[data-cart-add]").first()).toBeVisible();
       await expect(page.getByTestId("public-product-purchase-box").getByText(/在庫あり|在庫確認/)).toBeVisible();
       await expect(page.getByText("商品説明")).toBeVisible();
+      await expect(page.getByTestId("public-product-reviews"), "product detail should expose an actual review section for the review anchor").toBeVisible();
+      await expect(page.getByTestId("public-product-reviews"), "review section should contain purchase-decision content").toContainText(/平均評価|配送|ギフト|問い合わせ/);
+      await expect(page.locator('a[href="#reviews"]'), "review link should point to the real review section").toHaveCount(1);
       await expect(page.getByText(/AIBOUX公開検証商品|公開検証商品|検証商品/)).toHaveCount(0);
       await expect(page.getByTestId("product-main-image")).toBeVisible();
       expect(await page.getByTestId("product-thumbnail").count(), "thumbnail gallery should use real image thumbnails").toBeGreaterThanOrEqual(5);
