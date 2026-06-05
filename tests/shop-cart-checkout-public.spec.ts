@@ -4,6 +4,7 @@ import path from "node:path";
 
 const outputDir = "output/playwright/shop-cart-checkout";
 const publicDir = "public/g/screens";
+const fallbackProductPath = "/s/aiboux/product/shopprod_tenant_001_4580000232621";
 
 async function saveScreenshot(page: Page, filename: string) {
   const outputPath = path.join(outputDir, filename);
@@ -65,5 +66,23 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
     await saveScreenshot(page, "shop-checkout-page.png");
+  });
+
+  test("product detail buy-now carries selected item into checkout", async ({ page, request }) => {
+    await page.setViewportSize({ width: 1365, height: 1200 });
+    const fallback = await request.get(fallbackProductPath);
+    expect(fallback.status(), "fallback product detail should be available for buy-now flow").toBe(200);
+
+    await page.goto(fallbackProductPath, { waitUntil: "networkidle" });
+    await page.evaluate(() => localStorage.removeItem("aiboux:shop:aiboux:cart"));
+    const title = (await page.locator("h1").innerText()).trim();
+
+    await page.getByRole("button", { name: /今すぐ購入|今すぐ申し込む/ }).click();
+    await expect(page).toHaveURL(/\/s\/aiboux\/checkout/);
+    await expect(page.locator("[data-checkout-items]")).toContainText(title);
+    await expect(page.locator("[data-checkout-total-items]")).toHaveText("1点");
+    await expect(page.locator("[data-checkout-grand-total]")).toContainText("¥");
+    await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("支払い方法");
+    await saveScreenshot(page, "shop-checkout-buy-now-result.png");
   });
 });

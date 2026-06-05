@@ -1,5 +1,27 @@
 # 2026-06-05 Daily Improvement: Shopper UI Text Must Not Expose SEO/Internal Implementation
 
+## 2026-06-05 Addition: Use Visual Evidence For Sales UI, Not More Shopper-Facing Explanation Panels
+
+Checked current Playwright documentation for screenshots and visual comparisons during the Shop sales-quality sprint:
+
+- Playwright screenshots can capture full pages or elements and save them as evidence files.
+- Playwright visual comparison can use `toHaveScreenshot()` and can stabilize dynamic content with screenshot options or a stylesheet.
+- Playwright `testInfo.attach()` can attach screenshots or output files to test results.
+
+Process improvement:
+
+- For AIBOUX Shop sales-quality work, do not prove quality by adding visible SEO/support explanation panels to the storefront.
+- Use buyer-facing UI changes plus screenshots and behavior gates as evidence.
+- Critical sales-flow tests should save or attach screenshots for TOP, product detail, cart, checkout, contact/legal, admin design, and purchase interactions.
+- If a carousel or dynamic interaction is being judged, capture before/during/after screenshots or state assertions instead of relying on a single static screenshot.
+- Public `d68` should summarize the latest useful screen evidence, while older bulky logs/screenshots should stay in `all_log` or test output.
+
+References checked:
+
+- Playwright Visual comparisons: https://playwright.dev/docs/next/test-snapshots
+- Playwright Screenshots: https://playwright.dev/docs/next/screenshots
+- Playwright TestInfo attachments: https://playwright.dev/docs/next/api/class-testinfo
+
 ## 2026-06-05 Addition: Stop SEO-Work Drift And Fix The Sales UI Directly
 
 Checked current Google Search Central ecommerce guidance again for this sprint:
