@@ -1,0 +1,98 @@
+# AIBOUX Shop Screen Evidence Truth Board
+
+Status: `WIP_NOT_FINAL`
+
+これは `FINAL_ACCEPTED` ではない。  
+この画面証跡は、現在の画面真実、拒否理由、未解決の見た目欠陥、停止規則、ブロック中レーン、検証限界を先頭に出す。
+
+## User Rejections
+
+- ユーザーは、ShopがAmazon品質に達していない状態を拒否した。
+- ユーザーは、スライダーのカクつき、商品詳細の不要な重複タイトル、薄いフッター、薄い法務/マイページ、リンク色の弱さを拒否した。
+- ユーザーは、販売画面にSEO説明や内部説明が出ることを拒否した。
+- ユーザーは、Codexが停止指示後に勝手に動いたことを拒否した。
+
+## Open Defects
+
+- TOP、商品詳細、カート、checkout、contact、legal、privacy、shipping、returns、FAQ、mypage、admin系の画面品質は最終合格ではない。
+- スライダー滑らかさ、商品画像/商品名整合、購入導線、フッター、パンくず、リンク色、カード密度は継続確認対象。
+- 画面証跡は最新状態だけを示す。過去の長文成功履歴はこのboardの上部に出さない。
+
+## STOP_LOCK
+
+- このCycle 0ではストアフロントUIを変更しない。
+- SEO説明パネル、trust matrix、support rail、action map、buying guide、page quality summary、visible SEO explanationを追加しない。
+- ユーザーが停止を明示した場合、明示的な再開まで画面変更、build、test、deploy、Bark、commitを開始しない。
+
+## Blocked Lanes
+
+- 定期購入DB: D1権限待ち。画面最終承認対象外。
+
+## Verification Limitations
+
+- このCycle 0は画面そのもののAmazon品質改善ではない。
+- 既存スクリーンショットは過去WIPの参考であり、最終合格証跡ではない。
+- gate PASS、HTTP 200、スクリーンショット1枚だけでAmazon品質とは判定しない。
+- `FINAL_ACCEPTED` は禁止。
+
+## Latest Public Screen Evidence
+
+最新の公開画面証跡URL:
+
+- TOP 1365px: `/g/screens/shop-top-1365.png`
+- TOP 1980px: `/g/screens/shop-top-1980.png`
+- TOP mobile: `/g/screens/shop-top-mobile.png`
+- 商品詳細 1365px: `/g/screens/shop-product-detail-1365.png`
+- 商品詳細 1980px: `/g/screens/shop-product-detail-1980.png`
+- 商品詳細 mobile: `/g/screens/shop-product-detail-mobile.png`
+- カート: `/g/screens/shop-cart-page.png`
+- チェックアウト: `/g/screens/shop-checkout-page.png`
+- 問い合わせ: `/g/screens/shop-contact-page.png`
+- 配送条件: `/g/screens/shop-shipping-page.png`
+- 返品条件: `/g/screens/shop-returns-page.png`
+- デザイン編集: `/g/screens/shop-admin-design.png`
+
+## Current Visual Verdict
+
+判定: `WIP_NOT_FINAL`
+
+現在の事実:
+
+- 画面証跡は存在する。
+- 画面証跡は最終合格ではない。
+- このCycle 0では画面を変更していない。
+- このCycle 0ではログ形式と停止規則を修正した。
+
+## Current Cycle Evidence
+
+Cycle:
+
+- `SHOP_LOG_TRUTH_PUBLIC_GATE`
+
+確認対象:
+
+- `/g/l68` がTruth Execution Log形式になっていること。
+- `/g/d68` がScreen Evidence Truth Board形式になっていること。
+- User Rejections、Open Defects、STOP_LOCK、Blocked Lanes、Verification Limitationsが上部にあること。
+- 古い長文成功履歴が上部に出ていないこと。
+- `gate:shop-log-truth` が公開 `/g/m68`、`/g/l68`、`/g/d68`、`/g/sha68` を取得して検査すること。
+
+## Normalized SHA Evidence
+
+`/g/m68`、`/g/l68`、`/g/d68` のruntime Worker Version ID正規化sha検証は、次の公開証跡に記録する。
+
+- `/g/sha68`: `https://mail.aiboux.com/g/sha68`
+
+normalized sha256が一致しない場合は公開ログ不一致としてFAIL。
+
+現在の画面判定とは別に、`/g/sha68` の `Status: PASS` をログ公開整合性の必須条件にする。
+
+## Next Screen Work After Explicit Resume
+
+ユーザーが明示的に再開を指示した場合に限り、次を行う。
+
+1. TOPスライダーの滑らかさを実画面で改善する。
+2. 商品詳細の重複タイトルが戻っていないことを確認する。
+3. 全ページのリンク色、パンくず、フッター、購入導線を再確認する。
+4. 1365px、1980px、mobileの最新スクリーンショットを撮り直す。
+5. 画面証跡をこのTruth Boardへ短く反映する。
