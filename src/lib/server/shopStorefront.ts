@@ -379,9 +379,9 @@ export function formatShopPrice(value: number): string {
 export function buildShippingText(profile: ShopStorefrontProfile): string {
   return [
     "配送方法と送料は、注文内容と配送先に応じてチェックアウト画面で確認します。",
-    "決済設定が完了していない場合、購入者に誤解を与える注文確定画面は表示しません。",
+    "支払い方法の確認が必要な場合、購入者に誤解を与える注文確定画面は表示しません。",
     `発送元または販売者: ${profile.businessName}`,
-    `問い合わせ先: ${profile.contactEmail || profile.phone || "未設定"}`,
+    `問い合わせ先: ${profile.contactEmail || profile.phone || "問い合わせページから確認"}`,
   ].join("\n");
 }
 
@@ -390,7 +390,7 @@ export function buildReturnsText(profile: ShopStorefrontProfile): string {
     "返品・交換は商品到着後7日以内にお問い合わせください。",
     "不良品または誤配送の場合は、販売者確認後に交換または返金を案内します。",
     "購入者都合の返品可否、返送料、対象外条件は商品状態と注文内容により確認します。",
-    `問い合わせ先: ${profile.contactEmail || profile.phone || "未設定"}`,
+    `問い合わせ先: ${profile.contactEmail || profile.phone || "問い合わせページから確認"}`,
   ].join("\n");
 }
 
@@ -452,8 +452,8 @@ function parseStringArray(value: string | null | undefined): string[] {
 function buildTokushohoText(input: { businessName: string; postalCode: string; address: string; phone: string; email: string }): string {
   return [
     `販売業者: ${input.businessName}`,
-    `所在地: ${[input.postalCode, input.address].filter(Boolean).join(" ") || "未設定"}`,
-    `連絡先: ${input.email || input.phone || "未設定"}`,
+    `所在地: ${[input.postalCode, input.address].filter(Boolean).join(" ") || "問い合わせページから確認"}`,
+    `連絡先: ${input.email || input.phone || "問い合わせページから確認"}`,
     "販売価格: 各商品ページに税込価格を表示します。",
     "商品代金以外の必要料金: 送料、決済手数料その他購入手続き画面で表示される費用。",
     "支払い方法: クレジットカードその他ストアで有効化された方法。",
@@ -468,6 +468,6 @@ function buildPrivacyPolicyText(input: { businessName: string; email: string }):
     "取得する主な情報は、氏名、住所、電話番号、メールアドレス、注文内容、決済に必要な識別情報です。",
     "取得した情報は、配送会社、決済会社、システム運用委託先など業務遂行に必要な範囲で共有する場合があります。",
     "法令に基づく場合を除き、本人の同意なく目的外利用または不要な第三者提供を行いません。",
-    `個人情報に関するお問い合わせ先: ${input.email || "未設定"}`,
+    `個人情報に関するお問い合わせ先: ${input.email || "問い合わせページから確認"}`,
   ].join("\n");
 }

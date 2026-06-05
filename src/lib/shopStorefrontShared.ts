@@ -460,7 +460,7 @@ export function buildShopSupportRailCards(tenantRoot: string): ShopStorefrontInf
     },
     {
       title: "購入前に確認",
-      body: "送料、返品条件、決済設定状態、特定商取引法の表示を注文前に確認できます。",
+      body: "送料、返品条件、支払い方法、特定商取引法の表示を注文前に確認できます。",
       href: `${tenantRoot}/shipping`,
       label: "配送条件を見る",
     },
@@ -535,7 +535,7 @@ export function buildShopSeoHubHighlights(tenantRoot: string): ShopStorefrontInf
     },
     {
       title: "購入条件",
-      body: "送料、返品、特商法、決済設定状態を注文前に確認できます。",
+      body: "送料、返品、特商法、支払い方法を注文前に確認できます。",
       href: `${tenantRoot}/legal`,
       label: "取引条件",
     },
@@ -670,7 +670,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
       label: "返品条件を見る",
     },
     {
-      question: "決済や定期購入が受付前の場合はどう表示されますか。",
+      question: "支払い方法や定期購入が受付前の場合はどう表示されますか。",
       answer: "購入者が状態を判断できるように、支払い方法の受付条件や定期購入受付前であることを画面上で明示します。",
       href: `${tenantRoot}/checkout`,
       label: "注文前に確認",
@@ -763,7 +763,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
       },
       {
         question: "配送先や支払い情報は保存されますか。",
-        answer: "会員ログインと決済接続前は個人情報を保存せず、入力導線は状態表示として扱います。",
+        answer: "会員ログインと支払い方法の受付前は個人情報を保存せず、入力導線は状態表示として扱います。",
         href: `${tenantRoot}/privacy`,
         label: "個人情報の扱い",
       },
@@ -790,7 +790,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "配送条件を見る",
       },
       {
-        question: "未設定項目がある場合はどう扱いますか。",
+        question: "確認が必要な項目がある場合はどう扱いますか。",
         answer: "空欄で隠さず、問い合わせ先と確認導線を表示します。",
         href: `${tenantRoot}/contact`,
         label: "確認する",
@@ -841,7 +841,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     faq: [
       {
         question: "FAQから商品購入へ戻れますか。",
-        answer: "配送、返品、定期購入、決済状態を確認したあと商品一覧やカテゴリへ戻れます。",
+        answer: "配送、返品、定期購入、支払い方法を確認したあと商品一覧やカテゴリへ戻れます。",
         href: `${tenantRoot}/products`,
         label: "商品一覧へ",
       },
@@ -967,7 +967,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
     },
     {
       title: "購入条件を確認する",
-      body: "送料、配送予定、返品条件、決済設定状態を注文前に確認します。",
+      body: "送料、配送予定、返品条件、支払い方法を注文前に確認します。",
       href: `${tenantRoot}/shipping`,
       label: "配送条件を見る",
       badge: "確認",
@@ -988,7 +988,7 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       steps: [
         { title: "おすすめを見る", body: "ヒーロー直下の商品カードから商品詳細へ進みます。", href: `${tenantRoot}/products`, label: "おすすめ商品へ", badge: "01" },
         { title: "カテゴリで絞る", body: "食品、日用品、キッチン、ギフトなどの安定カテゴリURLへ移動します。", href: `${tenantRoot}/categories`, label: "カテゴリを見る", badge: "02" },
-        { title: "購入前条件を見る", body: "送料、返品、決済状態を確認してからカートへ進みます。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "03" },
+        { title: "購入前条件を見る", body: "送料、返品、支払い方法を確認してからカートへ進みます。", href: `${tenantRoot}/shipping`, label: "配送条件へ", badge: "03" },
       ],
     },
     products: {
@@ -1239,9 +1239,9 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
       pageLabel: "チェックアウト",
       intent: "顧客情報、配送先、支払い状態、定期購入規約を確認するページです。",
       seoRole: "支払い方法の確認が必要な場合は、注文前に必要な確認先へ案内します。",
-      userAction: "決済設定状態を確認し、必要ならカートや問い合わせへ戻ります。",
+      userAction: "支払い方法を確認し、必要ならカートや問い合わせへ戻ります。",
       signals: [
-        { title: "決済状態", body: "受付前は注文前確認に切り替え、受付条件を明確に表示します。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
+        { title: "支払い方法", body: "受付前は注文前確認に切り替え、受付条件を明確に表示します。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
         { title: "個人情報", body: "配送先や支払い情報の保存条件をプライバシー導線で確認します。", href: `${tenantRoot}/privacy`, label: "個人情報", badge: "保護" },
       ],
     },
@@ -1524,7 +1524,7 @@ export function buildShopTrustMatrix(
     },
     checkout: {
       title: "注文前確認の信頼マトリクス",
-      summary: "顧客情報、配送先、決済状態、定期購入規約、販売条件を注文確定前に確認します。",
+      summary: "顧客情報、配送先、支払い方法、定期購入規約、販売条件を注文確定前に確認します。",
       pageContext: "支払い方法の受付条件なら受付済みの表現にせず、原因と戻り先を示します。",
       signals: [
         {
@@ -1876,7 +1876,7 @@ export function buildShopFaqItems(): ShopStorefrontFaqItem[] {
     {
       question: "定期購入は利用できますか。",
       answer:
-        "定期購入は受付開始後に有効化します。商品詳細に表示される購入条件と、チェックアウトの決済設定状態を確認してください。",
+        "定期購入は受付開始後に有効化します。商品詳細に表示される購入条件と、チェックアウトの支払い方法を確認してください。",
     },
     {
       question: "送料や返品条件はどこで確認できますか。",
