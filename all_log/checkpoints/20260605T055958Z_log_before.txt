@@ -1,0 +1,10 @@
+a90f94c WIP fix shop product slug detail consistency
+e1ca02a WIP record public log publish verification 20260605T055354Z
+79d06a0 WIP shop aiboux tenant deploy checkpoint 20260605T055158Z
+f96bf00 WIP record top sales link public verification 20260605T055200Z
+0a1c8e1 WIP shop aiboux tenant deploy checkpoint 20260605T054649Z
+ece5930 WIP refocus shop top sales links
+fd6576e WIP record post deploy public verification 20260605T053955Z
+06e2517 WIP shop aiboux tenant deploy checkpoint 20260605T053705Z
+86cac6d WIP record public cart checkout crawl pass
+02e6757 WIP shop aiboux tenant deploy checkpoint 20260605T053016Z
