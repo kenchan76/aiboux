@@ -197,8 +197,8 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
           <p className="mt-1 text-sm text-neutral-500">販売に必要な情報だけを、公開判断しやすい順番で管理します。</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => { window.location.assign("/s/aiboux/admin/products"); }}>
-            商品一覧へ戻る
+          <Button asChild variant="outline">
+            <a href="/s/aiboux/admin/products">商品一覧へ戻る</a>
           </Button>
           <Button className="gap-2" onClick={saveProduct} disabled={isSaving}>
             {isSaving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}

@@ -66,6 +66,15 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await saveScreenshot(page, "shop-admin-subscriptions-operational.png");
   });
 
+  test("admin product editor exposes a real back link", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/products/new", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: "商品を追加" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "商品一覧へ戻る" })).toHaveAttribute("href", "/s/aiboux/admin/products");
+    await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+  });
+
   test("design editor remains a focused two-page editor", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
     await page.goto("/s/aiboux/admin/design", { waitUntil: "networkidle" });
