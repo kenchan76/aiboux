@@ -1888,7 +1888,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               status.textContent = errors.join(" ");
             } else {
               status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
-              status.textContent = "入力内容を確認しました。注文番号とメールを添えて、配送状況や領収書の確認へ進めます。";
+              status.innerHTML = `
+                <span class="block font-semibold">入力内容を確認しました。</span>
+                <span class="mt-1 block">注文番号とメールを添えて、配送状況や領収書の確認へ進めます。</span>
+                <span class="mt-2 flex flex-wrap gap-2">
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/contact">問い合わせへ進む</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/shipping">配送条件を見る</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/returns">返品条件を見る</a>
+                </span>
+              `;
             }
           }
         });
@@ -1913,7 +1921,15 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               status.textContent = errors.join(" ");
             } else {
               status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
-              status.textContent = "入力内容を確認しました。注文履歴や問い合わせはマイページから確認できます。";
+              status.innerHTML = `
+                <span class="block font-semibold">入力内容を確認しました。</span>
+                <span class="mt-1 block">注文履歴や問い合わせは、マイページの各入口から確認できます。</span>
+                <span class="mt-2 flex flex-wrap gap-2">
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/mypage">マイページへ</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/orders">注文履歴へ</a>
+                  <a class="font-bold text-blue-700 underline underline-offset-2" href="${tenantRoot}/favorites">お気に入りへ</a>
+                </span>
+              `;
             }
           }
         });

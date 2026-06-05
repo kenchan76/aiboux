@@ -441,9 +441,32 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
       await page.locator('[data-auth-form] input[name="password"]').fill("password123");
       await page.locator("[data-auth-form]").getByRole("button").first().click();
       await expect(page.getByText("入力内容を確認しました。")).toBeVisible();
+      await expect(page.locator("[data-auth-status]").getByRole("link", { name: "マイページへ" })).toHaveAttribute("href", "/s/aiboux/mypage");
+      await expect(page.locator("[data-auth-status]").getByRole("link", { name: "注文履歴へ" })).toHaveAttribute("href", "/s/aiboux/orders");
+      await expect(page.locator("[data-auth-status]").getByRole("link", { name: "お気に入りへ" })).toHaveAttribute("href", "/s/aiboux/favorites");
       await expect(page.locator("body")).not.toContainText("ログインしました");
       await expect(page.locator("body")).not.toContainText("登録が完了しました");
     }
+  });
+
+  test("order lookup form validates and returns support links without fake order completion", async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 1000 });
+    await page.goto(`/s/aiboux/orders?orderLookup=${Date.now()}`, { waitUntil: "networkidle" });
+
+    const form = page.locator("[data-order-search-form]");
+    await expect(form).toBeVisible();
+    await form.getByRole("button", { name: "注文を確認" }).click();
+    await expect(page.locator("[data-order-search-status]")).toContainText("注文番号またはメールアドレスを入力してください。");
+
+    await form.locator("input[name='orderNumber']").fill("#AIBOUX-1001");
+    await form.locator("input[name='orderEmail']").fill("buyer@example.com");
+    await form.getByRole("button", { name: "注文を確認" }).click();
+    await expect(page.locator("[data-order-search-status]")).toContainText("入力内容を確認しました。");
+    await expect(page.locator("[data-order-search-status]").getByRole("link", { name: "問い合わせへ進む" })).toHaveAttribute("href", "/s/aiboux/contact");
+    await expect(page.locator("[data-order-search-status]").getByRole("link", { name: "配送条件を見る" })).toHaveAttribute("href", "/s/aiboux/shipping");
+    await expect(page.locator("[data-order-search-status]").getByRole("link", { name: "返品条件を見る" })).toHaveAttribute("href", "/s/aiboux/returns");
+    await expect(page.locator("body")).not.toContainText("注文が確定しました");
+    await expect(page.locator("body")).not.toContainText("発送しました");
   });
 
   test("shop robots and sitemap expose only indexable tenant discovery pages", async ({ request }) => {

@@ -81,7 +81,11 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.getByText("カートは空です")).toBeVisible();
 
     await page.goto("/s/aiboux/checkout");
-    await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-empty-guide")).toBeVisible();
+    await expect(page.getByTestId("storefront-checkout-empty-guide").getByRole("link", { name: "商品一覧へ戻る" })).toHaveAttribute(
+      "href",
+      "/s/aiboux/products",
+    );
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);
 
