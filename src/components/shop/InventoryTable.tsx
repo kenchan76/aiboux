@@ -39,6 +39,7 @@ export function InventoryTable({
   const [savedStocks, setSavedStocks] = React.useState<Record<string, number>>(() =>
     Object.fromEntries(items.map((item) => [item.productId, item.stock])),
   );
+  const importInputRef = React.useRef<HTMLInputElement | null>(null);
 
   React.useEffect(() => {
     setStockDrafts(Object.fromEntries(items.map((item) => [item.productId, item.stock])));
@@ -88,6 +89,65 @@ export function InventoryTable({
     }
   };
 
+  const escapeCsvCell = (value: string | number) => {
+    const text = String(value ?? "");
+    return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  };
+
+  const exportInventoryCsv = () => {
+    const header = ["productId", "商品名", "商品番号", "現在庫", "未出荷注文数", "ロケーション", "状態"];
+    const body = rows.map((item) => [
+      item.productId,
+      item.name,
+      item.sku,
+      stockDrafts[item.productId] ?? item.stock,
+      item.unshippedOrders,
+      item.location,
+      item.status,
+    ]);
+    const csv = [header, ...body].map((line) => line.map(escapeCsvCell).join(",")).join("\n");
+    const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `aiboux-inventory-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    toast.success("在庫CSVを書き出しました");
+  };
+
+  const importInventoryCsv = async (file: File | null) => {
+    if (!file) return;
+    const text = await file.text();
+    const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    if (lines.length < 2) {
+      toast.error("CSVに在庫行がありません");
+      return;
+    }
+    const headers = lines[0].split(",").map((cell) => cell.replace(/^\uFEFF/, "").trim());
+    const productIdIndex = headers.findIndex((cell) => /productId|商品ID/i.test(cell));
+    const skuIndex = headers.findIndex((cell) => /sku|商品番号/i.test(cell));
+    const stockIndex = headers.findIndex((cell) => /stock|現在庫|在庫/i.test(cell));
+    if (stockIndex < 0 || (productIdIndex < 0 && skuIndex < 0)) {
+      toast.error("productIdまたは商品番号と現在庫の列が必要です");
+      return;
+    }
+    const nextDrafts: Record<string, number> = {};
+    for (const line of lines.slice(1)) {
+      const cells = line.split(",").map((cell) => cell.trim().replace(/^"|"$/g, "").replace(/""/g, '"'));
+      const lookup = productIdIndex >= 0 ? cells[productIdIndex] : cells[skuIndex];
+      const stock = Math.max(0, Number(cells[stockIndex] || 0));
+      const matched = items.find((item) => item.productId === lookup || item.sku === lookup);
+      if (matched && Number.isFinite(stock)) nextDrafts[matched.productId] = stock;
+    }
+    if (Object.keys(nextDrafts).length === 0) {
+      toast.error("一致する商品が見つかりませんでした");
+      return;
+    }
+    setStockDrafts((current) => ({ ...current, ...nextDrafts }));
+    toast.success(`${Object.keys(nextDrafts).length}件の在庫数を読み込みました。各行の保存で反映します。`);
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg border border-neutral-200">
       {!compact && (
@@ -97,11 +157,21 @@ export function InventoryTable({
           <div className="text-xs text-neutral-500">数字欄を直接変更し、各行の「保存」で反映します。未保存の変更があるまま離れると確認が出ます。</div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="gap-2" disabled title="CSV取り込みAPI接続後に有効化します">
+            <input
+              ref={importInputRef}
+              type="file"
+              accept=".csv,text/csv"
+              className="sr-only"
+              onChange={(event) => {
+                importInventoryCsv(event.target.files?.[0] ?? null);
+                event.currentTarget.value = "";
+              }}
+            />
+            <Button variant="outline" size="sm" className="gap-2" onClick={() => importInputRef.current?.click()}>
               <Upload className="size-4" />
               CSV取り込み
             </Button>
-            <Button variant="outline" size="sm" className="gap-2" disabled title="CSV書き出しAPI接続後に有効化します">
+            <Button variant="outline" size="sm" className="gap-2" onClick={exportInventoryCsv}>
               <Download className="size-4" />
               CSV書き出し
             </Button>

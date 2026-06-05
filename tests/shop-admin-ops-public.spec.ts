@@ -23,6 +23,7 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     const pages = [
       { path: "/s/aiboux/admin/products", text: /商品|Product/i, file: "shop-admin-products.png" },
       { path: "/s/aiboux/admin/orders", text: /注文|Order/i, file: "shop-admin-orders.png" },
+      { path: "/s/aiboux/admin/inventory", text: "在庫", file: "shop-admin-inventory.png" },
       { path: "/s/aiboux/admin/settings", text: /設定|Settings/i, file: "shop-admin-settings.png" },
       { path: "/s/aiboux/admin/design", text: "AIBOUX SHOP ストアデザインエディタ", file: "shop-admin-design.png" },
       { path: "/s/aiboux/admin/subscriptions", text: "定期購入", file: "shop-admin-subscriptions.png" },
@@ -83,6 +84,17 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.getByRole("link", { name: "ストア文言を編集" })).toHaveAttribute("href", "/s/aiboux/admin/settings");
     await expect(page.locator("body")).not.toContainText("コンテンツ保存API接続後");
     await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+  });
+
+  test("admin inventory CSV actions are usable controls", async ({ page }) => {
+    await page.setViewportSize({ width: 1980, height: 1080 });
+    await page.goto("/s/aiboux/admin/inventory", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: "在庫" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "CSV取り込み" })).toBeEnabled();
+    await expect(page.getByRole("button", { name: "CSV書き出し" })).toBeEnabled();
+    await expect(page.locator("body")).not.toContainText("CSV取り込みAPI接続後");
+    await expect(page.locator("body")).not.toContainText("CSV書き出しAPI接続後");
   });
 
   test("design editor remains a focused two-page editor", async ({ page }) => {
