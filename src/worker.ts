@@ -20,6 +20,7 @@ const PERSISTENT_SHORTLINK_ASSETS: Record<string, string> = {
   '/g/m68': '/g/m68.md',
   '/g/l68': '/g/l68.md',
   '/g/d68': '/g/d68.md',
+  '/g/sha68': '/g/sha68.md',
 };
 
 export default {

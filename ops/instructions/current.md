@@ -1,31 +1,32 @@
-# CYCLE 0: TRUTH_LOG_REPAIR_AND_PROCESS_LOCK
+# CYCLE 0B: NORMALIZED_G_SHA_VERIFICATION
 
 Active instruction file:
 
-- `ops/instructions/20260605_truth_log_repair_and_process_lock.md`
+- `ops/instructions/20260605_normalized_g_sha_verification.md`
 
 Status: `WIP_NOT_FINAL`
 
 ## Objective
 
-公開ログを真実ベースへ戻し、停止指示を上書きしない運用を固定する。
+`/g/m68`、`/g/l68`、`/g/d68` のruntime Worker Version ID置換によるsha不一致を、正規化shaで厳密に検証して記録する。
 
 ## Do Not
 
-- Do not touch storefront UI yet.
+- Do not touch storefront UI.
 - Do not add SEO panels.
 - Do not add trust matrix, support rail, action map, buying guide, page quality summary, or visible SEO explanation components.
 - Do not claim `FINAL_ACCEPTED`.
 
 ## Do
 
-1. Convert `/g/l68` to Truth Execution Log format.
-2. Convert `/g/d68` to Screen Evidence Truth Board format.
-3. Put User Rejections, Open Defects, STOP_LOCK, Blocked Lanes, and Verification Limitations at the top.
-4. Archive old long success-history logs under `all_log/archive`.
-5. Add `gate:shop-log-truth`.
-6. Keep D1 subscription blocker to one line.
-7. Publish `/g/m68`, `/g/l68`, and `/g/d68` after deploy.
+1. Add normalized sha verification for `/g/m68`, `/g/l68`, and `/g/d68`.
+2. Record local raw sha256.
+3. Record public raw sha256.
+4. Record local normalized sha256 after Worker Version ID normalization.
+5. Record public normalized sha256 after Worker Version ID normalization.
+6. Record normalized match result.
+7. If normalized sha does not match, fail.
+8. Publish the normalized sha record at `/g/sha68`.
 
 ## STOP_LOCK
 
@@ -38,13 +39,15 @@ Status: `WIP_NOT_FINAL`
 - Master: `https://mail.aiboux.com/g/m68`
 - Execution Log: `https://mail.aiboux.com/g/l68`
 - Screen Evidence: `https://mail.aiboux.com/g/d68`
+- Normalized SHA Evidence: `https://mail.aiboux.com/g/sha68`
 
 ## Verification
 
 - `npm run check:control-chars`
 - `npm run check:mojibake`
 - `npm run gate:shop-log-truth`
+- `npm run verify:g-normalized-sha`
 - `npm run astro check`
 - `ESBUILD_WORKER_THREADS=0 npm run build`
 - `npx wrangler deploy`
-- Public `/g/m68`, `/g/l68`, `/g/d68` curl checks
+- Public `/g/m68`, `/g/l68`, `/g/d68`, `/g/sha68` curl checks

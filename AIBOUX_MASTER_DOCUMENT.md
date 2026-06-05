@@ -1,5 +1,27 @@
 # AIBOUX 正本マスター
 
+## Current Active Operating Override: Normalized /g SHA Verification
+
+Status: `NORMALIZED_G_SHA_VERIFICATION_WIP_NOT_FINAL`
+
+Runtime Worker Version ID置換がある `/g/m68`、`/g/l68`、`/g/d68` では、単に「raw sha不一致は期待通り」と書いてはいけない。
+
+必ず `https://mail.aiboux.com/g/sha68` に次を記録する。
+
+1. local raw sha256
+2. public raw sha256
+3. Worker Version IDを `__WORKER_VERSION_ID__` に正規化したlocal normalized sha256
+4. Worker Version IDを `__WORKER_VERSION_ID__` に正規化したpublic normalized sha256
+5. normalized sha256が一致するか
+
+normalized sha256が一致しない場合は公開ログ不一致としてFAIL。
+
+Forbidden:
+
+- Do not touch storefront UI in this cycle.
+- Do not add visible SEO panels.
+- Do not claim `FINAL_ACCEPTED`.
+
 ## Current Active Operating Override: AIBOUX Shop Cleanup And Refocus
 
 Status: `CLEANUP_AND_REFOCUS_CYCLE_0_WIP_NOT_FINAL`

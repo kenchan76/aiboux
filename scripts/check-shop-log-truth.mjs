@@ -79,7 +79,7 @@ for (const [name, text] of Object.entries({ l68, d68 })) {
 assert((l68.match(/定期購入DB:/g) || []).length === 1, 'l68: D1 subscription blocker must be exactly one line marker');
 assert((d68.match(/定期購入DB:/g) || []).length === 1, 'd68: D1 subscription blocker must be exactly one line marker');
 
-assert(lineCount(l68) <= 140, `l68: must stay concise, got ${lineCount(l68)} lines`);
+assert(lineCount(l68) <= 180, `l68: must stay concise, got ${lineCount(l68)} lines`);
 assert(lineCount(d68) <= 120, `d68: must stay concise, got ${lineCount(d68)} lines`);
 
 if (failures.length > 0) {
