@@ -66,6 +66,15 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("定期購入");
     await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
+    await expect(page.locator("[data-checkout-customer-form]")).toBeVisible();
+    await expect(page.locator("[data-checkout-customer-form] input[name='customerName']")).toBeEnabled();
+    await expect(page.locator("[data-checkout-customer-form] input[name='customerEmail']")).toBeEnabled();
+    await expect(page.locator("[data-checkout-customer-form] input[name='shippingAddress']")).toBeEnabled();
+    await page.locator("[data-checkout-customer-form] input[name='customerName']").fill("山田 花子");
+    await page.locator("[data-checkout-customer-form] input[name='customerEmail']").fill("hanako@example.com");
+    await page.locator("[data-checkout-customer-form] input[name='shippingAddress']").fill("東京都千代田区丸の内1-1-1");
+    await page.locator("[data-checkout-customer-form]").getByRole("button", { name: "配送先を確認" }).click();
+    await expect(page.locator("[data-checkout-customer-status]")).toContainText("配送先と連絡先を確認しました");
     await expect(page.locator("body")).not.toContainText("決済設定");
     await expect(page.getByText("注文が確定しました")).toHaveCount(0);
     await expect(page.getByText("支払いが完了しました")).toHaveCount(0);

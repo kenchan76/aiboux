@@ -1051,12 +1051,17 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                 <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                   <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500"><span class="flex size-7 items-center justify-center rounded-full bg-neutral-950 text-white">2</span>お届け先</div>
                   <h2 class="mt-3 text-xl font-bold text-neutral-950">配送先と連絡先</h2>
-                  <div class="mt-3 grid gap-3 md:grid-cols-2">
-                    <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="お届け先氏名" disabled /></label>
-                    <label class="grid gap-1 text-sm font-medium">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
-                    <label class="grid gap-1 text-sm font-medium md:col-span-2">配送先住所<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="注文受付時に入力できます" disabled /></label>
-                  </div>
-                  <p class="mt-3 text-xs leading-5 text-neutral-500">配送先と支払い方法の入力内容を注文前に確認できます。必要な確認がある場合は、確定前に案内します。</p>
+                  <form class="mt-3 grid gap-3 md:grid-cols-2" data-checkout-customer-form novalidate>
+                    <label class="grid gap-1 text-sm font-medium">お名前<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="customerName" autocomplete="name" placeholder="お届け先氏名" required /></label>
+                    <label class="grid gap-1 text-sm font-medium">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="customerEmail" type="email" autocomplete="email" placeholder="name@example.com" required /></label>
+                    <label class="grid gap-1 text-sm font-medium md:col-span-2">配送先住所<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="shippingAddress" autocomplete="shipping street-address" placeholder="東京都千代田区..." required /></label>
+                    <div class="flex flex-wrap items-center gap-2 md:col-span-2">
+                      <button class="h-10 rounded-md bg-neutral-950 px-4 text-sm font-bold text-white" type="submit">配送先を確認</button>
+                      <a class="inline-flex h-10 items-center rounded-md border border-neutral-300 px-4 text-sm font-bold text-neutral-900" href={`${tenantRoot}/privacy`}>個人情報の扱い</a>
+                    </div>
+                    <p class="hidden rounded-md border px-3 py-2 text-sm md:col-span-2" data-checkout-customer-status></p>
+                  </form>
+                  <p class="mt-3 text-xs leading-5 text-neutral-500">配送先、連絡先、支払い方法の入力内容を注文前に確認できます。必要な確認がある場合は、確定前に案内します。</p>
                 </div>
                 <div class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm" data-testid="storefront-checkout-order-guard">
                   <h2 class="text-lg font-bold text-neutral-950">注文前に確認すること</h2>
@@ -1344,11 +1349,16 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     </div>
                     <a class="inline-flex h-9 items-center justify-center rounded-full border border-neutral-300 px-4 text-xs font-bold text-neutral-900 hover:border-amber-300" href={`${tenantRoot}/contact`}>注文番号を添えて相談</a>
                   </div>
-                  <div class="mt-4 grid gap-3 md:grid-cols-3">
-                    <label class="grid gap-1 text-xs font-bold text-neutral-700">注文番号<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="#AIBOUX-1001" disabled /></label>
-                    <label class="grid gap-1 text-xs font-bold text-neutral-700">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" placeholder="name@example.com" disabled /></label>
-                    <label class="grid gap-1 text-xs font-bold text-neutral-700">期間<select class="h-10 rounded-md border border-neutral-200 px-3 font-normal" disabled><option>過去3か月</option></select></label>
-                  </div>
+                  <form class="mt-4 grid gap-3 md:grid-cols-3" data-order-search-form novalidate>
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">注文番号<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderNumber" placeholder="#AIBOUX-1001" /></label>
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">メール<input class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderEmail" type="email" placeholder="name@example.com" /></label>
+                    <label class="grid gap-1 text-xs font-bold text-neutral-700">期間<select class="h-10 rounded-md border border-neutral-200 px-3 font-normal" name="orderPeriod"><option>過去3か月</option><option>過去6か月</option><option>すべて</option></select></label>
+                    <div class="flex flex-wrap items-center gap-2 md:col-span-3">
+                      <button class="h-9 rounded-md bg-neutral-950 px-4 text-xs font-bold text-white" type="submit">注文を確認</button>
+                      <a class="inline-flex h-9 items-center rounded-md border border-neutral-300 px-3 text-xs font-bold text-neutral-900" href={`${tenantRoot}/contact`}>注文番号を添えて相談</a>
+                    </div>
+                    <p class="hidden rounded-md border px-3 py-2 text-sm md:col-span-3" data-order-search-status></p>
+                  </form>
                 </section>
                 <aside class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
                   <h3 class="font-bold text-neutral-950">注文後によく使う操作</h3>
@@ -1811,6 +1821,56 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
             } else {
               status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
               status.textContent = "入力内容は確認できました。送信受付の状態を確認し、必要に応じてストアへ連絡してください。";
+            }
+          }
+        });
+      }
+
+      const checkoutCustomerForm = document.querySelector("[data-checkout-customer-form]");
+      if (checkoutCustomerForm instanceof HTMLFormElement) {
+        checkoutCustomerForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const status = checkoutCustomerForm.querySelector("[data-checkout-customer-status]");
+          const form = new FormData(checkoutCustomerForm);
+          const name = String(form.get("customerName") || "").trim();
+          const email = String(form.get("customerEmail") || "").trim();
+          const address = String(form.get("shippingAddress") || "").trim();
+          const errors = [];
+          if (!name) errors.push("お名前を入力してください。");
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("正しいメールアドレスを入力してください。");
+          if (address.length < 8) errors.push("配送先住所を入力してください。");
+          if (status instanceof HTMLElement) {
+            status.classList.remove("hidden", "border-emerald-200", "bg-emerald-50", "text-emerald-700", "border-red-200", "bg-red-50", "text-red-700");
+            if (errors.length) {
+              status.classList.add("border-red-200", "bg-red-50", "text-red-700");
+              status.textContent = errors.join(" ");
+            } else {
+              status.classList.add("border-emerald-200", "bg-emerald-50", "text-emerald-700");
+              status.textContent = "配送先と連絡先を確認しました。注文内容、配送条件、支払い方法を続けて確認してください。";
+            }
+          }
+        });
+      }
+
+      const orderSearchForm = document.querySelector("[data-order-search-form]");
+      if (orderSearchForm instanceof HTMLFormElement) {
+        orderSearchForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const status = orderSearchForm.querySelector("[data-order-search-status]");
+          const form = new FormData(orderSearchForm);
+          const orderNumber = String(form.get("orderNumber") || "").trim();
+          const email = String(form.get("orderEmail") || "").trim();
+          const errors = [];
+          if (!orderNumber && !email) errors.push("注文番号またはメールアドレスを入力してください。");
+          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("正しいメールアドレスを入力してください。");
+          if (status instanceof HTMLElement) {
+            status.classList.remove("hidden", "border-emerald-200", "bg-emerald-50", "text-emerald-700", "border-red-200", "bg-red-50", "text-red-700", "border-amber-200", "bg-amber-50", "text-amber-800");
+            if (errors.length) {
+              status.classList.add("border-red-200", "bg-red-50", "text-red-700");
+              status.textContent = errors.join(" ");
+            } else {
+              status.classList.add("border-amber-200", "bg-amber-50", "text-amber-800");
+              status.textContent = "入力内容を確認しました。注文番号とメールを添えて、配送状況や領収書の確認へ進めます。";
             }
           }
         });

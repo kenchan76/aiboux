@@ -218,6 +218,10 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
           await expect(page.getByTestId("storefront-order-action-panel"), `${target.path} should expose order lookup and support panel`).toBeVisible();
           await expect(page.getByTestId("storefront-order-status-cards"), `${target.path} should expose order status action cards`).toBeVisible();
           await expect(page.getByTestId("storefront-order-status-cards"), `${target.path} order status cards should include delivery and returns`).toContainText(/配送状況|返品・交換/);
+          await expect(page.locator("[data-order-search-form]"), `${target.path} should expose an order lookup form instead of disabled placeholders`).toBeVisible();
+          await expect(page.locator("[data-order-search-form] input[name='orderNumber']")).toBeEnabled();
+          await expect(page.locator("[data-order-search-form] input[name='orderEmail']")).toBeEnabled();
+          await expect(page.locator("[data-order-search-form] select[name='orderPeriod']")).toBeEnabled();
         }
         if (target.name === "shop-favorites") {
           const favoriteAssist = page.getByTestId("storefront-favorite-assist-grid");
