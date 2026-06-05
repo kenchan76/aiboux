@@ -1,0 +1,123 @@
+# AIBOUX Shop Truth Execution Log
+
+Status: `WIP_NOT_FINAL`
+
+これは `FINAL_ACCEPTED` ではない。  
+これは完了報告ではない。  
+このログは、現在の事実、拒否理由、未解決欠陥、停止規則、ブロック中レーン、検証限界だけを先頭に出す。
+
+## User Rejections
+
+- ユーザーは、Shop作業がSEO説明部品、trust matrix、support rail、action map、buying guide、page quality summary、visible SEO explanationの追加へ逸れたことを拒否した。
+- ユーザーは、`止まれ`、`動くな`、`一旦やめろ` の停止指示後にCodexが自動継続コンテキストを優先して動いたことを拒否した。
+- ユーザーは、公開TOP、商品詳細、カート、checkout、マイページ、リンク先、フッター、パンくず、スライダー操作感がAmazon品質に達していないことを拒否した。
+- ユーザーは、公開画面に不要なSEO説明や内部説明を出すことを拒否した。
+- ユーザーは、商品詳細で商品タイトルが重複表示されることを拒否した。
+- ユーザーは、スライダーがカクつく、なめらかでない状態を拒否した。
+
+## Open Defects
+
+- Shop全体は販売品質の最終合格ではない。
+- 公開TOP、商品詳細、カート、checkout、contact、legal、privacy、shipping、returns、FAQ、mypage、admin系は引き続き実画面品質の確認対象。
+- 商品画像と商品名の整合、商品カード密度、CTA位置、リンク色、フッター、パンくず、購入導線は継続改善対象。
+- スライダーの滑らかさは追加改善対象。
+- 公開画面へSEO説明、内部実装説明、ログ説明、検証説明を再導入しないことが継続条件。
+- このCycle 0ではストアフロントUIを触っていない。
+
+## STOP_LOCK
+
+- このCycle 0の対象はログ真実化とプロセスロックだけ。
+- ストアフロントUI、商品詳細UI、SEO表示部品、trust matrix、support rail、action map、buying guide、page quality summaryは変更しない。
+- ユーザーが再び `止まれ`、`動くな`、`一旦停止`、`一旦やめろ` と明示した場合、明示的な再開指示があるまでbuild、test、deploy、Bark、commit、ログ公開を開始しない。
+- 自動継続コンテキストは、手動停止指示を上書きしない。
+
+## Blocked Lanes
+
+- 定期購入DB: D1権限待ち。販売UI/APIは安全停止扱い。最終承認対象外。
+
+## Verification Limitations
+
+- gate PASSだけでは販売品質の証明にならない。
+- HTTP 200だけでは画面品質の証明にならない。
+- スクリーンショット1枚だけでは操作品質の証明にならない。
+- このCycle 0はログ形式、公開証跡、停止規則、gate追加の検証であり、ストア画面の改善検証ではない。
+- `FINAL_ACCEPTED` は禁止。
+
+## Current Cycle
+
+`TRUTH_LOG_REPAIR_AND_PROCESS_LOCK`
+
+目的:
+
+1. `/g/l68` をTruth Execution Log形式へ変換する。
+2. `/g/d68` をScreen Evidence Truth Board形式へ変換する。
+3. User Rejections、Open Defects、STOP_LOCK、Blocked Lanes、Verification Limitationsを先頭に置く。
+4. 古い長文成功履歴ログを `all_log/archive` に退避する。
+5. `gate:shop-log-truth` を追加する。
+6. D1定期購入ブロック説明を一行化する。
+7. `FINAL_ACCEPTED` を主張しない。
+8. deploy後に `/g/m68`、`/g/l68`、`/g/d68` を公開確認する。
+
+## URL Bundle
+
+- Master: `https://mail.aiboux.com/g/m68`
+- Execution Log: `https://mail.aiboux.com/g/l68`
+- Screen Evidence: `https://mail.aiboux.com/g/d68`
+
+## Changed In This Cycle
+
+- `public/g/l68.md` をTruth Execution Log形式へ変換した。
+- `public/g/d68.md` をScreen Evidence Truth Board形式へ変換した。
+- `public/g/m68.md` にTruth Log Repair overrideを追記した。
+- `ops/instructions/current.md` をCycle 0専用指示へ更新した。
+- `ops/instructions/20260605_truth_log_repair_and_process_lock.md` を作成した。
+- `scripts/check-shop-log-truth.mjs` を追加した。
+- `package.json` に `gate:shop-log-truth` を追加した。
+- 旧長文成功履歴ログを `all_log/archive/20260605T110827Z_truth_log_repair/` に退避した。
+
+## Archived Old Logs
+
+退避先:
+
+- `all_log/archive/20260605T110827Z_truth_log_repair/`
+
+退避内容:
+
+- 作業前の `public/g/l68.md`
+- 作業前の `public/g/d68.md`
+- 作業前の `public/g/m68.md`
+- SEO説明、trust、support、action、buying、quality、sitemap、landmark系の古い長文履歴ログ
+
+削除ではなく、`all_log/archive` への退避。
+
+## Verification
+
+実行済み:
+
+- `npm run check:control-chars`
+  - 結果: `CONTROL_CHAR_CHECK_OK`
+- `npm run check:mojibake`
+  - 結果: `MOJIBAKE_CHECK_OK files=1300`
+- `npm run gate:shop-log-truth`
+  - 結果: `SHOP_LOG_TRUTH_PASS`
+- `npm run astro check`
+  - 結果: 0 errors、既存hintsのみ
+- `ESBUILD_WORKER_THREADS=0 npm run build`
+  - 結果: PASS
+
+deploy後に追記する公開検証:
+
+- `npx wrangler deploy`: 実行済み
+- Worker Version ID: `ef349f63-da57-4687-a9ff-3f7e2cd757b3`
+- `/g/m68`: HTTP 200、`text/markdown; charset=utf-8`
+- `/g/l68`: HTTP 200、`text/markdown; charset=utf-8`
+- `/g/d68`: HTTP 200、`text/markdown; charset=utf-8`
+- `/g/d68`: 公開本文とローカル本文のsha256一致確認対象
+- `/g/m68` と `/g/l68`: runtimeで `ef349f63-da57-4687-a9ff-3f7e2cd757b3` を実Worker Version IDへ置換するため、公開本文とローカル本文のsha256は一致しない場合がある。その場合は本文先頭とTruth Log構造を確認する。
+
+## Not Done
+
+- ストアフロントUI改善は未実施。
+- SEO表示部品追加は未実施。
+- 定期購入D1 remote migrationは未実施。
+- `FINAL_ACCEPTED` は未主張。
