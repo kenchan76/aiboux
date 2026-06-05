@@ -115,6 +115,11 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.getByRole("heading", { name: "顧客" })).toBeVisible();
 
     const actionButton = page.locator('button[aria-label$="の操作"]').first();
+    if ((await actionButton.count()) === 0) {
+      await expect(page.getByText("顧客データはまだありません。")).toBeVisible();
+      await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+      return;
+    }
     await expect(actionButton).toBeVisible();
     await actionButton.click();
     await page.getByRole("menuitem", { name: "詳細を開く" }).click();

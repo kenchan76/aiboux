@@ -99,6 +99,7 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
     await page.locator("input[name='email']").fill("tester@example.com");
+    await page.locator("select[name='topic']").selectOption({ index: 1 });
     await page.getByRole("button", { name: "入力内容を確認" }).click();
     await expect(page.locator("[data-contact-status]")).toContainText("入力内容は確認できました");
   });
@@ -215,9 +216,9 @@ test.describe("AIBOUX Shop public functional hardening", () => {
       expect(savedData.layout?.pages?.top?.heroSlider?.slides?.[0]?.title).toBe(marker);
 
       await page.goto(`/s/aiboux/?layoutVerify=${encodeURIComponent(marker)}`);
-      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
+      await expect(page.getByTestId("hero-slide-main").getByRole("heading", { name: marker })).toBeVisible();
       await page.reload();
-      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
+      await expect(page.getByTestId("hero-slide-main").getByRole("heading", { name: marker })).toBeVisible();
     } finally {
       const restoreResponse = await request.post("/shop/api/storefront/layout", {
         data: {
