@@ -1,0 +1,36 @@
+{
+  "title": "AIBOUX Shop Public Text Cleanup WIP Report",
+  "status": "WIP_DEPLOYED_NOT_FINAL",
+  "masterShortUrl": "https://mail.aiboux.com/g/m68",
+  "logShortUrl": "https://mail.aiboux.com/g/l68",
+  "screenShortUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "買い物客向け画面から不要なSEO説明・内部実装説明を削除しました。",
+    "削除対象は、クロール可能、内部リンク、Page guide、Trust / proof matrix などの見えてはいけない文言です。",
+    "canonical、robots、JSON-LD、BreadcrumbList、Product/Offer などの実SEOは維持しています。",
+    "public/g/m68.md、public/g/l68.md、public/g/d68.md に証跡を反映し、公開URLへWIP deployしました。",
+    "最新Worker Version IDは d50714e5-2b6d-42c9-ac10-0daa94fb5593 です。"
+  ],
+  "verification": [
+    "npm run check:control-chars PASS",
+    "npm run check:mojibake PASS",
+    "npm run astro -- check PASS",
+    "ESBUILD_WORKER_THREADS=0 npm run build PASS",
+    "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail PASS",
+    "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-contact-legal PASS",
+    "PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl PASS",
+    "17 public storefront URLs returned HTTP 200 and public HTML grep found no banned internal wording.",
+    "m68/l68/d68 public URLs returned HTTP 200 and text/markdown; charset=utf-8.",
+    "l68 public body contains Bark Progress Notification evidence."
+  ],
+  "bark": {
+    "notification": "progress sent",
+    "reason": "Progress Bark succeeded with delivered=true, skipped=false, secretLogged=false. This is not a final acceptance notification."
+  },
+  "notes": [
+    "FINAL_ACCEPTED is still prohibited.",
+    "Broader Amazon-quality sales sprint remains active.",
+    "D1 subscription remote migration remains a separate not-final lane until permissions and production subscription verification are complete.",
+    "Source/public sha256 differs for /g bodies because the Worker injects runtime evidence such as Worker Version ID into public markdown."
+  ]
+}
