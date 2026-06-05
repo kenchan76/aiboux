@@ -1,0 +1,10 @@
+2077e7c WIP fix shop admin operation routing and overlays 20260605T062421Z
+acb1805 WIP record shop user report input
+1fb6648 WIP record final shop log publication evidence
+8d8ac57 WIP shop aiboux tenant deploy checkpoint 20260605T061202Z
+5cc2977 WIP record shop footer cleanup public verification
+090a2be WIP shop aiboux tenant deploy checkpoint 20260605T060539Z
+e62af0a WIP remove shop footer explanatory copy
+8c6f2e4 WIP shop aiboux tenant deploy checkpoint 20260605T055958Z
+a90f94c WIP fix shop product slug detail consistency
+e1ca02a WIP record public log publish verification 20260605T055354Z
