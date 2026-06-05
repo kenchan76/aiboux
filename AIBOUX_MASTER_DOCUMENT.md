@@ -5709,7 +5709,7 @@ Current WIP evidence:
 
 - WIP commit: `3b537c1189264aa3e15b1ec2688470180b72ec3a`
 - Implementation deploy Worker Version ID: `c7c9e23b-fa2e-4b29-adfc-dfd83b92be82`
-- Public evidence publication Worker Version ID: `00250f92-7c8f-4a3c-b62f-a21ffdca9616`
+- Public evidence publication Worker Version ID: `__WORKER_VERSION_ID__`
 - Log URL: `https://mail.aiboux.com/g/l68`
 - Screen URL: `https://mail.aiboux.com/g/d68`
 
