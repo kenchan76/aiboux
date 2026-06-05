@@ -69,3 +69,11 @@ Updated screenshots under `public/g/screens/` include:
 ## Not Final
 
 This is not FINAL_ACCEPTED. The broader 5-hour Shop sales-quality sprint remains open. D1 subscription remote migration and final Bark receipt-gated acceptance are not complete.
+
+## Progress Bark
+
+- Evidence file: `all_log/bark/20260605T010221Z_shop_declutter_progress_bark.json`
+- delivered: true
+- skipped: false
+- secretLogged: false
+- finalGate: false
