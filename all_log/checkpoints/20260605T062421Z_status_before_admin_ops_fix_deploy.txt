@@ -1,0 +1,43 @@
+ M output/playwright/shop-admin-ops/shop-admin-design.png
+ M output/playwright/shop-admin-ops/shop-admin-products.png
+ M output/playwright/shop-admin-ops/shop-admin-subscriptions.png
+ M output/playwright/shop-cart-checkout/shop-cart-page.png
+ M output/playwright/shop-cart-checkout/shop-checkout-buy-now-result.png
+ M output/playwright/shop-cart-checkout/shop-checkout-empty-guide.png
+ M output/playwright/shop-cart-checkout/shop-checkout-page.png
+ M output/playwright/shop-contact-legal/shop-contact-page.png
+ M output/playwright/shop-contact-legal/shop-faq-page.png
+ M output/playwright/shop-contact-legal/shop-legal-page.png
+ M output/playwright/shop-contact-legal/shop-privacy-page.png
+ M output/playwright/shop-contact-legal/shop-returns-page.png
+ M output/playwright/shop-contact-legal/shop-shipping-page.png
+ M output/playwright/shop-functional/admin-demo-free-1980.png
+ M public/g/screens/shop-admin-products.png
+ M public/g/screens/shop-cart-page.png
+ M public/g/screens/shop-checkout-buy-now-result.png
+ M public/g/screens/shop-checkout-empty-guide.png
+ M public/g/screens/shop-checkout-page.png
+ M public/g/screens/shop-contact-page.png
+ M public/g/screens/shop-faq-page.png
+ M public/g/screens/shop-legal-page.png
+ M public/g/screens/shop-privacy-page.png
+ M public/g/screens/shop-returns-page.png
+ M public/g/screens/shop-shipping-page.png
+ M src/components/shop/ShopClientShell.tsx
+ M src/components/shop/products/ShopProductWizard.tsx
+ M src/layouts/ShopLayout.astro
+ M test-results/.last-run.json
+ M tests/shop-admin-ops-public.spec.ts
+ M tests/shop-functional-public.spec.ts
+?? all_log/checkpoints/20260605T062421Z_status_before_admin_ops_fix_deploy.txt
+?? output/playwright/shop-admin-ops/shop-admin-inventory.png
+?? public/g/screens/shop-admin-inventory.png
+?? test-results/shop-admin-ops-public-AIBO-96846-nce-without-backend-wording/
+?? test-results/shop-admin-ops-public-AIBO-ce61a--edit-and-duplicate-actions/
+?? test-results/shop-admin-ops-public-AIBO-cfa8d-il-segment-and-memo-actions/
+?? test-results/shop-admin-ops-public-AIBO-d8c06-or-exposes-a-real-back-link/
+?? test-results/shop-admin-ops-public-AIBO-da3d9-ntrols-are-not-dead-buttons/
+?? test-results/shop-functional-public-AIB-297f3-and-contact-behave-honestly/
+?? test-results/shop-functional-public-AIB-8cbc9-product-detail-page-editing/
+?? test-results/shop-functional-public-AIB-cfe2c-nd-restores-original-layout/
+?? test-results/shop-functional-public-AIB-ea31c-ed-or-generated-policy-text/

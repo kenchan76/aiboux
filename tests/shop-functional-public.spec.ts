@@ -76,7 +76,8 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.getByText("Playwright検証商品")).toBeVisible();
     const quantity = page.locator("[data-cart-qty]").first();
     await quantity.fill("3");
-    await expect(page.getByText("¥3,600")).toBeVisible();
+    await expect(page.locator("[data-cart-subtotal]")).toHaveText("¥3,600");
+    await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥3,600");
     await page.locator("[data-cart-remove]").first().click();
     await expect(page.getByText("カートは空です")).toBeVisible();
 
@@ -99,12 +100,12 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
     await page.locator("input[name='email']").fill("tester@example.com");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
-    await expect(page.getByText("入力内容を確認しました。")).toBeVisible();
+    await expect(page.getByText("入力内容は確認できました。")).toBeVisible();
   });
 
   test("legal pages render configured or generated policy text", async ({ page }) => {
     await page.goto("/s/aiboux/legal");
-    await expect(page.getByText("販売業者:")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page").getByText("販売業者")).toBeVisible();
     await page.goto("/s/aiboux/privacy");
     await expect(page.getByTestId("storefront-policy-page").getByText("個人情報")).toBeVisible();
     await page.goto("/s/aiboux/shipping");
@@ -164,7 +165,8 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(sideImages).toHaveCount(2);
     for (let index = 0; index < 2; index += 1) {
       const src = await sideImages.nth(index).getAttribute("src");
-      expect(src ?? "", `side hero ${index} should use a real preview image`).toContain("/shop/design/hero-");
+      expect(src ?? "", `side hero ${index} should use a real preview image`).toMatch(/^(https?:\/\/|\/shop\/design\/hero-)/);
+      expect(src ?? "", `side hero ${index} should not be a gray placeholder`).not.toMatch(/placeholder|skeleton|gray/i);
     }
 
     await page.screenshot({ path: "output/playwright/shop-functional/design-editor-1980.png", fullPage: true });

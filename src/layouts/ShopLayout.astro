@@ -24,6 +24,6 @@ const { title = "AIBOUX SHOP" } = Astro.props;
   </head>
   <body class="min-h-screen bg-white text-neutral-950 antialiased">
     <slot />
-      <GlobalAIAssistant client:load service="Shop" />
+      <GlobalAIAssistant client:load service="Shop" defaultOpen={false} />
   </body>
 </html>

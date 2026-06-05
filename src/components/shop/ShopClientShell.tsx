@@ -185,7 +185,7 @@ function buildShopAdminPath(section: ShopSection) {
 }
 
 function getShopAdminBasePath() {
-  if (typeof window === "undefined") return "/shop";
+  if (typeof window === "undefined") return "/s/aiboux/admin";
   const parts = window.location.pathname.split("/").filter(Boolean);
   if (parts[0] === "s" && parts[1] && parts[2] === "admin") {
     return `/s/${encodeURIComponent(decodeURIComponent(parts[1]))}/admin`;

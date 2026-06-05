@@ -102,7 +102,7 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await page.goto("/s/aiboux/admin/products", { waitUntil: "networkidle" });
 
     await page.getByRole("button", { name: "商品操作" }).first().click();
-    await expect(page.getByRole("menuitem", { name: "編集" })).toBeVisible();
+    await expect(page.getByRole("menuitem", { name: "編集", exact: true })).toBeVisible();
     await expect(page.getByRole("menuitem", { name: "複製して編集" })).toBeVisible();
     await expect(page.getByRole("menuitem", { name: "販売状態を編集" })).toBeVisible();
     await expect(page.getByRole("menuitem", { name: "複製" })).toHaveCount(0);
@@ -111,7 +111,8 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
 
   test("admin customer row menu opens detail, segment, and memo actions", async ({ page }) => {
     await page.setViewportSize({ width: 1980, height: 1080 });
-    await page.goto("/s/aiboux/admin/customers", { waitUntil: "networkidle" });
+    await page.goto("/s/aiboux/admin/customers", { waitUntil: "domcontentloaded" });
+    await expect(page.getByRole("heading", { name: "顧客" })).toBeVisible();
 
     await page.getByRole("button", { name: /の操作/ }).first().click();
     await page.getByRole("menuitem", { name: "詳細を開く" }).click();

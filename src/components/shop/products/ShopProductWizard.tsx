@@ -315,9 +315,14 @@ export function ShopProductWizard({ onComplete }: { onComplete?: () => void }) {
 
   return (
     <section className="min-h-0 flex-1 overflow-auto bg-white p-4">
-      <div className="mb-4">
-        <h1 className="text-xl font-semibold tracking-tight text-neutral-950">AI商品登録</h1>
-        <p className="text-sm text-neutral-500">JAN、画像、価格を整えて、利益を確認してから公開します。</p>
+      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-semibold tracking-tight text-neutral-950">商品を追加</h1>
+          <p className="text-sm text-neutral-500">JAN、画像、価格を整えて、利益を確認してから公開します。</p>
+        </div>
+        <Button asChild variant="outline">
+          <a href="/s/aiboux/admin/products">商品一覧へ戻る</a>
+        </Button>
       </div>
 
       <Card className="border-neutral-200 bg-white shadow-none">
