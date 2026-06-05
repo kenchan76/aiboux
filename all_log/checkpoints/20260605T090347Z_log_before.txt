@@ -1,0 +1,10 @@
+41f465e WIP improve cart quantity stepper
+8a414e1 WIP record checkout stepper public evidence
+40b37f1 WIP publish checkout stepper evidence
+725f966 WIP shop aiboux tenant deploy checkpoint 20260605T085338Z
+9063c8c WIP fix checkout stepper empty state
+1b39f77 WIP record admin evidence reflection assets
+50e63a2 WIP publish admin product evidence
+e670d62 WIP add admin product thumbnail fallbacks
+7f674b8 WIP clean admin product list display names
+e0b7e26 WIP publish contact evidence cleanup
