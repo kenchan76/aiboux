@@ -137,7 +137,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
         >
           <div className="relative overflow-hidden" data-testid="storefront-hero-slider">
             <div
-              className="flex gap-3 transition-transform duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="flex gap-3 transition-transform duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               data-testid="hero-carousel-track"
               data-hero-track
               style={{ transform: "translate3d(calc(14% - 72% - 12px), 0, 0)" }}
@@ -288,7 +288,7 @@ function HeroCarouselSlide({
 
   return (
     <article
-      className="relative min-h-[330px] shrink-0 basis-[72%] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm transition-[filter,opacity,transform] duration-[620ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+      className="relative min-h-[330px] shrink-0 basis-[72%] overflow-hidden rounded-md bg-neutral-950 text-white shadow-sm transition-[filter,opacity,transform] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
       data-hero-slide
       data-testid={testId}
       data-track-index={String(trackIndex)}
@@ -471,7 +471,7 @@ function StorefrontInteractionScript() {
     const loop = carousel.getAttribute("data-loop") !== "false";
     const autoplay = carousel.getAttribute("data-autoplay") === "true";
     const intervalMs = Math.max(3000, Number(carousel.getAttribute("data-interval-ms") || 5000));
-    const transitionMs = 620;
+    const transitionMs = 560;
     const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
     const track = carousel.querySelector("[data-hero-track]");
     const viewport = carousel.querySelector("[data-testid='storefront-hero-slider']");
@@ -488,6 +488,19 @@ function StorefrontInteractionScript() {
     let pointerStartY = 0;
     let pointerCurrentX = 0;
     let pointerTracking = false;
+    let moveTimeout = 0;
+
+    slides.forEach((slide) => {
+      if (!slide.imageUrl) return;
+      const image = new Image();
+      image.decoding = "async";
+      image.src = slide.imageUrl;
+    });
+
+    if (track) {
+      track.style.backfaceVisibility = "hidden";
+      track.style.transformStyle = "preserve-3d";
+    }
 
     const setTrackTransition = (enabled) => {
       if (!track) return;
@@ -565,8 +578,19 @@ function StorefrontInteractionScript() {
       transitioning = true;
       carousel.setAttribute("data-hero-animating", "true");
       const targetTrackIndex = activeTrackIndex + delta;
-      applyTrackPosition(targetTrackIndex, true);
-      window.setTimeout(() => completeMove(nextIndex, targetTrackIndex), transitionMs + 30);
+      window.clearTimeout(moveTimeout);
+      const finish = () => {
+        window.clearTimeout(moveTimeout);
+        track?.removeEventListener("transitionend", onTransitionEnd);
+        completeMove(nextIndex, targetTrackIndex);
+      };
+      const onTransitionEnd = (event) => {
+        if (event.target !== track || event.propertyName !== "transform") return;
+        finish();
+      };
+      track.addEventListener("transitionend", onTransitionEnd);
+      window.requestAnimationFrame(() => applyTrackPosition(targetTrackIndex, true));
+      moveTimeout = window.setTimeout(finish, transitionMs + 120);
     };
     const goTo = (targetIndex) => {
       if (transitioning) return;
