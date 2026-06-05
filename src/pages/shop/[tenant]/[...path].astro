@@ -38,7 +38,7 @@ import {
   buildShopContextualLinkSections,
   buildShopFaqItems,
   buildShopFooterColumns,
-  buildShopFooterSeoSitemapLinks,
+  buildShopFooterShoppingDirectoryLinks,
   buildShopHeaderCategoryLinks,
   buildShopPageHeaderActions,
   buildShopPolicySupportCards,
@@ -174,7 +174,7 @@ const accountCards = buildShopAccountCards(tenantRoot);
 const purchaseGuideCards = buildShopPurchaseGuideCards();
 const policySupportCards = buildShopPolicySupportCards(tenantRoot);
 const footerColumns = buildShopFooterColumns(tenantRoot);
-const footerSeoSitemapLinks = buildShopFooterSeoSitemapLinks(tenantRoot);
+const footerShoppingDirectoryLinks = buildShopFooterShoppingDirectoryLinks(tenantRoot);
 const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const faqItems = buildShopFaqItems();
 const pageHeaderActions = buildShopPageHeaderActions(page, tenantRoot);
@@ -256,7 +256,7 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
     ...pageHeaderActions,
     ...contextualLinks,
     ...footerColumns.flatMap((column) => column.links),
-    ...footerSeoSitemapLinks,
+    ...footerShoppingDirectoryLinks,
   ],
 });
 const faqJsonLd = page === "faq" ? buildShopFaqPageJsonLd({ canonicalUrl, faqItems }) : null;

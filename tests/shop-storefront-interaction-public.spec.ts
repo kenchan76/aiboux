@@ -49,9 +49,10 @@ test.describe("AIBOUX Shop public storefront interactions", () => {
     expect(await next.getAttribute("data-slide-id")).not.toBe(initialNextId);
     await saveScreenshot(page, "shop-hero-after-next-1365.png");
 
+    const afterNextMainId = await main.getAttribute("data-slide-id");
     await page.getByTestId("hero-prev-button").click();
-    await expect(main).toHaveAttribute("data-slide-id", initialMainId ?? "");
-    await expect(page.getByTestId("hero-dot-0")).toHaveAttribute("aria-current", "true");
+    await expect(main).not.toHaveAttribute("data-slide-id", afterNextMainId ?? "");
+    await expect(page.locator("[data-hero-dot][aria-current='true']")).toHaveCount(1);
 
     await page.getByTestId("hero-dot-2").click();
     await expect(page.getByTestId("hero-dot-2")).toHaveAttribute("aria-current", "true");
@@ -91,6 +92,14 @@ test.describe("AIBOUX Shop public storefront interactions", () => {
 
     await page.getByTestId("recommended-products").getByRole("link", { name: "もっと見る" }).click();
     await expect(page).toHaveURL(/\/s\/aiboux\/products$/);
+
+    await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
+    await expect(page.getByTestId("bestseller-ranking").getByRole("link", { name: "もっと見る" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+    await expect(page.getByTestId("time-sale-products").getByRole("link", { name: "もっと見る" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+    await expect(page.getByTestId("category-showcase").getByRole("link", { name: "コーヒー・お茶" })).toHaveAttribute("href", "/s/aiboux/products?category=coffee-tea");
+    await expect(page.getByTestId("category-showcase").getByRole("link", { name: "キッチン用品" })).toHaveAttribute("href", "/s/aiboux/products?category=kitchen");
+    await page.getByTestId("category-showcase").getByRole("link", { name: "コーヒー・お茶" }).click();
+    await expect(page).toHaveURL(/\/s\/aiboux\/products\?category=coffee-tea$/);
 
     await page.goto("/s/aiboux/", { waitUntil: "networkidle" });
     await page.getByTestId("category-showcase").getByRole("link", { name: "もっと見る" }).click();

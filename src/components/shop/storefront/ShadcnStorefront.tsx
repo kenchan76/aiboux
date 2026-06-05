@@ -60,17 +60,17 @@ const storefrontHeroDefaults = [
 ];
 
 const categoryShowcase = [
-  { name: "食品・飲料", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "コーヒー・お茶", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "キッチン用品", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "日用品", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "タオル・寝具", image: "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "ビューティー", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "ペット用品", image: "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "ギフト", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "本・文具", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "セール", image: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=420&h=280&q=82" },
-  { name: "ランキング", image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "食品・飲料", slug: "food-drink", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "コーヒー・お茶", slug: "coffee-tea", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "キッチン用品", slug: "kitchen", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "日用品", slug: "daily-goods", image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "タオル・寝具", slug: "towel-bedding", image: "https://images.unsplash.com/photo-1724847885015-be191f1a47ef?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "ビューティー", slug: "beauty", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "ペット用品", slug: "pet", image: "https://images.unsplash.com/photo-1741942732341-d1ec386afd68?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "ギフト", slug: "gift", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "本・文具", slug: "books-stationery", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "セール", slug: "sale", image: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=420&h=280&q=82" },
+  { name: "ランキング", slug: "ranking", image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=420&h=280&q=82" },
 ];
 
 const curatedStorefrontProducts: StorefrontProduct[] = [
@@ -196,7 +196,7 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
                 <p className="mt-1 text-sm text-muted-foreground">画像、価格、レビュー、配送目安をそろえて、今週の定番商品を選べます。</p>
               </div>
               <div className="flex items-center gap-3">
-                <Badge variant="secondary">{products.length}件</Badge>
+                <Badge variant="secondary">{visualProducts.length}件</Badge>
                 <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href={`${tenantRoot}/products`}>もっと見る</a>
               </div>
             </div>
@@ -208,8 +208,8 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
           </section>
         ) : null}
 
-        <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
-        <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
+        <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} moreHref={`${tenantRoot}/products?category=ranking`} ranking />
+        <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} moreHref={`${tenantRoot}/products?category=sale`} accent="red" sale />
         <CategorySection title={layout.pages.top.sections.categories.title} enabled={layout.pages.top.sections.categories.enabled} />
         {layout.pages.top.sections.brands.enabled ? (
           <section className="mt-4 rounded-md bg-white p-4 shadow-sm">
@@ -321,13 +321,13 @@ function HeroCarouselSlide({
   );
 }
 
-function StoreSection({ title, enabled, products, accent = "neutral", ranking, sale }: { title: string; enabled: boolean; products: StorefrontProduct[]; accent?: "neutral" | "red"; ranking?: boolean; sale?: boolean }) {
+function StoreSection({ title, enabled, products, moreHref = "/s/aiboux/products", accent = "neutral", ranking, sale }: { title: string; enabled: boolean; products: StorefrontProduct[]; moreHref?: string; accent?: "neutral" | "red"; ranking?: boolean; sale?: boolean }) {
   if (!enabled) return null;
   return (
     <section className="mt-4 rounded-md bg-white p-4 shadow-sm" data-testid={ranking ? "bestseller-ranking" : sale ? "time-sale-products" : undefined}>
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-base font-semibold">{title}</h2>
-        <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href="/s/aiboux/products">もっと見る</a>
+        <a className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline" href={moreHref}>もっと見る</a>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         {products.slice(0, 5).map((product, index) => (
@@ -356,7 +356,7 @@ function CategorySection({ title, enabled }: { title: string; enabled: boolean }
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">
         {categoryShowcase.map((item) => (
-          <a key={item.name} href="/s/aiboux/products" className="rounded-md border border-neutral-200 p-2 text-center text-xs font-semibold hover:bg-neutral-50" data-testid="category-card">
+          <a key={item.name} href={`/s/aiboux/products?category=${encodeURIComponent(item.slug)}`} className="rounded-md border border-neutral-200 p-2 text-center text-xs font-semibold hover:bg-neutral-50" data-testid="category-card">
             <img src={item.image} alt={item.name} className="mx-auto mb-2 h-20 w-full rounded object-cover" loading="lazy" />
             <span>{item.name}</span>
           </a>

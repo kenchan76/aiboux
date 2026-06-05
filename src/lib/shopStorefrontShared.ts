@@ -332,7 +332,7 @@ export function buildShopFooterColumns(tenantRoot: string): ShopStorefrontLinkGr
   ];
 }
 
-export function buildShopFooterSeoSitemapLinks(tenantRoot: string): ShopStorefrontLink[] {
+export function buildShopFooterShoppingDirectoryLinks(tenantRoot: string): ShopStorefrontLink[] {
   return [
     { label: "TOPページ", href: `${tenantRoot}/` },
     { label: "商品一覧", href: `${tenantRoot}/products` },

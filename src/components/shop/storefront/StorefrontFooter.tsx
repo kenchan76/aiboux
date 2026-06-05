@@ -1,4 +1,4 @@
-import { buildShopFooterAssurances, buildShopFooterColumns, buildShopFooterSeoSitemapLinks } from "@/lib/shopStorefrontShared";
+import { buildShopFooterAssurances, buildShopFooterColumns, buildShopFooterShoppingDirectoryLinks } from "@/lib/shopStorefrontShared";
 
 type StorefrontFooterProps = {
   storeName: string;
@@ -9,7 +9,7 @@ type StorefrontFooterProps = {
 export function StorefrontFooter({ storeName, tenantRoot, className = "" }: StorefrontFooterProps) {
   const assurances = buildShopFooterAssurances(tenantRoot);
   const columns = buildShopFooterColumns(tenantRoot);
-  const linkDirectory = buildShopFooterSeoSitemapLinks(tenantRoot);
+  const linkDirectory = buildShopFooterShoppingDirectoryLinks(tenantRoot);
 
   return (
     <footer id="storefront-footer" className={`mt-8 bg-[#17212f] text-white ${className}`} data-testid="storefront-footer">

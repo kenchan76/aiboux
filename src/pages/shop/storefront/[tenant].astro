@@ -18,7 +18,7 @@ import {
   buildShopBreadcrumbSupportLinks,
   buildShopContextualLinkSections,
   buildShopFooterColumns,
-  buildShopFooterSeoSitemapLinks,
+  buildShopFooterShoppingDirectoryLinks,
   buildShopHeaderCategoryLinks,
 } from "@/lib/shopStorefrontShared";
 import "@/styles/global.css";
@@ -61,7 +61,7 @@ const publicProductCards = products.map((product) => ({
 }));
 const breadcrumbItems = [{ name: "TOP", href: "", url: canonicalUrl }];
 const footerColumns = buildShopFooterColumns(tenantRoot);
-const footerSeoSitemapLinks = buildShopFooterSeoSitemapLinks(tenantRoot);
+const footerShoppingDirectoryLinks = buildShopFooterShoppingDirectoryLinks(tenantRoot);
 const headerCategoryLinks = buildShopHeaderCategoryLinks(tenantRoot);
 const contextualLinkSections = buildShopContextualLinkSections("", tenantRoot);
 const contextualLinks = contextualLinkSections.flatMap((section) => section.links);
@@ -111,7 +111,7 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
       ...storefrontSalesLinks,
       ...contextualLinks,
       ...footerColumns.flatMap((column) => column.links),
-      ...footerSeoSitemapLinks,
+      ...footerShoppingDirectoryLinks,
     ],
   }),
 ].filter(Boolean)));
