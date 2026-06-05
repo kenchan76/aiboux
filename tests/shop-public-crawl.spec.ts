@@ -151,6 +151,11 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(searchForm.locator('input[name="q"]'), `${target.path} search input should use q query parameter`).toHaveCount(1);
         const footer = page.getByTestId("storefront-footer");
         await expect(footer, `${target.path} should include Amazon-like storefront footer`).toBeVisible();
+        await expect(footer, `${target.path} footer should include shopping continuation actions`).toContainText("買い物を続ける");
+        await expect(footer.getByLabel("フッタークイックリンク").getByRole("link", { name: "商品一覧" })).toHaveAttribute("href", "/s/aiboux/products");
+        await expect(footer.getByLabel("フッタークイックリンク").getByRole("link", { name: "カート" })).toHaveAttribute("href", "/s/aiboux/cart");
+        await expect(footer.getByLabel("フッタークイックリンク").getByRole("link", { name: "注文履歴" })).toHaveAttribute("href", "/s/aiboux/orders");
+        await expect(footer.getByLabel("フッタークイックリンク").getByRole("link", { name: "問い合わせ" })).toHaveAttribute("href", "/s/aiboux/contact");
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
         await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("支払い方法の選択が必要な場合は、注文前に分かりやすく案内します");

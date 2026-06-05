@@ -7,7 +7,7 @@ type StorefrontFooterProps = {
 };
 
 export function StorefrontFooter({ storeName, tenantRoot, className = "" }: StorefrontFooterProps) {
-  const assurances = buildShopFooterAssurances();
+  const assurances = buildShopFooterAssurances(tenantRoot);
   const columns = buildShopFooterColumns(tenantRoot);
   const linkDirectory = buildShopFooterSeoSitemapLinks(tenantRoot);
 
@@ -16,11 +16,41 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
       <a className="block bg-[#253447] px-4 py-3 text-center text-sm font-semibold underline-offset-4 hover:bg-[#2e4058] hover:underline focus:outline-none focus:ring-2 focus:ring-amber-300" href="#top">
         ページ上部へ戻る
       </a>
+      <section className="border-b border-white/10 bg-[#1f2c3d] px-4 py-5" aria-label="買い物を続ける">
+        <div className="mx-auto flex max-w-screen-xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-base font-bold text-white">買い物を続ける</h2>
+            <p className="mt-1 text-xs leading-5 text-white/72">商品、カート、注文履歴、問い合わせへすぐ戻れます。</p>
+          </div>
+          <nav className="flex flex-wrap gap-2" aria-label="フッタークイックリンク" itemScope itemType="https://schema.org/SiteNavigationElement">
+            {[
+              { label: "商品一覧", href: `${tenantRoot}/products` },
+              { label: "カート", href: `${tenantRoot}/cart` },
+              { label: "注文履歴", href: `${tenantRoot}/orders` },
+              { label: "問い合わせ", href: `${tenantRoot}/contact` },
+            ].map((link) => (
+              <a
+                key={link.label}
+                className="inline-flex h-9 items-center rounded-full border border-sky-300/45 bg-sky-300/10 px-3 text-xs font-bold text-sky-200 underline-offset-4 hover:border-sky-200 hover:bg-sky-300/20 hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-amber-300"
+                href={link.href}
+                itemProp="url"
+              >
+                <span itemProp="name">{link.label}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </section>
       <div className="mx-auto grid max-w-screen-xl gap-3 px-4 pt-8 sm:grid-cols-2 lg:grid-cols-4">
         {assurances.map((item) => (
           <section key={item.title} className="rounded-lg border border-white/10 bg-white/5 px-4 py-3">
             <h2 className="text-sm font-bold text-white">{item.title}</h2>
             <p className="mt-1 text-xs leading-5 text-white/72">{item.body}</p>
+            {item.href && item.label ? (
+              <a className="mt-2 inline-flex text-xs font-bold text-sky-200 underline-offset-4 hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-amber-300" href={item.href}>
+                {item.label}
+              </a>
+            ) : null}
           </section>
         ))}
       </div>

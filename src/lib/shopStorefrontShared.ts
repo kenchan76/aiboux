@@ -359,12 +359,12 @@ export function buildShopFooterSeoSitemapLinks(tenantRoot: string): ShopStorefro
   ];
 }
 
-export function buildShopFooterAssurances(): ShopStorefrontInfoCard[] {
+export function buildShopFooterAssurances(tenantRoot = "/s/aiboux"): ShopStorefrontInfoCard[] {
   return [
-    { title: "税込価格", body: "商品価格は税込表示で統一します。" },
-    { title: "配送・返品", body: "配送予定、返品条件、問い合わせ先を各ページから確認できます。" },
-    { title: "決済状態", body: "支払い方法の確認が必要な場合は、受付条件を分かりやすく表示します。" },
-    { title: "定期購入", body: "定期購入は受付開始まで受付条件を表示します。" },
+    { title: "税込価格", body: "商品価格は税込表示で統一します。", href: `${tenantRoot}/products`, label: "商品を見る" },
+    { title: "配送・返品", body: "配送予定、返品条件、問い合わせ先を各ページから確認できます。", href: `${tenantRoot}/shipping`, label: "配送を見る" },
+    { title: "支払い方法", body: "支払い方法の確認が必要な場合は、注文前に分かりやすく案内します。", href: `${tenantRoot}/checkout`, label: "注文確認へ" },
+    { title: "定期購入", body: "定期購入は受付条件とお届け頻度を購入前に確認できます。", href: `${tenantRoot}/mypage/subscriptions`, label: "定期購入を見る" },
   ];
 }
 
