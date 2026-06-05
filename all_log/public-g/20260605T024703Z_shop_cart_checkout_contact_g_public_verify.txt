@@ -1,0 +1,66 @@
+# Public /g verification 20260605T024703Z
+## m68 headers
+HTTP/2 200 
+date: Fri, 05 Jun 2026 02:47:03 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 201001
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=EQkscvpdoSqa%2BIVFHVAKOjrwbdsGcMGWCutjyeZAJ6nZPZnUCOVWHZ9pV2J%2FVpeS%2FjOuurU6a5wwIYoUYRCFY5ZY06CHh7473TBW8peOld0Ba9jqvqXiAStLcM8X9JTBMOU%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06bd9b6dc94d754-NRT
+alt-svc: h3=":443"; ma=86400
+
+## l68 headers
+HTTP/2 200 
+date: Fri, 05 Jun 2026 02:47:04 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 219107
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2Bjlu3s4mYWt%2BwI2OLYWL1UbTjEUr7MfBdWrpjURUmqscnosVMiTpKSkaAyqkdDvN6zlkyyo%2BUtGCjUS3Izpajamg5Dhdy%2FHmW4ZDYp2Ot0fSy9%2FfLb%2FTM6M8w%2BgZ68K2ADU%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06bd9ba7ee9d4a7-NRT
+alt-svc: h3=":443"; ma=86400
+
+## d68 headers
+HTTP/2 200 
+date: Fri, 05 Jun 2026 02:47:05 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 143979
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+expires: 0
+pragma: no-cache
+cdn-cache-control: no-store
+cloudflare-cdn-cache-control: no-store
+x-content-type-options: nosniff
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=vNvsW525qhfaXBqBQhMC8sMNbCEFyFvEz%2Fq1Nbr5y0twv5KLPpJcHNL%2Fxggkncl2faIth6pxCgn%2FSKYiw%2FeLvoVfyKUczh1IfonQyW5g2HO%2BDDQRIzQxip0iLeQj0rupl9s%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a06bd9beaf680d79-NRT
+alt-svc: h3=":443"; ma=86400
+
+## sha256
+2029fad73a1051dd989ef499181eb05431f3a8af95236348c127823345c7aad0  public/g/m68.md
+c0dd844269c569db6c84040c626831568d0b85882d8f804aa633e7da771c60fa  /tmp/m68.body
+a665ab2b9f4f60c8cdbd3da70b928c9ca9bc2f379838f310954e263cfdbe01d4  public/g/l68.md
+7f28607cfabda037768b07ec4029b69df11ebd0b22d3c5a88df700eac431bffc  /tmp/l68.body
+6f7ceba7e1571c5ccd88298573844f9d5feead8d3e4030acea763efcb8a0bc2b  public/g/d68.md
+1b8743adecaed52d4ae732bc31ea2239a3756fb40ac151a94599252dc4ac778e  /tmp/d68.body
+## markers
+5878:## 2026-06-05 Current Active Operating Override: Shop Shared Page Retail Quality
+4804:## 2026-06-05T02:40:05Z - Shop Cart Checkout Contact Retail Flow WIP
+3359:## 2026-06-05T02:40:05Z - Shop Cart Checkout Contact Retail Flow Screen Evidence
