@@ -2,7 +2,7 @@
 
 ## Current Status
 
-`WIP_DEPLOYED_NOT_FINAL`
+`LOCAL_WIP_PUBLIC_DEPLOY_BLOCKED`
 
 This is not `FINAL_ACCEPTED`.
 
@@ -40,9 +40,9 @@ This is not `FINAL_ACCEPTED`.
 
 ## Current Visual Verdict
 
-`PENDING_PUBLIC_PLAYWRIGHT_RECHECK_AFTER_WIP_DEPLOY`
+`PENDING_PUBLIC_RECHECK_AFTER_WIP_DEPLOY`
 
-The local code targets smoother carousel motion and buyer recovery links. WIP deploy succeeded, but public Playwright visual acceptance is not claimed until focused public gates run against the deployed Worker.
+The local code targets smoother carousel motion, and local check/build passed. Public visual acceptance is not claimed because the WIP has not been deployed.
 
 ## Local Verification
 
@@ -66,13 +66,5 @@ The local code targets smoother carousel motion and buyer recovery links. WIP de
 
 ## Blocked
 
+- Public screenshots and public Playwright recheck are blocked until Wrangler authentication is restored and the WIP is deployed.
 - Local `astro preview` did not start because the Cloudflare remote proxy attempted to launch `xdg-open`, which is unavailable in this shell.
-- Public Playwright screenshots are still pending after the WIP deployment.
-
-## Deployment Evidence
-
-- Worker Version ID: `0f865b57-1e7c-4786-823e-24ec36c2a477`.
-- Public `/g/l68`: HTTP 200 / markdown / sha256 matched local source in the first public check.
-- Public `/g/d68`: HTTP 200 / markdown / sha256 matched local source in the first public check.
-- Public `https://shop.aiboux.com/s/aiboux/`: HTTP 200 in curl check.
-- Public `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200 in curl check.

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-`WIP_DEPLOYED_NOT_FINAL`
+`LOCAL_WIP_PUBLIC_DEPLOY_BLOCKED`
 
 This is not `FINAL_ACCEPTED`.
 
@@ -53,14 +53,11 @@ The active work is direct sales-quality improvement. Visible SEO explanation pan
 
 ## Public Deploy / Public Log State
 
-- WIP deploy: executed.
-- Worker Version ID: `0f865b57-1e7c-4786-823e-24ec36c2a477`.
-- Public `/g/l68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 matched local source in the first public check.
-- Public `/g/d68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 matched local source in the first public check.
-- Public `/g/m68`: HTTP 200 / `text/markdown; charset=utf-8` / sha256 differed from local source; m68 was not changed in this local cycle and remains a separate reconciliation item.
-- Public `https://shop.aiboux.com/s/aiboux/`: HTTP 200 in curl check.
-- Public `https://shop.aiboux.com/s/aiboux/admin`: HTTP 200 in curl check.
-- Public Playwright: still pending after this WIP deploy.
+- WIP deploy: blocked in the current shell because Wrangler is not authenticated.
+- Public `/g/*` reflection: pending until Wrangler authentication is restored.
+- Worker Version ID: not updated in this cycle.
+- Public Playwright: pending after deploy.
+- Local `astro preview` attempt: blocked by Cloudflare remote proxy startup in this shell (`xdg-open` unavailable); no public verification is claimed from that attempt.
 
 ## Blocked
 
@@ -69,6 +66,6 @@ The active work is direct sales-quality improvement. Visible SEO explanation pan
 
 ## Next
 
-1. Run focused public Playwright gates against the deployed Worker.
-2. Reconcile `public/g/m68.md` versus the current public `/g/m68` body before claiming full URL bundle source equality.
-3. Continue direct sales-quality improvement; do not add visible SEO explanation panels.
+1. Run local check/build for the admin action cleanup WIP.
+2. Commit the local WIP if check/build pass.
+3. Restore Cloudflare/Wrangler auth, then WIP deploy and publish current `/g/*`.
