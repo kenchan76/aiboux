@@ -1,0 +1,37 @@
+{
+  "title": "AIBOUX Shop WIP Sales Quality Report",
+  "status": "WIP_DEPLOYED_NOT_FINAL",
+  "masterUrl": "https://mail.aiboux.com/g/m68",
+  "logUrl": "https://mail.aiboux.com/g/l68",
+  "screenUrl": "https://mail.aiboux.com/g/d68",
+  "summary": [
+    "商品詳細のURL不一致を修正しました。/s/aiboux/product/setsuka-coffee は公開URLで 雪花セレクト ドリップコーヒー 20袋 を表示します。",
+    "商品詳細で古い 毎日使えるホームケア洗剤セット が出ないことを公開Playwrightで確認しました。",
+    "フッターの余計な説明文 ストア内リンクをまとめて確認 と 必要なページへすぐ移動できます を削除しました。リンク自体は買い物導線として維持しています。",
+    "public/g/l68.md と public/g/d68.md は最新サマリー形式へ圧縮し、公開URLでsha256一致を確認しました。"
+  ],
+  "verification": [
+    "npm run check:control-chars: PASS",
+    "npm run check:mojibake: PASS",
+    "npm run astro -- check: PASS with 0 errors",
+    "ESBUILD_WORKER_THREADS=0 npm run build: PASS",
+    "npm run deploy:shop:wip: PASS",
+    "Latest Worker Version ID: a068602b-0edf-4188-aaec-23bc780b0cba",
+    "https://shop.aiboux.com/s/aiboux/product/setsuka-coffee: HTTP 200, x-aiboux-worker-version a068602b-0edf-4188-aaec-23bc780b0cba",
+    "Public gate:shop-product-detail: PASS, 4 tests",
+    "Public gate:shop-public-crawl: PASS, 11 tests",
+    "Public /g/l68: HTTP 200, text/markdown, sha256 matched local source",
+    "Public /g/d68: HTTP 200, text/markdown, sha256 matched local source",
+    "Public /g/m68: HTTP 200, text/markdown, sha256 did not match local source"
+  ],
+  "notes": [
+    "FINAL_ACCEPTEDではありません。",
+    "D1 subscription lane remains D1_PERMISSION_BLOCKED_NOT_FINAL.",
+    "m68 source/public mismatch remains a separate reconciliation item.",
+    "Barkは小修正ごとの乱発を止める運用に変更されているため、この小サイクルでは送信していません。"
+  ],
+  "bark": {
+    "notification": "not sent",
+    "reason": "Current reduced Bark rule sends only cycle completion, deploy failure, D1 recovery, or FINAL candidate notifications."
+  }
+}
