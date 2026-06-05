@@ -68,12 +68,21 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.getByText("次回以降合計")).toBeVisible();
     await expect(page.locator("[data-cart-total-items]")).toHaveText("2点");
     await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥4,212");
+    await expect(page.locator("[data-cart-quantity-control]")).toHaveCount(2);
+    await expect(page.locator("[data-cart-qty-decrease]").first()).toBeVisible();
+    await expect(page.locator("[data-cart-qty-increase]").first()).toBeVisible();
     await saveScreenshot(page, "shop-cart-page.png");
 
-    await page.locator("[data-cart-qty]").first().fill("2");
+    await page.locator("[data-cart-qty-increase]").first().click();
     await expect(page.locator("[data-cart-subtotal]")).toHaveText("¥6,192");
     await expect(page.locator("[data-cart-total-items]")).toHaveText("3点");
     await expect(page.locator("[data-cart-grand-total]")).toHaveText("¥6,192");
+    await page.locator("[data-cart-qty-decrease]").first().click();
+    await expect(page.locator("[data-cart-subtotal]")).toHaveText("¥4,212");
+    await expect(page.locator("[data-cart-total-items]")).toHaveText("2点");
+    await page.locator("[data-cart-qty]").first().fill("2");
+    await expect(page.locator("[data-cart-subtotal]")).toHaveText("¥6,192");
+    await expect(page.locator("[data-cart-total-items]")).toHaveText("3点");
     await page.locator("[data-cart-remove]").first().click();
     await expect(cartList.getByText("雪花セレクト ドリップコーヒー 20袋")).toHaveCount(0);
     await expect(page.locator("[data-cart-total-items]")).toHaveText("1点");

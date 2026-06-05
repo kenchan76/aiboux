@@ -1761,9 +1761,13 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
               </div>
               ${item.purchaseMode === "subscription" ? `<div class="mt-2 inline-flex rounded bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-800">定期購入: ${escapeHtml(item.subscriptionPlanName || "定期プラン")} / ${escapeHtml(item.subscriptionInterval || "頻度確認")}</div>` : ""}
               <div class="mt-2 flex flex-wrap items-center gap-2">
-                <label class="inline-flex items-center gap-2 text-xs text-neutral-600">数量
-                <input class="h-8 w-20 rounded-md border border-neutral-200 px-2" data-cart-qty="${escapeHtml(item.id)}" inputmode="numeric" value="${Number(item.quantity || 1)}" />
-                </label>
+                <div class="inline-flex items-center overflow-hidden rounded-full border border-neutral-300 bg-white shadow-sm" data-cart-quantity-control="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.name || "カート商品")} の数量">
+                  <button class="flex size-9 items-center justify-center border-r border-neutral-200 text-base font-bold text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-amber-500" type="button" data-cart-qty-decrease="${escapeHtml(item.id)}" aria-label="数量を減らす">-</button>
+                  <label class="sr-only" for="cart-qty-${escapeHtml(item.id)}">数量</label>
+                  <input id="cart-qty-${escapeHtml(item.id)}" class="h-9 w-12 border-0 px-1 text-center text-sm font-bold text-neutral-950 focus:outline-none focus:ring-0" data-cart-qty="${escapeHtml(item.id)}" inputmode="numeric" value="${quantity}" aria-label="数量" />
+                  <button class="flex size-9 items-center justify-center border-l border-neutral-200 text-base font-bold text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-amber-500" type="button" data-cart-qty-increase="${escapeHtml(item.id)}" aria-label="数量を増やす">+</button>
+                </div>
+                <span class="text-xs font-semibold text-neutral-500">数量変更で合計を更新</span>
                 <a class="text-xs font-bold text-blue-700 hover:underline" href="${tenantRoot}/shipping">配送条件</a>
                 <a class="text-xs font-bold text-blue-700 hover:underline" href="${tenantRoot}/returns">返品条件</a>
               </div>
@@ -1940,8 +1944,25 @@ function buildPolicyEssentials(pageValue: string, profileValue: any, storeNameVa
 
       document.addEventListener("click", (event) => {
         const target = event.target;
-        if (!(target instanceof HTMLElement) || !target.matches("[data-cart-remove]")) return;
-        const id = target.getAttribute("data-cart-remove");
+        if (!(target instanceof HTMLElement)) return;
+        const decrease = target.closest("[data-cart-qty-decrease]");
+        const increase = target.closest("[data-cart-qty-increase]");
+        const remove = target.closest("[data-cart-remove]");
+        if (decrease instanceof HTMLElement || increase instanceof HTMLElement) {
+          const control = decrease instanceof HTMLElement ? decrease : increase;
+          const id = control.getAttribute(decrease instanceof HTMLElement ? "data-cart-qty-decrease" : "data-cart-qty-increase");
+          const delta = decrease instanceof HTMLElement ? -1 : 1;
+          const items = readCart().map((item) => {
+            if (item.id !== id) return item;
+            const nextQuantity = Math.min(99, Math.max(1, Number(item.quantity || 1) + delta));
+            return { ...item, quantity: nextQuantity };
+          });
+          writeCart(items);
+          renderCart();
+          return;
+        }
+        if (!(remove instanceof HTMLElement)) return;
+        const id = remove.getAttribute("data-cart-remove");
         writeCart(readCart().filter((item) => item.id !== id));
         renderCart();
       });
