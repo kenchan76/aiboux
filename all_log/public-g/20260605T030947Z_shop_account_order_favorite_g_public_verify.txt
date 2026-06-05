@@ -1,0 +1,16 @@
+# Public /g verification 20260605T030947Z
+## status/content-type
+m68 200 / content-type: text/markdown; charset=utf-8
+l68 200 / content-type: text/markdown; charset=utf-8
+d68 200 / content-type: text/markdown; charset=utf-8
+## sha256
+d3ae0b8aebde77c96450eca0c7311201e360ee71853fccf35a8f82c7e9c773bc  public/g/m68.md
+94066dbb4469ceb92049f477641f9887c9b8ae6d23f7ec0af55d36d766544882  /tmp/m68.account.body
+54c47247eb7391abb7e2f096728bec59bfcd314956f0f1b8f11a90be32ebb462  public/g/l68.md
+5b7d5d8155a1d2a266d5ada6d5b1ff7e1a1148c5a6b789e2b8437b5517ce7bbf  /tmp/l68.account.body
+74477c95febae25e4cfe486633ba9c6f36af248d16fa790f4ee00a6e164e2250  public/g/d68.md
+25db048e8815bc3b029c99157fe38ad2c81f084dfffae3586fc330e23964f08d  /tmp/d68.account.body
+## markers
+5910:## 2026-06-05 Current Active Operating Override: Shop Account And Order Retail Flow
+4859:## 2026-06-05T03:06:00Z - Shop Account Orders Favorites Retail Flow WIP
+3399:## 2026-06-05T03:06:00Z - Shop Account Orders Favorites Retail Flow Screen Evidence
