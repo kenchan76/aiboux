@@ -7,8 +7,6 @@ import {
   buildShopPageActionMap,
   buildShopPageBuyingGuide,
   buildShopPageQualitySummary,
-  buildShopSeoChecklist,
-  buildShopSeoSiteMapPanel,
   buildShopTrustMatrix,
   type ShopStorefrontContextLinkSection,
 } from "@/lib/shopStorefrontShared";
@@ -21,9 +19,7 @@ import { StorefrontFooter } from "./StorefrontFooter";
 import { StorefrontPageActionMap } from "./StorefrontPageActionMap";
 import { StorefrontPageQualitySummary } from "./StorefrontPageQualitySummary";
 import { StorefrontSearchForm } from "./StorefrontSearchForm";
-import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "./StorefrontSeoHub";
-import { StorefrontSeoSiteMapPanel } from "./StorefrontSeoSiteMapPanel";
 import { StorefrontSkipLinks } from "./StorefrontSkipLinks";
 import { StorefrontSupportRail } from "./StorefrontSupportRail";
 import { StorefrontTrustMatrix } from "./StorefrontTrustMatrix";
@@ -120,13 +116,8 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
   const saleProducts = rotateProducts(visualProducts, 3);
   const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
   const actionMap = buildShopPageActionMap("", tenantRoot);
-  const seoChecklist = buildShopSeoChecklist("", tenantRoot);
   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
   const trustMatrix = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true });
-  const seoSiteMapPanel = buildShopSeoSiteMapPanel("", tenantRoot, {
-    canonicalUrl: "https://shop.aiboux.com/s/aiboux/",
-    robots: "index,follow,max-image-preview:large",
-  });
   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
   const columnClass = {
     3: "lg:grid-cols-3",
@@ -241,8 +232,6 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
         <StorefrontTrustMatrix trustMatrix={trustMatrix} />
         <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
         <StorefrontPageActionMap actionMap={actionMap} />
-        <StorefrontSeoChecklist checklist={seoChecklist} />
-        <StorefrontSeoSiteMapPanel siteMap={seoSiteMapPanel} />
 
         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />

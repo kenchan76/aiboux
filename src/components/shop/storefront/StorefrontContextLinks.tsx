@@ -22,7 +22,7 @@ export function StorefrontContextLinks({ sections, className = "" }: StorefrontC
             このページから次に確認すること
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-            商品発見、購入前確認、購入後サポートをページごとに整理し、SEOに必要な説明的リンクを共通化します。
+            商品探し、購入前の確認、購入後サポートをページごとに整理し、必要な案内へすぐ移動できます。
           </p>
         </div>
       </div>

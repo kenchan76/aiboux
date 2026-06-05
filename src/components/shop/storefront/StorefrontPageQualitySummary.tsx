@@ -19,16 +19,16 @@ export function StorefrontPageQualitySummary({ summary, className = "" }: Storef
     >
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_1.35fr] xl:items-start">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Page quality</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Page guide</p>
           <h2 id="storefront-page-quality-summary-title" className="mt-1 text-lg font-bold text-neutral-950">
             {summary.pageLabel}で確認できること
           </h2>
           <div className="mt-3 grid gap-2 text-sm leading-6 text-neutral-700">
             <p>
-              <strong className="text-neutral-950">検索意図:</strong> {summary.intent}
+              <strong className="text-neutral-950">探せること:</strong> {summary.intent}
             </p>
             <p>
-              <strong className="text-neutral-950">SEO構造:</strong> {summary.seoRole}
+              <strong className="text-neutral-950">確認できること:</strong> {summary.seoRole}
             </p>
             <p>
               <strong className="text-neutral-950">次の操作:</strong> {summary.userAction}

@@ -98,6 +98,15 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("Not Found");
         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
+        await expect(page.locator("body")).not.toContainText("SEO / UI checklist");
+        await expect(page.locator("body")).not.toContainText("SEO site map");
+        await expect(page.locator("body")).not.toContainText("Crawl map");
+        await expect(page.locator("body")).not.toContainText("SEO構造");
+        await expect(page.locator("body")).not.toContainText("canonical");
+        await expect(page.locator("body")).not.toContainText("robots");
+        await expect(page.locator("body")).not.toContainText("sitemap");
+        await expect(page.locator("body")).not.toContainText("共通SEO部品");
+        await expect(page.locator("body")).not.toContainText("SEO内部リンク");
         const skipLinks = page.getByTestId("storefront-skip-links");
         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
@@ -120,18 +129,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
         await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("決済未接続時は注文確定しません");
-        const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
-        await expect(footerSeoSitemap, `${target.path} should include shared footer SEO sitemap`).toBeVisible();
-        await expect(footerSeoSitemap, `${target.path} footer SEO sitemap should expose ItemList microdata`).toHaveAttribute(
+        const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
+        await expect(footerLinkDirectory, `${target.path} should include shared footer link directory`).toBeVisible();
+        await expect(footerLinkDirectory, `${target.path} footer link directory should expose ItemList microdata`).toHaveAttribute(
           "itemtype",
           "https://schema.org/ItemList",
         );
-        await expect(footerSeoSitemap, `${target.path} footer SEO sitemap should explain crawlable links`).toContainText("SEO site map");
-        await expect(footerSeoSitemap.locator('meta[itemprop="numberOfItems"]'), `${target.path} footer SEO sitemap should declare numberOfItems`).toHaveCount(1);
-        expect(await footerSeoSitemap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} footer SEO sitemap should expose ListItem microdata`).toBeGreaterThanOrEqual(20);
-        expect(await footerSeoSitemap.locator("a").count(), `${target.path} footer SEO sitemap should expose dense crawlable links`).toBeGreaterThanOrEqual(20);
-        expect(await footerSeoSitemap.locator("a").first().getAttribute("class"), `${target.path} footer sitemap links should be visibly blue or sky colored`).toContain("text-sky-200");
-        await expect(footerSeoSitemap, `${target.path} footer sitemap should include account, purchase, and policy routes`).toContainText(/商品一覧|注文履歴|特定商取引法|定期購入/);
+        await expect(footerLinkDirectory, `${target.path} footer link directory should use customer-facing copy`).toContainText("ストア主要リンク");
+        await expect(footerLinkDirectory.locator('meta[itemprop="numberOfItems"]'), `${target.path} footer link directory should declare numberOfItems`).toHaveCount(1);
+        expect(await footerLinkDirectory.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} footer link directory should expose ListItem microdata`).toBeGreaterThanOrEqual(20);
+        expect(await footerLinkDirectory.locator("a").count(), `${target.path} footer link directory should expose dense internal links`).toBeGreaterThanOrEqual(20);
+        expect(await footerLinkDirectory.locator("a").first().getAttribute("class"), `${target.path} footer link directory links should be visibly blue or sky colored`).toContain("text-sky-200");
+        await expect(footerLinkDirectory, `${target.path} footer link directory should include account, purchase, and policy routes`).toContainText(/商品一覧|注文履歴|特定商取引法|定期購入/);
         const supportRail = page.getByTestId("storefront-support-rail");
         await expect(supportRail, `${target.path} should include shared storefront support rail`).toBeVisible();
         await expect(supportRail, `${target.path} support rail should expose purchase guidance`).toContainText("迷わず買えるための確認導線");
@@ -162,8 +171,8 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         expect(await trustMatrix.locator("a").first().getAttribute("class"), `${target.path} trust matrix links should be visibly blue and underlined`).toContain("text-blue-700");
         const qualitySummary = page.getByTestId("storefront-page-quality-summary");
         await expect(qualitySummary, `${target.path} should include shared page quality summary`).toBeVisible();
-        await expect(qualitySummary, `${target.path} quality summary should explain page intent`).toContainText("検索意図");
-        await expect(qualitySummary, `${target.path} quality summary should explain SEO structure`).toContainText("SEO構造");
+        await expect(qualitySummary, `${target.path} quality summary should explain page purpose`).toContainText("探せること");
+        await expect(qualitySummary, `${target.path} quality summary should explain customer-facing confirmation points`).toContainText("確認できること");
         await expect(qualitySummary, `${target.path} quality summary should explain next action`).toContainText("次の操作");
         await expect(qualitySummary, `${target.path} quality summary should expose SiteNavigationElement microdata`).toHaveAttribute(
           "itemtype",
@@ -177,38 +186,14 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
           "itemtype",
           "https://schema.org/ItemList",
         );
-        await expect(actionMap, `${target.path} action map should name next actions`).toContainText("Next actions");
-        await expect(actionMap, `${target.path} action map should expose page-specific SEO action links`).toContainText(/商品|購入|配送|問い合わせ|注文|定期購入/);
+        await expect(actionMap, `${target.path} action map should name next actions`).toContainText("次にできること");
+        await expect(actionMap, `${target.path} action map should expose page-specific action links`).toContainText(/商品|購入|配送|問い合わせ|注文|定期購入/);
         await expect(actionMap.locator('meta[itemprop="numberOfItems"]'), `${target.path} action map should declare numberOfItems`).toHaveCount(1);
         expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} action map should expose visible ListItem microdata`).toBeGreaterThanOrEqual(3);
         expect(await actionMap.locator("a").count(), `${target.path} action map should expose crawlable internal links`).toBeGreaterThanOrEqual(3);
         expect(await actionMap.locator("a").first().getAttribute("class"), `${target.path} action map links should be visibly blue`).toContain("text-blue-700");
-        const seoChecklist = page.getByTestId("storefront-seo-checklist");
-        await expect(seoChecklist, `${target.path} should include shared SEO/UI checklist`).toBeVisible();
-        await expect(seoChecklist, `${target.path} SEO checklist should expose ItemList microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/ItemList",
-        );
-        await expect(seoChecklist, `${target.path} SEO checklist should name the common SEO checks`).toContainText("SEO / UI checklist");
-        await expect(seoChecklist, `${target.path} SEO checklist should expose page-specific checks`).toContainText(/SEO\/UIチェック|H1|パンくず|内部リンク/);
-        await expect(seoChecklist.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO checklist should declare numberOfItems`).toHaveCount(1);
-        expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO checklist should expose ListItem microdata`).toBeGreaterThanOrEqual(3);
-        expect(await seoChecklist.locator("a").count(), `${target.path} SEO checklist should expose crawlable links`).toBeGreaterThanOrEqual(3);
-        expect(await seoChecklist.locator("a").first().getAttribute("class"), `${target.path} SEO checklist links should be visibly blue and underlined`).toContain("text-blue-700");
-        const seoSiteMapPanel = page.getByTestId("storefront-seo-sitemap-panel");
-        await expect(seoSiteMapPanel, `${target.path} should include shared SEO sitemap panel`).toBeVisible();
-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose ItemList microdata`).toHaveAttribute(
-          "itemtype",
-          "https://schema.org/ItemList",
-        );
-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose page role`).toContainText("ページ役割");
-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose canonical`).toContainText("canonical");
-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose robots`).toContainText("robots");
-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose sitemap status`).toContainText("sitemap");
-        await expect(seoSiteMapPanel.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO sitemap panel should declare numberOfItems`).toHaveCount(1);
-        expect(await seoSiteMapPanel.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO sitemap panel should expose ListItem microdata`).toBeGreaterThanOrEqual(4);
-        expect(await seoSiteMapPanel.locator("a").count(), `${target.path} SEO sitemap panel should expose crawlable links`).toBeGreaterThanOrEqual(4);
-        expect(await seoSiteMapPanel.locator("a").first().getAttribute("class"), `${target.path} SEO sitemap panel links should be visibly blue and underlined`).toContain("text-blue-700");
+        await expect(page.getByTestId("storefront-seo-checklist"), `${target.path} should not show SEO checklist to shoppers`).toHaveCount(0);
+        await expect(page.getByTestId("storefront-seo-sitemap-panel"), `${target.path} should not show technical SEO sitemap panel to shoppers`).toHaveCount(0);
         const buyingGuide = page.getByTestId("storefront-buying-guide");
         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");
@@ -550,9 +535,9 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
     const footerShoppingColumn = footer.getByLabel("お買い物");
     await expect(footerShoppingColumn.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
     await expect(footerShoppingColumn.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
-    const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
-    await expect(footerSeoSitemap.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
-    await expect(footerSeoSitemap.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+    const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
+    await expect(footerLinkDirectory.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+    await expect(footerLinkDirectory.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
 
     await page.goto("/s/aiboux/product/setsuka-coffee", { waitUntil: "networkidle" });
     const breadcrumb = page.getByTestId("storefront-breadcrumb");

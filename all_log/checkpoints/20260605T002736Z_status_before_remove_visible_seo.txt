@@ -1,0 +1,18 @@
+ M ops/instructions/current.md
+ M src/components/shop/storefront/ShadcnStorefront.tsx
+ M src/components/shop/storefront/StorefrontBuyingGuide.tsx
+ M src/components/shop/storefront/StorefrontContextLinks.tsx
+ M src/components/shop/storefront/StorefrontFooter.tsx
+ M src/components/shop/storefront/StorefrontPageActionMap.tsx
+ M src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+ D src/components/shop/storefront/StorefrontSeoChecklist.tsx
+ M src/components/shop/storefront/StorefrontSeoHub.tsx
+ D src/components/shop/storefront/StorefrontSeoSiteMapPanel.tsx
+ M src/components/shop/storefront/StorefrontSupportRail.tsx
+ M src/lib/shopStorefrontShared.ts
+ M src/pages/shop/[tenant]/[...path].astro
+ M src/pages/shop/storefront/[tenant].astro
+ M tests/shop-product-detail-public.spec.ts
+ M tests/shop-public-crawl.spec.ts
+?? all_log/checkpoints/20260605T002736Z_status_before_remove_visible_seo.txt
+?? ops/instructions/20260605_shop_remove_visible_seo_explanations.md

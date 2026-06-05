@@ -40,6 +40,16 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await page.goto(`${productPath}?detailGate=${Date.now()}`, { waitUntil: "networkidle" });
 
       await expect(page.getByTestId("public-product-detail")).toBeVisible();
+      await expect(page.locator("body")).not.toContainText("SEO / UI checklist");
+      await expect(page.locator("body")).not.toContainText("SEO site map");
+      await expect(page.locator("body")).not.toContainText("Crawl map");
+      await expect(page.locator("body")).not.toContainText("SEO構造");
+      await expect(page.locator("body")).not.toContainText("canonical");
+      await expect(page.locator("body")).not.toContainText("robots");
+      await expect(page.locator("body")).not.toContainText("sitemap");
+      await expect(page.locator("body")).not.toContainText("Product/Offer");
+      await expect(page.locator("body")).not.toContainText("可視H1");
+      await expect(page.locator("body")).not.toContainText("SEO内部リンク");
       await expect(page.getByTestId("public-product-gallery")).toBeVisible();
       await expect(page.getByTestId("public-product-info")).toBeVisible();
       await expect(page.getByTestId("public-product-purchase-box")).toBeVisible();
@@ -78,8 +88,8 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       const qualitySummary = page.getByTestId("storefront-page-quality-summary");
       await expect(qualitySummary, "product detail should include shared page quality summary").toBeVisible();
       await expect(qualitySummary, "product detail quality summary should identify page role").toContainText("商品詳細で確認できること");
-      await expect(qualitySummary, "product detail quality summary should reinforce single-H1 cleanup").toContainText("単一H1");
-      await expect(qualitySummary, "product detail quality summary should mention product structured data").toContainText("Product/Offer");
+      await expect(qualitySummary, "product detail quality summary should explain customer-facing confirmation points").toContainText("確認できること");
+      await expect(qualitySummary, "product detail quality summary should not expose implementation terms").not.toContainText("Product/Offer");
       expect(await qualitySummary.locator("a").count(), "product detail quality summary should expose crawlable links").toBeGreaterThanOrEqual(4);
       expect(await qualitySummary.locator("a").first().getAttribute("class"), "product detail quality summary links should be visibly blue").toContain("text-blue-700");
       const actionMap = page.getByTestId("storefront-page-action-map");
@@ -94,48 +104,26 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail action map should expose ListItem microdata").toBeGreaterThanOrEqual(3);
       expect(await actionMap.locator("a").count(), "product detail action map should expose crawlable internal links").toBeGreaterThanOrEqual(3);
       expect(await actionMap.locator("a").first().getAttribute("class"), "product detail action map links should be visibly blue").toContain("text-blue-700");
-      const seoChecklist = page.getByTestId("storefront-seo-checklist");
-      await expect(seoChecklist, "product detail should include shared SEO/UI checklist").toBeVisible();
-      await expect(seoChecklist, "product detail SEO checklist should expose ItemList microdata").toHaveAttribute(
-        "itemtype",
-        "https://schema.org/ItemList",
-      );
-      await expect(seoChecklist, "product detail SEO checklist should reinforce single H1").toContainText("商品名H1は1つ");
-      await expect(seoChecklist, "product detail SEO checklist should reinforce Product/Offer context").toContainText("Product/Offer");
-      expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO checklist should expose visible ListItems").toBeGreaterThanOrEqual(3);
-      expect(await seoChecklist.locator("a").count(), "product detail SEO checklist should expose crawlable links").toBeGreaterThanOrEqual(3);
-      expect(await seoChecklist.locator("a").first().getAttribute("class"), "product detail SEO checklist links should be visibly blue").toContain("text-blue-700");
-      const seoSiteMapPanel = page.getByTestId("storefront-seo-sitemap-panel");
-      await expect(seoSiteMapPanel, "product detail should include shared SEO sitemap panel").toBeVisible();
-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose ItemList microdata").toHaveAttribute(
-        "itemtype",
-        "https://schema.org/ItemList",
-      );
-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose canonical").toContainText("canonical");
-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose robots").toContainText("robots");
-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose sitemap status").toContainText("sitemap");
-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should identify product role").toContainText("商品詳細");
-      expect(await seoSiteMapPanel.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO sitemap panel should expose visible ListItems").toBeGreaterThanOrEqual(4);
-      expect(await seoSiteMapPanel.locator("a").count(), "product detail SEO sitemap panel should expose crawlable links").toBeGreaterThanOrEqual(4);
-      expect(await seoSiteMapPanel.locator("a").first().getAttribute("class"), "product detail SEO sitemap panel links should be visibly blue").toContain("text-blue-700");
+      await expect(page.getByTestId("storefront-seo-checklist"), "product detail should not show SEO checklist to shoppers").toHaveCount(0);
+      await expect(page.getByTestId("storefront-seo-sitemap-panel"), "product detail should not show technical SEO sitemap panel to shoppers").toHaveCount(0);
       const buyingGuide = page.getByTestId("storefront-buying-guide");
       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");
-      await expect(buyingGuide, "product detail buying guide should reinforce single-H1 SEO cleanup").toContainText("可視H1を1つ");
+      await expect(buyingGuide, "product detail buying guide should use customer-facing copy").not.toContainText("可視H1を1つ");
       expect(await buyingGuide.locator("a").count(), "product detail buying guide should expose crawlable links").toBeGreaterThanOrEqual(4);
       expect(await buyingGuide.locator("a").first().getAttribute("class"), "product detail buying guide links should be visibly blue").toContain("text-blue-700");
       const footer = page.getByTestId("storefront-footer");
       await expect(footer, "product detail should include shared storefront footer").toBeVisible();
-      const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
-      await expect(footerSeoSitemap, "product detail should include footer SEO sitemap").toBeVisible();
-      await expect(footerSeoSitemap, "product detail footer sitemap should expose ItemList microdata").toHaveAttribute(
+      const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
+      await expect(footerLinkDirectory, "product detail should include footer link directory").toBeVisible();
+      await expect(footerLinkDirectory, "product detail footer link directory should expose ItemList microdata").toHaveAttribute(
         "itemtype",
         "https://schema.org/ItemList",
       );
-      await expect(footerSeoSitemap, "product detail footer sitemap should explain crawlable links").toContainText("SEO site map");
-      expect(await footerSeoSitemap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail footer sitemap should expose ListItem microdata").toBeGreaterThanOrEqual(20);
-      expect(await footerSeoSitemap.locator("a").count(), "product detail footer sitemap should expose dense internal links").toBeGreaterThanOrEqual(20);
-      expect(await footerSeoSitemap.locator("a").first().getAttribute("class"), "product detail footer sitemap links should be visibly sky colored").toContain("text-sky-200");
+      await expect(footerLinkDirectory, "product detail footer link directory should use customer-facing copy").toContainText("ストア主要リンク");
+      expect(await footerLinkDirectory.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail footer link directory should expose ListItem microdata").toBeGreaterThanOrEqual(20);
+      expect(await footerLinkDirectory.locator("a").count(), "product detail footer link directory should expose dense internal links").toBeGreaterThanOrEqual(20);
+      expect(await footerLinkDirectory.locator("a").first().getAttribute("class"), "product detail footer link directory links should be visibly sky colored").toContain("text-sky-200");
       const relatedCards = page.getByTestId("storefront-product-card");
       expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
       await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(

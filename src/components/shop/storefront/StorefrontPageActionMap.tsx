@@ -16,7 +16,7 @@ export function StorefrontPageActionMap({ actionMap, className = "" }: Storefron
     >
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Next actions</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">次にできること</p>
           <h2 id="storefront-page-action-map-title" className="mt-1 text-lg font-bold text-neutral-950" itemProp="name">
             {actionMap.title}
           </h2>
@@ -25,7 +25,7 @@ export function StorefrontPageActionMap({ actionMap, className = "" }: Storefron
           </p>
         </div>
         <span className="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-800">
-          SEO内部リンク
+          次にできること
         </span>
       </div>
       <meta itemProp="numberOfItems" content={String(actionMap.steps.length)} />

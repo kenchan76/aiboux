@@ -26,11 +26,11 @@ export function StorefrontBuyingGuide({ items, pageLabel = "このページ", cl
             {pageLabel}の購入前チェック
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-            価格、税込、配送、返品、決済、定期購入の未接続状態をページごとに整理し、購入判断と検索理解に必要な内部リンクを共通化します。
+            価格、税込、配送、返品、決済、定期購入の状態をページごとに整理し、購入前に必要な確認先へ進めます。
           </p>
         </div>
         <span className="inline-flex w-fit rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800">
-          SEO内部リンク強化
+          購入前に確認
         </span>
       </div>
       <div className="mt-4 grid gap-3 lg:grid-cols-2">

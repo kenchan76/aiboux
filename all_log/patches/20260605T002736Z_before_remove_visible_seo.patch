@@ -1,0 +1,1867 @@
+diff --git a/ops/instructions/current.md b/ops/instructions/current.md
+index 3cb5154..1423d12 100644
+--- a/ops/instructions/current.md
++++ b/ops/instructions/current.md
+@@ -1,822 +1,81 @@
+-# AIBOUX Shop Amazon Quality All Pages Cycle 5
++# AIBOUX Shop 可視SEO説明削除
+ 
+-Status: WIP
++Status: `SHOP_REMOVE_VISIBLE_SEO_EXPLANATIONS_WIP`
+ 
+ Active instruction file:
+ 
+-- `ops/instructions/20260605_shop_footer_seo_sitemap_quality.md`
+-- `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+-- `ops/instructions/20260605_shop_all_pages_seo_common_parts_continuation.md`
+-- `ops/instructions/20260605_shop_page_quality_summary_seo_ui.md`
+-- `ops/instructions/20260605_shop_page_buying_guide_seo_ui.md`
+-- `ops/instructions/20260605_shop_commerce_facts_seo_ui.md`
+-- `ops/instructions/20260605_shop_shared_seo_meta_model.md`
+-- `ops/instructions/20260605_shop_all_pages_seo_structure_ui.md`
+-- `ops/instructions/20260605_shop_schema_graph_seo_ui.md`
+-- `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
+-- `ops/instructions/20260605_shop_trust_matrix_seo_ui.md`
+-- `ops/instructions/20260605_shop_seo_sitemap_panel_commonization.md`
+-- `ops/instructions/20260605_shop_landmark_skiplink_seo_ui.md`
++- `ops/instructions/20260605_shop_remove_visible_seo_explanations.md`
+ 
+-## 2026-06-05 Continuation: Landmark / Skip Link SEO UI Commonization
++## Current User Correction
+ 
+-Continue the active sales-quality sprint. The current work unit strengthens every public tenant storefront page with shared page-experience landmarks and keyboard-accessible skip links.
++公開ストア全ページに表示していたSEO説明、SEOチェック、canonical、robots、sitemap、Product/Offer、可視H1、noindexなどの運用者向け説明を削除する。
+ 
+-Google Search Central references checked for this continuation:
++## Fixed URL Rules
+ 
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce website navigation structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
++- Tenant storefront: `https://shop.aiboux.com/s/aiboux/`
++- Shop service site: `https://shop.aiboux.com/`
++- Shop admin: `https://shop.aiboux.com/s/aiboux/admin`
++- Design editor: `https://shop.aiboux.com/s/aiboux/admin/design`
+ 
+-Current additions required:
++`shop.aiboux.com/` をテナントストアに戻さない。
++`shop.aboux.com` と書かない。
+ 
+-- Add shared `StorefrontSkipLinks`.
+-- Add stable `main#storefront-main`, `#storefront-search`, and `footer#storefront-footer` targets.
+-- Label the shared storefront header and category navigation.
+-- Strengthen public crawl tests so every public page exposes the same SEO/UI landmark structure.
+-- Keep links crawlable and visible when focused.
+-- Keep product detail single-H1 and no duplicate product title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
++## Required Visible UI Result
+ 
+-## 2026-06-05 Continuation: Footer SEO Sitemap Quality
++公開ページにSEO作業説明を出さない。
+ 
+-Continue the active sales-quality sprint. The current work unit strengthens the shared storefront footer as an Amazon-quality, SEO-strong, all-page internal-link component.
++Visible text must not contain:
+ 
+-Current additions required:
++- `SEO / UI checklist`
++- `SEO site map`
++- `Crawl map`
++- `SEO構造`
++- `共通SEO部品`
++- `SEO内部リンク`
++- `canonical`
++- `robots`
++- `sitemap`
++- `Product/Offer`
++- `可視H1`
++- `検索エンジン向け`
++- `noindex`
+ 
+-- Add a visible footer SEO sitemap area to `StorefrontFooter`.
+-- Keep crawlable `<a href>` links with visible blue/sky link affordance.
+-- Expose visible `ItemList` / `ListItem` microdata and `numberOfItems`.
+-- Keep existing footer `SiteNavigationElement` columns.
+-- Strengthen `tests/shop-public-crawl.spec.ts` to check footer sitemap, visible link color, and dense internal-link coverage on every public storefront page.
+-- Keep product detail single-H1 and no duplicate product title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
++## Keep Behind-The-Scenes SEO
+ 
+-## 2026-06-05 Continuation: SEO Sitemap Panel Commonization
++The following remain required, but must not be explained as UI copy:
+ 
+-Continue the active sales-quality sprint. The current work unit is adding a shared visible SEO sitemap panel to every public tenant storefront page so canonical target, robots/index policy, sitemap inclusion, page role, and crawlable next links are visible and testable.
++- canonical link
++- robots meta
++- JSON-LD
++- BreadcrumbList
++- Product / Offer structured data
++- SearchAction
++- robots.txt
++- sitemap.xml
++- crawlable normal links
++- breadcrumbs
++- search form
++- footer link directory
+ 
+-Official references checked:
++## Verification
+ 
+-- Google Search Central Ecommerce Website Navigation Structure
+-- Google Search Central Crawlable Links
+-- Google Search Central Ecommerce URL Structure
+-- Google Search Central Product structured data
+-- Google Search Central Breadcrumb structured data
++- `npm run check:control-chars`
++- `npm run check:mojibake`
++- `npm run astro -- check`
++- `ESBUILD_WORKER_THREADS=0 npm run build`
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`
++- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`
+ 
+-Current additions required:
++`gate:shop-subscriptions` remains a separate blocked lane until D1/subscription persistence is accepted.
+ 
+-- Add shared SEO sitemap panel data in `shopStorefrontShared.ts`.
+-- Add `StorefrontSeoSiteMapPanel`.
+-- Render it on TOP, product detail, and every public storefront subpage.
+-- Keep links crawlable and visibly blue.
+-- Expose visible `ItemList` microdata for sitemap links.
+-- Add sitemap-panel links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
+-- Keep product detail single-H1 and no duplicate product title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
++## Reporting
+ 
+-## 2026-06-05 Continuation: Trust Matrix SEO/UI Commonization
++Before reporting, publish and verify:
+ 
+-Continue the active sales-quality sprint. The current work unit is adding a shared trust and proof matrix to every public tenant storefront page so purchase confidence, seller information, shipping, returns, payment honesty, subscription status, privacy, and support are visible and crawlable.
++- `https://mail.aiboux.com/g/m68`
++- `https://mail.aiboux.com/g/l68`
++- `https://mail.aiboux.com/g/d68`
+ 
+-### 2026-06-04T22:50:51Z Public Verification Result
++`FINAL_ACCEPTED` remains prohibited.
+ 
+-- WIP commit before log update: `56b73b50f6b341e8bfe7a1bd88ddb09ecaffea2e`.
+-- Latest WIP Worker Version ID before log update: `b496e1a2-0bde-4cbd-9d07-8ff86e9e156b`.
+-- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS.
+-- Public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops sub-gates passed.
+-- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions`: BLOCKED / not final because the subscription plan POST returned HTTP 200 but the active test plan was not observed as persisted in the response.
+-- Failure artifacts are retained under `all_log/test-results/20260604T225051Z_subscription_gate_blocked_trust_matrix/`.
+-- `FINAL_ACCEPTED` remains prohibited.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-
+-Current additions required:
+-
+-- Add shared trust matrix data in `shopStorefrontShared.ts`.
+-- Add `StorefrontTrustMatrix`.
+-- Render it on TOP, product detail, and every public storefront subpage.
+-- Keep links crawlable and visibly blue.
+-- Expose visible `ItemList` microdata for trust signals.
+-- Add trust-matrix links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
+-- Keep product detail single-H1 and no duplicate product title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-
+-## 2026-06-05 Continuation: Page Action Map SEO/UI Commonization
+-
+-Continue the active sales-quality sprint. The current work unit is adding a shared page-specific action map to every public tenant storefront page.
+-
+-Google Search Central references checked for this continuation:
+-
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- JavaScript SEO basics: `https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics`
+-- Pagination and incremental page loading for ecommerce: `https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading`
+-
+-Current additions required:
+-
+-- Add shared page action map data in `shopStorefrontShared.ts`.
+-- Add `StorefrontPageActionMap`.
+-- Render it on TOP, product detail, and every public storefront subpage.
+-- Keep links crawlable and visibly blue.
+-- Expose visible `ItemList` microdata for action steps.
+-- Add action-map links into TOP and subpage `SiteNavigationElement` JSON-LD source links.
+-- Keep product detail single-H1 and no duplicate product title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-
+-## 2026-06-05 Continuation: Breadcrumb Support SEO/UI Commonization
+-
+-Continue the active sales-quality sprint. The next concrete work unit is strengthening the shared storefront breadcrumb so every public page exposes both the visible BreadcrumbList trail and crawlable breadcrumb-adjacent support links.
+-
+-Google Search Central references checked for this continuation:
+-
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-
+-Current additions required:
+-
+-- Add shared breadcrumb support link data in `shopStorefrontShared.ts`.
+-- Extend `StorefrontBreadcrumb` to render a full breadcrumb shell plus support links.
+-- Render the support links on TOP, product detail, and every public storefront subpage.
+-- Keep product detail single H1 and current breadcrumb label `商品詳細`.
+-- Strengthen public Playwright checks.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: All Pages SEO Common Parts Finalization
+-
+-Continue the active sales-quality sprint. The current work unit is making TOP page structured navigation use the same shared SEO/UI link sources already rendered visibly on the page.
+-
+-Google Search Central references checked for this continuation:
+-
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Product/Merchant structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+-
+-Current additions required:
+-
+-- Add TOP breadcrumb support links, page quality links, and buying guide links into TOP `SiteNavigationElement` JSON-LD.
+-- Keep all links crawlable and visibly blue in the rendered UI.
+-- Keep shared components as the source of truth for breadcrumbs, support links, buying guides, commerce facts, context links, SEO hub, support rail, and footer.
+-- Keep product detail single-H1 and no duplicate product title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Page Quality Summary SEO/UI Commonization
+-
+-Continue the active sales-quality sprint. The next concrete work unit is adding a shared, visible page-quality summary to every public tenant storefront page.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-
+-Current additions required:
+-
+-- Add shared page-quality summary data in `shopStorefrontShared.ts`.
+-- Add `StorefrontPageQualitySummary`.
+-- Render it on TOP, product detail, and every public storefront subpage.
+-- Keep links crawlable and visibly blue.
+-- Do not create duplicate product H1 above the gallery.
+-- Add public Playwright checks.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Page Buying Guide SEO/UI Commonization
+-
+-Continue the active sales-quality sprint. The next concrete work unit is making each public storefront page stronger for SEO and UI by adding a shared page-specific purchase guide / FAQ-style decision aid.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-
+-Current additions required:
+-
+-- Add shared page buying guide data in `shopStorefrontShared.ts`.
+-- Add `StorefrontBuyingGuide`.
+-- Render it on TOP, product detail, and every public storefront subpage.
+-- Keep links crawlable and visibly blue.
+-- Avoid false FAQ rich-result abuse; keep FAQPage JSON-LD only on `/faq` unless page content truly qualifies.
+-- Strengthen public Playwright checks.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Commerce Facts SEO/UI Commonization
+-
+-Continue the active sales-quality sprint. The next concrete work unit is making price, tax, stock, shipping, returns, payment, and subscription status a shared visible SEO/UI component across every public storefront page.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce URL Structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-
+-Current additions required:
+-
+-- Add `buildShopCommerceFacts` in `shopStorefrontShared.ts`.
+-- Add `StorefrontCommerceFacts` as a shared storefront component.
+-- Render purchase facts on TOP, all public subpages, and product detail.
+-- Keep links crawlable and visibly link-colored.
+-- Strengthen public Playwright checks for shared purchase facts.
+-- Keep product detail single H1 and no duplicated title above the gallery.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Schema Graph SEO/UI Hardening
+-
+-Continue the active sales-quality sprint. The next concrete work unit is converting public storefront structured data to a single connected Schema.org `@graph` so every page exposes a coherent WebSite, OnlineStore, BreadcrumbList, SiteNavigationElement, page entity, ItemList, and Product/FAQ where applicable.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+-
+-Current additions required:
+-
+-- Add `buildShopStructuredDataGraph` in `src/lib/shopSeo.ts`.
+-- Use the graph helper from TOP and subpage storefront routes.
+-- Remove repeated top-level `@context` inside graph nodes.
+-- Deduplicate graph nodes by `@id` where possible.
+-- Strengthen public Playwright checks for top-level `@graph`, entity IDs, and page graph connectivity.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Shared SEO Meta Model
+-
+-Continue the active sales-quality sprint. The next concrete work unit is centralizing SEO title and meta description generation so every public tenant storefront page has a non-thin title, useful description, canonical URL, social metadata, robots policy, and structured data from one shared model.
+-
+-Google Search Central references already checked for this sprint:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+-
+-Current additions required:
+-
+-- Add a shared storefront SEO meta builder in `shopSeo.ts`.
+-- Use the shared builder from TOP and subpage routes.
+-- Replace thin descriptions such as "公開中の商品を表示します" with purchase/search/support intent descriptions.
+-- Keep search query pages noindex and canonicalized to `/products`.
+-- Keep category URLs indexable and self-canonical.
+-- Add public Playwright checks for title/description length and canonical/social metadata consistency.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: All Pages SEO Structure And UI Commonization
+-
+-Continue the active sales-quality sprint. The next concrete work unit is auditing every public tenant storefront page for shared SEO structure, visible link affordance, and reusable storefront parts.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+-
+-Current additions required:
+-
+-- Add a shared contextual internal-link component for every public storefront page.
+-- Generate contextual links from `shopStorefrontShared.ts` rather than hardcoding per page.
+-- Include contextual links in shared navigation JSON-LD.
+-- Use contextual links as `ItemList` fallback for pages that do not have products/categories/accounts/policy cards.
+-- Add public Playwright checks for contextual link component, visible blue link affordance, `SiteNavigationElement` microdata, and `ItemList` on every public storefront page.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-- `ops/instructions/20260605_shop_category_url_seo_ui.md`
+-- `ops/instructions/20260605_shop_shared_product_card_seo_ui.md`
+-
+-## 2026-06-05 Continuation: Shared Product Card SEO/UI Hardening
+-
+-Continue the active sales-quality sprint. The next concrete work unit is replacing duplicated public storefront product-card markup with one shared SEO/UI component.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-
+-Current additions required:
+-
+-- Add a shared storefront product card component.
+-- Use crawlable product and category links with visible link colors.
+-- Add Product and Offer microdata to shared product cards.
+-- Standardize image ratio, title height, rating, review count, price, tax label, CTA placement, and cart data attributes.
+-- Replace duplicated product-card markup on public subpages where safe.
+-- Add public Playwright coverage for shared product cards.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Category URL SEO/UI Hardening
+-
+-Continue the active 5-hour sales-quality sprint. The next concrete work unit is making stable category discovery links real SEO surfaces instead of unhandled query parameters.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce URL structure: `https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-
+-Current additions required:
+-
+-- Treat curated `category` URLs as stable category discovery pages.
+-- Filter `/s/aiboux/products?category={slug}` by category.
+-- Show visible category context and crawlable reset/support links.
+-- Keep category URLs indexable with self canonical URLs.
+-- Keep arbitrary `q` search URLs noindex.
+-- Reflect visible category products in `ItemList` JSON-LD.
+-- Add category URLs to sitemap.
+-- Add public Playwright coverage for category URLs.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: SEO/UI Common SEO Hub
+-
+-Continue the active 5-hour sales-quality sprint. The next concrete work unit is a shared storefront SEO hub that strengthens crawlable internal links, visible link affordance, and page-to-page topical structure across every public tenant page.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-
+-Current additions required:
+-
+-- Add a reusable storefront SEO hub component.
+-- Expose crawlable internal links to popular categories, product discovery, purchase support, account pages, and policy pages.
+-- Keep blue link affordance and hover underline for SEO-relevant links.
+-- Add visible Schema.org `SiteNavigationElement` microdata in the SEO hub.
+-- Add public Playwright coverage so every public storefront page must render the shared SEO hub.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: Breadcrumb And Product Detail SEO Cleanup
+-
+-Continue the active 5-hour sales-quality sprint. The next concrete work unit is the common breadcrumb and product detail SEO cleanup.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce site structure: `https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-
+-Current additions required:
+-
+-- Keep one shared `StorefrontBreadcrumb` component for all public tenant storefront pages.
+-- Keep visible breadcrumb links blue and crawlable with real `<a href>`.
+-- Preserve `BreadcrumbList` structured data from the same breadcrumb model.
+-- On product detail, do not show the product title twice above the gallery. The full product name must appear as the single visible product `h1`.
+-- Use a short visible current breadcrumb label on product detail while preserving the full product name in structured breadcrumb data.
+-- Add public Playwright coverage for the visible breadcrumb, current crumb label, full product H1 uniqueness, and product structured data.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## 2026-06-05 Continuation: SEO/UI Common Support Rail
+-
+-Continue the active 5-hour sales-quality sprint. The next concrete work unit is a shared storefront support rail that strengthens SEO-critical internal links and purchase-support density across all public tenant pages.
+-
+-Google Search Central references checked for this continuation:
+-
+-- SEO Starter Guide: `https://developers.google.com/search/docs/fundamentals/seo-starter-guide`
+-- Ecommerce structured data: `https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product`
+-- Crawlable link best practices: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-
+-Current additions required:
+-
+-- Add a reusable storefront support rail component.
+-- Expose crawlable internal links to products, categories, cart, checkout, contact, shipping, returns, FAQ, account, orders, favorites, login/register, and subscription pages.
+-- Keep blue link affordance and hover underline for SEO-relevant links.
+-- Add public Playwright coverage so every public storefront page must render the shared support rail.
+-- Keep `FINAL_ACCEPTED` prohibited until remote D1 subscription migration and provider-backed recurring billing are verified.
+-
+-## Objective
+-AIBOUX Shop must be improved toward Amazon-quality sales experience across all public storefront and relevant admin pages, not only passing gates.
+-
+-## Fixed URLs
+-- Shop service site: https://shop.aiboux.com/
+-- Tenant storefront: https://shop.aiboux.com/s/aiboux/
+-- Tenant admin: https://shop.aiboux.com/s/aiboux/admin
+-- Design editor: https://shop.aiboux.com/s/aiboux/admin/design
+-
+-## Scope
+-Improve sales quality and interaction quality for:
+-- TOP
+-- products
+-- categories
+-- product detail
+-- cart
+-- checkout
+-- contact
+-- legal
+-- privacy
+-- shipping
+-- returns
+-- FAQ
+-- mypage
+-- account
+-- orders
+-- favorites
+-- login
+-- register
+-- mypage/subscriptions
+-- admin operational shells
+-
+-## Non-negotiable Rules
+-- Do not change shop.aiboux.com/ into a tenant storefront.
+-- Do not expose shop.aboux.com.
+-- Do not fake successful payment or subscription creation.
+-- D1 subscription migration permission blocker is subscription-lane only and must not stop storefront polish.
+-- FINAL_ACCEPTED is prohibited until subscription D1 migration and provider-backed subscription behavior are verified.
+-- Public logs must be published to /g/l68 and screen evidence to /g/d68 before user-facing report.
+-
+-## Amazon Quality Targets
+-- Dense but clean sales layout.
+-- Image-backed product/category/legal/contact/cart/checkout pages.
+-- Product imagery must match product names and categories.
+-- Product cards must have consistent image ratio, title height, rating, review count, price, tax label, CTA, and hover/click affordance.
+-- Checkout and cart must look like real order flow while honestly blocking payment if not configured.
+-- Legal/contact pages must not look like thin placeholder cards.
+-- Mobile must remain usable and not sparse.
+-- No user-facing link destination may remain 404 or thin placeholder.
+-- Mypage, order history, favorites, account, login/register, and subscription self-service pages are included in the storefront quality scope.
+-
+-## Current Evidence Baseline
+-- Worker Version ID: 50b53609-d572-4f93-9ce6-0558d4b5022b
+-- gate:shop-sales-quality: PASS
+-- gate:shop-subscriptions: BLOCKED with SUBSCRIPTION_SCHEMA_PENDING, expected non-final blocker.
+-
+-## Next Work Unit
+-1. Publish the latest /g evidence for cycle 2.
+-2. Inspect public screenshots and source structure.
+-3. Polish products/categories/cart/checkout/contact/legal/shared templates toward Amazon-quality.
+-4. Rebuild, WIP deploy, rerun public gates.
+-5. Update /g evidence and continue.
+-
+-## 2026-06-04 User Escalation: All Pages Must Reach Amazon-Like Sales Quality
+-
+-User explicitly expanded the target to every public and admin-linked page. No user-facing page may remain missing, thin, footerless, link-broken, or obviously unfinished.
+-
+-Additional active requirements:
+-- Every public storefront page must include a dense Amazon-like footer with shopping, account, support, and store/legal links.
+-- Header account and order links must route to implemented tenant pages, not contact/checkout shortcuts.
+-- TOP curated product cards must link to implemented product detail pages.
+-- Product detail fallback must exist for curated sales products used on TOP/products/favorites.
+-- Products page must be a sales grid with images, ratings, prices, tax labels, and cart CTA, not a thin DB table/card list.
+-- Categories page must be image-backed and dense, not a thin text list.
+-- Checkout, mypage, auth, and subscription pages may honestly block unconnected auth/payment/subscription actions, but must still look like finished storefront pages.
+-- `tests/shop-public-crawl.spec.ts` must require `storefront-footer` on all public pages.
+-
+-## 2026-06-04 User Escalation: Still Not Amazon Quality
+-
+-The latest public screenshots still fail visual quality because product names and images do not match on multiple storefront surfaces.
+-
+-Immediate fixes:
+-
+-- Do not trust old DB/sample product images for the public sales storefront when they produce mismatched product/name pairs.
+-- Normalize public product images from the display name and sales category.
+-- Pet products must classify as pet before generic "care" or beauty matching.
+-- Towels must show towels, bottles must show bottles, cleaning products must show cleaning products, pet products must show pet products, and coffee/tea must show coffee/tea.
+-- TOP, products, mypage recently viewed, favorites, ranking, time sale, related products, and product detail thumbnails must use the same sales-ready image mapping.
+-- Re-run public screenshots after deploy and inspect the visual result before reporting.
+-- FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.
+-
+-## 2026-06-04 User Escalation: Footer, Links, My Page, All Pages
+-
+-User explicitly rejected the current quality again. Amazon-quality now means every reachable tenant storefront page must feel like a complete retail surface, including footer and account flows.
+-
+-Immediate fixes:
+-
+-- Footer must be dense and present on all tenant storefront pages.
+-- Cart must not be a thin list. It needs item rows, delivery/return notes, order summary, checkout CTA, and recommendation continuation.
+-- Checkout must look like a real order review flow while honestly blocking unconnected payment/subscription actions.
+-- My page, account, orders, favorites, login/register, and subscription pages must look finished even when auth/payment/subscription backends are pending.
+-- Legal/privacy/shipping/returns/FAQ must not be a single thin card; they need support cards, update/status information, and store navigation.
+-- No user-facing page may remain missing, footerless, link-broken, or visibly placeholder-like.
+-
+-## 2026-06-04 User Escalation: 10 Hour Amazon-Beating SEO And Smoothness Sprint
+-
+-User explicitly expanded the work to a 10-hour quality sprint. Do not stop because one gate passes. Continue improving visual quality, interaction feel, internal links, breadcrumbs, structured data, and SEO evidence.
+-
+-Immediate active requirements:
+-
+-- Add a common visible breadcrumb trail to tenant storefront subpages.
+-- Add JSON-LD `BreadcrumbList` from the same breadcrumb model.
+-- Add `WebSite` JSON-LD with `SearchAction` for the tenant storefront.
+-- Add product detail `Product` JSON-LD with `Offer`, availability, image, SKU, brand, and aggregate rating.
+-- Remove duplicated product detail titles. Product detail must have one primary product H1; the generic page title above the product image must not render.
+-- Smooth the TOP hero carousel. Do not swap three nodes abruptly. Use a continuous transform-based track with 480-650ms natural easing, side previews, keyboard, swipe/drag, dots, arrows, autoplay, and no visual jump.
+-- Public tests must verify breadcrumb visibility, JSON-LD presence, carousel transition/transform, active dot, side preview updates, product card links, cart addition, and all public pages with footer.
+-- FINAL_ACCEPTED remains prohibited while remote D1 subscription migration and provider-backed recurring billing are not verified.
+-
+-## 2026-06-04 User Escalation: SEO Strongest Structure And Clear Links
+-
+-User explicitly required web-based SEO study before continuing, visibly understandable link colors, common breadcrumbs, and all pages to be SEO/UI strongest.
+-
+-Additional active requirements:
+-
+-- Use Google Search Central guidance as the current SEO baseline.
+-- Keep visible breadcrumbs on every tenant storefront subpage.
+-- Generate JSON-LD from the same breadcrumb model.
+-- Add shared `Organization` structured data with standard store return-policy information.
+-- Add page-specific `ItemList` JSON-LD for product/category/account/support listing pages where multiple internal targets are shown.
+-- Keep product detail focused on one product and one product H1.
+-- Use self-referencing canonical URLs.
+-- Use real `<a href>` internal links with meaningful text. Do not rely on JavaScript-only navigation for SEO-critical paths.
+-- Make text links visually identifiable using blue link color and hover underline on public storefront pages.
+-- Keep footer links and support navigation complete on every public tenant storefront page.
+-- Do not copy Amazon text, templates, or content. Use Amazon only as a structural benchmark for density, navigability, and purchase readiness.
+-
+-## 2026-06-04 User Escalation: Social SEO, Robots, And Shared Head Meta
+-
+-User explicitly required every page structure to be SEO strongest and asked to continue after checking current web guidance.
+-
+-Google Search Central references checked:
+-- Ecommerce SEO: share ecommerce data and site structure so Google can find and parse product content.
+-- Link best practices: use crawlable `<a href>` links with descriptive anchor text.
+-- Breadcrumb structured data: visible breadcrumb trails help users understand hierarchy and can be paired with `BreadcrumbList`.
+-- Ecommerce URL structure: indexable pages should use self-referencing canonical URLs and internal links should use direct anchors.
+-
+-Additional active requirements:
+-- Add shared helpers for robots, Open Graph, Twitter Card, canonical, and image URL normalization.
+-- Index public discovery/content pages: TOP, products, categories, product detail, contact, legal, privacy, shipping, returns, FAQ.
+-- Noindex transactional/private/account pages while keeping crawlable support links: cart, checkout, mypage, account, orders, favorites, login, register, mypage/subscriptions.
+-- Every public storefront page must expose canonical, robots, Open Graph, Twitter Card, and `ja-JP` alternate metadata.
+-- Product detail Open Graph must use product image and product title, without a duplicated product title above the gallery.
+-- Tests must verify meta tags on public URLs, not only JSON-LD.
+-
+-## 2026-06-04 User Escalation: Robots Txt And Sitemap
+-
+-SEO strongest structure must include crawler discovery files, not only per-page meta.
+-
+-Additional active requirements:
+-- Add `https://shop.aiboux.com/robots.txt`.
+-- Add `https://shop.aiboux.com/sitemap.xml`.
+-- `robots.txt` must point to the sitemap and disallow transactional/private/admin paths.
+-- `sitemap.xml` must include only indexable discovery/content URLs:
+-  - Shop service site
+-  - tenant TOP
+-  - products
+-  - categories
+-  - product detail URLs
+-  - contact
+-  - legal
+-  - privacy
+-  - shipping
+-  - returns
+-  - FAQ
+-- `sitemap.xml` must not include cart, checkout, mypage, orders, favorites, login, register, admin, or subscription self-service pages.
+-- Public Playwright must verify robots and sitemap behavior.
+-
+-## 2026-06-04 User Escalation: Sitemap Route Fix
+-
+-- `/sitemap.xml` must be treated as a static/public SEO file by Worker and Astro middleware routing.
+-- `shop.aiboux.com/sitemap.xml` must not rewrite to `/shop/sitemap.xml`.
+-- Public sitemap response must be XML with `content-type: application/xml; charset=utf-8`.
+-- Public sitemap must include `/s/aiboux/`, `/s/aiboux/products`, `/s/aiboux/categories`, `/s/aiboux/product/setsuka-coffee`, and legal/support pages.
+-- Public sitemap must exclude cart, checkout, and admin paths.
+-
+-## 2026-06-04 User Escalation: Shared SEO Head And Common Parts Audit
+-
+-User required every page structure to be checked for strongest SEO and for reusable common parts.
+-
+-Google Search Central references checked for this cycle:
+-- Ecommerce SEO: `https://developers.google.com/search/docs/specialty/ecommerce`
+-- Crawlable links: `https://developers.google.com/search/docs/crawling-indexing/links-crawlable`
+-- Breadcrumb structured data: `https://developers.google.com/search/docs/appearance/structured-data/breadcrumb`
+-- Product structured data: `https://developers.google.com/search/docs/appearance/structured-data/product-snippet`
+-- Merchant listing structured data: `https://developers.google.com/search/docs/appearance/structured-data/merchant-listing`
+-- Sitemaps: `https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview`
+-- robots.txt: `https://developers.google.com/search/docs/crawling-indexing/robots/intro`
+-
+-Implemented common-parts direction:
+-- Tenant storefront SEO head metadata is centralized in `src/components/shop/ShopSeoHead.astro`.
+-- TOP and subpage Astro templates must use the shared SEO head rather than duplicating meta tags.
+-- TOP `/s/aiboux/` must emit `ItemList` JSON-LD for public product discovery.
+-- Product detail pages must emit `product:price:amount` and `product:price:currency` Open Graph metadata.
+-- Every public storefront page must keep canonical, robots, Open Graph, Twitter Card, `ja-JP`, and `x-default` metadata.
+-- Public gates must verify these tags on `https://shop.aiboux.com` URLs.
+-
+-Current WIP evidence:
+-- WIP commit: `1be17b0 WIP centralize shop SEO head and top ItemList`
+-- Worker Version ID: `e9aefc79-e737-4566-ba3e-50e4806a54a1`
+-- `gate:shop-public-crawl`: PASS on public URLs.
+-- `gate:shop-product-detail`: PASS on public URLs.
+-- `gate:shop-sales-quality`: PASS on public URLs.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-05 Continuation: Entity Graph SEO/UI
+-
+-Active instruction file:
+-
+-- `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+-- `ops/instructions/20260605_shop_entity_graph_seo_ui.md`
+-
+-Additional active requirements:
+-- Public storefront structured data must connect the store entity, website entity, page entity, product entity, shipping details, and return policy.
+-- Organization markup should use the ecommerce-appropriate `OnlineStore` subtype.
+-- WebPage markup must include `isPartOf`, `publisher`, and `about` references.
+-- Product Offer must keep `OfferShippingDetails` and `MerchantReturnPolicy`, and link seller/brand to the store entity.
+-- Public gates must verify the entity graph on `https://shop.aiboux.com` URLs.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-05 Continuation: Page-Type SEO/UI
+-
+-Active instruction file:
+-
+-- `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+-- `ops/instructions/20260605_shop_page_type_seo_ui.md`
+-
+-Additional active requirements:
+-- Products and categories discovery pages must use `CollectionPage` page JSON-LD.
+-- Contact must remain `ContactPage`, FAQ must remain `FAQPage`, and product detail must remain `ItemPage` plus `Product`.
+-- `ItemList` JSON-LD must include stable `@id`, `numberOfItems`, and `mainEntityOfPage`.
+-- Product listing `ItemList` entries should point at product entity IDs where possible.
+-- Public gates must verify page-type SEO markers on `https://shop.aiboux.com`.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-04 User Escalation: Shared Breadcrumb SEO/UI Parts
+-
+-User required all pages to be made SEO strongest and UI strongest, including common reusable parts.
+-
+-Additional active requirements:
+-- Visible storefront breadcrumbs must be a shared component, not hand-written separately on TOP and subpages.
+-- The shared breadcrumb must expose Schema.org `BreadcrumbList` and `ListItem` microdata in the visible DOM.
+-- Breadcrumb links must be obviously clickable with blue link color, underline hover state, and keyboard focus affordance.
+-- JSON-LD breadcrumbs and visible breadcrumbs must use the same `ShopBreadcrumbItem` data source.
+-- Public gates must verify visible breadcrumb microdata and link affordance on `https://shop.aiboux.com` URLs.
+-
+-Implementation direction:
+-- Add `src/components/shop/storefront/StorefrontBreadcrumb.tsx`.
+-- Use the shared breadcrumb on `/s/aiboux/` and all `/s/aiboux/...` subpages.
+-- Strengthen public crawl and product detail Playwright gates to verify BreadcrumbList microdata and link color.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-04 User Escalation: Shared Page Entity And FAQ SEO Parts
+-
+-User required all pages to be inspected for strongest SEO and reusable common parts.
+-
+-Additional active requirements:
+-- Public storefront pages must expose a shared page entity JSON-LD, not only breadcrumb/product/list JSON-LD.
+-- Public storefront pages must expose `SiteNavigationElement` JSON-LD from the same shared footer/navigation link model.
+-- FAQ visible content and `FAQPage` JSON-LD must come from the same shared FAQ data model.
+-- Contact page must expose `ContactPage` JSON-LD.
+-- Tests must verify these public SEO structures on `https://shop.aiboux.com` URLs.
+-
+-Implementation direction:
+-- Add shared FAQ data to `src/lib/shopStorefrontShared.ts`.
+-- Add `buildShopWebPageJsonLd`, `buildShopSiteNavigationJsonLd`, and `buildShopFaqPageJsonLd` to `src/lib/shopSeo.ts`.
+-- Use the new shared JSON-LD helpers on TOP and subpage/product routes.
+-- Strengthen `tests/shop-public-crawl.spec.ts` to verify `SiteNavigationElement`, page entity JSON-LD, FAQPage questions/answers, and ContactPage.
+-
+-## 2026-06-04 User Escalation: Shared Footer SEO/UI Parts
+-
+-User required all pages to be audited for strongest SEO/UI structure and reusable common parts.
+-
+-Additional active requirements:
+-- Tenant storefront footer must be a shared component, not duplicated between TOP and Astro subpages.
+-- All public tenant pages must expose the same dense shopping/account/support/store-info link network.
+-- Footer visible DOM must expose `SiteNavigationElement` microdata for the shared navigation link groups.
+-- Footer must include purchase assurance cards, including honest payment/subscription status.
+-- Public crawl gates must verify the shared footer link density, `SiteNavigationElement` microdata, and payment-not-configured honesty text on `https://shop.aiboux.com` URLs.
+-
+-Implementation direction:
+-- Add `src/components/shop/storefront/StorefrontFooter.tsx`.
+-- Use the shared footer on `/s/aiboux/` and all `/s/aiboux/...` subpages.
+-- Strengthen `tests/shop-public-crawl.spec.ts` for shared footer SEO/UI checks.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-04 User Escalation: Shared Storefront Navigation And Support Parts
+-
+-User required all pages to be audited for reusable parts and made SEO/UI strongest.
+-
+-Additional common-parts implementation:
+-- Shared footer link groups, footer assurances, account cards, policy support cards, purchase guide cards, and curated category seeds are centralized in `src/lib/shopStorefrontShared.ts`.
+-- TOP React storefront and Astro subpage route both use shared footer link groups.
+-- Astro subpages use shared account/support/category data for ItemList JSON-LD and visible page cards.
+-- This keeps SEO-critical anchors, footer links, and support/account discovery paths consistent across tenant public pages.
+-
+-Verification before WIP deploy:
+-- `npm run check:control-chars`: PASS
+-- `npm run check:mojibake`: PASS
+-- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS
+-- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 6 passed
+-- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-05 Continuation: Shared Page Header SEO/UI
+-
+-Active instruction file:
+-
+-- `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+-- `ops/instructions/20260605_shop_shared_page_header_seo_ui.md`
+-
+-Additional active requirements:
+-- Public storefront non-product pages must use a shared `StorefrontPageHeader` component.
+-- The shared page header must provide one page `h1`, page description, store context, and two or more crawlable internal links.
+-- Page header links must be visibly clickable, using blue link affordance and hover/focus treatment.
+-- Product detail must keep only one visible product `h1`; do not reintroduce the duplicate title above the image.
+-- Public crawl gates must verify the shared page header on `https://shop.aiboux.com` URLs.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-05 Continuation: Search SEO/UI
+-
+-Active instruction file:
+-
+-- `ops/instructions/20260605_shop_breadcrumb_support_seo_ui.md`
+-- `ops/instructions/20260605_shop_search_seo_ui.md`
+-
+-Additional active requirements:
+-- Header search must be a real GET form targeting `/s/{tenant}/products` with `q`.
+-- Search must work without client-side JavaScript.
+-- Products page must show query context for `?q=` and retain SEO-safe canonical/robots metadata.
+-- `WebSite` SearchAction must match the actual public query URL.
+-- Public gates must verify the real search flow on `https://shop.aiboux.com`.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+-
+-## 2026-06-05 Continuation: Shared SEO/UI Checklist
+-
+-Active instruction file:
+-
+-- `ops/instructions/20260605_shop_page_action_map_seo_ui.md`
+-
+-Additional active requirements:
+-- Every public tenant storefront page must expose a shared SEO/UI checklist component.
+-- The checklist must explain page-specific H1, breadcrumb, internal link, purchase-condition, and structured-data expectations.
+-- The checklist must use visible crawlable links with blue/underlined link affordance.
+-- The checklist must expose visible `ItemList` / `ListItem` microdata.
+-- Subpage `SiteNavigationElement` JSON-LD source links must include the checklist links.
+-- Product detail must keep only one visible product `h1`; do not add a duplicate title above the image.
+-
+-Not final:
+-- Remote D1 subscription migration remains unapplied.
+-- Provider-backed recurring billing remains unverified.
+-- FINAL_ACCEPTED remains prohibited.
+diff --git a/src/components/shop/storefront/ShadcnStorefront.tsx b/src/components/shop/storefront/ShadcnStorefront.tsx
+index 76ba9ff..5b74cc0 100644
+--- a/src/components/shop/storefront/ShadcnStorefront.tsx
++++ b/src/components/shop/storefront/ShadcnStorefront.tsx
+@@ -7,8 +7,6 @@ import {
+   buildShopPageActionMap,
+   buildShopPageBuyingGuide,
+   buildShopPageQualitySummary,
+-  buildShopSeoChecklist,
+-  buildShopSeoSiteMapPanel,
+   buildShopTrustMatrix,
+   type ShopStorefrontContextLinkSection,
+ } from "@/lib/shopStorefrontShared";
+@@ -21,9 +19,7 @@ import { StorefrontFooter } from "./StorefrontFooter";
+ import { StorefrontPageActionMap } from "./StorefrontPageActionMap";
+ import { StorefrontPageQualitySummary } from "./StorefrontPageQualitySummary";
+ import { StorefrontSearchForm } from "./StorefrontSearchForm";
+-import { StorefrontSeoChecklist } from "./StorefrontSeoChecklist";
+ import { StorefrontSeoHub } from "./StorefrontSeoHub";
+-import { StorefrontSeoSiteMapPanel } from "./StorefrontSeoSiteMapPanel";
+ import { StorefrontSkipLinks } from "./StorefrontSkipLinks";
+ import { StorefrontSupportRail } from "./StorefrontSupportRail";
+ import { StorefrontTrustMatrix } from "./StorefrontTrustMatrix";
+@@ -120,13 +116,8 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+   const saleProducts = rotateProducts(visualProducts, 3);
+   const buyingGuideItems = buildShopPageBuyingGuide("", tenantRoot);
+   const actionMap = buildShopPageActionMap("", tenantRoot);
+-  const seoChecklist = buildShopSeoChecklist("", tenantRoot);
+   const pageQualitySummary = buildShopPageQualitySummary("", tenantRoot);
+   const trustMatrix = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true });
+-  const seoSiteMapPanel = buildShopSeoSiteMapPanel("", tenantRoot, {
+-    canonicalUrl: "https://shop.aiboux.com/s/aiboux/",
+-    robots: "index,follow,max-image-preview:large",
+-  });
+   const breadcrumbSupportLinks = buildShopBreadcrumbSupportLinks("", tenantRoot);
+   const columnClass = {
+     3: "lg:grid-cols-3",
+@@ -241,8 +232,6 @@ export function ShadcnStorefront({ storeName, products, layout, contextualLinkSe
+         <StorefrontTrustMatrix trustMatrix={trustMatrix} />
+         <StorefrontPageQualitySummary className="mt-4" summary={pageQualitySummary} />
+         <StorefrontPageActionMap actionMap={actionMap} />
+-        <StorefrontSeoChecklist checklist={seoChecklist} />
+-        <StorefrontSeoSiteMapPanel siteMap={seoSiteMapPanel} />
+ 
+         <StoreSection title={layout.pages.top.sections.ranking.title} enabled={layout.pages.top.sections.ranking.enabled} products={rankingProducts} ranking />
+         <StoreSection title={layout.pages.top.sections.timeSale.title} enabled={layout.pages.top.sections.timeSale.enabled} products={saleProducts} accent="red" sale />
+diff --git a/src/components/shop/storefront/StorefrontBuyingGuide.tsx b/src/components/shop/storefront/StorefrontBuyingGuide.tsx
+index a5aca22..96a1e2c 100644
+--- a/src/components/shop/storefront/StorefrontBuyingGuide.tsx
++++ b/src/components/shop/storefront/StorefrontBuyingGuide.tsx
+@@ -26,11 +26,11 @@ export function StorefrontBuyingGuide({ items, pageLabel = "このページ", cl
+             {pageLabel}の購入前チェック
+           </h2>
+           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+-            価格、税込、配送、返品、決済、定期購入の未接続状態をページごとに整理し、購入判断と検索理解に必要な内部リンクを共通化します。
++            価格、税込、配送、返品、決済、定期購入の状態をページごとに整理し、購入前に必要な確認先へ進めます。
+           </p>
+         </div>
+         <span className="inline-flex w-fit rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800">
+-          SEO内部リンク強化
++          購入前に確認
+         </span>
+       </div>
+       <div className="mt-4 grid gap-3 lg:grid-cols-2">
+diff --git a/src/components/shop/storefront/StorefrontContextLinks.tsx b/src/components/shop/storefront/StorefrontContextLinks.tsx
+index fbd52d7..986dda8 100644
+--- a/src/components/shop/storefront/StorefrontContextLinks.tsx
++++ b/src/components/shop/storefront/StorefrontContextLinks.tsx
+@@ -22,7 +22,7 @@ export function StorefrontContextLinks({ sections, className = "" }: StorefrontC
+             このページから次に確認すること
+           </h2>
+           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+-            商品発見、購入前確認、購入後サポートをページごとに整理し、SEOに必要な説明的リンクを共通化します。
++            商品探し、購入前の確認、購入後サポートをページごとに整理し、必要な案内へすぐ移動できます。
+           </p>
+         </div>
+       </div>
+diff --git a/src/components/shop/storefront/StorefrontFooter.tsx b/src/components/shop/storefront/StorefrontFooter.tsx
+index 8bbbefb..6576468 100644
+--- a/src/components/shop/storefront/StorefrontFooter.tsx
++++ b/src/components/shop/storefront/StorefrontFooter.tsx
+@@ -9,7 +9,7 @@ type StorefrontFooterProps = {
+ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: StorefrontFooterProps) {
+   const assurances = buildShopFooterAssurances();
+   const columns = buildShopFooterColumns(tenantRoot);
+-  const seoSitemapLinks = buildShopFooterSeoSitemapLinks(tenantRoot);
++  const linkDirectory = buildShopFooterSeoSitemapLinks(tenantRoot);
+ 
+   return (
+     <footer id="storefront-footer" className={`mt-8 bg-[#17212f] text-white ${className}`} data-testid="storefront-footer">
+@@ -43,8 +43,8 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
+       </div>
+       <section
+         className="border-t border-white/10 bg-[#101826] px-4 py-7"
+-        aria-label="フッターSEOサイトマップ"
+-        data-testid="storefront-footer-seo-sitemap"
++        aria-label="フッター主要リンク"
++        data-testid="storefront-footer-link-directory"
+         itemScope
+         itemType="https://schema.org/ItemList"
+       >
+@@ -53,14 +53,14 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
+             <div>
+               <h2 className="text-base font-bold text-white">ストア内リンクをまとめて確認</h2>
+               <p className="mt-1 text-xs leading-5 text-white/72">
+-                商品、カテゴリ、注文、配送、返品、定期購入、問い合わせまで、検索エンジンにもユーザーにも分かる内部リンクで接続します。
++                商品、カテゴリ、注文、配送、返品、定期購入、問い合わせまで、必要なページへすぐ移動できます。
+               </p>
+             </div>
+-            <div className="text-xs font-semibold text-sky-200">SEO site map / crawlable links</div>
++            <div className="text-xs font-semibold text-sky-200">ストア主要リンク</div>
+           </div>
+-          <meta itemProp="numberOfItems" content={String(seoSitemapLinks.length)} />
++          <meta itemProp="numberOfItems" content={String(linkDirectory.length)} />
+           <div className="mt-5 flex flex-wrap gap-2">
+-            {seoSitemapLinks.map((link, index) => (
++            {linkDirectory.map((link, index) => (
+               <a
+                 key={`${link.label}-${link.href}`}
+                 className="rounded-full border border-sky-300/35 bg-sky-400/10 px-3 py-2 text-xs font-semibold text-sky-200 underline-offset-4 hover:border-sky-200 hover:bg-sky-300/15 hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-amber-300"
+diff --git a/src/components/shop/storefront/StorefrontPageActionMap.tsx b/src/components/shop/storefront/StorefrontPageActionMap.tsx
+index be3a0f7..13d4ac2 100644
+--- a/src/components/shop/storefront/StorefrontPageActionMap.tsx
++++ b/src/components/shop/storefront/StorefrontPageActionMap.tsx
+@@ -16,7 +16,7 @@ export function StorefrontPageActionMap({ actionMap, className = "" }: Storefron
+     >
+       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+         <div>
+-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Next actions</p>
++          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">次にできること</p>
+           <h2 id="storefront-page-action-map-title" className="mt-1 text-lg font-bold text-neutral-950" itemProp="name">
+             {actionMap.title}
+           </h2>
+@@ -25,7 +25,7 @@ export function StorefrontPageActionMap({ actionMap, className = "" }: Storefron
+           </p>
+         </div>
+         <span className="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-800">
+-          SEO内部リンク
++          次にできること
+         </span>
+       </div>
+       <meta itemProp="numberOfItems" content={String(actionMap.steps.length)} />
+diff --git a/src/components/shop/storefront/StorefrontPageQualitySummary.tsx b/src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+index ac44e86..e05baa0 100644
+--- a/src/components/shop/storefront/StorefrontPageQualitySummary.tsx
++++ b/src/components/shop/storefront/StorefrontPageQualitySummary.tsx
+@@ -19,16 +19,16 @@ export function StorefrontPageQualitySummary({ summary, className = "" }: Storef
+     >
+       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_1.35fr] xl:items-start">
+         <div>
+-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Page quality</p>
++          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Page guide</p>
+           <h2 id="storefront-page-quality-summary-title" className="mt-1 text-lg font-bold text-neutral-950">
+             {summary.pageLabel}で確認できること
+           </h2>
+           <div className="mt-3 grid gap-2 text-sm leading-6 text-neutral-700">
+             <p>
+-              <strong className="text-neutral-950">検索意図:</strong> {summary.intent}
++              <strong className="text-neutral-950">探せること:</strong> {summary.intent}
+             </p>
+             <p>
+-              <strong className="text-neutral-950">SEO構造:</strong> {summary.seoRole}
++              <strong className="text-neutral-950">確認できること:</strong> {summary.seoRole}
+             </p>
+             <p>
+               <strong className="text-neutral-950">次の操作:</strong> {summary.userAction}
+diff --git a/src/components/shop/storefront/StorefrontSeoChecklist.tsx b/src/components/shop/storefront/StorefrontSeoChecklist.tsx
+deleted file mode 100644
+index 4588dac..0000000
+--- a/src/components/shop/storefront/StorefrontSeoChecklist.tsx
++++ /dev/null
+@@ -1,63 +0,0 @@
+-import type { ShopStorefrontSeoChecklist } from "@/lib/shopStorefrontShared";
+-
+-type StorefrontSeoChecklistProps = {
+-  checklist: ShopStorefrontSeoChecklist;
+-  className?: string;
+-};
+-
+-export function StorefrontSeoChecklist({ checklist, className = "" }: StorefrontSeoChecklistProps) {
+-  if (!checklist.items.length) return null;
+-
+-  return (
+-    <section
+-      className={`mt-5 rounded-xl border border-blue-100 bg-gradient-to-br from-white to-blue-50/70 p-5 shadow-sm ${className}`}
+-      data-testid="storefront-seo-checklist"
+-      aria-labelledby="storefront-seo-checklist-title"
+-      itemScope
+-      itemType="https://schema.org/ItemList"
+-    >
+-      <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+-        <div>
+-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">SEO / UI checklist</p>
+-          <h2 id="storefront-seo-checklist-title" className="mt-1 text-lg font-bold text-neutral-950" itemProp="name">
+-            {checklist.title}
+-          </h2>
+-          <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600" itemProp="description">
+-            {checklist.summary}
+-          </p>
+-        </div>
+-        <span className="w-fit rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-800 ring-1 ring-blue-100">
+-          共通SEO部品
+-        </span>
+-      </div>
+-      <meta itemProp="numberOfItems" content={String(checklist.items.length)} />
+-      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+-        {checklist.items.map((item, index) => (
+-          <article
+-            key={`${item.title}-${item.href}`}
+-            className="group rounded-lg border border-blue-100 bg-white p-4 transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
+-            itemProp="itemListElement"
+-            itemScope
+-            itemType="https://schema.org/ListItem"
+-          >
+-            <meta itemProp="position" content={String(index + 1)} />
+-            <span className="inline-flex rounded-full bg-blue-50 px-2 py-1 text-[11px] font-bold text-blue-800 ring-1 ring-blue-100">
+-              {item.badge}
+-            </span>
+-            <h3 className="mt-3 min-h-[2.5rem] text-sm font-bold leading-5 text-neutral-950" itemProp="name">
+-              {item.title}
+-            </h3>
+-            <p className="mt-2 min-h-[4.5rem] text-sm leading-6 text-neutral-600">{item.body}</p>
+-            <a
+-              className="mt-3 inline-flex text-sm font-bold text-blue-700 underline underline-offset-4 group-hover:text-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300"
+-              href={item.href}
+-              itemProp="url"
+-            >
+-              {item.label}
+-            </a>
+-          </article>
+-        ))}
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/shop/storefront/StorefrontSeoHub.tsx b/src/components/shop/storefront/StorefrontSeoHub.tsx
+index 64c6b9b..2e51e61 100644
+--- a/src/components/shop/storefront/StorefrontSeoHub.tsx
++++ b/src/components/shop/storefront/StorefrontSeoHub.tsx
+@@ -27,7 +27,7 @@ export function StorefrontSeoHub({ tenantRoot, storeName = "AIBOUX Store" }: Sto
+             {storeName}で迷わず探す
+           </h2>
+           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+-            商品、カテゴリ、配送、返品、注文履歴を説明的なリンクで整理します。検索エンジンにもユーザーにも分かる、共通の内部リンク導線です。
++            商品、カテゴリ、配送、返品、注文履歴を分かりやすくまとめました。必要な確認先へすぐ移動できます。
+           </p>
+         </div>
+         <a
+@@ -41,7 +41,7 @@ export function StorefrontSeoHub({ tenantRoot, storeName = "AIBOUX Store" }: Sto
+       <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
+         <nav
+           className="grid gap-4 md:grid-cols-3"
+-          aria-label={`${storeName} SEO内部リンク`}
++          aria-label={`${storeName} 店内ナビゲーション`}
+           itemScope
+           itemType="https://schema.org/SiteNavigationElement"
+         >
+diff --git a/src/components/shop/storefront/StorefrontSeoSiteMapPanel.tsx b/src/components/shop/storefront/StorefrontSeoSiteMapPanel.tsx
+deleted file mode 100644
+index 768b3d8..0000000
+--- a/src/components/shop/storefront/StorefrontSeoSiteMapPanel.tsx
++++ /dev/null
+@@ -1,73 +0,0 @@
+-import type { ShopStorefrontSeoSiteMapPanel } from "@/lib/shopStorefrontShared";
+-
+-type StorefrontSeoSiteMapPanelProps = {
+-  siteMap: ShopStorefrontSeoSiteMapPanel;
+-  className?: string;
+-};
+-
+-export function StorefrontSeoSiteMapPanel({ siteMap, className = "" }: StorefrontSeoSiteMapPanelProps) {
+-  return (
+-    <section
+-      className={`my-6 rounded-xl border border-blue-200 bg-blue-50/70 p-5 shadow-sm ${className}`}
+-      data-testid="storefront-seo-sitemap-panel"
+-      aria-labelledby="storefront-seo-sitemap-panel-title"
+-      itemScope
+-      itemType="https://schema.org/ItemList"
+-    >
+-      <meta itemProp="numberOfItems" content={String(siteMap.nodes.length)} />
+-      <div className="grid gap-4 border-b border-blue-100 pb-4 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
+-        <div>
+-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Crawl map</p>
+-          <h2 id="storefront-seo-sitemap-panel-title" className="mt-1 text-xl font-bold tracking-tight text-neutral-950">
+-            {siteMap.title}
+-          </h2>
+-          <p className="mt-2 text-sm leading-6 text-neutral-700">{siteMap.summary}</p>
+-        </div>
+-        <dl className="grid gap-2 rounded-lg border border-blue-100 bg-white p-3 text-xs leading-5 text-neutral-700">
+-          <div>
+-            <dt className="font-bold text-neutral-950">ページ役割</dt>
+-            <dd>{siteMap.pageRole}</dd>
+-          </div>
+-          <div>
+-            <dt className="font-bold text-neutral-950">canonical</dt>
+-            <dd className="break-all text-blue-700">{siteMap.canonicalUrl}</dd>
+-          </div>
+-          <div>
+-            <dt className="font-bold text-neutral-950">robots</dt>
+-            <dd>{siteMap.robots}</dd>
+-          </div>
+-          <div>
+-            <dt className="font-bold text-neutral-950">sitemap</dt>
+-            <dd>{siteMap.sitemapStatus}</dd>
+-          </div>
+-        </dl>
+-      </div>
+-
+-      <ol className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+-        {siteMap.nodes.map((node, index) => (
+-          <li
+-            key={`${node.href}-${node.title}`}
+-            className="rounded-lg border border-blue-100 bg-white p-4"
+-            itemProp="itemListElement"
+-            itemScope
+-            itemType="https://schema.org/ListItem"
+-          >
+-            <meta itemProp="position" content={String(index + 1)} />
+-            <span className="inline-flex rounded-full bg-blue-100 px-2 py-1 text-[11px] font-bold text-blue-800">{node.badge}</span>
+-            <h3 className="mt-2 text-sm font-bold text-neutral-950" itemProp="name">{node.title}</h3>
+-            <p className="mt-1 text-xs leading-5 text-neutral-600">{node.body}</p>
+-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">{node.policy}</p>
+-            <a
+-              className="mt-3 inline-flex text-sm font-bold text-blue-700 underline underline-offset-2 hover:text-blue-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+-              href={node.href}
+-              itemProp="url"
+-            >
+-              {node.label}
+-            </a>
+-          </li>
+-        ))}
+-      </ol>
+-    </section>
+-  );
+-}
+-
+diff --git a/src/components/shop/storefront/StorefrontSupportRail.tsx b/src/components/shop/storefront/StorefrontSupportRail.tsx
+index 42b67fb..be010b0 100644
+--- a/src/components/shop/storefront/StorefrontSupportRail.tsx
++++ b/src/components/shop/storefront/StorefrontSupportRail.tsx
+@@ -27,7 +27,7 @@ export function StorefrontSupportRail({ tenantRoot, className = "" }: Storefront
+             迷わず買えるための確認導線
+           </h2>
+           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+-            商品比較、配送・返品、注文後の確認、定期購入の状態まで、SEOに忠実な内部リンクで移動できます。
++            商品比較、配送・返品、注文後の確認、定期購入の状態まで、必要なページへ迷わず移動できます。
+           </p>
+         </div>
+         <a
+diff --git a/src/lib/shopStorefrontShared.ts b/src/lib/shopStorefrontShared.ts
+index 6188a5e..2b3cea1 100644
+--- a/src/lib/shopStorefrontShared.ts
++++ b/src/lib/shopStorefrontShared.ts
+@@ -624,7 +624,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
+   const pageSpecific: Record<string, ShopStorefrontContextLinkSection> = {
+     products: {
+       title: "商品一覧から次に見る",
+-      summary: "カテゴリ、セール、ランキングに分岐して、商品発見URLを薄い一覧で終わらせません。",
++      summary: "カテゴリ、セール、ランキングに分岐して、目的の商品を探しやすくします。",
+       links: [
+         { label: "カテゴリ一覧", href: `${tenantRoot}/categories` },
+         { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
+@@ -634,7 +634,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
+     },
+     categories: {
+       title: "カテゴリから売り場へ",
+-      summary: "カテゴリ一覧は各カテゴリURLへ直接リンクし、検索エンジンにも階層を伝えます。",
++      summary: "カテゴリ一覧から食品、日用品、ギフトなどの売り場へ直接進めます。",
+       links: [
+         { label: "食品・飲料", href: buildShopCategoryHref(tenantRoot, "food-drink") },
+         { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
+@@ -710,7 +710,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     },
+     {
+       question: "迷ったときはどのページへ進めばよいですか。",
+-      answer: "商品一覧、カテゴリ、FAQ、問い合わせへ戻れる内部リンクを全ページに配置しています。",
++      answer: "商品一覧、カテゴリ、FAQ、問い合わせへ戻れる案内リンクを全ページに配置しています。",
+       href: `${tenantRoot}/faq`,
+       label: "FAQを見る",
+     },
+@@ -733,8 +733,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     ],
+     products: [
+       {
+-        question: "商品一覧はSEOに強いカテゴリURLで見られますか。",
+-        answer: "カテゴリ選択時は安定した `category` URLで表示し、任意検索語ページとはcanonicalとrobotsを分けます。",
++        question: "カテゴリ別に商品を見比べられますか。",
++        answer: "カテゴリ選択時は同じ形式の商品カードで表示し、価格、レビュー、在庫、カート導線を見比べられます。",
+         href: `${tenantRoot}/categories`,
+         label: "カテゴリ一覧へ",
+       },
+@@ -747,14 +747,14 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+     ],
+     categories: [
+       {
+-        question: "カテゴリは検索エンジンにも分かる構造ですか。",
+-        answer: "カテゴリ名、画像、商品件数、カテゴリ別商品URLを同じカードで並べ、内部リンクを明確にしています。",
++        question: "カテゴリから商品を探しやすくなっていますか。",
++        answer: "カテゴリ名、画像、商品件数を同じカードで並べ、カテゴリ別の商品一覧へ進めます。",
+         href: `${tenantRoot}/products`,
+         label: "商品一覧へ",
+       },
+       {
+         question: "売れ筋やセールカテゴリへ直接進めますか。",
+-        answer: "ランキング、セール、食品、日用品、ギフトなどのカテゴリURLをクロール可能なリンクで提供します。",
++        answer: "ランキング、セール、食品、日用品、ギフトなどの売り場へ直接進めます。",
+         href: buildShopCategoryHref(tenantRoot, "ranking"),
+         label: "ランキングを見る",
+       },
+@@ -767,8 +767,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
+         label: "カートを見る",
+       },
+       {
+-        question: "商品名の重複やSEO上の薄い見出しはありませんか。",
+-        answer: "商品詳細は可視H1を1つに絞り、パンくずと構造化データで階層を補強します。",
++        question: "商品名や説明は重複せず読みやすいですか。",
++        answer: "商品詳細は商品名、写真、価格、在庫、配送、返品条件を一つの購入判断画面にまとめます。",
+         href: `${tenantRoot}/products`,
+         label: "関連商品を探す",
+       },
+@@ -1029,13 +1029,13 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
+       summary: "一覧は商品発見の中心です。検索、カテゴリ、ランキングから商品詳細とカートへつなげます。",
+       steps: [
+         { title: "商品カードを比較", body: "画像、商品名、税込価格、レビュー、カテゴリを同じカード構造で確認します。", href: `${tenantRoot}/products`, label: "比較を続ける", badge: "比較" },
+-        { title: "カテゴリURLへ移動", body: "検索語ページとカテゴリページを分け、カテゴリは安定URLで確認します。", href: `${tenantRoot}/categories`, label: "カテゴリ一覧へ", badge: "URL" },
++        { title: "カテゴリへ移動", body: "カテゴリごとの商品を見比べ、目的の売り場へ戻れます。", href: `${tenantRoot}/categories`, label: "カテゴリ一覧へ", badge: "分類" },
+         { title: "カートへ進む", body: "購入候補を追加したら、数量や配送条件をカートで確認します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
+       ],
+     },
+     categories: {
+       title: "カテゴリ階層から売り場へ移動する",
+-      summary: "カテゴリ一覧は検索エンジンと利用者へ売り場構造を伝える入口です。",
++      summary: "カテゴリ一覧から売り場を選び、商品一覧と購入条件へ進めます。",
+       steps: [
+         { title: "主要カテゴリを選ぶ", body: "食品、日用品、キッチン、ギフトなどの売り場へ移動します。", href: buildShopCategoryHref(tenantRoot, "food-drink"), label: "食品・飲料へ", badge: "階層" },
+         { title: "売れ筋を見る", body: "ランキングカテゴリから人気商品を確認します。", href: buildShopCategoryHref(tenantRoot, "ranking"), label: "ランキングへ", badge: "人気" },
+@@ -1413,27 +1413,27 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     "": {
+       pageLabel: "TOPページ",
+       intent: "おすすめ、ランキング、タイムセール、カテゴリから商品発見を始める入口です。",
+-      seoRole: "ストア全体の主要カテゴリと購入サポートへリンクするハブページとして扱います。",
++      seoRole: "主要カテゴリ、商品一覧、購入サポートへ進める入口です。",
+       userAction: "ヒーロー、商品カード、カテゴリ、フッターから商品詳細や購入条件へ移動します。",
+       signals: [
+         { title: "商品発見", body: "おすすめ商品、ランキング、タイムセールを商品詳細へ直結します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "発見" },
+-        { title: "カテゴリ導線", body: "カテゴリURLを安定化し、食品・日用品・ギフトなどへ分岐します。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "SEO" },
++        { title: "カテゴリ導線", body: "食品・日用品・ギフトなどの売り場へ分かりやすく分岐します。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "売り場" },
+       ],
+     },
+     products: {
+       pageLabel: "商品一覧",
+       intent: "価格、画像、レビュー、カテゴリ、カート導線を同じカード密度で比較するページです。",
+-      seoRole: "安定カテゴリURLはindex可能、任意検索URLはnoindexとして重複を抑えます。",
++      seoRole: "カテゴリ、検索、商品カードから目的の商品を見つけやすくします。",
+       userAction: "商品カード、カテゴリリンク、検索フォームから商品詳細へ進みます。",
+       signals: [
+-        { title: "商品カード共通化", body: "Product/Offer microdata、画像alt、価格、CTA位置を共通化します。", href: `${tenantRoot}/products`, label: "比較する", badge: "商品" },
+-        { title: "カテゴリURL", body: "カテゴリごとのcanonical、robots、ItemListを分けて扱います。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "URL" },
++        { title: "商品カード", body: "画像、商品名、価格、レビュー、カートボタンを同じ位置で比較できます。", href: `${tenantRoot}/products`, label: "比較する", badge: "商品" },
++        { title: "カテゴリ", body: "カテゴリ別に絞り込み、商品を探し直せます。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "分類" },
+       ],
+     },
+     categories: {
+       pageLabel: "カテゴリ一覧",
+       intent: "カテゴリ画像と商品件数から売り場を選ぶページです。",
+-      seoRole: "メニュー、カテゴリカード、商品一覧をリンクでつなぎ、Googleが階層を理解できる構造にします。",
++      seoRole: "カテゴリカードから商品一覧へ進み、売り場ごとに比較できます。",
+       userAction: "カテゴリカードから安定カテゴリURLへ移動します。",
+       signals: [
+         { title: "階層導線", body: "カテゴリから商品一覧へ、商品一覧から商品詳細へ進むリンク階層を固定します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "階層" },
+@@ -1443,17 +1443,17 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     product: {
+       pageLabel: "商品詳細",
+       intent: "1商品に集中し、画像、価格、在庫、配送、返品、購入ボックスで購入判断するページです。",
+-      seoRole: "Product/Offer、BreadcrumbList、MerchantReturnPolicyを同じ商品文脈で接続します。",
++      seoRole: "商品写真、価格、在庫、配送、返品条件を同じ画面で確認できます。",
+       userAction: "画像、説明、仕様、購入ボックス、関連商品を確認してカートへ進みます。",
+       signals: [
+-        { title: "単一H1", body: "商品名は可視H1を1つに維持し、画像上の二重タイトルは出しません。", href: `${tenantRoot}/products`, label: "関連商品", badge: "H1" },
++        { title: "商品名と写真", body: "商品名、写真、価格、説明を一つの購入判断画面にまとめます。", href: `${tenantRoot}/products`, label: "関連商品", badge: "商品" },
+         { title: "購入条件", body: "税込価格、在庫、配送予定、返品条件、定期購入状態を購入前に表示します。", href: `${tenantRoot}/cart`, label: "カート", badge: "購入" },
+       ],
+     },
+     cart: {
+       pageLabel: "カート",
+       intent: "通常購入と定期購入を区別し、数量、小計、配送、返品を確認するページです。",
+-      seoRole: "購入直前ページはnoindex対象でも、内部導線と取引条件を明確にします。",
++      seoRole: "購入直前の商品、数量、小計、配送、返品条件を確認できます。",
+       userAction: "数量変更、削除、商品追加、チェックアウト、配送返品確認へ進みます。",
+       signals: [
+         { title: "注文前確認", body: "小計、送料見込み、定期購入頻度を分けて表示します。", href: `${tenantRoot}/checkout`, label: "チェックアウト", badge: "確認" },
+@@ -1463,7 +1463,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     checkout: {
+       pageLabel: "チェックアウト",
+       intent: "顧客情報、配送先、支払い状態、定期購入規約を確認するページです。",
+-      seoRole: "決済未接続時に注文完了風UIを出さず、販売条件へリンクします。",
++      seoRole: "決済未接続時は注文完了風に見せず、必要な確認先へ案内します。",
+       userAction: "決済設定状態を確認し、必要ならカートや問い合わせへ戻ります。",
+       signals: [
+         { title: "決済状態", body: "未接続時は注文確定を停止し、成功したふりをしません。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
+@@ -1473,7 +1473,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     contact: {
+       pageLabel: "問い合わせ",
+       intent: "注文番号、商品名、確認内容を整理してストアへ連絡するページです。",
+-      seoRole: "問い合わせ前にFAQ、配送、返品へ戻れるサポート導線を示します。",
++      seoRole: "問い合わせ前にFAQ、配送、返品を確認できます。",
+       userAction: "FAQ確認後、必要事項を入力して送信状態を確認します。",
+       signals: [
+         { title: "FAQ先行", body: "配送・返品・決済未接続状態をFAQで確認してから問い合わせます。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "確認" },
+@@ -1483,7 +1483,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     legal: {
+       pageLabel: "特定商取引法",
+       intent: "販売者、支払い、配送、返品、問い合わせ先を注文前に確認するページです。",
+-      seoRole: "取引条件を共通テンプレート化し、空欄や未設定を隠さない方針を示します。",
++      seoRole: "販売者情報と取引条件をまとめて確認できます。",
+       userAction: "販売条件を確認し、配送・返品・問い合わせへ移動します。",
+       signals: [
+         { title: "販売者情報", body: "販売者名、連絡先、取引条件を同じレイアウトで表示します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "取引" },
+@@ -1493,7 +1493,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     privacy: {
+       pageLabel: "プライバシーポリシー",
+       intent: "注文、問い合わせ、アカウント、定期購入で扱う情報を確認するページです。",
+-      seoRole: "個人情報の扱いを購入導線と問い合わせ導線から到達可能にします。",
++      seoRole: "注文や問い合わせで扱う情報と相談先を確認できます。",
+       userAction: "個人情報の扱いを確認し、必要なら問い合わせやマイページへ進みます。",
+       signals: [
+         { title: "個人情報", body: "注文、問い合わせ、ログインで扱う項目を明確にします。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "保護" },
+@@ -1503,7 +1503,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     shipping: {
+       pageLabel: "配送について",
+       intent: "送料、配送目安、追跡、発送条件を注文前に確認するページです。",
+-      seoRole: "商品詳細、カート、チェックアウトから配送条件へリンクし、購入不安を減らします。",
++      seoRole: "送料、配送目安、追跡条件を購入前に確認できます。",
+       userAction: "配送条件を確認して商品一覧、返品条件、カートへ進みます。",
+       signals: [
+         { title: "配送目安", body: "通常2〜4営業日、送料、追跡条件を共通文脈で確認します。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "配送" },
+@@ -1513,7 +1513,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     returns: {
+       pageLabel: "返品について",
+       intent: "返品条件、初期不良、問い合わせ期限、キャンセル条件を確認するページです。",
+-      seoRole: "返品条件を商品詳細、カート、チェックアウト、特商法から到達可能にします。",
++      seoRole: "返品条件、初期不良、問い合わせ期限を購入前に確認できます。",
+       userAction: "返品可否を確認し、注文履歴や問い合わせへ進みます。",
+       signals: [
+         { title: "返品条件", body: "未開封、初期不良、到着後7日以内などを分かりやすく整理します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "返品" },
+@@ -1523,17 +1523,17 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     faq: {
+       pageLabel: "FAQ",
+       intent: "配送、返品、決済、定期購入、問い合わせ前確認をまとめるページです。",
+-      seoRole: "FAQPage構造化データはこのページだけに限定し、他ページで濫用しません。",
++      seoRole: "よくある質問から商品、配送、返品、問い合わせへ移動できます。",
+       userAction: "質問から商品一覧、配送、返品、問い合わせへ戻ります。",
+       signals: [
+-        { title: "FAQ構造", body: "Question/acceptedAnswerはFAQページの実本文と一致させます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "FAQ" },
++        { title: "質問一覧", body: "配送、返品、決済、定期購入の質問をまとめて確認できます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "FAQ" },
+         { title: "サポート", body: "解決しない場合は問い合わせへ移動します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
+       ],
+     },
+     mypage: {
+       pageLabel: "マイページ",
+       intent: "注文、配送、返品、定期購入、お気に入りを確認する購入後ページです。",
+-      seoRole: "購入者向けページはnoindex対象でも、サポート導線を明確にします。",
++      seoRole: "注文後の確認、定期購入、お気に入り、問い合わせへ移動できます。",
+       userAction: "注文履歴、定期購入、お気に入り、問い合わせへ移動します。",
+       signals: [
+         { title: "注文管理", body: "注文履歴、配送、返品、問い合わせをまとめます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
+@@ -1543,7 +1543,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     account: {
+       pageLabel: "アカウント",
+       intent: "購入者アカウントの入口を整理するページです。",
+-      seoRole: "ログイン、会員登録、注文履歴、定期購入へ迷わず移動できる構造にします。",
++      seoRole: "ログイン、会員登録、注文履歴、定期購入へ移動できます。",
+       userAction: "ログイン、注文履歴、お気に入り、問い合わせへ移動します。",
+       signals: [
+         { title: "ログイン導線", body: "本番認証未接続時は入力保存を行わず状態を明記します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
+@@ -1553,7 +1553,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     orders: {
+       pageLabel: "注文履歴",
+       intent: "注文番号、配送状況、領収書、問い合わせを確認するページです。",
+-      seoRole: "注文履歴はnoindexでも、商品一覧とサポートへ戻れる導線を持ちます。",
++      seoRole: "注文がない状態でも商品一覧とサポートへ戻れます。",
+       userAction: "商品一覧、問い合わせ、配送、返品へ進みます。",
+       signals: [
+         { title: "空状態", body: "注文がない場合でも商品一覧と問い合わせへ進めます。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "空状態" },
+@@ -1563,7 +1563,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     favorites: {
+       pageLabel: "お気に入り",
+       intent: "保存候補、比較候補、商品詳細への戻り先をまとめるページです。",
+-      seoRole: "保存機能未接続時も、商品カードとカテゴリ導線で薄い空ページにしません。",
++      seoRole: "保存機能未接続時も商品一覧やカテゴリへ戻れます。",
+       userAction: "候補商品から商品詳細やカートへ進みます。",
+       signals: [
+         { title: "商品比較", body: "お気に入り候補の商品カードで価格、画像、CTAを揃えます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "比較" },
+@@ -1573,7 +1573,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     login: {
+       pageLabel: "ログイン",
+       intent: "注文履歴、定期購入、お気に入りへ進む入口です。",
+-      seoRole: "認証未接続時は入力保存を避け、利用可能状態を明示します。",
++      seoRole: "認証未接続時は入力保存を行わず、利用可能状態を明示します。",
+       userAction: "会員登録、マイページ、問い合わせへ移動します。",
+       signals: [
+         { title: "認証状態", body: "本番認証接続前はログイン成功扱いにしません。", href: `${tenantRoot}/register`, label: "会員登録", badge: "認証" },
+@@ -1583,7 +1583,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     register: {
+       pageLabel: "会員登録",
+       intent: "購入者登録の入口と個人情報確認をまとめるページです。",
+-      seoRole: "認証未接続時に登録完了風UIを出さず、プライバシーへリンクします。",
++      seoRole: "認証未接続時は登録完了風に見せず、プライバシーへ案内します。",
+       userAction: "プライバシー、ログイン、商品一覧へ移動します。",
+       signals: [
+         { title: "個人情報", body: "登録前に個人情報の扱いを確認できます。", href: `${tenantRoot}/privacy`, label: "プライバシー", badge: "保護" },
+@@ -1593,10 +1593,10 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
+     "mypage/subscriptions": {
+       pageLabel: "定期購入",
+       intent: "契約、次回配送、一時停止、再開、スキップ、解約の状態を確認するページです。",
+-      seoRole: "定期購入レーンが未合格の間は準備中を明示し、成功したふりをしません。",
++      seoRole: "定期購入が未接続の間は準備中を明示し、成功したふりをしません。",
+       userAction: "チェックアウト、問い合わせ、商品一覧へ戻ります。",
+       signals: [
+-        { title: "Schema pending", body: "D1 migration未適用時は契約表示や作成を行いません。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "未完了" },
++        { title: "準備中", body: "D1 migration未適用時は契約表示や作成を行いません。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "未完了" },
+         { title: "解約条件", body: "本番接続後に停止、再開、スキップ、解約導線を検証します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "契約" },
+       ],
+     },
+@@ -1704,16 +1704,16 @@ export function buildShopTrustMatrix(
+     },
+     categories: {
+       title: "カテゴリ購入前の信頼マトリクス",
+-      summary: "カテゴリごとの商品件数、画像、安定URL、購入条件を同じページ構造で確認できます。",
++      summary: "カテゴリごとの商品件数、画像、購入条件を同じ形式で確認できます。",
+       pageContext: "カテゴリから商品一覧へ進む前の階層確認です。",
+       signals: [
+         {
+           title: "カテゴリ階層の明確化",
+-          body: "カテゴリカードから安定した商品一覧URLへつなげ、任意検索ページと分けます。",
++          body: "カテゴリカードから商品一覧へつなげ、売り場ごとに比較できます。",
+           href: `${tenantRoot}/products`,
+           label: "商品一覧",
+           badge: "Category",
+-          proof: "カテゴリカードとcanonical対象URLを分離",
++          proof: "カテゴリカードから商品一覧へ直接移動",
+         },
+       ],
+     },
+@@ -1724,11 +1724,11 @@ export function buildShopTrustMatrix(
+       signals: [
+         {
+           title: "単一商品ページの根拠",
+-          body: "商品名H1、画像、価格、在庫、SKU、配送返品をProduct/Offer文脈に揃えます。",
++          body: "商品名、画像、価格、在庫、SKU、配送返品を一つの購入判断画面に揃えます。",
+           href: `${tenantRoot}/cart`,
+           label: "カートで確認",
+           badge: "Product",
+-          proof: "二重タイトルなし・Product/Offer JSON-LDあり",
++          proof: "商品名の二重表示なし・購入条件を同じ画面に集約",
+         },
+       ],
+     },
+diff --git a/src/pages/shop/[tenant]/[...path].astro b/src/pages/shop/[tenant]/[...path].astro
+index 08db7cd..d974281 100644
+--- a/src/pages/shop/[tenant]/[...path].astro
++++ b/src/pages/shop/[tenant]/[...path].astro
+@@ -10,9 +10,7 @@ import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPag
+ import { StorefrontPageQualitySummary } from "@/components/shop/storefront/StorefrontPageQualitySummary";
+ import StorefrontProductCard from "@/components/shop/storefront/StorefrontProductCard.astro";
+ import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSearchForm";
+-import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
+ import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
+-import { StorefrontSeoSiteMapPanel } from "@/components/shop/storefront/StorefrontSeoSiteMapPanel";
+ import { StorefrontSkipLinks } from "@/components/shop/storefront/StorefrontSkipLinks";
+ import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
+ import { StorefrontTrustMatrix } from "@/components/shop/storefront/StorefrontTrustMatrix";
+@@ -54,8 +52,6 @@ import {
+   buildShopPageBuyingGuide,
+   buildShopPageHeaderActions,
+   buildShopPageQualitySummary,
+-  buildShopSeoChecklist,
+-  buildShopSeoSiteMapPanel,
+   buildShopPolicySupportCards,
+   buildShopPurchaseGuideCards,
+   buildShopTrustMatrix,
+@@ -200,8 +196,6 @@ const buyingGuideItems = buildShopPageBuyingGuide(page, tenantRoot);
+ const buyingGuideLinks = buyingGuideItems.map((item) => ({ label: item.label, href: item.href }));
+ const actionMap = buildShopPageActionMap(page, tenantRoot);
+ const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
+-const seoChecklist = buildShopSeoChecklist(page, tenantRoot);
+-const seoChecklistLinks = seoChecklist.items.map((item) => ({ label: item.label, href: item.href }));
+ const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
+ const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
+ const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
+@@ -211,14 +205,6 @@ const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
+   subscriptionSchemaPending,
+ });
+ const trustMatrixLinks = trustMatrix.signals.map((item) => ({ label: item.label, href: item.href }));
+-const seoSiteMapPanel = buildShopSeoSiteMapPanel(page, tenantRoot, {
+-  canonicalUrl,
+-  robots: robotsContent,
+-  productName: salesProduct?.displayName,
+-  categoryName: salesProduct?.categoryName ?? activeCategoryName,
+-  searchQuery,
+-});
+-const seoSiteMapLinks = seoSiteMapPanel.nodes.map((item) => ({ label: item.label, href: item.href }));
+ const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
+ const normalizedSearchNeedle = searchQuery.toLowerCase();
+ const visibleProductCards = page === "products" && normalizedSearchNeedle
+@@ -266,8 +252,6 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
+     ...pageQualityLinks,
+     ...actionMapLinks,
+     ...trustMatrixLinks,
+-    ...seoChecklistLinks,
+-    ...seoSiteMapLinks,
+     ...buyingGuideLinks,
+     ...contextualLinks,
+     ...footerColumns.flatMap((column) => column.links),
+@@ -703,8 +687,6 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+           ) : null}
+           <StorefrontPageQualitySummary summary={pageQualitySummary} />
+           <StorefrontPageActionMap actionMap={actionMap} />
+-          <StorefrontSeoChecklist checklist={seoChecklist} />
+-          <StorefrontSeoSiteMapPanel siteMap={seoSiteMapPanel} />
+ 
+           {page === "products" ? (
+             <section class="grid gap-5" data-testid="storefront-products">
+@@ -714,10 +696,10 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+                     <h2 class="text-xl font-bold text-neutral-950">{searchQuery ? `「${searchQuery}」の検索結果` : activeCategory ? `${activeCategoryName}の商品一覧` : "すべての商品"}</h2>
+                     <p class="mt-2 text-sm leading-6 text-neutral-600">
+                       {searchQuery
+-                        ? "検索結果は任意キーワードページとしてnoindexにし、商品発見と内部回遊を優先します。価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"
++                        ? "キーワードに合う商品を探しやすいよう、価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"
+                         : activeCategory
+-                          ? "安定カテゴリURLとしてindex可能にし、カテゴリに合う商品だけを表示します。内部リンク、canonical、sitemap、ItemListを同じURLへ揃えます。"
+-                        : "価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"}
++                          ? "選択したカテゴリに合う商品だけを表示します。価格、レビュー、配送目安を見比べながら選べます。"
++                          : "価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"}
+                     </p>
+                   </div>
+                   <div class="flex flex-wrap gap-2 text-xs">
+@@ -732,7 +714,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }>
+               {searchQuery && !visibleProductCards.length ? (
+                 <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-search-empty">
+                   <strong>一致する商品がありません。</strong>
+-                  <p class="mt-2">カテゴリや別のキーワードから探してください。検索結果ページは任意語句の重複を避けるため、検索エンジンにはnoindexで出します。</p>
++                  <p class="mt-2">カテゴリや別のキーワードから探してください。人気カテゴリと売れ筋商品からも探せます。</p>
+                   <div class="mt-4 flex flex-wrap gap-2">
+                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/products`}>すべての商品</a>
+                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/categories`}>カテゴリから探す</a>
+diff --git a/src/pages/shop/storefront/[tenant].astro b/src/pages/shop/storefront/[tenant].astro
+index 6fdbcb0..4e68d6e 100644
+--- a/src/pages/shop/storefront/[tenant].astro
++++ b/src/pages/shop/storefront/[tenant].astro
+@@ -23,7 +23,6 @@ import {
+   buildShopPageActionMap,
+   buildShopPageBuyingGuide,
+   buildShopPageQualitySummary,
+-  buildShopSeoSiteMapPanel,
+   buildShopTrustMatrix,
+ } from "@/lib/shopStorefrontShared";
+ import "@/styles/global.css";
+@@ -76,10 +75,6 @@ const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href:
+ const buyingGuideLinks = buildShopPageBuyingGuide("", tenantRoot).map((item) => ({ label: item.label, href: item.href }));
+ const pageQualityLinks = buildShopPageQualitySummary("", tenantRoot).signals.map((item) => ({ label: item.label, href: item.href }));
+ const trustMatrixLinks = buildShopTrustMatrix("", tenantRoot, { subscriptionSchemaPending: true }).signals.map((item) => ({ label: item.label, href: item.href }));
+-const seoSiteMapLinks = buildShopSeoSiteMapPanel("", tenantRoot, {
+-  canonicalUrl,
+-  robots: buildShopRobotsContent(""),
+-}).nodes.map((item) => ({ label: item.label, href: item.href }));
+ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
+   buildShopBreadcrumbJsonLd(breadcrumbItems),
+   buildShopWebsiteJsonLd({ storeName, absoluteTenantRoot: canonicalUrl }),
+@@ -117,7 +112,6 @@ const structuredData = JSON.stringify(buildShopStructuredDataGraph([
+       ...pageQualityLinks,
+       ...actionMapLinks,
+       ...trustMatrixLinks,
+-      ...seoSiteMapLinks,
+       ...buyingGuideLinks,
+       ...contextualLinks,
+       ...footerColumns.flatMap((column) => column.links),
+diff --git a/tests/shop-product-detail-public.spec.ts b/tests/shop-product-detail-public.spec.ts
+index 806e735..c077b0c 100644
+--- a/tests/shop-product-detail-public.spec.ts
++++ b/tests/shop-product-detail-public.spec.ts
+@@ -40,6 +40,16 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       await page.goto(`${productPath}?detailGate=${Date.now()}`, { waitUntil: "networkidle" });
+ 
+       await expect(page.getByTestId("public-product-detail")).toBeVisible();
++      await expect(page.locator("body")).not.toContainText("SEO / UI checklist");
++      await expect(page.locator("body")).not.toContainText("SEO site map");
++      await expect(page.locator("body")).not.toContainText("Crawl map");
++      await expect(page.locator("body")).not.toContainText("SEO構造");
++      await expect(page.locator("body")).not.toContainText("canonical");
++      await expect(page.locator("body")).not.toContainText("robots");
++      await expect(page.locator("body")).not.toContainText("sitemap");
++      await expect(page.locator("body")).not.toContainText("Product/Offer");
++      await expect(page.locator("body")).not.toContainText("可視H1");
++      await expect(page.locator("body")).not.toContainText("SEO内部リンク");
+       await expect(page.getByTestId("public-product-gallery")).toBeVisible();
+       await expect(page.getByTestId("public-product-info")).toBeVisible();
+       await expect(page.getByTestId("public-product-purchase-box")).toBeVisible();
+@@ -78,8 +88,8 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       const qualitySummary = page.getByTestId("storefront-page-quality-summary");
+       await expect(qualitySummary, "product detail should include shared page quality summary").toBeVisible();
+       await expect(qualitySummary, "product detail quality summary should identify page role").toContainText("商品詳細で確認できること");
+-      await expect(qualitySummary, "product detail quality summary should reinforce single-H1 cleanup").toContainText("単一H1");
+-      await expect(qualitySummary, "product detail quality summary should mention product structured data").toContainText("Product/Offer");
++      await expect(qualitySummary, "product detail quality summary should explain customer-facing confirmation points").toContainText("確認できること");
++      await expect(qualitySummary, "product detail quality summary should not expose implementation terms").not.toContainText("Product/Offer");
+       expect(await qualitySummary.locator("a").count(), "product detail quality summary should expose crawlable links").toBeGreaterThanOrEqual(4);
+       expect(await qualitySummary.locator("a").first().getAttribute("class"), "product detail quality summary links should be visibly blue").toContain("text-blue-700");
+       const actionMap = page.getByTestId("storefront-page-action-map");
+@@ -94,48 +104,26 @@ test.describe("AIBOUX Shop product detail public quality", () => {
+       expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail action map should expose ListItem microdata").toBeGreaterThanOrEqual(3);
+       expect(await actionMap.locator("a").count(), "product detail action map should expose crawlable internal links").toBeGreaterThanOrEqual(3);
+       expect(await actionMap.locator("a").first().getAttribute("class"), "product detail action map links should be visibly blue").toContain("text-blue-700");
+-      const seoChecklist = page.getByTestId("storefront-seo-checklist");
+-      await expect(seoChecklist, "product detail should include shared SEO/UI checklist").toBeVisible();
+-      await expect(seoChecklist, "product detail SEO checklist should expose ItemList microdata").toHaveAttribute(
+-        "itemtype",
+-        "https://schema.org/ItemList",
+-      );
+-      await expect(seoChecklist, "product detail SEO checklist should reinforce single H1").toContainText("商品名H1は1つ");
+-      await expect(seoChecklist, "product detail SEO checklist should reinforce Product/Offer context").toContainText("Product/Offer");
+-      expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO checklist should expose visible ListItems").toBeGreaterThanOrEqual(3);
+-      expect(await seoChecklist.locator("a").count(), "product detail SEO checklist should expose crawlable links").toBeGreaterThanOrEqual(3);
+-      expect(await seoChecklist.locator("a").first().getAttribute("class"), "product detail SEO checklist links should be visibly blue").toContain("text-blue-700");
+-      const seoSiteMapPanel = page.getByTestId("storefront-seo-sitemap-panel");
+-      await expect(seoSiteMapPanel, "product detail should include shared SEO sitemap panel").toBeVisible();
+-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose ItemList microdata").toHaveAttribute(
+-        "itemtype",
+-        "https://schema.org/ItemList",
+-      );
+-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose canonical").toContainText("canonical");
+-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose robots").toContainText("robots");
+-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should expose sitemap status").toContainText("sitemap");
+-      await expect(seoSiteMapPanel, "product detail SEO sitemap panel should identify product role").toContainText("商品詳細");
+-      expect(await seoSiteMapPanel.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail SEO sitemap panel should expose visible ListItems").toBeGreaterThanOrEqual(4);
+-      expect(await seoSiteMapPanel.locator("a").count(), "product detail SEO sitemap panel should expose crawlable links").toBeGreaterThanOrEqual(4);
+-      expect(await seoSiteMapPanel.locator("a").first().getAttribute("class"), "product detail SEO sitemap panel links should be visibly blue").toContain("text-blue-700");
++      await expect(page.getByTestId("storefront-seo-checklist"), "product detail should not show SEO checklist to shoppers").toHaveCount(0);
++      await expect(page.getByTestId("storefront-seo-sitemap-panel"), "product detail should not show technical SEO sitemap panel to shoppers").toHaveCount(0);
+       const buyingGuide = page.getByTestId("storefront-buying-guide");
+       await expect(buyingGuide, "product detail should include page-specific buying guide").toBeVisible();
+       await expect(buyingGuide, "product detail buying guide should mention product purchase decisions").toContainText("購入前チェック");
+-      await expect(buyingGuide, "product detail buying guide should reinforce single-H1 SEO cleanup").toContainText("可視H1を1つ");
++      await expect(buyingGuide, "product detail buying guide should use customer-facing copy").not.toContainText("可視H1を1つ");
+       expect(await buyingGuide.locator("a").count(), "product detail buying guide should expose crawlable links").toBeGreaterThanOrEqual(4);
+       expect(await buyingGuide.locator("a").first().getAttribute("class"), "product detail buying guide links should be visibly blue").toContain("text-blue-700");
+       const footer = page.getByTestId("storefront-footer");
+       await expect(footer, "product detail should include shared storefront footer").toBeVisible();
+-      const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
+-      await expect(footerSeoSitemap, "product detail should include footer SEO sitemap").toBeVisible();
+-      await expect(footerSeoSitemap, "product detail footer sitemap should expose ItemList microdata").toHaveAttribute(
++      const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
++      await expect(footerLinkDirectory, "product detail should include footer link directory").toBeVisible();
++      await expect(footerLinkDirectory, "product detail footer link directory should expose ItemList microdata").toHaveAttribute(
+         "itemtype",
+         "https://schema.org/ItemList",
+       );
+-      await expect(footerSeoSitemap, "product detail footer sitemap should explain crawlable links").toContainText("SEO site map");
+-      expect(await footerSeoSitemap.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail footer sitemap should expose ListItem microdata").toBeGreaterThanOrEqual(20);
+-      expect(await footerSeoSitemap.locator("a").count(), "product detail footer sitemap should expose dense internal links").toBeGreaterThanOrEqual(20);
+-      expect(await footerSeoSitemap.locator("a").first().getAttribute("class"), "product detail footer sitemap links should be visibly sky colored").toContain("text-sky-200");
++      await expect(footerLinkDirectory, "product detail footer link directory should use customer-facing copy").toContainText("ストア主要リンク");
++      expect(await footerLinkDirectory.locator('[itemtype="https://schema.org/ListItem"]').count(), "product detail footer link directory should expose ListItem microdata").toBeGreaterThanOrEqual(20);
++      expect(await footerLinkDirectory.locator("a").count(), "product detail footer link directory should expose dense internal links").toBeGreaterThanOrEqual(20);
++      expect(await footerLinkDirectory.locator("a").first().getAttribute("class"), "product detail footer link directory links should be visibly sky colored").toContain("text-sky-200");
+       const relatedCards = page.getByTestId("storefront-product-card");
+       expect(await relatedCards.count(), "product detail related products should use the shared storefront product card").toBeGreaterThanOrEqual(4);
+       await expect(relatedCards.first(), "related product card should expose Product microdata").toHaveAttribute(
+diff --git a/tests/shop-public-crawl.spec.ts b/tests/shop-public-crawl.spec.ts
+index 2205952..60c58ee 100644
+--- a/tests/shop-public-crawl.spec.ts
++++ b/tests/shop-public-crawl.spec.ts
+@@ -98,6 +98,15 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         await expect(page.locator("body")).not.toContainText("Not Found");
+         await expect(page.locator('a[href="#"], a[href^="javascript:void"]')).toHaveCount(0);
+         await expect(page.locator("body")).not.toContainText("shop.aboux.com");
++        await expect(page.locator("body")).not.toContainText("SEO / UI checklist");
++        await expect(page.locator("body")).not.toContainText("SEO site map");
++        await expect(page.locator("body")).not.toContainText("Crawl map");
++        await expect(page.locator("body")).not.toContainText("SEO構造");
++        await expect(page.locator("body")).not.toContainText("canonical");
++        await expect(page.locator("body")).not.toContainText("robots");
++        await expect(page.locator("body")).not.toContainText("sitemap");
++        await expect(page.locator("body")).not.toContainText("共通SEO部品");
++        await expect(page.locator("body")).not.toContainText("SEO内部リンク");
+         const skipLinks = page.getByTestId("storefront-skip-links");
+         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
+         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);
+@@ -120,18 +129,18 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         expect(await footer.locator('[itemtype="https://schema.org/SiteNavigationElement"]').count(), `${target.path} footer should expose shared SiteNavigationElement microdata`).toBeGreaterThanOrEqual(4);
+         expect(await footer.locator("a").count(), `${target.path} footer should expose dense internal link coverage`).toBeGreaterThanOrEqual(34);
+         await expect(footer, `${target.path} footer should include payment/subscription honesty assurance`).toContainText("決済未接続時は注文確定しません");
+-        const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
+-        await expect(footerSeoSitemap, `${target.path} should include shared footer SEO sitemap`).toBeVisible();
+-        await expect(footerSeoSitemap, `${target.path} footer SEO sitemap should expose ItemList microdata`).toHaveAttribute(
++        const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
++        await expect(footerLinkDirectory, `${target.path} should include shared footer link directory`).toBeVisible();
++        await expect(footerLinkDirectory, `${target.path} footer link directory should expose ItemList microdata`).toHaveAttribute(
+           "itemtype",
+           "https://schema.org/ItemList",
+         );
+-        await expect(footerSeoSitemap, `${target.path} footer SEO sitemap should explain crawlable links`).toContainText("SEO site map");
+-        await expect(footerSeoSitemap.locator('meta[itemprop="numberOfItems"]'), `${target.path} footer SEO sitemap should declare numberOfItems`).toHaveCount(1);
+-        expect(await footerSeoSitemap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} footer SEO sitemap should expose ListItem microdata`).toBeGreaterThanOrEqual(20);
+-        expect(await footerSeoSitemap.locator("a").count(), `${target.path} footer SEO sitemap should expose dense crawlable links`).toBeGreaterThanOrEqual(20);
+-        expect(await footerSeoSitemap.locator("a").first().getAttribute("class"), `${target.path} footer sitemap links should be visibly blue or sky colored`).toContain("text-sky-200");
+-        await expect(footerSeoSitemap, `${target.path} footer sitemap should include account, purchase, and policy routes`).toContainText(/商品一覧|注文履歴|特定商取引法|定期購入/);
++        await expect(footerLinkDirectory, `${target.path} footer link directory should use customer-facing copy`).toContainText("ストア主要リンク");
++        await expect(footerLinkDirectory.locator('meta[itemprop="numberOfItems"]'), `${target.path} footer link directory should declare numberOfItems`).toHaveCount(1);
++        expect(await footerLinkDirectory.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} footer link directory should expose ListItem microdata`).toBeGreaterThanOrEqual(20);
++        expect(await footerLinkDirectory.locator("a").count(), `${target.path} footer link directory should expose dense internal links`).toBeGreaterThanOrEqual(20);
++        expect(await footerLinkDirectory.locator("a").first().getAttribute("class"), `${target.path} footer link directory links should be visibly blue or sky colored`).toContain("text-sky-200");
++        await expect(footerLinkDirectory, `${target.path} footer link directory should include account, purchase, and policy routes`).toContainText(/商品一覧|注文履歴|特定商取引法|定期購入/);
+         const supportRail = page.getByTestId("storefront-support-rail");
+         await expect(supportRail, `${target.path} should include shared storefront support rail`).toBeVisible();
+         await expect(supportRail, `${target.path} support rail should expose purchase guidance`).toContainText("迷わず買えるための確認導線");
+@@ -162,8 +171,8 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+         expect(await trustMatrix.locator("a").first().getAttribute("class"), `${target.path} trust matrix links should be visibly blue and underlined`).toContain("text-blue-700");
+         const qualitySummary = page.getByTestId("storefront-page-quality-summary");
+         await expect(qualitySummary, `${target.path} should include shared page quality summary`).toBeVisible();
+-        await expect(qualitySummary, `${target.path} quality summary should explain page intent`).toContainText("検索意図");
+-        await expect(qualitySummary, `${target.path} quality summary should explain SEO structure`).toContainText("SEO構造");
++        await expect(qualitySummary, `${target.path} quality summary should explain page purpose`).toContainText("探せること");
++        await expect(qualitySummary, `${target.path} quality summary should explain customer-facing confirmation points`).toContainText("確認できること");
+         await expect(qualitySummary, `${target.path} quality summary should explain next action`).toContainText("次の操作");
+         await expect(qualitySummary, `${target.path} quality summary should expose SiteNavigationElement microdata`).toHaveAttribute(
+           "itemtype",
+@@ -177,38 +186,14 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+           "itemtype",
+           "https://schema.org/ItemList",
+         );
+-        await expect(actionMap, `${target.path} action map should name next actions`).toContainText("Next actions");
+-        await expect(actionMap, `${target.path} action map should expose page-specific SEO action links`).toContainText(/商品|購入|配送|問い合わせ|注文|定期購入/);
++        await expect(actionMap, `${target.path} action map should name next actions`).toContainText("次にできること");
++        await expect(actionMap, `${target.path} action map should expose page-specific action links`).toContainText(/商品|購入|配送|問い合わせ|注文|定期購入/);
+         await expect(actionMap.locator('meta[itemprop="numberOfItems"]'), `${target.path} action map should declare numberOfItems`).toHaveCount(1);
+         expect(await actionMap.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} action map should expose visible ListItem microdata`).toBeGreaterThanOrEqual(3);
+         expect(await actionMap.locator("a").count(), `${target.path} action map should expose crawlable internal links`).toBeGreaterThanOrEqual(3);
+         expect(await actionMap.locator("a").first().getAttribute("class"), `${target.path} action map links should be visibly blue`).toContain("text-blue-700");
+-        const seoChecklist = page.getByTestId("storefront-seo-checklist");
+-        await expect(seoChecklist, `${target.path} should include shared SEO/UI checklist`).toBeVisible();
+-        await expect(seoChecklist, `${target.path} SEO checklist should expose ItemList microdata`).toHaveAttribute(
+-          "itemtype",
+-          "https://schema.org/ItemList",
+-        );
+-        await expect(seoChecklist, `${target.path} SEO checklist should name the common SEO checks`).toContainText("SEO / UI checklist");
+-        await expect(seoChecklist, `${target.path} SEO checklist should expose page-specific checks`).toContainText(/SEO\/UIチェック|H1|パンくず|内部リンク/);
+-        await expect(seoChecklist.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO checklist should declare numberOfItems`).toHaveCount(1);
+-        expect(await seoChecklist.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO checklist should expose ListItem microdata`).toBeGreaterThanOrEqual(3);
+-        expect(await seoChecklist.locator("a").count(), `${target.path} SEO checklist should expose crawlable links`).toBeGreaterThanOrEqual(3);
+-        expect(await seoChecklist.locator("a").first().getAttribute("class"), `${target.path} SEO checklist links should be visibly blue and underlined`).toContain("text-blue-700");
+-        const seoSiteMapPanel = page.getByTestId("storefront-seo-sitemap-panel");
+-        await expect(seoSiteMapPanel, `${target.path} should include shared SEO sitemap panel`).toBeVisible();
+-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose ItemList microdata`).toHaveAttribute(
+-          "itemtype",
+-          "https://schema.org/ItemList",
+-        );
+-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose page role`).toContainText("ページ役割");
+-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose canonical`).toContainText("canonical");
+-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose robots`).toContainText("robots");
+-        await expect(seoSiteMapPanel, `${target.path} SEO sitemap panel should expose sitemap status`).toContainText("sitemap");
+-        await expect(seoSiteMapPanel.locator('meta[itemprop="numberOfItems"]'), `${target.path} SEO sitemap panel should declare numberOfItems`).toHaveCount(1);
+-        expect(await seoSiteMapPanel.locator('[itemtype="https://schema.org/ListItem"]').count(), `${target.path} SEO sitemap panel should expose ListItem microdata`).toBeGreaterThanOrEqual(4);
+-        expect(await seoSiteMapPanel.locator("a").count(), `${target.path} SEO sitemap panel should expose crawlable links`).toBeGreaterThanOrEqual(4);
+-        expect(await seoSiteMapPanel.locator("a").first().getAttribute("class"), `${target.path} SEO sitemap panel links should be visibly blue and underlined`).toContain("text-blue-700");
++        await expect(page.getByTestId("storefront-seo-checklist"), `${target.path} should not show SEO checklist to shoppers`).toHaveCount(0);
++        await expect(page.getByTestId("storefront-seo-sitemap-panel"), `${target.path} should not show technical SEO sitemap panel to shoppers`).toHaveCount(0);
+         const buyingGuide = page.getByTestId("storefront-buying-guide");
+         await expect(buyingGuide, `${target.path} should include the shared page-specific buying guide`).toBeVisible();
+         await expect(buyingGuide, `${target.path} buying guide should expose purchase decision copy`).toContainText("購入前チェック");
+@@ -550,9 +535,9 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
+     const footerShoppingColumn = footer.getByLabel("お買い物");
+     await expect(footerShoppingColumn.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+     await expect(footerShoppingColumn.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+-    const footerSeoSitemap = page.getByTestId("storefront-footer-seo-sitemap");
+-    await expect(footerSeoSitemap.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
+-    await expect(footerSeoSitemap.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
++    const footerLinkDirectory = page.getByTestId("storefront-footer-link-directory");
++    await expect(footerLinkDirectory.getByRole("link", { name: "タイムセール" })).toHaveAttribute("href", "/s/aiboux/products?category=sale");
++    await expect(footerLinkDirectory.getByRole("link", { name: "売れ筋ランキング" })).toHaveAttribute("href", "/s/aiboux/products?category=ranking");
+ 
+     await page.goto("/s/aiboux/product/setsuka-coffee", { waitUntil: "networkidle" });
+     const breadcrumb = page.getByTestId("storefront-breadcrumb");

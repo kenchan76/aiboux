@@ -27,7 +27,7 @@ export function StorefrontSeoHub({ tenantRoot, storeName = "AIBOUX Store" }: Sto
             {storeName}で迷わず探す
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-            商品、カテゴリ、配送、返品、注文履歴を説明的なリンクで整理します。検索エンジンにもユーザーにも分かる、共通の内部リンク導線です。
+            商品、カテゴリ、配送、返品、注文履歴を分かりやすくまとめました。必要な確認先へすぐ移動できます。
           </p>
         </div>
         <a
@@ -41,7 +41,7 @@ export function StorefrontSeoHub({ tenantRoot, storeName = "AIBOUX Store" }: Sto
       <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
         <nav
           className="grid gap-4 md:grid-cols-3"
-          aria-label={`${storeName} SEO内部リンク`}
+          aria-label={`${storeName} 店内ナビゲーション`}
           itemScope
           itemType="https://schema.org/SiteNavigationElement"
         >

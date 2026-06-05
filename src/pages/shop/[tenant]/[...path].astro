@@ -10,9 +10,7 @@ import { StorefrontPageHeader } from "@/components/shop/storefront/StorefrontPag
 import { StorefrontPageQualitySummary } from "@/components/shop/storefront/StorefrontPageQualitySummary";
 import StorefrontProductCard from "@/components/shop/storefront/StorefrontProductCard.astro";
 import { StorefrontSearchForm } from "@/components/shop/storefront/StorefrontSearchForm";
-import { StorefrontSeoChecklist } from "@/components/shop/storefront/StorefrontSeoChecklist";
 import { StorefrontSeoHub } from "@/components/shop/storefront/StorefrontSeoHub";
-import { StorefrontSeoSiteMapPanel } from "@/components/shop/storefront/StorefrontSeoSiteMapPanel";
 import { StorefrontSkipLinks } from "@/components/shop/storefront/StorefrontSkipLinks";
 import { StorefrontSupportRail } from "@/components/shop/storefront/StorefrontSupportRail";
 import { StorefrontTrustMatrix } from "@/components/shop/storefront/StorefrontTrustMatrix";
@@ -54,8 +52,6 @@ import {
   buildShopPageBuyingGuide,
   buildShopPageHeaderActions,
   buildShopPageQualitySummary,
-  buildShopSeoChecklist,
-  buildShopSeoSiteMapPanel,
   buildShopPolicySupportCards,
   buildShopPurchaseGuideCards,
   buildShopTrustMatrix,
@@ -200,8 +196,6 @@ const buyingGuideItems = buildShopPageBuyingGuide(page, tenantRoot);
 const buyingGuideLinks = buyingGuideItems.map((item) => ({ label: item.label, href: item.href }));
 const actionMap = buildShopPageActionMap(page, tenantRoot);
 const actionMapLinks = actionMap.steps.map((step) => ({ label: step.label, href: step.href }));
-const seoChecklist = buildShopSeoChecklist(page, tenantRoot);
-const seoChecklistLinks = seoChecklist.items.map((item) => ({ label: item.label, href: item.href }));
 const pageQualitySummary = buildShopPageQualitySummary(page, tenantRoot);
 const pageQualityLinks = pageQualitySummary.signals.map((item) => ({ label: item.label, href: item.href }));
 const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
@@ -211,14 +205,6 @@ const trustMatrix = buildShopTrustMatrix(page, tenantRoot, {
   subscriptionSchemaPending,
 });
 const trustMatrixLinks = trustMatrix.signals.map((item) => ({ label: item.label, href: item.href }));
-const seoSiteMapPanel = buildShopSeoSiteMapPanel(page, tenantRoot, {
-  canonicalUrl,
-  robots: robotsContent,
-  productName: salesProduct?.displayName,
-  categoryName: salesProduct?.categoryName ?? activeCategoryName,
-  searchQuery,
-});
-const seoSiteMapLinks = seoSiteMapPanel.nodes.map((item) => ({ label: item.label, href: item.href }));
 const publicProductCards = buildRelatedSalesProducts(products, null).slice(0, 20);
 const normalizedSearchNeedle = searchQuery.toLowerCase();
 const visibleProductCards = page === "products" && normalizedSearchNeedle
@@ -266,8 +252,6 @@ const navigationJsonLd = buildShopSiteNavigationJsonLd({
     ...pageQualityLinks,
     ...actionMapLinks,
     ...trustMatrixLinks,
-    ...seoChecklistLinks,
-    ...seoSiteMapLinks,
     ...buyingGuideLinks,
     ...contextualLinks,
     ...footerColumns.flatMap((column) => column.links),
@@ -703,8 +687,6 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
           ) : null}
           <StorefrontPageQualitySummary summary={pageQualitySummary} />
           <StorefrontPageActionMap actionMap={actionMap} />
-          <StorefrontSeoChecklist checklist={seoChecklist} />
-          <StorefrontSeoSiteMapPanel siteMap={seoSiteMapPanel} />
 
           {page === "products" ? (
             <section class="grid gap-5" data-testid="storefront-products">
@@ -714,10 +696,10 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
                     <h2 class="text-xl font-bold text-neutral-950">{searchQuery ? `「${searchQuery}」の検索結果` : activeCategory ? `${activeCategoryName}の商品一覧` : "すべての商品"}</h2>
                     <p class="mt-2 text-sm leading-6 text-neutral-600">
                       {searchQuery
-                        ? "検索結果は任意キーワードページとしてnoindexにし、商品発見と内部回遊を優先します。価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"
+                        ? "キーワードに合う商品を探しやすいよう、価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"
                         : activeCategory
-                          ? "安定カテゴリURLとしてindex可能にし、カテゴリに合う商品だけを表示します。内部リンク、canonical、sitemap、ItemListを同じURLへ揃えます。"
-                        : "価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"}
+                          ? "選択したカテゴリに合う商品だけを表示します。価格、レビュー、配送目安を見比べながら選べます。"
+                          : "価格、レビュー、カテゴリ、カート導線を同じカード密度で確認できます。"}
                     </p>
                   </div>
                   <div class="flex flex-wrap gap-2 text-xs">
@@ -732,7 +714,7 @@ function splitPolicyText(value: string): Array<{ title: string; body: string }> 
               {searchQuery && !visibleProductCards.length ? (
                 <div class="rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-sm leading-7 text-neutral-700" data-testid="storefront-search-empty">
                   <strong>一致する商品がありません。</strong>
-                  <p class="mt-2">カテゴリや別のキーワードから探してください。検索結果ページは任意語句の重複を避けるため、検索エンジンにはnoindexで出します。</p>
+                  <p class="mt-2">カテゴリや別のキーワードから探してください。人気カテゴリと売れ筋商品からも探せます。</p>
                   <div class="mt-4 flex flex-wrap gap-2">
                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/products`}>すべての商品</a>
                     <a class="rounded-full bg-white px-3 py-2 text-xs font-bold text-blue-700 hover:underline" href={`${tenantRoot}/categories`}>カテゴリから探す</a>

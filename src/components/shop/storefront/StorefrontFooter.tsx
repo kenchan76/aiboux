@@ -9,7 +9,7 @@ type StorefrontFooterProps = {
 export function StorefrontFooter({ storeName, tenantRoot, className = "" }: StorefrontFooterProps) {
   const assurances = buildShopFooterAssurances();
   const columns = buildShopFooterColumns(tenantRoot);
-  const seoSitemapLinks = buildShopFooterSeoSitemapLinks(tenantRoot);
+  const linkDirectory = buildShopFooterSeoSitemapLinks(tenantRoot);
 
   return (
     <footer id="storefront-footer" className={`mt-8 bg-[#17212f] text-white ${className}`} data-testid="storefront-footer">
@@ -43,8 +43,8 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
       </div>
       <section
         className="border-t border-white/10 bg-[#101826] px-4 py-7"
-        aria-label="フッターSEOサイトマップ"
-        data-testid="storefront-footer-seo-sitemap"
+        aria-label="フッター主要リンク"
+        data-testid="storefront-footer-link-directory"
         itemScope
         itemType="https://schema.org/ItemList"
       >
@@ -53,14 +53,14 @@ export function StorefrontFooter({ storeName, tenantRoot, className = "" }: Stor
             <div>
               <h2 className="text-base font-bold text-white">ストア内リンクをまとめて確認</h2>
               <p className="mt-1 text-xs leading-5 text-white/72">
-                商品、カテゴリ、注文、配送、返品、定期購入、問い合わせまで、検索エンジンにもユーザーにも分かる内部リンクで接続します。
+                商品、カテゴリ、注文、配送、返品、定期購入、問い合わせまで、必要なページへすぐ移動できます。
               </p>
             </div>
-            <div className="text-xs font-semibold text-sky-200">SEO site map / crawlable links</div>
+            <div className="text-xs font-semibold text-sky-200">ストア主要リンク</div>
           </div>
-          <meta itemProp="numberOfItems" content={String(seoSitemapLinks.length)} />
+          <meta itemProp="numberOfItems" content={String(linkDirectory.length)} />
           <div className="mt-5 flex flex-wrap gap-2">
-            {seoSitemapLinks.map((link, index) => (
+            {linkDirectory.map((link, index) => (
               <a
                 key={`${link.label}-${link.href}`}
                 className="rounded-full border border-sky-300/35 bg-sky-400/10 px-3 py-2 text-xs font-semibold text-sky-200 underline-offset-4 hover:border-sky-200 hover:bg-sky-300/15 hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-amber-300"

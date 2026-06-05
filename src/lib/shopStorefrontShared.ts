@@ -624,7 +624,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
   const pageSpecific: Record<string, ShopStorefrontContextLinkSection> = {
     products: {
       title: "商品一覧から次に見る",
-      summary: "カテゴリ、セール、ランキングに分岐して、商品発見URLを薄い一覧で終わらせません。",
+      summary: "カテゴリ、セール、ランキングに分岐して、目的の商品を探しやすくします。",
       links: [
         { label: "カテゴリ一覧", href: `${tenantRoot}/categories` },
         { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
@@ -634,7 +634,7 @@ export function buildShopContextualLinkSections(page: string, tenantRoot: string
     },
     categories: {
       title: "カテゴリから売り場へ",
-      summary: "カテゴリ一覧は各カテゴリURLへ直接リンクし、検索エンジンにも階層を伝えます。",
+      summary: "カテゴリ一覧から食品、日用品、ギフトなどの売り場へ直接進めます。",
       links: [
         { label: "食品・飲料", href: buildShopCategoryHref(tenantRoot, "food-drink") },
         { label: "コーヒー・お茶", href: buildShopCategoryHref(tenantRoot, "coffee-tea") },
@@ -710,7 +710,7 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     },
     {
       question: "迷ったときはどのページへ進めばよいですか。",
-      answer: "商品一覧、カテゴリ、FAQ、問い合わせへ戻れる内部リンクを全ページに配置しています。",
+      answer: "商品一覧、カテゴリ、FAQ、問い合わせへ戻れる案内リンクを全ページに配置しています。",
       href: `${tenantRoot}/faq`,
       label: "FAQを見る",
     },
@@ -733,8 +733,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     ],
     products: [
       {
-        question: "商品一覧はSEOに強いカテゴリURLで見られますか。",
-        answer: "カテゴリ選択時は安定した `category` URLで表示し、任意検索語ページとはcanonicalとrobotsを分けます。",
+        question: "カテゴリ別に商品を見比べられますか。",
+        answer: "カテゴリ選択時は同じ形式の商品カードで表示し、価格、レビュー、在庫、カート導線を見比べられます。",
         href: `${tenantRoot}/categories`,
         label: "カテゴリ一覧へ",
       },
@@ -747,14 +747,14 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
     ],
     categories: [
       {
-        question: "カテゴリは検索エンジンにも分かる構造ですか。",
-        answer: "カテゴリ名、画像、商品件数、カテゴリ別商品URLを同じカードで並べ、内部リンクを明確にしています。",
+        question: "カテゴリから商品を探しやすくなっていますか。",
+        answer: "カテゴリ名、画像、商品件数を同じカードで並べ、カテゴリ別の商品一覧へ進めます。",
         href: `${tenantRoot}/products`,
         label: "商品一覧へ",
       },
       {
         question: "売れ筋やセールカテゴリへ直接進めますか。",
-        answer: "ランキング、セール、食品、日用品、ギフトなどのカテゴリURLをクロール可能なリンクで提供します。",
+        answer: "ランキング、セール、食品、日用品、ギフトなどの売り場へ直接進めます。",
         href: buildShopCategoryHref(tenantRoot, "ranking"),
         label: "ランキングを見る",
       },
@@ -767,8 +767,8 @@ export function buildShopPageBuyingGuide(page: string, tenantRoot: string): Shop
         label: "カートを見る",
       },
       {
-        question: "商品名の重複やSEO上の薄い見出しはありませんか。",
-        answer: "商品詳細は可視H1を1つに絞り、パンくずと構造化データで階層を補強します。",
+        question: "商品名や説明は重複せず読みやすいですか。",
+        answer: "商品詳細は商品名、写真、価格、在庫、配送、返品条件を一つの購入判断画面にまとめます。",
         href: `${tenantRoot}/products`,
         label: "関連商品を探す",
       },
@@ -1029,13 +1029,13 @@ export function buildShopPageActionMap(page: string, tenantRoot: string): ShopSt
       summary: "一覧は商品発見の中心です。検索、カテゴリ、ランキングから商品詳細とカートへつなげます。",
       steps: [
         { title: "商品カードを比較", body: "画像、商品名、税込価格、レビュー、カテゴリを同じカード構造で確認します。", href: `${tenantRoot}/products`, label: "比較を続ける", badge: "比較" },
-        { title: "カテゴリURLへ移動", body: "検索語ページとカテゴリページを分け、カテゴリは安定URLで確認します。", href: `${tenantRoot}/categories`, label: "カテゴリ一覧へ", badge: "URL" },
+        { title: "カテゴリへ移動", body: "カテゴリごとの商品を見比べ、目的の売り場へ戻れます。", href: `${tenantRoot}/categories`, label: "カテゴリ一覧へ", badge: "分類" },
         { title: "カートへ進む", body: "購入候補を追加したら、数量や配送条件をカートで確認します。", href: `${tenantRoot}/cart`, label: "カートを見る", badge: "購入" },
       ],
     },
     categories: {
       title: "カテゴリ階層から売り場へ移動する",
-      summary: "カテゴリ一覧は検索エンジンと利用者へ売り場構造を伝える入口です。",
+      summary: "カテゴリ一覧から売り場を選び、商品一覧と購入条件へ進めます。",
       steps: [
         { title: "主要カテゴリを選ぶ", body: "食品、日用品、キッチン、ギフトなどの売り場へ移動します。", href: buildShopCategoryHref(tenantRoot, "food-drink"), label: "食品・飲料へ", badge: "階層" },
         { title: "売れ筋を見る", body: "ランキングカテゴリから人気商品を確認します。", href: buildShopCategoryHref(tenantRoot, "ranking"), label: "ランキングへ", badge: "人気" },
@@ -1413,27 +1413,27 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     "": {
       pageLabel: "TOPページ",
       intent: "おすすめ、ランキング、タイムセール、カテゴリから商品発見を始める入口です。",
-      seoRole: "ストア全体の主要カテゴリと購入サポートへリンクするハブページとして扱います。",
+      seoRole: "主要カテゴリ、商品一覧、購入サポートへ進める入口です。",
       userAction: "ヒーロー、商品カード、カテゴリ、フッターから商品詳細や購入条件へ移動します。",
       signals: [
         { title: "商品発見", body: "おすすめ商品、ランキング、タイムセールを商品詳細へ直結します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "発見" },
-        { title: "カテゴリ導線", body: "カテゴリURLを安定化し、食品・日用品・ギフトなどへ分岐します。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "SEO" },
+        { title: "カテゴリ導線", body: "食品・日用品・ギフトなどの売り場へ分かりやすく分岐します。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "売り場" },
       ],
     },
     products: {
       pageLabel: "商品一覧",
       intent: "価格、画像、レビュー、カテゴリ、カート導線を同じカード密度で比較するページです。",
-      seoRole: "安定カテゴリURLはindex可能、任意検索URLはnoindexとして重複を抑えます。",
+      seoRole: "カテゴリ、検索、商品カードから目的の商品を見つけやすくします。",
       userAction: "商品カード、カテゴリリンク、検索フォームから商品詳細へ進みます。",
       signals: [
-        { title: "商品カード共通化", body: "Product/Offer microdata、画像alt、価格、CTA位置を共通化します。", href: `${tenantRoot}/products`, label: "比較する", badge: "商品" },
-        { title: "カテゴリURL", body: "カテゴリごとのcanonical、robots、ItemListを分けて扱います。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "URL" },
+        { title: "商品カード", body: "画像、商品名、価格、レビュー、カートボタンを同じ位置で比較できます。", href: `${tenantRoot}/products`, label: "比較する", badge: "商品" },
+        { title: "カテゴリ", body: "カテゴリ別に絞り込み、商品を探し直せます。", href: `${tenantRoot}/categories`, label: "カテゴリ", badge: "分類" },
       ],
     },
     categories: {
       pageLabel: "カテゴリ一覧",
       intent: "カテゴリ画像と商品件数から売り場を選ぶページです。",
-      seoRole: "メニュー、カテゴリカード、商品一覧をリンクでつなぎ、Googleが階層を理解できる構造にします。",
+      seoRole: "カテゴリカードから商品一覧へ進み、売り場ごとに比較できます。",
       userAction: "カテゴリカードから安定カテゴリURLへ移動します。",
       signals: [
         { title: "階層導線", body: "カテゴリから商品一覧へ、商品一覧から商品詳細へ進むリンク階層を固定します。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "階層" },
@@ -1443,17 +1443,17 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     product: {
       pageLabel: "商品詳細",
       intent: "1商品に集中し、画像、価格、在庫、配送、返品、購入ボックスで購入判断するページです。",
-      seoRole: "Product/Offer、BreadcrumbList、MerchantReturnPolicyを同じ商品文脈で接続します。",
+      seoRole: "商品写真、価格、在庫、配送、返品条件を同じ画面で確認できます。",
       userAction: "画像、説明、仕様、購入ボックス、関連商品を確認してカートへ進みます。",
       signals: [
-        { title: "単一H1", body: "商品名は可視H1を1つに維持し、画像上の二重タイトルは出しません。", href: `${tenantRoot}/products`, label: "関連商品", badge: "H1" },
+        { title: "商品名と写真", body: "商品名、写真、価格、説明を一つの購入判断画面にまとめます。", href: `${tenantRoot}/products`, label: "関連商品", badge: "商品" },
         { title: "購入条件", body: "税込価格、在庫、配送予定、返品条件、定期購入状態を購入前に表示します。", href: `${tenantRoot}/cart`, label: "カート", badge: "購入" },
       ],
     },
     cart: {
       pageLabel: "カート",
       intent: "通常購入と定期購入を区別し、数量、小計、配送、返品を確認するページです。",
-      seoRole: "購入直前ページはnoindex対象でも、内部導線と取引条件を明確にします。",
+      seoRole: "購入直前の商品、数量、小計、配送、返品条件を確認できます。",
       userAction: "数量変更、削除、商品追加、チェックアウト、配送返品確認へ進みます。",
       signals: [
         { title: "注文前確認", body: "小計、送料見込み、定期購入頻度を分けて表示します。", href: `${tenantRoot}/checkout`, label: "チェックアウト", badge: "確認" },
@@ -1463,7 +1463,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     checkout: {
       pageLabel: "チェックアウト",
       intent: "顧客情報、配送先、支払い状態、定期購入規約を確認するページです。",
-      seoRole: "決済未接続時に注文完了風UIを出さず、販売条件へリンクします。",
+      seoRole: "決済未接続時は注文完了風に見せず、必要な確認先へ案内します。",
       userAction: "決済設定状態を確認し、必要ならカートや問い合わせへ戻ります。",
       signals: [
         { title: "決済状態", body: "未接続時は注文確定を停止し、成功したふりをしません。", href: `${tenantRoot}/legal`, label: "販売条件", badge: "正直" },
@@ -1473,7 +1473,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     contact: {
       pageLabel: "問い合わせ",
       intent: "注文番号、商品名、確認内容を整理してストアへ連絡するページです。",
-      seoRole: "問い合わせ前にFAQ、配送、返品へ戻れるサポート導線を示します。",
+      seoRole: "問い合わせ前にFAQ、配送、返品を確認できます。",
       userAction: "FAQ確認後、必要事項を入力して送信状態を確認します。",
       signals: [
         { title: "FAQ先行", body: "配送・返品・決済未接続状態をFAQで確認してから問い合わせます。", href: `${tenantRoot}/faq`, label: "FAQ", badge: "確認" },
@@ -1483,7 +1483,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     legal: {
       pageLabel: "特定商取引法",
       intent: "販売者、支払い、配送、返品、問い合わせ先を注文前に確認するページです。",
-      seoRole: "取引条件を共通テンプレート化し、空欄や未設定を隠さない方針を示します。",
+      seoRole: "販売者情報と取引条件をまとめて確認できます。",
       userAction: "販売条件を確認し、配送・返品・問い合わせへ移動します。",
       signals: [
         { title: "販売者情報", body: "販売者名、連絡先、取引条件を同じレイアウトで表示します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "取引" },
@@ -1493,7 +1493,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     privacy: {
       pageLabel: "プライバシーポリシー",
       intent: "注文、問い合わせ、アカウント、定期購入で扱う情報を確認するページです。",
-      seoRole: "個人情報の扱いを購入導線と問い合わせ導線から到達可能にします。",
+      seoRole: "注文や問い合わせで扱う情報と相談先を確認できます。",
       userAction: "個人情報の扱いを確認し、必要なら問い合わせやマイページへ進みます。",
       signals: [
         { title: "個人情報", body: "注文、問い合わせ、ログインで扱う項目を明確にします。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "保護" },
@@ -1503,7 +1503,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     shipping: {
       pageLabel: "配送について",
       intent: "送料、配送目安、追跡、発送条件を注文前に確認するページです。",
-      seoRole: "商品詳細、カート、チェックアウトから配送条件へリンクし、購入不安を減らします。",
+      seoRole: "送料、配送目安、追跡条件を購入前に確認できます。",
       userAction: "配送条件を確認して商品一覧、返品条件、カートへ進みます。",
       signals: [
         { title: "配送目安", body: "通常2〜4営業日、送料、追跡条件を共通文脈で確認します。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "配送" },
@@ -1513,7 +1513,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     returns: {
       pageLabel: "返品について",
       intent: "返品条件、初期不良、問い合わせ期限、キャンセル条件を確認するページです。",
-      seoRole: "返品条件を商品詳細、カート、チェックアウト、特商法から到達可能にします。",
+      seoRole: "返品条件、初期不良、問い合わせ期限を購入前に確認できます。",
       userAction: "返品可否を確認し、注文履歴や問い合わせへ進みます。",
       signals: [
         { title: "返品条件", body: "未開封、初期不良、到着後7日以内などを分かりやすく整理します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "返品" },
@@ -1523,17 +1523,17 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     faq: {
       pageLabel: "FAQ",
       intent: "配送、返品、決済、定期購入、問い合わせ前確認をまとめるページです。",
-      seoRole: "FAQPage構造化データはこのページだけに限定し、他ページで濫用しません。",
+      seoRole: "よくある質問から商品、配送、返品、問い合わせへ移動できます。",
       userAction: "質問から商品一覧、配送、返品、問い合わせへ戻ります。",
       signals: [
-        { title: "FAQ構造", body: "Question/acceptedAnswerはFAQページの実本文と一致させます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "FAQ" },
+        { title: "質問一覧", body: "配送、返品、決済、定期購入の質問をまとめて確認できます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "FAQ" },
         { title: "サポート", body: "解決しない場合は問い合わせへ移動します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "支援" },
       ],
     },
     mypage: {
       pageLabel: "マイページ",
       intent: "注文、配送、返品、定期購入、お気に入りを確認する購入後ページです。",
-      seoRole: "購入者向けページはnoindex対象でも、サポート導線を明確にします。",
+      seoRole: "注文後の確認、定期購入、お気に入り、問い合わせへ移動できます。",
       userAction: "注文履歴、定期購入、お気に入り、問い合わせへ移動します。",
       signals: [
         { title: "注文管理", body: "注文履歴、配送、返品、問い合わせをまとめます。", href: `${tenantRoot}/orders`, label: "注文履歴", badge: "注文" },
@@ -1543,7 +1543,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     account: {
       pageLabel: "アカウント",
       intent: "購入者アカウントの入口を整理するページです。",
-      seoRole: "ログイン、会員登録、注文履歴、定期購入へ迷わず移動できる構造にします。",
+      seoRole: "ログイン、会員登録、注文履歴、定期購入へ移動できます。",
       userAction: "ログイン、注文履歴、お気に入り、問い合わせへ移動します。",
       signals: [
         { title: "ログイン導線", body: "本番認証未接続時は入力保存を行わず状態を明記します。", href: `${tenantRoot}/login`, label: "ログイン", badge: "認証" },
@@ -1553,7 +1553,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     orders: {
       pageLabel: "注文履歴",
       intent: "注文番号、配送状況、領収書、問い合わせを確認するページです。",
-      seoRole: "注文履歴はnoindexでも、商品一覧とサポートへ戻れる導線を持ちます。",
+      seoRole: "注文がない状態でも商品一覧とサポートへ戻れます。",
       userAction: "商品一覧、問い合わせ、配送、返品へ進みます。",
       signals: [
         { title: "空状態", body: "注文がない場合でも商品一覧と問い合わせへ進めます。", href: `${tenantRoot}/products`, label: "商品を見る", badge: "空状態" },
@@ -1563,7 +1563,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     favorites: {
       pageLabel: "お気に入り",
       intent: "保存候補、比較候補、商品詳細への戻り先をまとめるページです。",
-      seoRole: "保存機能未接続時も、商品カードとカテゴリ導線で薄い空ページにしません。",
+      seoRole: "保存機能未接続時も商品一覧やカテゴリへ戻れます。",
       userAction: "候補商品から商品詳細やカートへ進みます。",
       signals: [
         { title: "商品比較", body: "お気に入り候補の商品カードで価格、画像、CTAを揃えます。", href: `${tenantRoot}/products`, label: "商品一覧", badge: "比較" },
@@ -1573,7 +1573,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     login: {
       pageLabel: "ログイン",
       intent: "注文履歴、定期購入、お気に入りへ進む入口です。",
-      seoRole: "認証未接続時は入力保存を避け、利用可能状態を明示します。",
+      seoRole: "認証未接続時は入力保存を行わず、利用可能状態を明示します。",
       userAction: "会員登録、マイページ、問い合わせへ移動します。",
       signals: [
         { title: "認証状態", body: "本番認証接続前はログイン成功扱いにしません。", href: `${tenantRoot}/register`, label: "会員登録", badge: "認証" },
@@ -1583,7 +1583,7 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     register: {
       pageLabel: "会員登録",
       intent: "購入者登録の入口と個人情報確認をまとめるページです。",
-      seoRole: "認証未接続時に登録完了風UIを出さず、プライバシーへリンクします。",
+      seoRole: "認証未接続時は登録完了風に見せず、プライバシーへ案内します。",
       userAction: "プライバシー、ログイン、商品一覧へ移動します。",
       signals: [
         { title: "個人情報", body: "登録前に個人情報の扱いを確認できます。", href: `${tenantRoot}/privacy`, label: "プライバシー", badge: "保護" },
@@ -1593,10 +1593,10 @@ export function buildShopPageQualitySummary(page: string, tenantRoot: string): S
     "mypage/subscriptions": {
       pageLabel: "定期購入",
       intent: "契約、次回配送、一時停止、再開、スキップ、解約の状態を確認するページです。",
-      seoRole: "定期購入レーンが未合格の間は準備中を明示し、成功したふりをしません。",
+      seoRole: "定期購入が未接続の間は準備中を明示し、成功したふりをしません。",
       userAction: "チェックアウト、問い合わせ、商品一覧へ戻ります。",
       signals: [
-        { title: "Schema pending", body: "D1 migration未適用時は契約表示や作成を行いません。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "未完了" },
+        { title: "準備中", body: "D1 migration未適用時は契約表示や作成を行いません。", href: `${tenantRoot}/checkout`, label: "注文前確認", badge: "未完了" },
         { title: "解約条件", body: "本番接続後に停止、再開、スキップ、解約導線を検証します。", href: `${tenantRoot}/contact`, label: "問い合わせ", badge: "契約" },
       ],
     },
@@ -1704,16 +1704,16 @@ export function buildShopTrustMatrix(
     },
     categories: {
       title: "カテゴリ購入前の信頼マトリクス",
-      summary: "カテゴリごとの商品件数、画像、安定URL、購入条件を同じページ構造で確認できます。",
+      summary: "カテゴリごとの商品件数、画像、購入条件を同じ形式で確認できます。",
       pageContext: "カテゴリから商品一覧へ進む前の階層確認です。",
       signals: [
         {
           title: "カテゴリ階層の明確化",
-          body: "カテゴリカードから安定した商品一覧URLへつなげ、任意検索ページと分けます。",
+          body: "カテゴリカードから商品一覧へつなげ、売り場ごとに比較できます。",
           href: `${tenantRoot}/products`,
           label: "商品一覧",
           badge: "Category",
-          proof: "カテゴリカードとcanonical対象URLを分離",
+          proof: "カテゴリカードから商品一覧へ直接移動",
         },
       ],
     },
@@ -1724,11 +1724,11 @@ export function buildShopTrustMatrix(
       signals: [
         {
           title: "単一商品ページの根拠",
-          body: "商品名H1、画像、価格、在庫、SKU、配送返品をProduct/Offer文脈に揃えます。",
+          body: "商品名、画像、価格、在庫、SKU、配送返品を一つの購入判断画面に揃えます。",
           href: `${tenantRoot}/cart`,
           label: "カートで確認",
           badge: "Product",
-          proof: "二重タイトルなし・Product/Offer JSON-LDあり",
+          proof: "商品名の二重表示なし・購入条件を同じ画面に集約",
         },
       ],
     },

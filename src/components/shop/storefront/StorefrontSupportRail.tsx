@@ -27,7 +27,7 @@ export function StorefrontSupportRail({ tenantRoot, className = "" }: Storefront
             迷わず買えるための確認導線
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-            商品比較、配送・返品、注文後の確認、定期購入の状態まで、SEOに忠実な内部リンクで移動できます。
+            商品比較、配送・返品、注文後の確認、定期購入の状態まで、必要なページへ迷わず移動できます。
           </p>
         </div>
         <a
