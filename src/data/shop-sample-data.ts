@@ -182,7 +182,7 @@ export interface ShopAppIntegration {
   id: string;
   name: string;
   category: string;
-  status: "接続済み" | "未接続" | "確認必要";
+  status: "接続済み" | "受付前" | "確認必要";
   description: string;
 }
 
@@ -222,10 +222,10 @@ export const customers: ShopCustomer[] = [];
 export const discounts: Discount[] = [];
 export const analyticsData: ShopAnalyticsReport[] = [];
 export const integrations: ShopAppIntegration[] = [
-  { id: "app-payment", name: "決済連携", category: "決済", status: "未接続", description: "決済設定を保存すると受付状態を確認できます" },
-  { id: "app-mail", name: "Mail連携", category: "問い合わせ", status: "未接続", description: "問い合わせ保存またはメール送信の接続を確認してください" },
-  { id: "app-seo", name: "検索連携", category: "集客", status: "未接続", description: "商品公開後にGoogle/Bing連携状態を確認します" },
-  { id: "app-core", name: "Core連携", category: "商品・在庫", status: "未接続", description: "Core商品と在庫の同期設定を確認してください" },
+  { id: "app-payment", name: "決済連携", category: "決済", status: "受付前", description: "支払い方法を保存すると受付状態を確認できます" },
+  { id: "app-mail", name: "Mail連携", category: "問い合わせ", status: "受付前", description: "問い合わせ保存またはメール送信の状態を確認してください" },
+  { id: "app-seo", name: "検索連携", category: "集客", status: "受付前", description: "商品公開後にGoogle/Bing連携状態を確認します" },
+  { id: "app-core", name: "Core連携", category: "商品・在庫", status: "受付前", description: "Core商品と在庫の同期設定を確認してください" },
 ];
 
 export const aiActions: AIAction[] = [

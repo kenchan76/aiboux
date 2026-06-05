@@ -23,7 +23,7 @@ const toneMap: Record<string, string> = {
   停止中: "border-amber-100 bg-amber-50 text-amber-700",
   期限切れ: "border-neutral-200 bg-neutral-100 text-neutral-700",
   接続済み: "border-emerald-100 bg-emerald-50 text-emerald-700",
-  未接続: "border-neutral-200 bg-neutral-100 text-neutral-700",
+  受付前: "border-neutral-200 bg-neutral-100 text-neutral-700",
   確認必要: "border-amber-100 bg-amber-50 text-amber-700",
 };
 
