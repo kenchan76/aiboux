@@ -112,7 +112,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
       }
       setIsDirty(false);
       window.dispatchEvent(new CustomEvent("aiboux:shop-products-changed"));
-      toast.success("商品を保存し、検索連携キューへ反映しました");
+      toast.success("商品を保存し、公開ストアへの反映を更新しました");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "商品を保存できませんでした");
     } finally {
@@ -197,8 +197,8 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
           <p className="mt-1 text-sm text-neutral-500">販売に必要な情報だけを、公開判断しやすい順番で管理します。</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => { window.history.pushState({ section: "products" }, "", "/s/aiboux/admin/products"); }}>
-            商品マスタ連携
+          <Button variant="outline" onClick={() => { window.location.assign("/s/aiboux/admin/products"); }}>
+            商品一覧へ戻る
           </Button>
           <Button className="gap-2" onClick={saveProduct} disabled={isSaving}>
             {isSaving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
@@ -213,7 +213,7 @@ export function ProductEditor({ product = shopProducts[0] ?? createEmptyProduct(
           <TabsTrigger value="media" className="text-xs">画像</TabsTrigger>
           <TabsTrigger value="pricing" className="text-xs">価格・在庫</TabsTrigger>
           <TabsTrigger value="subscription" className="text-xs">定期購入</TabsTrigger>
-          <TabsTrigger value="seo" className="text-xs">SEO・公開</TabsTrigger>
+          <TabsTrigger value="seo" className="text-xs">公開・検索</TabsTrigger>
         </TabsList>
 
         <TabsContent value="summary" className="mt-3 grid gap-3 xl:grid-cols-[1fr_340px]">
