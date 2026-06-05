@@ -1,0 +1,36 @@
+# AIBOUX Shop SEO/UI Landmark WIP Report
+
+## Status
+SHOP_5H_LANDMARK_SKIPLINK_SEO_UI_WIP_DEPLOYED_NOT_FINAL
+
+## Summary
+- 全公開ストアページに共通スキップリンク、main/search/footerランドマーク、ヘッダー/カテゴリナビのaria-labelを追加しました。
+- TOP、商品詳細、商品一覧、カテゴリ、カート、checkout、問い合わせ、法務、配送返品、FAQ、マイページ系の公開クロールを強化しました。
+- 商品詳細の単一H1維持、重複タイトル禁止、既存のAmazon風売り場UI、カルーセル、カート、問い合わせ、管理画面ゲートは維持されています。
+- FINAL_ACCEPTEDではありません。定期購入レーンはD1/永続化確認未完了としてBLOCKED_NOT_FINALです。
+
+## Verification
+- npm run check:control-chars: PASS
+- npm run check:mojibake: PASS
+- npm run astro -- check: PASS with existing hints only
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl: PASS, 9 tests
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-subscriptions: BLOCKED_NOT_FINAL
+- Public /g/m68 /g/l68 /g/d68: HTTP 200 / text/markdown; charset=utf-8
+- Progress Bark: delivered=true, skipped=false, secretLogged=false
+
+## Bark
+- notification: progress delivered
+- reason: Progress Bark sent after URL Bundle publication; FINAL_ACCEPTED Bark gate is still not applicable.
+
+## Notes
+- Implementation commit: 5e7f1e2cff3804f4050cff21e3dc22ff125669b9
+- Evidence commits: b00aba6, 702a612, 140ea96
+- Final public log deploy Worker Version ID: aa9c8eb9-4c59-4f5e-82b4-2cbc5345ca80
+- Source markdown SHA and public body SHA can differ because /g/* runtime may inject Worker Version ID.
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
