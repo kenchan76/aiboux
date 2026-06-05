@@ -1,0 +1,10 @@
+7b5ed8b WIP record local preview block
+0b9e88f WIP add buyer form recovery links
+44b463e WIP strengthen checkout empty recovery gate
+98fd0fa WIP improve checkout empty recovery flow
+a62850a WIP clean shop app status wording
+7a56b57 WIP enable admin collection and discount actions
+5b8e7bc WIP smooth storefront carousel transition
+21a5c9c WIP enable admin menu actions
+b098732 WIP enable product and customer row actions
+e7366e4 WIP enable shop design and integration controls
