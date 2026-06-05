@@ -1,4 +1,45 @@
 # AIBOUX 正本マスター
+
+## Current Active Operating Override: AIBOUX Shop Visible SEO Explanation Removal
+
+Status: `SHOP_REMOVE_VISIBLE_SEO_EXPLANATIONS_WIP_DEPLOYED_NOT_FINAL`
+
+The tenant storefront remains `https://shop.aiboux.com/s/aiboux/`.
+`https://shop.aiboux.com/` remains the Shop service site.
+
+This override supersedes prior visible SEO checklist / SEO sitemap UI work for the public shopper-facing storefront. The implementation keeps technical SEO in the page head and structured data, but removes shopper-visible implementation explanations from public storefront pages.
+
+Current public WIP evidence:
+
+- WIP implementation commit: `a24ea1588b75bd8f7ebecf3c72818b919874d644`.
+- WIP deploy Worker Version ID before this log-publication deploy: `f028349e-5dba-40f0-9fd7-2b83702e8a74`.
+- Removed visible SEO checklist panels and visible SEO sitemap panels from TOP, product detail, and all shared storefront subpages.
+- Deleted the unused storefront SEO checklist and SEO sitemap panel components.
+- Removed unused shared builders that could reintroduce visible SEO operation copy.
+- Reworded shopper-facing page guide, buying guide, support rail, context links, action map, and footer link directory so they no longer expose `canonical`, `robots`, `sitemap`, `noindex`, `Product/Offer`, `可視H1`, or visible SEO operation language in the rendered body.
+- Preserved backend SEO: canonical link tags, robots meta, Open Graph, Twitter Card, JSON-LD, BreadcrumbList, Product structured data, robots.txt, and sitemap.xml remain active and covered by public gates.
+
+Verification:
+
+- `npm run check:control-chars`: PASS.
+- `npm run check:mojibake`: PASS.
+- `npm run astro -- check`: PASS with 0 errors and existing hints only.
+- `ESBUILD_WORKER_THREADS=0 npm run build`: PASS.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl`: PASS, 9 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-product-detail`: PASS, 3 tests.
+- `PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-sales-quality`: PASS across public crawl, smooth carousel, storefront interaction, storefront visual, product detail, cart/checkout, contact/legal, and admin ops.
+
+Important distinction:
+
+- Removed from visible shopper UI: SEO explanation panels and operation words.
+- Kept for real SEO: metadata, structured data, breadcrumbs, stable URLs, crawlable links, robots.txt, and sitemap.xml.
+
+Not final:
+
+- This is WIP / deployed evidence, not `FINAL_ACCEPTED`.
+- The subscription lane remains separate and not final until D1/provider-backed recurring billing is fully verified.
+- `FINAL_ACCEPTED` remains prohibited.
+
 # サービス全体仕様・URL設計・テナント設計・機能一覧・Bark通知方針・Worker証跡・Dirty Tree状態
 
 ## Current Active Operating Override: AIBOUX Shop Landmark / Skip Link SEO UI Public Evidence
