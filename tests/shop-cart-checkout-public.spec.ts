@@ -66,6 +66,7 @@ test.describe("AIBOUX Shop cart and checkout public quality", () => {
     await expect(page.getByTestId("storefront-checkout-order-guard")).toContainText("定期購入");
     await expect(page.getByText("支払い方法を確認してください")).toBeVisible();
     await expect(page.getByText("定期購入の支払い方法を確認してください")).toBeVisible();
+    await expect(page.locator("[data-subscription-terms-checkbox]")).toBeEnabled();
     await expect(page.locator("[data-checkout-customer-form]")).toBeVisible();
     await expect(page.locator("[data-checkout-customer-form] input[name='customerName']")).toBeEnabled();
     await expect(page.locator("[data-checkout-customer-form] input[name='customerEmail']")).toBeEnabled();
