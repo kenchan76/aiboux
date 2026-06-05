@@ -1,0 +1,10 @@
+4b76fca WIP publish shop internal wording cleanup log
+42c1a5b WIP remove public shop internal wording
+5220466 WIP record rendered user report input for shop public text cleanup 20260605T015237Z
+228135a WIP record public log response bodies after bark evidence 20260605T015237Z
+1633673 WIP record public log verification after bark evidence 20260605T015237Z
+a0f9ce2 WIP record shop internal wording bark evidence 20260605T015237Z
+8301989 WIP record public log URL verification 20260605T015237Z
+2a7494d WIP record shop internal wording evidence commit 20260605T015237Z
+e2da1bc WIP publish shop internal wording removal evidence 20260605T015237Z
+64bed01 WIP remove visible shop internal SEO wording from public HTML 20260605T015237Z
