@@ -1,0 +1,33 @@
+# AIBOUX Shop Public Wording Cleanup
+
+## Status
+WIP_DEPLOYED_NOT_FINAL
+
+## Summary
+- Shop公開ページから、買い物客に不要なSEO説明・内部実装説明・バックエンド準備状態の露出文言を削除しました。
+- 技術SEOは削除していません。title、meta description、canonical、robots、sitemap、JSON-LD、パンくず、クロール可能リンクは維持しています。
+- 公開Worker Version IDはdd0aa876-5cf0-4f48-9e70-06ccc209d51b、公開ログ反映Worker Version IDは086d5496-7ca9-4596-889d-80883e77b899です。
+- この作業はWIP_DEPLOYED_NOT_FINALです。Shop全体のFINAL_ACCEPTEDではありません。
+
+## Verification
+- npm run check:control-chars: PASS
+- npm run check:mojibake: PASS
+- ESBUILD_WORKER_THREADS=0 npm run build: PASS
+- PLAYWRIGHT_BASE_URL=https://shop.aiboux.com npm run gate:shop-public-crawl: PASS, 9 tests
+- 公開HTML grep: 13 URLで不要な内部説明文言なし
+- /g/m68、/g/l68、/g/d68: HTTP 200 / text/markdown; charset=utf-8 / 今回の証跡マーカーあり
+- Bark progress notification: delivered=true / skipped=false / secretLogged=false
+
+## Bark
+- notification: sent
+- reason: progress notification after public URL bundle and verification
+
+## Notes
+- 削除対象の確認語: 準備中、未完了、未接続、成功したふり、Provider subscription、D1 migration、DB migration、SUBSCRIPTION_SCHEMA_PENDING、クロール可能、SEO構造、内部リンク、オンライン決済の受付前
+- Subscription remote D1/provider-backed recurring billing remains a separate unfinished lane.
+- Amazon-quality Shop sales sprint remains active.
+
+## URLs
+- マスター: https://mail.aiboux.com/g/m68
+- ログ: https://mail.aiboux.com/g/l68
+- 画面: https://mail.aiboux.com/g/d68
