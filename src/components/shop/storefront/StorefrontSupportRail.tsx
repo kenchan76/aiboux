@@ -54,7 +54,7 @@ export function StorefrontSupportRail({ tenantRoot, className = "" }: Storefront
           </a>
         ))}
       </div>
-      <nav className="mt-4 flex flex-wrap gap-2 border-t border-neutral-100 pt-4 text-sm" aria-label="購入サポートの内部リンク">
+      <nav className="mt-4 flex flex-wrap gap-2 border-t border-neutral-100 pt-4 text-sm" aria-label="購入サポート">
         {quickLinks.map((link) => (
           <a
             key={link.href}

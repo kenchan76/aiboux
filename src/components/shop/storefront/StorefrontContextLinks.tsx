@@ -28,7 +28,7 @@ export function StorefrontContextLinks({ sections, className = "" }: StorefrontC
       </div>
       <nav
         className="mt-4 grid gap-3 lg:grid-cols-4"
-        aria-label="関連する内部リンク"
+        aria-label="関連ページ"
         itemScope
         itemType="https://schema.org/SiteNavigationElement"
       >

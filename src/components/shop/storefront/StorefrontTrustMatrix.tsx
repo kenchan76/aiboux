@@ -18,7 +18,7 @@ export function StorefrontTrustMatrix({ trustMatrix, className = "" }: Storefron
     >
       <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">Trust / proof matrix</p>
+          <p className="text-xs font-bold tracking-wide text-emerald-700">安心して購入するために</p>
           <h2 id="storefront-trust-matrix-title" className="mt-1 text-lg font-bold text-neutral-950" itemProp="name">
             {trustMatrix.title}
           </h2>

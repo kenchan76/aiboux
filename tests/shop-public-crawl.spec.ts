@@ -107,6 +107,10 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("sitemap");
         await expect(page.locator("body")).not.toContainText("共通SEO部品");
         await expect(page.locator("body")).not.toContainText("SEO内部リンク");
+        await expect(page.locator("body")).not.toContainText("クロール可能");
+        await expect(page.locator("body")).not.toContainText("内部リンク");
+        await expect(page.locator("body")).not.toContainText("Page guide");
+        await expect(page.locator("body")).not.toContainText("Trust / proof matrix");
         await expect(page.locator("body")).not.toContainText("AIBOUX Shop 共通テンプレート");
         await expect(page.locator("body")).not.toContainText("表示確認日");
         await expect(page.locator("body")).not.toContainText("D1 migration");
@@ -115,6 +119,11 @@ test.describe("AIBOUX Shop 5H sprint public crawl", () => {
         await expect(page.locator("body")).not.toContainText("ログイン基盤");
         await expect(page.locator("body")).not.toContainText("本番認証");
         await expect(page.locator("body")).not.toContainText("成功したふり");
+        const html = await page.content();
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("クロール可能");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("内部リンク");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Page guide");
+        expect(html, `${target.path} should not expose internal implementation wording in rendered HTML`).not.toContain("Trust / proof matrix");
         const skipLinks = page.getByTestId("storefront-skip-links");
         await expect(skipLinks, `${target.path} should expose shared skip links for SEO/page experience`).toHaveCount(1);
         await expect(skipLinks.locator('a[href="#storefront-main"]'), `${target.path} should allow direct jump to main content`).toHaveCount(1);

@@ -439,7 +439,7 @@ function LeftPane({
           </div>
         </div>
         <div className="rounded-md border border-blue-100 bg-blue-50 px-3 py-3 text-xs leading-5 text-blue-900">
-          編集できるのは「TOPページ」と「商品詳細ページ」のみです。商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務ページはテナント全共通テンプレートです。
+          編集できるのは「TOPページ」と「商品詳細ページ」のみです。商品一覧、カテゴリ、カート、チェックアウト、問い合わせ、法務ページは共通レイアウトで表示します。
         </div>
       </div>
     </aside>

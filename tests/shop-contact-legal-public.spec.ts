@@ -63,6 +63,15 @@ test.describe("AIBOUX Shop contact and shared legal templates", () => {
         await expect(page.locator("body")).not.toContainText("表示確認日");
         await expect(page.locator("body")).not.toContainText("D1 migration");
         await expect(page.locator("body")).not.toContainText("DB migration");
+        await expect(page.locator("body")).not.toContainText("クロール可能");
+        await expect(page.locator("body")).not.toContainText("内部リンク");
+        await expect(page.locator("body")).not.toContainText("Page guide");
+        await expect(page.locator("body")).not.toContainText("Trust / proof matrix");
+        const html = await page.content();
+        expect(html).not.toContain("クロール可能");
+        expect(html).not.toContain("内部リンク");
+        expect(html).not.toContain("Page guide");
+        expect(html).not.toContain("Trust / proof matrix");
         await expect(page.locator("body")).not.toContainText("管理画面");
       }
       await expect(page.getByTestId("storefront-buying-guide")).toHaveCount(0);

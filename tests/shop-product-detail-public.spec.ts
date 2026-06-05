@@ -50,6 +50,15 @@ test.describe("AIBOUX Shop product detail public quality", () => {
       await expect(page.locator("body")).not.toContainText("Product/Offer");
       await expect(page.locator("body")).not.toContainText("可視H1");
       await expect(page.locator("body")).not.toContainText("SEO内部リンク");
+      await expect(page.locator("body")).not.toContainText("クロール可能");
+      await expect(page.locator("body")).not.toContainText("内部リンク");
+      await expect(page.locator("body")).not.toContainText("Page guide");
+      await expect(page.locator("body")).not.toContainText("Trust / proof matrix");
+      const html = await page.content();
+      expect(html).not.toContain("クロール可能");
+      expect(html).not.toContain("内部リンク");
+      expect(html).not.toContain("Page guide");
+      expect(html).not.toContain("Trust / proof matrix");
       await expect(page.getByTestId("public-product-gallery")).toBeVisible();
       await expect(page.getByTestId("public-product-info")).toBeVisible();
       await expect(page.getByTestId("public-product-purchase-box")).toBeVisible();
