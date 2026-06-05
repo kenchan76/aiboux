@@ -1,0 +1,9 @@
+## https://shop.aiboux.com/s/aiboux/mypage
+## https://shop.aiboux.com/s/aiboux/account
+## https://shop.aiboux.com/s/aiboux/orders
+## https://shop.aiboux.com/s/aiboux/favorites
+## https://shop.aiboux.com/s/aiboux/login
+## https://shop.aiboux.com/s/aiboux/register
+## https://shop.aiboux.com/s/aiboux/mypage/subscriptions
+## https://shop.aiboux.com/s/aiboux/admin
+## https://shop.aiboux.com/s/aiboux/admin/subscriptions
