@@ -35,7 +35,7 @@ if (!isKnownTenant || !profile) {
   Astro.response.status = 404;
 }
 
-Astro.response.headers.set("Cache-Control", isKnownTenant && profile ? "public, max-age=30, s-maxage=60, stale-while-revalidate=30" : "no-store");
+Astro.response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
 
 const storeName = profile?.storeName ?? "AIBOUX Store";
 const meta = buildShopStorefrontSeoMeta({

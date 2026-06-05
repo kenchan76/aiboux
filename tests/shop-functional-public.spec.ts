@@ -100,18 +100,18 @@ test.describe("AIBOUX Shop public functional hardening", () => {
     await expect(page.getByText("正しいメールアドレスを入力してください。")).toBeVisible();
     await page.locator("input[name='email']").fill("tester@example.com");
     await page.getByRole("button", { name: "入力内容を確認" }).click();
-    await expect(page.getByText("入力内容は確認できました。")).toBeVisible();
+    await expect(page.locator("[data-contact-status]")).toContainText("入力内容は確認できました");
   });
 
   test("legal pages render configured or generated policy text", async ({ page }) => {
     await page.goto("/s/aiboux/legal");
-    await expect(page.getByTestId("storefront-policy-page").getByText("販売業者")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page")).toContainText("販売業者");
     await page.goto("/s/aiboux/privacy");
-    await expect(page.getByTestId("storefront-policy-page").getByText("個人情報")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page")).toContainText("個人情報");
     await page.goto("/s/aiboux/shipping");
-    await expect(page.getByTestId("storefront-policy-page").getByText("配送方法と送料")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page")).toContainText("配送方法と送料");
     await page.goto("/s/aiboux/returns");
-    await expect(page.getByTestId("storefront-policy-page").getByText("返品・交換")).toBeVisible();
+    await expect(page.getByTestId("storefront-policy-page")).toContainText("返品・交換");
   });
 
   test("store design editor exposes only top and product detail page editing", async ({ page }) => {

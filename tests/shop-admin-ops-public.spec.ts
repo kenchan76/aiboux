@@ -105,7 +105,7 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await expect(page.getByRole("menuitem", { name: "編集", exact: true })).toBeVisible();
     await expect(page.getByRole("menuitem", { name: "複製して編集" })).toBeVisible();
     await expect(page.getByRole("menuitem", { name: "販売状態を編集" })).toBeVisible();
-    await expect(page.getByRole("menuitem", { name: "複製" })).toHaveCount(0);
+    await expect(page.getByRole("menuitem", { name: "複製", exact: true })).toHaveCount(0);
     await expect(page.getByRole("menuitem", { name: "販売状態は編集画面で変更" })).toHaveCount(0);
   });
 
@@ -114,15 +114,17 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await page.goto("/s/aiboux/admin/customers", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: "顧客" })).toBeVisible();
 
-    await page.getByRole("button", { name: /の操作/ }).first().click();
+    const actionButton = page.locator('button[aria-label$="の操作"]').first();
+    await expect(actionButton).toBeVisible();
+    await actionButton.click();
     await page.getByRole("menuitem", { name: "詳細を開く" }).click();
     await expect(page.locator('[data-testid="admin-customer-detail-panel"]')).toBeVisible();
 
-    await page.getByRole("button", { name: /の操作/ }).first().click();
+    await actionButton.click();
     await page.getByRole("menuitem", { name: "セグメントへ追加" }).click();
     await expect(page.getByText("確認対象").first()).toBeVisible();
 
-    await page.getByRole("button", { name: /の操作/ }).first().click();
+    await actionButton.click();
     await page.getByRole("menuitem", { name: "メモを編集" }).click();
     await expect(page.getByLabel(/のメモ/).first()).toBeVisible();
     await expect(page.getByRole("button", { name: "保存" }).first()).toBeEnabled();
@@ -187,6 +189,7 @@ test.describe("AIBOUX Shop admin operations public quality", () => {
     await page.getByRole("button", { name: "下書きを保存" }).click();
     await expect(page.locator("body")).toContainText("下書き保存:");
 
+    await page.getByRole("tab", { name: "SKUバリエーション" }).click();
     await page.getByRole("button", { name: "SKU追加" }).click();
     await expect(page.getByRole("dialog", { name: "SKUバリエーションを追加" })).toBeVisible();
     await page.getByRole("button", { name: "保存" }).click();

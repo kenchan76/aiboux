@@ -692,10 +692,10 @@ function normalizeHeroSlides(slides: StorefrontLayout["pages"]["top"]["heroSlide
     return {
       ...slide,
       imageUrl: weak ? fallback.imageUrl : slide.imageUrl,
-      title: weak ? fallback.title : slide.title || fallback.title,
-      subtitle: weak ? fallback.subtitle : slide.subtitle || fallback.subtitle,
-      ctaText: weak ? fallback.ctaText : slide.ctaText || fallback.ctaText,
-      ctaHref: weak ? fallback.ctaHref : slide.ctaHref || fallback.ctaHref,
+      title: slide.title || fallback.title,
+      subtitle: slide.subtitle || fallback.subtitle,
+      ctaText: slide.ctaText || fallback.ctaText,
+      ctaHref: slide.ctaHref || fallback.ctaHref,
     };
   });
 }
